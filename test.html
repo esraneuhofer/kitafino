@@ -1,0 +1,19 @@
+<div class="sm:col-span-4">
+    <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Vorname</label>
+    <div class="mt-2">
+        <input #firstName="ngModel"
+               [(ngModel)]="studentModel.firstName"
+               [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+               [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
+               [class.ring-red-300]="f1.submitted && firstName.invalid"
+               [class.text-red-900]="f1.submitted && firstName.invalid"
+               autocomplete="given-name"
+               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+               id="firstName"
+               name="firstName"
+               required^
+               type="text">
+    </div>
+    <p *ngIf="f1.submitted && firstName.invalid " class="mt-2 text-sm text-red-600"
+       id="firstName-error">Pflichtfeld</p>
+</div>

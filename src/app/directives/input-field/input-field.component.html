@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-label>{{ label }}</mat-label>
+  <input matInput [formControl]="control" [placeholder]="placeholder">
+  <mat-error *ngIf="control.hasError('required')">
+    {{ errorMessage }}
+  </mat-error>
+</mat-form-field>

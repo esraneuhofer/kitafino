@@ -1,0 +1,65 @@
+<div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+        <div class="w-5/6">
+            <form #f1="ngForm" (ngSubmit)="f1.form.valid && addStudent(f1)" novalidate>
+                <div class="space-y-12">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+                        <div>
+                            <h2 class="text-base font-semibold leading-7 text-gray-900">Anmeldung</h2>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">Bitte tragen Sie alle Daten ein und gehen
+                                Sie anschließend auf anlegen</p>
+                        </div>
+
+                        <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+                            <div class="sm:col-span-4">
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Vorname</label>
+                                <div class="mt-2">
+                                    <input #firstName="ngModel"
+                                           [(ngModel)]="studentModel.firstName"
+                                           [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+                                           [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
+                                           [class.ring-red-300]="f1.submitted && firstName.invalid"
+                                           [class.text-red-900]="f1.submitted && firstName.invalid"
+                                           autocomplete="given-name"
+                                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                           id="firstName"
+                                           name="firstName"
+                                           required
+                                           type="text">
+                                </div>
+                                <p *ngIf="f1.submitted && firstName.invalid " class="m-1 text-sm text-red-600">Pflichtfeld</p>
+                            </div>
+                            <div class="sm:col-span-4">
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="lastName">Nachname</label>
+                                <div class="mt-2">
+                                    <input #lastName="ngModel"
+                                           [(ngModel)]="studentModel.lastName"
+                                           [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
+                                           [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
+                                           [class.ring-red-300]="f1.submitted && lastName.invalid"
+                                           [class.text-red-900]="f1.submitted && lastName.invalid"
+                                           autocomplete="given-name"
+                                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                           id="lastName"
+                                           name="lastName"
+                                           required
+                                           type="text">
+                                </div>
+                                <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                    <button class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            type="submit">
+                        Schüler/in anlegen
+                    </button>
+<!--                    <button type="button" (click)="show()"></button>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-toastr [isNotification]="true"></app-toastr>
