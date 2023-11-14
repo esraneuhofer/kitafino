@@ -21,6 +21,8 @@ mongoose.connect(uri, { useNewUrlParser: true })
   });
 
 require(__dirname + '/server/models/student.model');
+require(__dirname + '/server/models/school.model');
+require(__dirname + '/server/models/school-user.model');
 require(__dirname + '/server/models/user.model');
 require(__dirname + '/server/config/config');
 require(__dirname + '/server/config/passportConfig');

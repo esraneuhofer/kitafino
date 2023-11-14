@@ -23,6 +23,7 @@ import { InputFieldComponent } from './directives/input-field/input-field.compon
 import { RegisterTenantComponent } from './home/register-tenant/register-tenant.component';
 import { SettingsComponent } from './home/settings/settings.component';
 import { ToastrComponent } from './directives/toastr/toastr.component';
+import {ToastrModule} from "ngx-toastr";
 //
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import { ToastrComponent } from './directives/toastr/toastr.component';
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        FormsModule
+        FormsModule,
+      ToastrModule.forRoot(),
+
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,6 +16,12 @@ export class UserService {
 
   }
 
+  addUser(user:{email:string,projectId:string}) {
+    return this.http.post(environment.apiBaseUrl + '/register', user)
+      .pipe(map((response: any) => response));
+  }
+
+
   login(authCredentials:{username:string,password:string}) {
     return this.http.post(environment.apiBaseUrl+ ' /authenticate', authCredentials,this.noAuthHeader);
   }
