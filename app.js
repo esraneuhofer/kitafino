@@ -20,12 +20,21 @@ mongoose.connect(uri, { useNewUrlParser: true })
     console.log(err);
   });
 
+require(__dirname + '/server/models/article_declaration');
+require(__dirname + '/server/models/article_edited.model');
+require(__dirname + '/server/models/customer.model');
+require(__dirname + '/server/models/meal.model');
+require(__dirname + '/server/models/menu.model');
+require(__dirname + '/server/models/order.model');
+// require(__dirname + '/server/models/order.model');
 require(__dirname + '/server/models/parent-tenant.model');
-require(__dirname + '/server/models/student.model');
-require(__dirname + '/server/models/settings.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/school-user.model');
+require(__dirname + '/server/models/settings.model');
+require(__dirname + '/server/models/student.model');
 require(__dirname + '/server/models/user.model');
+require(__dirname + '/server/models/vacation.model');
+require(__dirname + '/server/models/weekplan_add.model');
 require(__dirname + '/server/config/config');
 require(__dirname + '/server/config/passportConfig');
 const rtsIndex = require(__dirname + '/server/routes/index.router');

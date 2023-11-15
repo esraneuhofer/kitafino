@@ -26,6 +26,8 @@ import { ToastrComponent } from './directives/toastr/toastr.component';
 import {ToastrModule} from "ngx-toastr";
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import { OrderStudentComponent } from './home/order-student/order-student.component';
+import { OrderContainerComponent } from './home/order-student/order-container/order-container.component';
+import { MealInputCardComponent } from './home/order-student/meal-input-card/meal-input-card.component';
 //
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { OrderStudentComponent } from './home/order-student/order-student.compon
     RegisterTenantComponent,
     SettingsComponent,
     ToastrComponent,
-    OrderStudentComponent
+    OrderStudentComponent,
+    OrderContainerComponent,
+    MealInputCardComponent
   ],
     imports: [
         BrowserModule,

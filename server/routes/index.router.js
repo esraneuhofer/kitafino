@@ -23,10 +23,19 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
-router.get('/getSettingsTenant',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsTenant)
+
 
 router.post('/addStudent',jwtHelper.verifyJwtToken,ctrlStudents.addStudent)
 
 
+
+//////Get Requests only////////
+router.get('/getSettingsTenant',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsTenant)
+router.get('/getCustomerInfo',jwtHelper.verifyJwtToken,ctrlGenerell.getCustomerInfo)
+router.get('/getWeekplanWeek',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanWeek)
+router.get('/getMeals',jwtHelper.verifyJwtToken,ctrlGenerell.getMeals)
+router.get('/getMenus',jwtHelper.verifyJwtToken,ctrlGenerell.getMenus)
+router.get('/getArticleDeclaration',jwtHelper.verifyJwtToken,ctrlGenerell.getArticleDeclaration)
+router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
 
 module.exports = router;

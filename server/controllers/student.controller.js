@@ -13,7 +13,6 @@ const Student = mongoose.model('Student');
 // };
 
 module.exports.addStudent = (req, res, next) => {
-  console.log(req.body);
   // Ensure that firstname and lastname are present in req.body
   if (!req.body.firstName || !req.body.lastName) {
     return res.json({ error: true, message: 'Both firstname and lastname must be provided.' });
@@ -30,10 +29,8 @@ module.exports.addStudent = (req, res, next) => {
   });
 
   newModel.save().then(function (data) {
-    console.log(data);
     res.json({ student: data, error: false });
   }, function (e) {
-    console.log(e);
     res.json({ student: e, error: true });
   });
 }

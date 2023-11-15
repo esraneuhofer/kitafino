@@ -49,14 +49,9 @@ const User = mongoose.model('User');
 // }
 
 module.exports.authenticate = (req, res, next) => {
-    console.log(req.body)
   // call for passport authentication
   passport.authenticate('local', (err, user, info) => {
     // error from passport middleware
-    console.log(err)
-
-    console.log(user)
-
     if (err) return res.status(400).json(err);
     // registered user
     else if (user) return res.status(200).json({"token": user.generateJwt()});
