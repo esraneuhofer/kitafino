@@ -3,6 +3,7 @@ import {TenantStudentInterface} from "../../classes/tenant.class";
 import {TenantServiceStudent} from "../../service/tenant_student.class";
 import {Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register-tenant',
@@ -11,29 +12,40 @@ import {UserService} from "../../service/user.service";
 })
 export class RegisterTenantComponent {
 
+  successFullSave:boolean = false;
+  submittingRequest:boolean = false;
+
   tenantModel: TenantStudentInterface = {
-    firstName: '',
-    lastName: '',
+    firstName: 's',
+    lastName: 's',
     email: '',
-    phone: '',
-    address: '',
-    city: '',
-    zip: ''
+    phone: 's',
+    address: 's',
+    city: 's',
+    zip: 's'
   }
 
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private router:Router,
+              private toastr: ToastrService,
               private userService: UserService) {
     userService.userProfile().subscribe((response: any) => {
-      this.tenantModel.email = 'esra.neuhofer@yahoo.de';
+      console.log(response)
+      this.tenantModel.email = response.user.email || '';
       // this.tenantModel.email = response || '';
     })
   }
 
   setPersonalInformation() {
-    this.tenantServiceStudent.addTenantStudent(this.tenantModel).subscribe((response: any) => {
-      if (response.success) {
-        this.router.navigateByUrl('/dashboard');
+    this.submittingRequest = true;
+    this.tenantServiceStudent.addParentTenant(this.tenantModel).subscribe((response: any) => {
+      if (!response.error) {
+        this.submittingRequest = false
+        this.toastr.success('Sie haben Ihre persönlichen Daten erfolgreich eingetragen', 'Erfolg')
+        this.router.navigateByUrl('/home/dashboard');
+      }else{
+
+        this.submittingRequest = false
       }
     })
   }

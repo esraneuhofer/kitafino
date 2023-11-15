@@ -15,6 +15,7 @@ var schoolSchema = new mongoose.Schema({
     required: 'Password can\'t be empty',
     // minlength: [4, 'Password must be atleast 4 character long']
   },
+  customerId:Schema.Types.ObjectId,
   tenantId:Schema.Types.ObjectId,
   project_id:Schema.Types.ObjectId,
   saltSecret: String,
@@ -25,6 +26,16 @@ var schoolSchema = new mongoose.Schema({
   tenantUrl:String,
   passwordO:String
 });
+// Methods
+schoolSchema.methods.verifyPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
-
+schoolSchema.methods.generateJwt = function () {
+  return jwt.sign({_id: this._id},
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXP
+    });
+}
 mongoose.model('Schooluser', schoolSchema);

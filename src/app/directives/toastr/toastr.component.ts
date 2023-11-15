@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -18,10 +18,16 @@ import {animate, style, transition, trigger} from "@angular/animations";
         ])
     ]
 })
-export class ToastrComponent {
+export class ToastrComponent implements OnInit {
 
     @Input() isNotification = true;
+    @Input() message = '';
 
+    ngOnInit() {
+        setTimeout(() => {
+            this.isNotification = false
+        }, 4000)
+    }
     close(){
         this.isNotification = false
     }

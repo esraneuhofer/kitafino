@@ -21,6 +21,8 @@ var userSchema = new mongoose.Schema({
     saltSecret: String,
     username:String,
     tenantUrl:String,
+  customerId: Schema.Types.ObjectId,
+  project_id: Schema.Types.ObjectId,
   tenantId: Schema.Types.ObjectId,
 
 });

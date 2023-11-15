@@ -60,7 +60,6 @@ export class SignUpComponent implements OnInit {
         this.serverErrorMessages = err.error.message;
       }
     );
-
   }
 
   resetForm(form: NgForm) {

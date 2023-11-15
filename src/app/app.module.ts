@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {appRoutes} from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { AuthenticationComponent} from "./authentication/authentication.component";
@@ -24,6 +24,7 @@ import { RegisterTenantComponent } from './home/register-tenant/register-tenant.
 import { SettingsComponent } from './home/settings/settings.component';
 import { ToastrComponent } from './directives/toastr/toastr.component';
 import {ToastrModule} from "ngx-toastr";
+import {AuthInterceptor} from "./auth/auth.interceptor";
 //
 @NgModule({
   declarations: [
@@ -56,7 +57,11 @@ import {ToastrModule} from "ngx-toastr";
       ToastrModule.forRoot(),
 
     ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

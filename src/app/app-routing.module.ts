@@ -18,6 +18,7 @@ export const appRoutes: Routes = [
     path: 'signup', component: AuthenticationComponent,
     children: [{path: '', component: SignUpComponent}]
   },
+
   {
     path: 'login', component: AuthenticationComponent,
     children: [{path: '', component: SignInComponent}]

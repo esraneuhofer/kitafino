@@ -22,8 +22,8 @@ export class UserService {
   }
 
 
-  login(authCredentials:{username:string,password:string}) {
-    return this.http.post(environment.apiBaseUrl+ ' /authenticate', authCredentials,this.noAuthHeader);
+  login(authCredentials:{email:string,password:string}) {
+    return this.http.post(environment.apiBaseUrl+ '/authenticate', authCredentials,this.noAuthHeader);
   }
 
   userProfile() {

@@ -34,7 +34,7 @@ export class StudentService {
       .pipe(map((response: any) => response));
   }
   addStudent(object:StudentInterface){
-    return this.http.post(environment.apiBaseUrl+'/editRegisteredUser',object)
+    return this.http.post(environment.apiBaseUrl+'/addStudent',object)
         .pipe(map((response: any) => response));
   }
 

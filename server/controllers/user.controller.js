@@ -49,9 +49,14 @@ const User = mongoose.model('User');
 // }
 
 module.exports.authenticate = (req, res, next) => {
+    console.log(req.body)
   // call for passport authentication
   passport.authenticate('local', (err, user, info) => {
     // error from passport middleware
+    console.log(err)
+
+    console.log(user)
+
     if (err) return res.status(400).json(err);
     // registered user
     else if (user) return res.status(200).json({"token": user.generateJwt()});
@@ -61,9 +66,8 @@ module.exports.authenticate = (req, res, next) => {
 }
 
 module.exports.userProfile = async (req, res, next) => {
-  console.log(req._id)
   try {
-    const user = await User.findOne({_id: req._id}).exec();
+    const user = await Schooluser.findOne({_id: req._id}).exec();
 
     if (!user) {
       return res.status(404).json({ status: false, message: 'User record not found.' });
@@ -102,6 +106,7 @@ module.exports.register = async (req, res, next) => {
     user.username = req.body.email.toLowerCase();
     user.project_id = data._id;
     user.tenantId = data.tenantId;
+    user.customerId =  data.customerId;
     let password = makePassword(); // Ensure you have a makePassword function defined
 
     const salt = await bcrypt.genSalt(10);

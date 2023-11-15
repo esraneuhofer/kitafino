@@ -33,8 +33,8 @@ export class TenantServiceStudent {
     return this.http.post(environment.apiBaseUrl+'/editTenantStudent',object)
       .pipe(map((response: any) => response));
   }
-  addTenantStudent(object:TenantStudentInterface){
-    return this.http.post(environment.apiBaseUrl+'/addTenantStudent',object)
+  addParentTenant(object:TenantStudentInterface){
+    return this.http.post(environment.apiBaseUrl+'/addParentTenant',object)
       .pipe(map((response: any) => response));
   }
 

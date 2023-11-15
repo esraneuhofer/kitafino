@@ -20,12 +20,12 @@ export class MainGuard {
     return this.tenantServiceStudent.hasRegisteredTenant().pipe(
       tap(hasStudent => {
         if (!hasStudent) {
-          this.router.navigateByUrl('/register_student');
+          this.router.navigateByUrl('/register_tenant');
         }
       }),
       catchError((error) => {
         console.error(error);
-        this.router.navigateByUrl('/register_student');
+        this.router.navigateByUrl('/register_tenant');
         return of(false);
       })
     );
