@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const ctrlUser = require('../controllers/user.controller');
 const ctrlTenant = require('../controllers/tenant.controller');
+const ctrlGenerell = require('../controllers/generell.controller');
 const ctrlStudents = require('../controllers/student.controller');
 const jwtHelper = require('../config/jwtHelper');
 
@@ -22,6 +23,7 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
+router.get('/getSettingsTenant',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsTenant)
 
 router.post('/addStudent',jwtHelper.verifyJwtToken,ctrlStudents.addStudent)
 

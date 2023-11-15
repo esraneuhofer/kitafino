@@ -25,6 +25,7 @@ import { SettingsComponent } from './home/settings/settings.component';
 import { ToastrComponent } from './directives/toastr/toastr.component';
 import {ToastrModule} from "ngx-toastr";
 import {AuthInterceptor} from "./auth/auth.interceptor";
+import { OrderStudentComponent } from './home/order-student/order-student.component';
 //
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {AuthInterceptor} from "./auth/auth.interceptor";
     InputFieldComponent,
     RegisterTenantComponent,
     SettingsComponent,
-    ToastrComponent
+    ToastrComponent,
+    OrderStudentComponent
   ],
     imports: [
         BrowserModule,

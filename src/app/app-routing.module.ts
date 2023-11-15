@@ -10,6 +10,7 @@ import {RegisterStudentComponent} from "./home/register-student/register-student
 import {MainGuard} from "./auth/main.guard";
 import {RegisterTenantComponent} from "./home/register-tenant/register-tenant.component";
 import {SettingsComponent} from "./home/settings/settings.component";
+import {OrderStudentComponent} from "./home/order-student/order-student.component";
 
 
 
@@ -34,6 +35,7 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
 
+      { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},

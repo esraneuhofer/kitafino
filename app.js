@@ -22,6 +22,7 @@ mongoose.connect(uri, { useNewUrlParser: true })
 
 require(__dirname + '/server/models/parent-tenant.model');
 require(__dirname + '/server/models/student.model');
+require(__dirname + '/server/models/settings.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/school-user.model');
 require(__dirname + '/server/models/user.model');
