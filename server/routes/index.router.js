@@ -18,7 +18,7 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 
 
-// router.get('/ctrlStudents', ctrlStudents.getRegisteredStudentsUser);
+router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.getRegisteredStudentsUser);
 
 
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)

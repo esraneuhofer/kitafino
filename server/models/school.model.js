@@ -34,7 +34,7 @@ var school = new Schema({
   }
 });
 
-var School = mongoose.model('School', school);
+var SchoolNew = mongoose.model('SchoolNew', school);
 
-module.exports = School;
+module.exports = SchoolNew;
 

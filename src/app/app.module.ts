@@ -28,6 +28,11 @@ import {AuthInterceptor} from "./auth/auth.interceptor";
 import { OrderStudentComponent } from './home/order-student/order-student.component';
 import { OrderContainerComponent } from './home/order-student/order-container/order-container.component';
 import { MealInputCardComponent } from './home/order-student/meal-input-card/meal-input-card.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import { AccountPaymentOverviewComponent } from './home/account/account-payment-overview/account-payment-overview.component';
+import { RegistrationComponent } from './home/registration/registration/registration.component';
+import { ManageRegistrationStudentComponent } from './home/registration/manage-registration-student/manage-registration-student.component';
 //
 @NgModule({
   declarations: [
@@ -45,7 +50,10 @@ import { MealInputCardComponent } from './home/order-student/meal-input-card/mea
     ToastrComponent,
     OrderStudentComponent,
     OrderContainerComponent,
-    MealInputCardComponent
+    MealInputCardComponent,
+    AccountPaymentOverviewComponent,
+    RegistrationComponent,
+    ManageRegistrationStudentComponent
   ],
     imports: [
         BrowserModule,
@@ -60,7 +68,9 @@ import { MealInputCardComponent } from './home/order-student/meal-input-card/mea
         MatButtonModule,
         MatCardModule,
         FormsModule,
-      ToastrModule.forRoot(),
+        ToastrModule.forRoot(),
+        MatDatepickerModule,
+      MatNativeDateModule
 
     ],
   providers: [{

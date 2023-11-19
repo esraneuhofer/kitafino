@@ -416,3 +416,30 @@ export function removeDuplicatesMenuAllergene(allergens: Allergene[]): Allergene
 
   return uniqueAllergens;
 }
+
+
+export interface OrderStudentInterface {
+  kw: number;
+  year: number;
+  dateOrder: Date;
+  comment:string;
+  orderDay: OrderInterfaceStudentSingle [];
+}
+
+export interface OrderInterfaceStudentSingle {
+  order: OrderSubDetailNew[];
+  specialFoodOrder?: SpecialFoodOrderInterface[];
+}
+
+export class NewOrderStudentClass implements OrderStudentInterface {
+  kw;
+  year;
+  dateOrder;
+  comment = '';
+  orderDay =  [];
+  constructor(query: { kw: number, year: number }) {
+    this.kw = query.kw;
+    this.year = query.year;
+    this.dateOrder = new Date();
+  }
+}

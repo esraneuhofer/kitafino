@@ -1,6 +1,8 @@
 
 import { Component } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import {UserService} from "../service/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -43,8 +45,11 @@ export class HomeComponent {
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
 
-  constructor() { }
-
+  constructor(private userService:UserService, private router:Router) { }
+  logout(){
+    this.userService.deleteToken();
+    this.router.navigate(['/login']);
+  }
   toggleOffCanvasMenu(){
     this.isOffCanvasMenu = !this.isOffCanvasMenu;
 

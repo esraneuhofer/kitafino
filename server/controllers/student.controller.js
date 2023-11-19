@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
-const Student = mongoose.model('Student');
-//
-// module.exports.getRegisteredStudentsUser = (req, res, next) =>{
-//
-//     Student.find({'tenantId': req.tenantId}, function (err, allGroups) {
-//       if (err) {
-//         res.send(err);
-//       } else {
-//         res.json(allGroups);
-//       }
-//     });
-// };
+const Student = mongoose.model('StudentNew');
 
 module.exports.addStudent = (req, res, next) => {
   // Ensure that firstname and lastname are present in req.body
@@ -35,3 +24,19 @@ module.exports.addStudent = (req, res, next) => {
   });
 }
 
+
+
+module.exports.getRegisteredStudentsUser = async (req, res, next) => {
+  console.log(req._id);
+  try {
+    // Using await to wait for the result of Tenant.find()
+    const allStudents = await Student.find({ 'userId': req._id });
+
+    // Sending the result back to the client
+    res.json(allStudents);
+  } catch (err) {
+    // If an error occurs, log it and send an error response
+    console.error(err); // Log the error for debugging
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};

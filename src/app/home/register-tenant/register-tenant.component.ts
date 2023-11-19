@@ -16,13 +16,18 @@ export class RegisterTenantComponent {
   submittingRequest:boolean = false;
 
   tenantModel: TenantStudentInterface = {
-    firstName: 's',
-    lastName: 's',
+    firstName: '',
+    lastName: '',
     email: '',
-    phone: 's',
-    address: 's',
-    city: 's',
-    zip: 's'
+    phone: '',
+    address: '',
+    city: '',
+    zip: '',
+    orderSettings:{
+      sendReminderBalance:false,
+      amountBalance:0,
+      permanentOrder:false,
+    }
   }
 
   constructor(private tenantServiceStudent: TenantServiceStudent,

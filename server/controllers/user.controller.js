@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
-const School = mongoose.model('School');
+const School = mongoose.model('SchoolNew');
 const Schooluser = mongoose.model('Schooluser');
 var nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
@@ -27,26 +27,7 @@ function makePassword() {
 }
 const User = mongoose.model('User');
 
-// module.exports.register = (req, res, next) => {
-//     var user = new User();
-//   user.fullName = req.body.fullName;
-//   user.email = req.body.email;
-//   user.password = req.body.password;
-//   user.username = req.body.email;
-//   user.tenantUrl = req.body.tenantUrl;
-//   if(req.body.code !== 'HeinerBolle')  return res.status(422).send(['Netter Versuch Heiner']);
-//   user.save((err, doc) => {
-//     if (!err)
-//       res.send(doc);
-//     else {
-//       if (err.code == 11000)
-//         res.status(422).send(['Duplicate email adrress found.']);
-//       else
-//         return next(err);
-//     }
-//
-//   });
-// }
+
 
 module.exports.authenticate = (req, res, next) => {
   // call for passport authentication
@@ -93,7 +74,7 @@ module.exports.register = async (req, res, next) => {
     });
 
     if (!data) {
-      return res.send({ message: 'Projekt wurde nicht gefunden', buttonType: 'error' });
+      return res.send({ message: 'Projekt wurde nicht gefunden', buttonType: 'error',isError:true });
     }
 
     let user = new Schooluser();
@@ -140,10 +121,10 @@ module.exports.register = async (req, res, next) => {
       // Sending the email
       let info = await transporter.sendMail(mailOptions);
 
-      res.send({ message: 'Email wurde an Ihre Emailadresse versendet', buttonType: 'success', mailSuccess: info });
+      res.send({ message: 'Email wurde an Ihre Emailadresse versendet', buttonType: 'success', mailSuccess: info ,isError:false});
     } catch (err) {
       if (err.code == 11000) {
-        res.send({ message: 'Emailadresse wird bereits verwendet', buttonType: 'error', mailSuccess: 'No Success' });
+        res.send({ message: 'Emailadresse wird bereits verwendet', buttonType: 'error', mailSuccess: 'No Success',isError:true });
       } else {
         res.send(err);
       }
@@ -152,11 +133,11 @@ module.exports.register = async (req, res, next) => {
     } catch (err) {
       // This block will handle any errors from the try block
       if (err.code == 11000) {
-        res.status(422).send({ message: 'Emailadresse wird bereits verwendet', buttonType: 'error', mailSuccess: 'No Success' });
+        res.status(422).send({ message: 'Emailadresse wird bereits verwendet', buttonType: 'error', mailSuccess: 'No Success',isError:true });
       } else {
         // Log the error and send a generic error response
         console.error(err); // Log the error for debugging
-        res.status(500).send({ message: 'Internal Server Error', buttonType: 'error' });
+        res.status(500).send({ message: 'Internal Server Error', buttonType: 'error',isError:true});
       }
     }
 

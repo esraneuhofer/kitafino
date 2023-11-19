@@ -11,6 +11,10 @@ import {MainGuard} from "./auth/main.guard";
 import {RegisterTenantComponent} from "./home/register-tenant/register-tenant.component";
 import {SettingsComponent} from "./home/settings/settings.component";
 import {OrderStudentComponent} from "./home/order-student/order-student.component";
+import {
+  AccountPaymentOverviewComponent
+} from "./home/account/account-payment-overview/account-payment-overview.component";
+import {RegistrationComponent} from "./home/registration/registration/registration.component";
 
 
 
@@ -35,9 +39,11 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
 
+      { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard,MainGuard]},
+      { path: 'account_overview', component:AccountPaymentOverviewComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard]},
+      { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},
 
     ]

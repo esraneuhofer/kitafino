@@ -1,36 +1,83 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TenantServiceStudent} from "../../service/tenant_student.class";
 import {UserService} from "../../service/user.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {StudentService} from "../../service/student.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {ToastrService} from "ngx-toastr";
+import {setEmptyStudentModel, StudentInterface} from "../../classes/student.class";
+import {GenerellService} from "../../service/generell.service";
+import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
   styleUrls: ['./register-student.component.scss']
 })
-export class RegisterStudentComponent {
+export class RegisterStudentComponent implements OnInit{
 
+  returnedUsernameStudent:string  ='';
   submittingRequest = false;
-  studentModel = {firstName: '', lastName:''}
-  constructor(private tenantServiceStudent: TenantServiceStudent,
+  studentModel:StudentInterface = setEmptyStudentModel();
+  selectedSubgroup:string = '';
+  isFlipped:boolean = false;
+  studentAdded = {
+    username:'',
+    firstName:'',
+    lastName:''
+  }
+  pageLoaded:boolean = false;
+  customerInfo!:CustomerInterface;
+  subGroupUnknownModel: boolean = false;
+  registeredStudents:StudentInterface[] = [];
+
+  constructor(private studentService: StudentService,
               private router:Router,
               private toaster:ToastrService,
-              private studentService: StudentService) {
+              private r: ActivatedRoute,
+              private generellService: GenerellService) {
   }
 
+
+  routeToAccount(){
+    this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
+  }
+  setSubgroupSelection(event: boolean) {
+    if(event) {
+      this.selectedSubgroup = '';
+    }
+  }
+  isSelected(event:string){
+    this.subGroupUnknownModel = false;
+    this.studentModel.subgroup = event;
+  }
+  ngOnInit() {
+    forkJoin(
+      this.generellService.getCustomerInfo(),
+      this.studentService.getRegisteredStudentsUser()
+    )
+    .subscribe(([customer,students]:[CustomerInterface,StudentInterface[]])=>{
+      this.customerInfo = customer;
+      this.registeredStudents = students;
+      console.log(students)
+      this.pageLoaded = true;
+    })
+
+  }
   addStudent(f:NgForm) {
+
     this.submittingRequest = true;
-      this.studentService.addStudent(this.studentModel).subscribe((res:any)=>{
+      this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
         if(res.error){
           this.submittingRequest = false;
           this.toaster.error('Schüler/in konnte nicht angelegt werden','Fehler');
         }else{
           this.submittingRequest = false;
-          this.toaster.success('Schüler/in wurde erfolgreich angelegt','Erfolgreich');
+          this.isFlipped = true;
+          this.returnedUsernameStudent = res.student.username
+          this.toaster.success('Verpflegungsteilnehmer/in wurde erfolgreich angelegt','Erfolgreich');
           f.resetForm();
         }
 

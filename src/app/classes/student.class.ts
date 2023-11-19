@@ -1,7 +1,20 @@
 export interface StudentInterface {
   firstName: string;
     lastName: string;
+  username:string;
+  subgroup:string,
+  customerId:string,
 
+}
+
+export function setEmptyStudentModel():StudentInterface{
+  return {
+    firstName: '',
+    lastName:'',
+    username:'',
+    customerId:'',
+    subgroup:''
+  }
 }
 
 // export interface StudentInterface {

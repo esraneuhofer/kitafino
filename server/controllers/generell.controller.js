@@ -20,7 +20,7 @@ module.exports.getSettingsTenant = async (req, res, next) => {
 
 module.exports.getCustomerInfo = async (req, res, next) => {
   try {
-    const customer = await Customer.findOne({ 'tenantId': req.tenantId });
+    const customer = await Customer.findOne({ 'customerId': req.customerId });
     res.json(customer);
   } catch (err) {
     console.error(err); // Log the error for debugging

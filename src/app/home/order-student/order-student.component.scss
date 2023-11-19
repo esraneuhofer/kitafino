@@ -1,0 +1,6 @@
+/* Glowing border effect */
+.mealCard.shadow-md:focus,
+.mealCard.shadow-md:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 255, 0.5); /* Adjust the color and size as needed */
+  outline: none; /* Remove the default focus outline if desired */
+}

@@ -23,7 +23,7 @@ export class OrderStudentComponent implements OnInit{
   pastOrder:boolean = false;
   timerInterval:any;
   dateChange: string = new Date().toISOString().split('T')[0];
-
+  selected: Date | null = new Date();
 
   indexDaySelected:number = 0;
 
@@ -34,7 +34,7 @@ export class OrderStudentComponent implements OnInit{
   weekplan!:WeekplanMenuInterface;
   meals!:MealModelInterface[];
   menus!:MenuInterface[];
-  articleDeclarations!:ArticleDeclarations[];
+  articleDeclarations!:ArticleDeclarations;
   articles!:ArticleInterface[];
   settings!:SettingInterfaceNew;
 
@@ -71,10 +71,8 @@ export class OrderStudentComponent implements OnInit{
         this.settings = settings;
         this.customer = customer;
         this.weekplan = weekplan;
-        this.allMeals = getMealsWithArticle(meals, articles, articleDeclarations);
-        this.allMenus = getMenusWithMealsAndArticle(data[4], this.allMeals);
-        this.meals = meals;
-        this.menus = menus;
+        // this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
+        // this.menus = getMenusWithMealsAndArticle(menus, this.meals);
         this.articleDeclarations = articleDeclarations;
         this.articles = articles;
         this.checkDeadline(new Date().toISOString());
@@ -87,6 +85,10 @@ export class OrderStudentComponent implements OnInit{
         // Handle errors as needed.
       }
     );
+  }
+
+  selectedMenuDay():void{
+
   }
 
 

@@ -1,4 +1,5 @@
 export interface ArticleInterface {
+  _id?:string;
   BLS_Key:string;
   nameArticle:string;
   kcal:number;
