@@ -36,6 +36,10 @@ export class GenerellService {
     return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
       .pipe(map((response: WeekplanMenuInterface) => (response)));
   }
+  getAssignedWeekplan(query:{week:number, year:number}){
+    return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
+      .pipe(map((response: WeekplanMenuInterface) => (response)));
+  }
   getMeals(){
     return this.http.get<MealModelInterface[]>(environment.apiBaseUrl+'/getMeals')
       .pipe(map((response: MealModelInterface[]) => (response)));

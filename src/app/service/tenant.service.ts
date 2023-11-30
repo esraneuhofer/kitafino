@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {catchError, map, Observable, of} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {TenantStudentInterface} from "../classes/tenant.class";
 
 
@@ -12,9 +12,15 @@ import {TenantStudentInterface} from "../classes/tenant.class";
 export class TenantServiceStudent {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
+  private tenantSubject = new BehaviorSubject<TenantStudentInterface>({} as TenantStudentInterface);
 
+  private tenantModel$ = this.tenantSubject.asObservable()
   constructor(private http:HttpClient) {
 
+  }
+
+  getTenantModel(): Observable<TenantStudentInterface> {
+    return this.tenantSubject.asObservable();
   }
   getTenantInformation(){
     return this.http.get<TenantStudentInterface>(environment.apiBaseUrl+'/getTenantInformation')
@@ -24,7 +30,6 @@ export class TenantServiceStudent {
     return this.getTenantInformation().pipe(
       map((tenant: TenantStudentInterface) => !!tenant && Object.keys(tenant).length > 0),
       catchError((error) => {
-        console.error(error);
         return of(false); // If there's an error, you can assume no students are registered.
       })
     );

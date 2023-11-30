@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {TenantStudentInterface} from "../../classes/tenant.class";
-import {TenantServiceStudent} from "../../service/tenant_student.class";
+import {TenantServiceStudent} from "../../service/tenant.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
 import {ToastrService} from "ngx-toastr";

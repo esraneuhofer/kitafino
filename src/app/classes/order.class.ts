@@ -6,13 +6,12 @@ import {MealModelInterface} from "./meal.interface";
 import {MenuInterface} from "./menu.interface";
 
 export function getAllergensPerMealOrderOverviewMenuO(special: OrderSubDetailNew,
-                                                      weekplan: WeekplanDayInterface[],
-                                                      indexDay: number):{nameMeal:string,allergenes:Allergene[]}[] {
+                                                      weekplan: WeekplanDayInterface):{nameMeal:string,allergenes:Allergene[]}[] {
   let arrayOfAllergenes:{nameMeal:string,allergenes:Allergene[]}[] = [];
-  if (!weekplan || indexDay === -1 || indexDay === 5) {
-    return [];
-  }
-  weekplan[indexDay].mealTypesDay.forEach(eachMealType => {
+  // if (!weekplan || indexDay === -1 || indexDay === 5) {
+  //   return [];
+  // }
+  weekplan.mealTypesDay.forEach(eachMealType => {
     if (eachMealType.idSpecial === special.idType) {
       if (!eachMealType.menu || !eachMealType.menu.recipe) {
         return
@@ -29,45 +28,20 @@ export function getAllergensPerMealOrderOverviewMenuO(special: OrderSubDetailNew
   return arrayOfAllergenes;
 }
 
-export class OrderWeekClass implements OrderModelInterfaceNew {
-  typeOrder: string = 'newModel';
-  kw: number;
-  year: number;
-  order: OrderInterfaceNew [];
-  customerId: string;
-
-  constructor(customer: CustomerInterface,
-              query: { kw: number, year: number },
-              settings: SettingInterfaceNew,
-              selectedWeek: WeekplanDayInterface[]) {
-    this.order = this.setOrderForWeek(settings, customer, selectedWeek);
-    this.customerId = customer.customerId;
-    this.kw = query.kw;
-    this.year = query.year;
-  }
-
-  setOrderForWeek(settings: SettingInterfaceNew, customer: CustomerInterface, selectedWeek: WeekplanDayInterface[]): OrderInterfaceNew [] {
-    let arr = [];
-    for (let i = 0; i < 5; i++) {
-      arr.push(new OrderModelSingleDay(customer, settings, selectedWeek, i));
-    }
-    return arr;
-  }
-}
 
 export class OrderModelSingleDay implements OrderInterfaceNew {
   orderDayGroups: OrderGroupDayNew[] = [];
   comment = '';
 
-  constructor(customer: CustomerInterface, settings: SettingInterfaceNew, selectedWeek: WeekplanDayInterface[], index: number) {
+  constructor(customer: CustomerInterface, settings: SettingInterfaceNew, selectedWeek: WeekplanDayInterface, index: number) {
     customer.order.split.forEach((eachSplitCustomer, indexCustomer) => {
       let objSplitEach:{groupId:string,order:OrderSubDetailNew[],specialFoodOrder:SpecialFoodOrderInterface[]} = {
         groupId: eachSplitCustomer.group,
         order: [],
         specialFoodOrder: getSpecialOrdersSubGroup(settings, customer)
       };
-      selectedWeek[index].mealTypesDay.forEach(eachSpecial => {
-        let order:OrderSubDetailNew = this.setOrderSplitEach(eachSpecial,customer,settings,selectedWeek,index);
+      selectedWeek.mealTypesDay.forEach(eachSpecial => {
+        let order:OrderSubDetailNew = setOrderSplitEach(eachSpecial,customer,settings,selectedWeek);
         if(order){
           objSplitEach.order.push(order);
         }
@@ -75,98 +49,99 @@ export class OrderModelSingleDay implements OrderInterfaceNew {
       this.orderDayGroups.push(objSplitEach);
     });
   }
-  setOrderSplitEach(eachSpecial:MealtypesWeekplan,
-                    customer: CustomerInterface,
-                    settings: SettingInterfaceNew,
-                    selectedWeek: WeekplanDayInterface[],
-                    index: number):OrderSubDetailNew {
-    // if (eachSpecial.typeSpecial === 'side' && !settings.orderSettings.sideOrderSeparate) {
-    //   return null;
-    // }
-    // if (eachSpecial.typeSpecial === 'dessert' && !settings.orderSettings.dessertOrderSeparate) {
-    //   return null;
-    // }
-    let order: OrderSubDetailNew = {
-      isDge: eachSpecial.isDge,
-      typeOrder: eachSpecial.typeSpecial,
-      nameOrder: this.getNameLabelOrderOverview0(eachSpecial, selectedWeek[index]),
-      idType: eachSpecial.idSpecial,
-      amountOrder: 0,
-      idMenu:this.getMenuIdOrderOverview(eachSpecial, selectedWeek[index]),
-      nameLabelExist: this.doesNameLabelExist(eachSpecial, selectedWeek[index]),
-      specialFoodOrder: getSpecialOrdersPossibleMenu(eachSpecial, settings, customer),
-      isDisabled: this.getLockInputOrderOverview(selectedWeek[index], eachSpecial),
-    };
-    order.allergenes = this.getAllergensOrderOverviewMenuO(order, selectedWeek, index)
-    order.allergensPerMeal = getAllergensPerMealOrderOverviewMenuO(order, selectedWeek, index);
-    return order;
-  }
-  doesNameLabelExist(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): boolean {
-    let exist = false;
-    weekplan.mealTypesDay.forEach(eachMealType => {
-      if (eachMealType.idSpecial === special.idSpecial) {
-        if (eachMealType.menu) {
-          exist = true;
-        }
-      }
-    });
-    return exist;
 
-  }
-  getMenuIdOrderOverview(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): (string | null) {
-    let menu = null
-    weekplan.mealTypesDay.forEach(eachMealType => {
-      if (eachMealType.idSpecial === special.idSpecial) {
-        if (eachMealType.menu) {
-          menu = eachMealType.menu._id;
-        }
-      }
-    });
-    return menu;
-  }
-  getNameLabelOrderOverview0(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): string {
-    let name = special.nameSpecial;
-    weekplan.mealTypesDay.forEach(eachMealType => {
-      if (eachMealType.idSpecial === special.idSpecial) {
-        if (eachMealType.menu) {
-          name = eachMealType.menu.nameMenu;
-        }
-      }
-    });
-    return name;
+}
 
-  }
-
-  getLockInputOrderOverview(weekplan: WeekplanDayInterface, special: MealtypesWeekplan): boolean {
-    if (!weekplan) {
-      return true;
-    }
-    for (let i = 0; i < weekplan.mealTypesDay.length; i++) {
-      if (weekplan.mealTypesDay[i].idSpecial === special.idSpecial) {
-        if (!weekplan.mealTypesDay[i].idMenu) {
-          return true;
-        }
+export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
+  customer: CustomerInterface,
+  settings: SettingInterfaceNew,
+  selectedWeek: WeekplanDayInterface):OrderSubDetailNew {
+  // if (eachSpecial.typeSpecial === 'side' && !settings.orderSettings.sideOrderSeparate) {
+  //   return null;
+  // }
+  // if (eachSpecial.typeSpecial === 'dessert' && !settings.orderSettings.dessertOrderSeparate) {
+  //   return null;
+  // }
+  let order: OrderSubDetailNew = {
+    isDge: eachSpecial.isDge,
+    typeOrder: eachSpecial.typeSpecial,
+    nameOrder: getNameLabelOrderOverview0(eachSpecial, selectedWeek),
+    idType: eachSpecial.idSpecial,
+    amountOrder: 0,
+    idMenu:getMenuIdOrderOverview(eachSpecial, selectedWeek),
+    nameLabelExist:doesNameLabelExist(eachSpecial, selectedWeek),
+    specialFoodOrder: getSpecialOrdersPossibleMenu(eachSpecial, settings, customer),
+    isDisabled: getLockInputOrderOverview(selectedWeek, eachSpecial),
+  };
+  order.allergenes = getAllergensOrderOverviewMenuO(order, selectedWeek)
+  order.allergensPerMeal = getAllergensPerMealOrderOverviewMenuO(order, selectedWeek);
+  return order;
+}
+export function doesNameLabelExist(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): boolean {
+  let exist = false;
+  weekplan.mealTypesDay.forEach(eachMealType => {
+    if (eachMealType.idSpecial === special.idSpecial) {
+      if (eachMealType.menu) {
+        exist = true;
       }
     }
-    return false;
-  }
+  });
+  return exist;
 
-
-  getAllergensOrderOverviewMenuO(special: OrderSubDetailNew, weekplan: WeekplanDayInterface[], indexDay: number): Allergene[] {
-    let allergenen:Allergene[] = [];
-    if (!weekplan || indexDay === -1 || indexDay === 5) {
-      return allergenen;
-    }
-    weekplan[indexDay].mealTypesDay.forEach(eachMealType => {
-      if (eachMealType.idSpecial === special.idType) {
-        if (!eachMealType.menu) {
-          return;
-        }
-        allergenen = calculateAllergenesMenu(eachMealType.menu);
+}
+export function getMenuIdOrderOverview(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): (string | null) {
+  let menu = null
+  weekplan.mealTypesDay.forEach(eachMealType => {
+    if (eachMealType.idSpecial === special.idSpecial) {
+      if (eachMealType.menu) {
+        menu = eachMealType.menu._id;
       }
-    });
-    return allergenen;
+    }
+  });
+  return menu;
+}
+export function getNameLabelOrderOverview0(special: MealtypesWeekplan, weekplan: WeekplanDayInterface): string {
+  let name = special.nameSpecial;
+  weekplan.mealTypesDay.forEach(eachMealType => {
+    if (eachMealType.idSpecial === special.idSpecial) {
+      if (eachMealType.menu) {
+        name = eachMealType.menu.nameMenu;
+      }
+    }
+  });
+  return name;
+
+}
+
+export function getLockInputOrderOverview(weekplan: WeekplanDayInterface, special: MealtypesWeekplan): boolean {
+  if (!weekplan) {
+    return true;
   }
+  for (let i = 0; i < weekplan.mealTypesDay.length; i++) {
+    if (weekplan.mealTypesDay[i].idSpecial === special.idSpecial) {
+      if (!weekplan.mealTypesDay[i].idMenu) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+
+export function getAllergensOrderOverviewMenuO(special: OrderSubDetailNew, weekplan: WeekplanDayInterface): Allergene[] {
+  let allergenen:Allergene[] = [];
+  // if (!weekplan || indexDay === -1 || indexDay === 5) {
+  //   return allergenen;
+  // }
+  weekplan.mealTypesDay.forEach(eachMealType => {
+    if (eachMealType.idSpecial === special.idType) {
+      if (!eachMealType.menu) {
+        return;
+      }
+      allergenen = calculateAllergenesMenu(eachMealType.menu);
+    }
+  });
+  return allergenen;
 }
 export interface PermanentOrderInterface{
   _id?:string;
@@ -177,12 +152,13 @@ export interface PermanentOrderInterface{
 export interface OrderModelInterfaceNew {
   active?: boolean;
   _id?: string;
-  typeOrder: string;
+  typeOrder?: string;
   kw: number;
   year: number;
   order: OrderInterfaceNew [];
   customerId: string;
 }
+
 
 export interface OrderInterfaceNew {
   orderDayGroups: OrderGroupDayNew[];
@@ -423,7 +399,7 @@ export interface OrderStudentInterface {
   year: number;
   dateOrder: Date;
   comment:string;
-  orderDay: OrderInterfaceStudentSingle [];
+  order: OrderInterfaceStudentSingle [];
 }
 
 export interface OrderInterfaceStudentSingle {
@@ -431,15 +407,15 @@ export interface OrderInterfaceStudentSingle {
   specialFoodOrder?: SpecialFoodOrderInterface[];
 }
 
-export class NewOrderStudentClass implements OrderStudentInterface {
-  kw;
-  year;
-  dateOrder;
-  comment = '';
-  orderDay =  [];
-  constructor(query: { kw: number, year: number }) {
-    this.kw = query.kw;
-    this.year = query.year;
-    this.dateOrder = new Date();
-  }
-}
+// export class NewOrderStudentClass implements OrderStudentInterface {
+//   kw;
+//   year;
+//   dateOrder;
+//   comment = '';
+//   orderDay =  [];
+//   constructor(query: { kw: number, year: number }) {
+//     this.kw = query.kw;
+//     this.year = query.year;
+//     this.dateOrder = new Date();
+//   }
+// }

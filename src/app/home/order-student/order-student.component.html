@@ -8,13 +8,26 @@
               <label class="block text-sm font-medium leading-6 text-gray-900" for="dateOrder">Bestelldatum |
                 Bestellfrist {{differenceTimeDeadline}}</label>
               <div class="mt-2">
-                <input #dateStartModel="ngModel" (ngModelChange)="getOrderDay($event)" [(ngModel)]="dateChange"
+                <input #dateStartModel="ngModel" (ngModelChange)="getOrderDay($event,selectedStudent)" [(ngModel)]="dateChange"
                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"
                        id="dateOrder"
                        name="dateOrder"
                        placeholder="you@example.com"
                        type="date">
               </div>
+            </div>
+            <div class="w-full lg:w-1/2 mt-2">
+              <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Verpflegungsteilnehmer auswählen</label>
+              <select id="subgroup" name="subgroupModel"
+                      #subgroupModel="ngModel"
+                      required
+                      [(ngModel)]="selectedStudent"
+                      (ngModelChange)="getOrderDay(dateChange,$event)"
+                      class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <option [value]="null" disabled selected hidden>Bitte auswählen</option>
+                <option
+                  *ngFor="let student of registeredStudents" [value]="student">{{student.firstName +  ' '  + student.lastName}}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -26,69 +39,14 @@
       <div class="w-5/6">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="flex justify-center items-center"> <!-- Center content vertically and horizontally -->
-            <div class="px-4 sm:px-6 lg:px-8">
-              <div class="sm:flex sm:items-center">
-                <div class="sm:flex-auto">
-                  <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-                  <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, title, email and role.</p>
-                </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                  <button type="button" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add user</button>
-                </div>
-              </div>
-              <div class="mt-8 flow-root">
-                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <table class="min-w-full divide-y divide-gray-300">
-                      <thead>
-                      <tr>
-                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Title</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th>
-                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                          <span class="sr-only">Edit</span>
-                        </th>
-                      </tr>
-                      </thead>
-                      <tbody class="divide-y divide-gray-200">
-                      <tr>
-                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">Lindsay Walton</td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer</td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">lindsay.walton@example.com</td>
-                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                          <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
-                        </td>
-                      </tr>
-
-                      <!-- More people... -->
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-<!--            <div class="w-full lg:w-4/4">-->
-<!--              <div class="shadow-md rounded-lg p-4 mealCard">-->
-<!--                <div class="relative flex items-start">-->
-<!--                  <div class="flex h-6 items-center">-->
-<!--                    <input id="comments" aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="mb-2">-->
-<!--                  <span class="text-gray-700">Das Name vom Gericht mit Allergenen</span>-->
-<!--                </div>-->
-<!--                <div class="flex flex-wrap">-->
-<!--                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Soja</span>-->
-<!--                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Tomate</span>-->
-<!--                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Milch</span>-->
-<!--                </div>-->
-<!--              </div>-->
-
-
-<!--            </div>-->
+            <app-order-container
+              [settings]="settings"
+              [selectedDate]="dateChange"
+              [lockDays]="lockDays"
+              [indexDaySelected]="indexDaySelected"
+              [pastOrder]="pastOrder"
+              [orderModel]="orderModelStudent"
+            ></app-order-container>
           </div>
         </div>
       </div>

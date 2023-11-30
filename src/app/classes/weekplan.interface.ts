@@ -1,6 +1,7 @@
 import {MenuInterface} from "./menu.interface";
 import {SettingInterfaceNew} from "./setting.class";
 import {Allergene} from "./allergenes.interface";
+import {QueryInterOrderInterface} from "../home/order-student/order-student.component";
 export const numberFive = [
   [0, 'Montag'],
   [1, 'Dienstag'],
@@ -45,10 +46,10 @@ export function getAllowOneMenuEachDay(setting:SettingInterfaceNew):boolean[]{
   return arr;
 }
 
-export function getWeekplanModel(setting:SettingInterfaceNew,dateQuery:OrderOverViewOrderInterface):WeekplanMenuInterface {
+export function getWeekplanModel(setting:SettingInterfaceNew,dateQuery:QueryInterOrderInterface):WeekplanMenuInterface {
   return{
-    year:dateQuery.queryYears,
-    week:dateQuery.queryCW,
+    year:dateQuery.year,
+    week:dateQuery.week,
     weekplan:getWeekplanArray(setting),
     allowOneMenuEachDay:getAllowOneMenuEachDay(setting),
   }

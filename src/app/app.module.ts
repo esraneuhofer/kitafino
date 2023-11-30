@@ -33,6 +33,9 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { AccountPaymentOverviewComponent } from './home/account/account-payment-overview/account-payment-overview.component';
 import { RegistrationComponent } from './home/registration/registration/registration.component';
 import { ManageRegistrationStudentComponent } from './home/registration/manage-registration-student/manage-registration-student.component';
+import { SettingsTableOrderStudentsComponent } from './home/settings/settings-table-order-students/settings-table-order-students.component';
+import { ChargeAccountComponent } from './home/charge-account/charge-account.component';
+
 //
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import { ManageRegistrationStudentComponent } from './home/registration/manage-r
     MealInputCardComponent,
     AccountPaymentOverviewComponent,
     RegistrationComponent,
-    ManageRegistrationStudentComponent
+    ManageRegistrationStudentComponent,
+    SettingsTableOrderStudentsComponent,
+    ChargeAccountComponent
   ],
     imports: [
         BrowserModule,

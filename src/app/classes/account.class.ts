@@ -23,3 +23,4 @@ export interface AccountCustomerInterface {
   orders:OrdersSingleInterface[];
   currentBalance: number;
 }
+

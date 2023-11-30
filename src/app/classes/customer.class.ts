@@ -7,6 +7,7 @@ export interface CustomerInterface {
   // tenantId: Schema.Types.ObjectId,
   // customerId: Schema.Types.ObjectId,
   active:boolean;
+  stateHol:string;
   order: {
     deliveryTime: Date;
     permanentOrder: boolean;

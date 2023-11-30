@@ -6,6 +6,7 @@ const ArticleDeclarations = mongoose.model('ArticleDeclarations');
 const Menu = mongoose.model('Menu');
 const Meal = mongoose.model('Meal');
 const Weekplan = mongoose.model('Weekplan');
+const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 
 
 module.exports.getSettingsTenant = async (req, res, next) => {
@@ -31,8 +32,17 @@ module.exports.getCustomerInfo = async (req, res, next) => {
 
 module.exports.getWeekplanWeek = async (req, res, next) => {
   try {
-    const weekplan = await Weekplan.findOne({tenantId: req.tenantId, year: req.query.year, week: req.query.week});
+    const weekplan = await Weekplan.findOne({tenantId:req.tenantId,year: req.query.year, week: req.query.week});
     res.json(weekplan);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+module.exports.getAssignedWeekplan = async (req, res, next) => {
+  try {
+    const assignedWeekplan = await AssignedWeekplan.find({year: req.query.year, week: req.query.week});
+    res.json(assignedWeekplan);
   } catch (err) {
     console.error(err); // Log the error for debugging
     res.status(500).send({ message: 'Internal Server Error' });
@@ -41,7 +51,7 @@ module.exports.getWeekplanWeek = async (req, res, next) => {
 
 module.exports.getMeals = async (req, res, next) => {
   try {
-    const meal = await Meal.findOne({ 'tenantId': req.tenantId });
+    const meal = await Meal.find({ 'tenantId': req.tenantId });
     res.json(meal);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -52,7 +62,7 @@ module.exports.getMeals = async (req, res, next) => {
 
 module.exports.getMenus = async (req, res, next) => {
   try {
-    const menu = await Menu.findOne({ 'tenantId': req.tenantId });
+    const menu = await Menu.find({ 'tenantId': req.tenantId });
     res.json(menu);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -73,7 +83,7 @@ module.exports.getArticleDeclaration = async (req, res, next) => {
 
 module.exports.getArticle = async (req, res, next) => {
   try {
-    const article = await ArticleEdited.findOne({ 'tenantId': req.tenantId });
+    const article = await ArticleEdited.find({ 'tenantId': req.tenantId });
     res.json(article);
   } catch (err) {
     console.error(err); // Log the error for debugging

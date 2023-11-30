@@ -1,8 +1,11 @@
 
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import {UserService} from "../service/user.service";
 import {Router} from "@angular/router";
+import {LoadingService} from "../service/loading.service";
+import {TenantServiceStudent} from "../service/tenant.service";
+import {TenantStudentInterface} from "../classes/tenant.class";
 
 @Component({
   selector: 'app-home',
@@ -40,12 +43,31 @@ import {Router} from "@angular/router";
     ])
   ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
 
-  constructor(private userService:UserService, private router:Router) { }
+  pageLoaded: boolean = false;
+
+  tenantInformation!:TenantStudentInterface;
+  constructor(private userService:UserService, private router:Router, private tenantService:TenantServiceStudent) {
+
+  }
+
+  ngOnInit() {
+    this.pageLoaded = false;
+
+    this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
+      if (!tenant){
+        this.router.navigate(['/home/tenant']);
+      } else {
+        this.tenantInformation = tenant;
+        this.pageLoaded = true;
+      }
+    })
+  }
+
   logout(){
     this.userService.deleteToken();
     this.router.navigate(['/login']);

@@ -5,7 +5,7 @@ const AccountSchema = mongoose.model('AccountSchema');
 module.exports.getTenantInformation = async (req, res, next) => {
   try {
     // Using await to wait for the result of Tenant.find()
-    const allGroups = await TenantParent.find({ 'tenantId': req.tenantId });
+    const allGroups = await TenantParent.findOne({ 'tenantId': req.tenantId });
 
     // Sending the result back to the client
     res.json(allGroups);

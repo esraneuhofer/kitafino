@@ -8,6 +8,9 @@ const ctrlUser = require('../controllers/user.controller');
 const ctrlTenant = require('../controllers/tenant.controller');
 const ctrlGenerell = require('../controllers/generell.controller');
 const ctrlStudents = require('../controllers/student.controller');
+const crtlAccount = require('../controllers/account.controller');
+const crtlOrder = require('../controllers/order.controller');
+
 const jwtHelper = require('../config/jwtHelper');
 
 router.post('/register', ctrlUser.register);
@@ -37,5 +40,16 @@ router.get('/getMeals',jwtHelper.verifyJwtToken,ctrlGenerell.getMeals)
 router.get('/getMenus',jwtHelper.verifyJwtToken,ctrlGenerell.getMenus)
 router.get('/getArticleDeclaration',jwtHelper.verifyJwtToken,ctrlGenerell.getArticleDeclaration)
 router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
+
+
+
+/////Order Requests ////
+router.get('/getOrderStudentWeek',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentWeek)
+
+
+///Acoount Requests ////
+router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTenant);
+router.post('/chargeAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.chargeAccountTenant);
+router.post('/getAccountChargesDate',jwtHelper.verifyJwtToken,crtlAccount.getAccountChargesDate);
 
 module.exports = router;

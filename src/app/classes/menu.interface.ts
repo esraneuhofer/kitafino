@@ -10,11 +10,11 @@ export interface MenuInterfaceWithRecipes{
 export interface MenuInterface {
   _id?:string;
   nameMenu: string,
-  recipe: MealModelInterface[],
+  recipe: (MealModelInterface | null)[],
 }
 export interface MenuInterfaceId extends MenuInterface{
   _id:string;
 }
 
 export interface GroupTypeMealInterface { groupTypeId: string, amount: number,_id:string }
-export interface RecipeMealInterface {_id:string,amountArticle: number, price: number,isEdited:boolean,article:ArticleInterface}
+export interface RecipeMealInterface {_id:string,amountArticle: number, price: number,isEdited:boolean,article:(ArticleInterface | null)}

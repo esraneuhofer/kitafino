@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/rout
 import {UserService} from "../service/user.service";
 import {StudentService} from "../service/student.service";
 import {catchError, Observable, of, tap} from "rxjs";
-import {TenantServiceStudent} from "../service/tenant_student.class";
+import {TenantServiceStudent} from "../service/tenant.service";
 
 @Injectable(
   {providedIn: 'root'}
@@ -29,6 +29,5 @@ export class MainGuard {
         return of(false);
       })
     );
-    return true;
   }
 }
