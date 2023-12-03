@@ -44,6 +44,10 @@ export class RegisterStudentComponent implements OnInit{
   routeToAccount(){
     this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
   }
+  routeToRegistration(){
+    this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent});
+  }
+
   setSubgroupSelection(event: boolean) {
     if(event) {
       this.selectedSubgroup = '';
@@ -61,13 +65,12 @@ export class RegisterStudentComponent implements OnInit{
     .subscribe(([customer,students]:[CustomerInterface,StudentInterface[]])=>{
       this.customerInfo = customer;
       this.registeredStudents = students;
-      console.log(students)
       this.pageLoaded = true;
     })
 
   }
   addStudent(f:NgForm) {
-
+    this.studentModel.subgroup = this.selectedSubgroup;
     this.submittingRequest = true;
       this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
         if(res.error){

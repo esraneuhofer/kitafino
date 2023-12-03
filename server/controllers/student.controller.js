@@ -10,6 +10,7 @@ module.exports.addStudent = (req, res, next) => {
   let newModel = new Student({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
+    subgroup: req.body.subgroup,
     // Set other properties as needed
     schoolId: req.project_id,
     userId: req._id,
@@ -24,10 +25,21 @@ module.exports.addStudent = (req, res, next) => {
   });
 }
 
+module.exports.editStudent = (req, res, next) => {
+  Student.findOneAndUpdate(
+    { '_id': req.body._id },
+    req.body,
+    { upsert: true, new: true }
+  ).then(doc => {
+    return res.send(doc);
+  }).catch(err => {
+    return res.status(500).send({ error: err });
+  });
+};
+
 
 
 module.exports.getRegisteredStudentsUser = async (req, res, next) => {
-  console.log(req._id);
   try {
     // Using await to wait for the result of Tenant.find()
     const allStudents = await Student.find({ 'userId': req._id });

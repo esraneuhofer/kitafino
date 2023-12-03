@@ -12,8 +12,8 @@ const ordersSingleSchema = new mongoose.Schema({
   studentId: { type: String, required: true },
   orderId: { type: String, required: true },
   date: { type: Date, required: true },
-  amount: { type: Number, required: true },
-  price: { type: Number, required: true },
+  order:[{nameOrder:String,idType:String,priceMenu:Number,amount:Number}],
+  priceTotal: { type: Number, required: true },
   type: { type: String, enum: ['order', 'cancellation'], required: true }
 });
 

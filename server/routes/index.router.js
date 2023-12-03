@@ -27,8 +27,10 @@ router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.g
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 
+//////Student Requests////////
 
 router.post('/addStudent',jwtHelper.verifyJwtToken,ctrlStudents.addStudent)
+router.post('/editStudent',jwtHelper.verifyJwtToken,ctrlStudents.editStudent)
 
 
 
@@ -44,7 +46,8 @@ router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
 
 
 /////Order Requests ////
-router.get('/getOrderStudentWeek',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentWeek)
+router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
+router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
 
 
 ///Acoount Requests ////

@@ -63,3 +63,35 @@ export function getMonday(inputDate: string): Date {
 
   return date;
 }
+export function checkDayWeekend(day:string):boolean{
+  let indexDay = new Date(day).getDay();
+  if (indexDay === 6 || indexDay === 0) {
+    return true;
+  }
+  return false;
+}
+
+
+export function getFormattedDate(date:Date) {
+  let result = new Date(date);
+  let month:any = result.getMonth()+1;
+  let num = result.getDate();
+
+  if (month.toString().length == 1) {
+    month = "0" + month;
+  }
+  let sliced =  ('0' + num).slice(-2);
+  return (sliced + '.' +month);
+}
+
+export function getInvoiceDateOne(date:Date) {
+  let result = new Date(date);
+  let month:any = result.getMonth()+1;
+  let year  = result.getFullYear();
+  let num = result.getDate();
+  if (month.toString().length == 1) {
+    month = "0" + month;
+  }
+  let sliced =  ('0' + num).slice(-2);
+  return (sliced + '.' +month  + '.' + year);
+}

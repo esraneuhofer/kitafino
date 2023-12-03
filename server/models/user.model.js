@@ -34,6 +34,15 @@ var userSchema = new mongoose.Schema({
 // }, 'Invalid e-mail.');
 
 // Events
+userSchema.pre('save', function(next) {
+  this.email = this.email.toLowerCase();
+  next();
+});
+userSchema.pre('save', function(next) {
+  this.username = this.username.toLowerCase();
+  next();
+});
+
 userSchema.pre('save', function (next) {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(this.password, salt, (err, hash) => {

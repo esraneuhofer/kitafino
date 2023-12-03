@@ -1,82 +1,11 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-sm table-classic-view">
-        <thead>
-        <tr>
-          <th>
-            <div class="text-center" style="font-size: 14px">
-              <b><u>{{selectedDate | date:'dd.MM'}}</u></b>
-            </div>
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td [ngClass]="{'blocked-input':isLocked}"
-              class="top-align ">
-            <fieldset [disabled]="isLocked"
-                      [ngClass]="{'blocked-input': isLocked}">
-              <ng-container>
-                <div *ngFor="let special of orderModel.order.order let indexSpecial = index"
-                     class="row">
-                  <div class="col-12">
-                    <label >{{special.nameOrder}}</label>
-                    <input type="text">
-<!--                    <app-order-new-menu-card-->
-<!--                      [assignedWeekplanSelected]="assignedWeekplanSelected"-->
-<!--                      [indexDay]="indexDaySelected"-->
-<!--                      [indexMenu]="indexSpecial"-->
-<!--                      [indexSubGroup]="indexSubGroup"-->
-<!--                      [lockDay]="lockDays"-->
-<!--                      [menuItem]="special"-->
-<!--                      [minHeightMenu]="90"-->
-<!--                      [orderModel]="orderModel"-->
-<!--                      [pastOrder]="pastOrder"-->
-<!--                      [settings]="settings">-->
-<!--                    </app-order-new-menu-card>-->
-                  </div>
-                </div>
-                <ng-container *ngIf="settings.orderSettings.specialFoods.length > 0">
-                  <div class="row" *ngFor="let order of orderModel.order.specialFoodOrder">
-                    <div class="col-12" *ngIf="order.active">
-                      <label>{{order.nameSpecialFood}}</label>
-                      <input type="text">
-
-                      <!--                                        <app-order-new-menu-card-special-sub-->
-                      <!--                      [indexDay]="indexDaySelected"-->
-                      <!--                      [indexSubGroup]="indexSubGroup"-->
-                      <!--                      [lockDay]="lockDays"-->
-                      <!--                      [orderGroupDay]="orderModel.order[indexDaySelected].orderDayGroups[indexSubGroup]"-->
-                      <!--                      [pastOrder]="pastOrder"-->
-                      <!--                      [settings]="settings">-->
-                      <!--                    </app-order-new-menu-card-special-sub>-->
-                    </div>
-                  </div>
-
-                </ng-container>
-
-              </ng-container>
-
-            </fieldset>
-          </td>
-        </tr>
-        <tr>
-          <td [ngClass]="{'blocked-input':isLocked}">
-            <div class="col-md-12">
-              <div class="form-group">
-                                            <textarea [(ngModel)]="orderModel.order.comment "
-                                                      [disabled]="isLocked"
-                                                      [name]="'comment' + indexDaySelected"
-                                                      class="form-control"
-                                                      name="comment_{{indexDaySelected}}"></textarea>
-
-              </div>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+<ng-container *ngIf="pageLoaded">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+    <!-- Your div element will be repeated 5 times in these grid items -->
+    <app-meal-input-card (orderPlaced)="getDataWeek()"
+                         *ngFor="let orderDay of orderWeek"
+                         [orderDay]="orderDay"
+                         [settings]="settings">
+    </app-meal-input-card>
+    <!-- Repeat four more times -->
   </div>
-</div>
+</ng-container>

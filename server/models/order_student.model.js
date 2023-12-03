@@ -7,16 +7,21 @@ var orderStudent = new Schema({
   customerId:Schema.Types.ObjectId,
   kw:{type:Number,required:'{PATH} is required!'},
   year:{type:Number,required:'{PATH} is required!'},
-  order:{type:Array,required:'{PATH} is required!'},
+  order:{},
+  // price:{type:Number,required:'{PATH} is required!'},
   studentId:Schema.Types.ObjectId,
-  extraOrder:Array,
+  dateOrder:String,
   postInfo :[
     {
       postId:Schema.Types.ObjectId,
       postDate:String
     }
-  ]
+  ],
+  orderId:Schema.Types.ObjectId,
 });
+
+// Creating a unique compound index
+orderStudent.index({ studentId: 1, dateOrder: 1 }, { unique: true });
 
 var OrderStudent = mongoose.model('OrderStudent', orderStudent);
 

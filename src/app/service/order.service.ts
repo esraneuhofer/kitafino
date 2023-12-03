@@ -1,16 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {catchError, map, Observable, of} from "rxjs";
-import {StudentInterface} from "../classes/student.class";
-import {SettingInterfaceNew} from "../classes/setting.class";
-import {CustomerInterface} from "../classes/customer.class";
-import {ArticleInterface} from "../classes/article.interface";
-import {MealModelInterface} from "../classes/meal.interface";
-import {Allergene, ArticleDeclarations} from "../classes/allergenes.interface";
-import {WeekplanMenuInterface} from "../classes/weekplan.interface";
-import {MenuInterface} from "../classes/menu.interface";
-import {OrderModelInterfaceNew, OrderStudentInterface} from "../classes/order.class";
+import {map} from "rxjs";
+import {OrderInterfaceStudentSave} from "../classes/order_student_safe.class";
 
 
 @Injectable(
@@ -19,15 +11,20 @@ import {OrderModelInterfaceNew, OrderStudentInterface} from "../classes/order.cl
 
 export class OrderService {
 
-  noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
+  noAuthHeader = {headers: new HttpHeaders({'NoAuth': 'True'})};
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
 
   }
 
-  getOrderStudentWeek(query:{week:number, year:number}){
-    return this.http.get<OrderStudentInterface>(environment.apiBaseUrl+'/getOrderStudentWeek', {params: query})
-      .pipe(map((response: OrderStudentInterface) => (response)));
+  getOrderStudentDay(query: { dateOrder: string, studentId: string }) {
+    return this.http.get<OrderInterfaceStudentSave>(environment.apiBaseUrl + '/getOrderStudentDay', {params: query})
+      .pipe(map((response: OrderInterfaceStudentSave) => (response)));
+  }
+
+  addOrderStudentDay(object: OrderInterfaceStudentSave) {
+    return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
+      .pipe(map((response: any) => response));
   }
 
   // getWeekplanWeek(query:{week:number, year:number}) {

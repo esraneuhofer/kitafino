@@ -4,9 +4,11 @@ import {getWeekplanModel, MealtypesWeekplan, WeekplanMenuInterface} from "../cla
 import {MenuInterface} from "../classes/menu.interface";
 import {SettingInterfaceNew} from "../classes/setting.class";
 import {getMenuFromId} from "./meal.functions";
-import {QueryInterOrderInterface} from "../home/order-student/order-student.component";
-import {getAllergenesPerRecipe} from "../classes/order.class";
-
+import {getAllergenesPerRecipe} from "../classes/order_student.class";
+export interface QueryInterOrderInterface {
+  week: number,
+  year: number
+}
 export function setAllergensMeal(meal:MealModelInterface, articleDeclaration: Allergene[]): MealModelInterface {
   meal.allergens = [];
   meal.recipe.forEach((eachArticle, indexArticle) => {

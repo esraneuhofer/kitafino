@@ -11,7 +11,7 @@ export interface OrderSettingsDeadLineDailyInterface{
   maxAmountAdd: number;
 }
 
-export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:string):(string | null) {
+export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):(string | null) {
   let dayOrder = new Date(dateInputCompare);
   const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
   const dateObj = moment(deadLineDaily.time).toDate();

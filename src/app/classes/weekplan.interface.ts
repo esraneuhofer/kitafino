@@ -1,7 +1,7 @@
 import {MenuInterface} from "./menu.interface";
 import {SettingInterfaceNew} from "./setting.class";
 import {Allergene} from "./allergenes.interface";
-import {QueryInterOrderInterface} from "../home/order-student/order-student.component";
+import {QueryInterOrderInterface} from "../functions/weekplan.functions";
 export const numberFive = [
   [0, 'Montag'],
   [1, 'Dienstag'],

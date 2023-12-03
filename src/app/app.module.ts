@@ -35,6 +35,11 @@ import { RegistrationComponent } from './home/registration/registration/registra
 import { ManageRegistrationStudentComponent } from './home/registration/manage-registration-student/manage-registration-student.component';
 import { SettingsTableOrderStudentsComponent } from './home/settings/settings-table-order-students/settings-table-order-students.component';
 import { ChargeAccountComponent } from './home/charge-account/charge-account.component';
+import { RegistrationInputComponent } from './home/registration-input/registration-input.component';
+import { LoadingPageComponent } from './directives/loading-page/loading-page.component';
+import { ButtonSpinnerComponent } from './directives/button-spinner/button-spinner.component';
+import { DateSelectionComponent } from './home/order-student/date-selection/date-selection.component';
+import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-no-registration-order/banner-no-registration-order.component';
 
 //
 @NgModule({
@@ -58,7 +63,12 @@ import { ChargeAccountComponent } from './home/charge-account/charge-account.com
     RegistrationComponent,
     ManageRegistrationStudentComponent,
     SettingsTableOrderStudentsComponent,
-    ChargeAccountComponent
+    ChargeAccountComponent,
+    RegistrationInputComponent,
+    LoadingPageComponent,
+    ButtonSpinnerComponent,
+    DateSelectionComponent,
+    BannerNoRegistrationOrderComponent
   ],
     imports: [
         BrowserModule,

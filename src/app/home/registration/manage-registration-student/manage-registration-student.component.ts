@@ -16,7 +16,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
   subGroupUnknownModel: boolean = false;
 
-  selectedStudent!:StudentInterface;
+  selectedStudent:(StudentInterface | null) = null;
   registeredStudents:StudentInterface[] = [];
   customerInfo!:CustomerInterface;
   pageLoaded:boolean = false;
@@ -40,7 +40,15 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
   }
   editStudent(student:StudentInterface){
+    this.submittingRequest = true;
+    student.subgroup = this.selectedSubgroup;
+    this.studentService.editStudent(student).subscribe(response =>{
+      this.selectedSubgroup = '';
+      this.selectedStudent = null;
+      this.submittingRequest = false;
+      this.toaster.success('Änderung wurden erfolgreich übernommen','Erfolgreich');
 
+    })
   }
   routeToAccount(){
     this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent});
@@ -52,6 +60,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
   }
   selectStudent(student:StudentInterface){
     this.selectedStudent = student;
+    this.selectedSubgroup = student.subgroup;
   }
   ngOnInit() {
     forkJoin(
@@ -61,7 +70,6 @@ export class ManageRegistrationStudentComponent implements OnInit{
       .subscribe(([customer,students]:[CustomerInterface,StudentInterface[]])=>{
         this.customerInfo = customer;
         this.registeredStudents = students;
-        console.log(students)
         this.pageLoaded = true;
       })
 
@@ -69,6 +77,9 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
   isSelected(event:string){
     this.subGroupUnknownModel = false;
-    this.selectedStudent.subgroup = event;
+    if(this.selectedStudent){
+      this.selectedStudent.subgroup = event;
+    }
+
   }
 }

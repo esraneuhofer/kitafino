@@ -35,7 +35,6 @@ export class RegisterTenantComponent {
               private toastr: ToastrService,
               private userService: UserService) {
     userService.userProfile().subscribe((response: any) => {
-      console.log(response)
       this.tenantModel.email = response.user.email || '';
       // this.tenantModel.email = response || '';
     })

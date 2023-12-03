@@ -66,7 +66,8 @@
                       <div class="sm:col-span-4">
                         <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe
                           zuordnen</label>
-                        <select #subgroupModel="ngModel" (ngModelChange)="isSelected($event)"
+                        <select #subgroupModel="ngModel" (ngModelChange)="
+    isSelected($event)"
                                 [(ngModel)]="selectedSubgroup"
                                 [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
                                 [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
@@ -104,8 +105,8 @@
                           </div>
                         </div>
                       </div>
-
                     </div>
+
 
                   </div>
                 </div>
@@ -148,14 +149,20 @@
                       Dem Verpflegungsteilnehmer/in wurde automatisch ein Benutzername zugeordnet.
                       Der Benutzername ist für eine eindeutige Identifizeirung des Gutehaben Kontos ".
                     </p>
-                    <p class="mt-3 text-sm leading-6 text-gray-600">
-                      <button
-                        (click)="routeToAccount()"
-                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Zur Kontoübersicht
-                      </button>
-
-                    </p>
+                    <div class="mt-3 text-sm leading-6 text-gray-600">
+                      <div class="flex">
+                        <button
+                          (click)="routeToAccount()"
+                          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none">
+                          Zur Kontoübersicht
+                        </button>
+                        <button
+                          (click)="routeToRegistration()"
+                          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none ml-2">
+                          Weitere Anmeldung
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
