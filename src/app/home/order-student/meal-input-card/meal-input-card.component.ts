@@ -36,12 +36,20 @@ export class MealInputCardComponent implements OnInit, OnDestroy{
   saveOrder(orderModel:OrderInterfaceStudent) {
     this.submittingRequest = true;
     let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-    console.log(orderModifiedForSave)
     this.orderService.addOrderStudentDay(orderModifiedForSave).subscribe((data: any) => {
       console.log(data);
       this.orderPlaced.emit(true);
     })
+  }
 
+  cancelOrder(orderModel:OrderInterfaceStudent) {
+    console.log(orderModel)
+    this.submittingRequest = true;
+    // let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+    this.orderService.cancelOrderStudent(orderModel).subscribe((data: any) => {
+      console.log(data);
+      this.orderPlaced.emit(true);
+    })
   }
   editOrder(orderModel:OrderInterfaceStudent) {
 

@@ -19,11 +19,6 @@ import {DateOrderSingleInterface, orderCustomerSeed} from "../../seed.data";
 })
 export class SettingsComponent implements OnInit{
 
-  tenant!:TenantStudentInterface;
-  pageLoaded:boolean = false;
-  accountTenant!:AccountCustomerInterface;
-  students:StudentInterface[] = [];
-  ordersCustomer:DateOrderSingleInterface[] = orderCustomerSeed
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private accountService:AccountService,
               private studentService:StudentService,
@@ -34,23 +29,6 @@ export class SettingsComponent implements OnInit{
               private userService: UserService) {
   }
   ngOnInit() {
-    this.pageLoaded = false
-    forkJoin(
-      this.tenantServiceStudent.getTenantInformation(),
-      this.accountService.getAccountTenant(),
-      this.studentService.getRegisteredStudentsUser()
-    )
-    .subscribe(([tenantInformation,accountInformation,students]:[TenantStudentInterface,AccountCustomerInterface,StudentInterface[]]) =>{
-      this.tenant = tenantInformation;
-      this.accountTenant = accountInformation;
-      this.students = students;
-      this.loadingService.hide();
-      this.pageLoaded = true;
-    })
-  }
-  downLoadeHistory(){
-  }
-  routeToAccount(){
-    this.router.navigate(['../home/charge_account'], {relativeTo: this.r.parent});
+
   }
 }

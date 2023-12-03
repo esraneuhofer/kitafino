@@ -17,8 +17,9 @@ export interface SpecialFoodOrderInterface {
 
 
 export interface OrderInterfaceStudent {
-  studentId: (string | undefined)
+  orderId?:string;
   _id?: string;
+  studentId: (string | undefined)
   kw: number;
   year: number;
   dateOrder: Date;
@@ -57,6 +58,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   dateOrder:Date;
   customerId: string;
   _id?: string;
+  orderId?:string;
   constructor(customer: CustomerInterface,
               query: { week: number, year: number },
               settings: SettingInterfaceNew,

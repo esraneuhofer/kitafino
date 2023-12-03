@@ -48,6 +48,7 @@ router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
 /////Order Requests ////
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
 router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
+router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,crtlOrder.cancelOrderStudent)
 
 
 ///Acoount Requests ////

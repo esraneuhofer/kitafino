@@ -8,7 +8,7 @@
        [hidden]="!eachMenu.displayMenu"
     class="relative rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">
     <label for="name" class="block text-xs font-medium text-gray-900">{{eachMenu.nameMenu}}</label>
-    <input type="text" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+    <input type="number" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
            [(ngModel)]="eachMenu.amountOrder"
            [placeholder]="eachMenu.nameOrder">
   </div>
@@ -23,7 +23,7 @@
     </button>
     <button
       *ngIf="orderDay.orderStudentModel._id"
-      (click)="editOrder(orderDay.orderStudentModel)"
+      (click)="cancelOrder(orderDay.orderStudentModel)"
       class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
       type="submit">
       <app-button-spinner [submittingRequest]="submittingRequest" [btnText]="'Ändern'"></app-button-spinner>

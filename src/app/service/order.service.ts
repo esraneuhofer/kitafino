@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map} from "rxjs";
 import {OrderInterfaceStudentSave} from "../classes/order_student_safe.class";
+import {OrderInterfaceStudent} from "../classes/order_student.class";
 
 
 @Injectable(
@@ -24,6 +25,10 @@ export class OrderService {
 
   addOrderStudentDay(object: OrderInterfaceStudentSave) {
     return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
+      .pipe(map((response: any) => response));
+  }
+  cancelOrderStudent(object: OrderInterfaceStudent) {
+    return this.http.post(environment.apiBaseUrl + '/cancelOrderStudent', object)
       .pipe(map((response: any) => response));
   }
 

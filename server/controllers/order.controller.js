@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const OrderStudent = mongoose.model('OrderStudent');
 const AccountSchema = mongoose.model('AccountSchema');
 const express = require('express');
+const moment  = require('moment-timezone');
 
 
 module.exports.getOrderStudentDay = async (req, res, next) => {
@@ -64,7 +65,7 @@ getTotalPrice = (orderAccount) => {
 module.exports.addOrderStudentDay = async (req, res, next) => {
   req.body.tenantId = req.tenantId;
   req.body.customerId = req.customerId; // Ensure this is correct
-
+  req.body.userId = req._id
   let orderAccount = setOrderAccount(req.body);
   let totalPrice = getTotalPrice(orderAccount);
   const session = await mongoose.startSession();
@@ -78,18 +79,16 @@ module.exports.addOrderStudentDay = async (req, res, next) => {
       throw new Error('Insufficient funds');
     }
     let orderId = new mongoose.Types.ObjectId();
-    console.log('account', account)
     // Perform Transaction
     account.currentBalance -= totalPrice;
     account.orders.push({
       studentId: req.body.studentId,
       orderId:orderId ,
-      date: new Date(),
-      order: orderAccount,
-      priceTotal: totalPrice,
-      type: 'order'
+      date: req.body.dateOrder,
+      priceAllOrdersDate: totalPrice,
+      allOrdersDate: [
+        {order:orderAccount,priceTotal:totalPrice,type:'order',date:req.body.dateOrder}],
     });
-
     await account.save({session});
 
     // Save the Order
@@ -123,4 +122,64 @@ module.exports.addOrderStudentDay = async (req, res, next) => {
     session.endSession();
   }
 };
+
+
+module.exports.cancelOrderStudent = async (req, res, next) => {
+  console.log(req.body)
+  let orderId = req.body.orderId;
+  console.log(orderId)
+  const session = await mongoose.startSession();
+  try {
+    await session.startTransaction();
+
+    // Step 1: Delete the OrderStudent document by orderId
+    const deleteResult = await OrderStudent.deleteOne({ orderId: orderId }).session(session);
+    if (deleteResult.deletedCount === 0) {
+      throw new Error('OrderStudent document not found or already deleted');
+    }
+
+    // Step 2: Find the order in accountCustomerSchema and push a cancellation entry
+    const accountCustomer = await AccountSchema.findOne({
+      'orders.orderId': orderId
+    }).session(session);
+
+    if (!accountCustomer) {
+      throw new Error('Account customer with the specified order not found');
+    }
+
+    const order = accountCustomer.orders.find(order => order.orderId === orderId);
+    if (!order || order.allOrdersDate.length === 0) {
+      throw new Error('No entries in allOrdersDate to copy and modify');
+    }
+
+    const newestEntry = order.allOrdersDate.reduce((latest, current) => {
+      return latest.date > current.date ? latest : current;
+    });
+
+    const newEntry = JSON.parse(JSON.stringify(newestEntry));
+    newEntry.date = moment.tz(req.body.date, 'Europe/Berlin').format();
+    newEntry.priceTotal = -Math.abs(newEntry.priceTotal); // Ensure it's negative
+    newEntry.type = 'cancellation';
+
+    order.allOrdersDate.push(newEntry);
+    accountCustomer.currentBalance += newestEntry.priceTotal;
+    // Save the modified document
+    await accountCustomer.save({ session });
+
+    // Finalize the transaction
+    await session.commitTransaction();
+    res.json({success: true, message: 'Order canceled successfully'});
+  } catch (error) {
+    // If an error occurs, abort the transaction
+    await session.abortTransaction();
+    console.error('Error during order cancellation and update:', error);
+    res.json({success: false, message: 'Order not canceled successfully'});
+  } finally {
+    // End the session
+    session.endSession();
+  }
+};
+
+
+
 

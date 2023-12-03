@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var orderStudent = new Schema({
   tenantId:Schema.Types.ObjectId,
   customerId:Schema.Types.ObjectId,
+  userId:Schema.Types.ObjectId,
   kw:{type:Number,required:'{PATH} is required!'},
   year:{type:Number,required:'{PATH} is required!'},
   order:{},

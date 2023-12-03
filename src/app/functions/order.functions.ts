@@ -34,6 +34,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange));
   if (orderStudent) {
     orderNew._id = orderStudent._id;
+    orderNew.orderId = orderStudent.orderId;
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
       let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
       if(indexMenuFound < 0)return;
@@ -44,6 +45,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
       orderNew.order.specialFoodOrder[indexMenu].amountSpecialFood = eachOrder.amountSpecialFood;
     })
   }
+  console.log(orderNew);
   return orderNew;
 }
 
