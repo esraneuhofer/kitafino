@@ -10,6 +10,7 @@ import {MealModelInterface} from "../classes/meal.interface";
 import {Allergene, ArticleDeclarations} from "../classes/allergenes.interface";
 import {WeekplanMenuInterface} from "../classes/weekplan.interface";
 import {MenuInterface} from "../classes/menu.interface";
+import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assignedWeekplan.class";
 
 
 @Injectable(
@@ -23,8 +24,8 @@ export class GenerellService {
   constructor(private http:HttpClient) {
 
   }
-  getSettingsTenant(){
-    return this.http.get<SettingInterfaceNew>(environment.apiBaseUrl+'/getSettingsTenant')
+  getSettingsCaterer(){
+    return this.http.get<SettingInterfaceNew>(environment.apiBaseUrl+'/getSettingsCaterer')
       .pipe(map((response: SettingInterfaceNew) => (response)));
   }
   getCustomerInfo(){
@@ -36,9 +37,15 @@ export class GenerellService {
     return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
       .pipe(map((response: WeekplanMenuInterface) => (response)));
   }
+
+  getWeekplanGroups(){
+    return this.http.get<WeekplanGroupClass[]>(environment.apiBaseUrl+'/getWeekplanGroups')
+      .pipe(map((response: WeekplanGroupClass[]) => (response)));
+  }
+
   getAssignedWeekplan(query:{week:number, year:number}){
-    return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
-      .pipe(map((response: WeekplanMenuInterface) => (response)));
+    return this.http.get<AssignedWeekplanInterface[]>(environment.apiBaseUrl+'/getAssignedWeekplan',{params:query})
+      .pipe(map((response: AssignedWeekplanInterface[]) => (response)));
   }
   getMeals(){
     return this.http.get<MealModelInterface[]>(environment.apiBaseUrl+'/getMeals')
@@ -57,8 +64,8 @@ export class GenerellService {
       .pipe(map((response: ArticleInterface[]) => (response)));
   }
 
-  addStudent(object:StudentInterface){
-    return this.http.post(environment.apiBaseUrl+'/addStudent',object)
+  sendEmail(object:any){
+    return this.http.post(environment.apiBaseUrl+'/sendEmail',object)
       .pipe(map((response: any) => response));
   }
 

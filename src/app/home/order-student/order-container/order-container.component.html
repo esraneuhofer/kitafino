@@ -1,11 +1,16 @@
 <ng-container *ngIf="pageLoaded">
   <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
     <!-- Your div element will be repeated 5 times in these grid items -->
-    <app-meal-input-card (orderPlaced)="getDataWeek()"
-                         *ngFor="let orderDay of orderWeek"
-                         [orderDay]="orderDay"
-                         [settings]="settings">
-    </app-meal-input-card>
+    <ng-container *ngFor="let orderDay of orderWeek let index = index">
+      <app-meal-input-card (orderPlaced)="getDataWeek()"
+                           [customer]="customer"
+                           [orderDay]="orderDay"
+                           [settings]="settings"
+                            [indexDay]="index"
+                           [tenantStudent]="tenantStudent"
+                           [weekplanDay]="selectedWeekplan.weekplan[index]">
+      </app-meal-input-card>
+    </ng-container>
     <!-- Repeat four more times -->
   </div>
 </ng-container>

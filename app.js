@@ -20,6 +20,9 @@ mongoose.connect(uri, { useNewUrlParser: true })
     console.log(err);
   });
 
+require(__dirname + '/server/models/transaction.model');
+require(__dirname + '/server/models/orders_account.model');
+require(__dirname + '/server/models/weekplan_group.model');
 require(__dirname + '/server/models/order_student.model');
 require(__dirname + '/server/models/assigned_weekplan.model');
 require(__dirname + '/server/models/charge_account.model');

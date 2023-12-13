@@ -17,7 +17,6 @@ export class AuthGuard {
     if (!this.userService.isLoggedIn()) {
       this.router.navigateByUrl('/login');
       this.userService.deleteToken();
-      console.log("Not logged in");
       return false;
     }
     // console.log("Not logged in");

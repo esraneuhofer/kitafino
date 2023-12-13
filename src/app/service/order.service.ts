@@ -22,13 +22,20 @@ export class OrderService {
     return this.http.get<OrderInterfaceStudentSave>(environment.apiBaseUrl + '/getOrderStudentDay', {params: query})
       .pipe(map((response: OrderInterfaceStudentSave) => (response)));
   }
-
+  getOrderStudentYear(query: { year:number }) {
+    return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getOrderStudentYear', {params: query})
+      .pipe(map((response: OrderInterfaceStudentSave[]) => (response)));
+  }
   addOrderStudentDay(object: OrderInterfaceStudentSave) {
     return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
       .pipe(map((response: any) => response));
   }
   cancelOrderStudent(object: OrderInterfaceStudent) {
     return this.http.post(environment.apiBaseUrl + '/cancelOrderStudent', object)
+      .pipe(map((response: any) => response));
+  }
+  editStudentOrder(object: OrderInterfaceStudentSave) {
+    return this.http.post(environment.apiBaseUrl + '/editStudentOrder', object)
       .pipe(map((response: any) => response));
   }
 

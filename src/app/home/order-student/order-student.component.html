@@ -13,6 +13,7 @@
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="flex  items-center"> <!-- Center content vertically and horizontally -->
             <app-order-container
+              [tenantStudent]="tenantStudent"
               [allVacations]="allVacations"
               [customer]="customer"
               [indexDaySelected]="indexDaySelected"
@@ -21,6 +22,7 @@
               [querySelection]="querySelection"
               [selectedStudent]="selectedStudent"
               [settings]="settings"
+              [selectedWeekplan]="selectedWeekplan"
             ></app-order-container>
           </div>
         </div>

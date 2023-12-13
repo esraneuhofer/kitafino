@@ -40,6 +40,14 @@ import { LoadingPageComponent } from './directives/loading-page/loading-page.com
 import { ButtonSpinnerComponent } from './directives/button-spinner/button-spinner.component';
 import { DateSelectionComponent } from './home/order-student/date-selection/date-selection.component';
 import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-no-registration-order/banner-no-registration-order.component';
+import { ConfirmOrderComponent } from './home/dialogs/confirm-order/confirm-order.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { ButtonComponent } from './directives/button/button.component';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+registerLocaleData(localeDe);
 
 //
 @NgModule({
@@ -68,7 +76,9 @@ import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-
     LoadingPageComponent,
     ButtonSpinnerComponent,
     DateSelectionComponent,
-    BannerNoRegistrationOrderComponent
+    BannerNoRegistrationOrderComponent,
+    ConfirmOrderComponent,
+    ButtonComponent,
   ],
     imports: [
         BrowserModule,
@@ -85,7 +95,9 @@ import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-
         FormsModule,
         ToastrModule.forRoot(),
         MatDatepickerModule,
-      MatNativeDateModule
+        MatNativeDateModule,
+        MatDialogModule,
+      FontAwesomeModule
 
     ],
   providers: [{
@@ -93,6 +105,7 @@ import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-
     useClass: AuthInterceptor,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

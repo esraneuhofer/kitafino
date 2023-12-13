@@ -17,6 +17,7 @@ export interface OrderInterfaceStudentDaySafe {
 }
 
 export interface OrderSubDetailNewSafe {
+  menuSelected:boolean;
   typeOrder: string;
   nameOrder: string; //Special === pre ? Menu => Either One
   idType: string;
@@ -28,5 +29,6 @@ export interface SpecialFoodOrderInterfaceSafe {
   idSpecialFood: string,
   amountSpecialFood: number
   priceOrder:number
-  nameSpecialFood:string
+  nameSpecialFood:string,
+  menuSelected:boolean
 }

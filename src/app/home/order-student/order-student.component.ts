@@ -4,7 +4,7 @@ import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
 import {forkJoin} from "rxjs";
 import {CustomerInterface} from "../../classes/customer.class";
-import {WeekplanMenuInterface} from "../../classes/weekplan.interface";
+import {getWeekplanModel, WeekplanMenuInterface} from "../../classes/weekplan.interface";
 import {MealModelInterface} from "../../classes/meal.interface";
 import {MenuInterface} from "../../classes/menu.interface";
 import {ArticleDeclarations} from "../../classes/allergenes.interface";
@@ -14,7 +14,16 @@ import {VacationsInterface} from "../../classes/vacation.interface";
 import {StudentInterface} from "../../classes/student.class";
 import {StudentService} from "../../service/student.service";
 import {ToastrService} from "ngx-toastr";
-import {QueryInterOrderInterface} from "../../functions/weekplan.functions";
+import {getMenusForWeekplan, QueryInterOrderInterface} from "../../functions/weekplan.functions";
+import {TenantServiceStudent} from "../../service/tenant.service";
+import {TenantStudentInterface} from "../../classes/tenant.class";
+import {query} from "@angular/animations";
+import {
+  AssignedWeekplanInterface,
+  setWeekplanModelGroups,
+  WeekplanGroupClass
+} from "../../classes/assignedWeekplan.class";
+import {data} from "autoprefixer";
 
 
 @Component({
@@ -38,7 +47,7 @@ export class OrderStudentComponent implements OnInit {
   subGroupsCustomer: string[] = []; //Subgroup
   querySelection?:QueryInterOrderInterface
   customer!: CustomerInterface;
-  weekplan!: WeekplanMenuInterface;
+  selectedWeekplan!: WeekplanMenuInterface;
   meals!: MealModelInterface[];
   menus!: MenuInterface[];
   articleDeclarations!: ArticleDeclarations;
@@ -46,22 +55,30 @@ export class OrderStudentComponent implements OnInit {
   settings!: SettingInterfaceNew;
   allVacations: VacationsInterface[] = [];
   selectedStudent: (StudentInterface | null) = null;
+  tenantStudent!: TenantStudentInterface;
+  assignedWeekplanSelected!: AssignedWeekplanInterface;
+  weekplanGroups: WeekplanGroupClass[] = [];
 
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
+              private tenantService: TenantServiceStudent,
               private studentService: StudentService) {
   }
 
   ngOnInit() {
+    const queryInit = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
-      this.generellService.getSettingsTenant(),
+      this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
-      this.generellService.getWeekplanWeek({year: new Date().getFullYear(), week: getWeekNumber(new Date())}),
+      this.generellService.getWeekplanWeek(queryInit),
       this.generellService.getMeals(),
       this.generellService.getMenus(),
       this.generellService.getArticleDeclaration(),
       this.generellService.getArticle(),
       this.studentService.getRegisteredStudentsUser(),
+      this.tenantService.getTenantInformation(),
+      this.generellService.getAssignedWeekplan(queryInit),
+      this.generellService.getWeekplanGroups()
     ]).subscribe(
       ([
          settings,
@@ -71,7 +88,10 @@ export class OrderStudentComponent implements OnInit {
          menus,
          articleDeclarations,
          articles,
-         students
+         students,
+         tenantStudent,
+        assignedWeekplans,
+        weekplanGroups
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -80,12 +100,14 @@ export class OrderStudentComponent implements OnInit {
         MenuInterface[],
         ArticleDeclarations,
         ArticleInterface[],
-        StudentInterface[]
+        StudentInterface[],
+        TenantStudentInterface,
+        AssignedWeekplanInterface[],
+        WeekplanGroupClass[]
       ]) => {
         this.settings = settings;
         this.customer = customer;
         this.customer.stateHol = 'HE' //Testing
-        this.weekplan = weekplan;
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
         this.registeredStudents = students;
@@ -93,7 +115,10 @@ export class OrderStudentComponent implements OnInit {
         this.articles = articles;
         this.checkDeadline(new Date());
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
+        this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings,queryInit);
+        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer,this.weekplanGroups,settings);
         this.mainDataLoaded = true;
+        this.tenantStudent = tenantStudent;
       },
       (error) => {
         console.error('An error occurred:', error);

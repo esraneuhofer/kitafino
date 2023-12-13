@@ -2,7 +2,7 @@
   <div class="flex justify-center">
     <div class="w-5/6 flex flex-wrap"> <!-- Removed w-5/6 and added custom width in the parent div -->
       <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex w-full">
-<div class="sm:w-1/2 w-full mt-2 mx-2"> <!-- Added horizontal margin -->
+<div class="sm:w-full w-full mt-2 mx-2"> <!-- Added horizontal margin -->
   <label class="block text-sm font-medium leading-6 text-gray-900" for="calenderweek">Kalenderwoche</label>
   <select #subgroupModel="ngModel" (ngModelChange)="initOrderForWeek($event,selectedStudent)"
           [(ngModel)]="query.week"
@@ -13,7 +13,7 @@
     <option *ngFor="let query of queryCalenderWeek" [ngValue]="query.week">{{query.value}}</option>
   </select>
 </div>
-<div class="sm:w-1/2 w-full mt-2 mx-2"> <!-- Added horizontal margin -->
+<div class="sm:w-full w-full mt-2 mx-2"> <!-- Added horizontal margin -->
   <label class="block text-sm font-medium leading-6 text-gray-900" for="year">Jahr</label>
   <select (ngModelChange)="setCalenderWeeks($event)" [(ngModel)]="query.year" class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
           id="year"
@@ -22,8 +22,8 @@
             [ngValue]="year.year">{{year.year}}</option>
   </select>
 </div>
-<div class="w-full lg:w-1/2 mt-2">
-  <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Verpflegungsteilnehmer auswählen</label>
+<div class="sm:w-full w-full mt-2 mx-2">
+  <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Verpflegungsteilnehmer</label>
   <select id="subgroup" name="subgroupModel"
           #subgroupModel="ngModel"
           required

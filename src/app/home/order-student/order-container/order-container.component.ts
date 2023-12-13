@@ -20,6 +20,7 @@ import {
   setOrderStudent
 } from "../../../functions/order.functions";
 import * as moment from 'moment-timezone';
+import {TenantStudentInterface} from "../../../classes/tenant.class";
 
 
 export interface MealCardInterface {
@@ -65,8 +66,9 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() menus!: MenuInterface[]
   @Input() selectedStudent!: StudentInterface;
   @Input() customer!: CustomerInterface;
+  @Input() tenantStudent!: TenantStudentInterface;
   @Input() allVacations!: VacationsInterface[];
-
+  @Input() selectedWeekplan!: WeekplanMenuInterface;
   orderWeek: MealCardInterface[] = [];
 
   @Output() orderPlaced: any = new EventEmitter<Event>();

@@ -35,20 +35,27 @@ router.post('/editStudent',jwtHelper.verifyJwtToken,ctrlStudents.editStudent)
 
 
 //////Get Requests only////////
-router.get('/getSettingsTenant',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsTenant)
+router.get('/getSettingsCaterer',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsCaterer)
 router.get('/getCustomerInfo',jwtHelper.verifyJwtToken,ctrlGenerell.getCustomerInfo)
 router.get('/getWeekplanWeek',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanWeek)
 router.get('/getMeals',jwtHelper.verifyJwtToken,ctrlGenerell.getMeals)
 router.get('/getMenus',jwtHelper.verifyJwtToken,ctrlGenerell.getMenus)
 router.get('/getArticleDeclaration',jwtHelper.verifyJwtToken,ctrlGenerell.getArticleDeclaration)
 router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
+router.get('/getWeekplanGroups',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanGroups)
+router.get('/getAssignedWeekplan',jwtHelper.verifyJwtToken,ctrlGenerell.getAssignedWeekplan)
 
+
+router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
 
 
 /////Order Requests ////
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
+router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
+
 router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
 router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,crtlOrder.cancelOrderStudent)
+router.post('/editStudentOrder',jwtHelper.verifyJwtToken,crtlOrder.editStudentOrder)
 
 
 ///Acoount Requests ////

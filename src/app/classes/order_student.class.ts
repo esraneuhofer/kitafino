@@ -9,6 +9,8 @@ import {OrderInterfaceStudentSave} from "./order_student_safe.class";
 
 
 export interface SpecialFoodOrderInterface {
+  priceOrder: number;
+  menuSelected: boolean;
   nameSpecialFood: string,
   active: boolean,
   idSpecialFood: string,
@@ -34,6 +36,8 @@ export interface OrderInterfaceStudentDay {
 }
 
 export interface OrderSubDetailNew {
+  menuSelected:boolean;
+  priceOrder: number;
   nameMenu:string;
   displayMenu:boolean
   typeOrder: string;//Special Dessert or Side
@@ -41,7 +45,7 @@ export interface OrderSubDetailNew {
   idType: string;
   amountOrder: number;
   isDge?: boolean;
-  isDisabled?: boolean;
+  isDisabled: boolean;
   allergenes?: Allergene[];
   allergenesString?: string[];
   specialOrdersPossibleMenu?: SpecialFoodOrderInterface[];
@@ -111,6 +115,9 @@ export function displayMenuForStudent(typeSpecial:string,settings: SettingInterf
   return true;
 }
 
+export function getPriceOrder(): number{
+  return 5;
+}
 export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
                                   customer: CustomerInterface,
                                   settings: SettingInterfaceNew,
@@ -122,6 +129,8 @@ export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
   //   return null;
   // }
   let order: OrderSubDetailNew = {
+    menuSelected: false,
+    priceOrder:getPriceOrder(),
     nameMenu: eachSpecial.nameSpecial,
     displayMenu: displayMenuForStudent(eachSpecial.typeSpecial, settings), //Shows Menu (Side,Dessert) Depending on Settings
     isDge: eachSpecial.isDge,
@@ -236,6 +245,8 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
   setting.orderSettings.specialFoods.forEach((specialFood) => {
     if (specialFoodShownCustomer(specialFood, customer) && specialFoodIsInAllergies(specialFood, orderDayGroup.allergenes)) {
       arraySpecial.push({
+        menuSelected: false,
+        priceOrder: getPriceOrder(),
         nameSpecialFood: specialFood.nameSpecialFood,
         idSpecialFood: specialFood._id || '',
         amountSpecialFood: 0,
@@ -243,6 +254,8 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
       });
     } else {
       arraySpecial.push({
+        menuSelected: false,
+        priceOrder: getPriceOrder(),
         nameSpecialFood: specialFood.nameSpecialFood,
         idSpecialFood: specialFood._id || '',
         amountSpecialFood: 0,
@@ -329,6 +342,8 @@ function setSpecialArrayNoWeekplanExist(setting: SettingInterfaceNew, customer: 
       idSpecialFood: specialFood._id ||'',
       amountSpecialFood: 0,
       active: false,
+      priceOrder: getPriceOrder(),
+      menuSelected: false,
     }
     if (specialFoodShownCustomer(specialFood, customer) && setting.orderSettings.showMenuWithoutName) {
       specialFoodOrder.active = true;
@@ -345,6 +360,8 @@ function getSpecialOrdersSubGroup(setting: SettingInterfaceNew,
   setting.orderSettings.specialFoods.forEach(specialFood => {
     // if(!specialFood)return
     let obj:SpecialFoodOrderInterface = {
+      menuSelected: false,
+      priceOrder: getPriceOrder(),
       nameSpecialFood: specialFood.nameSpecialFood,
       idSpecialFood: specialFood._id  || '',
       amountSpecialFood: 0,

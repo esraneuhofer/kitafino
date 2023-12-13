@@ -10,9 +10,10 @@ import {StudentInterface} from "../classes/student.class";
 import {
   OrderClassStudent,
   OrderInterfaceStudent,
-  OrderSubDetailNew
+  OrderSubDetailNew, SpecialFoodOrderInterface
 } from "../classes/order_student.class";
 import * as moment from 'moment-timezone';
+import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
 
 function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
@@ -40,21 +41,21 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
       if(indexMenuFound < 0)return;
       // orderNew.order.orderMenus[indexMenu].displayMenu = displayMenuForStudent(eachOrder.typeOrder, settings);
       orderNew.order.orderMenus[indexMenuFound].amountOrder = eachOrder.amountOrder;
+      orderNew.order.orderMenus[indexMenuFound].menuSelected = eachOrder.menuSelected;
     })
     orderStudent.order.specialFoodOrder.forEach((eachOrder, indexMenu) => {
       orderNew.order.specialFoodOrder[indexMenu].amountSpecialFood = eachOrder.amountSpecialFood;
+      orderNew.order.orderMenus[indexMenu].menuSelected = eachOrder.menuSelected;
     })
   }
-  console.log(orderNew);
   return orderNew;
 }
 
-function getPriceOrder():number {
-  return 3.7;
-}
+
 
 export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInterfaceStudentSave {
   let newObject: OrderInterfaceStudentSave = {
+    orderId: copy.orderId || '',
     studentId: copy.studentId || '',
     kw: copy.kw,
     year: copy.year,
@@ -75,7 +76,8 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
         idType: eachOrder.idType,
         amountOrder: eachOrder.amountOrder,
         idMenu: eachOrder.idMenu,
-        priceOrder: getPriceOrder()
+        priceOrder: eachOrder.priceOrder,
+        menuSelected: eachOrder.menuSelected
       }
       newObject.order.orderMenus.push(newObjectPre);
     });
@@ -86,8 +88,9 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
       let newObjectSafe: SpecialFoodOrderInterfaceSafe = {
         idSpecialFood: eachOrder.idSpecialFood,
         amountSpecialFood: eachOrder.amountSpecialFood,
-        priceOrder: getPriceOrder(),
-        nameSpecialFood: eachOrder.nameSpecialFood
+        priceOrder: eachOrder.priceOrder,
+        nameSpecialFood: eachOrder.nameSpecialFood,
+        menuSelected: eachOrder.menuSelected
       }
       newObject.order.specialFoodOrder?.push(newObjectSafe);
     });
@@ -111,4 +114,57 @@ export function getDateMondayFromCalenderweek(dateQuery: { week: number, year: n
   else
     ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
   return ISOweekStart;
+}
+
+
+export function orderIsEmpty(order: OrderInterfaceStudent): boolean {
+  let boolean = true;
+  order.order.orderMenus.forEach((eachOrder) => {
+    if(eachOrder.amountOrder > 0)boolean = false;
+  })
+  order.order.specialFoodOrder.forEach((eachOrder) => {
+    if(eachOrder.amountSpecialFood > 0)boolean = false;
+
+  })
+  return boolean;
+}
+export function orderIsNegative(order: OrderInterfaceStudent): boolean {
+  let boolean = false;
+  order.order.orderMenus.forEach((eachOrder) => {
+    if(eachOrder.amountOrder < 0)boolean = true;
+  })
+  order.order.specialFoodOrder.forEach((eachOrder) => {
+    if(eachOrder.amountSpecialFood < 0)boolean = true;
+
+  })
+  return boolean;
+}
+
+export function customerHasSpecialVisibleEmail(specialFood: SpecialFoodOrderInterface, customerInfo: CustomerInterface) {
+  let show = false;
+  customerInfo.order.specialShow.forEach((specialFoodCustomer) => {
+    if (specialFoodCustomer.idSpecialFood === specialFood.idSpecialFood && specialFoodCustomer.selected) {
+      show = true;
+    }
+  });
+  return show;
+}
+
+export function getTotalPortion(order: OrderInterfaceStudent): number {
+  let number = 0;
+  order.order.orderMenus.forEach((eachOrder) => {
+    number += eachOrder.amountOrder;
+  })
+  order.order.specialFoodOrder.forEach((eachOrder) => {
+    number += eachOrder.amountSpecialFood;
+  })
+  return number;
+}
+
+export function sortOrdersByDate(orders:DisplayOrderArrayIntrface[]) {
+  return orders.sort((a, b) => {
+    const dateA = new Date(a.dateOrder).getTime();
+    const dateB = new Date(b.dateOrder).getTime();
+    return dateA - dateB;
+  });
 }

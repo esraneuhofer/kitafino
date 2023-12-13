@@ -1,5 +1,7 @@
 import * as moment from 'moment-timezone';
 import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
+import {OrderInterfaceStudent} from "../../classes/order_student.class";
+import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 
 
 export interface OrderSettingsDeadLineDailyInterface{
@@ -62,4 +64,26 @@ export function getSplit(customer:CustomerInterface):string[]{
     array.push(eachGroup.group);
   });
   return array;
+}
+
+export function getTotalPrice (orderStudent:OrderInterfaceStudent) {
+  let totalPrice = 0;
+  orderStudent.order.orderMenus.forEach((order) => {
+    totalPrice += order.amountOrder * order.priceOrder
+  })
+  orderStudent.order.specialFoodOrder.forEach((order) => {
+    totalPrice += order.amountSpecialFood * order.priceOrder;
+  })
+  return totalPrice;
+}
+
+export function getTotalPriceSafe (orderStudent:OrderInterfaceStudentSave) {
+  let totalPrice = 0;
+  orderStudent.order.orderMenus.forEach((order) => {
+    totalPrice += order.amountOrder * order.priceOrder
+  })
+  orderStudent.order.specialFoodOrder.forEach((order) => {
+    totalPrice += order.amountSpecialFood * order.priceOrder;
+  })
+  return totalPrice;
 }
