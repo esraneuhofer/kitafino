@@ -1,4 +1,13 @@
 <ng-container *ngIf="pageLoaded">
+  <div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+      <div class="w-5/6 flex flex-wrap"> <!-- Removed w-5/6 and added custom width in the parent div -->
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex w-full">
+          <p *ngIf="accountTenant && accountTenant.currentBalance">{{accountTenant.currentBalance | currency:'€'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
     <!-- Your div element will be repeated 5 times in these grid items -->
     <ng-container *ngFor="let orderDay of orderWeek let index = index">
@@ -14,3 +23,6 @@
     <!-- Repeat four more times -->
   </div>
 </ng-container>
+<div *ngIf="!pageLoaded" class="loading-screen">
+  <div class="loading-circle"></div>
+</div>

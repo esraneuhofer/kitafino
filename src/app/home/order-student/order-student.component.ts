@@ -24,6 +24,8 @@ import {
   WeekplanGroupClass
 } from "../../classes/assignedWeekplan.class";
 import {data} from "autoprefixer";
+import {AccountService} from "../../service/account.serive";
+import {AccountCustomerInterface} from "../../classes/account.class";
 
 
 @Component({
@@ -78,7 +80,7 @@ export class OrderStudentComponent implements OnInit {
       this.studentService.getRegisteredStudentsUser(),
       this.tenantService.getTenantInformation(),
       this.generellService.getAssignedWeekplan(queryInit),
-      this.generellService.getWeekplanGroups()
+      this.generellService.getWeekplanGroups(),
     ]).subscribe(
       ([
          settings,
@@ -91,7 +93,7 @@ export class OrderStudentComponent implements OnInit {
          students,
          tenantStudent,
         assignedWeekplans,
-        weekplanGroups
+        weekplanGroups,
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -103,7 +105,7 @@ export class OrderStudentComponent implements OnInit {
         StudentInterface[],
         TenantStudentInterface,
         AssignedWeekplanInterface[],
-        WeekplanGroupClass[]
+        WeekplanGroupClass[],
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -117,8 +119,9 @@ export class OrderStudentComponent implements OnInit {
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
         this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings,queryInit);
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer,this.weekplanGroups,settings);
-        this.mainDataLoaded = true;
         this.tenantStudent = tenantStudent;
+        this.mainDataLoaded = true;
+
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -148,7 +151,13 @@ export class OrderStudentComponent implements OnInit {
     this.pageLoaded = true;
   }
   selectStudent(student:StudentInterface | null){
+    if(!student)return;
+
     this.selectedStudent = student;
+    if(!student.subgroup){
+      this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
+      return;
+    }
     if(!this.querySelection)return;
 
     this.getOrderDay(this.querySelection,this.selectedStudent)

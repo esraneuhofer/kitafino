@@ -112,7 +112,7 @@ function getTotalPrice (order) {
 async function validateCustomerAccount(userId, totalPrice, session) {
   const account = await AccountSchema.findOne({ userId }).session(session);
   if (!account || account.currentBalance < totalPrice) {
-    throw new Error('Insufficient funds');
+    throw new Error('Der Kontostand ist nicht ausreichend');
   }
   return account;
 }

@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{header}}</h2>
+<mat-dialog-content>
+  <p>{{text}}
+    <br>{{total | currency:'€'}}</p>
+  <div class="relative flex items-start mt-3">
+    <div class="flex h-6 items-center">
+      <input [(ngModel)]="sendCopyEmail"
+             aria-describedby="comments-description"
+             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+             id="subGroupUnknown"
+             name="subGroupUnknown"
+             type="checkbox">
+    </div>
+    <div class="ml-3 text-sm leading-6">
+      <label class="font-medium text-gray-900" for="subGroupUnknown">Bestätigung per Email erhalten</label>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <app-button [typeButton]="'default'" [mr]="true" mat-dialog-close>Abbrechen</app-button>
+  <app-button [typeButton]="buttonType" [mat-dialog-close]="{sendCopyEmail:sendCopyEmail}" cdkFocusInitial>{{btnText}}</app-button>
+</mat-dialog-actions>

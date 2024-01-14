@@ -6,6 +6,8 @@
                       (selectStudent)="selectStudent($event)"
                       [registeredStudents]="registeredStudents"
                       [settings]="settings"></app-date-selection>
+
+
   <div *ngIf="!fetchingOrder && selectedStudent && querySelection"
        class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">

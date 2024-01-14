@@ -1,7 +1,7 @@
 import {OrderInterfaceStudent, OrderSubDetailNew} from "../../classes/order_student.class";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {TenantStudentInterface} from "../../classes/tenant.class";
-import {getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
+import {getFormattedDate, getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
 import {CustomerInterface} from "../../classes/customer.class";
 import {customerHasSpecialVisibleEmail, getTotalPortion} from "../../functions/order.functions";
 import {MealtypesWeekplan, WeekplanDayInterface} from "../../classes/weekplan.interface";
@@ -17,10 +17,16 @@ export interface EmailOrderInterface {
   sendCopyEmail:boolean
 }
 
+function numberToEuroString(number: number): string {
+  return `${number.toFixed(2).replace(".", ",")}€`;
+}
+
+
 export function getEmailBody(objectData: EmailOrderInterface): any {
-  let titleOrder = 'Bestellung';
-  let typeOrder = 'Bestellung'
-  const orderTime = getTimeToDisplay();
+  console.log(objectData)
+  let titleOrder = 'Bestellbestätigung';
+  let typeOrder = 'Bestellbestätigung'
+  const orderTime = getInvoiceDateOne(new Date());
   let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
   if(objectData.sendCopyEmail){
     arrayEmail.push(objectData.tenantStudent.email)
@@ -66,38 +72,45 @@ function getEmailBodyHtml(objectData: EmailOrderInterface, typeOrder: string): a
 
 function getTableContent(object: EmailOrderInterface): any {
   let table = ' <table class="table table-bordered">';
+  table += ' <tr style="background: #8693E0">\n' +
+    '            <td >Menu</td>\n' +
+    '            <td>Anzalh</td>\n' +
+    '            <td>Preis</td>\n' +
+    '          </tr>';
     object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
       if (object.settings.orderSettings.hideEmptyOrderEmail && eachOrderDay.amountOrder === 0) {
         return;
       }
-      if (eachOrderDay.typeOrder === 'menu' || eachOrderDay.typeOrder === 'special' ||
+      if (eachOrderDay.typeOrder === 'menu' ||
         (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
         (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {
         let background = getBackGroundColor(eachOrderDay.typeOrder);
         table += '<tr style="background: ' + background + ';">' +
           '<td>' + getMenuName(object,eachOrderDay) + '</td>' +
           '<td>' + eachOrderDay.amountOrder + '</td>' +
+          '<td>' + numberToEuroString(eachOrderDay.priceOrder * eachOrderDay.amountOrder)  + '</td>' +
           '</tr>';
       }
     });
   // if (!hideSpecialFoodIfNoMenuShown(eachGroup.order, obj.settings.orderSettings.showMenuWithoutName)) {
-  object.orderStudent.order.specialFoodOrder.forEach(eachSpecialFood => {
-    if (object.settings.orderSettings.hideEmptyOrderEmail && eachSpecialFood.amountSpecialFood === 0) {
-      return;
-    }
-    if (customerHasSpecialVisibleEmail(eachSpecialFood, object.customerInfo) && eachSpecialFood.amountSpecialFood > 0 || eachSpecialFood.active) {
-      table += ' <tr style="background: #8693E0">\n' +
-        '            <td >' + eachSpecialFood.nameSpecialFood + '</td>\n' +
-        '            <td>' + eachSpecialFood.amountSpecialFood + '</td>\n' +
-        '          </tr>';
-    }
-  });
+  // object.orderStudent.order.specialFoodOrder.forEach(eachSpecialFood => {
+  //   if (object.settings.orderSettings.hideEmptyOrderEmail && eachSpecialFood.amountSpecialFood === 0) {
+  //     return;
+  //   }
+  //   if (customerHasSpecialVisibleEmail(eachSpecialFood, object.customerInfo) && eachSpecialFood.amountSpecialFood > 0 || eachSpecialFood.active) {
+  //     table += ' <tr style="background: #8693E0">\n' +
+  //       '            <td >' + eachSpecialFood.nameSpecialFood + '</td>\n' +
+  //       '            <td>' + eachSpecialFood.amountSpecialFood + '</td>\n' +
+  //       '            <td>Betrag</td>\n' +
+  //       '          </tr>';
+  //   }
+  // });
   // }
 
-  table += ' <tr style="background: #D3D3D3">\n' +
-    '            <td >Gesamt</td>\n' +
-    '            <td>' + getTotalPortion(object.orderStudent) + '</td>\n' +
-    '          </tr>';
+  // table += ' <tr style="background: #D3D3D3">\n' +
+  //   '            <td >Gesamt</td>\n' +
+  //   '            <td>' + getTotalPortion(object.orderStudent) + '</td>\n' +
+  //   '          </tr>';
 
   return table;
 }

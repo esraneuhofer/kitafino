@@ -17,6 +17,7 @@ import {WeekplanDayInterface} from "../../../classes/weekplan.interface";
 import {ToastrService} from "ngx-toastr";
 import {getEmailBodyCancel} from "../email-cancel-order.function";
 import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {timeout} from "rxjs";
 
 
 registerLocaleData(localeDe);
@@ -50,6 +51,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log(this.weekplanDay)
     this.checkDeadline(this.orderDay.date);
   }
 
@@ -116,7 +118,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   setOrderDay(event:boolean,indexMenu:number){
     if(event){
       if(this.checkOrderForOnlyOneMenu(this.orderDay.orderStudentModel,indexMenu)){
-        this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
+        setTimeout(() => {
+          this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
+        },400)
         return alert('Sie können nur ein Menü pro Tag bestellen')
       }
       this.placeOrder(this.orderDay.orderStudentModel, 'order',indexMenu)
@@ -138,6 +142,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         : () => this.orderService.editStudentOrder(orderModifiedForSave);
 
       serviceMethod().subscribe((data: any) => {
+        console.log(data)
         if (data.success) {
           const emailObject = this.getEmailBody(orderModel, type, result);
           const emailBody = getEmailBody(emailObject);
@@ -149,7 +154,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0
           this.submittingRequest = false;
-          alert('Fehler. Die Bestellung konnte nicht gespeichert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport')
+          alert(data.error)
         }
       })
 
@@ -157,7 +162,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   cancelOrder(orderModel: OrderInterfaceStudent,indexMenu:number) {
-
+      console.log(this.orderDay.date)
+    console.log(orderModel)
     this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu,(result) => {
       this.orderService.cancelOrderStudent(orderModel).subscribe((data: any) => {
         const emailObject = this.getEmailBody(orderModel, 'cancel', result);
@@ -167,6 +173,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           const emailObject = this.getEmailBody(orderModel, 'cancel', result);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
             this.orderPlaced.emit(true);
+            console.log(data)
             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
           })
         } else {
@@ -180,7 +187,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   checkDeadline(day: Date): void {
     const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
     if (!distance) {
-      this.pastOrder = true;
+      // this.pastOrder = true;
+      this.pastOrder = false;
       this.differenceTimeDeadline = 'Abbestellfrist ist abgelaufen!';
       clearInterval(this.timerInterval);
     } else {

@@ -27,6 +27,8 @@ export interface OrderInterfaceStudent {
   dateOrder: Date;
   order: OrderInterfaceStudentDay;
   customerId: string;
+  groupIdCustomer:string;
+
 }
 
 export interface OrderInterfaceStudentDay {
@@ -63,6 +65,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   customerId: string;
   _id?: string;
   orderId?:string;
+  groupIdCustomer:string;
   constructor(customer: CustomerInterface,
               query: { week: number, year: number },
               settings: SettingInterfaceNew,
@@ -77,8 +80,14 @@ export class OrderClassStudent implements OrderInterfaceStudent {
     if (studentModel) {
       this.studentId = studentModel._id;
     }
-  }
+    this.groupIdCustomer = this.getSubgroupStudent(studentModel,customer);
 
+  }
+  getSubgroupStudent(studentModel:StudentInterface | null,customer:CustomerInterface):string{
+    if(!studentModel) return '';
+    if(studentModel && studentModel.subgroup.length > 0) return studentModel.subgroup;
+    return customer.order.split[0].group;
+  }
 }
 
 class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {

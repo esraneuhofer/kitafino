@@ -90,7 +90,7 @@
                 <div class="lg:col-start-3 mt-3">
                   <button
                     [ngClass]="order.cancelPossible ? 'bg-red-300' : 'bg-gray-400'"
-                    (click)="routeToAccount()"
+                    (click)="routeToAccount('order_student')"
                     class="rounded-md
                      px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
                       focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -103,7 +103,7 @@
           </table>
           <div class="lg:col-start-3 mt-3">
             <button
-              (click)="routeToAccount()"
+              (click)="routeToAccount('order_student')"
               class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Bestellung aufgeben
@@ -114,7 +114,7 @@
 
         <div class="lg:col-start-3">
           <button
-            (click)="routeToAccount()"
+            (click)="routeToAccount('charge_account')"
             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Konto aufladen

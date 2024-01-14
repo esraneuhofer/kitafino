@@ -11,7 +11,7 @@ var app = express();
 var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = 'mongodb+srv://esraneuhofer:' + encodeURIComponent('Master@Fischer1808!') + '@cluster0.v2dktqh.mongodb.net/main?retryWrites=true&w=majority';
-
+// mongodb+srv://esraneuhofer:Master@Fischer1808!@cluster0.v2dktqh.mongodb.net/main?retryWrites=true&w=majority
 mongoose.connect(uri, { useNewUrlParser: true })
   .then(() => {
     console.log('Connected');

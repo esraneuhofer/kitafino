@@ -46,6 +46,7 @@ import { ButtonComponent } from './directives/button/button.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SchoolOverviewComponent } from './home/school-overview/school-overview.component';
 
 registerLocaleData(localeDe);
 
@@ -79,6 +80,7 @@ registerLocaleData(localeDe);
     BannerNoRegistrationOrderComponent,
     ConfirmOrderComponent,
     ButtonComponent,
+    SchoolOverviewComponent,
   ],
     imports: [
         BrowserModule,

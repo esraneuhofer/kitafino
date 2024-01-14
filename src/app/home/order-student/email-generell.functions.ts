@@ -95,9 +95,9 @@ export function getBodyEmailGenerell(objectData:EmailOrderInterface,arrayEmail:s
 
   '<div class="container">\n' +
   '<div style="background:white; border:1px solid lightgray; padding:50px">' +
-  '<h4>' + titleOrder + '</h4>' +
   '  <div class="row">\n' +
   '    <div class="col-10 offset-1">' +
+      '<h4>' + titleOrder + '</h4>' +
   emailBody +
   // editedBody +
   '<div style="margin-top: 15px;font-size:0.7em;">Datum:' + orderTime + ' | ' + typeOrder + ' vom Kunden aufgegeben</div>' +

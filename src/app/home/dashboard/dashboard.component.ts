@@ -93,8 +93,8 @@ export class DashboardComponent {
   }
   downLoadeHistory(){
   }
-  routeToAccount(){
-    this.router.navigate(['../home/charge_account'], {relativeTo: this.r.parent});
+  routeToAccount(route:string){
+    this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
   }
 
   cancelPossible(dateOrder: string): boolean {
@@ -111,4 +111,6 @@ export class DashboardComponent {
       return orderDetail.nameOrder
     }).join(', ')
   }
+
+
 }

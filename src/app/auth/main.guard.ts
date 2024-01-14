@@ -18,16 +18,16 @@ export class MainGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.tenantServiceStudent.hasRegisteredTenant().pipe(
-      tap(hasStudent => {
-        if (!hasStudent) {
-          this.router.navigateByUrl('/register_tenant');
-        }
-      }),
-      catchError((error) => {
-        console.error(error);
-        this.router.navigateByUrl('/register_tenant');
-        return of(false);
-      })
+      // tap(hasStudent => {
+      //   if (!hasStudent) {
+      //     this.router.navigateByUrl('/register_tenant');
+      //   }
+      // }),
+      // catchError((error) => {
+      //   console.error(error);
+      //   this.router.navigateByUrl('/register_tenant');
+      //   return of(false);
+      // })
     );
   }
 }

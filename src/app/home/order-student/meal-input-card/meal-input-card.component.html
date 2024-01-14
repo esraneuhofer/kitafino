@@ -44,8 +44,17 @@
 <!--    </button>-->
 <!--  </div>-->
 <!--</div>-->
+<div  class="bg-white shadow-lg rounded-lg overflow-hidden mb-2">
+  <div class="p-4" >
+    <div class="flex">
+      <div class="w-full flex justify-end">
+        {{ differenceTimeDeadline}}
+      </div>
+    </div>
+  </div>
+</div>
 <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus let indexMenu = index">
-  <div class="bg-white shadow-lg rounded-lg overflow-hidden" [ngClass]="{'mt-1': indexMenu !== 0}">
+  <div  class="bg-white shadow-lg rounded-lg overflow-hidden" [ngClass]="{'mt-1': indexMenu !== 0}">
     <div class="p-4" >
       <div class="flex" *ngIf="indexMenu === 0">
         <div class="w-full bg-gray-200">
@@ -55,8 +64,9 @@
       <div class="flex">
         <div class="w-full">
           <div class="flex">
-            <div class="w-1/6">
+            <div class="w-1/6" *ngIf="eachMenu.displayMenu">
               <input type="checkbox"
+                     [disabled]="pastOrder"
                      (ngModelChange)="setOrderDay($event,indexMenu)"
                      [name]="'menuSelected' + indexMenu + '_' + indexDay" [(ngModel)]="eachMenu.menuSelected">
             </div>
@@ -73,7 +83,10 @@
           <fa-icon [icon]="faTrashCan" *ngIf="eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,false)"></fa-icon>
         </div>
       </div>
+
+
     </div>
   </div>
 
 </div>
+

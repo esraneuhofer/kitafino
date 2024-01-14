@@ -7,7 +7,7 @@ import {
 } from "../../../classes/order_student_safe.class";
 import {GenerellService} from "../../../service/generell.service";
 import {addDayFromDate, getWeekNumber} from "../order.functions";
-import {defaultIfEmpty, forkJoin} from "rxjs";
+import {defaultIfEmpty, forkJoin, Observable} from "rxjs";
 import {WeekplanMenuInterface} from "../../../classes/weekplan.interface";
 import {getMenusForWeekplan, QueryInterOrderInterface} from "../../../functions/weekplan.functions";
 import {MenuInterface} from "../../../classes/menu.interface";
@@ -21,6 +21,9 @@ import {
 } from "../../../functions/order.functions";
 import * as moment from 'moment-timezone';
 import {TenantStudentInterface} from "../../../classes/tenant.class";
+import {AccountService} from "../../../service/account.serive";
+import {AccountCustomerInterface} from "../../../classes/account.class";
+import { delay } from 'rxjs/operators';
 
 
 export interface MealCardInterface {
@@ -70,13 +73,16 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() allVacations!: VacationsInterface[];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
   orderWeek: MealCardInterface[] = [];
+  accountTenant?:AccountCustomerInterface
 
   @Output() orderPlaced: any = new EventEmitter<Event>();
   isLocked: boolean = false;
   pageLoaded: boolean = false;
   query: { week: number; year: number } = {week: 0, year: 0};
 
-  constructor(private orderService: OrderService, private generellService: GenerellService) {
+  constructor(private orderService: OrderService,
+              private accountService:AccountService,
+              private generellService: GenerellService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,6 +94,10 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.accountService.getAccountTenant().subscribe((accountTenant:AccountCustomerInterface) => {
+      this.accountTenant = accountTenant;
+
+    })
     // this.query = {year: new Date(this.selectedDate).getFullYear(), week: getWeekNumber(new Date(this.selectedDate))}
     // this.getDataWeek()
   }
@@ -97,7 +107,16 @@ export class OrderContainerComponent implements OnInit, OnChanges {
     this.orderWeek = [];
     this.pageLoaded = false;
     const dateMonday = getDateMondayFromCalenderweek(this.query);
-    this.generellService.getWeekplanWeek(this.query).subscribe((weekplan: WeekplanMenuInterface) => {
+    const delayObservable = new Observable(observer => {
+      setTimeout(() => observer.next(), 1000); // 1000 ms delay
+    });
+    forkJoin([
+      this.accountService.getAccountTenant(),
+      this.generellService.getWeekplanWeek(this.query),
+
+    ]).subscribe(([accountTenant,weekplan]: [AccountCustomerInterface,WeekplanMenuInterface]) => {
+      this.accountTenant = accountTenant;
+
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
@@ -116,6 +135,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, lockDays))
         }
         this.pageLoaded = true;
+
       })
     })
   }

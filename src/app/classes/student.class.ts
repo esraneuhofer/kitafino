@@ -5,7 +5,6 @@ export interface StudentInterface {
   username:string;
   subgroup:string,
   customerId:string,
-
 }
 
 export function setEmptyStudentModel():StudentInterface{
