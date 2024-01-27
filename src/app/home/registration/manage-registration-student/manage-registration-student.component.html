@@ -94,25 +94,25 @@
               </div>
               <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
             </div>
-            <div class="sm:col-span-4">
-              <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Gruppe zuordnen</label>
-              <select id="subgroup" name="subgroupModel"
-                      #subgroupModel="ngModel"
-                      [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
-                      [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
-                      [class.ring-red-300]="f1.submitted && subgroupModel.invalid"
-                      [class.text-red-900]="f1.submitted && subgroupModel.invalid"
-                      [required]="!subGroupUnknownModel"
-                      [(ngModel)]="selectedSubgroup"
-                      (ngModelChange)="isSelected($event)"
-                      class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                <option value="" disabled selected hidden>Bitte auswählen</option>
-                <option
-                  *ngFor="let subgroup of customerInfo.order.split" [value]="subgroup.group">{{subgroup.displayGroup}}</option>
-              </select>
-              <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte auswählen oder ankreuzen</p>
+<!--            <div class="sm:col-span-4">-->
+<!--              <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Gruppe zuordnen</label>-->
+<!--              <select id="subgroup" name="subgroupModel"-->
+<!--                      #subgroupModel="ngModel"-->
+<!--                      [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"-->
+<!--                      [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"-->
+<!--                      [class.ring-red-300]="f1.submitted && subgroupModel.invalid"-->
+<!--                      [class.text-red-900]="f1.submitted && subgroupModel.invalid"-->
+<!--                      [required]="!subGroupUnknownModel"-->
+<!--                      [(ngModel)]="selectedSubgroup"-->
+<!--                      (ngModelChange)="isSelected($event)"-->
+<!--                      class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                <option value="" disabled selected hidden>Bitte auswählen</option>-->
+<!--                <option-->
+<!--                  *ngFor="let subgroup of customerInfo.order.split" [value]="subgroup.group">{{subgroup.displayGroup}}</option>-->
+<!--              </select>-->
+<!--              <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte auswählen oder ankreuzen</p>-->
 
-            </div>
+<!--            </div>-->
           </div>
 
         </div>

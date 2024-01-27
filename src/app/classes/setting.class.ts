@@ -28,30 +28,22 @@ export interface OrderSettingsDeadLineDailyInterface{
   maxAmountAdd: number;
 }
 export interface OrderSettingsInterfaceNew {
-
-  showDessertIfNotSeparate:boolean; // Dessert anzeigen, aber nicht input freigeben
-  showSideIfNotSeparate:boolean;//Salat anzeigen, aber nicht input freigeben
-  sideOrDessertChoose: boolean; //Beilage oder Dessert auswählbar
-  showMenuWithoutName: boolean;  //Menu ohne Name anzeigen und input freigeben
-  onlyOneMenuSelectable: boolean; // Nur ein Menu auswählbar
-  onlyShowEasyView: boolean; // Nur vereinfachte Sicht anzeigen lassen
-  displaySpecialMenuSimple:boolean; //Sonderessen Menu "vereinfacht" anzeigen
-  hideEmptyOrderEmail:boolean; //Bestellung nicht anzeigen bei leerer Bestellung (Email Versand)
-
-
+  heightCard: number;
+  hideNutritionSidebar: boolean;
+  onlyShowEasyView: boolean;
+  sideOrDessertChoose:boolean;
   displayTypeEmailOrder: string,
-  sideOrderSeparate: boolean, // If true, sideDishes are declared in Ordersettings, if false, sideDishes are declared in CustomerModel
-  dessertOrderSeparate: boolean, // If true, dessert are declared in Ordersettings, if false, dessert are declared in CustomerModel
-  sidePortionChoose: boolean,
-  dessertPortionChoose: boolean,
-  specialShowDessertIfShowMenu: boolean;
-  specialShowSideIfShowMenu: boolean;
-  specialShowPerMeal: boolean;
-
+  hideEmptyOrderEmail:boolean;
+  showDessertIfNotSeparate:boolean;
+  showSideIfNotSeparate:boolean;
   isDeadlineDaily: boolean;
   deadLineDaily:OrderSettingsDeadLineDailyInterface
-
-
+  onlyOneMenuSelectable: boolean;
+  showMenuWithoutName: boolean;
+  specialShowDessertIfShowMenu: boolean;
+  specialShowSideIfShowMenu: boolean;
+  specialShowDessert: boolean;
+  specialShowPerMeal: boolean;
   textEmailReminder: string;
   extraOption: [{
     nameExtra: string;
@@ -62,8 +54,10 @@ export interface OrderSettingsInterfaceNew {
   }];
   groupTypes: GroupTypesSettingsIdInterface[],
   specials: SpecialOrderSettings[],
+  surchargeSpecialFood:boolean;
   specialFoods: SpecialFoodInterface[];
-
+  sideOrderSeparate: boolean, // If true, sideDishes are declared in Ordersettings, if false, sideDishes are declared in CustomerModel
+  dessertOrderSeparate: boolean, // If true, dessert are declared in Ordersettings, if false, dessert are declared in CustomerModel
   showRating: boolean;
   commentOption: boolean;
   confirmationEmail: string;
@@ -84,8 +78,10 @@ export interface OrderSettingsInterfaceNew {
   isMinOrderAmountSub: boolean,
   minOrderAmountSub: number
 }
-export interface InvoiceSettingsInterface {
 
+export interface InvoiceSettingsInterface {
+  displayInvoiceCombined: boolean;
+  differentPricesMenus: boolean;
   logo: {
     filename: string;
     base64: string;
@@ -110,6 +106,7 @@ export interface InvoiceSettingsInterface {
   taxDisplay: string;
   invoiceNumberType: string;
 }
+
 export interface TenantSettingsInterface {
   billing: {
     testPeriodEnds: string;

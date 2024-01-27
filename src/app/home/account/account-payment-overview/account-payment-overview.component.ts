@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {AccountChargeInterface, TransactionService} from "../../../service/transaction.service";
+import {StudentService} from "../../../service/student.service";
 
 
 @Component({
@@ -8,9 +11,22 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AccountPaymentOverviewComponent implements OnInit{
 
-  constructor() {
+  submittingRequest = false;
+  accountCharge:AccountChargeInterface[] = [];
+  constructor(private transactionService:TransactionService,
+
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+
+      this.transactionService.getTransactionTenant()
+
+        .subscribe((response:AccountChargeInterface[])=>{
+        this.accountCharge = response;
+        console.log(response);
+      })
   }
+
 }

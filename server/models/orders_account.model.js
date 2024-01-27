@@ -7,15 +7,19 @@ const allOrdersDateSchema = new mongoose.Schema({
     nameOrder: String,
     idType: String,
   }],
-  date: {type: Date, required: true},
+  dateTimeOrder: {type: Date, required: true},
   priceTotal: Number,
   type: String
 
 })
 const ordersAccountSchema = new mongoose.Schema({
   studentId: {type: String, required: true},
+  tenantId: {type: String, required: true},
+  userId: {type: String, required: true},
+  customerId: {type: String, required: true},
   orderId: {type: String, required: true},
-  date: {type: Date, required: true},
+  dateOrderMenu: {type: Date, required: true},
+  year: {type: Number, required: true},
   priceAllOrdersDate: {type: Number, required: true},
   allOrdersDate: [allOrdersDateSchema]
 

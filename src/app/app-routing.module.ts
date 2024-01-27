@@ -16,6 +16,8 @@ import {
 } from "./home/account/account-payment-overview/account-payment-overview.component";
 import {RegistrationComponent} from "./home/registration/registration/registration.component";
 import {ChargeAccountComponent} from "./home/charge-account/charge-account.component";
+import {OrderHistoryComponent} from "./home/order-history/order-history.component";
+import {KindergardenSettingComponent} from "./home/kindergarden-setting/kindergarden-setting.component";
 
 
 
@@ -43,7 +45,9 @@ export const appRoutes: Routes = [
       { path: 'charge_account', component:ChargeAccountComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'account_overview', component:AccountPaymentOverviewComponent , canActivate: [AuthGuard,MainGuard]},
+      { path: 'kindergarten_settings', component:KindergardenSettingComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
+      { path: 'order_history', component:OrderHistoryComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},

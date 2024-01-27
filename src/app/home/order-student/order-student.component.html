@@ -6,30 +6,37 @@
                       (selectStudent)="selectStudent($event)"
                       [registeredStudents]="registeredStudents"
                       [settings]="settings"></app-date-selection>
+  <ng-container *ngIf="studentNoSubgroup">
+    <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
+  </ng-container>
 
-
-  <div *ngIf="!fetchingOrder && selectedStudent && querySelection"
-       class="container mx-auto px-4 mt-8">
-    <div class="flex justify-center">
-      <div class="w-5/6">
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div class="flex  items-center"> <!-- Center content vertically and horizontally -->
-            <app-order-container
-              [tenantStudent]="tenantStudent"
-              [allVacations]="allVacations"
-              [customer]="customer"
-              [indexDaySelected]="indexDaySelected"
-              [menus]="menus"
-              [pastOrder]="pastOrder"
-              [querySelection]="querySelection"
-              [selectedStudent]="selectedStudent"
-              [settings]="settings"
-              [selectedWeekplan]="selectedWeekplan"
-            ></app-order-container>
+  <ng-container *ngIf="!studentNoSubgroup">
+    <ng-container *ngIf="!fetchingOrder">
+      <ng-container  *ngIf="selectedStudent && querySelection">
+        <div class="container mx-auto px-4 mt-8">
+          <div class="flex justify-center">
+            <div class="w-5/6">
+              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="flex  items-center"> <!-- Center content vertically and horizontally -->
+                  <app-order-container
+                    [tenantStudent]="tenantStudent"
+                    [allVacations]="allVacations"
+                    [customer]="customer"
+                    [indexDaySelected]="indexDaySelected"
+                    [menus]="menus"
+                    [pastOrder]="pastOrder"
+                    [querySelection]="querySelection"
+                    [selectedStudent]="selectedStudent"
+                    [settings]="settings"
+                    [selectedWeekplan]="selectedWeekplan"
+                  ></app-order-container>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
 </ng-container>
 <app-loading-page [pageLoaded]="mainDataLoaded"></app-loading-page>

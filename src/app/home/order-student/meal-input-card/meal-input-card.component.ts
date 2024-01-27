@@ -51,7 +51,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.weekplanDay)
     this.checkDeadline(this.orderDay.date);
   }
 
@@ -142,7 +141,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         : () => this.orderService.editStudentOrder(orderModifiedForSave);
 
       serviceMethod().subscribe((data: any) => {
-        console.log(data)
         if (data.success) {
           const emailObject = this.getEmailBody(orderModel, type, result);
           const emailBody = getEmailBody(emailObject);

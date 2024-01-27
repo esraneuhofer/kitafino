@@ -47,6 +47,11 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SchoolOverviewComponent } from './home/school-overview/school-overview.component';
+import { BannerNoSubgroupOrderComponent } from './home/banners/banner-no-subgroup-order/banner-no-subgroup-order.component';
+import { OrderHistoryComponent } from './home/order-history/order-history.component';
+import { KindergardenSettingComponent } from './home/kindergarden-setting/kindergarden-setting.component';
+import { GeneralBannerComponent } from './home/banners/general-banner/general-banner.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 registerLocaleData(localeDe);
 
@@ -81,27 +86,32 @@ registerLocaleData(localeDe);
     ConfirmOrderComponent,
     ButtonComponent,
     SchoolOverviewComponent,
+    BannerNoSubgroupOrderComponent,
+    OrderHistoryComponent,
+    KindergardenSettingComponent,
+    GeneralBannerComponent,
   ],
-    imports: [
-        BrowserModule,
-        CommonModule,
-        RouterModule.forRoot(appRoutes),
-        HttpClientModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatStepperModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        FormsModule,
-        ToastrModule.forRoot(),
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatDialogModule,
-      FontAwesomeModule
+  imports: [
+    BrowserModule,
+    CommonModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    FormsModule,
+    ToastrModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    FontAwesomeModule,
+    MatTooltipModule
 
-    ],
+  ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

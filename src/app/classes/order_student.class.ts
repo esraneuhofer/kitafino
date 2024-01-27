@@ -6,6 +6,7 @@ import {Allergene} from "./allergenes.interface";
 import {MenuInterface} from "./menu.interface";
 import {MealModelInterface} from "./meal.interface";
 import {OrderInterfaceStudentSave} from "./order_student_safe.class";
+import {getPriceStudent} from "../home/order-student/order-container/order-container.component";
 
 
 export interface SpecialFoodOrderInterface {
@@ -72,7 +73,8 @@ export class OrderClassStudent implements OrderInterfaceStudent {
               selectedWeek: WeekplanDayInterface,
               studentModel: (StudentInterface | null)
               ,dateOrder:Date) {
-    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek)
+    const priceStudent = getPriceStudent(studentModel,customer,settings)
+    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,priceStudent)
     this.customerId = customer.customerId;
     this.dateOrder = dateOrder;
     this.kw = query.week;
@@ -85,7 +87,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   }
   getSubgroupStudent(studentModel:StudentInterface | null,customer:CustomerInterface):string{
     if(!studentModel) return '';
-    if(studentModel && studentModel.subgroup.length > 0) return studentModel.subgroup;
+    if(studentModel && studentModel.subgroup &&  studentModel.subgroup.length > 0) return studentModel.subgroup;
     return customer.order.split[0].group;
   }
 }
@@ -97,9 +99,10 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
 
   constructor(customer: CustomerInterface,
               settings: SettingInterfaceNew,
-              selectedWeek: WeekplanDayInterface) {
+              selectedWeek: WeekplanDayInterface,
+              priceStudent:number) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
-      let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek);
+      let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
       if (order) {
         this.orderMenus.push(order);
       }
@@ -119,8 +122,8 @@ export function setOrderStudentWeekplan(orderStudent:OrderInterfaceStudent,setti
 export function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
   if(settings.orderSettings.showDessertIfNotSeparate && typeSpecial === 'dessert') return false
   if(settings.orderSettings.showSideIfNotSeparate && typeSpecial === 'side') return false
-  if(settings.orderSettings.dessertPortionChoose && typeSpecial === 'dessert') return true
-  if(settings.orderSettings.sidePortionChoose && typeSpecial === 'side') return true
+  // if(settings.orderSettings.dessertPortionChoose && typeSpecial === 'dessert') return true
+  // if(settings.orderSettings.sidePortionChoose && typeSpecial === 'side') return true
   return true;
 }
 
@@ -130,7 +133,7 @@ export function getPriceOrder(): number{
 export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
                                   customer: CustomerInterface,
                                   settings: SettingInterfaceNew,
-                                  selectedWeek: WeekplanDayInterface):OrderSubDetailNew {
+                                  selectedWeek: WeekplanDayInterface,priceStudent:number):OrderSubDetailNew {
   // if (eachSpecial.typeSpecial === 'side' && !settings.orderSettings.sideOrderSeparate) {
   //   return null;
   // }
@@ -139,7 +142,7 @@ export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
   // }
   let order: OrderSubDetailNew = {
     menuSelected: false,
-    priceOrder:getPriceOrder(),
+    priceOrder:priceStudent,
     nameMenu: eachSpecial.nameSpecial,
     displayMenu: displayMenuForStudent(eachSpecial.typeSpecial, settings), //Shows Menu (Side,Dessert) Depending on Settings
     isDge: eachSpecial.isDge,

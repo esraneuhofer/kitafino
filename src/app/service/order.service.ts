@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {map} from "rxjs";
 import {OrderInterfaceStudentSave} from "../classes/order_student_safe.class";
 import {OrderInterfaceStudent} from "../classes/order_student.class";
+import {OrdersAccountInterface} from "../classes/order_account.interface";
 
 
 @Injectable(
@@ -26,6 +27,11 @@ export class OrderService {
     return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getOrderStudentYear', {params: query})
       .pipe(map((response: OrderInterfaceStudentSave[]) => (response)));
   }
+  getAccountOrderUserYear(query: { year:number }) {
+    return this.http.get<OrdersAccountInterface[]>(environment.apiBaseUrl + '/getAccountOrderUserYear', {params: query})
+      .pipe(map((response: OrdersAccountInterface[]) => (response)));
+  }
+
   addOrderStudentDay(object: OrderInterfaceStudentSave) {
     return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
       .pipe(map((response: any) => response));

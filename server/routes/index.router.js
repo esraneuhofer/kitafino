@@ -10,6 +10,7 @@ const ctrlGenerell = require('../controllers/generell.controller');
 const ctrlStudents = require('../controllers/student.controller');
 const crtlAccount = require('../controllers/account.controller');
 const crtlOrder = require('../controllers/order.controller');
+const crtlTransaction = require('../controllers/transaction.controller');
 
 const jwtHelper = require('../config/jwtHelper');
 
@@ -28,7 +29,6 @@ router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTena
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 
 //////Student Requests////////
-
 router.post('/addStudent',jwtHelper.verifyJwtToken,ctrlStudents.addStudent)
 router.post('/editStudent',jwtHelper.verifyJwtToken,ctrlStudents.editStudent)
 
@@ -52,10 +52,12 @@ router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
 /////Order Requests ////
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
 router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
-
 router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
 router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,crtlOrder.cancelOrderStudent)
 router.post('/editStudentOrder',jwtHelper.verifyJwtToken,crtlOrder.editStudentOrder)
+
+router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAccountOrderUserYear)
+
 
 
 ///Acoount Requests ////
@@ -63,4 +65,10 @@ router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTe
 router.post('/chargeAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.chargeAccountTenant);
 router.post('/getAccountChargesDate',jwtHelper.verifyJwtToken,crtlAccount.getAccountChargesDate);
 
+/////Transaction Requests ////
+router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getTransactionTenant);
+
+
 module.exports = router;
+
+

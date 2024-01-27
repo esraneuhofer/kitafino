@@ -1,57 +1,71 @@
-export interface SpecialsHiddenInterface {idSpecial:string,nameSpecial:string,selected:boolean}
+import {SettingInterfaceNew} from "./setting.class";
+
+
 export interface SpecialsShow {idSpecialFood:string,nameSpecialFood:string,selected:boolean}
+export interface GroupBillingInterface{
+  groupId:string,
+  idGroupType:string,
+  displayNameBilling:string,
+  tax:number,
+  individualPricing:boolean,
+  prices:PricesGroupBillingInterface[]
+}
+export interface PricesGroupBillingInterface{priceSpecial:number,idSpecial:string, nameSpecial?:string,typeSpecial:string}
 
 export interface CustomerInterface {
+  username?:string;
+  stateHol:string
+
   customerId:string;
   _id?:string;
   // tenantId: Schema.Types.ObjectId,
   // customerId: Schema.Types.ObjectId,
   active:boolean;
-  stateHol:string;
-  order: {
-    deliveryTime: Date;
-    permanentOrder: boolean;
-    showSpecialFood:boolean;
-    hideExtra:boolean;
-    specialsHidden:SpecialsHiddenInterface[],
-    specialShow:SpecialsShow[],
-    addSubgroupsOrder:boolean;
-    split: CustomerOrderSplit[],
-    // orderCycle:{type:string;required:'{PATH} is required!'},
-    dessert: boolean;
-    ignoreMinOrder:boolean,
-    sidedish:boolean;
-    showExtraOrder:boolean;  },
-  settings: {
-    firstAccess: boolean;
-    substitute: boolean;
-    remarks:string;
-    state:string;  },
-  billing: {
-    headingInvoice: {heading:string}[],
-    group: [{
-      tax:string;
-      pricePortion:number
-    }],
-    invoiceCycle: string;
-    customerNumber: string;
-    paymentMethod: boolean;
-    separateBilling: boolean;
-    grossPrice:boolean;
-    iban:string;
-  },
-  contact: {
-    customer: string;
-    street: string;
-    zipcode: string;
-    contactPerson: string;
-    phone: string;
-    fax: string;
-    secondEmail:string;
-    email: string;
-
-  }
+  order:CustomerOrderInterface
+  settings:CustomerSettingsInterface
+  billing:CustomerBillingInterface
+  contact: CustomerContactInterface
 }
+
+export interface CustomerOrderInterface {
+  individualPricing:boolean;
+  deliveryTime: Date;
+  permanentOrder: boolean;
+  showSpecialFood:boolean;
+  hideExtra:boolean;
+  specialShow:SpecialsShow[],
+  addSubgroupsOrder:boolean;
+  split: CustomerOrderSplit[],
+  // orderCycle:{type:string;required:'{PATH} is required!'},
+  dessert: boolean;
+  ignoreMinOrder:boolean,
+  sidedish:boolean;
+  showExtraOrder:boolean;  }
+export interface CustomerSettingsInterface {
+  firstAccess: boolean;
+  substitute: boolean;
+  remarks:string;
+  state:string;  }
+export interface CustomerBillingInterface {
+  headingInvoice: {heading:string}[],
+  group: GroupBillingInterface[],
+  customerNumber: string;
+  paymentMethod: boolean;
+  separateBilling: boolean;
+  separatePrice?:boolean;
+  iban:string;
+}
+export interface CustomerContactInterface{
+  customer: string;
+  street: string;
+  zipcode: string;
+  contactPerson: string;
+  phone: string;
+  fax: string;
+  secondEmail:string;
+  email: string;
+}
+
 export interface CustomerOrderSplit{
   displayGroup:string;
   group:string;

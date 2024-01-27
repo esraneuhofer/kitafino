@@ -91,8 +91,7 @@ export class DashboardComponent {
         this.pageLoaded = true;
       })
   }
-  downLoadeHistory(){
-  }
+
   routeToAccount(route:string){
     this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
   }

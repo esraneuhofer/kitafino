@@ -32,6 +32,34 @@ export interface MealCardInterface {
   date: Date
 }
 
+function getPriceStudentDependingOnSettings(settings:SettingInterfaceNew,eachPrice: { priceSpecial: number, idSpecial: string, nameSpecial?: string, typeSpecial: string }[]): number {
+  let priceStudent = 0;
+  if(settings.invoiceSettings.differentPricesMenus){
+
+  }else{
+    eachPrice.forEach(eachPrice => {
+      if(eachPrice.typeSpecial === 'menu'){
+        if(eachPrice.priceSpecial > priceStudent){
+          priceStudent = eachPrice.priceSpecial;
+        }
+      }
+    })
+  }
+  return priceStudent;
+}
+
+export function getPriceStudent(selectedStudent: StudentInterface | null, customer: CustomerInterface,settings:SettingInterfaceNew): number {
+  if(!selectedStudent)return 0;
+  let priceStudent = 0;
+  customer.billing.group.forEach(eachGroup => {
+      if(eachGroup.groupId === selectedStudent.subgroup){
+
+          priceStudent = getPriceStudentDependingOnSettings(settings,eachGroup.prices)
+      }
+  })
+  return priceStudent;
+}
+
 function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
                             weekplanSelectedWeek: WeekplanMenuInterface,
                             settings: SettingInterfaceNew,
@@ -130,6 +158,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       forkJoin(promiseOrderWeek).pipe(
         defaultIfEmpty([null]),
       ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+        console.log(order)
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, lockDays))

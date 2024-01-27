@@ -2,19 +2,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
+var pricesGroupBillingSchema = new Schema({
+  priceSpecial:Number,
+  idSpecial:String,
+  typeSpecial:String,
+})
+
+
 var customer = new Schema({
   tenantId: Schema.Types.ObjectId,
   customerId: Schema.Types.ObjectId,
   active:Boolean,
   order: {
+    individualPricing: Boolean,
+    addSubgroupsOrder: Boolean,
     ignoreMinOrder:Boolean,
     deliveryTime: String,
     permanentOrder: Boolean,
+    showSpecialFood:Boolean,
     hideSpecialFood:Boolean,
     hideExtra:Boolean,
-    specialsHidden: [{ idSpecial:String,nameSpecial:String,selected:Boolean }],
     specialShow:[{idSpecialFood:String,nameSpecialFood:String,selected:Boolean}],
-
+    // split: Array,
     split: [{
       displayGroup:String,
       group:String,
@@ -35,14 +44,19 @@ var customer = new Schema({
   billing: {
     headingInvoice: Array,
     group: [{
+      groupId:String,
+      idGroupType:Schema.Types.ObjectId,
+      displayNameBilling:String,
       tax:String,
-      pricePortion:Number
+      individualPricing:Boolean,
+      prices:[pricesGroupBillingSchema]
     }],
     invoiceCycle: String,
     customerNumber: String,
     paymentMethod: Boolean,
     // tax:String,
     // pricePortion:Number,
+    separatePrice: Boolean,
     separateBilling: Boolean,
     grossPrice:Boolean,
     iban:String,
@@ -73,4 +87,3 @@ var customer = new Schema({
 var Customer = mongoose.model('Customer', customer);
 
 module.exports = Customer;
-

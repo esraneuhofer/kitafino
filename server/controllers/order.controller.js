@@ -6,6 +6,16 @@ const express = require('express');
 const moment  = require('moment-timezone');
 
 
+module.exports.getAccountOrderUserYear = async (req, res, next) => {
+  try {
+    const ordersAccountUser = await OrdersAccountSchema.find({year: req.query.year});
+    res.json(ordersAccountUser);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send({message: 'Internal Server Error'});
+  }
+};
+
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
     const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: req.query.dateOrder});
@@ -34,10 +44,9 @@ module.exports.addOrderStudentDay = async (req, res) => {
   const orderAccount = prepareOrderDetails(req);
   const totalPrice = getTotalPrice(req.body);
   const session = await mongoose.startSession();
+  await session.startTransaction();
 
   try {
-
-    await session.startTransaction();
 
     const account = await validateCustomerAccount(req._id, totalPrice, session);
     const orderId = new mongoose.Types.ObjectId();
@@ -119,12 +128,16 @@ async function validateCustomerAccount(userId, totalPrice, session) {
 
 async function saveOrderAccount(orderDetails, orderId,session) {
   const newOrderAccount = new OrdersAccountSchema({
+    tenantId: orderDetails.tenantId,
+    customerId: orderDetails.customerId,
+    userId: orderDetails.userId,
     studentId: orderDetails.studentId,
     orderId: orderId,
-    date: orderDetails.dateOrder,
+    dateOrderMenu: new Date(),
+    year: moment.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
     priceAllOrdersDate: orderDetails.totalPrice,
     allOrdersDate: [
-      { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', date: orderDetails.dateOrder }
+      { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}
     ]
   });
   await newOrderAccount.save({ session });
@@ -314,7 +327,7 @@ function createCancellationEntry(orderAccount) {
     return latest.date > current.date ? latest : current;
   });
   const newEntry = JSON.parse(JSON.stringify(newestEntry));
-  newEntry.date = moment.tz(new Date(), 'Europe/Berlin').format();
+  newEntry.dateTimeOrder = moment.tz(new Date(), 'Europe/Berlin').format();
   newEntry.priceTotal = -Math.abs(newEntry.priceTotal); // Ensure it's negative
   newEntry.type = 'cancellation';
   return newEntry

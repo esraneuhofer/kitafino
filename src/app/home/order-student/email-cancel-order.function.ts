@@ -5,6 +5,7 @@ export function getEmailBodyCancel (objectData: EmailOrderInterface): any {
   let titleOrder = 'Vielen Dank für Ihre Bestellung';
   let typeOrder = 'Bestellung'
   const orderTime = getTimeToDisplay();
+  console.log(objectData)
   let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
   if(objectData.sendCopyEmail){
     arrayEmail.push(objectData.tenantStudent.email)

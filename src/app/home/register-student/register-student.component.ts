@@ -41,13 +41,13 @@ export class RegisterStudentComponent implements OnInit{
   }
 
 
-  routeToAccount(){
-    this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
-  }
-  routeToRegistration(){
-    this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent});
-  }
 
+  directToRoute(route:string){
+    this.router.navigate(['../home/' +route], {relativeTo: this.r.parent});
+  }
+  reloadPage(){
+    window.location.reload();
+  }
   setSubgroupSelection(event: boolean) {
     if(event) {
       this.selectedSubgroup = '';

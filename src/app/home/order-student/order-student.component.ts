@@ -43,6 +43,8 @@ export class OrderStudentComponent implements OnInit {
   timerInterval: any;
   validDay: boolean = false;
   fetchingOrder: boolean = false;
+  studentNoSubgroup: boolean = false;
+
   showErrorNoStudents: boolean = false; // Show if no Students is registered yet
   registeredStudents: StudentInterface[] = [];
   indexDaySelected: number = 0;
@@ -152,9 +154,10 @@ export class OrderStudentComponent implements OnInit {
   }
   selectStudent(student:StudentInterface | null){
     if(!student)return;
-
+    this.studentNoSubgroup = false;
     this.selectedStudent = student;
     if(!student.subgroup){
+      this.studentNoSubgroup = true;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return;
     }

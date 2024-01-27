@@ -20,10 +20,10 @@
                         einen
                         automatisch generierten Benutzername.
                       </p>
-                      <p *ngIf="customerInfo.order.split.length > 1" class="mt-3 text-sm leading-6 text-gray-600">
-                        Sollten Sie die Untergruppe des Verpflegungsteilnehmers nicht kennen, wählen Sie bitte das
-                        Kästchen "nicht bekannt" aus.
-                      </p>
+<!--                      <p *ngIf="customerInfo.order.split.length > 1" class="mt-3 text-sm leading-6 text-gray-600">-->
+<!--                        Sollten Sie die Untergruppe des Verpflegungsteilnehmers nicht kennen, wählen Sie bitte das-->
+<!--                        Kästchen "nicht bekannt" aus.-->
+<!--                      </p>-->
                     </div>
 
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
@@ -63,48 +63,48 @@
                         </div>
                         <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
                       </div>
-                      <div class="sm:col-span-4">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe
-                          zuordnen</label>
-                        <select #subgroupModel="ngModel" (ngModelChange)="
-    isSelected($event)"
-                                [(ngModel)]="selectedSubgroup"
-                                [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
-                                [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
-                                [class.ring-red-300]="f1.submitted && subgroupModel.invalid"
-                                [class.text-red-900]="f1.submitted && subgroupModel.invalid"
-                                [required]="!subGroupUnknownModel"
-                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                id="subgroup"
-                                name="subgroupModel">
-                          <option disabled hidden selected value="">Bitte auswählen</option>
-                          <option
-                            *ngFor="let subgroup of customerInfo.order.split"
-                            [value]="subgroup.group">{{subgroup.displayGroup}}</option>
-                        </select>
-                        <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte
-                          auswählen oder ankreuzen</p>
+<!--                      <div class="sm:col-span-4">-->
+<!--                        <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe-->
+<!--                          zuordnen</label>-->
+<!--                        <select #subgroupModel="ngModel" (ngModelChange)="-->
+<!--    isSelected($event)"-->
+<!--                                [(ngModel)]="selectedSubgroup"-->
+<!--                                [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"-->
+<!--                                [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"-->
+<!--                                [class.ring-red-300]="f1.submitted && subgroupModel.invalid"-->
+<!--                                [class.text-red-900]="f1.submitted && subgroupModel.invalid"-->
+<!--                                [required]="!subGroupUnknownModel"-->
+<!--                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+<!--                                id="subgroup"-->
+<!--                                name="subgroupModel">-->
+<!--                          <option disabled hidden selected value="">Bitte auswählen</option>-->
+<!--                          <option-->
+<!--                            *ngFor="let subgroup of customerInfo.order.split"-->
+<!--                            [value]="subgroup.group">{{subgroup.displayGroup}}</option>-->
+<!--                        </select>-->
+<!--                        <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte-->
+<!--                          auswählen oder ankreuzen</p>-->
 
-                      </div>
-                      <div class="sm:col-span-4">
-                        <div class="space-y-5">
-                          <div class="relative flex items-start">
-                            <div class="flex h-6 items-center">
-                              <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"
-                                     aria-describedby="comments-description"
-                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                     id="subGroupUnknown"
-                                     name="subGroupUnknown"
-                                     type="checkbox">
-                            </div>
-                            <div class="ml-3 text-sm leading-6">
-                              <label class="font-medium text-gray-900" for="subGroupUnknown">Nicht bekannt</label>
-                              <p class="text-gray-500" id="comments-description">Sollten Sie sich unsicher sein in
-                                welche Untergruppe der Verplegungsteilnemher ist bitte anklicken</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+<!--                      </div>-->
+<!--                      <div class="sm:col-span-4">-->
+<!--                        <div class="space-y-5">-->
+<!--                          <div class="relative flex items-start">-->
+<!--                            <div class="flex h-6 items-center">-->
+<!--                              <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"-->
+<!--                                     aria-describedby="comments-description"-->
+<!--                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+<!--                                     id="subGroupUnknown"-->
+<!--                                     name="subGroupUnknown"-->
+<!--                                     type="checkbox">-->
+<!--                            </div>-->
+<!--                            <div class="ml-3 text-sm leading-6">-->
+<!--                              <label class="font-medium text-gray-900" for="subGroupUnknown">Nicht bekannt</label>-->
+<!--                              <p class="text-gray-500" id="comments-description">Sollten Sie sich unsicher sein in-->
+<!--                                welche Untergruppe der Verplegungsteilnemher ist bitte anklicken</p>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
                     </div>
 
 
@@ -112,6 +112,13 @@
                 </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
+                  <button
+                    [disabled]="submittingRequest"
+                    (click)="directToRoute('register')"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    type="button">
+                    Zurück
+                  </button>
                   <button
                     [disabled]="submittingRequest"
                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -152,12 +159,12 @@
                     <div class="mt-3 text-sm leading-6 text-gray-600">
                       <div class="flex">
                         <button
-                          (click)="routeToAccount()"
+                          (click)="directToRoute('account_overview')"
                           class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none">
                           Zur Kontoübersicht
                         </button>
                         <button
-                          (click)="routeToRegistration()"
+                          (click)="reloadPage()"
                           class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none ml-2">
                           Weitere Anmeldung
                         </button>
