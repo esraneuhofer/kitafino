@@ -11,8 +11,9 @@ import {StudentService} from "../../../service/student.service";
 })
 export class AccountPaymentOverviewComponent implements OnInit{
 
+  pageLoaded:boolean = false;
   submittingRequest = false;
-  accountCharge:AccountChargeInterface[] = [];
+  accountCharges:AccountChargeInterface[] = [];
   constructor(private transactionService:TransactionService,
 
               private router: Router,
@@ -24,8 +25,8 @@ export class AccountPaymentOverviewComponent implements OnInit{
       this.transactionService.getTransactionTenant()
 
         .subscribe((response:AccountChargeInterface[])=>{
-        this.accountCharge = response;
-        console.log(response);
+        this.accountCharges = response;
+        this.pageLoaded = true;
       })
   }
 

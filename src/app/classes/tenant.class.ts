@@ -6,6 +6,7 @@ export interface TenantStudentInterface {
   phone: string;
   address: string;
   city: string;
+  username: string;
   zip: string;
   orderSettings:{
     sendReminderBalance:boolean;
