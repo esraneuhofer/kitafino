@@ -7,6 +7,7 @@ var transactionSchema = new mongoose.Schema({
   transactionId: {type: String, required: true},
   date: {type: Date, required: true},
   amount: {type: Number, required: true},
+  verwendungsZweck: {type: String, required: true},
   type: {type: String, enum: ['deposit', 'withdrawal'], required: true}
 });
 

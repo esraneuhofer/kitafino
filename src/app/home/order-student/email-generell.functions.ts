@@ -1,6 +1,13 @@
 import {EmailOrderInterface} from "./email-order.function";
 
-export function getBodyEmailGenerell(objectData:EmailOrderInterface,arrayEmail:string[],titleOrder:string,typeOrder:string,orderTime:string,emailBody:string, emailBodyEdit?:string):any{
+export function getBodyEmailGenerell(
+  objectData:EmailOrderInterface,
+  arrayEmail:string[],
+  titleOrder:string,
+  typeOrder:string,
+  orderTime:string,
+  emailBody:string,
+  emailBodyEdit?:string):any{
   return {
     from: objectData.settings.tenantSettings.contact.companyName + '<noreply@cateringexpert.de>', // sender address
       replyTo: objectData.settings.orderSettings.confirmationEmail,

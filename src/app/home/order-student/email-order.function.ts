@@ -23,7 +23,6 @@ function numberToEuroString(number: number): string {
 
 
 export function getEmailBody(objectData: EmailOrderInterface): any {
-  console.log(objectData)
   let titleOrder = 'Bestellbestätigung';
   let typeOrder = 'Bestellbestätigung'
   const orderTime = getInvoiceDateOne(new Date());
@@ -74,7 +73,7 @@ function getTableContent(object: EmailOrderInterface): any {
   let table = ' <table class="table table-bordered">';
   table += ' <tr style="background: #8693E0">\n' +
     '            <td >Menu</td>\n' +
-    '            <td>Anzalh</td>\n' +
+    '            <td>Anzahl</td>\n' +
     '            <td>Preis</td>\n' +
     '          </tr>';
     object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
@@ -85,6 +84,7 @@ function getTableContent(object: EmailOrderInterface): any {
         (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
         (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {
         let background = getBackGroundColor(eachOrderDay.typeOrder);
+        if(eachOrderDay.amountOrder === 0)return;
         table += '<tr style="background: ' + background + ';">' +
           '<td>' + getMenuName(object,eachOrderDay) + '</td>' +
           '<td>' + eachOrderDay.amountOrder + '</td>' +

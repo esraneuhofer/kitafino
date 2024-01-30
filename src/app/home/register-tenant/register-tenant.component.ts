@@ -25,6 +25,7 @@ export class RegisterTenantComponent {
     city: '',
     zip: '',
     orderSettings:{
+      orderConfirmationEmail:false,
       sendReminderBalance:false,
       amountBalance:0,
       permanentOrder:false,

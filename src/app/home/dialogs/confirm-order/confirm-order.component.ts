@@ -13,7 +13,7 @@ export class ConfirmOrderComponent {
   total:number = 0;
   sendCopyEmail:boolean = true;
   header:string = 'Bestellung abschließen';
-  text:string = 'Mit dem absenden der Bestellung wird Ihrem Konto mit dem folgenden Betrag belastet:'
+  text:string = 'Mit dem absenden der Bestellung wird Ihr Konto mit dem folgenden Betrag belastet:'
   btnText:string = 'Bestellen'
   buttonType:string =  'primary';
   constructor(@Inject(MAT_DIALOG_DATA) private data: { orderStudent:OrderInterfaceStudent,type:string,indexMenu:number } ) {

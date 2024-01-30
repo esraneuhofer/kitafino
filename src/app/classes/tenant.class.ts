@@ -9,9 +9,9 @@ export interface TenantStudentInterface {
   username: string;
   zip: string;
   orderSettings:{
+    orderConfirmationEmail:boolean;
     sendReminderBalance:boolean;
     amountBalance:number;
     permanentOrder:boolean;
-
   }
 }

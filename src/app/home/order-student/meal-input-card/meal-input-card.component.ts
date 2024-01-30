@@ -36,9 +36,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() tenantStudent!: TenantStudentInterface;
   @Input() customer!: CustomerInterface;
   @Input() weekplanDay!: WeekplanDayInterface
+  submittingOrder: boolean = false;
+
   differenceTimeDeadline: string = '';
   timerInterval: any;
 
+  pageLoaded: boolean = true;
   pastOrder: boolean = true;
   submittingRequest: boolean = false;
   faShoppingCart = faShoppingCart;
@@ -128,11 +131,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
   placeOrder(orderModel: OrderInterfaceStudent, type: string,indexMenu:number) {
-    // if (this.checkOrder(orderModel)) {
-    //   alert(this.checkOrder(orderModel))
-    //   return;
-    // }
     this.openDialogAndHandleResult(orderModel, type,indexMenu, (result) => {
+      this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
@@ -147,11 +147,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
             this.orderPlaced.emit(true);
             this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
+            this.submittingOrder = false
           })
         } else {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0
           this.submittingRequest = false;
+          this.submittingOrder = false
           alert(data.error)
         }
       })
@@ -160,22 +162,24 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   cancelOrder(orderModel: OrderInterfaceStudent,indexMenu:number) {
-      console.log(this.orderDay.date)
-    console.log(orderModel)
     this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu,(result) => {
+      this.submittingOrder = true;
       this.orderService.cancelOrderStudent(orderModel).subscribe((data: any) => {
-        const emailObject = this.getEmailBody(orderModel, 'cancel', result);
-        const emailBody = getEmailBodyCancel(emailObject);
+
 
         if (data.success) {
           const emailObject = this.getEmailBody(orderModel, 'cancel', result);
+          const emailBody = getEmailBodyCancel(emailObject,data.data.priceTotal);
+
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
             this.orderPlaced.emit(true);
-            console.log(data)
             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
+            this.submittingOrder = false;
+
           })
         } else {
           this.submittingRequest = false;
+          this.submittingOrder = false;
           alert('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport')
         }
       })

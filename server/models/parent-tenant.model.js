@@ -14,7 +14,13 @@ var tenantpartent = new Schema({
   address:String,
   city:String,
   zip:String,
-  username:String
+  username:String,
+  orderSettings:{
+    orderConfirmationEmail:Boolean,
+    sendReminderBalance:Boolean,
+    amountBalance:Number,
+    permanentOrder:Boolean,
+  }
 });
 
 var Tenantpartent = mongoose.model('Tenantpartent', tenantpartent);

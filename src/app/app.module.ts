@@ -52,6 +52,8 @@ import { OrderHistoryComponent } from './home/order-history/order-history.compon
 import { KindergardenSettingComponent } from './home/kindergarden-setting/kindergarden-setting.component';
 import { GeneralBannerComponent } from './home/banners/general-banner/general-banner.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { PaginationComponent } from './directives/pagination/pagination.component';
+import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 
 registerLocaleData(localeDe);
 
@@ -90,6 +92,7 @@ registerLocaleData(localeDe);
     OrderHistoryComponent,
     KindergardenSettingComponent,
     GeneralBannerComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +112,8 @@ registerLocaleData(localeDe);
     MatNativeDateModule,
     MatDialogModule,
     FontAwesomeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgbPagination
 
   ],
   providers: [{

@@ -189,7 +189,7 @@ module.exports.cancelOrderStudent = async (req, res, next) => {
 
     // Finalize the transaction
     await session.commitTransaction();
-    res.json({success: true, message: 'Order canceled successfully'});
+    res.json({success: true, message: 'Order canceled successfully',data:cancellationEntry});
   } catch (error) {
     // If an error occurs, abort the transaction
     await session.abortTransaction();

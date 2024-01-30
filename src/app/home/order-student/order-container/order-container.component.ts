@@ -130,7 +130,9 @@ export class OrderContainerComponent implements OnInit, OnChanges {
     // this.getDataWeek()
   }
 
-
+  orderSubmitting() {
+    this.pageLoaded = true
+  }
   getDataWeek() {
     this.orderWeek = [];
     this.pageLoaded = false;
