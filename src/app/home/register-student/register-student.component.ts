@@ -10,7 +10,15 @@ import {setEmptyStudentModel, StudentInterface} from "../../classes/student.clas
 import {GenerellService} from "../../service/generell.service";
 import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
 import {forkJoin} from "rxjs";
+import {getEmailBodyRegistrationStudent} from "./email-registration-student";
+import {TenantStudentInterface} from "../../classes/tenant.class";
 
+function getRegistrationText(customer:CustomerInterface):string{
+  if(customer.order.split.length > 1){
+    return 'Die Zuordnung der Schüler/innen zu den Verpflegungsgruppen erfolgt durch die Schule. Nach der Zuronderung durch die Einrichtung können Sie eine Bestellung aufgeben.';
+  }
+ return  ''
+}
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
@@ -28,16 +36,19 @@ export class RegisterStudentComponent implements OnInit{
     firstName:'',
     lastName:''
   }
+  registrationText:string = '';
   pageLoaded:boolean = false;
   customerInfo!:CustomerInterface;
   subGroupUnknownModel: boolean = false;
   registeredStudents:StudentInterface[] = [];
-
+  tenantStudent!:TenantStudentInterface;
   constructor(private studentService: StudentService,
+              private generalService: GenerellService,
               private router:Router,
               private toaster:ToastrService,
               private r: ActivatedRoute,
-              private generellService: GenerellService) {
+              private generellService: GenerellService,
+              private tenantService: TenantServiceStudent){
   }
 
 
@@ -60,11 +71,14 @@ export class RegisterStudentComponent implements OnInit{
   ngOnInit() {
     forkJoin(
       this.generellService.getCustomerInfo(),
-      this.studentService.getRegisteredStudentsUser()
+      this.studentService.getRegisteredStudentsUser(),
+      this.tenantService.getTenantInformation()
     )
-    .subscribe(([customer,students]:[CustomerInterface,StudentInterface[]])=>{
+    .subscribe(([customer,students,tenant]:[CustomerInterface,StudentInterface[],TenantStudentInterface])=>{
       this.customerInfo = customer;
       this.registeredStudents = students;
+      this.tenantStudent = tenant;
+      this.registrationText = getRegistrationText(this.customerInfo);
       this.pageLoaded = true;
     })
 
@@ -82,6 +96,12 @@ export class RegisterStudentComponent implements OnInit{
           this.returnedUsernameStudent = res.student.username
           this.toaster.success('Verpflegungsteilnehmer/in wurde erfolgreich angelegt','Erfolgreich');
           f.resetForm();
+
+          const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent);
+          this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+            this.toaster.success('Email wurde versendet', 'Erfolgreich')
+          })
+
         }
 
       })

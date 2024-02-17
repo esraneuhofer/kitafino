@@ -85,7 +85,6 @@ export class DashboardComponent {
         this.tenant = tenantInformation;
         this.accountTenant = accountInformation;
         this.students = students;
-        console.log(orderStudents)
         this.ordersStudentsDisplay = setOrdersDashboard(orderStudents,students,setting);
         this.loadingService.hide();
         this.pageLoaded = true;

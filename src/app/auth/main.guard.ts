@@ -1,7 +1,5 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
-import {UserService} from "../service/user.service";
-import {StudentService} from "../service/student.service";
 import {catchError, Observable, of, tap} from "rxjs";
 import {TenantServiceStudent} from "../service/tenant.service";
 
@@ -18,16 +16,17 @@ export class MainGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.tenantServiceStudent.hasRegisteredTenant().pipe(
-      // tap(hasStudent => {
-      //   if (!hasStudent) {
-      //     this.router.navigateByUrl('/register_tenant');
-      //   }
-      // }),
-      // catchError((error) => {
-      //   console.error(error);
-      //   this.router.navigateByUrl('/register_tenant');
-      //   return of(false);
-      // })
+      tap(hasStudent => {
+        console.log('hasStudent', hasStudent);
+        if (!hasStudent) {
+          this.router.navigateByUrl('/register_tenant');
+        }
+      }),
+      catchError((error) => {
+        console.error(error);
+        this.router.navigateByUrl('/register_tenant');
+        return of(false);
+      })
     );
   }
 }

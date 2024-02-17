@@ -45,10 +45,11 @@ export class RegisterTenantComponent {
   setPersonalInformation() {
     this.submittingRequest = true;
     this.tenantServiceStudent.addParentTenant(this.tenantModel).subscribe((response: any) => {
+      console.log(response)
       if (!response.error) {
         this.submittingRequest = false
         this.toastr.success('Sie haben Ihre persönlichen Daten erfolgreich eingetragen', 'Erfolg')
-        this.router.navigateByUrl('/home/dashboard');
+        this.router.navigateByUrl('/home/register_student');
       }else{
 
         this.submittingRequest = false

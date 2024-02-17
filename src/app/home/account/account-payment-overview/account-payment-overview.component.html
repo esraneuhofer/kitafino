@@ -1,4 +1,4 @@
-<ng-container *ngIf="pageLoaded">
+<ng-container *ngIf="pageLoaded && registeredStudents.length > 0">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
       <div class="w-5/6">
@@ -6,7 +6,32 @@
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
               <h1 class="text-base font-semibold leading-6 text-gray-900">Zahlungsübersicht</h1>
-              <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen </p>
+              <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
+                <br><br>
+                Cateringexpert Software Solutions GmbH <br>
+                Deutsche Bank <br>
+                IBAN: DE12345678901234567890  <fa-icon [icon]="faClipboard"
+                                                       class="ml-1"
+                                                       [matTooltip]="'In Ablage kopieren'"
+                                                       (click)="copyToClipboard('DE12345678901234567890')"></fa-icon> <br>
+                BIC: DEUTDEDBXXX <br>
+                Verwendungszweck: <b>{{tenantStudent.username}}</b>
+                <fa-icon [icon]="faClipboard"
+                         class="ml-1"
+                         [matTooltip]="'In Ablage kopieren'"
+                         (click)="copyToClipboard(tenantStudent.username)"></fa-icon> <br><br>
+
+                <b>Wichtig:</b>
+                Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
+                genau so in den Verwendungszweck eintragen, wie er registriert ist.
+                Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
+                Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen. <br><br>
+
+                Vielen Dank.
+
+              </p>
+
+
             </div>
           </div>
           <div class="mt-8 flow-root">
@@ -45,3 +70,6 @@
     </div>
   </div>
 </ng-container>
+  <ng-container *ngIf="pageLoaded && registeredStudents.length === 0">
+    <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
+  </ng-container>

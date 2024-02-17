@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var tenantpartent = new Schema({
+var tenantparent = new Schema({
   tenantId:Schema.Types.ObjectId,
   customerId:Schema.Types.ObjectId,
   schoolId:Schema.Types.ObjectId,
@@ -14,7 +14,7 @@ var tenantpartent = new Schema({
   address:String,
   city:String,
   zip:String,
-  username:String,
+  username: {type:String, required: true, unique: true},
   orderSettings:{
     orderConfirmationEmail:Boolean,
     sendReminderBalance:Boolean,
@@ -23,10 +23,13 @@ var tenantpartent = new Schema({
   }
 });
 
-var Tenantpartent = mongoose.model('Tenantpartent', tenantpartent);
+var Tenantparent = mongoose.model('Tenantparent', tenantparent);
 
-tenantpartent.pre('save', async function (next) {
+tenantparent.pre('save', async function (next) {
+  console.log(this.firstName)
+  console.log("this.lastName")
   try {
+
     if (!this.firstName || !this.lastName) {
       throw new Error('Both firstName and lastName must be defined.');
     }
@@ -38,6 +41,7 @@ tenantpartent.pre('save', async function (next) {
       // Generate the username based on firstName, lastName, and a random 4-digit number
       const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
       username = (this.firstName.slice(0, 2) + this.lastName.slice(0, 2) + randomDigits).toLowerCase();
+      console.log(username)
 
       // Check if the generated username is unique
       const existingStudent = await this.constructor.findOne({ username });
@@ -46,7 +50,6 @@ tenantpartent.pre('save', async function (next) {
         isUnique = true;
       }
     }
-
     // Set the unique username
     this.username = username;
     next();
@@ -54,5 +57,5 @@ tenantpartent.pre('save', async function (next) {
     next(error);
   }
 });
-module.exports = Tenantpartent;
+module.exports = Tenantparent;
 

@@ -9,6 +9,10 @@
   <ng-container *ngIf="studentNoSubgroup">
     <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
   </ng-container>
+  <ng-container *ngIf="registeredStudents.length === 0">
+    <app-banner-no-student-order
+    [text]="textBanner"></app-banner-no-student-order>
+  </ng-container>
 
   <ng-container *ngIf="!studentNoSubgroup">
     <ng-container *ngIf="!fetchingOrder">

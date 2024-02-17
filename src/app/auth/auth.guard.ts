@@ -14,11 +14,11 @@ export class AuthGuard {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    // if (!this.userService.isLoggedIn()) {
-    //   this.router.navigateByUrl('/login');
-    //   this.userService.deleteToken();
-    //   return false;
-    // }
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigateByUrl('/login');
+      this.userService.deleteToken();
+      return false;
+    }
     // console.log("Not logged in");
 
     return true;

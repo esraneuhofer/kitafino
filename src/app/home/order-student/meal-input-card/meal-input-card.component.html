@@ -76,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="flex">
+      <div class="flex" *ngIf="eachMenu.displayMenu">
         <div class="w-full flex justify-end">
           {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
           <fa-icon [icon]="faShoppingCart" *ngIf="!eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,true)"></fa-icon>

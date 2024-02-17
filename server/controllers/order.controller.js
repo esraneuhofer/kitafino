@@ -8,7 +8,7 @@ const moment  = require('moment-timezone');
 
 module.exports.getAccountOrderUserYear = async (req, res, next) => {
   try {
-    const ordersAccountUser = await OrdersAccountSchema.find({year: req.query.year});
+    const ordersAccountUser = await OrdersAccountSchema.find({userId:req._id,year: req.query.year});
     res.json(ordersAccountUser);
   } catch (err) {
     console.error(err); // Log the error for debugging

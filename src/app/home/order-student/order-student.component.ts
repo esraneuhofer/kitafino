@@ -27,7 +27,7 @@ import {data} from "autoprefixer";
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
 
-
+const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer / in einzutragen muss er/sie zuerst angemeldet werden"
 @Component({
   selector: 'app-order-student',
   templateUrl: './order-student.component.html',
@@ -36,7 +36,7 @@ import {AccountCustomerInterface} from "../../classes/account.class";
 export class OrderStudentComponent implements OnInit {
 
   mainDataLoaded: boolean = false;
-
+  textBanner = textBanner;
   pageLoaded: boolean = false;
   differenceTimeDeadline: string = '';
   pastOrder: boolean = false;
