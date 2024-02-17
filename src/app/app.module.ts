@@ -55,6 +55,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { PaginationComponent } from './directives/pagination/pagination.component';
 import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-student-order/banner-no-student-order.component';
+import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 
 registerLocaleData(localeDe);
 
@@ -95,6 +96,7 @@ registerLocaleData(localeDe);
     GeneralBannerComponent,
     PaginationComponent,
     BannerNoStudentOrderComponent,
+    WeekplanPdfComponent,
   ],
   imports: [
     BrowserModule,

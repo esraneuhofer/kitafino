@@ -18,11 +18,14 @@ import {getTotalPriceSafe, timeDifference} from "../order-student/order.function
 import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
+import {setDateToCompare} from "../../functions/date.functions";
 
 function setOrdersDashboard(orders:OrderInterfaceStudentSave[],registeredStudendts:StudentInterface[],settings:SettingInterfaceNew):DisplayOrderArrayIntrface[]{
+  let dateToday = setDateToCompare(new Date())
   let arrayDisplay:DisplayOrderArrayIntrface[] = [];
   if(!orders || !orders.length)return arrayDisplay;
   orders.forEach((order) => {
+    if(setDateToCompare(new Date(order.dateOrder)) >= dateToday)
     arrayDisplay.push({
       dateOrder: order.dateOrder,
       orderedMenus: order.order.orderMenus.map((orderDetail) => {

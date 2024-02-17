@@ -16,29 +16,17 @@ module.exports.getTenantInformation = async (req, res, next) => {
   }
 };
 
-// module.exports.addParentTenant = (req, res, next) => {
-//   let newModel = new TenantParent(req.body);
-//   newModel.schoolId = req.project_id;
-//   newModel.userId = req._id;
-//   newModel.customerId = req.customerId;
-//   newModel.tenantId = req.tenantId;
-//   newModel.save().then(function (data) {
-//     res.json(({student:data,error:false}));
-//   }, function (e) {
-//     res.json(({student:e,error:true}));
-//   });
-// }
-//
-// function addAccount(){
-//   let newModel = new AccountSchema();
-//   newModel.tenantId = req.tenantId;
-//   newModel.userId = req._id;
-//   ewModel.customerId = req.customerId;
-//   newModel.schoolId = req.project_id;
-//   transitions = [];
-//   currentBalance = 0;
-//   orders = [];
-// }
+module.exports.editParentTenant = (req, res, next) => {
+  TenantParent.findOneAndUpdate(
+    { '_id': req.body._id },
+    req.body,
+    { upsert: true, new: true }
+  ).then(doc => {
+    return res.send(doc);
+  }).catch(err => {
+    return res.status(500).send({ error: err });
+  });
+};
 
 module.exports.addParentTenant = (req, res, next) => {
 

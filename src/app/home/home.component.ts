@@ -6,6 +6,11 @@ import {Router} from "@angular/router";
 import {LoadingService} from "../service/loading.service";
 import {TenantServiceStudent} from "../service/tenant.service";
 import {TenantStudentInterface} from "../classes/tenant.class";
+import {forkJoin} from "rxjs";
+import {GenerellService} from "../service/generell.service";
+import {StudentInterface} from "../classes/student.class";
+import {OrdersAccountInterface} from "../classes/order_account.interface";
+import {CustomerInterface} from "../classes/customer.class";
 
 @Component({
   selector: 'app-home',
@@ -48,21 +53,29 @@ export class HomeComponent implements OnInit{
 
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
-
+  customerInfo!:CustomerInterface;
   pageLoaded: boolean = false;
 
   tenantInformation!:TenantStudentInterface;
-  constructor(private userService:UserService, private router:Router, private tenantService:TenantServiceStudent) {
+  constructor(private userService:UserService,
+              private generalService:GenerellService,
+              private router:Router, private tenantService:TenantServiceStudent) {
 
   }
 
   ngOnInit() {
     this.pageLoaded = false;
-
-    this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
+    forkJoin(
+      this.tenantService.getTenantInformation(),
+      this.generalService.getCustomerInfo()
+    ).subscribe(
+      (
+        [tenant,customer]:
+          [TenantStudentInterface,CustomerInterface])=>{
       if (!tenant){
         this.router.navigate(['/home/tenant']);
       } else {
+        this.customerInfo = customer;
         this.tenantInformation = tenant;
         this.pageLoaded = true;
       }

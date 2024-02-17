@@ -1,9 +1,9 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <div class="w-5/6">
+      <div class="w-11/12">
         <div class="px-4 sm:px-6 lg:px-8">
-          <div class="sm:flex sm:items-center">
+          <div class="flex flex-wrap">
             <div class="sm:flex-auto">
               <h1 class="text-base font-semibold leading-6 text-gray-900">Verpflegungsteilnehmer</h1>
               <p class="mt-2 text-sm text-gray-700">Alle angemeldeten Verpflegungsteilnehmer</p>
@@ -23,7 +23,6 @@
                   <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
                     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Gruppe</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Username</th>
                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       <span class="sr-only">Edit</span>
                     </th>
@@ -33,7 +32,6 @@
                   <tr *ngFor="let student of registeredStudents" >
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup,customerInfo)}}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{student.username}}</td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                       <a  class="text-indigo-600 hover:text-indigo-900 cursor-pointer" (click)="selectStudent(student)">Bearbeiten</a>
                     </td>
@@ -52,7 +50,7 @@
 <ng-container *ngIf="selectedStudent && pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <div class="w-5/6">
+      <div class="w-11/12">
   <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <form #f1="ngForm" (ngSubmit)="f1.form.valid && editStudent(selectedStudent)" novalidate>
       <div class="space-y-12">

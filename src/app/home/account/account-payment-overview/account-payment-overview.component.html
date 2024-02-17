@@ -5,31 +5,38 @@
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
-              <h1 class="text-base font-semibold leading-6 text-gray-900">Zahlungsübersicht</h1>
-              <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
-                <br><br>
-                Cateringexpert Software Solutions GmbH <br>
-                Deutsche Bank <br>
-                IBAN: DE12345678901234567890  <fa-icon [icon]="faClipboard"
-                                                       class="ml-1"
-                                                       [matTooltip]="'In Ablage kopieren'"
-                                                       (click)="copyToClipboard('DE12345678901234567890')"></fa-icon> <br>
-                BIC: DEUTDEDBXXX <br>
-                Verwendungszweck: <b>{{tenantStudent.username}}</b>
-                <fa-icon [icon]="faClipboard"
-                         class="ml-1"
-                         [matTooltip]="'In Ablage kopieren'"
-                         (click)="copyToClipboard(tenantStudent.username)"></fa-icon> <br><br>
+              <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>
+              <div class="rounded-md bg-blue-50 p-4">
+                <div class="flex">
+                  <div class="ml-3 flex-1 md:flex md:justify-between">
+                    <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
+                      <br><br>
+                      Cateringexpert Software Solutions GmbH <br>
+                      Deutsche Bank <br>
+                      IBAN: DE12345678901234567890  <fa-icon [icon]="faClipboard"
+                                                             class="ml-1"
+                                                             [matTooltip]="'In Ablage kopieren'"
+                                                             (click)="copyToClipboard('DE12345678901234567890')"></fa-icon> <br>
+                      BIC: DEUTDEDBXXX <br>
+                      Verwendungszweck: <b>{{tenantStudent.username}}</b>
+                      <fa-icon [icon]="faClipboard"
+                               class="ml-1"
+                               [matTooltip]="'In Ablage kopieren'"
+                               (click)="copyToClipboard(tenantStudent.username)"></fa-icon> <br><br>
 
-                <b>Wichtig:</b>
-                Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
-                genau so in den Verwendungszweck eintragen, wie er registriert ist.
-                Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
-                Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen. <br><br>
+                      <b>Wichtig:</b>
+                      Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
+                      genau so in den Verwendungszweck eintragen, wie er registriert ist.
+                      Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
+                      Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen. <br><br>
 
-                Vielen Dank.
+                      Vielen Dank.
 
-              </p>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
 
 
             </div>

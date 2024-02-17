@@ -18,6 +18,7 @@ import {RegistrationComponent} from "./home/registration/registration/registrati
 import {ChargeAccountComponent} from "./home/charge-account/charge-account.component";
 import {OrderHistoryComponent} from "./home/order-history/order-history.component";
 import {KindergardenSettingComponent} from "./home/kindergarden-setting/kindergarden-setting.component";
+import {WeekplanPdfComponent} from "./home/weekplan-pdf/weekplan-pdf.component";
 
 
 
@@ -51,7 +52,7 @@ export const appRoutes: Routes = [
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},
-
+      { path: 'weekplan_pdf', component:WeekplanPdfComponent , canActivate: [AuthGuard]},
     ]
   },
   {

@@ -11,6 +11,7 @@ import {Allergene, ArticleDeclarations} from "../classes/allergenes.interface";
 import {WeekplanMenuInterface} from "../classes/weekplan.interface";
 import {MenuInterface} from "../classes/menu.interface";
 import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assignedWeekplan.class";
+import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component";
 
 
 @Injectable(
@@ -37,6 +38,15 @@ export class GenerellService {
     return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
       .pipe(map((response: WeekplanMenuInterface) => (response)));
   }
+  getSingelWeekplanPdf(query:{_id:string}){
+    return this.http.get<WeekplanPdfInterface>(environment.apiBaseUrl+'/getSingelWeekplanPdf',{params:query})
+      .pipe(map((response: WeekplanPdfInterface) => (response)));
+  }
+  getAllWeekplanPdf(query:{year:number}){
+    return this.http.get<WeekplanPdfInterface[]>(environment.apiBaseUrl+'/getAllWeekplanPdf',{params:query})
+      .pipe(map((response: WeekplanPdfInterface[]) => (response)));
+  }
+
 
   getWeekplanGroups(){
     return this.http.get<WeekplanGroupClass[]>(environment.apiBaseUrl+'/getWeekplanGroups')

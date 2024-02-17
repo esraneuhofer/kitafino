@@ -26,6 +26,7 @@ router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.g
 
 
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
+router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 
 //////Student Requests////////
@@ -44,6 +45,8 @@ router.get('/getArticleDeclaration',jwtHelper.verifyJwtToken,ctrlGenerell.getArt
 router.get('/getArticle',jwtHelper.verifyJwtToken,ctrlGenerell.getArticle)
 router.get('/getWeekplanGroups',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanGroups)
 router.get('/getAssignedWeekplan',jwtHelper.verifyJwtToken,ctrlGenerell.getAssignedWeekplan)
+router.get('/getSingelWeekplanPdf',jwtHelper.verifyJwtToken,ctrlGenerell.getSingelWeekplanPdf)
+router.get('/getAllWeekplanPdf',jwtHelper.verifyJwtToken,ctrlGenerell.getAllWeekplanPdf)
 
 
 router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)

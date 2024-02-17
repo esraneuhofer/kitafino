@@ -142,13 +142,20 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
       serviceMethod().subscribe((data: any) => {
         if (data.success) {
-          const emailObject = this.getEmailBody(orderModel, type, result);
-          const emailBody = getEmailBody(emailObject);
-          this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+          if(this.tenantStudent.orderSettings.orderConfirmationEmail) {
+            const emailObject = this.getEmailBody(orderModel, type, result);
+            const emailBody = getEmailBody(emailObject);
+            this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+              this.orderPlaced.emit(true);
+              this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
+              this.submittingOrder = false
+            })
+          }else{
             this.orderPlaced.emit(true);
             this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
             this.submittingOrder = false
-          })
+          }
+
         } else {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0
@@ -157,7 +164,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           alert(data.error)
         }
       })
-
     });
   }
 
@@ -170,13 +176,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         if (data.success) {
           const emailObject = this.getEmailBody(orderModel, 'cancel', result);
           const emailBody = getEmailBodyCancel(emailObject,data.data.priceTotal);
+          if(this.tenantStudent.orderSettings.orderConfirmationEmail){
+            this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+              this.orderPlaced.emit(true);
+              this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
+              this.submittingOrder = false;
 
-          this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+            })
+          }else{
             this.orderPlaced.emit(true);
             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
             this.submittingOrder = false;
+          }
 
-          })
         } else {
           this.submittingRequest = false;
           this.submittingOrder = false;

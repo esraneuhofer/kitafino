@@ -52,6 +52,7 @@ year:number}
 export class OrderHistoryComponent implements OnInit{
 
   submittingRequest = false;
+  pageLoaded = false;
   ordersAccountOwner:OrdersAccountInterface[] = [];
   displayArrayAccountOrders:OrderHistoryTableInterface [] = [];
   registeredStudents:StudentInterface[] = [];
@@ -78,6 +79,7 @@ export class OrderHistoryComponent implements OnInit{
       this.ordersAccountOwner = accountOrdersUsers;
       this.registeredStudents = registeredStudents
        this.displayArrayAccountOrders = this.displayArrayAccountOrdersSearch = setDisplayArrayAccountOrders(accountOrdersUsers,registeredStudents);
+      this.pageLoaded = true;
     })
   }
   search(value: any): void {

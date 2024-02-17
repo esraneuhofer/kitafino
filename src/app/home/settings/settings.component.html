@@ -172,7 +172,10 @@
                   <div class="space-y-5">
                     <div class="relative flex items-start">
                       <div class="flex h-6 items-center">
-                        <input id="comments" aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <input id="comments"
+                               [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
+                               (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
+                               aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                       </div>
                       <div class="ml-3 text-sm leading-6">
                         <label for="comments" class="font-medium text-gray-900">Bestellbestätigung</label>
@@ -181,22 +184,25 @@
                     </div>
                     <div class="relative flex items-start">
                       <div class="flex h-6 items-center">
-                        <input id="candidates" aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <input id="candidates"
+                               [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
+                               (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
+                               aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                       </div>
                       <div class="ml-3 text-sm leading-6">
                         <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
                         <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 10,00€ fällt</p>
                       </div>
                     </div>
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                      </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>
-                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>
-                      </div>
-                    </div>
+<!--                    <div class="relative flex items-start">-->
+<!--                      <div class="flex h-6 items-center">-->
+<!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
+<!--                      </div>-->
+<!--                      <div class="ml-3 text-sm leading-6">-->
+<!--                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>-->
+<!--                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>-->
+<!--                      </div>-->
+<!--                    </div>-->
                   </div>
                 </fieldset>
 <!--              </div>-->

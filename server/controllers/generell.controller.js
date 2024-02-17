@@ -9,6 +9,7 @@ const Weekplan = mongoose.model('Weekplan');
 const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 var nodemailer = require('nodemailer');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
+const Weekplanpdf = mongoose.model('WeekplanPdf');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
@@ -138,3 +139,20 @@ module.exports.sendEmail = (req, res, next) =>{
   })
 };
 
+module.exports.getSingelWeekplanPdf = async (req, res, next) => {
+  try {
+    const pdf = await Weekplanpdf.findOne({ _id: req.query._id});
+    res.json(pdf);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+module.exports.getAllWeekplanPdf = async (req, res, next) => {
+  try {
+    const pdf = await Weekplanpdf.find({ tenantId: req.tenantId, year:req.query.year }, 'name calenderWeek groups');
+    res.json(pdf);
+  } catch (err) {
+    res.send(err);
+  }
+};

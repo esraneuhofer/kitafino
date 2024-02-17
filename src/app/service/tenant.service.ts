@@ -34,8 +34,8 @@ export class TenantServiceStudent {
       })
     );
   }
-  editTenantStudent(object:TenantStudentInterface){
-    return this.http.post(environment.apiBaseUrl+'/editTenantStudent',object)
+  editParentTenant(object:TenantStudentInterface){
+    return this.http.post(environment.apiBaseUrl+'/editParentTenant',object)
       .pipe(map((response: any) => response));
   }
   addParentTenant(object:TenantStudentInterface){
