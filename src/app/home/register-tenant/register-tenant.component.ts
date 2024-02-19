@@ -16,6 +16,7 @@ export class RegisterTenantComponent {
   submittingRequest:boolean = false;
 
   tenantModel: TenantStudentInterface = {
+
     username: '',
     firstName: '',
     lastName: '',

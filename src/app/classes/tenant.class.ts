@@ -1,5 +1,8 @@
 export interface TenantStudentInterface {
-
+  _id?: string;
+  userId?: string;
+  tenantId?:string,
+  customerId?:string,
   firstName: string;
   lastName: string;
   email: string;
@@ -7,6 +10,7 @@ export interface TenantStudentInterface {
   address: string;
   city: string;
   username: string;
+  iban?: string;
   zip: string;
   orderSettings:{
     orderConfirmationEmail:boolean;

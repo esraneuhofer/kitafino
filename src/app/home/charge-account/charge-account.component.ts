@@ -19,7 +19,7 @@ export class ChargeAccountComponent implements OnInit{
 
   ngOnInit(): void {
     forkJoin(
-      this.chargeAccountService.getAccountChargesDate(new Date())
+      this.chargeAccountService.getAccountCharges()
     ).subscribe(([paymentsDayDatabase]:[any]) => {
       this.accountChargesDatabase = paymentsDayDatabase;
 

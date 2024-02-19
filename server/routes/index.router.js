@@ -65,8 +65,8 @@ router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAcco
 
 ///Acoount Requests ////
 router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTenant);
-router.post('/chargeAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.chargeAccountTenant);
-router.post('/getAccountChargesDate',jwtHelper.verifyJwtToken,crtlAccount.getAccountChargesDate);
+router.post('/addAccountChargesTenant',jwtHelper.verifyJwtToken,crtlAccount.addAccountChargesTenant);
+router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountCharges);
 
 /////Transaction Requests ////
 router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getTransactionTenant);

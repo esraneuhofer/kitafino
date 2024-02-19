@@ -14,6 +14,7 @@ var tenantparent = new Schema({
   address:String,
   city:String,
   zip:String,
+  iban:String,
   username: {type:String, required: true, unique: true},
   orderSettings:{
     orderConfirmationEmail:Boolean,

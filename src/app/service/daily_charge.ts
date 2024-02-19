@@ -3,11 +3,11 @@ import {ChargeAccountInterface} from "../classes/charge.class";
 
 function eachPaymentHasNotBeenSavedYet(payment:ChargeAccountInterface,savedPayments:ChargeAccountInterface[]):boolean{
   let exists:boolean = false
-  savedPayments.forEach(savedPayment =>{
-    if(savedPayment.date === payment.date && savedPayment.amount === payment.amount && savedPayment.accountHolder === payment.accountHolder){
-      exists = true
-    }
-  })
+  // savedPayments.forEach(savedPayment =>{
+  //   if(savedPayment.date === payment.date && savedPayment.amount === payment.amount && savedPayment.accountHolder === payment.accountHolder){
+  //     exists = true
+  //   }
+  // })
   return exists
 }
 export function checkDailyCharge(paymentArrayDay:ChargeAccountInterface[],savedPayments:ChargeAccountInterface[]):void{

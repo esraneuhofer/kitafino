@@ -36,6 +36,15 @@
                   </div>
                 </div>
               </div>
+              <div class="rounded-md bg-green-100 p-4 mt-2">
+                <div class="flex justify-between items-center">
+                  <p class="text-sm text-gray-700">
+                    Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  </p>
+                  <app-button [typeButton]="'primary'" (click)="openDialog()" [mr]="true">Geld abbuchen</app-button>
+                </div>
+              </div>
+
 
 
 
@@ -54,29 +63,38 @@
                   </thead>
                   <tbody class="divide-y divide-gray-200">
                   <tr *ngFor="let payment of accountCharges" >
-<!--                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>-->
-<!--                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup,customerInfo)}}</td>-->
-<!--                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{student.username}}</td>-->
-<!--                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">-->
-<!--                      <a  class="text-indigo-600 hover:text-indigo-900 cursor-pointer" (click)="selectStudent(student)">Bearbeiten</a>-->
-<!--                    </td>-->
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getType(payment.typeCharge)}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="accountCharges.length === 0">
                     <td colspan="100%">
                       <app-general-banner></app-general-banner>
                     </td>
                   </tr>
                   </tbody>
                 </table>
+                <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
+                <div class="flex flex-col md:flex-row mt-3">
+                  <div class="md:w-3/3 w-full">
+                    <div class="flex justify-end">
+                      <ngb-pagination
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="accountCharges.length"></ngb-pagination>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </ng-container>
-  <ng-container *ngIf="pageLoaded && registeredStudents.length === 0">
+  <ng-container *ngIf="accountCharges.length === 0">
     <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
   </ng-container>
+<app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

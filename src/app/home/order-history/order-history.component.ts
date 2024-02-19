@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AccountChargeInterface, TransactionService} from "../../service/transaction.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../service/order.service";
-import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
-import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrdersAccountInterface} from "../../classes/order_account.interface";
 import {StudentService} from "../../service/student.service";
 import {forkJoin} from "rxjs";

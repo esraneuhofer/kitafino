@@ -3,16 +3,9 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError, map, Observable, of} from "rxjs";
 import {TenantStudentInterface} from "../classes/tenant.class";
+import {AccountChargeInterface} from "../classes/charge.class";
 
-export interface AccountChargeInterface {
-  tenantId:string
-  userId: string,
-  customerId: string,
-  transactionId: string,
-  date:string,
-  amount: number,
-  type:('deposit' | 'withdrawal')
-}
+
 
 @Injectable(
   {providedIn: 'root'}

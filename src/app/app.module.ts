@@ -56,6 +56,7 @@ import { PaginationComponent } from './directives/pagination/pagination.componen
 import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-student-order/banner-no-student-order.component';
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
+import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 
 registerLocaleData(localeDe);
 
@@ -97,6 +98,7 @@ registerLocaleData(localeDe);
     PaginationComponent,
     BannerNoStudentOrderComponent,
     WeekplanPdfComponent,
+    ConfirmWithdrawDialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,10 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError, map, Observable, of} from "rxjs";
-import {TenantStudentInterface} from "../classes/tenant.class";
-import {AccountCustomerInterface} from "../classes/account.class";
-import {StudentInterface} from "../classes/student.class";
-
+import {AccountChargeInterface, ChargeAccountInterface} from "../classes/charge.class";
 
 @Injectable(
   {providedIn: 'root'}
@@ -18,12 +15,12 @@ export class ChargingService {
   constructor(private http:HttpClient) {
 
   }
-  chargeAccountTenant(object:any){
-    return this.http.post(environment.apiBaseUrl+'/chargeAccountTenant',object)
+  addAccountChargesTenant(object:ChargeAccountInterface){
+    return this.http.post(environment.apiBaseUrl+'/addAccountChargesTenant',object)
       .pipe(map((response: any) => response));
   }
-  getAccountChargesDate(object:Date){
-    return this.http.post(environment.apiBaseUrl+'/getAccountChargesDate',object)
-      .pipe(map((response: any) => response));
+  getAccountCharges(){
+    return this.http.get<AccountChargeInterface[]>(environment.apiBaseUrl+'/getAccountCharges')
+      .pipe(map((response: AccountChargeInterface[]) => response));
   }
 }
