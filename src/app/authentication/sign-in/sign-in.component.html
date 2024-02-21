@@ -61,7 +61,7 @@
                  [class.placeholder:text-red-300]="signInForm.submitted && passwordModel.invalid"
                  [class.focus:ring-red-500]="signInForm.submitted && passwordModel.invalid">
         </div>
-        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="password">Pflichtfeld</p>
+        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">Pflichtfeld</p>
       </div>
 
       <div>
