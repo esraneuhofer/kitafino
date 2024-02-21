@@ -28,9 +28,12 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.signInModel);
     this.submittingRequest = true;
     this.userService.login({email:this.signInModel.email,password:this.signInModel.password}).subscribe(
       (res: any) => {
+        console.log(res);
+
         this.userService.setToken(res['token']);
         this.studentService.getRegisteredStudentsUser().subscribe(students =>{
           if(students.length === 0){
