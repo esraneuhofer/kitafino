@@ -68,9 +68,9 @@ app.use((err, req, res, next) => {
 });
 switch (environment) {
   case 'production':
-    app.use(express.static(__dirname + '/dist/schulanmeldung'));
+    app.use(express.static(__dirname + '/dist/schulanmeldungen'));
     app.get('/*', function(req,res) {
-      res.sendFile(path.join(__dirname+ '/dist/schulanmeldung/index.html'));
+      res.sendFile(path.join(__dirname+ '/dist/schulanmeldungen/index.html'));
     });
     break;
 }
