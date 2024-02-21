@@ -26,6 +26,7 @@ import {
 import {data} from "autoprefixer";
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
+import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../functions/special-food.functions";
 
 const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer / in einzutragen muss er/sie zuerst angemeldet werden"
 @Component({
@@ -63,7 +64,6 @@ export class OrderStudentComponent implements OnInit {
   assignedWeekplanSelected!: AssignedWeekplanInterface;
   weekplanGroups: WeekplanGroupClass[] = [];
   accountTenant!:AccountCustomerInterface;
-
 
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,

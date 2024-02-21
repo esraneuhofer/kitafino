@@ -1,6 +1,6 @@
 <ng-container *ngIf="pageLoaded">
 
-  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 w-full">
     <!-- Your div element will be repeated 5 times in these grid items -->
     <ng-container *ngFor="let orderDay of orderWeek let index = index">
       <app-meal-input-card (orderPlaced)="getDataWeek()"

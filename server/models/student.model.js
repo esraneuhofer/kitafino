@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var studentSchema = new Schema({
+  specialFood: String,
   firstName: String,
   lastName: String,
   subgroup: String,

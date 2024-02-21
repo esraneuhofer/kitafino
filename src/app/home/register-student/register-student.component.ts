@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {TenantServiceStudent} from "../../service/tenant.service";
-import {UserService} from "../../service/user.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {StudentService} from "../../service/student.service";
-import {animate, style, transition, trigger} from "@angular/animations";
-import {ToastrService} from "ngx-toastr";
+import {CustomerInterface} from "../../classes/customer.class";
+import {Component, OnInit} from "@angular/core";
 import {setEmptyStudentModel, StudentInterface} from "../../classes/student.class";
-import {GenerellService} from "../../service/generell.service";
-import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
-import {forkJoin} from "rxjs";
-import {getEmailBodyRegistrationStudent} from "./email-registration-student";
 import {TenantStudentInterface} from "../../classes/tenant.class";
+import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../functions/special-food.functions";
+import {StudentService} from "../../service/student.service";
+import {GenerellService} from "../../service/generell.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {TenantServiceStudent} from "../../service/tenant.service";
+import {forkJoin} from "rxjs";
+import {NgForm} from "@angular/forms";
+import {getEmailBodyRegistrationStudent} from "./email-registration-student";
+import {SettingInterfaceNew} from "../../classes/setting.class";
 
 function getRegistrationText(customer:CustomerInterface):string{
   if(customer.order.split.length > 1){
@@ -36,12 +36,16 @@ export class RegisterStudentComponent implements OnInit{
     firstName:'',
     lastName:''
   }
+
+  selectedSpecialFood:string = '';
   registrationText:string = '';
   pageLoaded:boolean = false;
   customerInfo!:CustomerInterface;
   subGroupUnknownModel: boolean = false;
   registeredStudents:StudentInterface[] = [];
   tenantStudent!:TenantStudentInterface;
+  specialFoodSelection:SpecialFoodSelectionStudent [] = [];
+  settings!:SettingInterfaceNew;
   constructor(private studentService: StudentService,
               private generalService: GenerellService,
               private router:Router,
@@ -64,25 +68,34 @@ export class RegisterStudentComponent implements OnInit{
       this.selectedSubgroup = '';
     }
   }
-  isSelected(event:string){
-    this.subGroupUnknownModel = false;
-    this.studentModel.subgroup = event;
+  // isSelected(event:string){
+  //   this.subGroupUnknownModel = false;
+  //   this.studentModel.subgroup = event;
+  // }
+  selectSpecialFood(event:string):void{
+    console.log('event',event)
+    this.studentModel.specialFood = event;
   }
   ngOnInit() {
     forkJoin(
       this.generellService.getCustomerInfo(),
       this.studentService.getRegisteredStudentsUser(),
-      this.tenantService.getTenantInformation()
+      this.tenantService.getTenantInformation(),
+      this.generalService.getSettingsCaterer()
     )
-    .subscribe(([customer,students,tenant]:[CustomerInterface,StudentInterface[],TenantStudentInterface])=>{
+    .subscribe(([customer,students,tenant,settings]:[CustomerInterface,StudentInterface[],TenantStudentInterface,SettingInterfaceNew])=>{
       this.customerInfo = customer;
       this.registeredStudents = students;
       this.tenantStudent = tenant;
+      this.settings = settings;
       this.registrationText = getRegistrationText(this.customerInfo);
+      this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo,this.settings);
       this.pageLoaded = true;
     })
 
   }
+
+
   addStudent(f:NgForm) {
     this.studentModel.subgroup = this.selectedSubgroup;
     this.submittingRequest = true;

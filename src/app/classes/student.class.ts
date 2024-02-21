@@ -5,6 +5,7 @@ export interface StudentInterface {
   username:string;
   subgroup:string,
   customerId:string,
+  specialFood: string | null;
 }
 
 export function setEmptyStudentModel():StudentInterface{
@@ -13,7 +14,8 @@ export function setEmptyStudentModel():StudentInterface{
     lastName:'',
     username:'',
     customerId:'',
-    subgroup:''
+    subgroup:'',
+    specialFood: null
   }
 }
 

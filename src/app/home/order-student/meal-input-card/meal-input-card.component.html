@@ -12,22 +12,22 @@
     </div>
   </div>
   <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
-    <div class="shadow-lg rounded-lg overflow-hidden relative"
-         [ngStyle]="{'min-height': eachMenu.displayMenu ? '140px' : '80px'}"
-         [ngClass]="getClasses(indexMenu, eachMenu, pastOrder)">
-      <div class="p-4">
+    <div [ngClass]="getClasses(indexMenu, eachMenu, pastOrder)"
+         [ngStyle]="getMenuStyle(eachMenu)"
+         class="shadow-lg rounded-lg overflow-hidden relative">
+      <div class="p-3">
         <!-- Top content goes here -->
         <div class="flex">
           <div class="w-full">
             <div class="flex">
-              <div class="w-1/6" *ngIf="eachMenu.displayMenu">
-                <input type="checkbox"
+              <div *ngIf="eachMenu.displayMenu" class="w-1/6">
+                <input (ngModelChange)="setOrderDay($event,indexMenu)"
+                       [(ngModel)]="eachMenu.menuSelected"
                        [disabled]="pastOrder"
-                       [ngClass]="{'cursor-not-allowed': pastOrder}"
-                       (ngModelChange)="setOrderDay($event,indexMenu)"
-                       [name]="'menuSelected' + indexMenu + '_' + indexDay" [(ngModel)]="eachMenu.menuSelected">
+                       [name]="'menuSelected' + indexMenu + '_' + indexDay"
+                       [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
               </div>
-              <div class="w-5/6" >
+              <div class="w-5/6">
                 <span>{{ eachMenu.nameOrder }}</span>
                 <span *ngIf="atLeastOneAllergene(eachMenu)"
                       [matTooltip]="getTooltipContent(eachMenu.allergenes)">
@@ -42,17 +42,17 @@
         </div>
       </div>
       <!-- This part will always stay at the bottom, using absolute positioning -->
-      <div class="absolute bottom-0 right-0 p-4" *ngIf="eachMenu.displayMenu">
+      <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
         <div class="flex justify-end">
           {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
-          <fa-icon [icon]="faShoppingCart" *ngIf="!eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,true)"></fa-icon>
-          <fa-icon [icon]="faTrashCan" *ngIf="eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,false)"></fa-icon>
+          <fa-icon (click)="setOrderIcon(indexMenu,true)" *ngIf="!eachMenu.menuSelected"
+                   [icon]="faShoppingCart"></fa-icon>
+          <fa-icon class="ml-1" (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"></fa-icon>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <div *ngIf="submittingOrder" class="loading-screen">
   <div class="loading-circle"></div>
 </div>

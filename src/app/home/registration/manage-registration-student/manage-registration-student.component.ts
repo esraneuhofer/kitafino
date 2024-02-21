@@ -6,6 +6,8 @@ import {StudentService} from "../../../service/student.service";
 import {GenerellService} from "../../../service/generell.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../../functions/special-food.functions";
+import {SettingInterfaceNew} from "../../../classes/setting.class";
 
 @Component({
   selector: 'app-manage-registration-student',
@@ -22,7 +24,14 @@ export class ManageRegistrationStudentComponent implements OnInit{
   pageLoaded:boolean = false;
   submittingRequest = false;
   selectedSubgroup:string = '';
+  specialFoodSelection:SpecialFoodSelectionStudent [] = [];
+  settings!: SettingInterfaceNew;
+  selectedSpecialFood:string = '';
 
+  setSpecialFoodEmpty(student:StudentInterface){
+    student.specialFood = null;
+   this.editStudent(student);
+  }
   constructor(  private router:Router,
                 private toaster:ToastrService,
                 private r: ActivatedRoute,
@@ -50,6 +59,18 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
     })
   }
+
+  getSpecialFoodFromId(id:string,settings:SettingInterfaceNew):string{
+    let nameSpecialFood = 'Sonderessen nicht gefunden'
+    if(settings.orderSettings.specialFoods.length > 0){
+      settings.orderSettings.specialFoods.forEach(eachSpecialFood =>{
+        if(eachSpecialFood._id === id){
+          nameSpecialFood = eachSpecialFood.nameSpecialFood;
+        }
+      })
+    }
+    return nameSpecialFood;
+  }
   routeToAccount(){
     this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent});
   }
@@ -65,11 +86,14 @@ export class ManageRegistrationStudentComponent implements OnInit{
   ngOnInit() {
     forkJoin(
       this.generellService.getCustomerInfo(),
-      this.studentService.getRegisteredStudentsUser()
+      this.studentService.getRegisteredStudentsUser(),
+      this.generellService.getSettingsCaterer()
     )
-      .subscribe(([customer,students]:[CustomerInterface,StudentInterface[]])=>{
+      .subscribe(([customer,students,settings]:[CustomerInterface,StudentInterface[],SettingInterfaceNew])=>{
         this.customerInfo = customer;
         this.registeredStudents = students;
+        this.settings = settings;
+        this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo,this.settings);
         this.pageLoaded = true;
       })
 
@@ -81,5 +105,9 @@ export class ManageRegistrationStudentComponent implements OnInit{
       this.selectedStudent.subgroup = event;
     }
 
+  }
+
+  selectSpecialFood(event:string,selectedStudent:StudentInterface):void{
+    selectedStudent.specialFood = event;
   }
 }

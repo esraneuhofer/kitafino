@@ -17,12 +17,19 @@
                         Sie anschließend auf "anlegen". </p>
                       <p class="mt-3 text-sm leading-6 text-gray-600">
                         Im Anschluss erhalten Sie eine Bestätigung per Email an Ihre hinterlegte Emailadresse.
-<!--                        sowie einen automatisch generierten Benutzername.-->
+                        <!--                        sowie einen automatisch generierten Benutzername.-->
                       </p>
-<!--                      <p *ngIf="customerInfo.order.split.length > 1" class="mt-3 text-sm leading-6 text-gray-600">-->
-<!--                        Sollten Sie die Untergruppe des Verpflegungsteilnehmers nicht kennen, wählen Sie bitte das-->
-<!--                        Kästchen "nicht bekannt" aus.-->
-<!--                      </p>-->
+                      <h2 *ngIf="specialFoodSelection.length > 0" class="text-base font-semibold leading-7 text-gray-900 mt-3">Allergiker Essen</h2>
+                      <p *ngIf="specialFoodSelection.length > 0" class=" text-sm leading-6 text-gray-600">
+                        Sollte der Verpflegungs-Teilnehmer Allergien haben, so wählen Sie bitte das entsprechende Essen
+                        aus.
+                        Dei Allergiker Essen werden von dem jeweiligen Caterer eingestellt. Sollte Sie Fragen hierzu
+                        haben wenden
+                        Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird dieses
+                        automatisch bei all Ihren Bestellungen dem Caterer übermittelt.
+                        <br> <br><b>Bitte beachten Sie: </b> Sollte das Allergiker Essen nachträglich geändert werden, so
+                        wird diese Änderung bei bereits abgegebene Bestellungen nicht berücksichtigt.
+                      </p>
                     </div>
 
                     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
@@ -62,48 +69,66 @@
                         </div>
                         <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
                       </div>
-<!--                      <div class="sm:col-span-4">-->
-<!--                        <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe-->
-<!--                          zuordnen</label>-->
-<!--                        <select #subgroupModel="ngModel" (ngModelChange)="-->
-<!--    isSelected($event)"-->
-<!--                                [(ngModel)]="selectedSubgroup"-->
-<!--                                [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"-->
-<!--                                [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"-->
-<!--                                [class.ring-red-300]="f1.submitted && subgroupModel.invalid"-->
-<!--                                [class.text-red-900]="f1.submitted && subgroupModel.invalid"-->
-<!--                                [required]="!subGroupUnknownModel"-->
-<!--                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
-<!--                                id="subgroup"-->
-<!--                                name="subgroupModel">-->
-<!--                          <option disabled hidden selected value="">Bitte auswählen</option>-->
-<!--                          <option-->
-<!--                            *ngFor="let subgroup of customerInfo.order.split"-->
-<!--                            [value]="subgroup.group">{{subgroup.displayGroup}}</option>-->
-<!--                        </select>-->
-<!--                        <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte-->
-<!--                          auswählen oder ankreuzen</p>-->
+                      <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                        <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Allergiker
+                          Essen</label>
+                        <select #subgroupModel="ngModel" (ngModelChange)="selectSpecialFood($event)"
+                                [(ngModel)]="selectedSpecialFood"
+                                [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
+                                [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
+                                [class.ring-red-300]="f1.submitted && subgroupModel.invalid"
+                                [class.text-red-900]="f1.submitted && subgroupModel.invalid"
+                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                id="subgroup"
+                                name="subgroupModel">
+                          <option disabled hidden selected value="">Bitte auswählen</option>
+                          <option
+                            *ngFor="let specialFood of specialFoodSelection"
+                            [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
+                        </select>
+                      </div>
+                      <!--                      <div class="sm:col-span-4">-->
+                      <!--                        <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe-->
+                      <!--                          zuordnen</label>-->
+                      <!--                        <select #subgroupModel="ngModel" (ngModelChange)="-->
+                      <!--    isSelected($event)"-->
+                      <!--                                [(ngModel)]="selectedSubgroup"-->
+                      <!--                                [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"-->
+                      <!--                                [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"-->
+                      <!--                                [class.ring-red-300]="f1.submitted && subgroupModel.invalid"-->
+                      <!--                                [class.text-red-900]="f1.submitted && subgroupModel.invalid"-->
+                      <!--                                [required]="!subGroupUnknownModel"-->
+                      <!--                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+                      <!--                                id="subgroup"-->
+                      <!--                                name="subgroupModel">-->
+                      <!--                          <option disabled hidden selected value="">Bitte auswählen</option>-->
+                      <!--                          <option-->
+                      <!--                            *ngFor="let subgroup of customerInfo.order.split"-->
+                      <!--                            [value]="subgroup.group">{{subgroup.displayGroup}}</option>-->
+                      <!--                        </select>-->
+                      <!--                        <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte-->
+                      <!--                          auswählen oder ankreuzen</p>-->
 
-<!--                      </div>-->
-<!--                      <div class="sm:col-span-4">-->
-<!--                        <div class="space-y-5">-->
-<!--                          <div class="relative flex items-start">-->
-<!--                            <div class="flex h-6 items-center">-->
-<!--                              <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"-->
-<!--                                     aria-describedby="comments-description"-->
-<!--                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
-<!--                                     id="subGroupUnknown"-->
-<!--                                     name="subGroupUnknown"-->
-<!--                                     type="checkbox">-->
-<!--                            </div>-->
-<!--                            <div class="ml-3 text-sm leading-6">-->
-<!--                              <label class="font-medium text-gray-900" for="subGroupUnknown">Nicht bekannt</label>-->
-<!--                              <p class="text-gray-500" id="comments-description">Sollten Sie sich unsicher sein in-->
-<!--                                welche Untergruppe der Verplegungsteilnemher ist bitte anklicken</p>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
+                      <!--                      </div>-->
+                      <!--                      <div class="sm:col-span-4">-->
+                      <!--                        <div class="space-y-5">-->
+                      <!--                          <div class="relative flex items-start">-->
+                      <!--                            <div class="flex h-6 items-center">-->
+                      <!--                              <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"-->
+                      <!--                                     aria-describedby="comments-description"-->
+                      <!--                                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+                      <!--                                     id="subGroupUnknown"-->
+                      <!--                                     name="subGroupUnknown"-->
+                      <!--                                     type="checkbox">-->
+                      <!--                            </div>-->
+                      <!--                            <div class="ml-3 text-sm leading-6">-->
+                      <!--                              <label class="font-medium text-gray-900" for="subGroupUnknown">Nicht bekannt</label>-->
+                      <!--                              <p class="text-gray-500" id="comments-description">Sollten Sie sich unsicher sein in-->
+                      <!--                                welche Untergruppe der Verplegungsteilnemher ist bitte anklicken</p>-->
+                      <!--                            </div>-->
+                      <!--                          </div>-->
+                      <!--                        </div>-->
+                      <!--                      </div>-->
                     </div>
 
 
@@ -113,8 +138,8 @@
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                   <button
 
-                    [disabled]="submittingRequest"
                     (click)="directToRoute('register')"
+                    [disabled]="submittingRequest"
                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     type="button">
                     Zurück
@@ -154,9 +179,9 @@
                     <p class="mt-1 text-sm leading-6 text-gray-600">
                       Vielen Dank für Ihre Anmeldung.
                       Wir haben Ihnen eine Bestätigungs-Email Ihrer Anmeldung an Ihre hinterlegte Emailadresse gesendet.
-                     <span *ngIf="customerInfo.order.split.length > 1"><br><br></span> {{registrationText}}
-<!--                      Dem Verpflegungsteilnehmer/in wurde automatisch ein Benutzername zugeordnet.-->
-<!--                      Der Benutzername ist für eine eindeutige Identifizeirung des Gutehaben Kontos ".-->
+                      <span *ngIf="customerInfo.order.split.length > 1"><br><br></span> {{registrationText}}
+                      <!--                      Dem Verpflegungsteilnehmer/in wurde automatisch ein Benutzername zugeordnet.-->
+                      <!--                      Der Benutzername ist für eine eindeutige Identifizeirung des Gutehaben Kontos ".-->
                     </p>
                     <div class="mt-3 text-sm leading-6 text-gray-600">
                       <div class="flex">
@@ -174,22 +199,22 @@
                     </div>
                   </div>
 
-<!--                  <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">-->
-<!--                    <div class="sm:col-span-4">-->
-<!--                      <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Username</label>-->
-<!--                      <div class="mt-2">-->
-<!--                        <input #firstName="ngModel"-->
-<!--                               [(ngModel)]="returnedUsernameStudent"-->
-<!--                               autocomplete="username"-->
-<!--                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"-->
-<!--                               disabled-->
-<!--                               id="username"-->
-<!--                               name="username"-->
-<!--                               required-->
-<!--                               type="text">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
+                  <!--                  <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">-->
+                  <!--                    <div class="sm:col-span-4">-->
+                  <!--                      <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Username</label>-->
+                  <!--                      <div class="mt-2">-->
+                  <!--                        <input #firstName="ngModel"-->
+                  <!--                               [(ngModel)]="returnedUsernameStudent"-->
+                  <!--                               autocomplete="username"-->
+                  <!--                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 sm:text-sm sm:leading-6"-->
+                  <!--                               disabled-->
+                  <!--                               id="username"-->
+                  <!--                               name="username"-->
+                  <!--                               required-->
+                  <!--                               type="text">-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                 </div>
               </div>
             </div>

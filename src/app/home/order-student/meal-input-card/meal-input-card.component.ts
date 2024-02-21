@@ -20,6 +20,33 @@ import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {timeout} from "rxjs";
 import {StudentInterface} from "../../../classes/student.class";
 import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
+function customSort(array:OrderSubDetailNew[]) {
+  // Define the sort order
+  const sortOrder:any = {
+    'side': 1,
+    'menu': 2,
+    'specialFood': 3,
+    'dessert': 4
+  };
+
+  // Custom sort function
+  array.sort((a, b) => {
+    // Get the order for each type
+    let orderA = sortOrder[a.typeOrder];
+    let orderB = sortOrder[b.typeOrder];
+
+    // If an item's typeOrder does not exist in sortOrder, consider its order as high to sort it at the end
+    if (orderA === undefined) orderA = Infinity;
+    if (orderB === undefined) orderB = Infinity;
+
+    // Compare the two orders
+    if (orderA < orderB) return -1;
+    if (orderA > orderB) return 1;
+    return 0;
+  });
+
+  return array;
+}
 
 
 registerLocaleData(localeDe);
@@ -61,8 +88,16 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.checkDeadline(this.orderDay.date);
-    console.log(this.orderDay)
+    const orders = customSort(JSON.parse(JSON.stringify(this.orderDay.orderStudentModel.order.orderMenus)))
+    this.orderDay.orderStudentModel.order.orderMenus = orders;
+      this.checkDeadline(this.orderDay.date);
+    if(this.selectedStudent.specialFood){
+      this.orderDay.orderStudentModel.order.specialFoodOrder.forEach((eachSpecialFood,index) => {
+        if(eachSpecialFood.idSpecialFood === this.selectedStudent.specialFood){
+          this.orderDay.orderStudentModel.order.specialFoodOrder[index].active = true
+        }
+      })
+    }
   }
 
   getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean) {
@@ -91,11 +126,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       case 'menu': return 'background_blue';
       case 'side': return 'background_lighter_green';
       case 'dessert': return 'background_yellow';
-      case 'special': return 'background_lightgreen';
+      case 'specialFood': return 'background_lightgreen';
       default: return 'transparent';  // Default color if value is 0 or not in range
     }
   }
 
+  getMenuStyle(eachMenu: any): any {
+    let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
+    if (eachMenu.typeOrder === 'menu') {
+      minHeight = '140px'; // Set min-height to 140px for 'menu'
+    }
+
+    return {'min-height': minHeight};
+  }
   private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string,indexMenu:number, onConfirm: (result: {
     sendCopyEmail: boolean
   }) => void): void {

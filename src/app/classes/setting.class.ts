@@ -7,7 +7,7 @@ export interface SpecialOrderSettings {
 }
 
 export interface SpecialFoodInterface {
-  _id?: string,
+  _id: string,
   nameSpecialFood: string,
   priceSpecialFood: { groupType: string, priceSpecial: number }[],
   allergenes: string[]
