@@ -39,7 +39,8 @@ export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface
 
   const seconds = Math.floor(difference / 1000);
 
-  return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Stunde${hours === 1 ? '' : 'n'}, ${minutes} Minute${minutes === 1 ? '' : 'n'},  ${seconds} Sekunde${seconds === 1 ? '' : 'n'}`;
+  return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
+  // return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
 export function addDayFromDate(date:Date, daysToAdd:number) {

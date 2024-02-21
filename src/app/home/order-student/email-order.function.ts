@@ -6,6 +6,7 @@ import {CustomerInterface} from "../../classes/customer.class";
 import {customerHasSpecialVisibleEmail, getTotalPortion} from "../../functions/order.functions";
 import {MealtypesWeekplan, WeekplanDayInterface} from "../../classes/weekplan.interface";
 import {getBodyEmailGenerell} from "./email-generell.functions";
+import {StudentInterface} from "../../classes/student.class";
 
 export interface EmailOrderInterface {
   orderStudent: OrderInterfaceStudent,
@@ -14,7 +15,8 @@ export interface EmailOrderInterface {
   typeOrder: string,
   customerInfo: CustomerInterface,
   weekplanDay:WeekplanDayInterface,
-  sendCopyEmail:boolean
+  sendCopyEmail:boolean,
+  selectedStudent:StudentInterface
 }
 
 function numberToEuroString(number: number): string {
@@ -23,7 +25,8 @@ function numberToEuroString(number: number): string {
 
 
 export function getEmailBody(objectData: EmailOrderInterface): any {
-  let titleOrder = 'Bestellbestätigung';
+  let titleOrder = 'Bestellbestätigung '
+  // Verpflegungsteilnehmer/in :' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + '<br> Datum:' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '<br>';
   let typeOrder = 'Bestellbestätigung'
   const orderTime = getInvoiceDateOne(new Date());
   let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
@@ -56,7 +59,7 @@ function getEmailBodyHtml(objectData: EmailOrderInterface, typeOrder: string): a
     tableModel += tableModel += '  <table class="table_calender_week table table-bordered">\n' +
       '          <tr>\n' +
       '            <th colspan="100%">' +
-      '<b>' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '</b></th></tr>' +
+      '<b> Verpflegungsteilnehmer/in: ' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + ' | '  + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '</b></th></tr>' +
       '</th>\n' +
       '          </tr>\n' +
       '        </table>';

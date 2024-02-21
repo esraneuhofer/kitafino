@@ -1,7 +1,19 @@
+
 <ng-container *ngIf="showErrorNoStudents">
   <app-banner-no-registration-order></app-banner-no-registration-order>
 </ng-container>
 <ng-container *ngIf="!showErrorNoStudents && mainDataLoaded">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-center">
+      <div class="w-100 flex flex-wrap"> <!-- Removed w-5/6 and added custom width in the parent div -->
+        <div class="     flex w-full">
+          <p *ngIf="accountTenant">
+            Ihr derzeites Guthaben beträgt:
+            <span>{{accountTenant.currentBalance | currency:'€'}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
   <app-date-selection (getOrderWeek)="changeDate($event)"
                       (selectStudent)="selectStudent($event)"
                       [registeredStudents]="registeredStudents"
@@ -17,10 +29,10 @@
   <ng-container *ngIf="!studentNoSubgroup">
     <ng-container *ngIf="!fetchingOrder">
       <ng-container  *ngIf="selectedStudent && querySelection">
-        <div class="container mx-auto px-4 mt-8">
+        <div class="container mx-auto px-4">
           <div class="flex justify-center">
-            <div class="w-5/6">
-              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="w-6/6">
+<!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
                 <div class="flex  items-center"> <!-- Center content vertically and horizontally -->
                   <app-order-container
                     [tenantStudent]="tenantStudent"
@@ -33,10 +45,11 @@
                     [selectedStudent]="selectedStudent"
                     [settings]="settings"
                     [selectedWeekplan]="selectedWeekplan"
+                    (orderPlacedNew)="orderPlaced()"
                   ></app-order-container>
                 </div>
               </div>
-            </div>
+<!--            </div>-->
           </div>
         </div>
       </ng-container>

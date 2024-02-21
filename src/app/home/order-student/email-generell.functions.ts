@@ -104,7 +104,7 @@ export function getBodyEmailGenerell(
   '<div style="background:white; border:1px solid lightgray; padding:50px">' +
   '  <div class="row">\n' +
   '    <div class="col-10 offset-1">' +
-      '<h4>' + titleOrder + '</h4>' +
+      '<span style="font-size: 0.9em">' + titleOrder + '</span> <br><br>' +
   emailBody +
   // editedBody +
   '<div style="margin-top: 15px;font-size:0.7em;">Datum:' + orderTime + ' | ' + typeOrder + ' vom Kunden aufgegeben</div>' +

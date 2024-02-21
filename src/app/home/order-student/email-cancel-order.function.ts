@@ -40,10 +40,10 @@ function getEmailBodyHtml(objectData: EmailOrderInterface): string {
 
 function getTextCancel(objectData: EmailOrderInterface,price:number): string {
   let string = '';
-  string += '<p>Sehr geehrte Damen und Herren,</p>';
-  string += '<p>hiermit bestätigen wir Ihnen die Stornierung Ihrer Bestellung von ' + objectData.tenantStudent.firstName + ' ' + objectData.tenantStudent.lastName + ' für den ' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '.</p>';
-  string += '<p>Der Betrag in Höhe von ' + convertNumberToCurrency(price *  -1)  + '  für die Bestellung wird Ihrem Konto gutgeschrieben</p>';
-  string += '<p>Freundliche Grüße <br>' + objectData.settings.tenantSettings.contact.companyName + '</p>';
+  string += '<p style="font-size:0.9em;">Sehr geehrte Damen und Herren,</p>';
+  string += '<p style="font-size:0.9em;">hiermit bestätigen wir Ihnen die Stornierung Ihrer Bestellung für den Verfplegungsteilehmer/in ' + objectData.tenantStudent.firstName + ' ' + objectData.tenantStudent.lastName + ' für den ' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '.</p>';
+  string += '<p style="font-size:0.9em;">Der Betrag in Höhe von ' + convertNumberToCurrency(price *  -1)  + '  für die Bestellung wird Ihrem Konto gutgeschrieben</p>';
+  string += '<p style="font-size:0.9em;">Freundliche Grüße <br>' + objectData.settings.tenantSettings.contact.companyName + '</p>';
   return string;
 }
 
@@ -157,7 +157,7 @@ export function getBodyEmailGenerell(
       '<div style="background:white; border:1px solid lightgray; padding:50px">' +
       '  <div class="row">\n' +
       '    <div class="col-10 offset-1">' +
-      '<h4>' + titleOrder + '</h4>' +
+      '<span  style="font-size:1em;">' + titleOrder + '</span>' +
       emailBody +
       // editedBody +
       '<div style="margin-top: 15px;font-size:0.7em;">Datum:' + orderTime + ' | ' + typeOrder + ' vom Kunden aufgegeben</div>' +

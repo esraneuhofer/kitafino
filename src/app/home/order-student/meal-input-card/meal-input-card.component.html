@@ -1,94 +1,58 @@
-<!--<div class="isolate -space-y-px ">-->
-<!--  {{differenceTimeDeadline | json}}-->
-<!--  &lt;!&ndash; Center the paragraph and add bottom margin &ndash;&gt;-->
-<!--  <p class="text-center mb-2">{{ orderDay.date | date:'EEEE, dd.MM.yy':'de' }}</p>-->
-
-<!--&lt;!&ndash;  (eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName)&ndash;&gt;-->
-<!--  <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus"-->
-<!--       [hidden]="!eachMenu.displayMenu"-->
-<!--    class="relative rounded-b-none px-3 pb-1.5 pt-2.5 ring-1 ring-inset ring-gray-300 focus-within:z-10 focus-within:ring-2 focus-within:ring-indigo-600">-->
-<!--    <label for="name" class="block text-xs font-medium text-gray-900">{{eachMenu.nameMenu}}</label>-->
-<!--    <input type="number" name="name" id="name" class="block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"-->
-<!--           [(ngModel)]="eachMenu.amountOrder"-->
-<!--           [ngClass]="{-->
-<!--        'disabled:cursor-not-allowed': eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName,-->
-<!--        'disabled:bg-gray-50': eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName,-->
-<!--        'disabled:text-gray-500': eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName,-->
-<!--        'disabled:ring-gray-200': eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName-->
-<!--    }"-->
-<!--           [disabled]="eachMenu.isDisabled && !settings.orderSettings.showMenuWithoutName"-->
-<!--           [placeholder]="eachMenu.nameOrder">-->
-<!--  </div>-->
-<!--  &lt;!&ndash; Center the button and add top margin &ndash;&gt;-->
-<!--  <div class="pt-2">-->
-<!--    <button-->
-<!--      *ngIf="!orderDay.orderStudentModel._id"-->
-<!--      (click)="placeOrder(orderDay.orderStudentModel,'order')"-->
-<!--      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"-->
-<!--      type="submit">-->
-<!--      <app-button-spinner [submittingRequest]="submittingRequest" [btnText]="'Bestellen'"></app-button-spinner>-->
-<!--    </button>-->
-<!--    <button-->
-<!--      *ngIf="orderDay.orderStudentModel._id"-->
-<!--      (click)="placeOrder(orderDay.orderStudentModel,'edit')"-->
-<!--      class="rounded-md bg-orange-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"-->
-<!--      type="submit">-->
-<!--      <app-button-spinner [submittingRequest]="submittingRequest" [btnText]="'Ändern'"></app-button-spinner>-->
-<!--    </button>-->
-<!--    <button-->
-<!--      *ngIf="orderDay.orderStudentModel._id"-->
-<!--      (click)="cancelOrder(orderDay.orderStudentModel)"-->
-<!--      class="ml-2 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"-->
-<!--      type="submit">-->
-<!--      <app-button-spinner [submittingRequest]="submittingRequest" [btnText]="'Stornieren'"></app-button-spinner>-->
-<!--    </button>-->
-<!--  </div>-->
-<!--</div>-->
-<div  class="bg-white shadow-lg rounded-lg overflow-hidden mb-2">
-  <div class="p-4" >
-    <div class="flex">
-      <div class="w-full flex justify-end">
-        {{ differenceTimeDeadline}}
+<div class="container-font-size">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-2">
+    <div class="p-4">
+      <div class="flex justify-end">
+        <div class="w-full">
+          <div class="flex flex-col items-end">
+            <div class="text-xs text-gray-500">{{ differenceTimeDeadline }}</div>
+            <p>{{ orderDay.date | date:'EEEE dd.MM.yy':'de' }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus let indexMenu = index">
-  <div  class="bg-white shadow-lg rounded-lg overflow-hidden" [ngClass]="{'mt-1': indexMenu !== 0}">
-    <div class="p-4" >
-      <div class="flex" *ngIf="indexMenu === 0">
-        <div class="w-full bg-gray-200">
-          <p>{{ orderDay.date | date:'EE, dd.MM.yy':'de' }}</p>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="w-full">
-          <div class="flex">
-            <div class="w-1/6" *ngIf="eachMenu.displayMenu">
-              <input type="checkbox"
-                     [disabled]="pastOrder"
-                     (ngModelChange)="setOrderDay($event,indexMenu)"
-                     [name]="'menuSelected' + indexMenu + '_' + indexDay" [(ngModel)]="eachMenu.menuSelected">
-            </div>
-            <div class="w-2/3">
-              {{ eachMenu.nameOrder }}
+  <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
+    <div class="shadow-lg rounded-lg overflow-hidden relative"
+         [ngStyle]="{'min-height': eachMenu.displayMenu ? '140px' : '80px'}"
+         [ngClass]="getClasses(indexMenu, eachMenu, pastOrder)">
+      <div class="p-4">
+        <!-- Top content goes here -->
+        <div class="flex">
+          <div class="w-full">
+            <div class="flex">
+              <div class="w-1/6" *ngIf="eachMenu.displayMenu">
+                <input type="checkbox"
+                       [disabled]="pastOrder"
+                       [ngClass]="{'cursor-not-allowed': pastOrder}"
+                       (ngModelChange)="setOrderDay($event,indexMenu)"
+                       [name]="'menuSelected' + indexMenu + '_' + indexDay" [(ngModel)]="eachMenu.menuSelected">
+              </div>
+              <div class="w-5/6" >
+                <span>{{ eachMenu.nameOrder }}</span>
+                <span *ngIf="atLeastOneAllergene(eachMenu)"
+                      [matTooltip]="getTooltipContent(eachMenu.allergenes)">
+                   <span class="allergen-ordinal">
+                    ({{getAllergenes(eachMenu.allergenes)}})
+                               </span>
+        </span>
+
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex" *ngIf="eachMenu.displayMenu">
-        <div class="w-full flex justify-end">
+      <!-- This part will always stay at the bottom, using absolute positioning -->
+      <div class="absolute bottom-0 right-0 p-4" *ngIf="eachMenu.displayMenu">
+        <div class="flex justify-end">
           {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
           <fa-icon [icon]="faShoppingCart" *ngIf="!eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,true)"></fa-icon>
           <fa-icon [icon]="faTrashCan" *ngIf="eachMenu.menuSelected" (click)="setOrderIcon(indexMenu,false)"></fa-icon>
         </div>
       </div>
-
-
     </div>
   </div>
-
 </div>
+
 <div *ngIf="submittingOrder" class="loading-screen">
   <div class="loading-circle"></div>
 </div>

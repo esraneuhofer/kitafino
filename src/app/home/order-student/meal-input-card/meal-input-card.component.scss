@@ -24,3 +24,52 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.background_blue {
+  background: #7DAEE6!important;
+}
+
+.background_yellow {
+  background: #FFE792;
+}
+.background_lightgreen {
+  background: #D8B3E9;
+  background: -moz-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D8B3E9), color-stop(100%, #ECD8F5));
+  background: -webkit-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
+  background: -o-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
+  background: -ms-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
+  background: linear-gradient(to bottom, #D8B3E9 0%, #ECD8F5 100%);
+  background-size: 150% 150%;
+  z-index: 3;
+  opacity: 1;
+}
+
+
+.background_lightblue {
+  background: #B2C9F0;
+  background: -moz-linear-gradient(top, #B2C9F0 0%, #D0DAF8 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #B2C9F0), color-stop(100%, #D0DAF8));
+  background: -webkit-linear-gradient(top, #B2C9F0 0%, #D0DAF8 100%);
+  background: -o-linear-gradient(top, #B2C9F0 0%, #D0DAF8 100%);
+  background: -ms-linear-gradient(top, #B2C9F0 0%, #D0DAF8 100%);
+  background: linear-gradient(to bottom, #B2C9F0 0%, #D0DAF8 100%);
+  background-size: 150% 150%;
+  z-index: 3;
+  opacity: 1;
+}
+
+
+.background_greyed_out {
+  background-color: rgba(128, 128, 128, 0.5); /* This will overlay a semi-transparent grey */
+  //z-index: 3;
+  //opacity: 1;
+}
+
+.container-font-size{
+  font-size: 0.8em
+}
+
+.allergen-ordinal {
+  vertical-align: super;
+  font-size: 0.6em; /* adjust as needed */
+}

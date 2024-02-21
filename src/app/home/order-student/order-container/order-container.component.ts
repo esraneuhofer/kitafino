@@ -103,7 +103,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   orderWeek: MealCardInterface[] = [];
   accountTenant?:AccountCustomerInterface
 
-  @Output() orderPlaced: any = new EventEmitter<Event>();
+  @Output() orderPlacedNew: any = new EventEmitter<Event>();
   isLocked: boolean = false;
   pageLoaded: boolean = false;
   query: { week: number; year: number } = {week: 0, year: 0};
@@ -122,10 +122,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.accountService.getAccountTenant().subscribe((accountTenant:AccountCustomerInterface) => {
-      this.accountTenant = accountTenant;
 
-    })
     // this.query = {year: new Date(this.selectedDate).getFullYear(), week: getWeekNumber(new Date(this.selectedDate))}
     // this.getDataWeek()
   }
@@ -134,6 +131,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
     this.pageLoaded = true
   }
   getDataWeek() {
+    this.orderPlacedNew.emit()
     this.orderWeek = [];
     this.pageLoaded = false;
     const dateMonday = getDateMondayFromCalenderweek(this.query);
@@ -160,7 +158,6 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       forkJoin(promiseOrderWeek).pipe(
         defaultIfEmpty([null]),
       ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
-        console.log(order)
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, lockDays))

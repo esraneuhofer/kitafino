@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import  {CommonModule} from "@angular/common";
 import { AppComponent } from './app.component';
@@ -125,7 +125,10 @@ registerLocaleData(localeDe);
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
-    multi: true
+    multi: true,
+  },  {
+    provide: LOCALE_ID,
+    useValue: 'de-DE'
   }],
   bootstrap: [AppComponent],
 

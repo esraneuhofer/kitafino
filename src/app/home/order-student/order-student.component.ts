@@ -62,13 +62,21 @@ export class OrderStudentComponent implements OnInit {
   tenantStudent!: TenantStudentInterface;
   assignedWeekplanSelected!: AssignedWeekplanInterface;
   weekplanGroups: WeekplanGroupClass[] = [];
+  accountTenant!:AccountCustomerInterface;
+
 
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
               private tenantService: TenantServiceStudent,
-              private studentService: StudentService) {
+              private studentService: StudentService,
+              private accountService:AccountService) {
   }
 
+  orderPlaced() {
+    this.accountService.getAccountTenant().subscribe((accountTenant:AccountCustomerInterface) => {
+      this.accountTenant = accountTenant;
+    })
+  }
   ngOnInit() {
     const queryInit = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
@@ -83,6 +91,7 @@ export class OrderStudentComponent implements OnInit {
       this.tenantService.getTenantInformation(),
       this.generellService.getAssignedWeekplan(queryInit),
       this.generellService.getWeekplanGroups(),
+      this.accountService.getAccountTenant()
     ]).subscribe(
       ([
          settings,
@@ -96,6 +105,7 @@ export class OrderStudentComponent implements OnInit {
          tenantStudent,
         assignedWeekplans,
         weekplanGroups,
+         accountTenant
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -108,6 +118,7 @@ export class OrderStudentComponent implements OnInit {
         TenantStudentInterface,
         AssignedWeekplanInterface[],
         WeekplanGroupClass[],
+        AccountCustomerInterface
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -122,6 +133,7 @@ export class OrderStudentComponent implements OnInit {
         this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings,queryInit);
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer,this.weekplanGroups,settings);
         this.tenantStudent = tenantStudent;
+        this.accountTenant = accountTenant;
         this.mainDataLoaded = true;
 
       },

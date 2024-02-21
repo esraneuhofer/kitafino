@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {OrderInterfaceStudent} from "../../../classes/order_student.class";
+import {OrderInterfaceStudent, OrderSubDetailNew} from "../../../classes/order_student.class";
 import {MealCardInterface} from "../order-container/order-container.component";
 import localeDe from '@angular/common/locales/de';
 import {registerLocaleData} from "@angular/common";
@@ -18,6 +18,8 @@ import {ToastrService} from "ngx-toastr";
 import {getEmailBodyCancel} from "../email-cancel-order.function";
 import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {timeout} from "rxjs";
+import {StudentInterface} from "../../../classes/student.class";
+import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
 
 
 registerLocaleData(localeDe);
@@ -29,6 +31,10 @@ registerLocaleData(localeDe);
 })
 export class MealInputCardComponent implements OnInit, OnDestroy {
 
+  protected readonly atLeastOneAllergene = atLeastOneAllergene;
+  protected readonly getTooltipContent = getTooltipContent;
+  protected readonly getAllergenes = getAllergenes;
+
   @Input() indexDay!: number;
   @Input() orderDay!: MealCardInterface
   @Input() settings!: SettingInterfaceNew;
@@ -36,13 +42,14 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() tenantStudent!: TenantStudentInterface;
   @Input() customer!: CustomerInterface;
   @Input() weekplanDay!: WeekplanDayInterface
+  @Input() selectedStudent!: StudentInterface
   submittingOrder: boolean = false;
 
   differenceTimeDeadline: string = '';
   timerInterval: any;
 
+  pastOrder: boolean = false;
   pageLoaded: boolean = true;
-  pastOrder: boolean = true;
   submittingRequest: boolean = false;
   faShoppingCart = faShoppingCart;
   faTrashCan = faTrashCan;
@@ -55,6 +62,38 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.checkDeadline(this.orderDay.date);
+    console.log(this.orderDay)
+  }
+
+  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean) {
+
+    // Initialize an object with static and conditional classes
+    let classes:any = {
+      'mt-1': indexMenu !== 0,
+      'shadow-lg': true,
+      'rounded-lg': true,
+      'overflow-hidden': true,
+      'cursor-not-allowed': pastOrder, // Conditionally apply cursor-not-allowed class
+    };
+
+    // Add dynamic class from getColor method
+    const colorClass = this.getColor(eachMenu, false, pastOrder);
+
+    classes[colorClass] = true; // Use the color class name as key and set its value to true
+
+    return classes;
+  }
+  getColor(menuItem:OrderSubDetailNew,lockDay:boolean,pastOrder:boolean):string{
+    if (lockDay || pastOrder) {
+      return 'background_greyed_out';
+    }
+    switch (menuItem.typeOrder){
+      case 'menu': return 'background_blue';
+      case 'side': return 'background_lighter_green';
+      case 'dessert': return 'background_yellow';
+      case 'special': return 'background_lightgreen';
+      default: return 'transparent';  // Default color if value is 0 or not in range
+    }
   }
 
   private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string,indexMenu:number, onConfirm: (result: {
@@ -110,7 +149,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       typeOrder: type,
       customerInfo: this.customer,
       weekplanDay: this.weekplanDay,
-      sendCopyEmail: result.sendCopyEmail
+      sendCopyEmail: result.sendCopyEmail,
+      selectedStudent:this.selectedStudent
     }
   }
 
@@ -202,8 +242,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
     if (!distance) {
       // this.pastOrder = true;
-      this.pastOrder = false;
-      this.differenceTimeDeadline = 'Abbestellfrist ist abgelaufen!';
+      this.pastOrder = true;
+      this.differenceTimeDeadline = 'Bestellfrist ist abgelaufen!';
       clearInterval(this.timerInterval);
     } else {
       clearInterval(this.timerInterval);
@@ -220,6 +260,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       clearInterval(this.timerInterval);
     }
   }
+
 
 
 }
