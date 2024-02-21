@@ -33,6 +33,9 @@ module.exports.authenticate = (req, res, next) => {
   // call for passport authentication
   passport.authenticate('local', (err, user, info) => {
     // error from passport middleware
+    console.log('err', err);
+    console.log('user', user);
+    console.log('info', info);
     if (err) return res.status(400).json(err);
     // registered user
     else if (user) return res.status(200).json({"token": user.generateJwt()});
