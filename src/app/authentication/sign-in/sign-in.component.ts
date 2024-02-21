@@ -33,6 +33,7 @@ export class SignInComponent implements OnInit {
     this.userService.login({email:this.signInModel.email,password:this.signInModel.password}).subscribe(
       (res: any) => {
         console.log(res);
+        this.submittingRequest = false;
 
         this.userService.setToken(res['token']);
         this.studentService.getRegisteredStudentsUser().subscribe(students =>{
