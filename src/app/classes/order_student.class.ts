@@ -272,7 +272,6 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
   if (!orderDayGroup.menu) {
     return setSpecialArrayNoWeekplanExist(setting, customer, orderDayGroup);
   }
-  console.log('orderDayGroup', orderDayGroup)
   setting.orderSettings.specialFoods.forEach((specialFood) => {
     if (specialFoodShownCustomer(specialFood, customer) && specialFoodIsInAllergies(specialFood, orderDayGroup.allergenes)) {
       arraySpecial.push({

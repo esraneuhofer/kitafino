@@ -73,3 +73,9 @@
   vertical-align: super;
   font-size: 0.6em; /* adjust as needed */
 }
+
+
+/* OR if you want to add a specific class for the cursor change */
+.cursor-pointer:hover {
+  cursor: pointer;
+}

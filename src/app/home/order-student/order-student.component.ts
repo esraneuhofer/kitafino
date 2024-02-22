@@ -91,7 +91,8 @@ export class OrderStudentComponent implements OnInit {
       this.tenantService.getTenantInformation(),
       this.generellService.getAssignedWeekplan(queryInit),
       this.generellService.getWeekplanGroups(),
-      this.accountService.getAccountTenant()
+      this.accountService.getAccountTenant(),
+      this.generellService.getVacationCustomer()
     ]).subscribe(
       ([
          settings,
@@ -105,7 +106,8 @@ export class OrderStudentComponent implements OnInit {
          tenantStudent,
         assignedWeekplans,
         weekplanGroups,
-         accountTenant
+         accountTenant,
+        vacations
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -118,7 +120,8 @@ export class OrderStudentComponent implements OnInit {
         TenantStudentInterface,
         AssignedWeekplanInterface[],
         WeekplanGroupClass[],
-        AccountCustomerInterface
+        AccountCustomerInterface,
+        VacationsInterface[]
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -134,6 +137,7 @@ export class OrderStudentComponent implements OnInit {
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer,this.weekplanGroups,settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
+        this.allVacations = vacations;
         this.mainDataLoaded = true;
 
       },

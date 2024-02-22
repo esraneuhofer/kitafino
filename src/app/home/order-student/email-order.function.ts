@@ -94,6 +94,13 @@ function getTableContent(object: EmailOrderInterface): any {
           '<td>' + numberToEuroString(eachOrderDay.priceOrder * eachOrderDay.amountOrder)  + '</td>' +
           '</tr>';
       }
+      if(eachOrderDay.typeOrder === 'specialFood'){
+        table += '<tr style="background: #D8B3E9;">' +
+          '<td>' + eachOrderDay.nameOrder + '</td>' +
+          '<td>' + eachOrderDay.amountOrder + '</td>' +
+          '<td>' + numberToEuroString(eachOrderDay.priceOrder * eachOrderDay.amountOrder)  + '</td>' +
+          '</tr>';
+      }
     });
   // if (!hideSpecialFoodIfNoMenuShown(eachGroup.order, obj.settings.orderSettings.showMenuWithoutName)) {
   // object.orderStudent.order.specialFoodOrder.forEach(eachSpecialFood => {

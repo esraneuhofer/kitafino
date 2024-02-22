@@ -98,11 +98,12 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() selectedStudent!: StudentInterface;
   @Input() customer!: CustomerInterface;
   @Input() tenantStudent!: TenantStudentInterface;
-  @Input() allVacations!: VacationsInterface[];
+  @Input() allVacations: VacationsInterface[] = [];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
   orderWeek: MealCardInterface[] = [];
   accountTenant?:AccountCustomerInterface
 
+  lockDays: boolean[] = [];
   @Output() orderPlacedNew: any = new EventEmitter<Event>();
   isLocked: boolean = false;
   pageLoaded: boolean = false;
@@ -148,8 +149,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      const lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
-
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
@@ -160,7 +160,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, lockDays))
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays))
         }
         this.pageLoaded = true;
 

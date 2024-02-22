@@ -20,6 +20,7 @@ import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {timeout} from "rxjs";
 import {StudentInterface} from "../../../classes/student.class";
 import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
+import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-allergene-dialog.component";
 function customSort(array:OrderSubDetailNew[]) {
   // Define the sort order
   const sortOrder:any = {
@@ -61,7 +62,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   protected readonly atLeastOneAllergene = atLeastOneAllergene;
   protected readonly getTooltipContent = getTooltipContent;
   protected readonly getAllergenes = getAllergenes;
-
+  @Input() lockDay: boolean = false;
   @Input() indexDay!: number;
   @Input() orderDay!: MealCardInterface
   @Input() settings!: SettingInterfaceNew;
@@ -100,7 +101,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean) {
+  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean): any {
 
     // Initialize an object with static and conditional classes
     let classes:any = {
@@ -112,13 +113,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     };
 
     // Add dynamic class from getColor method
-    const colorClass = this.getColor(eachMenu, false, pastOrder);
+    const colorClass = this.getColor(eachMenu, lockDay, pastOrder);
 
     classes[colorClass] = true; // Use the color class name as key and set its value to true
 
     return classes;
   }
-  getColor(menuItem:OrderSubDetailNew,lockDay:boolean,pastOrder:boolean):string{
+  getColor(menuItem:OrderSubDetailNew,lockDay:boolean,pastOrder:boolean,):string{
     if (lockDay || pastOrder) {
       return 'background_greyed_out';
     }
@@ -138,6 +139,15 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
 
     return {'min-height': minHeight};
+  }
+
+  openAllergenModal(order: OrderSubDetailNew): void {
+    const dialogRef = this.dialog.open(OrderAllergeneDialogComponent, {
+      width: 'auto',
+      data: {settings:this.settings,menu:order},
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
   }
   private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string,indexMenu:number, onConfirm: (result: {
     sendCopyEmail: boolean

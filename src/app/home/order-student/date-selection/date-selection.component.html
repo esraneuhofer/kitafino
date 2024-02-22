@@ -1,41 +1,86 @@
+<!--<div class="container mx-auto px-4 mt-8">-->
+<!--  <div class="flex justify-center">-->
+<!--    <div class="w-100 flex flex-wrap"> &lt;!&ndash; Removed w-5/6 and added custom width in the parent div &ndash;&gt;-->
+<!--      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex w-full">-->
+<!--        <div class="sm:w-full w-full mt-2 mx-2"> &lt;!&ndash; Added horizontal margin &ndash;&gt;-->
+<!--          <label class="block text-sm font-medium leading-6 text-gray-900" for="calenderweek">Kalenderwoche</label>-->
+<!--          <select #subgroupModel="ngModel" (ngModelChange)="initOrderForWeek($event,selectedStudent)"-->
+<!--                  [(ngModel)]="query.week"-->
+<!--                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+<!--                  id="calenderweek"-->
+<!--                  name="calenderweek"-->
+<!--                  required>-->
+<!--            <option *ngFor="let query of queryCalenderWeek" [ngValue]="query.week">{{query.value}}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="sm:w-full w-full mt-2 mx-2"> &lt;!&ndash; Added horizontal margin &ndash;&gt;-->
+<!--          <label class="block text-sm font-medium leading-6 text-gray-900" for="year">Jahr</label>-->
+<!--          <select (ngModelChange)="setCalenderWeeks($event)" [(ngModel)]="query.year"-->
+<!--                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+<!--                  id="year"-->
+<!--                  name="year">-->
+<!--            <option *ngFor="let year of queryYears let i = index"-->
+<!--                    [ngValue]="year.year">{{year.year}}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="sm:w-full w-full mt-2 mx-2">-->
+<!--          <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Verpflegungsteilnehmer</label>-->
+<!--          <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"-->
+<!--                  [(ngModel)]="selectedStudent"-->
+<!--                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+<!--                  id="subgroup"-->
+<!--                  name="subgroupModel"-->
+<!--                  required>-->
+<!--            <option [value]="null" disabled hidden selected>Bitte auswählen</option>-->
+<!--            <option-->
+<!--              *ngFor="let student of registeredStudents"-->
+<!--              [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="container mx-auto px-4 mt-8">
   <div class="flex justify-center">
-    <div class="w-100 flex flex-wrap"> <!-- Removed w-5/6 and added custom width in the parent div -->
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex w-full">
-        <div class="sm:w-full w-full mt-2 mx-2"> <!-- Added horizontal margin -->
-          <label class="block text-sm font-medium leading-6 text-gray-900" for="calenderweek">Kalenderwoche</label>
-          <select #subgroupModel="ngModel" (ngModelChange)="initOrderForWeek($event,selectedStudent)"
-                  [(ngModel)]="query.week"
-                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  id="calenderweek"
-                  name="calenderweek"
-                  required>
-            <option *ngFor="let query of queryCalenderWeek" [ngValue]="query.week">{{query.value}}</option>
-          </select>
-        </div>
-        <div class="sm:w-full w-full mt-2 mx-2"> <!-- Added horizontal margin -->
-          <label class="block text-sm font-medium leading-6 text-gray-900" for="year">Jahr</label>
-          <select (ngModelChange)="setCalenderWeeks($event)" [(ngModel)]="query.year"
-                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  id="year"
-                  name="year">
-            <option *ngFor="let year of queryYears let i = index"
-                    [ngValue]="year.year">{{year.year}}</option>
-          </select>
-        </div>
-        <div class="sm:w-full w-full mt-2 mx-2">
-          <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Verpflegungsteilnehmer</label>
-          <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
-                  [(ngModel)]="selectedStudent"
-                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  id="subgroup"
-                  name="subgroupModel"
-                  required>
-            <option [value]="null" disabled hidden selected>Bitte auswählen</option>
-            <option
-              *ngFor="let student of registeredStudents"
-              [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
-          </select>
+    <div class="w-full"> <!-- Container for the selects, ensuring full width -->
+      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
+          <!-- Kalenderwoche Select Input Container -->
+          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0"> <!-- Use md:w-1/3 for 1/3 width on medium screens and up, px-2 for padding -->
+            <label class="block text-sm font-medium leading-6 text-gray-900" for="calenderweek">Kalenderwoche</label>
+            <select #subgroupModel="ngModel" (ngModelChange)="initOrderForWeek($event,selectedStudent)"
+                    [(ngModel)]="query.week"
+                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="calenderweek"
+                    name="calenderweek"
+                    required>
+              <option *ngFor="let query of queryCalenderWeek" [ngValue]="query.week">{{query.value}}</option>
+            </select>
+          </div>
+          <!-- Jahr Select Input Container -->
+          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0"> <!-- Adjusted for responsive width and padding -->
+            <label class="block text-sm font-medium leading-6 text-gray-900" for="year">Jahr</label>
+            <select (ngModelChange)="setCalenderWeeks($event)" [(ngModel)]="query.year"
+                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="year"
+                    name="year">
+              <option *ngFor="let year of queryYears let i = index" [ngValue]="year.year">{{year.year}}</option>
+            </select>
+          </div>
+          <!-- Verpflegungsteilnehmer Select Input Container -->
+          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0"> <!-- Adjusted for responsive width and padding -->
+            <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Verpflegungsteilnehmer</label>
+            <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
+                    [(ngModel)]="selectedStudent"
+                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="subgroup"
+                    name="subgroupModel"
+                    required>
+              <option [value]="null" disabled hidden selected>Bitte auswählen</option>
+              <option *ngFor="let student of registeredStudents" [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

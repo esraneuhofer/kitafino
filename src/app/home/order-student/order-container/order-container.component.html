@@ -4,6 +4,7 @@
     <!-- Your div element will be repeated 5 times in these grid items -->
     <ng-container *ngFor="let orderDay of orderWeek let index = index">
       <app-meal-input-card (orderPlaced)="getDataWeek()"
+                           [lockDay]="lockDays[index]"
                            [customer]="customer"
                            [orderDay]="orderDay"
                            [selectedStudent]="selectedStudent"

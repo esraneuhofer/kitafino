@@ -12,6 +12,7 @@ import {WeekplanMenuInterface} from "../classes/weekplan.interface";
 import {MenuInterface} from "../classes/menu.interface";
 import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assignedWeekplan.class";
 import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component";
+import {VacationsInterface} from "../classes/vacation.interface";
 
 
 @Injectable(
@@ -51,6 +52,10 @@ export class GenerellService {
   getWeekplanGroups(){
     return this.http.get<WeekplanGroupClass[]>(environment.apiBaseUrl+'/getWeekplanGroups')
       .pipe(map((response: WeekplanGroupClass[]) => (response)));
+  }
+  getVacationCustomer(){
+    return this.http.get<VacationsInterface[]>(environment.apiBaseUrl+'/getVacationCustomer')
+      .pipe(map((response: VacationsInterface[]) => (response)));
   }
 
   getAssignedWeekplan(query:{week:number, year:number}){

@@ -57,6 +57,7 @@ import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-student-order/banner-no-student-order.component';
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
+import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
 
 registerLocaleData(localeDe);
 
@@ -99,6 +100,7 @@ registerLocaleData(localeDe);
     BannerNoStudentOrderComponent,
     WeekplanPdfComponent,
     ConfirmWithdrawDialogComponent,
+    OrderAllergeneDialogComponent,
   ],
   imports: [
     BrowserModule,

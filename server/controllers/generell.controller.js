@@ -10,6 +10,7 @@ const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 var nodemailer = require('nodemailer');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
+const Vacation = mongoose.model('Vacation');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
@@ -124,6 +125,17 @@ module.exports.getAssignedWeekplan = async (req, res, next) => {
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
+
+module.exports.getVacationCustomer = async (req, res, next) => {
+  try {
+    const vacationCustomer = await Vacation.find({ 'customerId': req.customerId });
+    res.json(vacationCustomer);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
 
 
 

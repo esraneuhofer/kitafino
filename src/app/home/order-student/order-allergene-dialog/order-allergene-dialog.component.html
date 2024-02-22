@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{data.menu.nameOrder}}</h2>
+<mat-dialog-content>
+  <p>Allergene enthalten:</p>
+
+  <ng-container *ngFor="let eachRecipe of orderModelCopy">
+    <u><p class="mb-2 mt-4">{{eachRecipe.nameMeal}}</p></u>
+    <ul>
+      <li *ngIf="eachRecipe.allergenes.length === 0">Keine Allergene enthalten</li>
+      <li *ngFor="let allergen of eachRecipe.allergenes">{{allergen.short}}) {{allergen.name_allergene}}</li>
+    </ul>
+  </ng-container>
+  <!--  <app-display-nutrition-menu [selectedMenu]="data.menu.menu" [settings]="data.settings"></app-display-nutrition-menu>-->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-default mr-1" mat-dialog-close>Schließen</button>
+</mat-dialog-actions>
