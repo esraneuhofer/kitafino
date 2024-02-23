@@ -77,7 +77,7 @@
                 <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
                 <div class="flex flex-col md:flex-row mt-3">
                   <div class="md:w-3/3 w-full">
-                    <div class="flex justify-end">
+                    <div class="flex justify-start md:justify-end">
                       <ngb-pagination
                         [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
                         [(page)]="page"
@@ -94,7 +94,7 @@
     </div>
   </div>
 </ng-container>
-  <ng-container *ngIf="accountCharges.length === 0">
+  <ng-container *ngIf="pageLoaded && accountCharges.length === 0">
     <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
   </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

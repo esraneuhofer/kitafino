@@ -15,7 +15,7 @@ var tenantparent = new Schema({
   city:String,
   zip:String,
   iban:String,
-  username: {type:String, required: true, unique: true},
+  username:String,
   orderSettings:{
     orderConfirmationEmail:Boolean,
     sendReminderBalance:Boolean,
@@ -24,11 +24,7 @@ var tenantparent = new Schema({
   }
 });
 
-var Tenantparent = mongoose.model('Tenantparent', tenantparent);
-
 tenantparent.pre('save', async function (next) {
-  console.log(this.firstName)
-  console.log("this.lastName")
   try {
 
     if (!this.firstName || !this.lastName) {
@@ -58,5 +54,8 @@ tenantparent.pre('save', async function (next) {
     next(error);
   }
 });
+
+var Tenantparent = mongoose.model('Tenantparent', tenantparent);
+
 module.exports = Tenantparent;
 

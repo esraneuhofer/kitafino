@@ -11,7 +11,7 @@ module.exports.getTenantInformation = async (req, res, next) => {
     res.json(allGroups);
   } catch (err) {
     // If an error occurs, log it and send an error response
-    console.error(err); // Log the error for debugging
+    console.error('Error getTenant',err); // Log the error for debugging
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
@@ -53,39 +53,9 @@ module.exports.addParentTenant = (req, res, next) => {
       permanentOrder: false,
     },
   });
-  console.log(newTenant);
   newTenant.save().then(function (data) {
     res.json({error: false,errorType:null });
   }, function (e) {
     res.json({error: true, errorType:e });
   });
-  // newTenant.save()
-  //   .then(tenantData => {
-  //     // Tenant saved successfully, now create the account
-  //     let newAccount = new AccountSchema({
-  //       tenantId: req.tenantId,
-  //       customerId: req.customerId,
-  //       schoolId: req.project_id,
-  //       userId: req._id,
-  //       transactions: [],
-  //       currentBalance: 0,
-  //       orders: []
-  //     });
-  //
-  //     newAccount.save()
-  //       .then(accountData => {
-  //         // Account created successfully
-  //         res.json({ tenant: tenantData, account: accountData, error: false });
-  //       })
-  //       .catch(accountError => {
-  //         // Handle error in account creation
-  //         console.error('Error creating account', accountError);
-  //         res.status(500).json({ message: 'Account creation failed', error: true });
-  //       });
-  //   })
-  //   .catch(tenantError => {
-  //     // Handle error in tenant saving
-  //     console.error('Error saving tenant', tenantError);
-  //     res.status(500).json({ message: 'Tenant saving failed', error: true });
-  //   });
 };

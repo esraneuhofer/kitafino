@@ -41,16 +41,18 @@
                       <table class="min-w-full divide-y divide-gray-300">
                         <thead>
                         <tr>
-                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Wochenplan</th>
+                          <th scope="col" class="hidden sm:table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Wochenplan</th>
                           <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Kalenderwoche </th>
-                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aktion</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">Aktion</th>
+
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                         <tr *ngFor="let eachWeekplan of allWeekplans |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.name}}</td>
+                          <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.name}}</td>
+
                           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.calenderWeek}}</td>
-                          <td>
+                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right">
                             <button type="submit"
                                     (click)="displayPdf(eachWeekplan)"
                                     class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

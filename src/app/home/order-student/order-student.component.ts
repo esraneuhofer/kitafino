@@ -28,7 +28,7 @@ import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../functions/special-food.functions";
 
-const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer / in einzutragen muss er/sie zuerst angemeldet werden"
+const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer/in einzutragen muss er/sie zuerst angemeldet werden"
 @Component({
   selector: 'app-order-student',
   templateUrl: './order-student.component.html',
