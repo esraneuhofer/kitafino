@@ -60,6 +60,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     kw: copy.kw,
     year: copy.year,
     dateOrder: moment.tz(copy.dateOrder, 'Europe/Berlin').format(),
+    dateOrderPlaced: moment.tz(copy.dateOrderPlaced, 'Europe/Berlin').format(),
     customerId: copy.customerId,
     order: {
       comment: copy.order.comment,

@@ -5,7 +5,7 @@ export interface OrderInterfaceStudentSave {
   studentId:string;
   kw: number;
   year: number;
-  dateOrderPlaced:Date;
+  dateOrderPlaced:string;
   dateOrder: string;
   customerId: string;
   order:OrderInterfaceStudentDaySafe
