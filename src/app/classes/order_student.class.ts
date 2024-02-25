@@ -25,6 +25,7 @@ export interface OrderInterfaceStudent {
   _id?: string;
   studentId: (string | undefined)
   kw: number;
+  dateOrderPlaced:Date;
   year: number;
   dateOrder: Date;
   order: OrderInterfaceStudentDay;
@@ -64,6 +65,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   year: number;
   order: OrderInterfaceStudentDay;
   dateOrder:Date;
+  dateOrderPlaced:Date = new Date();
   customerId: string;
   _id?: string;
   orderId?:string;
@@ -139,13 +141,6 @@ function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterfac
   order.allergenes = []
   order.allergensPerMeal = []
   return order;
-}
-
-export function setOrderStudentWeekplan(orderStudent:OrderInterfaceStudent,settings: SettingInterfaceNew,
-                                        selectedWeek: WeekplanDayInterface):OrderInterfaceStudent {
-  let orderStudent$ = JSON.parse(JSON.stringify(orderStudent));
-  return orderStudent$;
-
 }
 
 export function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
