@@ -12,7 +12,7 @@ var orderStudent = new Schema({
   // price:{type:Number,required:'{PATH} is required!'},
   studentId:Schema.Types.ObjectId,
   dateOrder:String,
-  dateOrderPlaced:String,
+  dateOrderPlaced:Date,
   postInfo :[
     {
       postId:Schema.Types.ObjectId,

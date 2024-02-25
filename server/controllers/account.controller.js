@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   // service: 'Gmail',
   auth: {
     user: 'noreply@cateringexpert.de',
-    pass: 'Master@Peterfischer1808!'
+    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
   }
 });
 function getMailOptions (amount, req) {
