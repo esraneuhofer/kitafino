@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3002;
 const path = require('path');
 
 var environment = process.env.NODE_ENV;

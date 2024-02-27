@@ -4,6 +4,7 @@ const AccountSchema = mongoose.model('AccountSchema');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
 const express = require('express');
 const moment  = require('moment-timezone');
+const TenantParent = mongoose.model('Tenantparent');
 
 
 module.exports.getAccountOrderUserYear = async (req, res, next) => {
@@ -52,7 +53,6 @@ module.exports.addOrderStudentDay = async (req, res) => {
     const orderId = new mongoose.Types.ObjectId();
 
     account.currentBalance -= totalPrice;
-
     // updateAccountWithOrder(account, orderAccount, orderId);
     await account.save({ session });
 
@@ -62,7 +62,7 @@ module.exports.addOrderStudentDay = async (req, res) => {
 
     await session.commitTransaction();
 
-    res.json({ success: true, message: 'Order placed successfully' });
+    res.json({ success: true, message: 'Order placed successfully',currentBalance:account.currentBalance });
 
   } catch (error) {
     await handleTransactionError(session, error, res);

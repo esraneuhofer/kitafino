@@ -17,10 +17,11 @@ import {WeekplanDayInterface} from "../../../classes/weekplan.interface";
 import {ToastrService} from "ngx-toastr";
 import {getEmailBodyCancel} from "../email-cancel-order.function";
 import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {timeout} from "rxjs";
+import {forkJoin, timeout} from "rxjs";
 import {StudentInterface} from "../../../classes/student.class";
 import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
 import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-allergene-dialog.component";
+import {getEmailBodyAccountBalance} from "../email-account-balance.function";
 function customSort(array:OrderSubDetailNew[]) {
   // Define the sort order
   const sortOrder:any = {
@@ -235,10 +236,20 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
       serviceMethod().subscribe((data: any) => {
         if (data.success) {
-          if(this.tenantStudent.orderSettings.orderConfirmationEmail) {
-            const emailObject = this.getEmailBody(orderModel, type, result);
-            const emailBody = getEmailBody(emailObject);
-            this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+          if(this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance) {
+            let promisesEmail = [];
+            if(this.tenantStudent.orderSettings.orderConfirmationEmail){
+              const emailObject = this.getEmailBody(orderModel, type, result);
+              const emailBody = getEmailBody(emailObject);
+              promisesEmail.push(this.generalService.sendEmail(emailBody));
+            }
+            if(this.tenantStudent.orderSettings.sendReminderBalance){
+              if(data.currentBalance < 15){
+                const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent,data.currentBalance)
+              }
+
+            }
+            forkJoin(promisesEmail).subscribe((data: any) => {
               this.orderPlaced.emit(true);
               this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
               this.submittingOrder = false
