@@ -55,6 +55,19 @@ app.use(cors());
 app.use(passport.initialize());
 app.use('/api', rtsIndex);
 
+
+const cron = require('node-cron');
+const ctrlOrderStudent = require(__dirname + '/server/controllers/deadline-timer.controller');
+
+// cron.schedule('* * * * *', () => {
+//   console.log('Checking customer deadlines...');
+//   ctrlOrderStudent.checkDeadlinesSendOrderEmail(); // Ensure this function is imported or defined
+// });
+setInterval(() => {
+  console.log('Checking customer deadlines...');
+  ctrlOrderStudent.checkDeadlinesSendOrderEmail(); // Ensure this function is imported or defined
+}, 2000); // 5000 milliseconds = 5 seconds
+
 // error handler
 app.use((err, req, res, next) => {
     if (err.name === 'ValidationError') {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {OrderInterfaceStudent, OrderSubDetailNew} from "../../../classes/order_student.class";
 import {MealCardInterface} from "../order-container/order-container.component";
@@ -56,7 +56,7 @@ registerLocaleData(localeDe);
 @Component({
   selector: 'app-meal-input-card',
   templateUrl: './meal-input-card.component.html',
-  styleUrls: ['./meal-input-card.component.scss']
+  styleUrls: ['./meal-input-card.component.scss'],
 })
 export class MealInputCardComponent implements OnInit, OnDestroy {
 
@@ -72,6 +72,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() customer!: CustomerInterface;
   @Input() weekplanDay!: WeekplanDayInterface
   @Input() selectedStudent!: StudentInterface
+  @Input() displayMinimize: boolean = false;
   submittingOrder: boolean = false;
 
   differenceTimeDeadline: string = '';
@@ -135,8 +136,11 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   getMenuStyle(eachMenu: any): any {
     let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
-    if (eachMenu.typeOrder === 'menu') {
+    if (eachMenu.typeOrder === 'menu' && !this.displayMinimize) {
       minHeight = '140px'; // Set min-height to 140px for 'menu'
+    }
+    if (eachMenu.typeOrder === 'menu' && this.displayMinimize) {
+      minHeight = '80px'; // Set min-height to 140px for 'menu'
     }
 
     return {'min-height': minHeight};
@@ -246,6 +250,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
             if(this.tenantStudent.orderSettings.sendReminderBalance){
               if(data.currentBalance < 15){
                 const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent,data.currentBalance)
+                promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
               }
 
             }

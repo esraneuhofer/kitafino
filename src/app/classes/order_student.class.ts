@@ -70,6 +70,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   _id?: string;
   orderId?:string;
   groupIdCustomer:string;
+  userId?:string;
   constructor(customer: CustomerInterface,
               query: { week: number, year: number },
               settings: SettingInterfaceNew,

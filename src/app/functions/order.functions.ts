@@ -36,12 +36,16 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
+    orderNew.userId = orderStudent.userId;
+
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
       let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
       if(indexMenuFound < 0)return;
       // orderNew.order.orderMenus[indexMenu].displayMenu = displayMenuForStudent(eachOrder.typeOrder, settings);
       orderNew.order.orderMenus[indexMenuFound].amountOrder = eachOrder.amountOrder;
       orderNew.order.orderMenus[indexMenuFound].menuSelected = eachOrder.menuSelected;
+      orderNew.order.orderMenus[indexMenuFound].priceOrder = eachOrder.priceOrder;
+
     })
     orderStudent.order.specialFoodOrder.forEach((eachOrder, indexMenu) => {
       orderNew.order.specialFoodOrder[indexMenu].amountSpecialFood = eachOrder.amountSpecialFood;

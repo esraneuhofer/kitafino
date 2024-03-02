@@ -14,6 +14,8 @@ var customer = new Schema({
   customerId: Schema.Types.ObjectId,
   active:Boolean,
   order: {
+    lastActionWeek: Number,
+
     individualPricing: Boolean,
     addSubgroupsOrder: Boolean,
     ignoreMinOrder:Boolean,

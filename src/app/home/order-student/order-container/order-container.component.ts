@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {OrderInterfaceStudent} from "../../../classes/order_student.class";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {OrderService} from "../../../service/order.service";
@@ -31,11 +41,20 @@ export interface MealCardInterface {
   lockDay: boolean,
   date: Date
 }
-
+function isWidthToSmall(input: number): boolean {
+  return input <= 767;
+}
 function getPriceStudentDependingOnSettings(settings:SettingInterfaceNew,eachPrice: { priceSpecial: number, idSpecial: string, nameSpecial?: string, typeSpecial: string }[]): number {
   let priceStudent = 0;
   if(settings.invoiceSettings.differentPricesMenus){
-
+    //Todo: Add different Prices for each Menu
+    eachPrice.forEach(eachPrice => {
+      if(eachPrice.typeSpecial === 'menu'){
+        if(eachPrice.priceSpecial > priceStudent){
+          priceStudent = eachPrice.priceSpecial;
+        }
+      }
+    })
   }else{
     eachPrice.forEach(eachPrice => {
       if(eachPrice.typeSpecial === 'menu'){
@@ -86,7 +105,7 @@ function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
 @Component({
   selector: 'app-order-container',
   templateUrl: './order-container.component.html',
-  styleUrls: ['./order-container.component.scss']
+  styleUrls: ['./order-container.component.scss'],
 })
 export class OrderContainerComponent implements OnInit, OnChanges {
 
@@ -102,6 +121,8 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() selectedWeekplan!: WeekplanMenuInterface;
   orderWeek: MealCardInterface[] = [];
   accountTenant?:AccountCustomerInterface
+
+  displayMinimize: boolean = false;
 
   lockDays: boolean[] = [];
   @Output() orderPlacedNew: any = new EventEmitter<Event>();
@@ -122,15 +143,18 @@ export class OrderContainerComponent implements OnInit, OnChanges {
     }
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.displayMinimize = isWidthToSmall(event.target.innerWidth);
+    console.log(this.displayMinimize)
+
+  }
   ngOnInit() {
+    this.displayMinimize = isWidthToSmall(window.innerWidth);
 
-    // this.query = {year: new Date(this.selectedDate).getFullYear(), week: getWeekNumber(new Date(this.selectedDate))}
-    // this.getDataWeek()
   }
 
-  orderSubmitting() {
-    this.pageLoaded = true
-  }
+
   getDataWeek() {
     this.orderPlacedNew.emit()
     this.orderWeek = [];
@@ -166,32 +190,6 @@ export class OrderContainerComponent implements OnInit, OnChanges {
 
       })
     })
-  }
-
-
-  editOrder() {
-
-  }
-
-  deleteOrder() {
-
-  }
-
-  setOrderDay() {
-    // this.assignedWeekplanSelected = setWeekplanModelGroups(this.weekplanSelectedWeek, {
-    //   year: year,
-    //   week: calenderWeek
-    // }, data[1], this.customerInfo, this.weekplanGroups,this.settings);
-    // this.orderModel = null;
-    // if (this.settings.orderSettings.sideOrDessertChoose) {
-    //   this.sideDessertSelection = getSideDessertSelection(this.orderModel.order, this.settings, this.customerInfo);
-    // }
-    // this.checkDeadline(event);
-    // this.indexDaySelected = indexDay - 1;aa
-    // this.selectedOrderCopy = JSON.parse(JSON.stringify(this.orderModel));
-    // this.pageLoaded = true;
-    // this.getOrderSubmitting = false;
-    // this.submittingRequest = false;
   }
 
 }

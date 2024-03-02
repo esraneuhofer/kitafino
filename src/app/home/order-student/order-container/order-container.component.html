@@ -1,10 +1,11 @@
 <ng-container *ngIf="pageLoaded">
 
-  <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
+  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
     <!-- Your div element will be repeated 5 times in these grid items -->
-    <ng-container *ngFor="let orderDay of orderWeek let index = index">
-      <app-meal-input-card (orderPlaced)="getDataWeek()"
+    <div class="w-full" *ngFor="let orderDay of orderWeek let index = index">
+            <app-meal-input-card (orderPlaced)="getDataWeek()"
                            [lockDay]="lockDays[index]"
+                           [displayMinimize]="displayMinimize"
                            [customer]="customer"
                            [orderDay]="orderDay"
                            [selectedStudent]="selectedStudent"
@@ -13,6 +14,26 @@
                            [tenantStudent]="tenantStudent"
                            [weekplanDay]="selectedWeekplan.weekplan[index]">
       </app-meal-input-card>
-    </ng-container>
+    </div>
   </div>
 </ng-container>
+<!--<div class="mx-auto px-4 mb-2 w-full"> &lt;!&ndash; Use mx-auto for horizontal centering if needed and w-full to take full width &ndash;&gt;-->
+<!--  <div class="flex justify-center">-->
+<!--    <div class="w-full"> &lt;!&ndash; Corrected from w-100 to w-full &ndash;&gt;-->
+<!--      <div class="flex items-center w-full"> &lt;!&ndash; Ensure this also takes full width &ndash;&gt;-->
+<!--        <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-2 w-full"> &lt;!&ndash; Apply w-full here if you want this to be full width &ndash;&gt;-->
+<!--          <div class="p-4">-->
+<!--            <div class="flex justify-end">-->
+<!--              <div class="w-full">-->
+<!--                <div class="flex flex-col items-end">-->
+<!--                  <div class="text-xs text-gray-500">Montag</div>-->
+<!--                  <p>22.02.2025 Datum und Uhr</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

@@ -1,55 +1,67 @@
-
 <ng-container *ngIf="showErrorNoStudents">
   <app-banner-no-registration-order></app-banner-no-registration-order>
 </ng-container>
 <ng-container *ngIf="!showErrorNoStudents && mainDataLoaded">
-  <div class="container mx-auto px-4">
+  <!--  <div class="container mx-auto px-4">-->
+  <!--    <div class="flex justify-center">-->
+  <!--      <div class="w-100 flex flex-wrap"> &lt;!&ndash; Removed w-5/6 and added custom width in the parent div &ndash;&gt;-->
+  <!--        <div class="     flex w-full">-->
+  <!--          <p *ngIf="accountTenant">-->
+  <!--            Ihr derzeites Guthaben beträgt:-->
+  <!--            <span>{{accountTenant.currentBalance | currency:'€'}}</span></p>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="container px-4 sticky top-0 z-50 mb-2">
     <div class="flex justify-center">
-      <div class="w-100 flex flex-wrap"> <!-- Removed w-5/6 and added custom width in the parent div -->
-        <div class="     flex w-full">
-          <p *ngIf="accountTenant">
-            Ihr derzeites Guthaben beträgt:
-            <span>{{accountTenant.currentBalance | currency:'€'}}</span></p>
+      <div class="w-100">
+        <div class="rounded-md bg-green-100 p-4">
+          <div class="flex justify-between items-center">
+            <p class="text-sm text-gray-700">
+              Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <app-date-selection (getOrderWeek)="changeDate($event)"
                       (selectStudent)="selectStudent($event)"
                       [registeredStudents]="registeredStudents"
                       [settings]="settings"></app-date-selection>
+
   <ng-container *ngIf="studentNoSubgroup">
     <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
   </ng-container>
   <ng-container *ngIf="registeredStudents.length === 0">
     <app-banner-no-student-order
-    [text]="textBanner"></app-banner-no-student-order>
+      [text]="textBanner"></app-banner-no-student-order>
   </ng-container>
 
   <ng-container *ngIf="!studentNoSubgroup">
     <ng-container *ngIf="!fetchingOrder">
-      <ng-container  *ngIf="selectedStudent && querySelection">
+      <ng-container *ngIf="selectedStudent && querySelection">
         <div class="container mx-auto px-4">
           <div class="flex justify-center">
             <div class="w-100">
-<!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">-->
-                <div class="flex items-center"> <!-- Center content vertically and horizontally -->
-                  <app-order-container
-                    [tenantStudent]="tenantStudent"
-                    [allVacations]="allVacations"
-                    [customer]="customer"
-                    [indexDaySelected]="indexDaySelected"
-                    [menus]="menus"
-                    [pastOrder]="pastOrder"
-                    [querySelection]="querySelection"
-                    [selectedStudent]="selectedStudent"
-                    [settings]="settings"
-                    [selectedWeekplan]="selectedWeekplan"
-                    (orderPlacedNew)="orderPlaced()"
-                  ></app-order-container>
-                </div>
+              <div class="flex items-center"> <!-- Center content vertically and horizontally -->
+                <app-order-container
+                  (orderPlacedNew)="orderPlaced()"
+                  [allVacations]="allVacations"
+                  [customer]="customer"
+                  [indexDaySelected]="indexDaySelected"
+                  [menus]="menus"
+                  [pastOrder]="pastOrder"
+                  [querySelection]="querySelection"
+                  [selectedStudent]="selectedStudent"
+                  [selectedWeekplan]="selectedWeekplan"
+                  [settings]="settings"
+                  [tenantStudent]="tenantStudent"
+                ></app-order-container>
               </div>
-<!--            </div>-->
+            </div>
           </div>
         </div>
       </ng-container>

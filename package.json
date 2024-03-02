@@ -36,6 +36,7 @@
     "moment-timezone": "^0.5.43",
     "mongoose": "^7.6.3",
     "ngx-toastr": "^17.0.2",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.7",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",

@@ -97,13 +97,13 @@ export function getEmailBodyAccountBalance(tenantStudent: TenantStudentInterface
       '<div style="background:white; border:1px solid lightgray; padding:50px">' +
       '  <div class="row">\n' +
       '    <div class="col-10 offset-1">' +
-      '<span style="font-size: 0.9em">' + 'Erinnerung Kontostand' + '</span> <br><br>' +
-      '<span style="font-size: 0.9em">' + 'Sehr geehrte Damen und Herren, <br>' +
-      'wir möchten Sie gerne darüber informieren, dass Ihr aktuller Kontostand unter 15,00€ gefallen ist. Bitte denken Sie rechtzeitig daran Ihr Konto' +
-      'aufzulanden, um Ihre Bestellung aufgeben zu, können. <br><br> Bitte bachten Sie, dass es bis zu 3 Werktage dauern kann bis das Geld auf Ihr Konto eingebucht wurde.' +
-      ' <br><br> Vielen Dank <br><br>Mit freundlichen Grüßen <br>Team Cateringexpert  </span> ' +
+      '<span style="font-size: 0.9em">' + 'Erinnerung Konto aufladen' + '</span> <br><br>' +
+      '<span style="font-size: 0.9em">' + 'Sehr geehrte Damen und Herren, <br><br>' +
+      'wir möchten Sie gerne darüber informieren, dass Ihr aktuller Kontostand noch' + accountBalance +' € beträgt. Bitte denken Sie rechtzeitig daran Ihr Konto ' +
+      'aufzuladen, sollten Sie weitere Bestellungen aufgeben möchten. <br><br> Bitte bachten Sie, dass es bis zu 3 Werktage dauern kann bis das Geld Ihrem Kont gutgeschrieben wird.' +
+      ' <br><br> Vielen Dank <br><br>Mit freundlichen Grüßen <br>Cateringexpert <br>  </span> ' +
       // editedBody +
-      '<div style="margin-top: 15px;font-size:0.7em;">Datum:' + getInvoiceDateOne(new Date()) + '</div>' +
+      // '<div style="margin-top: 15px;font-size:0.7em;">Datum:' + getInvoiceDateOne(new Date()) + '</div>' +
       '</div>' +
       '</div>' +
       '    </div>\n' +
