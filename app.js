@@ -15,6 +15,11 @@ const uri = 'mongodb+srv://esraneuhofer:' + encodeURIComponent('Master@Fischer18
 mongoose.connect(uri, { useNewUrlParser: true })
   .then(() => {
     console.log('Connected');
+    loadAndScheduleTasks().then(() => {
+      console.log('Tasks scheduled successfully.');
+    }).catch((error) => {
+      console.error('Failed to schedule tasks:', error);
+    });
   })
   .catch(err => {
     console.log(err);
@@ -55,19 +60,6 @@ app.use(cors());
 app.use(passport.initialize());
 app.use('/api', rtsIndex);
 
-
-const cron = require('node-cron');
-const ctrlOrderStudent = require(__dirname + '/server/controllers/deadline-timer.controller');
-
-// cron.schedule('* * * * *', () => {
-//   console.log('Checking customer deadlines...');
-//   ctrlOrderStudent.checkDeadlinesSendOrderEmail(); // Ensure this function is imported or defined
-// });
-setInterval(() => {
-  console.log('Checking customer deadlines...');
-  ctrlOrderStudent.checkDeadlinesSendOrderEmail(); // Ensure this function is imported or defined
-}, 2000); // 5000 milliseconds = 5 seconds
-
 // error handler
 app.use((err, req, res, next) => {
     if (err.name === 'ValidationError') {
@@ -91,3 +83,4 @@ switch (environment) {
 server.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
+const { loadAndScheduleTasks } = require(__dirname + '/server/controllers/deadline-timer.controller');

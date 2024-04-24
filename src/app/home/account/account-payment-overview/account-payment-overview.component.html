@@ -37,8 +37,8 @@
                 </div>
               </div>
               <div class="rounded-md bg-green-100 p-4 mt-2">
-                <div class="flex justify-between items-center">
-                  <p class="text-sm text-gray-700">
+                <div class="flex flex-col sm:flex-row justify-between items-center">
+                  <p class="text-sm text-gray-700 mb-4 sm:mb-0">
                     Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   </p>
                   <app-button [typeButton]="'primary'" (click)="openDialog()" [mr]="true">Geld abbuchen</app-button>
@@ -94,7 +94,7 @@
     </div>
   </div>
 </ng-container>
-  <ng-container *ngIf="pageLoaded && accountCharges.length === 0">
+  <ng-container *ngIf="pageLoaded && registeredStudents.length === 0">
     <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
   </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

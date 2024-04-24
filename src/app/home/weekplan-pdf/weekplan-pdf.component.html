@@ -14,27 +14,16 @@
                   </div>
                 </div>
                 <div class="mt-8 flow-root">
-                  <div class=" flow-root">
+                  <div class="flow-root">
                     <!-- Container for input fields with half width -->
-                    <div class="w-1/2 space-x-4 mb-4 flex">
-                      <!-- Text input field -->
-<!--                      <input [(ngModel)]="searchTerm"-->
-<!--                             (input)="search($event)"-->
-<!--                             type="text" placeholder="Suchen nach..." class="flex-1 mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
-
-                      <!-- Select input field -->
-                      <select [(ngModel)]="queryYear" class="flex-1 mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <div class="w-1/2 mb-4 flex">
+                      <!-- Select input field taking up full available space within the flex container -->
+                      <select [(ngModel)]="queryYear" class="w-full mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option [ngValue]="2024">2024</option>
                       </select>
                     </div>
-
-                    <!-- Existing table code -->
-                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                        <!-- Table content -->
-                      </div>
-                    </div>
                   </div>
+
 
                   <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">

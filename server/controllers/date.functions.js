@@ -34,8 +34,31 @@ function getTimeToDisplay() {
   let formatted = (date + ' '+hours + ':'+minutes + ':'+seconds+ ' Uhr');
   return formatted
 }
+// {time:dateString, day:dayOfWeek}
+function dateAndDayOfWeekToCron(obj) {
+
+  const date = new Date(addHourToTime(obj.time));
+
+  // Extract date components
+  const hour = date.getUTCHours();
+  const minute = date.getUTCMinutes();
+
+  // Ensure dayOfWeek is within 1 to 7 range
+  obj.day = Math.max(1, Math.min(7, obj.day));
+
+  return `${minute} ${hour} * * ${obj.day}`;
+}
+
+function addHourToTime(dateString) {
+  const originalTime = new Date(dateString);
+  const addedHour = new Date(originalTime.getTime() + (60 * 60 * 1000)); // Adding an hour (in milliseconds)
+
+  return addedHour;
+}
 module.exports = {
   addDayFromDate,
   getInvoiceDateOne,
-  getTimeToDisplay
+  getTimeToDisplay,
+  dateAndDayOfWeekToCron,
+  addHourToTime
 };

@@ -41,7 +41,7 @@ export interface MealCardInterface {
   lockDay: boolean,
   date: Date
 }
-function isWidthToSmall(input: number): boolean {
+export function isWidthToSmall(input: number): boolean {
   return input <= 767;
 }
 function getPriceStudentDependingOnSettings(settings:SettingInterfaceNew,eachPrice: { priceSpecial: number, idSpecial: string, nameSpecial?: string, typeSpecial: string }[]): number {
@@ -79,7 +79,7 @@ export function getPriceStudent(selectedStudent: StudentInterface | null, custom
   return priceStudent;
 }
 
-function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
+export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
                             weekplanSelectedWeek: WeekplanMenuInterface,
                             settings: SettingInterfaceNew,
                             customer: CustomerInterface,
@@ -151,9 +151,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
-
   }
-
 
   getDataWeek() {
     this.orderPlacedNew.emit()

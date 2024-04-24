@@ -57,6 +57,18 @@
   z-index: 3;
   opacity: 1;
 }
+.background_lighter_green {
+  background: #339A33;
+  background: -moz-linear-gradient(top, #339A33 0%, #C0FFC0 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #339A33), color-stop(100%, #C0FFC0));
+  background: -webkit-linear-gradient(top, #339A33 0%, #C0FFC0 100%);
+  background: -o-linear-gradient(top, #339A33 0%, #C0FFC0 100%);
+  background: -ms-linear-gradient(top, #339A33 0%, #C0FFC0 100%);
+  background: linear-gradient(to bottom, #339A33 0%, #C0FFC0 100%);
+  background-size: 150% 150%;
+  z-index: 3;
+  opacity: 1;
+}
 
 
 .background_greyed_out {

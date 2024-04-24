@@ -1,7 +1,8 @@
 <div class="container mx-auto px-4 mt-8" *ngIf="tenantModel && pageLoaded">
-  <div class="flex">
-    <div class="w-full max-w-2xl">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex-1">
       <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <!-- Personal Information Form Content -->
         <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
           <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
@@ -172,53 +173,55 @@
         </form>
       </div>
     </div>
-    <div class="w-full ml-2 max-w-2xl">
+
+    <div class="flex-1">
       <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <!-- Other Settings Form Content -->
         <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
           <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
               <h2 class="text-base font-semibold leading-7 text-gray-900">Sonstige Einstellungen</h2>
               <p class="mt-1 text-sm leading-6 text-gray-600">Bestätigen Sie die Änderung anschließend mit "Ändern"</p>
-<!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
-                <fieldset class="mt-4">
-                  <legend class="sr-only">Notifications</legend>
-                  <div class="space-y-5">
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="comments"
-                               [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
-                               (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
-                               aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                      </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="comments" class="font-medium text-gray-900">Bestellbestätigung</label>
-                        <p id="comments-description" class="text-gray-500">Erhalten Sie eine Bestätigung per Email bei Bestellungen und Abbestellungen</p>
-                      </div>
+              <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
+              <fieldset class="mt-4">
+                <legend class="sr-only">Notifications</legend>
+                <div class="space-y-5">
+                  <div class="relative flex items-start">
+                    <div class="flex h-6 items-center">
+                      <input id="comments"
+                             [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
+                             (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
+                             aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                     </div>
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="candidates"
-                               [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
-                               (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
-                               aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                      </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
-                        <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 10,00€ fällt</p>
-                      </div>
+                    <div class="ml-3 text-sm leading-6">
+                      <label for="comments" class="font-medium text-gray-900">Bestellbestätigung</label>
+                      <p id="comments-description" class="text-gray-500">Erhalten Sie eine Bestätigung per Email bei Bestellungen und Abbestellungen</p>
                     </div>
-<!--                    <div class="relative flex items-start">-->
-<!--                      <div class="flex h-6 items-center">-->
-<!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
-<!--                      </div>-->
-<!--                      <div class="ml-3 text-sm leading-6">-->
-<!--                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>-->
-<!--                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>-->
-<!--                      </div>-->
-<!--                    </div>-->
                   </div>
-                </fieldset>
-<!--              </div>-->
+                  <div class="relative flex items-start">
+                    <div class="flex h-6 items-center">
+                      <input id="candidates"
+                             [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
+                             (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
+                             aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                    </div>
+                    <div class="ml-3 text-sm leading-6">
+                      <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
+                      <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 10,00€ fällt</p>
+                    </div>
+                  </div>
+                  <!--                    <div class="relative flex items-start">-->
+                  <!--                      <div class="flex h-6 items-center">-->
+                  <!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
+                  <!--                      </div>-->
+                  <!--                      <div class="ml-3 text-sm leading-6">-->
+                  <!--                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>-->
+                  <!--                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                </div>
+              </fieldset>
+              <!--              </div>-->
             </div>
           </div>
         </form>
@@ -226,4 +229,6 @@
     </div>
   </div>
 </div>
+
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
+

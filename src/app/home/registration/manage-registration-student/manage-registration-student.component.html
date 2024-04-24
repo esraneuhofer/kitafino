@@ -22,8 +22,8 @@
                   <thead>
                   <tr>
                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Gruppe</th>
-                    <th *ngIf="specialFoodSelection.length > 0" scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Allergiker Essen</th>
+                    <th scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Gruppe</th>
+                    <th *ngIf="specialFoodSelection.length > 0" scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Allergiker Essen</th>
                     <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       <span class="sr-only">Edit</span>
                     </th>
@@ -32,8 +32,8 @@
                   <tbody class="divide-y divide-gray-200">
                   <tr *ngFor="let student of registeredStudents" >
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup,customerInfo)}}</td>
-                    <td *ngIf="specialFoodSelection.length > 0" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup,customerInfo)}}</td>
+                    <td *ngIf="specialFoodSelection.length > 0" class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <span *ngIf="student.specialFood">
                         {{getSpecialFoodFromId(student.specialFood,settings)}}
                       </span>
