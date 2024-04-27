@@ -1,4 +1,4 @@
-import {LOCALE_ID, NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule, isDevMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import  {CommonModule} from "@angular/common";
 import { AppComponent } from './app.component';
@@ -58,6 +58,7 @@ import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-st
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(localeDe);
 
@@ -121,7 +122,13 @@ registerLocaleData(localeDe);
     MatDialogModule,
     FontAwesomeModule,
     MatTooltipModule,
-    NgbPagination
+    NgbPagination,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
 
   ],
   providers: [{
