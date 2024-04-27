@@ -1,15 +1,19 @@
-<ng-container *ngIf="pageLoaded">
+<ng-container *ngIf="mainDataLoaded">
   <ng-container *ngIf="showErrorNoStudents">
     <app-banner-no-registration-order></app-banner-no-registration-order>
   </ng-container>
-  <ng-container *ngIf="!showErrorNoStudents && mainDataLoaded">
-    <div class="container px-4 sticky top-0 z-50 mb-1 mt-2">
+  <ng-container *ngIf="!showErrorNoStudents">
+    <div class="container px-4  top-0 z-50 mb-1 mt-2">
       <div class="flex justify-center">
         <div class="w-100">
           <div class="rounded-md bg-green-100 p-4">
             <div class="flex justify-between items-center">
               <p class="text-sm text-gray-700">
                 Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                <a *ngIf="accountTenant.currentBalance === 0" (click)="goToChargeMoney()" class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
+                  Einzahlen
+                  <span aria-hidden="true"> &rarr;</span>
+                </a>
               </p>
             </div>
           </div>
@@ -28,49 +32,50 @@
         [text]="textBanner"></app-banner-no-student-order>
     </ng-container>
     <ng-container *ngIf="!studentNoSubgroup">
-      <ng-container *ngIf="!fetchingOrder">
-        <ng-container *ngIf="selectedStudent && querySelection">
-          <div class="container mx-auto px-4">
-            <div class="flex justify-center">
-              <div class="w-100">
-                <div class="flex items-center"> <!-- Center content vertically and horizontally -->
-<!--                  <app-order-container-->
-<!--                    (orderPlacedNew)="orderPlaced()"-->
-<!--                    [allVacations]="allVacations"-->
-<!--                    [customer]="customer"-->
-<!--                    [indexDaySelected]="indexDaySelected"-->
-<!--                    [menus]="menus"-->
-<!--                    [pastOrder]="pastOrder"-->
-<!--                    [querySelection]="querySelection"-->
-<!--                    [selectedStudent]="selectedStudent"-->
-<!--                    [selectedWeekplan]="selectedWeekplan"-->
-<!--                    [settings]="settings"-->
-<!--                    [tenantStudent]="tenantStudent"-->
-<!--                  ></app-order-container>-->
-                  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
-                    <!-- Your div element will be repeated 5 times in these grid items -->
-                    <div class="w-full" *ngFor="let orderDay of orderWeek; let index = index"
-                         >
-                      <app-meal-input-card (orderPlaced)="getDataWeek()"
-                                           [lockDay]="lockDays[index]"
-                                           [displayMinimize]="displayMinimize"
-                                           [customer]="customer"
-                                           [orderDay]="orderDay"
-                                           [selectedStudent]="selectedStudent"
-                                           [settings]="settings"
-                                           [indexDay]="index"
-                                           [tenantStudent]="tenantStudent"
-                                           [weekplanDay]="selectedWeekplan.weekplan[index]">
-                      </app-meal-input-card>
-                    </div>
+      <!--      <ng-container *ngIf="!fetchingOrder">-->
+      <ng-container *ngIf="selectedStudent && querySelection">
+        <div class="container mx-auto px-4">
+          <div class="flex justify-center">
+            <div class="w-100">
+              <div class="flex items-center"> <!-- Center content vertically and horizontally -->
+                <!--                  <app-order-container-->
+                <!--                    (orderPlacedNew)="orderPlaced()"-->
+                <!--                    [allVacations]="allVacations"-->
+                <!--                    [customer]="customer"-->
+                <!--                    [indexDaySelected]="indexDaySelected"-->
+                <!--                    [menus]="menus"-->
+                <!--                    [pastOrder]="pastOrder"-->
+                <!--                    [querySelection]="querySelection"-->
+                <!--                    [selectedStudent]="selectedStudent"-->
+                <!--                    [selectedWeekplan]="selectedWeekplan"-->
+                <!--                    [settings]="settings"-->
+                <!--                    [tenantStudent]="tenantStudent"-->
+                <!--                  ></app-order-container>-->
+                <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full" *ngIf="pageLoaded">
+                  <!-- Your div element will be repeated 5 times in these grid items -->
+                  <div class="w-full" *ngFor="let orderDay of orderWeek; let index = index"
+                  >
+                    <app-meal-input-card (orderPlaced)="getDataWeek()"
+                                         [lockDay]="lockDays[index]"
+                                         [displayMinimize]="displayMinimize"
+                                         [customer]="customer"
+                                         [orderDay]="orderDay"
+                                         [selectedStudent]="selectedStudent"
+                                         [settings]="settings"
+                                         [indexDay]="index"
+                                         [tenantStudent]="tenantStudent"
+                                         [weekplanDay]="selectedWeekplan.weekplan[index]">
+                    </app-meal-input-card>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </ng-container>
+        </div>
       </ng-container>
+      <!--      </ng-container>-->
     </ng-container>
   </ng-container>
 </ng-container>
+<!--<app-loading-page [pageLoaded]="mainDataLoaded"></app-loading-page>-->
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

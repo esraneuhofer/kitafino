@@ -1,8 +1,15 @@
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 ">
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 login-background">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <!--    <img class="mx-auto h-15 w-auto" src="assets/logo.png" alt="Your Company">-->
+    <!-- Logo Image with moderately adjusted size using Tailwind CSS -->
+    <img class="mx-auto w-34 h-32" src="assets/logo.png" alt="Cateringexpert">
+
+
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>
   </div>
+  <!--  <div class="sm:mx-auto sm:w-full sm:max-w-sm">-->
+  <!--    &lt;!&ndash;    <img class="mx-auto h-15 w-auto" src="assets/logo.png" alt="Your Company">&ndash;&gt;-->
+  <!--    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>-->
+  <!--  </div>-->
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form class="space-y-6" #signInForm="ngForm"  (ngSubmit)="signInForm.valid && onSubmit()">
@@ -16,7 +23,7 @@
           <div class="ml-3">
             <h3 class="text-sm font-medium text-red-800">Fehler</h3>
             <div class="mt-2 text-sm text-red-700">
-                <p>{{serverErrorMessages}}</p>
+              <p>{{serverErrorMessages}}</p>
             </div>
           </div>
         </div>
@@ -85,5 +92,28 @@
       Noch kein Account ?
       <a routerLink="/signup"  routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">hier registrieren</a>
     </p>
+    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="shouldShow()">
+      Unsere Anwendung ist auch als Mobile App verfügbar
+      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>
+    </p>
+    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="isSafari">
+      Unsere Anwendung ist auch als Mobile App verfügbar
+      <a (click)="promptInstallSafari()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>
+    </p>
   </div>
 </div>
+<!--<pwa-install #pwaInstallComponent-->
+<!--             manual-apple="true"-->
+<!--             manual-chrome="true"-->
+<!--             disable-chrome="true"-->
+<!--             disable-close="true"-->
+
+<!--             install-description="Custom call to install text"-->
+<!--             disable-install-description="true"-->
+<!--             disable-screenshots="true"-->
+<!--             manifest-url="/manifest.webmanifest"-->
+<!--             name="Cateringexpert"-->
+<!--             description="Mittagesessen bestellen"-->
+<!--             icon="/favicon.ico">-->
+<!--</pwa-install>-->
+

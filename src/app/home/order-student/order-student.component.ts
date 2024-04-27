@@ -33,8 +33,10 @@ import * as moment from "moment-timezone";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-container/order-container.component";
 import {OrderService} from "../../service/order.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer/in einzutragen muss er/sie zuerst angemeldet werden"
+
 @Component({
   selector: 'app-order-student',
   templateUrl: './order-student.component.html',
@@ -56,7 +58,7 @@ export class OrderStudentComponent implements OnInit {
   registeredStudents: StudentInterface[] = [];
   indexDaySelected: number = 0;
   subGroupsCustomer: string[] = []; //Subgroup
-  querySelection:QueryInterOrderInterface =  {week: 0, year: 0}
+  querySelection: QueryInterOrderInterface = {week: 0, year: 0}
   customer!: CustomerInterface;
   selectedWeekplan!: WeekplanMenuInterface;
   meals!: MealModelInterface[];
@@ -69,28 +71,37 @@ export class OrderStudentComponent implements OnInit {
   tenantStudent!: TenantStudentInterface;
   assignedWeekplanSelected!: AssignedWeekplanInterface;
   weekplanGroups: WeekplanGroupClass[] = [];
-  accountTenant!:AccountCustomerInterface;
+  accountTenant!: AccountCustomerInterface;
+  weekplanSelectedWeek: (WeekplanMenuInterface | null) = null;
 
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
   }
 
+  goToChargeMoney() {
+    this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
+  }
 
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
               private tenantService: TenantServiceStudent,
               private studentService: StudentService,
-              private accountService:AccountService,
-              private orderService: OrderService) {
+              private accountService: AccountService,
+              private orderService: OrderService,
+              private router: Router,
+              private r: ActivatedRoute) {
   }
 
   orderPlaced() {
-    this.accountService.getAccountTenant().subscribe((accountTenant:AccountCustomerInterface) => {
+    this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
       this.accountTenant = accountTenant;
     })
   }
+
   ngOnInit() {
+    console.log('customer', "customer")
+
     this.displayMinimize = isWidthToSmall(window.innerWidth);
     const queryInit = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
@@ -118,10 +129,10 @@ export class OrderStudentComponent implements OnInit {
          articles,
          students,
          tenantStudent,
-        assignedWeekplans,
-        weekplanGroups,
+         assignedWeekplans,
+         weekplanGroups,
          accountTenant,
-        vacations
+         vacations
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -139,7 +150,6 @@ export class OrderStudentComponent implements OnInit {
       ]) => {
         this.settings = settings;
         this.customer = customer;
-        console.log('customer', customer)
         this.customer.stateHol = 'HE' //Testing
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
@@ -148,8 +158,8 @@ export class OrderStudentComponent implements OnInit {
         this.articles = articles;
         this.checkDeadline(new Date());
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
-        this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings,queryInit);
-        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer,this.weekplanGroups,settings);
+        this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings, queryInit);
+        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer, this.weekplanGroups, settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
@@ -164,41 +174,38 @@ export class OrderStudentComponent implements OnInit {
     );
   }
 
-  changeDate(queryDate: QueryInterOrderInterface):void{
-    // this.querySelection = {...queryDate};
+  changeDate(queryDate: QueryInterOrderInterface): void {
     this.querySelection = {...queryDate};
+    console.log('queryDate', queryDate)
     this.getDataWeek()
-    this.getOrderDay(queryDate,this.selectedStudent)
   }
-  getOrderDay(queryDate: QueryInterOrderInterface,selectedStudent:StudentInterface | null): void {
 
-    this.fetchingOrder = true;
+  getOrderDay(queryDate: QueryInterOrderInterface, selectedStudent: StudentInterface | null): void {
+    // this.fetchingOrder = true;
     if (!this.selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
       this.pageLoaded = true;
-    }
-    if (!this.selectedStudent) {
       this.validDay = false;
-      this.fetchingOrder = false;
-      this.pageLoaded = true;
+      // this.fetchingOrder = false;
       return
     }
-    this.validDay = true;
-    this.fetchingOrder = false;
-    this.pageLoaded = true;
+    if (!selectedStudent || !this.weekplanSelectedWeek) return;
+    this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.weekplanSelectedWeek)
   }
-  selectStudent(student:StudentInterface | null){
-    if(!student)return;
+
+  selectStudent(student: StudentInterface | null) {
+    if (!student) return;
+    this.pageLoaded = false;
     this.studentNoSubgroup = false;
     this.selectedStudent = student;
-    if(!student.subgroup){
+    if (!student.subgroup) {
       this.studentNoSubgroup = true;
+      this.pageLoaded = false;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return;
     }
-    if(!this.querySelection)return;
-
-    this.getOrderDay(this.querySelection,this.selectedStudent)
+    if (!this.querySelection) return;
+    this.getOrderDay(this.querySelection, this.selectedStudent)
   }
 
   checkDeadline(day: Date): void {
@@ -218,51 +225,76 @@ export class OrderStudentComponent implements OnInit {
   }
 
 
-
-
-
-
   /////////
   orderWeek: MealCardInterface[] = [];
   lockDays: boolean[] = [];
   displayMinimize: boolean = false;
 
+
   getDataWeek() {
-    // this.orderPlacedNew.emit()
-    this.orderWeek = [];
     this.pageLoaded = false;
+
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
-    const delayObservable = new Observable(observer => {
-      setTimeout(() => observer.next(), 1000); // 1000 ms delay
-    });
+
+    // const delayObservable = new Observable(observer => {
+    //   setTimeout(() => observer.next(), 1000); // 1000 ms delay
+    // });
     forkJoin([
       this.accountService.getAccountTenant(),
       this.generellService.getWeekplanWeek(this.querySelection),
-
-    ]).subscribe(([accountTenant,weekplan]: [AccountCustomerInterface,WeekplanMenuInterface]) => {
+    ]).subscribe(([accountTenant, weekplan]: [AccountCustomerInterface, WeekplanMenuInterface]) => {
       this.accountTenant = accountTenant;
 
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
-      const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
+      this.weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
       this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
-      let promiseOrderWeek = [];
-      for (let i = 0; i < 5; i++) {
-        let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
-        if(!this.selectedStudent)return;
-        promiseOrderWeek.push(this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id || ''}))
-      }
-      forkJoin(promiseOrderWeek).pipe(
-        defaultIfEmpty([null]),
-      ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
-        for (let i = 0; i < 5; i++) {
-          let date = addDayFromDate(dateMonday, i)
-          if(!this.selectedStudent)return;
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
-        }
-        this.pageLoaded = true;
+      if (!this.selectedStudent) return;
+      this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.weekplanSelectedWeek)
+      // let promiseOrderWeek = [];
+      // for (let i = 0; i < 5; i++) {
+      //   let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
+      //   if(!this.selectedStudent)return;
+      //   promiseOrderWeek.push(this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id || ''}))
+      // }
+      // forkJoin(promiseOrderWeek).pipe(
+      //   defaultIfEmpty([null]),
+      // ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+      //   for (let i = 0; i < 5; i++) {
+      //     let date = addDayFromDate(dateMonday, i)
+      //     if(!this.selectedStudent)return;
+      //     this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
+      //   }
+      //   this.pageLoaded = true;
+      //
+      // })
+    })
+  }
 
-      })
+  getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
+    this.orderWeek = [];
+    const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
+    let promiseOrderWeek = [];
+    for (let i = 0; i < 5; i++) {
+      let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
+      if (!this.selectedStudent) return;
+      promiseOrderWeek.push(this.orderService.getOrderStudentDay({
+        dateOrder: dateToSearch,
+        studentId: this.selectedStudent._id || ''
+      }))
+    }
+    forkJoin(promiseOrderWeek).pipe(
+      defaultIfEmpty([null]),
+    ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+      for (let i = 0; i < 5; i++) {
+        let date = addDayFromDate(dateMonday, i)
+        if (!this.selectedStudent) return;
+        this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
+      }
+      this.validDay = true;
+      this.fetchingOrder = false;
+      this.pageLoaded = true;
+
     })
   }
 }

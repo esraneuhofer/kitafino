@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {GenerellService} from "../../service/generell.service";
 import {CustomerInterface} from "../../classes/customer.class";
+
+
 function isInGroups(group:string[],customerId:string){
   for(let i = 0; i < group.length; i++){
     if(group[i] === customerId)return true;
@@ -30,7 +32,9 @@ export class WeekplanPdfComponent implements OnInit{
   pageSize: number = 12;
   allWeekplans:WeekplanPdfInterface[] = [];
   customerInfo!:CustomerInterface;
+  submittingRequest = false;
   constructor(private generellService:GenerellService) { }
+  isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
   ngOnInit() {
     this.generellService.getCustomerInfo().subscribe((data:CustomerInterface) => {
@@ -56,20 +60,38 @@ export class WeekplanPdfComponent implements OnInit{
     })
     return arr;
   };
-  downloadPdf(model:WeekplanPdfInterface) {
-    this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data:WeekplanPdfInterface) => {
+  downloadPdf(model: WeekplanPdfInterface) {
+    this.submittingRequest = true;
+    this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data: WeekplanPdfInterface) => {
+      // Convert Base64 to a Blob
+      const byteCharacters = atob(data.base64);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], {type: 'application/pdf'});
+
+      // Create a URL for the Blob object
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Create a link and trigger the download
       var link = document.createElement('a');
       link.download = data.name;
-      var uri = 'data:application/pdf;base64, ' + data.base64;
-      link.href = uri;
+      link.href = blobUrl;
       document.body.appendChild(link);
       link.click();
+
+      // Clean up by removing the link and revoking the Blob URL
       document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+      this.submittingRequest = false;
     });
   }
+
   displayPdf (model:WeekplanPdfInterface) {
+    this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data:WeekplanPdfInterface) => {
-      console.log(data);
       if (/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {
         // Cast navigator to any to bypass TypeScript checks
         const navigatorAny: any = window.navigator;
@@ -83,6 +105,7 @@ export class WeekplanPdfComponent implements OnInit{
           var byteArray = new Uint8Array(byteNumbers);
 
           var blob = new Blob([byteArray], {type: 'application/pdf'});
+          this.submittingRequest = false;
           navigatorAny.msSaveOrOpenBlob(blob, data.name);
         }
       }else{
@@ -93,6 +116,8 @@ export class WeekplanPdfComponent implements OnInit{
         // vm.loadingPdf = false;
         x.document.write(iframe);
         x.document.close();
+        this.submittingRequest = false;
+
       }
     })
   };
