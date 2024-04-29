@@ -5,7 +5,7 @@ const School = mongoose.model('SchoolNew');
 const Schooluser = mongoose.model('Schooluser');
 var nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
-
+const {getHtmlRegistrationEmail} = require('./email-registration');
 var transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
   port: 465,
@@ -90,7 +90,7 @@ module.exports.register = async (req, res, next) => {
     user.passwordO = password;
     user.password = hash;
     user.saltSecret = salt;
-
+    let emailContent = getHtmlRegistrationEmail(req.body.email.toLowerCase(),password)
     try {
       // Other code...
 
@@ -100,22 +100,53 @@ module.exports.register = async (req, res, next) => {
         bcc: data.emailRegistration,
         to: req.body.email,
         subject: 'Accountinformationen✔',
-        html:
-          '<div style="width: 100vm;height: 100vh;padding:50px 75px 50px 75px; background:#EDEDED">' +
-          '<div style="background: white; border:1px solid lightgray; padding:50px"><b>Wilkommen zur Anmeldung bei ' + data.companyName + ' </b><br><br>' +
-          '<div style="margin-bottom: 10px">Die Anmeldung finden Sie unter folgenden Adresse: <br><a href="https://schulanmeldung.cateringexpert.de" target="_blank" style="color: blue">https://schulanmeldung.cateringexpert.de</a></div><br>' +
-          '<div style="margin-bottom: 10px">Username: <b><u></u>' + req.body.email.toLowerCase() + '</b><br>Passwort: <b><u>' + password + '</u></b></div><br>' +
-          '<div style="margin-bottom: 10px">Sollten Sie Probleme oder Fragen haben, kontaktieren Sie uns bitte</div>' +
-          '<div><span><b>Grüße</b></span><br><span><b>' + data.companyName + '</b></span><br><br>' +
-          '<div><span><u>Datenschutzverordnung - Einwilligung</u></span><br><br>' +
-          '<div><span>Mit Erhalt dieser Email stimme ich zu, dass die von mir mitgeteilten, persönlichen Daten zur' +
-          ' Erfüllung der Geschäftsabwicklung von der Firma: ' + data.companyName + ' und verarbeitet werden dürfen.' +
-          'Die Daten verbleiben ausschließlich bei dem vorher genannten Unternehmen, sowie von diesem beauftragten Auftragsverarbeitern. \n' +
-          'Die Einwilligung kann jederzeit telefonisch, schriftlich per Post oder via Mail ' + data.emailCatering + ' widerrufen werden.</span><br><br>' +
-          '<div><span><u>Datenschutzinformation</u></span><br><br>' +
-          '<div><span>Die Rechtmäßigkeit der Datenverarbeitung beruht auf Ihrer Einwilligung gemäß DSVGO zum Zweck der Kommunikation zu allgemeinen Informationen bzw. Auftragsbearbeitung und Auftragsabwicklung.\n' +
-          'Die von Ihnen bekannt gegebenen Daten werden bis auf Widerruf gespeichert.\n</span><br><br>' +
-          '</div></div></div>'
+        html:emailContent
+          // '<!DOCTYPE html>\n' +
+          // '    <html lang="de">\n' +
+          // '      <head>\n' +
+          // '        <style>\n' +
+          // '          .container {\n' +
+          // '            width: 100vw;\n' +
+          // '            height: 100vh;\n' +
+          // '            padding: 50px 75px;\n' +
+          // '            background: #EDEDED;\n' +
+          // '          }\n' +
+          // '          .content {\n' +
+          // '            background: white;\n' +
+          // '            border: 1px solid lightgray;\n' +
+          // '            padding: 50px;\n' +
+          // '          }\n' +
+          // '          @media (max-width: 600px) {\n' +
+          // '            .container {\n' +
+          // '              padding: 20px 10px;\n' +
+          // '              background: none;\n' +
+          // '            }\n' +
+          // '            .content {\n' +
+          // '              padding: 20px;\n' +
+          // '            }\n' +
+          // '          }\n' +
+          // '        </style>\n' +
+          // '      </head>\n' +
+          // '      <body>\n' +
+          // '        <div class="container">\n' +
+          // '          <div class="content">' +
+          // // '<div style="width: 100vm;height: 100vh;padding:50px 75px 50px 75px; background:#EDEDED">' +
+          // '<div style="background: white; border:1px solid lightgray; padding:50px"><b>Wilkommen zur Anmeldung bei ' + data.companyName + ' </b><br><br>' +
+          // '<div style="margin-bottom: 10px">Die Anmeldung finden Sie unter folgenden Adresse: <br><a href="https://schulanmeldung.cateringexpert.de" target="_blank" style="color: blue">https://schulanmeldung.cateringexpert.de</a></div><br>' +
+          // '<div style="margin-bottom: 10px">Username: <b><u></u>' + req.body.email.toLowerCase() + '</b><br>Passwort: <b><u>' + password + '</u></b></div><br>' +
+          // '<div style="margin-bottom: 10px">Sollten Sie Probleme oder Fragen haben, kontaktieren Sie uns bitte</div>' +
+          // '<div><span><b>Grüße</b></span><br><span><b>' + data.companyName + '</b></span><br><br>' +
+          // '<div><span><u>Datenschutzverordnung - Einwilligung</u></span><br><br>' +
+          // '<div><span>Mit Erhalt dieser Email stimme ich zu, dass die von mir mitgeteilten, persönlichen Daten zur' +
+          // ' Erfüllung der Geschäftsabwicklung von der Firma: ' + data.companyName + ' und verarbeitet werden dürfen.' +
+          // 'Die Daten verbleiben ausschließlich bei dem vorher genannten Unternehmen, sowie von diesem beauftragten Auftragsverarbeitern. \n' +
+          // 'Die Einwilligung kann jederzeit telefonisch, schriftlich per Post oder via Mail ' + data.emailCatering + ' widerrufen werden.</span><br><br>' +
+          // '<div><span><u>Datenschutzinformation</u></span><br><br>' +
+          // '<div><span>Die Rechtmäßigkeit der Datenverarbeitung beruht auf Ihrer Einwilligung gemäß DSVGO zum Zweck der Kommunikation zu allgemeinen Informationen bzw. Auftragsbearbeitung und Auftragsabwicklung.\n' +
+          // 'Die von Ihnen bekannt gegebenen Daten werden bis auf Widerruf gespeichert.\n</span><br><br>' +
+          // '</div></div></div> </div>\n' +
+          // '      </body>\n' +
+          // '    </html>'
       };
 
       // Sending the email

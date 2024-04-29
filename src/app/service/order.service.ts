@@ -36,7 +36,7 @@ export class OrderService {
     return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
       .pipe(map((response: any) => response));
   }
-  cancelOrderStudent(object: OrderInterfaceStudent) {
+  cancelOrderStudent(object: OrderInterfaceStudent | OrderInterfaceStudentSave) {
     return this.http.post(environment.apiBaseUrl + '/cancelOrderStudent', object)
       .pipe(map((response: any) => response));
   }

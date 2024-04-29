@@ -23,6 +23,7 @@ import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../fu
 import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-allergene-dialog.component";
 import {getEmailBodyAccountBalance} from "../email-account-balance.function";
 import {EXPANSION_PANEL_ANIMATION_TIMING} from "@angular/material/expansion";
+import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.class";
 
 function checkForDisplay(ordersDay:OrderSubDetailNew,setting:SettingInterfaceNew):boolean{
   let isDisplay  = false
@@ -167,7 +168,17 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         return 'transparent';  // Default color if value is 0 or not in range
     }
   }
-
+  getEmailBodyData(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean }) {
+    return {
+      orderStudent: orderModel,
+      settings: this.settings,
+      tenantStudent: this.tenantStudent,
+      customerInfo: this.customer,
+      weekplanDay: this.weekplanDay,
+      sendCopyEmail: result.sendCopyEmail,
+      selectedStudent: this.selectedStudent
+    }
+  }
   getMenuStyle(eachMenu: any): any {
     let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
     if (eachMenu.typeOrder === 'menu' && !this.displayMinimize) {
@@ -236,18 +247,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   }
 
-  getEmailBody(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean }) {
-    return {
-      orderStudent: orderModel,
-      settings: this.settings,
-      tenantStudent: this.tenantStudent,
-      typeOrder: type,
-      customerInfo: this.customer,
-      weekplanDay: this.weekplanDay,
-      sendCopyEmail: result.sendCopyEmail,
-      selectedStudent: this.selectedStudent
-    }
-  }
+
 
   setOrderIcon(index: number, event: boolean) {
     this.setOrderDay(event, index)
@@ -282,7 +282,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           if (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance) {
             let promisesEmail = [];
             if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
-              const emailObject = this.getEmailBody(orderModel, type, result);
+              const emailObject = this.getEmailBodyData(orderModel, type, result);
               const emailBody = getEmailBody(emailObject);
               promisesEmail.push(this.generalService.sendEmail(emailBody));
             }
@@ -322,7 +322,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
         if (data.success) {
-          const emailObject = this.getEmailBody(orderModel, 'cancel', result);
+          const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
           const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
           if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
             this.generalService.sendEmail(emailBody).subscribe((data: any) => {

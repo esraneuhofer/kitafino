@@ -17,6 +17,8 @@ export class ConfirmOrderComponent {
   btnText:string = 'Bestellen'
   buttonType:string =  'primary';
   constructor(@Inject(MAT_DIALOG_DATA) private data: { orderStudent:OrderInterfaceStudent,type:string,indexMenu:number } ) {
+    console.log(data.orderStudent.order.orderMenus)
+    console.log(data.indexMenu)
     this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder
     if(data.type === 'cancel'){
       this.header = 'Bestellung stornieren';

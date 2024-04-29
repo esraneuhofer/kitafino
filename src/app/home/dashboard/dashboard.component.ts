@@ -19,12 +19,17 @@ import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
 import {setDateToCompare} from "../../functions/date.functions";
+import {ConfirmOrderComponent} from "../dialogs/confirm-order/confirm-order.component";
+import {MatDialog} from "@angular/material/dialog";
+import {getEmailBodyCancel} from "../order-student/email-cancel-order.function";
+import {OrderInterfaceStudent} from "../../classes/order_student.class";
 
 function setOrdersDashboard(orders:OrderInterfaceStudentSave[],registeredStudendts:StudentInterface[],settings:SettingInterfaceNew):DisplayOrderArrayIntrface[]{
   let dateToday = setDateToCompare(new Date())
   let arrayDisplay:DisplayOrderArrayIntrface[] = [];
   if(!orders || !orders.length)return arrayDisplay;
   orders.forEach((order) => {
+    let orderCopy$ = JSON.parse(JSON.stringify(order));
     if(setDateToCompare(new Date(order.dateOrder)) >= dateToday)
     arrayDisplay.push({
       dateOrder: order.dateOrder,
@@ -34,6 +39,7 @@ function setOrdersDashboard(orders:OrderInterfaceStudentSave[],registeredStudend
       nameStudent: getStudentNameById(order.studentId,registeredStudendts),
       price: getTotalPriceSafe(order),
       cancelPossible:  timeDifference(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
+      order:orderCopy$
     })
   })
   return sortOrdersByDate(arrayDisplay);
@@ -44,6 +50,7 @@ export interface DisplayOrderArrayIntrface{
   nameStudent: string,
   price: number,
   cancelPossible: string | null,
+  order:OrderInterfaceStudent
 }
 
 @Component({
@@ -61,13 +68,15 @@ export class DashboardComponent {
   students:StudentInterface[] = [];
   ordersCustomer:DateOrderSingleInterface[] = orderCustomerSeed
   ordersStudentsDisplay:DisplayOrderArrayIntrface[] = [];
-
+  submittingRequest:boolean = false;
   getTotalPriceSafe = getTotalPriceSafe;
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private accountService:AccountService,
               private studentService:StudentService,
               private r: ActivatedRoute,
               private router:Router,
+              private dialog: MatDialog,
+              private generalService: GenerellService,
               private toastr: ToastrService,
               private loadingService: LoadingService,
               private orderService: OrderService,
@@ -97,7 +106,48 @@ export class DashboardComponent {
   routeToAccount(route:string){
     this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
   }
-
+  // cancelOrder(order:DisplayOrderArrayIntrface){
+  //
+  //   const dialogRef = this.dialog.open(ConfirmOrderComponent, {
+  //     width: '550px',
+  //     data: {orderStudent: order.order, type: 'cancel', indexMenu: 0},
+  //     panelClass: 'custom-dialog-container',
+  //     position: {top: '100px'}
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       this.submittingRequest = true;
+  //       this.orderService.cancelOrderStudent(order.order).subscribe((data: any) => {
+  //
+  //         if (data.success) {
+  //           const emailObject = {
+  //             orderStudent: order.order,
+  //             settings: this.settings,
+  //             tenantStudent: this.tenantStudent,
+  //             customerInfo: this.customer,
+  //             weekplanDay: this.weekplanDay,
+  //             sendCopyEmail: result.sendCopyEmail,
+  //             selectedStudent: this.selectedStudent
+  //           }
+  //           const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
+  //           if (this.tenant.orderSettings.orderConfirmationEmail) {
+  //             this.generalService.sendEmail(emailBody).subscribe((data: any) => {
+  //               this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
+  //               this.submittingRequest = false;
+  //             })
+  //           } else {
+  //             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
+  //             this.submittingRequest = false;
+  //           }
+  //
+  //         } else {
+  //           this.submittingRequest = false;
+  //           alert('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport')
+  //         }
+  //       })
+  //     }
+  //   })
+  // }
   cancelPossible(dateOrder: string): boolean {
     return true
   }

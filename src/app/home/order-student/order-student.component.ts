@@ -100,8 +100,6 @@ export class OrderStudentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('customer', "customer")
-
     this.displayMinimize = isWidthToSmall(window.innerWidth);
     const queryInit = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
@@ -165,7 +163,6 @@ export class OrderStudentComponent implements OnInit {
         this.allVacations = vacations;
         this.mainDataLoaded = true;
         this.pageLoaded = true;
-
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -176,7 +173,6 @@ export class OrderStudentComponent implements OnInit {
 
   changeDate(queryDate: QueryInterOrderInterface): void {
     this.querySelection = {...queryDate};
-    console.log('queryDate', queryDate)
     this.getDataWeek()
   }
 
@@ -189,8 +185,8 @@ export class OrderStudentComponent implements OnInit {
       // this.fetchingOrder = false;
       return
     }
-    if (!selectedStudent || !this.weekplanSelectedWeek) return;
-    this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.weekplanSelectedWeek)
+    if (!selectedStudent || !this.selectedWeekplan) return;
+    this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.selectedWeekplan)
   }
 
   selectStudent(student: StudentInterface | null) {
@@ -233,7 +229,6 @@ export class OrderStudentComponent implements OnInit {
 
   getDataWeek() {
     this.pageLoaded = false;
-
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
 
     // const delayObservable = new Observable(observer => {
@@ -246,11 +241,11 @@ export class OrderStudentComponent implements OnInit {
       this.accountTenant = accountTenant;
 
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
-      this.weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
+      this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
       this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
       if (!this.selectedStudent) return;
-      this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.weekplanSelectedWeek)
+      this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
       // let promiseOrderWeek = [];
       // for (let i = 0; i < 5; i++) {
       //   let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
