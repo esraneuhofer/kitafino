@@ -79,7 +79,7 @@
                            class="space-y-5 mb-2">
                         <div class="flex items-center">
                           <!-- Checkbox Section with fixed width -->
-                          <div class="flex h-6 items-center w-1/5 lg:w-1/5 md:w-3/10 sm:w-3/6">
+                          <div class="lg:w-1/5 md:w-1/3 sm:w-1/2 w-full ">
                             <input (ngModelChange)="setLinePermanentOrder($event, index)"
                                    [(ngModel)]="selectedPermanentOrder.daysOrder[index].selected"
                                    [name]="'permanent_order' + index"
@@ -91,7 +91,7 @@
                                    for="{{'comments' + index}}">{{ dayArray[index] }}</label>
                           </div>
                           <!-- Dropdown Section with fixed width -->
-                          <div class="flex-1 w-3/10 lg:w-3/10 md:w-2/5 sm:w-3/6">
+                          <div class="lg:w-2/5 md:w-1/2 sm:w-1/2 w-full ">
                             <select #subgroupModel="ngModel"
                                     [(ngModel)]="selectedPermanentOrder.daysOrder[index].menuId"
                                     [disabled]="!selectedPermanentOrder.daysOrder[index].selected"
