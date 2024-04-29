@@ -33,8 +33,12 @@
                     <td class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                       {{hasDauerbestellung(student) ? 'Ja' : 'Nein'}}
                     </td>
-                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                      <a (click)="selectStudent(student)" class="text-indigo-600 hover:text-indigo-900 cursor-pointer">Bearbeiten</a>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 fa-pull-right">
+                      <div class="align-right">
+                        <app-button [buttonType]="'button'" [submittingRequest]="submittingRequest" (click)="selectStudent(student)">Bearbeiten</app-button>
+                      </div>
+
+<!--                      <a (click)="selectStudent(student)" class="text-indigo-600 hover:text-indigo-900 cursor-pointer"></a>-->
                     </td>
                   </tr>
                   </tbody>
@@ -111,7 +115,6 @@
                           <app-button [submittingRequest]="submittingRequest" [typeButton]="'warning'" *ngIf="permanentOrderExists">Ändern</app-button>
                           <app-button [buttonType]="'button'" [submittingRequest]="submittingRequest" [typeButton]="'danger'" *ngIf="permanentOrderExists" (click)="deletePermanentOrder(selectedPermanentOrder)">Löschen</app-button>
                     </div>
-
 
                   </div>
                 </div>

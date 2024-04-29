@@ -142,6 +142,7 @@ export class PermanentOrdersComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterfaceId | null) {
+    this.submittingRequest = true;
     this.selectedStudent = student;
     if (!student) {
       this.selectedPermanentOrder = null;
@@ -155,6 +156,8 @@ export class PermanentOrdersComponent implements OnInit {
       this.permanentOrderExists = true
       this.selectedPermanentOrder = permanentOrder;
     }
+    this.submittingRequest = false;
+
   }
 
   editOrAddPermanentOrders(permanentOrder: PermanentOrderInterface) {
