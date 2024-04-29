@@ -1,0 +1,125 @@
+<ng-container *ngIf="pageLoaded">
+  <div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+      <div class="w-11/12">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-wrap">
+            <div class="sm:flex-auto">
+              <h1 class="text-base font-semibold leading-6 text-gray-900">Verpflegungsteilnehmer</h1>
+              <p class="mt-2 text-sm text-gray-700">Eingetragene Dauerbestellungen</p>
+            </div>
+          </div>
+          <div class="mt-8 flow-root">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                  <thead>
+                  <tr>
+                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                      Name
+                    </th>
+                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">Dauerbestellung
+                    </th>
+                    <th class="relative py-3.5 pl-3 pr-4 sm:pr-0" scope="col">
+                      <span class="sr-only">Edit</span>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                  <tr *ngFor="let student of registeredStudents">
+                    <td
+                      class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
+                    <td class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                      {{hasDauerbestellung(student) ? 'Ja' : 'Nein'}}
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                      <a (click)="selectStudent(student)" class="text-indigo-600 hover:text-indigo-900 cursor-pointer">Bearbeiten</a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="selectedPermanentOrder && selectedStudent">
+    <div class="container mx-auto px-4 mt-8">
+      <div class="flex justify-center">
+        <div class="w-11/12">
+          <div class="flex-1">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+              <!-- Other Settings Form Content -->
+              <form #f1="ngForm" (ngSubmit)="f1.form.valid && editOrAddPermanentOrders(selectedPermanentOrder)" novalidate>
+                <div class="space-y-12">
+                  <div class="border-b border-gray-900/10 pb-12">
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">Dauerbestellung
+                      für: {{selectedStudent?.firstName}} {{selectedStudent?.lastName}}</h2>
+                    <p class="mt-1 text-sm leading-6 text-gray-600">
+                <span *ngIf="permanentOrderExists">
+                  Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/in vor. Um eine Änderung an der Dauerbestellung vorzunehmen bestätigen Sie die Änderung mit dem Button "Dauerbestellung ändern".
+                </span>
+                      <span *ngIf="!permanentOrderExists">
+                  Es liegt keine Dauerbestellung für den Verpflegungsteilnehmer/in vor. Um eine Dauerbestellung anzulegen wählen Sie die gewünschten
+                  Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl mit dem Button "Dauerbestellung anlegen".
+                </span>
+                    </p>
+                    <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
+                    <fieldset class="mt-4">
+                      <legend class="sr-only">Notifications</legend>
+                      <div *ngFor="let day of selectedPermanentOrder.daysOrder; let index = index"
+                           class="space-y-5 mb-2">
+                        <div class="flex items-center">
+                          <!-- Checkbox Section with fixed width -->
+                          <div class="flex h-6 items-center w-1/5 lg:w-1/5 md:w-3/10 sm:w-3/6">
+                            <input (ngModelChange)="setLinePermanentOrder($event, index)"
+                                   [(ngModel)]="selectedPermanentOrder.daysOrder[index].selected"
+                                   [name]="'permanent_order' + index"
+                                   aria-describedby="Dauerbestellung Tag"
+                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                   id="{{'comments' + index}}"
+                                   type="checkbox">
+                            <label class="ml-2 text-sm font-medium text-gray-900"
+                                   for="{{'comments' + index}}">{{ dayArray[index] }}</label>
+                          </div>
+                          <!-- Dropdown Section with fixed width -->
+                          <div class="flex-1 w-3/10 lg:w-3/10 md:w-2/5 sm:w-3/6">
+                            <select #subgroupModel="ngModel"
+                                    [(ngModel)]="selectedPermanentOrder.daysOrder[index].menuId"
+                                    [disabled]="!selectedPermanentOrder.daysOrder[index].selected"
+                                    class="block w-full rounded-md border-gray-300 py-1.5 pl-3 pr-10 text-gray-900 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
+                                    id="subgroup{{index}}"
+                                    name="subgroupModel{{index}}"
+                                    required>
+                              <option [value]="" disabled hidden>Bitte auswählen</option>
+                              <option *ngFor="let menu of menuSelection" [ngValue]="menu.menuId">
+                                {{ menu.nameMenu}}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </fieldset>
+                    <div class="flex mt-2 space-x-2">
+                          <app-button [submittingRequest]="submittingRequest" *ngIf="!permanentOrderExists">Dauerbestellung hinzufügen</app-button>
+                          <app-button [submittingRequest]="submittingRequest" [typeButton]="'warning'" *ngIf="permanentOrderExists">Ändern</app-button>
+                          <app-button [buttonType]="'button'" [submittingRequest]="submittingRequest" [typeButton]="'danger'" *ngIf="permanentOrderExists" (click)="deletePermanentOrder(selectedPermanentOrder)">Löschen</app-button>
+                    </div>
+
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

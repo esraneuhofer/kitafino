@@ -273,6 +273,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+      console.log(orderModifiedForSave)
+
       const serviceMethod = type === 'order'
         ? () => this.orderService.addOrderStudentDay(orderModifiedForSave)
         : () => this.orderService.editStudentOrder(orderModifiedForSave);

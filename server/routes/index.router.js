@@ -11,6 +11,7 @@ const ctrlStudents = require('../controllers/student.controller');
 const crtlAccount = require('../controllers/account.controller');
 const crtlOrder = require('../controllers/order.controller');
 const crtlTransaction = require('../controllers/transaction.controller');
+const crtlPermanent = require('../controllers/permanent-order.controller');
 
 const jwtHelper = require('../config/jwtHelper');
 
@@ -62,6 +63,10 @@ router.post('/editStudentOrder',jwtHelper.verifyJwtToken,crtlOrder.editStudentOr
 
 router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAccountOrderUserYear)
 
+router.get('/getPermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.getPermanentOrdersUser);
+router.post('/setPermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.setPermanentOrdersUser);
+router.post('/editPermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.editPermanentOrdersUser);
+router.post('/deletePermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.deletePermanentOrdersUser);
 
 
 ///Acoount Requests ////
@@ -72,7 +77,10 @@ router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountC
 /////Transaction Requests ////
 router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getTransactionTenant);
 
-
+////Permanent Orders//////
+router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
+router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
+router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 module.exports = router;
 
 

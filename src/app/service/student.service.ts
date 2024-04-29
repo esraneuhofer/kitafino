@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError, map, Observable, of} from "rxjs";
-import {StudentInterface} from "../classes/student.class";
+import {StudentInterface, StudentInterfaceId} from "../classes/student.class";
 
 
 @Injectable(
@@ -17,8 +17,8 @@ export class StudentService {
 
   }
   getRegisteredStudentsUser(){
-    return this.http.get<StudentInterface[]>(environment.apiBaseUrl+'/getRegisteredStudentsUser')
-      .pipe(map((response: StudentInterface[]) => (response)));
+    return this.http.get<StudentInterfaceId[]>(environment.apiBaseUrl+'/getRegisteredStudentsUser')
+      .pipe(map((response: StudentInterfaceId[]) => (response)));
   }
   hasRegisteredStudent(): Observable<boolean> {
     return this.getRegisteredStudentsUser().pipe(

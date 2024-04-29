@@ -23,7 +23,6 @@ export function getSpecialFoodSelectionCustomer(customer:CustomerInterface,setti
         selected:false
       })
     }
-
   })
   // if(array.length > 0){
   //   array.push({
@@ -33,4 +32,14 @@ export function getSpecialFoodSelectionCustomer(customer:CustomerInterface,setti
   //   })
   // }
   return array;
+}
+
+export function customerHasSpecialFood(customer:CustomerInterface,specialFoodId:string):boolean{
+  let boolean = false;
+  customer.order.specialShow.forEach(eachSpecial=>{
+    if(eachSpecial.idSpecialFood === specialFoodId && eachSpecial.selected){
+      boolean = true;
+    }
+  })
+  return boolean;
 }

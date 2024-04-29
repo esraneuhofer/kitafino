@@ -59,6 +59,7 @@ import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
 
 registerLocaleData(localeDe);
 
@@ -102,6 +103,7 @@ registerLocaleData(localeDe);
     WeekplanPdfComponent,
     ConfirmWithdrawDialogComponent,
     OrderAllergeneDialogComponent,
+    PermanentOrdersComponent,
   ],
   imports: [
     BrowserModule,

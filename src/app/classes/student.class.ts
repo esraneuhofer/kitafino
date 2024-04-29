@@ -7,7 +7,9 @@ export interface StudentInterface {
   customerId:string,
   specialFood: string | null;
 }
-
+export interface StudentInterfaceId extends StudentInterface{
+  _id: string;
+}
 export function setEmptyStudentModel():StudentInterface{
   return {
     firstName: '',

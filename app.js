@@ -25,6 +25,7 @@ mongoose.connect(uri, { useNewUrlParser: true })
     console.log(err);
   });
 
+require(__dirname + '/server/models/permanent-order.model');
 require(__dirname + '/server/models/weekplan.model');
 require(__dirname + '/server/models/transaction.model');
 require(__dirname + '/server/models/orders_account.model');

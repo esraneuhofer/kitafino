@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ButtonComponent implements OnInit{
 
   @Input() typeButton: string = '';
+  @Input() buttonType: string = 'submit';
   @Input() submittingRequest: boolean = false;
   @Input() mr: boolean = false;
   buttonClass: string = "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
