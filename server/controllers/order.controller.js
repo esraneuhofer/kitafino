@@ -44,6 +44,7 @@ module.exports.addOrderStudentDay = async (req, res) => {
 
   const orderAccount = prepareOrderDetails(req);
   const totalPrice = getTotalPrice(req.body);
+  console.log('totalPrice',JSON.stringify(req.body))
   const session = await mongoose.startSession();
   await session.startTransaction();
 
@@ -332,3 +333,4 @@ function createCancellationEntry(orderAccount) {
   newEntry.type = 'cancellation';
   return newEntry
 }
+

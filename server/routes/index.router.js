@@ -12,7 +12,7 @@ const crtlAccount = require('../controllers/account.controller');
 const crtlOrder = require('../controllers/order.controller');
 const crtlTransaction = require('../controllers/transaction.controller');
 const crtlPermanent = require('../controllers/permanent-order.controller');
-
+const ctrlTest = require('../controllers/task-daily-deadline.controller');
 const jwtHelper = require('../config/jwtHelper');
 
 router.post('/register', ctrlUser.register);
@@ -81,6 +81,12 @@ router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getT
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
 router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
+
+
+
+router.get('/getTest',ctrlTest.addTaskAddOrder)
+
+
 module.exports = router;
 
 

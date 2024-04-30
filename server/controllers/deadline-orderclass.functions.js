@@ -2,39 +2,7 @@ const dayArray = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
 
 const {getWeekNumber, getDeadline} = require('./deadline-deadline.functions');
 
-function getWeekplanModel(setting,dateQuery) {
-  return{
-    year:dateQuery.year,
-    week:dateQuery.week,
-    weekplan:getWeekplanArray(setting),
-    allowOneMenuEachDay:[true,true,true,true,true],
-    nameWeekplan:'',
-    groupsWeekplan:[]
-  }
-}
-function getWeekplanArray(setting){
-  let arr = [];
-  dayArray.forEach((each, index) => {
-    arr.push({
-      nameDay:dayArray[index],
-      mealTypesDay:getMealTypesForWeekplan(setting)
-    })
-  });
-  return arr;
-}
 
-function getMealTypesForWeekplan(setting){
-  let arr = [];
-  let order = ['side','menu','special','dessert']
-  order.forEach(each =>{
-    setting.orderSettings.specials.forEach(eachSpecial =>{
-      if(eachSpecial.typeOrder === each){
-        arr.push({typeSpecial:eachSpecial.typeOrder,idSpecial:eachSpecial._id,nameSpecial:eachSpecial.nameSpecial,menu:null,idMenu:null,isDge:false})
-      }
-    })
-  })
-  return arr;
-}
 
 function createOrderWeekClass(customer, query, settings, selectedWeek) {
   // Assuming setOrderForWeek is a method that you've defined elsewhere
@@ -316,7 +284,7 @@ function getDateMondayFromCalenderweek(w, y) {
 
 
 module.exports = {
-  getWeekplanModel,
+  getIndexDayOrder,
   getOrdersStudent,
   getDateMondayFromCalenderweek
 };

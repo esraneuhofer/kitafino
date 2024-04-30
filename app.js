@@ -24,6 +24,7 @@ mongoose.connect(uri, { useNewUrlParser: true })
   .catch(err => {
     console.log(err);
   });
+require(__dirname + '/server/models/task-order.model');
 
 require(__dirname + '/server/models/permanent-order.model');
 require(__dirname + '/server/models/weekplan.model');

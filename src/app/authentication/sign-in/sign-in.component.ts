@@ -25,7 +25,7 @@ export class SignInComponent implements OnInit {
   }
   isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   submittingRequest: boolean = false;
-  @ViewChild('pwaInstallComponent') pwaInstallComponent!: ElementRef;
+  // @ViewChild('pwaInstallComponent') pwaInstallComponent!: ElementRef;
   // @ViewChild('pwaInstallComponent') pwaInstallElementRef: ElementRef;
   constructor(private userService: UserService,
               private renderer: Renderer2,
@@ -83,6 +83,9 @@ export class SignInComponent implements OnInit {
     // }
   }
   ngOnInit() {
+    this.userService.getTest().subscribe((res:any) => {
+      console.log(res);
+    })
     console.log("this.userService.isLoggedIn())");
     // if(this.userService.isLoggedIn())
     // this.router.navigateByUrl('home/dashboard');

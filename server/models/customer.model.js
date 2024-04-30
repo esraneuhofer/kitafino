@@ -15,7 +15,10 @@ var customer = new Schema({
   active:Boolean,
   order: {
     lastActionWeek: Number,
-
+    deadLineDaily:{
+      day: Number,
+      time: String,
+    },
     individualPricing: Boolean,
     addSubgroupsOrder: Boolean,
     ignoreMinOrder:Boolean,

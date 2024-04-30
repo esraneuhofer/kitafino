@@ -19,7 +19,8 @@ const transporter = nodemailer.createTransport({
 });
 
 
-const {getOrdersStudent,getWeekplanModel,getDateMondayFromCalenderweek} = require('./deadline-orderclass.functions');
+const {getOrdersStudent,getDateMondayFromCalenderweek} = require('./deadline-orderclass.functions');
+const {getWeekplanModel} = require('./weekplan-functions.js');
 const {getWeekNumber} = require('./deadline-deadline.functions');
 const {getOrderBodyNew} = require('./deadline-email.functions');
 const {dateAndDayOfWeekToCron} = require('./date.functions');
