@@ -13,6 +13,9 @@ const crtlOrder = require('../controllers/order.controller');
 const crtlTransaction = require('../controllers/transaction.controller');
 const crtlPermanent = require('../controllers/permanent-order.controller');
 const ctrlTest = require('../controllers/task-daily-deadline.controller');
+const crtlPlaceOrder = require('../controllers/place-order.controller');
+const ctrlCancelOrder = require('../controllers/cancel-order.controller');
+
 const jwtHelper = require('../config/jwtHelper');
 
 router.post('/register', ctrlUser.register);
@@ -57,9 +60,10 @@ router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
 /////Order Requests ////
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
 router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
-router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
-router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,crtlOrder.cancelOrderStudent)
-router.post('/editStudentOrder',jwtHelper.verifyJwtToken,crtlOrder.editStudentOrder)
+// router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
+router.post('/addOrderStudentDay', jwtHelper.verifyJwtToken, crtlPlaceOrder.addOrderStudentDay)
+
+router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,ctrlCancelOrder.cancelOrderStudent)
 
 router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAccountOrderUserYear)
 

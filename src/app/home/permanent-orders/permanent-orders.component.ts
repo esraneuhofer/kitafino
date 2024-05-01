@@ -123,7 +123,6 @@ export class PermanentOrdersComponent implements OnInit {
         AccountCustomerInterface,
         PermanentOrderInterface[]
       ]) => {
-        console.log(permanentOrders)
         this.settings = settings;
         this.customer = customer;
         this.customer.stateHol = 'HE' //Testing
@@ -179,11 +178,18 @@ export class PermanentOrdersComponent implements OnInit {
   }
 
   setLinePermanentOrder(event: boolean, indexLine: number) {
+
     if (!this.selectedPermanentOrder) return
+
     if (event) {
-      this.selectedPermanentOrder.daysOrder[indexLine].menuId = getFirstMenuSettings(this.settings)
+      let menuId = getFirstMenuSettings(this.settings)
+      let typeSpecial = this.menuSelection.find((menu) => menu.menuId === menuId)
+      if(!typeSpecial)return
+      this.selectedPermanentOrder.daysOrder[indexLine].menuId = menuId
+      this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
     }else{
       this.selectedPermanentOrder.daysOrder[indexLine].menuId = ''
+      this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = ''
     }
   }
 
@@ -199,6 +205,14 @@ export class PermanentOrdersComponent implements OnInit {
         this.submittingRequest = false
       }
     });
+  }
+
+  setPermanentOrderType(event: string, indexLine: number) {
+    if (!this.selectedPermanentOrder) return
+    let typeSpecial = this.menuSelection.find((menu) => menu.menuId === event)
+    if(!typeSpecial)return
+    this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
+    console.log(typeSpecial.typeSpecial)
   }
 
 }

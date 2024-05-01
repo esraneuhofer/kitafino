@@ -25,7 +25,17 @@ function getSpecialNameById(settings, idSpecialFood,weekplanDay,menus) {
   }
   return nameSpecialFood;
 }
+function getMenuNameEmail() {
+  if(typeOrder === 'specialFood'){
+    let nameSpecialFood = getSpecialFoodNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId)
+
+  }else{
+    let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay)
+
+  }
+}
 function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, selectedWeekDay,indexDay) {
+  console.log(eachPermanentOrderStudent.daysOrder[indexDay])
   let objOrder = {
     orderMenus: [],
     specialFoodOrder: []
@@ -35,7 +45,7 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
     objOrder.specialFoodOrder.push({
       typeOrder:'specialFood',
       nameOrder:nameSpecialFood,
-      idType:eachPermanentOrderStudent.daysOrder[indexDay].menuId,
+      idType:eachPermanentOrderStudent.daysOrder[indexDay].idSpecial,
       amountSpecialFood:1,
       priceMenu:priceStudent,
       menuSelected:true
@@ -51,7 +61,7 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
     })
   }else{
     let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay)
-    objOrder.specialFoodOrder.push({
+    objOrder.orderMenus.push({
       typeOrder:'menu',
       nameOrder:nameSpecial,
       idType:eachPermanentOrderStudent.daysOrder[indexDay].menuId,
@@ -69,11 +79,10 @@ function setOrderStudentBackend(customer,
                                 eachPermanentOrderStudent,
                                 selectedWeek,
                                 settings,
-                                studentModel){
+                                priceStudent){
   const indexDay = getIndexDayOrder(dateOrder);
   let calenderWeek = getWeekNumber(new Date(dateOrder))
   let year = new Date(dateOrder).getFullYear();
-  const priceStudent = getPriceStudent(studentModel,customer,settings)
   const selectedWeekDay = selectedWeek.weekplan[indexDay];
   return {
     kw: calenderWeek,
@@ -121,7 +130,20 @@ function getPriceStudentDependingOnSettings(settings,eachPrice) {
   return priceStudent;
 }
 
+function getTotalPrice (order) {
+  let totalPrice = 0;
+  order.order.orderMenus.forEach((order) => {
+    totalPrice += order.amountOrder * order.priceOrder;
+  })
+  order.order.specialFoodOrder.forEach((order) => {
+    totalPrice += order.amountSpecialFood * order.priceMenu;
+  })
+  return totalPrice;
+}
 
 module.exports = {
-  setOrderStudentBackend
+  getTotalPrice,
+  setOrderStudentBackend,
+  getPriceStudent,
+  getSpecialFoodNameById
 };

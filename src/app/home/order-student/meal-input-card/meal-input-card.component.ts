@@ -24,6 +24,8 @@ import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-all
 import {getEmailBodyAccountBalance} from "../email-account-balance.function";
 import {EXPANSION_PANEL_ANIMATION_TIMING} from "@angular/material/expansion";
 import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.class";
+import {AccountService} from "../../../service/account.serive";
+import {AccountCustomerInterface} from "../../../classes/account.class";
 
 function checkForDisplay(ordersDay:OrderSubDetailNew,setting:SettingInterfaceNew):boolean{
   let isDisplay  = false
@@ -114,7 +116,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   constructor(private orderService: OrderService,
               private toastr: ToastrService,
               private dialog: MatDialog,
-              private generalService: GenerellService) {
+              private generalService: GenerellService,
+              private accountService: AccountService) {
 
   }
 
@@ -273,39 +276,38 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-      console.log(orderModifiedForSave)
-
       const serviceMethod = type === 'order'
         ? () => this.orderService.addOrderStudentDay(orderModifiedForSave)
         : () => this.orderService.editStudentOrder(orderModifiedForSave);
 
       serviceMethod().subscribe((data: any) => {
         if (data.success) {
-          if (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance) {
-            let promisesEmail = [];
-            if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
-              const emailObject = this.getEmailBodyData(orderModel, type, result);
-              const emailBody = getEmailBody(emailObject);
-              promisesEmail.push(this.generalService.sendEmail(emailBody));
-            }
-            if (this.tenantStudent.orderSettings.sendReminderBalance) {
-              if (data.currentBalance < 15) {
-                const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, data.currentBalance)
-                promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
+          this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
+            if (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance) {
+              let promisesEmail = [];
+              if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
+                const emailObject = this.getEmailBodyData(orderModel, type, result);
+                const emailBody = getEmailBody(emailObject);
+                promisesEmail.push(this.generalService.sendEmail(emailBody));
               }
+              if (this.tenantStudent.orderSettings.sendReminderBalance) {
+                if (accountTenant.currentBalance < 15) {
+                  const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
+                  promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
+                }
 
-            }
-            forkJoin(promisesEmail).subscribe((data: any) => {
+              }
+              forkJoin(promisesEmail).subscribe((data: any) => {
+                this.orderPlaced.emit(true);
+                this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
+                this.submittingOrder = false
+              })
+            } else {
               this.orderPlaced.emit(true);
               this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
               this.submittingOrder = false
-            })
-          } else {
-            this.orderPlaced.emit(true);
-            this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
-            this.submittingOrder = false
-          }
-
+            }
+          })
         } else {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0

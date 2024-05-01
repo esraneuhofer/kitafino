@@ -1,17 +1,18 @@
-import {OrderInterfaceStudent, OrderSubDetailNew} from "../../classes/order_student.class";
-import {SettingInterfaceNew} from "../../classes/setting.class";
-import {TenantStudentInterface} from "../../classes/tenant.class";
-import {getFormattedDate, getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
-import {CustomerInterface} from "../../classes/customer.class";
-import {customerHasSpecialVisibleEmail, getTotalPortion} from "../../functions/order.functions";
-import {MealtypesWeekplan, WeekplanDayInterface} from "../../classes/weekplan.interface";
-import {getBodyEmailGenerell} from "./email-generell.functions";
-import {StudentInterface} from "../../classes/student.class";
-import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
+function getFormattedDate(date) {
+  let result = new Date(date);
+  let month = result.getMonth()+1;
+  let num = result.getDate();
 
+  if (month.toString().length == 1) {
+    month = "0" + month;
+  }
+  let sliced =  ('0' + num).slice(-2);
+  return (sliced + '.' +month);
+}
 
-function getHtmlOrder(objectData: EmailOrderInterface): string {
-  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+function getEmailHtmlCancelPermanentOrder(nameStudent,dateFormatted,reason){
+  return `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="de">
  <head>
   <meta charset="UTF-8">
@@ -19,7 +20,7 @@ function getHtmlOrder(objectData: EmailOrderInterface): string {
   <meta name="x-apple-disable-message-reformatting">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="telephone=no" name="format-detection">
-  <title>Bestellung</title><!--[if (mso 16)]>
+  <title>Stornierung</title><!--[if (mso 16)]>
     <style type="text/css">
     a {text-decoration: none;}
     </style>
@@ -100,17 +101,15 @@ a[x-apple-data-detectors] {
                   <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                      <tr>
-                      <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h1 style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:22px;font-style:normal;font-weight:bold;color:#333333">Bestellbestätigung</h1></td>
+                      <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h1 style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:bold;color:#333333">Bestellung konnte nicht eingetragen werden</h1></td>
                      </tr>
                      <tr>
-                      <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Einrichtung</b>: ${objectData.customerInfo.contact.customer}</p>
-                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Verpflegungsteilnehmer / in:</b> ${objectData.selectedStudent.firstName} ${objectData.selectedStudent.lastName}</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Datum</b>: ${getInvoiceDateOne(objectData.orderStudent.dateOrder)}</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Menu</b>: ${getMenuNameEmail(objectData).menu}</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Anzahl:</b>1</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Preis pro:</b> ${getMenuNameEmail(objectData).price}</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Mit freundlichen Grüßen,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Cateringexpert</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Aufgegeben am: | Bestellung&nbsp;&nbsp;vom Kunden aufgegeben</p></td>
+                      <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Folgende Dauersbestellung konnte nicht ausgeführt werden:</p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Verpflegungsteilnehemer/in:${nameStudent}</p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Datum:${dateFormatted}</p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Grund:${reason}</p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Mit freundlichen Grüßen,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Cateringexpert</p></td>
                      </tr>
                    </table></td>
                  </tr>
@@ -176,192 +175,6 @@ a[x-apple-data-detectors] {
 </html>`
 }
 
-export interface EmailOrderInterface {
-  orderStudent: OrderInterfaceStudent,
-  settings: SettingInterfaceNew,
-  tenantStudent: TenantStudentInterface,
-  customerInfo: CustomerInterface,
-  weekplanDay: WeekplanDayInterface,
-  sendCopyEmail: boolean,
-  selectedStudent: StudentInterface
-}
-
-function numberToEuroString(number: number): string {
-  return `${number.toFixed(2).replace(".", ",")}€`;
-}
-
-
-export function getEmailBody(objectData: EmailOrderInterface): any {
-  let titleOrder = 'Bestellbestätigung '
-  // Verpflegungsteilnehmer/in :' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + '<br> Datum:' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '<br>';
-  let typeOrder = 'Bestellbestätigung'
-  const orderTime = getInvoiceDateOne(new Date());
-  let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
-  if (objectData.sendCopyEmail) {
-    arrayEmail.push(objectData.tenantStudent.email)
-  }
-  const emailBody = getEmailBodyHtml(objectData, 'order');
-  const emailBodyOrder = getHtmlOrder(objectData)
-  let email = getBodyEmailGenerell(objectData, arrayEmail, emailBodyOrder);
-  return email;
-}
-
-function getEmailBodyHtml(objectData: EmailOrderInterface, typeOrder: string): any {
-  let tableModel = '';
-
-  // if (type !== 'order') {
-  //   tableModel += '<table style="margin-top: 8px" class="table_calender_week table table-bordered">\n' +
-  //     '          <tr style="background-color:#f7ce50">\n' +
-  //     '            <th colspan="100%">Zahlen der ursprünglichen Bestellung</b></th></tr>' +
-  //     '</th>\n' +
-  //     '          </tr>\n' +
-  //     '        </table>';
-  // }
-  if (typeOrder === 'order') {
-    tableModel += tableModel += '  <table class="table_calender_week table table-bordered">\n' +
-      '          <tr>\n' +
-      '            <th colspan="100%">' +
-      '<b> Verpflegungsteilnehmer/in: ' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + ' | ' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '</b></th></tr>' +
-      '</th>\n' +
-      '          </tr>\n' +
-      '        </table>';
-  }
-  tableModel += getTableContent(objectData) +
-    // getTotalContent(obj) +
-    // getMenuContent(obj) +
-    // getCommentContent(orderStudent,settings) +
-    '</table>';
-  return tableModel;
-}
-
-function getMenuNameEmail(object: EmailOrderInterface): { price: string, menu: string } {
-  let obj = {price: '', menu: ''};
-  object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
-    if (eachOrderDay.typeOrder === 'menu' ||
-      (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
-      (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {
-      let background = getBackGroundColor(eachOrderDay.typeOrder);
-      if (eachOrderDay.amountOrder === 0) return;
-      obj.price = numberToEuroString(eachOrderDay.priceOrder);
-      obj.menu = getMenuName(object, eachOrderDay);
-    }
-    if (eachOrderDay.typeOrder === 'specialFood') {
-      if (eachOrderDay.amountOrder === 0) return;
-      obj.price = numberToEuroString(eachOrderDay.priceOrder);
-      obj.menu = eachOrderDay.nameOrder;
-    }
-  })
-  return obj;
-}
-
-function getTableContent(object: EmailOrderInterface): any {
-  let table = ' <table class="table table-bordered">';
-  table += ' <tr style="background: #8693E0">\n' +
-    '            <td >Menu</td>\n' +
-    '            <td>Anzahl</td>\n' +
-    '            <td>Preis</td>\n' +
-    '          </tr>';
-  object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
-    if (object.settings.orderSettings.hideEmptyOrderEmail && eachOrderDay.amountOrder === 0) {
-      return;
-    }
-    if (eachOrderDay.typeOrder === 'menu' ||
-      (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
-      (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {
-      let background = getBackGroundColor(eachOrderDay.typeOrder);
-      if (eachOrderDay.amountOrder === 0) return;
-      table += '<tr style="background: ' + background + ';">' +
-        '<td>' + getMenuName(object, eachOrderDay) + '</td>' +
-        '<td>' + eachOrderDay.amountOrder + '</td>' +
-        '<td>' + numberToEuroString(eachOrderDay.priceOrder * eachOrderDay.amountOrder) + '</td>' +
-        '</tr>';
-    }
-    if (eachOrderDay.typeOrder === 'specialFood') {
-      table += '<tr style="background: #D8B3E9;">' +
-        '<td>' + eachOrderDay.nameOrder + '</td>' +
-        '<td>' + eachOrderDay.amountOrder + '</td>' +
-        '<td>' + numberToEuroString(eachOrderDay.priceOrder * eachOrderDay.amountOrder) + '</td>' +
-        '</tr>';
-    }
-  });
-  // if (!hideSpecialFoodIfNoMenuShown(eachGroup.order, obj.settings.orderSettings.showMenuWithoutName)) {
-  // object.orderStudent.order.specialFoodOrder.forEach(eachSpecialFood => {
-  //   if (object.settings.orderSettings.hideEmptyOrderEmail && eachSpecialFood.amountSpecialFood === 0) {
-  //     return;
-  //   }
-  //   if (customerHasSpecialVisibleEmail(eachSpecialFood, object.customerInfo) && eachSpecialFood.amountSpecialFood > 0 || eachSpecialFood.active) {
-  //     table += ' <tr style="background: #8693E0">\n' +
-  //       '            <td >' + eachSpecialFood.nameSpecialFood + '</td>\n' +
-  //       '            <td>' + eachSpecialFood.amountSpecialFood + '</td>\n' +
-  //       '            <td>Betrag</td>\n' +
-  //       '          </tr>';
-  //   }
-  // });
-  // }
-
-  // table += ' <tr style="background: #D3D3D3">\n' +
-  //   '            <td >Gesamt</td>\n' +
-  //   '            <td>' + getTotalPortion(object.orderStudent) + '</td>\n' +
-  //   '          </tr>';
-
-  return table;
-}
-
-function getBackGroundColor(typeOrder: string) {
-  if (typeOrder === 'menu') {
-    return '#8693E0';
-  }
-  if (typeOrder === 'side') {
-    return '#AEE5B5';
-  }
-  if (typeOrder === 'dessert') {
-    return '#FFF7E0';
-  }
-  if (typeOrder === 'special') {
-    return '#D8B3E9';
-  }
-  return '#8693E0';
-}
-
-function getMenuName(object: EmailOrderInterface, eachOrderDay: OrderSubDetailNew) {
-  let components = [];
-  let side = null;
-  let name = null;
-  let dessert = null;
-  if (object.settings.orderSettings.showSideIfNotSeparate && object.customerInfo.order.sidedish) {
-    side = getSideOrdDessertNameIfExist(object.weekplanDay.mealTypesDay, 'side');
-    console.log(side)
-
-  }
-  if (side) { // Only add to components if side is not null
-    components.push(side);
-  }
-
-  name = eachOrderDay.nameOrder;
-  if (name) { // Only add to components if name is not null
-    components.push(name);
-  }
-
-  if (object.settings.orderSettings.showDessertIfNotSeparate && object.customerInfo.order.dessert) {
-    dessert = getSideOrdDessertNameIfExist(object.weekplanDay.mealTypesDay, 'dessert');
-    console.log(dessert)
-  }
-  if (dessert) { // Only add to components if dessert is not null
-    components.push(dessert);
-  }
-
-  return components.join(' , ');
-}
-
-
-function getSideOrdDessertNameIfExist(menuDay: MealtypesWeekplan[], type: string) {
-  console.log(menuDay)
-  let name = '';
-  menuDay.forEach(eachMenu => {
-    if (eachMenu.typeSpecial === type) {
-      if (!eachMenu.menu) return
-      name += eachMenu.menu.nameMenu;
-    }
-  });
-  return name;
+module.exports = {
+  getEmailHtmlCancelPermanentOrder
 }

@@ -1,5 +1,5 @@
 const {getWeekNumber} = require("./deadline-deadline.functions");
-const {setOrderStudentBackend} = require("./order-functions");
+const {setOrderStudentBackend, getPriceStudent, getSpecialFoodNameById} = require("./order-functions");
 const {getMenusForWeekplan} = require("./weekplan-functions");
 const mongoose = require("mongoose");
 const {getIndexDayOrder} = require("./deadline-orderclass.functions");
@@ -7,72 +7,43 @@ const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
 const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
 const OrderStudent = mongoose.model('OrderStudent');
-const Tenantparent = mongoose.model('Tenantparent');
-const AccountSchema = mongoose.model('AccountSchema');
 const Menu = mongoose.model('Menu');
 const Weekplan = mongoose.model('Weekplan');
 const StudentNew = mongoose.model('StudentNew');
-let addOrderStudentDay = require('./order.controller').addOrderStudentDay;
-
+const {addOrder} = require('./place-order.controller');
+let getEmailSuccess = require('./email-order-regular').getHtmlOrder;
+let getEmailCancel = require('./email-permanent-order-cancel').getEmailHtmlCancelPermanentOrder;
+const nodemailer = require('nodemailer');
+const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
+const {studentHasNotPlacedOrderYet, getStundetById, getDayDeadlineOrder} = require("./permanent-order.functions");
+const transporter = nodemailer.createTransport({
+  host: 'smtp.1und1.de',
+  port: 465,
+  secure: true, // secure:true for port 465, secure:false for port 587
+  // service: 'Gmail',
+  auth: {
+    user: 'noreply@cateringexpert.de',
+    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
+  }
+});
 let mockReq;
 
-const mockRes = {
-  json: function(result) {
-    console.log('Response:', result);
-  }
-};
 
-function studentHasNotPlacedOrderYet(permanentOrderStudent, orderStudents) {
-    for (let eachOrderStudent of orderStudents) {
-      if (permanentOrderStudent.studentId === eachOrderStudent.studentId) {
-        return false;
-      }
-  }
-  return true;
-}
-
-function getStundetById(studentId, studentsCustomer) {
-  for (let eachStudent of studentsCustomer) {
-    if (eachStudent._id.toString() === studentId.toString()) {
-      return eachStudent;
-    }
-  }
-  return null;
-}
-
-function getDayDeadlineOrder(customer) {
-  let daysCustomer = customer.order.deadLineDaily.day;
-  let today = new Date();
-
-  // Add x days to today
-  today.setDate(today.getDate() + daysCustomer);
-  console.log('today', today);
-  // Get the timezone offset in minutes and convert it to hours
-  let offset = today.getTimezoneOffset() / 60;
-
-  // Format the date in 'YYYY-MM-DDT00:00:00+HH:00' format
-  // Adjust the timezone offset to ensure it always shows as +01:00
-  let formattedDate = today.toISOString().split('T')[0] + 'T00:00:00+02:00';
-
-  return formattedDate;
-}
 function setMockRequest(req) {
   return {
     tenantId: '651c635eca2c3d25809ce4f5',
-    customerId:'6540b2117d2b64903bb4e3a2',
-    _id:'65589d74e01397281ce02472',
+    customerId: '6540b2117d2b64903bb4e3a2',
+    _id: '65589d74e01397281ce02472',
   };
 }
+
 module.exports.addTaskAddOrder = async (req, res, next) => {
   mockReq = setMockRequest(req)
   let tenantId = '651c635eca2c3d25809ce4f5';
   let customerId = "6540b2117d2b64903bb4e3a2";
-  let emailReminders = [];
   try {
     const settings = await Settings.findOne({tenantId: tenantId})
     const customer = await Customer.findOne({customerId: customerId})
-    // const tenantStudents = await Tenantparent.find({customerId: customerId})
-    // const accountsTenants = await AccountSchema.find({customerId: customerId})
     const menus = await Menu.find({tenantId: tenantId})
     const weekplan = await Weekplan.findOne({tenantId: req.tenantId, year: req.query.year, week: req.query.week});
 
@@ -91,44 +62,76 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
       if (!studentModel || (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, dayDeadlineOrder) && eachPermanentOrderStudent.daysOrder[indexDay].selected)) {
         continue
       }
-      let newOrder = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, studentModel);
-      mockReq.body  = newOrder;
-      // Call the function
-      await addOrderStudentDay(mockReq, mockRes);
-      // let customer = getUserFromStudent()
-      // if(isEmailFormat(eachCustomer.contact.email)) {
-      //   let emailReminder = 8getEmailBodyReminder(
-      //     settings,
-      //     weekForOrder,
-      //     deadline,
-      //     eachCustomer.contact.email); // Assuming deadline is part of eachSetting or calculated inside getEmailBodyReminder
-      //   emailReminders.push(emailReminder);
-      // }
-    // }
+      const priceStudent = getPriceStudent(studentModel, customer, settings)
 
+      let newOrder = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent);
+      console.log(newOrder.dateOrder)
+      mockReq.body = newOrder;
+      mockReq.nameStudent = studentModel.firstName + ' ' + studentModel.lastName;
+      mockReq.dateOrderEdited = getInvoiceDateOne(dayDeadlineOrder);
+      mockReq.arrayEmail = [settings.orderSettings.confirmationEmail]
+      mockReq.nameCustomer = customer.contact.customer;
+      mockReq.priceStudent = priceStudent;
+      mockReq.settings = settings;
+      mockReq.eachPermanentOrderStudent = eachPermanentOrderStudent;
+      mockReq.indexDay = indexDay;
+
+      try {
+        const response = await addOrder(mockReq, {});
+        if (!response.success) {
+          throw new Error(response.message);
+        }
+
+        await sendSuccessEmail(mockReq, response); // Handle success email in a separate function
+      } catch (error) {
+        // console.error('Failed to add order:', error.message); // Ensure error logging is detailed
+        await sendCancellationEmail(mockReq, error.message); // Handle cancellation email in a separate function
+      }
+    }
+  } catch
+    (error) {
+    console.error('Failed to check deadlines and send order email:', error);
+    // Handle error appropriately
   }
-  // for (let emailReminder of emailReminders) {
-  //   try {
-  //     // Capture the success response from sendMail
-  //     const successResponse = await transporter.sendMail(emailReminder);
-  //
-  //     // Log the success response
-  //     console.log(`Successfully sent email to ${emailReminder.to}:`, successResponse);
-  //
-  //     // Example of accessing specific data from the successResponse
-  //     // console.log(`Message ID: ${successResponse.messageId}`);
-  //   } catch (emailError) {
-  //     console.error(`Failed to send email to ${emailReminder.to}:`, emailError);
-  //   }
-  // }
-}
-
-catch
-(error)
-{
-  console.error('Failed to check deadlines and send order email:', error);
-  // Handle error appropriately
-}
 }
 
 // module.exports = {addTaskAddOrder};
+async function sendSuccessEmail(req, response) {
+  const nameMenu = getSpecialFoodNameById(req.settings, req.eachPermanentOrderStudent.daysOrder[req.indexDay].menuId);
+  const emailBody = getEmailSuccess(
+    req.nameCustomer,
+    req.nameStudent,
+    req.dateOrderEdited,
+    nameMenu,
+    req.priceStudent
+  );
+  const emailBodyBasic = {
+    from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
+    replyTo: req.settings.orderSettings.confirmationEmail,
+    to: req.arrayEmail, // list of receivers
+    subject: 'Bestellung erfolgreich',
+    html: emailBody
+  };
+
+  const successResponse = await transporter.sendMail(emailBodyBasic);
+  // console.log(`Successfully sent success email:`, successResponse);
+}
+
+async function sendCancellationEmail(req, errorMessage) {
+  console.log('Error:', errorMessage);
+  const emailBody = getEmailCancel(
+    req.nameStudent,
+    req.dateOrderEdited,
+    errorMessage
+  );
+  const emailBodyBasic = {
+    from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
+    replyTo: req.settings.orderSettings.confirmationEmail,
+    to: req.arrayEmail, // list of receivers
+    subject: 'Bestellung nicht erfolgreich',
+    html: emailBody
+  };
+
+  const emailResponse = await transporter.sendMail(emailBodyBasic);
+  // console.log(`Successfully sent cancellation email:`, emailResponse);
+}

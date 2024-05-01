@@ -6,7 +6,6 @@ export interface PermanentOrderInterface {
   _id?:string;
   studentId:string;
   customerId: string;
-  isSpecial: boolean;
   daysOrder:DaysOrderPermanentInterface[]
 }
 export interface DaysOrderPermanentInterface{
@@ -17,7 +16,6 @@ export class PermanentOrderClass implements PermanentOrderInterface {
   _id?:string;
   studentId:string;
   customerId: string;
-  isSpecial: boolean = false;
   daysOrder:DaysOrderPermanentInterface[] = []
 
   constructor(userId:string, studentId:string, customerId: string) {

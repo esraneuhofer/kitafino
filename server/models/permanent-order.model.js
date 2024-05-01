@@ -6,7 +6,6 @@ var permanentOrderStudent = new Schema({
   tenantId:Schema.Types.ObjectId,
   customerId:Schema.Types.ObjectId,
   userId:Schema.Types.ObjectId,
-  isSpecial: Boolean,
   daysOrder:[{
     selected:Boolean,
     menuId:String,
