@@ -33,7 +33,7 @@ async function addOrder(req) {
     await session.abortTransaction();
     session.endSession();
     // Forward the error from saveNewOrder
-    throw new Error(`Order placement failed: ${error.message}`);
+    throw new Error(error.message);
   }
 }
 

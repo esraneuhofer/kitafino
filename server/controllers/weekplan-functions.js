@@ -8,26 +8,27 @@ function getMenuFromId(id,menus){
   }
   return null
 }
-function getMenusForWeekplan(weekplan, menus, settings, querySelection){
+function getMenusForWeekplan(weekplan,settings, querySelection){
   if (!weekplan) {
     return getWeekplanModel(settings, querySelection);
   }
-  let weekplan$ = JSON.parse(JSON.stringify(weekplan));
-  weekplan$.weekplan.forEach((eachDay, index) => {
-    eachDay.mealTypesDay.forEach((eachType, indexType) => {
-      if (!eachType.idMenu) {
-        return;
-      }
-      let menu = getMenuFromId(eachType.idMenu, menus);
-      if (!menu) {
-        return;
-      }
-      eachType.menu = menu;
-      // eachType.allergensPerMeal =  setAllergenesRecipeMenu(eachType);
-      eachType.allergensPerMeal =  [];
-    });
-  });
-  return weekplan$;
+  return weekplan
+  // let weekplan$ = JSON.parse(JSON.stringify(weekplan));
+  // weekplan$.weekplan.forEach((eachDay, index) => {
+  //   eachDay.mealTypesDay.forEach((eachType, indexType) => {
+  //     if (!eachType.idMenu) {
+  //       return;
+  //     }
+  //     let menu = getMenuFromId(eachType.idMenu, menus);
+  //     if (!menu) {
+  //       return;
+  //     }
+  //     eachType.menu = menu;
+  //     // eachType.allergensPerMeal =  setAllergenesRecipeMenu(eachType);
+  //     eachType.allergensPerMeal =  [];
+  //   });
+  // });
+  // return weekplan$;
 }
 
 function getWeekplanModel(setting,dateQuery) {

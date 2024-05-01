@@ -1,5 +1,5 @@
 const {getWeekNumber} = require("./deadline-deadline.functions");
-const {setOrderStudentBackend, getPriceStudent, getSpecialFoodNameById} = require("./order-functions");
+const {setOrderStudentBackend, getPriceStudent, getNameMenuDay} = require("./order-functions");
 const {getMenusForWeekplan} = require("./weekplan-functions");
 const mongoose = require("mongoose");
 const {getIndexDayOrder} = require("./deadline-orderclass.functions");
@@ -42,16 +42,15 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
   let tenantId = '651c635eca2c3d25809ce4f5';
   let customerId = "6540b2117d2b64903bb4e3a2";
   try {
-    const settings = await Settings.findOne({tenantId: tenantId})
     const customer = await Customer.findOne({customerId: customerId})
-    const menus = await Menu.find({tenantId: tenantId})
-    const weekplan = await Weekplan.findOne({tenantId: req.tenantId, year: req.query.year, week: req.query.week});
-
     const dayDeadlineOrder = getDayDeadlineOrder(customer)
     const weekNumber = getWeekNumber(new Date()); // Implement this function based on your logic
     const year = new Date().getFullYear();
 
-    const weekplanEdited = getMenusForWeekplan(weekplan, menus, settings, {year: year, week: weekNumber});
+    const settings = await Settings.findOne({tenantId: tenantId})
+    const menus = await Menu.find({tenantId: tenantId})
+    const weekplan = await Weekplan.findOne({tenantId: tenantId, year: year, week: weekNumber});
+    const weekplanEdited = getMenusForWeekplan(weekplan, settings, {year: year, week: weekNumber});
 
     const permanentOrderStudents = await PermanentOrderStudent.find({customerId: customerId});
     const studentsCustomer = await StudentNew.find({customerId: customerId});
@@ -59,14 +58,20 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
     for (let eachPermanentOrderStudent of permanentOrderStudents) {
       const indexDay = getIndexDayOrder(dayDeadlineOrder);
       let studentModel = getStundetById(eachPermanentOrderStudent.studentId, studentsCustomer);
-      if (!studentModel || (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, dayDeadlineOrder) && eachPermanentOrderStudent.daysOrder[indexDay].selected)) {
+      if (!studentModel) {
         continue
       }
+      if(!eachPermanentOrderStudent.daysOrder[indexDay].selected){
+        continue;
+      }
+      if (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, indexDay)) {
+        continue;
+      }
       const priceStudent = getPriceStudent(studentModel, customer, settings)
-
-      let newOrder = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent);
-      console.log(newOrder.dateOrder)
+      let newOrder = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent,menus);
       mockReq.body = newOrder;
+      mockReq.menus = menus
+      mockReq.weekkplanDay = weekplanEdited.weekplan[indexDay];
       mockReq.nameStudent = studentModel.firstName + ' ' + studentModel.lastName;
       mockReq.dateOrderEdited = getInvoiceDateOne(dayDeadlineOrder);
       mockReq.arrayEmail = [settings.orderSettings.confirmationEmail]
@@ -97,7 +102,8 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
 
 // module.exports = {addTaskAddOrder};
 async function sendSuccessEmail(req, response) {
-  const nameMenu = getSpecialFoodNameById(req.settings, req.eachPermanentOrderStudent.daysOrder[req.indexDay].menuId);
+  const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay],req.weekkplanDay,req.menus,req.settings);
+  console.log('nameMenu:', nameMenu);
   const emailBody = getEmailSuccess(
     req.nameCustomer,
     req.nameStudent,
@@ -105,6 +111,7 @@ async function sendSuccessEmail(req, response) {
     nameMenu,
     req.priceStudent
   );
+
   const emailBodyBasic = {
     from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
     replyTo: req.settings.orderSettings.confirmationEmail,
@@ -118,7 +125,7 @@ async function sendSuccessEmail(req, response) {
 }
 
 async function sendCancellationEmail(req, errorMessage) {
-  console.log('Error:', errorMessage);
+  console.log('Error____:', errorMessage);
   const emailBody = getEmailCancel(
     req.nameStudent,
     req.dateOrderEdited,
