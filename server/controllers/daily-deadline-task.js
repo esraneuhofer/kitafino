@@ -4,17 +4,18 @@
 const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const TaskOrder = mongoose.model('TaskOrder');
-const addTaskAddOrder = require('./task-daily-deadline.controller');
+const processOrder = require('./task-daily-deadline.controller');
 const scheduledJobs = {};
 
-const addTaskReminder = async (req, res, next) => {
-  const tenantId = req._id; // Or req.user._id, depending on your setup
-  const { day, time, customerId } = req.body;
-
+module.exports.addTaskOrderDeadlineCustomer = async (req, res, next) => {
+// const addTaskOrderDeadlineCustomer = async (req, res, next) => {
+  const tenantId = req.tenantId; // Or req.user._id, depending on your setup
+  const { day, time } = req.body.order.deadLineDaily;
+  const customerId = req.body.customerId;
   try {
     const task = await TaskOrder.findOneAndUpdate(
-      { tenantId: tenantId }, // Search condition
-      { day, time, tenantId }, // Fields to update
+      { tenantId,customerId }, // Search condition
+      { day, time, customerId }, // Fields to update
       {
         new: true, // Return the updated document
         upsert: true, // Insert if doesn't exist
@@ -23,23 +24,25 @@ const addTaskReminder = async (req, res, next) => {
       }
     );
     // Cancel the old job if it exists
-    if (scheduledJobs[tenantId]) {
-      scheduledJobs[tenantId].cancel();
+    if (scheduledJobs[customerId]) {
+      scheduledJobs[customerId].cancel();
     }
-
+    console.log(`Scheduling task for tenant: ${tenantId}`);
+    console.log(`Scheduling task for tenant: ${customerId}`);
     scheduledJobs[customerId] = schedule.scheduleJob(task.schedule, async function() {
       try {
         console.log(`Executing task for tenant: ${tenantId}`);
-        await addTaskAddOrder(customerId,tenantId);
+        await processOrder(customerId,tenantId);
       } catch (error) {
         console.error('Error executing scheduled task:', error);
       }
     });
 
-    res.json(task);
+    res.json({ success: true, task });
   } catch (error) {
     console.error('Error adding or updating task reminder:', error);
-    res.status(500).send(error);
+    res.status(500).json({ success: false, message: 'Failed to add or update task.' });
   }
 };
 
+// module.exports = addTaskOrderDeadlineCustomer;

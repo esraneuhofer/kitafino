@@ -83,9 +83,8 @@ export class SignInComponent implements OnInit {
     // }
   }
   ngOnInit() {
-    this.userService.getTest().subscribe((res:any) => {
-      console.log(res);
-    })
+
+
     console.log("this.userService.isLoggedIn())");
     // if(this.userService.isLoggedIn())
     // this.router.navigateByUrl('home/dashboard');

@@ -1,3 +1,4 @@
+
 function studentHasNotPlacedOrderYet(permanentOrderStudent, orderStudents) {
   for (let eachOrderStudent of orderStudents) {
     if (permanentOrderStudent.studentId === eachOrderStudent.studentId) {
@@ -31,8 +32,40 @@ function getDayDeadlineOrder(customer) {
 
   return formattedDate;
 }
+
+function isVacation(inputDate,vacationArray){
+  if(!vacationArray)return;
+  let dateToCompare = setDateToCompare(inputDate);
+  let bool =false;
+  for(let i = 0;i<vacationArray.length; i ++){
+    let start = setDateToCompare(vacationArray[i].vacation.vacationStart);
+    let end =setDateToCompare(vacationArray[i].vacation.vacationEnd);
+    if(!vacationArray[i].vacation.vacationEnd){
+      if(start === dateToCompare){
+        bool = true;
+      }
+    }else{
+      if(setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)){
+        bool = true;
+      }
+      else{
+        if (end >= dateToCompare && start <= dateToCompare) {
+          bool = true;
+        }
+      }
+    }
+  }
+  return bool;
+}
+function setDateToCompare(input) {
+  let newDate = new Date(input);
+  newDate.setHours(0, 0, 0, 0);
+  let d = newDate.getTime();
+  return d;
+}
 module.exports = {
   studentHasNotPlacedOrderYet,
   getStundetById,
-  getDayDeadlineOrder
+  getDayDeadlineOrder,
+  isVacation
 }

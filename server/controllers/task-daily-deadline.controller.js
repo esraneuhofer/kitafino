@@ -1,4 +1,7 @@
+const {isHoliday} = require("feiertagejs");
+
 const {getWeekNumber} = require("./deadline-deadline.functions");
+const {getEmailBodyOrderDayCustomer} = require("./email-order-customer");
 const {setOrderStudentBackend, getPriceStudent, getNameMenuDay} = require("./order-functions");
 const {getMenusForWeekplan} = require("./weekplan-functions");
 const mongoose = require("mongoose");
@@ -7,6 +10,7 @@ const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
 const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
 const OrderStudent = mongoose.model('OrderStudent');
+const Vacation = mongoose.model('Vacation');
 const Menu = mongoose.model('Menu');
 const Weekplan = mongoose.model('Weekplan');
 const StudentNew = mongoose.model('StudentNew');
@@ -15,7 +19,7 @@ let getEmailSuccess = require('./email-order-regular').getHtmlOrder;
 let getEmailCancel = require('./email-permanent-order-cancel').getEmailHtmlCancelPermanentOrder;
 const nodemailer = require('nodemailer');
 const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
-const {studentHasNotPlacedOrderYet, getStundetById, getDayDeadlineOrder} = require("./permanent-order.functions");
+const {studentHasNotPlacedOrderYet, getStundetById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
 const transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
   port: 465,
@@ -37,12 +41,13 @@ function setMockRequest(req) {
   };
 }
 
-module.exports.addTaskAddOrder = async (req, res, next) => {
-  mockReq = setMockRequest(req)
-  let tenantId = '651c635eca2c3d25809ce4f5';
-  let customerId = "6540b2117d2b64903bb4e3a2";
+async function processOrder(customerId,tenantId){
+  console.log('processOrder',tenantId, customerId)
+  // let tenantId = '651c635eca2c3d25809ce4f5';
+  // let customerId = "6540b2117d2b64903bb4e3a2";
   try {
     const customer = await Customer.findOne({customerId: customerId})
+
     const dayDeadlineOrder = getDayDeadlineOrder(customer)
     const weekNumber = getWeekNumber(new Date()); // Implement this function based on your logic
     const year = new Date().getFullYear();
@@ -50,13 +55,13 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
     const settings = await Settings.findOne({tenantId: tenantId})
     const menus = await Menu.find({tenantId: tenantId})
     const weekplan = await Weekplan.findOne({tenantId: tenantId, year: year, week: weekNumber});
-    const weekplanEdited = getMenusForWeekplan(weekplan, settings, {year: year, week: weekNumber});
-
+    const weekplanEdited = getMenusForWeekplan(weekplan, settings, {year: year, week: weekNumber},menus);
+    const vacationCustomer = await Vacation.find({customerId: customerId})
     const permanentOrderStudents = await PermanentOrderStudent.find({customerId: customerId});
     const studentsCustomer = await StudentNew.find({customerId: customerId});
     const orderStudents = await OrderStudent.find({customerId: customerId, dateOrder: dayDeadlineOrder});
+    const indexDay = getIndexDayOrder(dayDeadlineOrder);
     for (let eachPermanentOrderStudent of permanentOrderStudents) {
-      const indexDay = getIndexDayOrder(dayDeadlineOrder);
       let studentModel = getStundetById(eachPermanentOrderStudent.studentId, studentsCustomer);
       if (!studentModel) {
         continue
@@ -67,32 +72,48 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
       if (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, indexDay)) {
         continue;
       }
-      const priceStudent = getPriceStudent(studentModel, customer, settings)
-      let newOrder = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent,menus);
-      mockReq.body = newOrder;
-      mockReq.menus = menus
-      mockReq.weekkplanDay = weekplanEdited.weekplan[indexDay];
-      mockReq.nameStudent = studentModel.firstName + ' ' + studentModel.lastName;
-      mockReq.dateOrderEdited = getInvoiceDateOne(dayDeadlineOrder);
-      mockReq.arrayEmail = [settings.orderSettings.confirmationEmail]
-      mockReq.nameCustomer = customer.contact.customer;
-      mockReq.priceStudent = priceStudent;
-      mockReq.settings = settings;
-      mockReq.eachPermanentOrderStudent = eachPermanentOrderStudent;
-      mockReq.indexDay = indexDay;
 
+      const priceStudent = getPriceStudent(studentModel, customer, settings)
+
+      let mockReq = {
+        studentsCustomer: studentsCustomer,
+        year: year,
+        weekNumber: weekNumber,
+        menus: menus,
+        weekkplanDay: weekplanEdited.weekplan[indexDay],
+        nameStudent: studentModel.firstName + ' ' + studentModel.lastName,
+        dateOrderEdited: getInvoiceDateOne(dayDeadlineOrder),
+        arrayEmail: [settings.orderSettings.confirmationEmail],
+        nameCustomer: customer.contact.customer,
+        priceStudent: getPriceStudent(studentModel, customer, settings),
+        settings: settings,
+        eachPermanentOrderStudent: eachPermanentOrderStudent,
+        indexDay: indexDay,
+        tenantId: tenantId,
+        customerId: customerId,
+        _id: eachPermanentOrderStudent.userId
+      };
+      if(isHoliday(new Date(dayDeadlineOrder),customer.settings.state) || isVacation(dayDeadlineOrder,vacationCustomer)){
+        await sendCancellationEmail(mockReq, 'Für den ausgewählten Tag ist ein Schließtag / Feiertag eingetragen. Sollte dies nicht korrekt sein, wenden Sie sich bitte an die Einrichtung'); // Handle cancellation email in a separate function
+        continue;
+      }
+
+      mockReq.body = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent,menus)
       try {
         const response = await addOrder(mockReq, {});
         if (!response.success) {
           throw new Error(response.message);
         }
 
-        await sendSuccessEmail(mockReq, response); // Handle success email in a separate function
+        // await sendSuccessEmail(mockReq, response); // Handle success email in a separate function
       } catch (error) {
         // console.error('Failed to add order:', error.message); // Ensure error logging is detailed
-        await sendCancellationEmail(mockReq, error.message); // Handle cancellation email in a separate function
+        // await sendCancellationEmail(mockReq, error.message); // Handle cancellation email in a separate function
       }
     }
+
+    await sendEmailDailyConfirmation(weekplanEdited.weekplan[indexDay],orderStudents,settings,customer,studentsCustomer,customerId,dayDeadlineOrder)
+
   } catch
     (error) {
     console.error('Failed to check deadlines and send order email:', error);
@@ -100,10 +121,31 @@ module.exports.addTaskAddOrder = async (req, res, next) => {
   }
 }
 
-// module.exports = {addTaskAddOrder};
+
+async function sendEmailDailyConfirmation(weekplanDay,allOrders,settings,customer,studentsCustomer,customerId,dayDeadlineOrder) {
+  try {
+    // Attempt to retrieve all orders
+    const allOrders = await OrderStudent.find({ customerId: customerId, dateOrder: dayDeadlineOrder });
+
+    // Generate the email body for the customer
+    const emailBodyCustomerDay = getEmailBodyOrderDayCustomer(weekplanDay, allOrders, settings, customer, studentsCustomer,dayDeadlineOrder);
+    // Send the email
+    await transporter.sendMail(emailBodyCustomerDay);
+
+    console.log("Email sent successfully");
+  } catch (error) {
+    // Log the error and handle it appropriately
+    console.error("Failed to send daily confirmation email:", error);
+
+    // Depending on your application's needs, you might also want to throw the error,
+    // return it, or handle it in another specific way
+    throw error; // This re-throws the caught error if you want to handle it further up the chain
+  }
+}
+
+
 async function sendSuccessEmail(req, response) {
-  const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay],req.weekkplanDay,req.menus,req.settings);
-  console.log('nameMenu:', nameMenu);
+  const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay],req.weekkplanDay,req.settings);
   const emailBody = getEmailSuccess(
     req.nameCustomer,
     req.nameStudent,
@@ -125,7 +167,7 @@ async function sendSuccessEmail(req, response) {
 }
 
 async function sendCancellationEmail(req, errorMessage) {
-  console.log('Error____:', errorMessage);
+  console.log('Error:', errorMessage);
   const emailBody = getEmailCancel(
     req.nameStudent,
     req.dateOrderEdited,
@@ -142,3 +184,5 @@ async function sendCancellationEmail(req, errorMessage) {
   const emailResponse = await transporter.sendMail(emailBodyBasic);
   // console.log(`Successfully sent cancellation email:`, emailResponse);
 }
+
+module.exports = processOrder;

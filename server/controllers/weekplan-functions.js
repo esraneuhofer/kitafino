@@ -1,34 +1,33 @@
 const dayArray = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
 
 function getMenuFromId(id,menus){
-  for(let i = 0; i  < array.length; i++){
-    if(array[i]._id === id){
-      return array[i];
+  for(let i = 0; i  < menus.length; i++){
+    if(menus[i]._id.toString() === id.toString()){
+      return menus[i];
     }
   }
   return null
 }
-function getMenusForWeekplan(weekplan,settings, querySelection){
+function getMenusForWeekplan(weekplan,settings, querySelection,menus){
   if (!weekplan) {
     return getWeekplanModel(settings, querySelection);
   }
-  return weekplan
-  // let weekplan$ = JSON.parse(JSON.stringify(weekplan));
-  // weekplan$.weekplan.forEach((eachDay, index) => {
-  //   eachDay.mealTypesDay.forEach((eachType, indexType) => {
-  //     if (!eachType.idMenu) {
-  //       return;
-  //     }
-  //     let menu = getMenuFromId(eachType.idMenu, menus);
-  //     if (!menu) {
-  //       return;
-  //     }
-  //     eachType.menu = menu;
-  //     // eachType.allergensPerMeal =  setAllergenesRecipeMenu(eachType);
-  //     eachType.allergensPerMeal =  [];
-  //   });
-  // });
-  // return weekplan$;
+  let weekplan$ = JSON.parse(JSON.stringify(weekplan));
+  weekplan$.weekplan.forEach((eachDay, index) => {
+    eachDay.mealTypesDay.forEach((eachType, indexType) => {
+      if (!eachType.idMenu) {
+        return;
+      }
+      let menu = getMenuFromId(eachType.idMenu, menus);
+      if (!menu) {
+        return;
+      }
+      eachType.menu = menu;
+      // eachType.allergensPerMeal =  setAllergenesRecipeMenu(eachType);
+      eachType.allergensPerMeal =  [];
+    });
+  });
+  return weekplan$;
 }
 
 function getWeekplanModel(setting,dateQuery) {

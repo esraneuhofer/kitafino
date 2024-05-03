@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
+import {CustomerInterface} from "../classes/customer.class";
 
 
 @Injectable(
@@ -26,9 +27,9 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl+ '/authenticate', authCredentials,this.noAuthHeader);
   }
 
-  getTest() {
-    return this.http.get<any>(environment.apiBaseUrl+'/getTest')
-      .pipe(map((response:any) => (response)));
+  addTaskOrderDeadlineCustomer(customer:CustomerInterface) {
+    return this.http.post(environment.apiBaseUrl + '/addTaskOrderDeadlineCustomer', customer)
+      .pipe(map((response: any) => response));
   }
 
   userProfile() {

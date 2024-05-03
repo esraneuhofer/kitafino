@@ -72,6 +72,10 @@ export class HomeComponent implements OnInit{
       (
         [tenant,customer]:
           [TenantStudentInterface,CustomerInterface])=>{
+        this.userService.addTaskOrderDeadlineCustomer(customer).subscribe((res:any) => {
+          console.log(res);
+        })
+
       if (!tenant){
         this.router.navigate(['/home/tenant']);
       } else {

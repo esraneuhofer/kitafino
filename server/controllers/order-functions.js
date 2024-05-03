@@ -12,33 +12,41 @@ function getSpecialFoodNameById(settings, idSpecialFood) {
   return nameSpecialFood;
 }
 
-function getNameMenuDay(permanentOrder,weekplanDay,menus,settings){
+function getNameMenuDay(permanentOrder,weekplanDay,settings){
   let nameMenu = 'Menu';
   if(permanentOrder.typeOrder === 'special'){
     nameMenu = getSpecialFoodNameById(settings,permanentOrder.menuId)
   }else{
-    return getSpecialNameById(settings,permanentOrder.menuId,weekplanDay,menus)
+    return getSpecialNameById(settings,permanentOrder.menuId,weekplanDay)
   }
   return nameMenu;
 
 }
-function getSpecialNameById(settings, idSpecialFood,weekplanDay,menus) {
+function getSpecialNameById(settings, idSpecialFood,weekplanDay) {
+
   let nameSpecialFood = 'Menu';
-  for (let specialFood of settings.orderSettings.specials) {
-    if (specialFood._id.toString() === idSpecialFood.toString()) {
-      nameSpecialFood = specialFood.nameSpecial
-    }
-  }
-  for (let eachMenu of weekplanDay.mealTypesDay) {
+  weekplanDay.mealTypesDay.forEach(eachMenu => {
     if(eachMenu.idSpecial.toString() === idSpecialFood.toString()){
-      if(!eachMenu.idMenu)return nameSpecialFood;
-      for (let menu of menus) {
-        if (menu._id.toString() === eachMenu.idMenu.toString()) {
-          return menu.nameMenu
-        }
-      }
+     if(eachMenu.menu){
+       nameSpecialFood =  eachMenu.menu.nameMenu;
+     }
     }
-  }
+  })
+  // for (let specialFood of settings.orderSettings.specials) {
+  //   if (specialFood._id.toString() === idSpecialFood.toString()) {
+  //     nameSpecialFood = specialFood.nameSpecial
+  //   }
+  // }
+  // for (let eachMenu of weekplanDay.mealTypesDay) {
+  //   if(eachMenu.idSpecial.toString() === idSpecialFood.toString()){
+  //     if(!eachMenu.idMenu)return nameSpecialFood;
+  //     for (let menu of menus) {
+  //       if (menu._id.toString() === eachMenu.idMenu.toString()) {
+  //         return menu.nameMenu
+  //       }
+  //     }
+  //   }
+  // }
   return nameSpecialFood;
 }
 

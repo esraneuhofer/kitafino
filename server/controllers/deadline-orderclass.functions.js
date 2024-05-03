@@ -193,7 +193,6 @@ function getOrdersStudent(ordersStudents,
     }, settings, selectedWeek)
 
   ordersStudents.forEach(eachOrderStudent =>{
-
     if(eachOrderStudent.customerId.equals(customer.customerId)){
 
       let studentModel = allStudents.find(eachStudent => eachStudent._id.equals(eachOrderStudent.studentId));

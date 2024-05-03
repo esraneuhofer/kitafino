@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-  tenantId: String,
+  tenantId: {type: String, required: true},
+  customerId: {type: String, required: true},
   schedule: String, // Cron format
   day: Number,
   time: Date,
