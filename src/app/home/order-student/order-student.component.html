@@ -33,28 +33,14 @@
     </ng-container>
     <ng-container *ngIf="!studentNoSubgroup">
       <!--      <ng-container *ngIf="!fetchingOrder">-->
-      <ng-container *ngIf="selectedStudent && querySelection">
+      <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
         <div class="container mx-auto px-4">
           <div class="flex justify-center">
             <div class="w-100">
               <div class="flex items-center"> <!-- Center content vertically and horizontally -->
-                <!--                  <app-order-container-->
-                <!--                    (orderPlacedNew)="orderPlaced()"-->
-                <!--                    [allVacations]="allVacations"-->
-                <!--                    [customer]="customer"-->
-                <!--                    [indexDaySelected]="indexDaySelected"-->
-                <!--                    [menus]="menus"-->
-                <!--                    [pastOrder]="pastOrder"-->
-                <!--                    [querySelection]="querySelection"-->
-                <!--                    [selectedStudent]="selectedStudent"-->
-                <!--                    [selectedWeekplan]="selectedWeekplan"-->
-                <!--                    [settings]="settings"-->
-                <!--                    [tenantStudent]="tenantStudent"-->
-                <!--                  ></app-order-container>-->
-                <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full" *ngIf="pageLoaded">
+                <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full" >
                   <!-- Your div element will be repeated 5 times in these grid items -->
-                  <div class="w-full" *ngFor="let orderDay of orderWeek; let index = index"
-                  >
+                  <div class="w-full" *ngFor="let orderDay of orderWeek; let index = index">
                     <app-meal-input-card (orderPlaced)="getDataWeek()"
                                          [lockDay]="lockDays[index]"
                                          [displayMinimize]="displayMinimize"
@@ -79,3 +65,20 @@
 </ng-container>
 <!--<app-loading-page [pageLoaded]="mainDataLoaded"></app-loading-page>-->
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
+
+
+
+
+<!--                  <app-order-container-->
+<!--                    (orderPlacedNew)="orderPlaced()"-->
+<!--                    [allVacations]="allVacations"-->
+<!--                    [customer]="customer"-->
+<!--                    [indexDaySelected]="indexDaySelected"-->
+<!--                    [menus]="menus"-->
+<!--                    [pastOrder]="pastOrder"-->
+<!--                    [querySelection]="querySelection"-->
+<!--                    [selectedStudent]="selectedStudent"-->
+<!--                    [selectedWeekplan]="selectedWeekplan"-->
+<!--                    [settings]="settings"-->
+<!--                    [tenantStudent]="tenantStudent"-->
+<!--                  ></app-order-container>-->

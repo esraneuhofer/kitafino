@@ -162,7 +162,6 @@ export class OrderStudentComponent implements OnInit {
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
         this.mainDataLoaded = true;
-        this.pageLoaded = true;
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -172,6 +171,7 @@ export class OrderStudentComponent implements OnInit {
   }
 
   changeDate(queryDate: QueryInterOrderInterface): void {
+    console.log(queryDate);
     this.querySelection = {...queryDate};
     this.getDataWeek()
   }
@@ -190,6 +190,7 @@ export class OrderStudentComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterface | null) {
+    console.log(student);
     if (!student) return;
     this.pageLoaded = false;
     this.studentNoSubgroup = false;

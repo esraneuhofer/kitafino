@@ -39,7 +39,6 @@ export function getMenusForWeekplan(weekplan: WeekplanMenuInterface, menus: Menu
     return getWeekplanModel(settings, query);
   }
   let weekplan$:WeekplanMenuInterface = JSON.parse(JSON.stringify(weekplan));
-  console.log(JSON.parse(JSON.stringify(weekplan)))
   weekplan$.weekplan.forEach((eachDay, index) => {
     eachDay.mealTypesDay.forEach((eachType, indexType) => {
       if (!eachType.idMenu) {

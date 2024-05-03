@@ -17,7 +17,6 @@ export class MainGuard {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.tenantServiceStudent.hasRegisteredTenant().pipe(
       tap(hasStudent => {
-        console.log('hasStudent', hasStudent);
         if (!hasStudent) {
           this.router.navigateByUrl('/register_tenant');
         }
