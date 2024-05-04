@@ -1,10 +1,10 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {addDayFromDate, getSplit, getWeekNumber, timeDifference} from "./order.functions";
+import {addDayFromDate, getSplit, getWeekNumber} from "./order.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
-import {defaultIfEmpty, forkJoin, Observable} from "rxjs";
+import {defaultIfEmpty, forkJoin} from "rxjs";
 import {CustomerInterface} from "../../classes/customer.class";
-import {getWeekplanModel, WeekplanMenuInterface} from "../../classes/weekplan.interface";
+import {WeekplanMenuInterface} from "../../classes/weekplan.interface";
 import {MealModelInterface} from "../../classes/meal.interface";
 import {MenuInterface} from "../../classes/menu.interface";
 import {ArticleDeclarations} from "../../classes/allergenes.interface";
@@ -17,16 +17,13 @@ import {ToastrService} from "ngx-toastr";
 import {getMenusForWeekplan, QueryInterOrderInterface} from "../../functions/weekplan.functions";
 import {TenantServiceStudent} from "../../service/tenant.service";
 import {TenantStudentInterface} from "../../classes/tenant.class";
-import {query} from "@angular/animations";
 import {
   AssignedWeekplanInterface,
   setWeekplanModelGroups,
   WeekplanGroupClass
 } from "../../classes/assignedWeekplan.class";
-import {data} from "autoprefixer";
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
-import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../functions/special-food.functions";
 import {getDateMondayFromCalenderweek} from "../../functions/order.functions";
 import {getLockDays} from "../../functions/date.functions";
 import * as moment from "moment-timezone";
@@ -44,19 +41,18 @@ const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer/in einzut
 })
 export class OrderStudentComponent implements OnInit {
 
+  initDate: boolean = false;
+  initStudent: boolean = false;
+
   mainDataLoaded: boolean = false;
   textBanner = textBanner;
   pageLoaded: boolean = false;
-  differenceTimeDeadline: string = '';
-  pastOrder: boolean = false;
-  timerInterval: any;
-  validDay: boolean = false;
-  fetchingOrder: boolean = false;
   studentNoSubgroup: boolean = false;
+  lockDays: boolean[] = [];
+  displayMinimize: boolean = false;
 
   showErrorNoStudents: boolean = false; // Show if no Students is registered yet
   registeredStudents: StudentInterface[] = [];
-  indexDaySelected: number = 0;
   subGroupsCustomer: string[] = []; //Subgroup
   querySelection: QueryInterOrderInterface = {week: 0, year: 0}
   customer!: CustomerInterface;
@@ -73,6 +69,7 @@ export class OrderStudentComponent implements OnInit {
   weekplanGroups: WeekplanGroupClass[] = [];
   accountTenant!: AccountCustomerInterface;
   weekplanSelectedWeek: (WeekplanMenuInterface | null) = null;
+  orderWeek: MealCardInterface[] = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -101,18 +98,18 @@ export class OrderStudentComponent implements OnInit {
 
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
-    const queryInit = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
+    this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
-      this.generellService.getWeekplanWeek(queryInit),
+      this.generellService.getWeekplanWeek(this.querySelection),
       this.generellService.getMeals(),
       this.generellService.getMenus(),
       this.generellService.getArticleDeclaration(),
       this.generellService.getArticle(),
       this.studentService.getRegisteredStudentsUser(),
       this.tenantService.getTenantInformation(),
-      this.generellService.getAssignedWeekplan(queryInit),
+      this.generellService.getAssignedWeekplan(this.querySelection),
       this.generellService.getWeekplanGroups(),
       this.accountService.getAccountTenant(),
       this.generellService.getVacationCustomer()
@@ -154,14 +151,14 @@ export class OrderStudentComponent implements OnInit {
         this.registeredStudents = students;
         this.articleDeclarations = articleDeclarations;
         this.articles = articles;
-        this.checkDeadline(new Date());
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
-        this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings, queryInit);
-        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, queryInit, assignedWeekplans, customer, this.weekplanGroups, settings);
+        this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings, this.querySelection);
+        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, this.weekplanGroups, settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
         this.mainDataLoaded = true;
+        this.setFirstInit(weekplan)
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -169,19 +166,19 @@ export class OrderStudentComponent implements OnInit {
       }
     );
   }
-
   changeDate(queryDate: QueryInterOrderInterface): void {
-    console.log(queryDate);
+    if(!this.initDate){
+      this.initDate = true;
+      return;
+    }
     this.querySelection = {...queryDate};
     this.getDataWeek()
   }
 
   getOrderDay(queryDate: QueryInterOrderInterface, selectedStudent: StudentInterface | null): void {
-    // this.fetchingOrder = true;
     if (!this.selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
       this.pageLoaded = true;
-      this.validDay = false;
       // this.fetchingOrder = false;
       return
     }
@@ -190,51 +187,42 @@ export class OrderStudentComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterface | null) {
-    console.log(student);
-    if (!student) return;
-    this.pageLoaded = false;
-    this.studentNoSubgroup = false;
-    this.selectedStudent = student;
-    if (!student.subgroup) {
-      this.studentNoSubgroup = true;
-      this.pageLoaded = false;
-      this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
+    if(!this.initStudent){
+      this.initStudent = true;
       return;
     }
-    if (!this.querySelection) return;
+    this.checkForErrors(student, this.querySelection);
     this.getOrderDay(this.querySelection, this.selectedStudent)
   }
 
-  checkDeadline(day: Date): void {
-    const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
-    if (!distance) {
-      this.pastOrder = true;
-      this.differenceTimeDeadline = 'Abbestellfrist ist abgelaufen!';
-      clearInterval(this.timerInterval);
-    } else {
-      clearInterval(this.timerInterval);
-      this.pastOrder = false;
-      this.differenceTimeDeadline = distance;
-      this.timerInterval = setInterval(() => {
-        this.checkDeadline(day);
-      }, 1000);
+  checkForErrors(selectedStudent:StudentInterface | null,query:QueryInterOrderInterface):boolean{
+    if(!query)return true;
+    this.studentNoSubgroup = false;
+    if (!selectedStudent) {
+      this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
+      this.pageLoaded = true;
+      return true
     }
+    if (!selectedStudent.subgroup) {
+      this.studentNoSubgroup = true;
+      this.pageLoaded = false;
+      this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
+      return true
+    }
+    return false;
+  }
+  setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface){
+    const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
+    this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
+    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+    this.selectedStudent = this.registeredStudents[0];
+    if(this.checkForErrors(this.selectedStudent,this.querySelection))return;
+    this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
   }
 
-
-  /////////
-  orderWeek: MealCardInterface[] = [];
-  lockDays: boolean[] = [];
-  displayMinimize: boolean = false;
-
-
-  getDataWeek() {
+   getDataWeek() {
     this.pageLoaded = false;
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
-
-    // const delayObservable = new Observable(observer => {
-    //   setTimeout(() => observer.next(), 1000); // 1000 ms delay
-    // });
     forkJoin([
       this.accountService.getAccountTenant(),
       this.generellService.getWeekplanWeek(this.querySelection),
@@ -247,23 +235,6 @@ export class OrderStudentComponent implements OnInit {
       this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
       if (!this.selectedStudent) return;
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
-      // let promiseOrderWeek = [];
-      // for (let i = 0; i < 5; i++) {
-      //   let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
-      //   if(!this.selectedStudent)return;
-      //   promiseOrderWeek.push(this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id || ''}))
-      // }
-      // forkJoin(promiseOrderWeek).pipe(
-      //   defaultIfEmpty([null]),
-      // ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
-      //   for (let i = 0; i < 5; i++) {
-      //     let date = addDayFromDate(dateMonday, i)
-      //     if(!this.selectedStudent)return;
-      //     this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
-      //   }
-      //   this.pageLoaded = true;
-      //
-      // })
     })
   }
 
@@ -287,10 +258,9 @@ export class OrderStudentComponent implements OnInit {
         if (!this.selectedStudent) return;
         this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
       }
-      this.validDay = true;
-      this.fetchingOrder = false;
       this.pageLoaded = true;
 
     })
   }
+
 }

@@ -34,17 +34,19 @@ function getEmailTextCharge(currentBalance, amount, type) {
 
 module.exports.getAccountTenant = async (req, res, next) => {
   try {
-    // Using await to wait for the result of Tenant.find()
     const account = await AccountSchema.findOne({ 'userId': req._id });
-
-    // Sending the result back to the client
+    if (!account) {
+      // Handle the case where no account is found
+      return res.status(404).json({ message: 'Account wurde nicht gefunden, bitte wenden Sie sich an den Kundensupport' });
+    }
+    // Successfully found the account
     res.json(account);
   } catch (err) {
-    // If an error occurs, log it and send an error response
-    console.error(err); // Log the error for debugging
-    res.status(500).send({ message: 'Internal Server Error' });
+    console.error('Account konnte nicht gefunden werden:', err); // Log the error for debugging
+    res.status(500).json({ message: 'Account konnte nicht gefunden werden', error: err.message });
   }
 };
+
 
 module.exports.getAccountCharges = async (req, res, next) => {
   try {

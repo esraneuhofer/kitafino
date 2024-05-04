@@ -26,6 +26,8 @@ const ordersAccountSchema = new mongoose.Schema({
   // type: { type: String, enum: ['order', 'cancellation'], required: true }
 });
 
+// Unique index for studentId, userId, and dateOrderMenu
+ordersAccountSchema.index({ studentId: 1, userId: 1, dateOrderMenu: 1 }, { unique: true });
 
 // Method to calculate total price
 ordersAccountSchema.methods.calculateTotalPrice = function () {

@@ -23,44 +23,79 @@ async function addOrder(req) {
 
     await account.save({ session });
     await saveOrderAccount(orderAccount, orderId, session);
+
+    //Testing///
+    // req.body.dateOrder ='2024-05-06T00:00:00+02:00';
+    // req.body = [];
+
     await saveNewOrder(req.body, orderId, session);
 
     await session.commitTransaction();
-    session.endSession();
 
     return { success: true, message: 'Order placed successfully' };
   } catch (error) {
     await session.abortTransaction();
-    session.endSession();
     // Forward the error from saveNewOrder
     throw new Error(error.message);
+  } finally {
+    session.endSession();
   }
 }
 
 
 async function validateCustomerAccount(userId, totalPrice, session) {
   const account = await AccountSchema.findOne({ userId }).session(session);
-  if (!account || account.currentBalance < totalPrice) {
-    throw new Error('Der Kontostand ist nicht ausreichend');
+  if (!account) {
+    const error = new Error('Das Kundenkonto konnte nicht gefunden werden.');
+    error.status = 404; // Not Found
+    throw error;
+  } else if (account.currentBalance < totalPrice) {
+    const error = new Error('Der Kontostand ist nicht ausreichend für diese Bestellung.');
+    error.status = 402; // Payment Required
+    throw error;
   }
   return account;
 }
 
-async function saveOrderAccount(orderDetails, orderId,session) {
-  const newOrderAccount = new OrdersAccountSchema({
-    tenantId: orderDetails.tenantId,
-    customerId: orderDetails.customerId,
-    userId: orderDetails.userId,
-    studentId: orderDetails.studentId,
-    orderId: orderId,
-    dateOrderMenu: new Date(),
-    year: moment.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
-    priceAllOrdersDate: orderDetails.totalPrice,
-    allOrdersDate: [
-      { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}
-    ]
-  });
-  await newOrderAccount.save({ session });
+async function saveOrderAccount(orderDetails, orderId, session) {
+  try {
+    const newOrderAccount = new OrdersAccountSchema({
+      tenantId: orderDetails.tenantId,
+      customerId: orderDetails.customerId,
+      userId: orderDetails.userId,
+      studentId: orderDetails.studentId,
+      orderId: orderId,
+      dateOrderMenu: new Date(),
+      year: moment.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
+      priceAllOrdersDate: orderDetails.totalPrice,
+      allOrdersDate: [
+        { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}
+      ]
+    });
+    await newOrderAccount.save({ session });
+  } catch (error) {
+    // Handle different types of errors that could occur during database operations
+    handleDatabaseError(error, 'Error saving the order account');
+  }
+}
+
+function handleDatabaseError(error, contextMessage) {
+  console.error(contextMessage, error); // Log the error internally for debugging
+  let httpStatusCode = 500; // Default to Internal Server Error
+  let userMessage = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+
+  // Check if the error is a validation error (common with Mongoose operations)
+  if (error.name === 'ValidationError') {
+    httpStatusCode = 400; // Bad Request
+    userMessage = 'Validierungsfehler bei der Bestellung. Bitte überprüfen Sie die eingegebenen Daten.';
+  } else if (error.code === 11000) {
+    httpStatusCode = 409; // Conflict
+    userMessage = 'Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.';
+  }
+
+  const customError = new Error(userMessage);
+  customError.status = httpStatusCode;
+  throw customError;
 }
 
 async function saveNewOrder(orderDetails, orderId, session) {
@@ -73,18 +108,26 @@ async function saveNewOrder(orderDetails, orderId, session) {
     handleOrderError(error);
   }
 }
+
 function handleOrderError(error) {
+  let httpStatusCode = 500; // Default to Internal Server Error
+  let userMessage = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+
+  console.error("Error during order saving:", error); // Detailed logging for internal use
   if (error.code === 11000) {
-    // Log the error internally for debugging
-    // console.error("Duplicate order error:", error);
-    // Throw a user-friendly error
-    throw new Error('Es wurde bereits eine Bestellung für diesen Tag eingetragen');
-  } else {
-    // Log unexpected errors
-    // console.error("Unexpected error during order saving:", error);
-    // Throw a general error for unexpected issues
-    throw new Error('Beim Speichern Ihrer Bestellung ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
+    httpStatusCode = 409; // Conflict
+    userMessage = 'Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.';
+  } else if (error.name && error.name === 'ValidationError') {
+    httpStatusCode = 400; // Bad Request
+    userMessage = 'Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten.';
+  } else if (error.name && error.name === 'AuthError') {
+    httpStatusCode = 401; // Unauthorized
+    userMessage = 'Authentifizierungsfehler. Bitte erneut anmelden.';
   }
+
+  const customError = new Error(userMessage);
+  customError.status = httpStatusCode;
+  throw customError;
 }
 
 function prepareOrderDetails(req) {
@@ -128,10 +171,11 @@ function setOrderAccount(order) {
 module.exports.addOrderStudentDay = async (req, res) => {
   try {
     const result = await addOrder(req);
-    res.json(result);
+    res.json(result); // Successful response
   } catch (error) {
-    console.error("Error placing order: ", error);
-    res.status(500).json({ success: false, message: error.message });
+    console.error("Error placing order:", error);
+    const statusCode = error.status || 500; // Use the status from the error, default to 500
+    res.status(statusCode).json({ success: false, message: error.message });
   }
 };
 

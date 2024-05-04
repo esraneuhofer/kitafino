@@ -27,18 +27,19 @@ import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.cla
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
 
-function checkForDisplay(ordersDay:OrderSubDetailNew,setting:SettingInterfaceNew):boolean{
-  let isDisplay  = false
-  let typeOrder = setting.orderSettings.specials.find(special =>{
+function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
+  let isDisplay = false
+  let typeOrder = setting.orderSettings.specials.find(special => {
     special._id === ordersDay.idType
   })
-  if(!typeOrder)return isDisplay;
+  if (!typeOrder) return isDisplay;
 
-  if(setting.orderSettings.dessertOrderSeparate && typeOrder.typeOrder === 'dessert'){
+  if (setting.orderSettings.dessertOrderSeparate && typeOrder.typeOrder === 'dessert') {
     return true;
   }
   return isDisplay
 }
+
 function customSort(array: OrderSubDetailNew[]) {
   // Define the sort order
   const sortOrder: any = {
@@ -71,8 +72,8 @@ function setOrdersSide(ordersWeek: OrderSubDetailNew[], settings: SettingInterfa
   //Todo:check for validity flight
   let array: OrderSubDetailNew[] = [];
   ordersWeek.forEach(eachOrder => {
-    let isDisplay = checkForDisplay(eachOrder,settings)
-    if(isDisplay){
+    let isDisplay = checkForDisplay(eachOrder, settings)
+    if (isDisplay) {
       array.push(eachOrder)
     }
   })
@@ -171,6 +172,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         return 'transparent';  // Default color if value is 0 or not in range
     }
   }
+
   getEmailBodyData(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean }) {
     return {
       orderStudent: orderModel,
@@ -182,6 +184,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       selectedStudent: this.selectedStudent
     }
   }
+
   getMenuStyle(eachMenu: any): any {
     let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
     if (eachMenu.typeOrder === 'menu' && !this.displayMinimize) {
@@ -251,7 +254,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
 
-
   setOrderIcon(index: number, event: boolean) {
     this.setOrderDay(event, index)
   }
@@ -270,85 +272,75 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  placeOrder(orderModel: OrderInterfaceStudent, type: string, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result) => {
-      this.submittingOrder = true;
-      this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true
-      this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1
-      let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-      const serviceMethod = type === 'order'
-        ? () => this.orderService.addOrderStudentDay(orderModifiedForSave)
-        : () => this.orderService.editStudentOrder(orderModifiedForSave);
+  //Checks if Customer is Below Limit and if Email should be sent Email
+  getPromisesEmail(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean },accountTenant:AccountCustomerInterface) {
+    let promisesEmail = []
+    if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
+      const emailObject = this.getEmailBodyData(orderModel, type, result);
+      const emailBody = getEmailBody(emailObject);
+      promisesEmail.push(this.generalService.sendEmail(emailBody));
+    }
+    if (this.tenantStudent.orderSettings.sendReminderBalance) {
+      if (accountTenant.currentBalance < 15) {
+        const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
+        promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
+      }
 
-      serviceMethod().subscribe((data: any) => {
-        if (data.success) {
-          this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
-            if (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance) {
-              let promisesEmail = [];
-              if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
-                const emailObject = this.getEmailBodyData(orderModel, type, result);
-                const emailBody = getEmailBody(emailObject);
-                promisesEmail.push(this.generalService.sendEmail(emailBody));
-              }
-              if (this.tenantStudent.orderSettings.sendReminderBalance) {
-                if (accountTenant.currentBalance < 15) {
-                  const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
-                  promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
-                }
-
-              }
-              forkJoin(promisesEmail).subscribe((data: any) => {
-                this.orderPlaced.emit(true);
-                this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
-                this.submittingOrder = false
-              })
-            } else {
-              this.orderPlaced.emit(true);
-              this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich')
-              this.submittingOrder = false
-            }
-          })
-        } else {
-          this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
-          this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0
-          this.submittingRequest = false;
-          this.submittingOrder = false
-          alert(data.error)
-        }
-      })
-    });
+    }
+    return promisesEmail
   }
+
 
   cancelOrder(orderModel: OrderInterfaceStudent, indexMenu: number) {
     this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result) => {
       this.submittingOrder = true;
-      this.orderService.cancelOrderStudent(orderModel).subscribe((data: any) => {
-
-
-        if (data.success) {
-          const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
-          const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
-          if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
-            this.generalService.sendEmail(emailBody).subscribe((data: any) => {
-              this.orderPlaced.emit(true);
-              this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
-              this.submittingOrder = false;
-
-            })
+      this.orderService.cancelOrderStudent(orderModel).subscribe({
+        next: (data) => {
+          if (data.success) {
+            this.toastr.success('Bestellung wurde storniert', 'Erfolgreich');
+            this.processEmailAfterCancellation(orderModel, result, data);
           } else {
-            this.orderPlaced.emit(true);
-            this.toastr.success('Bestellung wurde storniert', 'Erfolgreich')
-            this.submittingOrder = false;
+            // Handle the case where success is false but no HTTP error was thrown
+            this.handleOrderCancellationFailure(indexMenu);
           }
-
-        } else {
-          this.submittingRequest = false;
-          this.submittingOrder = false;
-          alert('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport')
+        },
+        error: (error) => {
+          console.error('Fehler beim Stornieren der Bestellung:', error);
+          this.handleOrderCancellationFailure(indexMenu);
         }
-      })
-    })
+      });
+    });
   }
+
+  private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
+    const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
+    const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
+    if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
+      this.generalService.sendEmail(emailBody).subscribe({
+        next: (emailResponse) => {
+          this.orderPlaced.emit(true);
+          this.submittingOrder = false;
+        },
+        error: (emailError) => {
+          console.error('Fehler beim Senden der E-Mail:', emailError);
+          this.toastr.error('Fehler beim Senden der Bestätigungs-E-Mail.');
+          this.submittingOrder = false;
+        }
+      });
+    } else {
+      this.orderPlaced.emit(true);
+      this.submittingOrder = false;
+    }
+  }
+
+  private handleOrderCancellationFailure(indexMenu:number) {
+    this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
+    this.toastr.error('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport');
+    this.submittingRequest = false;
+    this.submittingOrder = false;
+  }
+
+
 
   checkDeadline(day: Date): void {
     const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
@@ -371,6 +363,71 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+  }
+
+  placeOrder(orderModel: OrderInterfaceStudent, type: string, indexMenu: number) {
+    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result) => {
+      this.submittingOrder = true;
+      this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
+      this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
+      let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+      this.saveOrder(orderModifiedForSave, type, result, indexMenu);
+    });
+  }
+  private async saveOrder(orderModifiedForSave: any, type: string, result: any, indexMenu: number) {
+    try {
+      const data = await this.orderService.addOrderStudentDay(orderModifiedForSave).toPromise();
+      this.handleOrderResponse(data, orderModifiedForSave, type, result, indexMenu);
+    } catch (error:any) {
+      console.error('Error when placing order:', error);
+      this.toastr.error(error.error.message, 'Fehler');
+      this.resetOrderSelection(indexMenu);
+    }
+  }
+  private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: any, indexMenu: number) {
+    if (data.success) {
+      this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich');
+      this.fetchAccountAndHandleEmails(orderModel, type, result);
+    } else {
+      this.toastr.error('Bestellung wurde nicht gespeichert', 'Fehler');
+      this.resetOrderSelection(indexMenu);
+    }
+  }
+  private fetchAccountAndHandleEmails(orderModel: OrderInterfaceStudent, type: string, result: any) {
+    this.accountService.getAccountTenant().subscribe({
+      next: (accountTenant: AccountCustomerInterface) => {
+        this.handleAccountSuccess(accountTenant, orderModel, type, result);
+      },
+      error: (error) => {
+        console.error('Error retrieving account:', error);
+        this.toastr.error('Account Details konnten nicht gefunden werden', 'Fehler');
+        this.submittingOrder = false;
+      }
+    });
+  }
+  private handleAccountSuccess(accountTenant: AccountCustomerInterface, orderModel: OrderInterfaceStudent, type: string, result: any) {
+    if (accountTenant && (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance)) {
+      const promisesEmail = this.getPromisesEmail(orderModel, type, result, accountTenant);
+      forkJoin(promisesEmail).subscribe({
+        next: (data: any) => this.finalizeOrder(),
+        error: (emailError) => {
+          console.error('Error sending emails:', emailError);
+          this.toastr.error('Error during email dispatch.', 'Error');
+          this.submittingOrder = false;
+        }
+      });
+    } else {
+      this.finalizeOrder();
+    }
+  }
+  private resetOrderSelection(indexMenu: number) {
+    this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false;
+    this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0;
+    this.submittingOrder = false;
+  }
+  private finalizeOrder() {
+    this.orderPlaced.emit(true);
+    this.submittingOrder = false;
   }
 
 
