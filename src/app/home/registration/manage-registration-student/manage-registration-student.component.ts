@@ -20,7 +20,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
   selectedStudent:(StudentInterface | null) = null;
   registeredStudents:StudentInterface[] = [];
-  customerInfo!:CustomerInterface;
+  customerInfo:CustomerInterface | null = null;
   pageLoaded:boolean = false;
   submittingRequest = false;
   selectedSubgroup:string = '';

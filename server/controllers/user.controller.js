@@ -18,7 +18,7 @@ var transporter = nodemailer.createTransport({
 });
 function makePassword() {
   var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var possible = "ABCDEFGHJKLMNOPQRSTUVWXYZ";
 
   for (var i = 0; i < 5; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));

@@ -85,6 +85,9 @@ export class RegisterStudentComponent implements OnInit{
     )
     .subscribe(([customer,students,tenant,settings]:[CustomerInterface,StudentInterface[],TenantStudentInterface,SettingInterfaceNew])=>{
       this.customerInfo = customer;
+      if(this.customerInfo.order.split.length === 1){
+        this.selectedSubgroup = this.customerInfo.order.split[0].group;
+      }
       this.registeredStudents = students;
       this.tenantStudent = tenant;
       this.settings = settings;

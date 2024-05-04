@@ -17,6 +17,7 @@ import {StudentInterface} from "../../classes/student.class";
 import {AssignedWeekplanInterface, WeekplanGroupClass} from "../../classes/assignedWeekplan.class";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {VacationsInterface} from "../../classes/vacation.interface";
+import {emailNotValid} from "../../functions/generell.functions";
 
 @Component({
   selector: 'app-register-tenant',
@@ -84,8 +85,13 @@ export class RegisterTenantComponent implements OnInit {
       }
     });
   }
-  setPersonalInformation() {
+  setPersonalInformation():void {
     this.submittingRequest = true;
+    if(emailNotValid(this.tenantModel.email)){
+      this.toastr.error('Bitte geben Sie eine gültige E-Mail-Adresse ein','Fehler')
+      this.submittingRequest = false
+      return
+    }
     this.tenantServiceStudent.addParentTenant(this.tenantModel).subscribe((response: any) => {
       console.log(response)
       if (!response.error) {
