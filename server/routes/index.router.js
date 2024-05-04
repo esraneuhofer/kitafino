@@ -30,7 +30,7 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.getRegisteredStudentsUser);
 
 
-router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
+router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addTenantAndAccount)
 router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 
@@ -83,7 +83,6 @@ router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountC
 router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getTransactionTenant);
 
 ////Permanent Orders//////
-router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addParentTenant)
 router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
 

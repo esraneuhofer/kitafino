@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit {
     this.submittingRequest = true;
     this.serverErrorMessages = null;
     if (!validateEmail(form.value.email)) {
-      this.errorMessageEmailInvalid = 'Bite geben Sie eine gültige Emailadresse an';
+      this.errorMessageEmailInvalid = 'Bite geben Sie eine gültige Email Adresse an';
       this.submittingRequest = false;
       return
     }
@@ -49,8 +49,8 @@ export class SignUpComponent implements OnInit {
       }else{
         this.resetForm(form);
         this.toaster.success("Der Account wurde angelegt");
-        this.toaster.success("Eine Email mit Ihren Accountinfomrationen wurde an Ihre Emailadresse gesendet");
-        this.router.navigateByUrl('home/dashboard');
+        this.toaster.success("Eine Email mit Ihren Account Infomrationen wurde an Ihre Email Adresse gesendet");
+        this.router.navigateByUrl('/login');
         this.submittingRequest = false;
       }
     })

@@ -1,4 +1,4 @@
-<div class="container mx-auto px-4 mt-8">
+<div class="container mx-auto px-4 mt-8" *ngIf="pageLoaded && customerModel">
     <div class="flex justify-center">
         <div class="w-full max-w-2xl">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -6,7 +6,12 @@
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-12">
                             <h2 class="text-base font-semibold leading-7 text-gray-900">Persönliche Informationen</h2>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">Bitte füllen Sie zuerst das Formular aus um fortzufahren</p>
+
+                          <p class="mt-1 text-sm leading-6 text-gray-600"> Wilkommen bei der Bestellanwendung für die Einrichtung: <b>{{customerModel.contact.customer}}</b></p>
+
+                          <p class="mt-1 text-sm leading-6 text-gray-600">Bitte füllen Sie zuerst das Formular aus um fortzufahren
+                            <br> Alle Eingaben können später noch geändert werden.
+                          </p>
                             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-3">
                                     <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Vorname</label>
@@ -83,61 +88,61 @@
                                     </div>
                                     <p *ngIf="f1.submitted && phone.invalid " class="mt-2 text-sm text-red-600" id="phone-error">Pflichtfeld</p>
                                 </div>
-                                <div class="col-span-full">
-                                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresse mit Hausnummer</label>
-                                    <div class="mt-2">
-                                        <input type="text"
-                                               required
-                                               #address="ngModel"
-                                               [(ngModel)]="tenantModel.address"
-                                               [class.text-red-900]="f1.submitted && address.invalid"
-                                               [class.ring-red-300]="f1.submitted && address.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && address.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && address.invalid"
-                                               name="address"
-                                               id="address"
-                                               autocomplete="family-name"
-                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                    <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">Pflichtfeld</p>
-                                </div>
+<!--                                <div class="col-span-full">-->
+<!--                                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresse mit Hausnummer</label>-->
+<!--                                    <div class="mt-2">-->
+<!--                                        <input type="text"-->
+<!--                                               required-->
+<!--                                               #address="ngModel"-->
+<!--                                               [(ngModel)]="tenantModel.address"-->
+<!--                                               [class.text-red-900]="f1.submitted && address.invalid"-->
+<!--                                               [class.ring-red-300]="f1.submitted && address.invalid"-->
+<!--                                               [class.placeholder:text-red-300]="f1.submitted && address.invalid"-->
+<!--                                               [class.focus:ring-red-500]="f1.submitted && address.invalid"-->
+<!--                                               name="address"-->
+<!--                                               id="address"-->
+<!--                                               autocomplete="family-name"-->
+<!--                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                                    </div>-->
+<!--                                    <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">Pflichtfeld</p>-->
+<!--                                </div>-->
 
-                                <div class="sm:col-span-3 sm:col-start-1">
-                                    <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">Postleitzahl</label>
-                                    <div class="mt-2">
-                                        <input type="text"
-                                               required
-                                               #zip="ngModel"
-                                               [(ngModel)]="tenantModel.zip"
-                                               [class.text-red-900]="f1.submitted && zip.invalid"
-                                               [class.ring-red-300]="f1.submitted && zip.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && zip.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && zip.invalid"
-                                               name="zip"
-                                               id="zip"
-                                               autocomplete="family-name"
-                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                    <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">Pflichtfeld</p>
-                                </div>
-                              <div class="sm:col-span-3 ">
-                                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Stadt</label>
-                                <div class="mt-2">
-                                  <input type="text"
-                                         required
-                                         #city="ngModel"
-                                         [(ngModel)]="tenantModel.city"
-                                         [class.text-red-900]="f1.submitted && city.invalid"
-                                         [class.ring-red-300]="f1.submitted && city.invalid"
-                                         [class.placeholder:text-red-300]="f1.submitted && city.invalid"
-                                         [class.focus:ring-red-500]="f1.submitted && city.invalid"
-                                         name="city"
-                                         id="city"
-                                         autocomplete="family-name"
-                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                </div>
-                                <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">Pflichtfeld</p>
-                              </div>
+<!--                                <div class="sm:col-span-3 sm:col-start-1">-->
+<!--                                    <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">Postleitzahl</label>-->
+<!--                                    <div class="mt-2">-->
+<!--                                        <input type="text"-->
+<!--                                               required-->
+<!--                                               #zip="ngModel"-->
+<!--                                               [(ngModel)]="tenantModel.zip"-->
+<!--                                               [class.text-red-900]="f1.submitted && zip.invalid"-->
+<!--                                               [class.ring-red-300]="f1.submitted && zip.invalid"-->
+<!--                                               [class.placeholder:text-red-300]="f1.submitted && zip.invalid"-->
+<!--                                               [class.focus:ring-red-500]="f1.submitted && zip.invalid"-->
+<!--                                               name="zip"-->
+<!--                                               id="zip"-->
+<!--                                               autocomplete="family-name"-->
+<!--                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                                    </div>-->
+<!--                                    <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">Pflichtfeld</p>-->
+<!--                                </div>-->
+<!--                              <div class="sm:col-span-3 ">-->
+<!--                                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Stadt</label>-->
+<!--                                <div class="mt-2">-->
+<!--                                  <input type="text"-->
+<!--                                         required-->
+<!--                                         #city="ngModel"-->
+<!--                                         [(ngModel)]="tenantModel.city"-->
+<!--                                         [class.text-red-900]="f1.submitted && city.invalid"-->
+<!--                                         [class.ring-red-300]="f1.submitted && city.invalid"-->
+<!--                                         [class.placeholder:text-red-300]="f1.submitted && city.invalid"-->
+<!--                                         [class.focus:ring-red-500]="f1.submitted && city.invalid"-->
+<!--                                         name="city"-->
+<!--                                         id="city"-->
+<!--                                         autocomplete="family-name"-->
+<!--                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                                </div>-->
+<!--                                <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">Pflichtfeld</p>-->
+<!--                              </div>-->
                             </div>
                         </div>
                     </div>
@@ -154,7 +159,7 @@
                             </svg>
                             <span class="sr-only">Loading...</span>
                           </div>
-                            Speichern</button>
+                            Weiter</button>
                     </div>
                 </form>
             </div>

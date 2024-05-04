@@ -34,7 +34,7 @@ module.exports.cancelOrderStudent = async (req, res, next) => {
 
     // Delete the OrderStudent document by orderId
     await deleteOrderStudentDocument(orderId, session);
-    const account = await findAccount("req._id", session);
+    const account = await findAccount(req._id, session);
     const orderAccount = await findOrderAccount(orderId, session);
 
     const cancellationEntry = createCancellationEntry(orderAccount);

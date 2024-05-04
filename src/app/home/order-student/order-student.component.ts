@@ -32,7 +32,7 @@ import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-con
 import {OrderService} from "../../service/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
-const textBanner = "Um eine Bestellung für den Verpflegungsteilnehmer/in einzutragen muss er/sie zuerst angemeldet werden"
+const textBanner = "Um eine Bestellung einzutrgen muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden"
 
 @Component({
   selector: 'app-order-student',
@@ -162,6 +162,7 @@ export class OrderStudentComponent implements OnInit {
       },
       (error) => {
         console.error('An error occurred:', error);
+        this.toastr.error(error.error.message, 'Fehler')
         // Handle errors as needed.
       }
     );
@@ -216,6 +217,7 @@ export class OrderStudentComponent implements OnInit {
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
+    console.log(this.selectedStudent)
     if(this.checkForErrors(this.selectedStudent,this.querySelection))return;
     this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
   }

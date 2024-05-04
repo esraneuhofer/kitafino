@@ -39,11 +39,11 @@ module.exports.getAccountTenant = async (req, res, next) => {
       // Handle the case where no account is found
       return res.status(404).json({ message: 'Account wurde nicht gefunden, bitte wenden Sie sich an den Kundensupport' });
     }
-    // Successfully found the account
+    // Successfully found the account, implicitly sends 200 OK
     res.json(account);
   } catch (err) {
     console.error('Account konnte nicht gefunden werden:', err); // Log the error for debugging
-    res.status(500).json({ message: 'Account konnte nicht gefunden werden', error: err.message });
+    res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
   }
 };
 
