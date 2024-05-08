@@ -5,6 +5,7 @@ const School = mongoose.model('SchoolNew');
 const Schooluser = mongoose.model('Schooluser');
 var nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
+const {getEmailResetPassword} = require('./email-reset-password')
 const {getHtmlRegistrationEmail} = require('./email-registration');
 var transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
@@ -101,52 +102,6 @@ module.exports.register = async (req, res, next) => {
         to: req.body.email,
         subject: 'Accountinformationen✔',
         html:emailContent
-          // '<!DOCTYPE html>\n' +
-          // '    <html lang="de">\n' +
-          // '      <head>\n' +
-          // '        <style>\n' +
-          // '          .container {\n' +
-          // '            width: 100vw;\n' +
-          // '            height: 100vh;\n' +
-          // '            padding: 50px 75px;\n' +
-          // '            background: #EDEDED;\n' +
-          // '          }\n' +
-          // '          .content {\n' +
-          // '            background: white;\n' +
-          // '            border: 1px solid lightgray;\n' +
-          // '            padding: 50px;\n' +
-          // '          }\n' +
-          // '          @media (max-width: 600px) {\n' +
-          // '            .container {\n' +
-          // '              padding: 20px 10px;\n' +
-          // '              background: none;\n' +
-          // '            }\n' +
-          // '            .content {\n' +
-          // '              padding: 20px;\n' +
-          // '            }\n' +
-          // '          }\n' +
-          // '        </style>\n' +
-          // '      </head>\n' +
-          // '      <body>\n' +
-          // '        <div class="container">\n' +
-          // '          <div class="content">' +
-          // // '<div style="width: 100vm;height: 100vh;padding:50px 75px 50px 75px; background:#EDEDED">' +
-          // '<div style="background: white; border:1px solid lightgray; padding:50px"><b>Wilkommen zur Anmeldung bei ' + data.companyName + ' </b><br><br>' +
-          // '<div style="margin-bottom: 10px">Die Anmeldung finden Sie unter folgenden Adresse: <br><a href="https://schulanmeldung.cateringexpert.de" target="_blank" style="color: blue">https://schulanmeldung.cateringexpert.de</a></div><br>' +
-          // '<div style="margin-bottom: 10px">Username: <b><u></u>' + req.body.email.toLowerCase() + '</b><br>Passwort: <b><u>' + password + '</u></b></div><br>' +
-          // '<div style="margin-bottom: 10px">Sollten Sie Probleme oder Fragen haben, kontaktieren Sie uns bitte</div>' +
-          // '<div><span><b>Grüße</b></span><br><span><b>' + data.companyName + '</b></span><br><br>' +
-          // '<div><span><u>Datenschutzverordnung - Einwilligung</u></span><br><br>' +
-          // '<div><span>Mit Erhalt dieser Email stimme ich zu, dass die von mir mitgeteilten, persönlichen Daten zur' +
-          // ' Erfüllung der Geschäftsabwicklung von der Firma: ' + data.companyName + ' und verarbeitet werden dürfen.' +
-          // 'Die Daten verbleiben ausschließlich bei dem vorher genannten Unternehmen, sowie von diesem beauftragten Auftragsverarbeitern. \n' +
-          // 'Die Einwilligung kann jederzeit telefonisch, schriftlich per Post oder via Mail ' + data.emailCatering + ' widerrufen werden.</span><br><br>' +
-          // '<div><span><u>Datenschutzinformation</u></span><br><br>' +
-          // '<div><span>Die Rechtmäßigkeit der Datenverarbeitung beruht auf Ihrer Einwilligung gemäß DSVGO zum Zweck der Kommunikation zu allgemeinen Informationen bzw. Auftragsbearbeitung und Auftragsabwicklung.\n' +
-          // 'Die von Ihnen bekannt gegebenen Daten werden bis auf Widerruf gespeichert.\n</span><br><br>' +
-          // '</div></div></div> </div>\n' +
-          // '      </body>\n' +
-          // '    </html>'
       };
 
       // Sending the email
@@ -176,73 +131,27 @@ module.exports.register = async (req, res, next) => {
 
 
 };
-
-// module.exports.register = (req, res, next) => {
-//   School.findOne({
-//     // project: req.body.project,
-//     projectId: req.body.projectId.toLowerCase()}, function (err, data) {
-//     if (!data) return res.send({message: 'Projekt wurde nicht gefunden',buttonType:'error'})
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       let user = new Schooluser();
-//       user.email = req.body.email.toLowerCase();
-//       user.username = req.body.email.toLowerCase();
-//       user.project_id = data._id;
-//       user.tenantId = data.tenantId;
-//       let password = makePassword()
-//
-//       bcrypt.genSalt(10, (err, salt) => {
-//         bcrypt.hash(password, salt, (err, hash) => {
-//           user.passwordO = password
-//           user.password = hash;
-//           user.saltSecret = salt;
-//           user.save((err, doc) => {
-//             if (!err) {
-//               let mailOptions = {
-//                 // from: req.body.companyName+'<'+a req.body.orderConfirmationEmail +'>', // sender address
-//                 from: data.companyName + '<noreply@cateringexpert.de>', // sender address
-//                 bcc: data.emailRegistration,
-//                 to: req.body.email, // list of receivers
-//                 subject: 'Accountinformationen✔', // Subject line
-//                 html:
-//                   '<div style="width: 100vm;height: 100vh;padding:50px 75px 50px 75px; background:#EDEDED">' +
-//                   '<div style="background: white; border:1px solid lightgray; padding:50px"><b>Wilkommen zur Anmeldung bei ' + data.companyName + ' </b><br><br>' +
-//                   '<div style="margin-bottom: 10px">Die Anmeldung finden Sie unter folgenden Adresse: <br><a href="https://schulanmeldung.cateringexpert.de" target="_blank" style="color: blue">https://schulanmeldung.cateringexpert.de</a></div><br>' +
-//                   '<div style="margin-bottom: 10px">Username: <b><u></u>' + req.body.email.toLowerCase() + '</b><br>Passwort: <b><u>' + password + '</u></b></div><br>' +
-//                   '<div style="margin-bottom: 10px">Sollten Sie Probleme oder Fragen haben, kontaktieren Sie uns bitte</div>' +
-//                   '<div><span><b>Grüße</b></span><br><span><b>' + data.companyName + '</b></span><br><br>' +
-//                   '<div><span><u>Datenschutzverordnung - Einwilligung</u></span><br><br>' +
-//                   '<div><span>Mit Erhalt dieser Email stimme ich zu, dass die von mir mitgeteilten, persönlichen Daten zur' +
-//                   ' Erfüllung der Geschäftsabwicklung von der Firma: ' + data.companyName + ' und verarbeitet werden dürfen.' +
-//                   'Die Daten verbleiben ausschließlich bei dem vorher genannten Unternehmen, sowie von diesem beauftragten Auftragsverarbeitern. \n' +
-//                   'Die Einwilligung kann jederzeit telefonisch, schriftlich per Post oder via Mail ' + data.emailCatering + ' widerrufen werden.</span><br><br>' +
-//                   '<div><span><u>Datenschutzinformation</u></span><br><br>' +
-//                   '<div><span>Die Rechtmäßigkeit der Datenverarbeitung beruht auf Ihrer Einwilligung gemäß DSVGO zum Zweck der Kommunikation zu allgemeinen Informationen bzw. Auftragsbearbeitung und Auftragsabwicklung.\n' +
-//                   'Die von Ihnen bekannt gegebenen Daten werden bis auf Widerruf gespeichert.\n</span><br><br>' +
-//                   '</div></div></div>'
-//               };
-//               transporter.sendMail(mailOptions, function (error, info) {
-//                 if (error) {
-//                   res.send({message:'Email konnte nicht an Ihre Emailadresse versendet werden. Bitte wenden Sie sich an Ihren Caterer',buttonType:'error',mailSuccess: error});
-//                 } else {
-//                   res.send({message:'Email wurde an IHre Email adresse versendet',buttonType:'success',mailSuccess: info});
-//                 }
-//               });
-//
-//             } else {
-//               if (err.code == 11000)
-//                 res.status(422).send({message: 'Emailadresse wird bereits verwendet',buttonType:'success',mailSuccess: 'No Success'});
-//               else
-//                 return res.send(err);
-//             }
-//           });
-//
-//         });
-//       });
-//     }
-//   });
-// }
-
+module.exports.resetPassword = (req, res, next) => {
+  let password = makePassword();
+  let mailOptions = getEmailResetPassword(req.body.username);
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      Schooluser.findOneAndUpdate({username: req.body.username}, {
+        $set: {
+          saltSecret: salt,
+          password: hash
+        }
+      }, {new: true}, function (err, username) {
+        if (err) return res.send({message: err});
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            return res.send({message: err});
+          }
+          res.send({message: 'Password wurde zurückgesetzt. Eine Email mit Ihrem neuen Passwort wurde an Sie versendet'});
+        });
+      });
+    });
+  });
+}
 
 

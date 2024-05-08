@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from "../../service/user.service";
+import {ToastrService} from "ngx-toastr";
+import {J} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-reset-password',
@@ -9,73 +11,41 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
+  submittingRequest:boolean = false;
+  username:string = '';
+  serverErrorMessages:string | null = null;
+  constructor(public userService: UserService,
+              private toaster:ToastrService,
+              private router : Router) { }
 
-//   model ={
-//     username:''
-//   };
-//   submittingRequest:boolean = false;
-//   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   serverErrorMessages: string;
-//
-//   constructor(public userService: UserService,private commonService:CommonService,
-//               private toaster:ToastrService,
-//               private router : Router) { }
-//
   ngOnInit() {
   }
 //
-//   onSubmit(form : NgForm){
-//     this.submittingRequest = true;
-//     this.serverErrorMessages = null;
-//     this.commonService.postObject('resetPassword',form.value).subscribe(
-//       res => {
-//         if(!res.message){
-//           this.submittingRequest = false;
-//           return this.serverErrorMessages ='Username konnte nicht gefunden werden';
-//         }
-//         this.model.username = '';
-//         return this.toaster.success(res.message);
-//
-//         // this.resetForm(form);
-//         // this.toaster.success("Eine Email mit Ihren neuen Passwort wurde an Ihre Emailadresse gesendet");
-//         // this.router.navigateByUrl('home/dashboard');
-//       },
-//       err => {
-//         this.submittingRequest = false;
-//         this.serverErrorMessages = err.error.message;
-//       }
-//     );
-//
-//   }
-// //
-// // onSubmit(form: NgForm) {
-// //     this.userService.postUser(form.value).subscribe((res:any )=>
-// //        {
-// //           this.showSucessMessage = true;
-// //           setTimeout(() => this.showSucessMessage = false, 4000);
-// //           this.resetForm(form);
-// //       },
-// //       err => {
-// //         if (err.status === 422) {
-// //           this.serverErrorMessages = err.error.join('<br/>');
-// //         }
-// //         else
-// //           this.serverErrorMessages = 'Something went wrong.Please contact admin.';
-// //       }
-// //     );
-// //   }
-//
-//   resetForm(form: NgForm) {
-//     this.userService.selectedUser = {
-//       fullName: '',
-//       email: '',
-//       password: '',
-//       tenantUrl:'',
-//       code:'',
-//       contactPerson:''
-//     };
-//     form.resetForm();
-//     this.serverErrorMessages = '';
-//   }
+  onSubmit(form : NgForm):void{
+    this.submittingRequest = true;
+    this.serverErrorMessages = null;
+    const username = JSON.parse(JSON.stringify(this.username))
+    this.userService.resetPassword(this.username).subscribe(
+      res => {
+        if(!res.message){
+          this.submittingRequest = false;
+          this.serverErrorMessages =`Username: ${username} konnte nicht gefunden werden`;
+        }else{
+          this.serverErrorMessages =`Passwort erfolgreich zurück gesetzt und an die hinterlegte Email Adresse: ${username} gesendet`;
+          this.username = '';
+          this.router.navigateByUrl('login');
+          // this.toaster.success('Passwort erfolgreich zurück gesetzt');
+        }
+      },
+      err => {
+        this.submittingRequest = false;
+        this.serverErrorMessages = err.error.message;
+      }
+    );
 
+  }
+  redirectLogin(){
+    this.router.navigateByUrl('login');
+
+  }
 }

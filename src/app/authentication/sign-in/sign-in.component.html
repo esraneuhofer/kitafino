@@ -1,7 +1,7 @@
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 login-background">
+<div class="flex min-h-full flex-col justify-center px-6 lg:px-8 login-background">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <!-- Logo Image with moderately adjusted size using Tailwind CSS -->
-    <img class="mx-auto w-34 h-32" src="assets/logo.png" alt="Cateringexpert">
+<!--    <img class="mx-auto w-34 h-32" src="assets/logo.png" alt="Cateringexpert">-->
 
 
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>
@@ -43,7 +43,7 @@
                  [class.focus:ring-red-500]="signInForm.submitted && emailModel.invalid"
                  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
-        <p *ngIf="signInForm.submitted && emailModel.invalid " class="mt-2 text-sm text-red-600" id="email-error">Pflichtfeld</p>
+        <p *ngIf="signInForm.submitted && emailModel.invalid " class="mt-2 text-sm text-red-600" id="email-error">Bitte geben Sie Ihre Email Adresse ein</p>
       </div>
 
 
@@ -68,7 +68,7 @@
                  [class.placeholder:text-red-300]="signInForm.submitted && passwordModel.invalid"
                  [class.focus:ring-red-500]="signInForm.submitted && passwordModel.invalid">
         </div>
-        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">Pflichtfeld</p>
+        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">Bitte geben Sie Ihr Passwort ein</p>
       </div>
 
       <div>

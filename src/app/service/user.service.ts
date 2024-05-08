@@ -16,6 +16,10 @@ export class UserService {
   constructor(private http:HttpClient) {
 
   }
+  resetPassword(username:string) {
+    return this.http.post(environment.apiBaseUrl + '/resetPassword', username)
+      .pipe(map((response: any) => response));
+  }
 
   addUser(user:{email:string,projectId:string}) {
     return this.http.post(environment.apiBaseUrl + '/register', user)

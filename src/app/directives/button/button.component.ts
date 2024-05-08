@@ -7,6 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ButtonComponent implements OnInit{
 
+  @Input() additionalClass:string = '';
   @Input() typeButton: string = '';
   @Input() buttonType: string = 'submit';
   @Input() submittingRequest: boolean = false;
@@ -30,5 +31,6 @@ export class ButtonComponent implements OnInit{
     if(this.mr){
       this.buttonClass += ' mr-2'
     }
+    this.buttonClass += this.additionalClass
   }
 }

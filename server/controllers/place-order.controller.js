@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const OrderStudent = mongoose.model('OrderStudent');
-const AccountSchema = mongoose.model('AccountSchema');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
 const moment  = require('moment-timezone');
 const {getTotalPrice} = require('./order-functions');
+const AccountSchema = mongoose.model('AccountSchema');
 
 async function addOrder(req) {
   req.body.tenantId = req.tenantId;

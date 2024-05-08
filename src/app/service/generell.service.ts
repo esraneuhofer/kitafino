@@ -13,6 +13,7 @@ import {MenuInterface} from "../classes/menu.interface";
 import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assignedWeekplan.class";
 import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component";
 import {VacationsInterface} from "../classes/vacation.interface";
+import {PaymentIntentResponse} from "../home/account/account-payment-overview/account-payment-overview.component";
 
 
 @Injectable(
@@ -84,6 +85,9 @@ export class GenerellService {
       .pipe(map((response: any) => response));
   }
 
-
+  createPaymentIntent(body:{amountPayment:number, username:string}) {
+    return this.http.post<PaymentIntentResponse>(`${environment.apiBaseUrl}/create-payment-intent`, body)
+      .pipe(map(response => response));
+  }
 
 }

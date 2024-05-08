@@ -36,6 +36,14 @@
               </div>
             </div>
 
+            <div class="rounded-md bg-yellow-100 p-4 mt-2">
+              <div class="flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-gray-700 mb-4 sm:mb-0">
+                  Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem Konto gutgeschrieben.
+                </p>
+                <app-button [submittingRequest]="submittingRequest" [typeButton]="'primary'" (click)="redirectToStripeCheckout(amountCharge)" [mr]="true">Direkteinzahlung</app-button>
+              </div>
+            </div>
             <div class="rounded-md bg-green-100 p-4 mt-2">
               <div class="flex flex-col sm:flex-row justify-between items-center">
                 <p class="text-sm text-gray-700 mb-4 sm:mb-0">
@@ -97,3 +105,4 @@
   <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
 </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
+

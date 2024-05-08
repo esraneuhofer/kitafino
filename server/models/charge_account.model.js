@@ -6,7 +6,6 @@ var chargeAccountSchema = new Schema({
   approved: { type: Boolean, required: true },
   amount: { type: Number, required: true },
   date: { type: Date, required: true },
-  accountHolder: { type: String, required: true },
   iban: { type: String, required: true },
   reference: String,
   typeCharge: { type: String,  required: true },

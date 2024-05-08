@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {StudentService} from "../../../service/student.service";
 import {forkJoin} from "rxjs";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
@@ -18,8 +18,15 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   ConfirmWithdrawDialogComponent
 } from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
+import {loadStripe} from '@stripe/stripe-js';
+import {HttpClient} from "@angular/common/http";
+import {PaymentService} from "../../../service/payment-stripe.service";
 
 const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/in hinzufügen. Klicken Sie hier, um eine Schüler/in hinzuzufügen.';
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+}
 
 @Component({
   selector: 'app-account-payment-overview',
@@ -28,9 +35,9 @@ const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen S
 })
 export class AccountPaymentOverviewComponent implements OnInit {
   protected readonly textBanner = textBanner;
-
   page: number = 1;
   pageSize: number = 10;
+  amountCharge: number = 25;
 
   pageLoaded: boolean = false;
   submittingRequest = false;
@@ -38,15 +45,19 @@ export class AccountPaymentOverviewComponent implements OnInit {
   registeredStudents: StudentInterface[] = [];
   tenantStudent!: TenantStudentInterface;
   accountTenant!: AccountCustomerInterface;
+
   constructor(
-              private clipboardService: ClipboardService,
-              private dialog: MatDialog,
-              private generellService: GenerellService,
-              private toastr: ToastrService,
-              private tenantService: TenantServiceStudent,
-              private studentService: StudentService,
-              private chargeService: ChargingService,
-              private accountService: AccountService) {
+    private http: HttpClient,
+    private clipboardService: ClipboardService,
+    private dialog: MatDialog,
+    private generellService: GenerellService,
+    private toastr: ToastrService,
+    private tenantService: TenantServiceStudent,
+    private studentService: StudentService,
+    private chargeService: ChargingService,
+    private accountService: AccountService,
+    private paymentService: PaymentService,
+    private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -56,7 +67,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
       this.studentService.getRegisteredStudentsUser(),
       this.tenantService.getTenantInformation(),
       this.chargeService.getAccountCharges(),
-      this.accountService.getAccountTenant()
+      this.accountService.getAccountTenant(),
     ]).subscribe(
       ([
          settings,
@@ -64,7 +75,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
          students,
          tenantStudent,
          accountCharges,
-        accountTenant
+         accountTenant
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -82,37 +93,42 @@ export class AccountPaymentOverviewComponent implements OnInit {
       })
   }
 
-  openDialog(){
-    if(!this.tenantStudent.iban){
+  opendialog() {
+    // this.handlePayment();
+  }
+
+  openDialog() {
+    if (!this.tenantStudent.iban) {
       this.toastr.warning('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben. Sie können Ihre IBAN in den Einstellungen eintragen.')
       return;
     }
-    if(this.accountTenant.currentBalance === 0){
+    if (this.accountTenant.currentBalance === 0) {
       this.toastr.warning('Sie haben derzeit kein Guthaben auf Ihrem Konto.')
       return;
     }
     const dialogRef = this.dialog.open(ConfirmWithdrawDialogComponent, {
       width: '550px',
-      data: {accountTenant: this.accountTenant,tenantStudent: this.tenantStudent},
+      data: {accountTenant: this.accountTenant, tenantStudent: this.tenantStudent},
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(!result)return;
+      if (!result) return;
       const accountCharge = new ChargeAccountInterface(
-       this.accountTenant,
-       this.tenantStudent,
+        this.accountTenant,
+        this.tenantStudent,
         'withdraw'
       );
       accountCharge.emailTenant = this.tenantStudent.email;
       console.log('accountCharge', accountCharge)
       this.chargeService.addAccountChargesTenant(accountCharge).subscribe((response: any) => {
-          this.toastr.success('Abbuchung erfolgreich')
+        this.toastr.success('Abbuchung erfolgreich')
       })
 
     });
   }
+
   copyToClipboard(text: string) {
     this.clipboardService.copyToClipboard(text)
     this.toastr.success('Text kopiert');
@@ -126,6 +142,10 @@ export class AccountPaymentOverviewComponent implements OnInit {
     return 'Abbuchung'
   }
 
-  protected readonly faShoppingCart = faShoppingCart;
-  protected readonly faClipboard = faClipboard;
+  redirectToStripeCheckout(amount:number) {
+    this.submittingRequest = true;
+    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.username);
+  }
+  faClipboard = faClipboard;
+
 }

@@ -19,8 +19,6 @@ export class AuthGuard {
       this.userService.deleteToken();
       return false;
     }
-    // console.log("Not logged in");
-
     return true;
   }
 }
