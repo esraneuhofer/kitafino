@@ -17,8 +17,9 @@ const ctrlDailyDeadline = require('../controllers/daily-deadline-task');
 const crtlPlaceOrder = require('../controllers/place-order.controller');
 const ctrlCancelOrder = require('../controllers/cancel-order.controller');
 const crtlStripe = require('../controllers/stripe');
-const ctrlWebhook = require('../controllers/stripe-webhook.controller');
 const jwtHelper = require('../config/jwtHelper');
+const {rawBodyBuffer} = require('../config/stripeWebhookMiddleware');
+const ctrlWebhook = require('../controllers/stripe-webhook.controller');
 
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/register', ctrlUser.register);
@@ -93,10 +94,9 @@ router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenant
 router.post('/addTaskOrderDeadlineCustomer',jwtHelper.verifyJwtToken,ctrlDailyDeadline.addTaskOrderDeadlineCustomer)
 router.post('/create-payment-intent', jwtHelper.verifyJwtToken, crtlStripe.createPaymentIntent);
 
-router.post('/webhook_stripe',ctrlWebhook.webhook_stripe)
+router.post('/webhook',rawBodyBuffer ,ctrlWebhook.webhook_stripe)
 
 
-router.get('/payment-success/:sessionId', jwtHelper.verifyJwtToken, crtlStripe.addAccountChargesTenant);
 module.exports = router;
 
 

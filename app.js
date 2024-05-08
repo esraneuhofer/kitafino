@@ -5,7 +5,6 @@ const passport = require('passport');
 var port = process.env.PORT || 3002;
 const path = require('path');
 require('dotenv').config();
-
 var environment = process.env.NODE_ENV;
 var app = express();
 
@@ -53,14 +52,25 @@ require(__dirname + '/server/models/vacation.model');
 require(__dirname + '/server/models/weekplan_add.model');
 require(__dirname + '/server/config/config');
 require(__dirname + '/server/config/passportConfig');
-const rtsIndex = require(__dirname + '/server/routes/index.router');
-app.use(bodyParser.json({limit: '50mb'}));
+// app.use(bodyParser.urlencoded({
+//   limit: '50mb',
+//   extended: true
+// }));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: true
 }));
+
+// Conditionally apply JSON parser globally, excluding the webhook endpoint
+app.use((req, res, next) => {
+  if (req.path === '/api/webhook') {
+    return next();
+  }
+  bodyParser.json({limit: '50mb'})(req, res, next);
+});
 app.use(cors());
 app.use(passport.initialize());
+const rtsIndex = require(__dirname + '/server/routes/index.router');
 app.use('/api', rtsIndex);
 
 // error handler

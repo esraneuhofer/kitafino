@@ -85,7 +85,7 @@ export class GenerellService {
       .pipe(map((response: any) => response));
   }
 
-  createPaymentIntent(body:{amountPayment:number, username:string}) {
+  createPaymentIntent(body:{amountPayment:number, userId:string,username:string}) {
     return this.http.post<PaymentIntentResponse>(`${environment.apiBaseUrl}/create-payment-intent`, body)
       .pipe(map(response => response));
   }

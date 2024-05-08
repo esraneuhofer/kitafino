@@ -143,8 +143,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   redirectToStripeCheckout(amount:number) {
+    if(!this.tenantStudent.userId)return
     this.submittingRequest = true;
-    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.username);
+    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username);
   }
   faClipboard = faClipboard;
 
