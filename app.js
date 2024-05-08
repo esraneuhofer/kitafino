@@ -4,15 +4,16 @@ const cors = require('cors');
 const passport = require('passport');
 var port = process.env.PORT || 3002;
 const path = require('path');
+require('dotenv').config();
 
 var environment = process.env.NODE_ENV;
 var app = express();
 
 var server = require('http').createServer(app);
 const mongoose = require('mongoose');
-const uri = 'mongodb+srv://esraneuhofer:' + encodeURIComponent('Master@Fischer1808!') + '@cluster0.v2dktqh.mongodb.net/main?retryWrites=true&w=majority';
-// mongodb+srv://esraneuhofer:Master@Fischer1808!@cluster0.v2dktqh.mongodb.net/main?retryWrites=true&w=majority
-mongoose.connect(uri, { useNewUrlParser: true })
+const uri = process.env.MONGO_URI;
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected');
     loadAndScheduleTasks().then(() => {
