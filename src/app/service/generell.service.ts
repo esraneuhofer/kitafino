@@ -48,6 +48,10 @@ export class GenerellService {
     return this.http.get<WeekplanPdfInterface[]>(environment.apiBaseUrl+'/getAllWeekplanPdf',{params:query})
       .pipe(map((response: WeekplanPdfInterface[]) => (response)));
   }
+  getWeekplanPdfWeek(query:{year:number,week:number}){
+    return this.http.get<WeekplanPdfInterface[]>(environment.apiBaseUrl+'/getWeekplanPdfWeek',{params:query})
+      .pipe(map((response: WeekplanPdfInterface[]) => (response)));
+  }
 
 
   getWeekplanGroups(){

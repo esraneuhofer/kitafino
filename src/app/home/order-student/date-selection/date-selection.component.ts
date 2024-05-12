@@ -32,7 +32,6 @@ export class DateSelectionComponent  implements OnInit {
       this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year
       this.query.year = this.queryYears[this.selectedIndexYear].year; //Sets Year Query to current Year
       this.query.week = this.queryCalenderWeek[getWeekNumber(new Date()) - 1].week; //Selects current CW
-
       if (this.registeredStudents.length === 1) {
         this.selectedStudent = this.registeredStudents[0];
       }

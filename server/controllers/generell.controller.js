@@ -159,6 +159,14 @@ module.exports.getSingelWeekplanPdf = async (req, res, next) => {
     res.send(err);
   }
 };
+module.exports.getWeekplanPdfWeek = async (req, res, next) => {
+  try {
+    const pdf = await Weekplanpdf.find({ tenantId: req.tenantId, year:req.query.year, calenderWeek:req.query.week }, 'name year calenderWeek groups');
+    res.json(pdf);
+  } catch (err) {
+    res.send(err);
+  }
+};
 
 module.exports.getAllWeekplanPdf = async (req, res, next) => {
   try {
