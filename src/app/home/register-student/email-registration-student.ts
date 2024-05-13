@@ -12,14 +12,40 @@ function getEinrichtungsobject(customer: CustomerInterface): string {
   return `${name} <br> ${street} <br> ${zip}  <br> ${phone} <br> ${email}`;
 }
 
+function getSpecialFoodForCustomerEmail(student: StudentInterface,settings:SettingInterfaceNew): string {
+  let specialFood = "";
+  if (student.specialFood) {
+    let specialFoodItem = settings.orderSettings.specialFoods.find(special => special._id === student.specialFood);
+    let specialFoodName = specialFoodItem ? specialFoodItem.nameSpecialFood : 'Sonderkost'
+    specialFood = `<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
+                      <b><b>Sonderkost:</b></b> ${specialFoodName}<br>
+                      </p>`;
+  }
+  return specialFood;
+}
+
+function getNameSubGroup(student: StudentInterface,customer: CustomerInterface): string {
+  let subgroup = '';
+  if (customer.order.split.length > 1) {
+    let subGroup = customer.order.split.find(sub => sub.group === student.subgroup);
+    let nameGroup = subGroup ? subGroup.displayGroup : 'Untergruppe nicht zugeordent';
+    subgroup = `<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
+                      <b>Untergruppe:</b> ${nameGroup}<br>
+                      </p>`;
+  }
+  return subgroup;
+}
 export function getEmailBodyRegistrationStudent(customer: CustomerInterface,
                                                 student: StudentInterface,
-                                                tenant: TenantStudentInterface): any {
+                                                tenant: TenantStudentInterface,
+                                                setting:SettingInterfaceNew): any {
   const nameStudent = student.firstName + ' ' + student.lastName;
+  let specialFood = getSpecialFoodForCustomerEmail(student,setting);
+  let subgroup = getNameSubGroup(student,customer);
   return {
     from: 'Cateringexprt <noreply@cateringexpert.de>', // sender address
     to: tenant.email, // list of receivers
-    subject: 'Bestellbestätigung✔', // Subject line
+    subject: 'Anmeldungsbestätigung✔', // Subject line
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="de">
  <head>
@@ -118,9 +144,11 @@ a[x-apple-data-detectors] {
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                       <b><b>Verpflegungsteilnehmer:</b></b> ${nameStudent}<br>
                       </p>
+                      ${specialFood}
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                       <b>Einrichtung:</b> ${customer.contact.customer}
                       </p>
+                      ${subgroup}
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                       <b>Adresse:</b> ${customer.contact.street} ${customer.contact.zipcode}<br>
                       </p>

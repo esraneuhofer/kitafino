@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TenantStudentInterface} from "../../classes/tenant.class";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {StudentInterface} from "../../classes/student.class";
@@ -8,8 +8,6 @@ import {AccountService} from "../../service/account.serive";
 import {StudentService} from "../../service/student.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {LoadingService} from "../../service/loading.service";
-import {UserService} from "../../service/user.service";
 import {forkJoin} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
@@ -19,38 +17,37 @@ import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
 import {setDateToCompare} from "../../functions/date.functions";
-import {ConfirmOrderComponent} from "../dialogs/confirm-order/confirm-order.component";
 import {MatDialog} from "@angular/material/dialog";
-import {getEmailBodyCancel} from "../order-student/email-cancel-order.function";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 
-function setOrdersDashboard(orders:OrderInterfaceStudentSave[],registeredStudendts:StudentInterface[],settings:SettingInterfaceNew):DisplayOrderArrayIntrface[]{
+function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], settings: SettingInterfaceNew): DisplayOrderArrayIntrface[] {
   let dateToday = setDateToCompare(new Date())
-  let arrayDisplay:DisplayOrderArrayIntrface[] = [];
-  if(!orders || !orders.length)return arrayDisplay;
+  let arrayDisplay: DisplayOrderArrayIntrface[] = [];
+  if (!orders || !orders.length) return arrayDisplay;
   orders.forEach((order) => {
     let orderCopy$ = JSON.parse(JSON.stringify(order));
-    if(setDateToCompare(new Date(order.dateOrder)) >= dateToday)
-    arrayDisplay.push({
-      dateOrder: order.dateOrder,
-      orderedMenus: order.order.orderMenus.map((orderDetail) => {
-        return orderDetail.nameOrder
-      }).join(', '),
-      nameStudent: getStudentNameById(order.studentId,registeredStudendts),
-      price: getTotalPriceSafe(order),
-      cancelPossible:  timeDifference(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
-      order:orderCopy$
-    })
+    if (setDateToCompare(new Date(order.dateOrder)) >= dateToday)
+      arrayDisplay.push({
+        dateOrder: order.dateOrder,
+        orderedMenus: order.order.orderMenus.map((orderDetail) => {
+          return orderDetail.nameOrder
+        }).join(', '),
+        nameStudent: getStudentNameById(order.studentId, registeredStudendts),
+        price: getTotalPriceSafe(order),
+        cancelPossible: timeDifference(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
+        order: orderCopy$
+      })
   })
   return sortOrdersByDate(arrayDisplay);
 }
-export interface DisplayOrderArrayIntrface{
+
+export interface DisplayOrderArrayIntrface {
   dateOrder: string,
   orderedMenus: string,
   nameStudent: string,
   price: number,
   cancelPossible: string | null,
-  order:OrderInterfaceStudent
+  order: OrderInterfaceStudent
 }
 
 @Component({
@@ -62,26 +59,27 @@ export interface DisplayOrderArrayIntrface{
 
 export class DashboardComponent {
 
-  tenant!:TenantStudentInterface;
-  pageLoaded:boolean = false;
-  accountTenant!:AccountCustomerInterface;
-  students:StudentInterface[] = [];
-  ordersCustomer:DateOrderSingleInterface[] = orderCustomerSeed
-  ordersStudentsDisplay:DisplayOrderArrayIntrface[] = [];
-  submittingRequest:boolean = false;
+  tenant!: TenantStudentInterface;
+  pageLoaded: boolean = false;
+  accountTenant!: AccountCustomerInterface;
+  students: StudentInterface[] = [];
+  ordersCustomer: DateOrderSingleInterface[] = orderCustomerSeed
+  ordersStudentsDisplay: DisplayOrderArrayIntrface[] = [];
+  submittingRequest: boolean = false;
   getTotalPriceSafe = getTotalPriceSafe;
+
   constructor(private tenantServiceStudent: TenantServiceStudent,
-              private accountService:AccountService,
-              private studentService:StudentService,
+              private accountService: AccountService,
+              private studentService: StudentService,
               private r: ActivatedRoute,
-              private router:Router,
+              private router: Router,
               private dialog: MatDialog,
               private generalService: GenerellService,
               private toastr: ToastrService,
-              private loadingService: LoadingService,
               private orderService: OrderService,
-              private generallService:GenerellService) {
+              private generallService: GenerellService) {
   }
+
   ngOnInit() {
     this.pageLoaded = false
     forkJoin(
@@ -92,20 +90,31 @@ export class DashboardComponent {
       this.generallService.getSettingsCaterer()
     )
       .subscribe((
-        [tenantInformation,accountInformation,students,orderStudents,setting]:
-          [TenantStudentInterface,AccountCustomerInterface,StudentInterface[],OrderInterfaceStudentSave[],SettingInterfaceNew]) =>{
+        [
+          tenantInformation,
+          accountInformation,
+          students,
+          orderStudents,
+          setting
+        ]: [
+          TenantStudentInterface,
+          AccountCustomerInterface,
+          StudentInterface[],
+          OrderInterfaceStudentSave[],
+          SettingInterfaceNew
+        ]) => {
         this.tenant = tenantInformation;
         this.accountTenant = accountInformation;
         this.students = students;
-        this.ordersStudentsDisplay = setOrdersDashboard(orderStudents,students,setting);
-        this.loadingService.hide();
+        this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, setting);
         this.pageLoaded = true;
       })
   }
 
-  routeToAccount(route:string){
+  routeToAccount(route: string) {
     this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
   }
+
   // cancelOrder(order:DisplayOrderArrayIntrface){
   //
   //   const dialogRef = this.dialog.open(ConfirmOrderComponent, {
@@ -152,11 +161,12 @@ export class DashboardComponent {
     return true
   }
 
-  setOrderArrayDisplay(orderStudent: OrderInterfaceStudentSave): { } {
+  setOrderArrayDisplay(orderStudent: OrderInterfaceStudentSave): {} {
     return orderStudent.order.orderMenus.map((orderDetail) => {
       return orderDetail.nameOrder
     }).join(', ')
   }
+
   displayOrderedMenus(orderStudent: OrderInterfaceStudentSave): string {
     return orderStudent.order.orderMenus.map((orderDetail) => {
       return orderDetail.nameOrder

@@ -1,87 +1,109 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-<!--      <div class="w-11/12">-->
-        <!--<div class="bg-white shadow-md rounded">-->
-<!--        <div class="px-4 sm:px-6 lg:px-8">-->
-<!--          <div class="flex flex-wrap">-->
-            <div class="w-100">
-              <div class="px-4 sm:px-6 lg:px-8">
-                <div class="sm:flex sm:items-center">
-                  <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">Bestellhistorie</h1>
-                    <p class="mt-2 text-sm text-gray-700">Liste aller Bestellungen und Stornierungen</p>
-                  </div>
-                </div>
-                <div class="mt-8 flow-root">
-                  <div class=" flow-root">
-                    <!-- Container for input fields with half width -->
-                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
-                      <!-- Select input field -->
-                      <select [(ngModel)]="queryYear"
-                              class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
-                        <option [ngValue]="2024">2024</option>
-                      </select>
-                      <!-- Text input field -->
-                      <input [(ngModel)]="searchTerm"
-                             (input)="search($event)"
-                             type="text" placeholder="Suchen nach..."
-                             class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
+      <!--      <div class="w-11/12">-->
+      <!--<div class="bg-white shadow-md rounded">-->
+      <!--        <div class="px-4 sm:px-6 lg:px-8">-->
+      <!--          <div class="flex flex-wrap">-->
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+              <h1 class="text-base font-semibold leading-6 text-gray-900">Bestellhistorie</h1>
+              <p class="mt-2 text-sm text-gray-700">Liste aller Bestellungen und Stornierungen</p>
+            </div>
+          </div>
+          <div class="mt-8 flow-root">
+            <div class=" flow-root">
+              <!-- Container for input fields with half width -->
+              <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                <!-- Select input field -->
+                <select [(ngModel)]="queryYear"
+                        class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
+                  <option [ngValue]="2024">2024</option>
+                </select>
+                <!-- Text input field -->
+                <input (input)="search($event)"
+                       [(ngModel)]="searchTerm"
+                       class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full" placeholder="Suchen nach..."
+                       type="text">
 
 
-                    </div>
+              </div>
 
-                    <!-- Existing table code -->
-                  </div>
+              <!-- Existing table code -->
+            </div>
 
-                  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                      <table class="min-w-full divide-y divide-gray-300">
-                        <thead>
-                        <tr>
-                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                            <span class="hidden sm:inline">Verpflegungsteilnehmer/in</span>
-                            <span class="inline sm:hidden">Teilnehmer/in</span>
-                          </th>
-                          <th scope="col" class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Menu </th>
-                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                            <span class="hidden sm:inline">Bestelldatum Menu </span>
-                            <span class="inline sm:hidden">Datum</span>
-                          </th>
-                          <th scope="col" class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Aktion</th>
-                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Preis</th>
-                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Art</th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                        <tr *ngFor="let eachAccountOwner of displayArrayAccountOrders |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.nameStudent}}</td>
-                          <td class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.nameMenu}}</td>
-                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.dateOrderMenu | date:'dd.MM.yy'}}</td>
-                          <td class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }} Uhr</td>
-                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.price |currency:'€'}}</td>
-                          <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.typeOrder}}</td>
-                        </tr>
-                        <tr *ngIf="displayArrayAccountOrders.length==0">
-                          <td colspan="100%">
-                            <app-general-banner></app-general-banner>
-                          </td>
-                        </tr>
-                        <!-- More people... -->
-                        </tbody>
-                      </table>
-                      <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
-                      <div class="flex flex-col md:flex-row mt-3">
-                        <div class="md:w-3/3 w-full">
-                          <div class="flex justify-start md:justify-end">
-                            <ngb-pagination
-                              [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
-                              [(page)]="page"
-                              [pageSize]="pageSize"
-                              [collectionSize]="displayArrayAccountOrders.length"></ngb-pagination>
-                          </div>
-                        </div>
-                      </div>
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                  <thead>
+                  <tr>
+                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                      <span class="hidden sm:inline">Verpflegungsteilnehmer/in</span>
+                      <span class="inline sm:hidden">Name</span>
+                    </th>
+                    <th class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">Menu
+                    </th>
+                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                      <span class="hidden sm:inline">Bestelldatum Menu </span>
+                      <span class="inline sm:hidden">Datum</span>
+                    </th>
+                    <th class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">Durchgeführt
+                    </th>
+                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Preis</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Art</th>
+                  </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                  <tr
+                    *ngFor="let eachAccountOwner of displayArrayAccountOrders |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <!-- Visible on small screens, shows truncated text -->
+                      <span class="block sm:hidden">
+                            {{ eachAccountOwner.nameStudent | slice:0:5 }}
+                          </span>
+                      <!-- Hidden on small screens, shows full text -->
+                      <span class="hidden sm:block">
+                            {{ eachAccountOwner.nameStudent }}
+                          </span>
+                    </td>
+                    <td
+                      class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.nameMenu}}</td>
+                    <td
+                      class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.dateOrderMenu | date:'dd.MM.yy'}}</td>
+                    <td
+                      class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }}
+                      Uhr
+                    </td>
+                    <td
+                      class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.price |currency:'€'}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.typeOrder}}</td>
+                  </tr>
+                  <tr *ngIf="displayArrayAccountOrders.length==0">
+                    <td colspan="100%">
+                      <app-general-banner></app-general-banner>
+                    </td>
+                  </tr>
+                  <!-- More people... -->
+                  </tbody>
+                </table>
+                <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
+                <div class="flex flex-col md:flex-row mt-3">
+                  <div class="md:w-3/3 w-full">
+                    <div class="flex justify-start md:justify-end">
+                      <ngb-pagination
+                        [(page)]="page"
+                        [boundaryLinks]="false"
+                        [collectionSize]="displayArrayAccountOrders.length"
+                        [maxSize]="3"
+                        [pageSize]="pageSize"
+                        [rotate]="true"
+                        [ellipses]="true"
+                        [directionLinks]="true"></ngb-pagination>
 
                     </div>
                   </div>
@@ -89,9 +111,14 @@
 
               </div>
             </div>
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+          </div>
+
+        </div>
+        </div>
+      </div>
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 

@@ -3,7 +3,7 @@
     <app-banner-no-registration-order></app-banner-no-registration-order>
   </ng-container>
   <ng-container *ngIf="!showErrorNoStudents">
-    <div class="container px-4  top-0 z-50 mb-1 mt-2">
+    <div class="container px-4  top-0 z-50 mb-1 mt-2" *ngIf="!displayMinimize || accountTenant.currentBalance === 0">
       <div class="flex justify-center">
         <div class="w-100">
           <div class="rounded-md bg-green-100 p-4">
@@ -21,6 +21,7 @@
       </div>
     </div>
     <app-date-selection (getOrderWeek)="changeDate($event)"
+                        [minWidth]="displayMinimize"
                         (selectStudent)="selectStudent($event)"
                         [registeredStudents]="registeredStudents"
                         [settings]="settings"></app-date-selection>

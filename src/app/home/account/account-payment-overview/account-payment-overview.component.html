@@ -1,103 +1,122 @@
 <ng-container *ngIf="pageLoaded && registeredStudents.length > 0">
-  <div class="container mx-auto px-4 mt-8 sm:mt-4 sm:w-full">
+  <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <div class="w-full sm:w-full md:w-5/6">
-        <div class="px-4 sm:px-6 lg:px-8">
-          <div class="sm:flex-auto">
-            <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>
-            <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
-              <div class="flex">
-                <div class="ml-3 flex-1 md:flex md:justify-between">
-                  <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
-                    <br><br>
-                    Cateringexpert Software Solutions GmbH <br>
-                    Deutsche Bank <br>
-                    IBAN: DE12345678901234567890  <fa-icon [icon]="faClipboard"
-                                                           class="ml-1"
-                                                           [matTooltip]="'In Ablage kopieren'"
-                                                           (click)="copyToClipboard('DE12345678901234567890')"></fa-icon> <br>
-                    BIC: DEUTDEDBXXX <br>
-                    Verwendungszweck: <b>{{tenantStudent.username}}</b>
-                    <fa-icon [icon]="faClipboard"
-                             class="ml-1"
-                             [matTooltip]="'In Ablage kopieren'"
-                             (click)="copyToClipboard(tenantStudent.username)"></fa-icon> <br><br>
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+          <div>
+            <div class="sm:flex-auto">
+              <!--            <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>-->
+              <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
+                <div class="flex">
+                  <div class="ml-3 flex-1 md:flex md:justify-between xs:text-center">
+                    <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den
+                      gewünschten Betrag auf das folgende Konto:
+                      <br><br>
+                      Cateringexpert Software Solutions GmbH <br>
+                      Deutsche Bank <br>
+                      IBAN: DE12345678901234567890
+                      <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
+                               [icon]="faClipboard"
+                               [matTooltip]="'In Ablage kopieren'"
+                               class="ml-1"></fa-icon>
+                      <br>
+                      BIC: DEUTDEDBXXX <br>
+                      Verwendungszweck: <b>{{tenantStudent.username}}</b>
+                      <fa-icon (click)="copyToClipboard(tenantStudent.username)"
+                               [icon]="faClipboard"
+                               [matTooltip]="'In Ablage kopieren'"
+                               class="ml-1"></fa-icon>
+                      <br><br>
 
-                    <b>Wichtig:</b>
-                    Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
-                    genau so in den Verwendungszweck eintragen, wie er registriert ist.
-                    Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
-                    Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen. <br><br>
+                      <b>Wichtig:</b>
+                      Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im
+                      Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
+                      genau so in den Verwendungszweck eintragen, wie er registriert ist.
+                      Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
+                      Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage
+                      in Anspruch nehmen. <br><br>
 
-                    Vielen Dank.
+                      Vielen Dank.
 
-                  </p>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="rounded-md bg-yellow-100 p-4 mt-2">
-              <div class="flex flex-col sm:flex-row justify-between items-center">
-                <p class="text-sm text-gray-700 mb-4 sm:mb-0">
-                  Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem Konto gutgeschrieben.
-                </p>
-                <app-button [submittingRequest]="submittingRequest" [typeButton]="'primary'" (click)="redirectToStripeCheckout(amountCharge)" [mr]="true">Direkteinzahlung</app-button>
+              <div class="rounded-md bg-yellow-100 p-4 mt-2">
+                <div class="flex flex-col sm:flex-row justify-between items-center">
+                  <p class="text-sm text-gray-700 mb-4 sm:mb-0">
+                    Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem
+                    Konto gutgeschrieben.
+                  </p>
+                  <app-button (click)="redirectToStripeCheckout(amountCharge)" [mr]="true"
+                              [submittingRequest]="submittingRequest" [typeButton]="'primary'">Direkteinzahlung
+                  </app-button>
+                </div>
               </div>
-            </div>
-            <div class="rounded-md bg-green-100 p-4 mt-2">
-              <div class="flex flex-col sm:flex-row justify-between items-center">
-                <p class="text-sm text-gray-700 mb-4 sm:mb-0">
-                  Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
-                </p>
-                <app-button [typeButton]="'primary'" (click)="openDialog()" [mr]="true">Geld abbuchen</app-button>
+              <div class="rounded-md bg-green-100 p-4 mt-2">
+                <div class="flex flex-col sm:flex-row justify-between items-center">
+                  <p class="text-sm text-gray-700 mb-4 sm:mb-0">
+                    Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  </p>
+                  <app-button (click)="openDialog()" [mr]="true" [typeButton]="'primary'">Geld abbuchen</app-button>
+                </div>
               </div>
+
+
             </div>
-
-
-
-
           </div>
-        </div>
-        <div class="mt-8 flow-root">
-          <div class="overflow-x-auto">
-            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-              <table class="min-w-full divide-y divide-gray-300">
-                <thead>
-                <tr>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Datum</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Art</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Betrag</th>
-                </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                <tr *ngFor="let payment of accountCharges" >
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getType(payment.typeCharge)}}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>
-                </tr>
-                <tr *ngIf="accountCharges.length === 0">
-                  <td colspan="100%">
-                    <app-general-banner></app-general-banner>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
-              <div class="flex flex-col md:flex-row mt-3">
-                <div class="md:w-3/3 w-full">
-                  <div class="flex justify-start md:justify-end">
-                    <ngb-pagination
-                      [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
-                      [(page)]="page"
-                      [pageSize]="pageSize"
-                      [collectionSize]="accountCharges.length"></ngb-pagination>
+          <div class="mt-8 flow-root ">
+            <div class="bg-white shadow-md rounded">
+            <div class="overflow-x-auto">
+              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <table class="min-w-full divide-y divide-gray-300">
+                  <thead>
+                  <tr>
+                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                      Datum
+                    </th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Art</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Betrag</th>
+                  </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                  <tr *ngFor="let payment of accountCharges">
+                    <td
+                      class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <span class="sm:invisible md:visible">{{getType(payment.typeCharge)}}</span>
+                      <span class="sm:visible md:invisible">Ab...</span>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>
+                  </tr>
+                  <tr *ngIf="accountCharges.length === 0">
+                    <td colspan="100%">
+                      <app-general-banner></app-general-banner>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
+                <div class="flex flex-col md:flex-row mt-3">
+                  <div class="md:w-3/3 w-full">
+                    <div class="flex justify-start md:justify-end">
+                      <ngb-pagination
+                        [(page)]="page"
+                        [boundaryLinks]="false"
+                        [collectionSize]="accountCharges.length"
+                        [directionLinks]="true"
+                        [ellipses]="true"
+                        [maxSize]="3"
+                        [pageSize]="pageSize"
+                        [rotate]="true"></ngb-pagination>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
   </div>
 </ng-container>

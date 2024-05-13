@@ -16,8 +16,8 @@ export class UserService {
   constructor(private http:HttpClient) {
 
   }
-  resetPassword(username:string) {
-    return this.http.post(environment.apiBaseUrl + '/resetPassword', username)
+  resetPassword(obj:{username:string}) {
+    return this.http.post(environment.apiBaseUrl + '/resetPassword', obj)
       .pipe(map((response: any) => response));
   }
 

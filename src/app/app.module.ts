@@ -60,6 +60,8 @@ import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/c
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
+import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
+import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
 
 registerLocaleData(localeDe);
 
@@ -104,6 +106,8 @@ registerLocaleData(localeDe);
     ConfirmWithdrawDialogComponent,
     OrderAllergeneDialogComponent,
     PermanentOrdersComponent,
+    SuccessStripeComponent,
+    NotSuccessStripeComponent,
   ],
   imports: [
     BrowserModule,

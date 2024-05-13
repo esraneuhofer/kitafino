@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {getWeekNumber, timeDifference} from "../order.functions";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {getCalenderQuery, getYearsQuery} from "./date-selection.functions";
@@ -10,11 +10,12 @@ import {StudentInterface} from "../../../classes/student.class";
   templateUrl: './date-selection.component.html',
   styleUrls: ['./date-selection.component.scss']
 })
-export class DateSelectionComponent  implements OnInit {
+export class DateSelectionComponent  implements OnInit, OnChanges {
 
 
   @Input() registeredStudents!: StudentInterface[];
   @Input() settings!: SettingInterfaceNew;
+  @Input() minWidth: boolean = false;
   @Output() getOrderWeek:any = new EventEmitter<QueryInterOrderInterface>();
   @Output() selectStudent:any = new EventEmitter<StudentInterface | null>();
 
@@ -26,7 +27,15 @@ export class DateSelectionComponent  implements OnInit {
   generatedKWArray: { value: string; week: number }[][] = [];
     constructor() { }
 
-    ngOnInit() {
+    ngOnChanges(changes: SimpleChanges) {
+      // if (changes['minWidth']) {
+      //   console.log(changes['minWidth'].currentValue)
+      //   console.log(this.minWidth)
+      // }
+    }
+
+  ngOnInit() {
+      console.log(this.minWidth)
       this.queryYears = getYearsQuery();
       this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
       this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year

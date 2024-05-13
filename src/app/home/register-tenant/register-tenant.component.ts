@@ -26,6 +26,8 @@ import {emailNotValid} from "../../functions/generell.functions";
 })
 export class RegisterTenantComponent implements OnInit {
 
+  selectedLanguage:string = 'de'
+
   successFullSave:boolean = false;
   submittingRequest:boolean = false;
   customerModel: CustomerInterface | null = null;

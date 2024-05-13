@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var studentSchema = new Schema({
-  specialFood: String,
+  specialFood: Schema.Types.ObjectId,
   firstName: String,
   lastName: String,
   subgroup: String,

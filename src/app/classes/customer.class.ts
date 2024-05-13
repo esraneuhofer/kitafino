@@ -1,4 +1,5 @@
 import {SettingInterfaceNew} from "./setting.class";
+import {GeneralSettingsInterface} from "./general-settings.interface";
 
 
 export interface SpecialsShow {idSpecialFood:string,nameSpecialFood:string,selected:boolean}
@@ -15,7 +16,7 @@ export interface PricesGroupBillingInterface{priceSpecial:number,idSpecial:strin
 export interface CustomerInterface {
   username?:string;
   stateHol:string
-
+  generalSettings:GeneralSettingsInterface;
   customerId:string;
   _id?:string;
   // tenantId: Schema.Types.ObjectId,

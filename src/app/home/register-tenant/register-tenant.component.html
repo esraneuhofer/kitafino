@@ -5,12 +5,13 @@
                 <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && setPersonalInformation()">
                     <div class="space-y-12">
                         <div class="border-b border-gray-900/10 pb-12">
+
                             <h2 class="text-base font-semibold leading-7 text-gray-900">Persönliche Informationen</h2>
 
                           <p class="mt-1 text-sm leading-6 text-gray-600"> Wilkommen bei der Bestellanwendung für die Einrichtung: <b>{{customerModel.contact.customer}}</b></p>
 
-                          <p class="mt-1 text-sm leading-6 text-gray-600">Bitte füllen Sie zuerst das Formular aus um fortzufahren
-                            <br> Alle Eingaben können später noch geändert werden.
+                          <p class="mt-1 text-sm leading-6 text-gray-600">Bitte füllen Sie zuerst das Formular aus um fortzufahren.
+                            <br> Alle Eingaben können im Nachgang noch geändert werden.
                           </p>
                             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-3">
@@ -22,12 +23,9 @@
                                                [(ngModel)]="tenantModel.firstName"
                                                name="first-name"
                                                id="first-name"
-                                               [class.text-red-900]="f1.submitted && firstName.invalid"
-                                               [class.ring-red-300]="f1.submitted && firstName.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+                                               [ngClass]="{'invalid-input': f1.submitted && firstName.invalid}"
                                                autocomplete="given-name"
-                                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                               class=" block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300">
                                     </div>
                                     <p *ngIf="f1.submitted && firstName.invalid " class="mt-2 text-sm text-red-600" id="firstName-error">Pflichtfeld</p>
                                 </div>
@@ -38,10 +36,7 @@
                                                required
                                                #lastName="ngModel"
                                                [(ngModel)]="tenantModel.lastName"
-                                               [class.text-red-900]="f1.submitted && lastName.invalid"
-                                               [class.ring-red-300]="f1.submitted && lastName.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
+                                               [ngClass]="{'invalid-input': f1.submitted && lastName.invalid}"
                                                name="last-name"
                                                id="last-name"
                                                autocomplete="family-name"
@@ -51,16 +46,14 @@
 
                                 </div>
                                 <div class="sm:col-span-3">
-                                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
+                                    </label>
                                     <div class="mt-2">
                                         <input type="text"
                                                required
                                                #email="ngModel"
                                                [(ngModel)]="tenantModel.email"
-                                               [class.text-red-900]="f1.submitted && email.invalid"
-                                               [class.ring-red-300]="f1.submitted && email.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && email.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && email.invalid"
+                                               [ngClass]="{'invalid-input': f1.submitted && email.invalid}"
                                                name="email"
                                                id="email"
                                                autocomplete="family-name"
@@ -77,10 +70,7 @@
                                                required
                                                #phone="ngModel"
                                                [(ngModel)]="tenantModel.phone"
-                                               [class.text-red-900]="f1.submitted && phone.invalid"
-                                               [class.ring-red-300]="f1.submitted && phone.invalid"
-                                               [class.placeholder:text-red-300]="f1.submitted && phone.invalid"
-                                               [class.focus:ring-red-500]="f1.submitted && phone.invalid"
+                                               [ngClass]="{'invalid-input': f1.submitted && phone.invalid}"
                                                name="phone"
                                                id="phone"
                                                autocomplete="family-name"

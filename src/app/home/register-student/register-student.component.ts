@@ -68,10 +68,10 @@ export class RegisterStudentComponent implements OnInit{
       this.selectedSubgroup = '';
     }
   }
-  // isSelected(event:string){
-  //   this.subGroupUnknownModel = false;
-  //   this.studentModel.subgroup = event;
-  // }
+  isSelected(event:string){
+    this.subGroupUnknownModel = false;
+    this.studentModel.subgroup = event;
+  }
   selectSpecialFood(event:string):void{
     console.log('event',event)
     this.studentModel.specialFood = event;
@@ -100,9 +100,9 @@ export class RegisterStudentComponent implements OnInit{
 
 
   addStudent(f:NgForm) {
+    // this.submittingRequest = true;
     this.studentModel.subgroup = this.selectedSubgroup;
-    this.submittingRequest = true;
-      this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
+    this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
         if(res.error){
           this.submittingRequest = false;
           this.toaster.error('Schüler/in konnte nicht angelegt werden','Fehler');
@@ -113,7 +113,7 @@ export class RegisterStudentComponent implements OnInit{
           this.toaster.success('Verpflegungsteilnehmer/in wurde erfolgreich angelegt','Erfolgreich');
           f.resetForm();
 
-          const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent);
+          const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
             this.toaster.success('Email wurde versendet', 'Erfolgreich')
           })

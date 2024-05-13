@@ -20,10 +20,11 @@ const crtlStripe = require('../controllers/stripe');
 const jwtHelper = require('../config/jwtHelper');
 const {rawBodyBuffer} = require('../config/stripeWebhookMiddleware');
 const ctrlWebhook = require('../controllers/stripe-webhook.controller');
+const rateLimitHelper = require('../config/rateLimitHelper');
 
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/register', ctrlUser.register);
-router.post('/authenticate', ctrlUser.authenticate);
+router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
 router.get('/getUsers', ctrlUser.getUsers);
 router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 

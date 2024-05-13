@@ -1,11 +1,11 @@
-<div class="container mx-auto px-4 mt-8" *ngIf="tenantModel && pageLoaded">
-  <div class="flex flex-col md:flex-row gap-4">
+<div class="container mx-auto px-4 mt-8 md:w-11/12" *ngIf="tenantModel && pageLoaded">
+  <div class="flex flex-col md:flex-row gap-4 ">
     <div class="flex-1">
       <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <!-- Personal Information Form Content -->
         <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
           <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
+            <div class=" pb-12">
               <h2 class="text-base font-semibold leading-7 text-gray-900">Persönliche Informationen</h2>
               <p class="mt-1 text-sm leading-6 text-gray-600">Bestätigen Sie die Änderung anschließend mit "Ändern"</p>
               <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -179,9 +179,9 @@
         <!-- Other Settings Form Content -->
         <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
           <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
+            <div class="pb-12">
               <h2 class="text-base font-semibold leading-7 text-gray-900">Sonstige Einstellungen</h2>
-              <p class="mt-1 text-sm leading-6 text-gray-600">Bestätigen Sie die Änderung anschließend mit "Ändern"</p>
+              <p class="mt-1 text-sm leading-6 text-gray-600">Änderungen werden automatisch gespeichert</p>
               <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
               <fieldset class="mt-4">
                 <legend class="sr-only">Notifications</legend>
@@ -207,7 +207,7 @@
                     </div>
                     <div class="ml-3 text-sm leading-6">
                       <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
-                      <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 10,00€ fällt</p>
+                      <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt</p>
                     </div>
                   </div>
                   <!--                    <div class="relative flex items-start">-->

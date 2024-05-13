@@ -36,45 +36,33 @@ export class SignUpComponent implements OnInit {
   onSubmit(form: NgForm): void {
     this.submittingRequest = true;
     this.serverErrorMessages = null;
-    if (!validateEmail(form.value.email)) {
-      this.errorMessageEmailInvalid = 'Bite geben Sie eine gültige Email Adresse an';
-      this.submittingRequest = false;
-      return
-    }
-    this.userService.addUser(form.value).subscribe(response => {
-      if(response.isError){
-        this.submittingRequest = false;
-        this.serverErrorMessages = response.message;
-        return
-      }else{
-        this.resetForm(form);
-        this.toaster.success("Der Account wurde angelegt");
-        this.toaster.success("Eine Email mit Ihren Account Infomrationen wurde an Ihre Email Adresse gesendet");
-        this.router.navigateByUrl('/login');
-        this.submittingRequest = false;
-      }
-    })
 
-    // (res:any) => {
-    //   console.log(res)
-    //   if(res.message === 'Projekt wurde nicht gefunden'){
-    //     this.submittingRequest = false;
-    //     this.serverErrorMessages =res.message;
-    //     return
-    //   }
-    //   this.resetForm(form);
-    //   this.toaster.success("Der Account wurde angelegt");
-    //   this.toaster.success("Eine Email mit Ihren Accountinfomrationen wurde an Ihre Emailadresse gesendet");
-    //   this.router.navigateByUrl('home/dashboard');
-    //   this.submittingRequest = false;
-    // },
-    // err => {
-    //   console.log(err)
-    //
-    //   this.submittingRequest = false
-    //   this.serverErrorMessages = err.error.message;
-    // }
-    // );
+    if (!validateEmail(form.value.email)) {
+      this.errorMessageEmailInvalid = 'Bitte geben Sie eine gültige Email Adresse an';
+      this.submittingRequest = false;
+      return;
+    }
+
+    this.userService.addUser(form.value).subscribe({
+      next: (response) => {
+        this.submittingRequest = false;
+        if (response.isError) {
+          this.serverErrorMessages = response.message;
+          this.toaster.error(response.message);
+        } else {
+          this.resetForm(form);
+          this.toaster.success("Der Account wurde angelegt");
+          this.toaster.success("Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet");
+          this.router.navigateByUrl('/login');
+        }
+      },
+      error: (error) => {
+        this.submittingRequest = false;
+        this.serverErrorMessages = error.error.message || 'Ein unerwarteter Fehler ist aufgetreten.';
+        if(!this.serverErrorMessages)return;
+        this.toaster.error(this.serverErrorMessages);
+      }
+    });
   }
 
   resetForm(form: NgForm) {

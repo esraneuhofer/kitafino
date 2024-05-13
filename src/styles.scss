@@ -4,3 +4,16 @@
 a:hover {
   cursor: pointer;
 }
+.invalid-input {
+  color: #991b1b !important; /* text-red-900 */
+  box-shadow: 0 0 0 2px #fecaca !important; /* ring-red-300 */
+  caret-color: #991b1b !important;
+}
+
+.invalid-input::placeholder {
+  color: #fecaca !important; /* placeholder:text-red-300 */
+}
+
+.invalid-input:focus {
+  box-shadow: 0 0 0 3px #bfdbfe !important; /* focus:ring-red-500 */
+}

@@ -25,13 +25,14 @@ export class ResetPasswordComponent implements OnInit {
     this.submittingRequest = true;
     this.serverErrorMessages = null;
     const username = JSON.parse(JSON.stringify(this.username))
-    this.userService.resetPassword(this.username).subscribe(
+    this.userService.resetPassword({username:this.username}).subscribe(
       res => {
-        if(!res.message){
+        if(res.error){
           this.submittingRequest = false;
-          this.serverErrorMessages =`Username: ${username} konnte nicht gefunden werden`;
+          this.serverErrorMessages =res.message;
         }else{
-          this.serverErrorMessages =`Passwort erfolgreich zurück gesetzt und an die hinterlegte Email Adresse: ${username} gesendet`;
+          this.toaster.success(res.message);
+          this.serverErrorMessages =res.message;
           this.username = '';
           this.router.navigateByUrl('login');
           // this.toaster.success('Passwort erfolgreich zurück gesetzt');

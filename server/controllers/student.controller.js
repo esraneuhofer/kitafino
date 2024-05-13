@@ -11,6 +11,7 @@ module.exports.addStudent = (req, res, next) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     subgroup: req.body.subgroup,
+    specialFood: req.body.specialFood,
     // Set other properties as needed
     schoolId: req.project_id,
     userId: req._id,

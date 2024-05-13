@@ -1,7 +1,8 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <div class="w-11/12">
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="px-4 sm:px-6 lg:px-8">
           <div class="flex flex-wrap">
             <div class="sm:flex-auto">
@@ -52,16 +53,16 @@
             </div>
           </div>
         </div>
-
+        </div>
       </div>
     </div>
   </div>
   <ng-container *ngIf="selectedPermanentOrder && selectedStudent">
     <div class="container mx-auto px-4 mt-8">
       <div class="flex justify-center">
-        <div class="w-11/12">
+        <div class="w-full xs-full sm:w-full md:w-11/12">
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div class="flex-1">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
               <!-- Other Settings Form Content -->
               <form #f1="ngForm" (ngSubmit)="f1.form.valid && editOrAddPermanentOrders(selectedPermanentOrder)" novalidate>
                 <div class="space-y-12">
@@ -125,7 +126,7 @@
                   </div>
                 </div>
               </form>
-            </div>
+          </div>
           </div>
         </div>
       </div>
