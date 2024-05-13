@@ -1,234 +1,237 @@
-<div class="container mx-auto px-4 mt-8 md:w-11/12" *ngIf="tenantModel && pageLoaded">
-  <div class="flex flex-col md:flex-row gap-4 ">
-    <div class="flex-1">
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <!-- Personal Information Form Content -->
-        <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
-          <div class="space-y-12">
-            <div class=" pb-12">
-              <h2 class="text-base font-semibold leading-7 text-gray-900">Persönliche Informationen</h2>
-              <p class="mt-1 text-sm leading-6 text-gray-600">Bestätigen Sie die Änderung anschließend mit "Ändern"</p>
-              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-3">
-                  <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Vorname</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #firstName="ngModel"
-                           [(ngModel)]="tenantModel.firstName"
-                           name="first-name"
-                           id="first-name"
-                           [class.text-red-900]="f1.submitted && firstName.invalid"
-                           [class.ring-red-300]="f1.submitted && firstName.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
-                           autocomplete="given-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+<ng-container *ngIf="tenantModel && pageLoaded">
+  <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12" >
+    <div class="flex flex-col md:flex-row gap-4 ">
+      <div class="flex-1">
+        <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
+          <!-- Personal Information Form Content -->
+          <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
+            <div class="space-y-12">
+              <div class=" pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Persönliche Informationen</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">Bestätigen Sie die Änderung anschließend mit "Ändern"</p>
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Vorname</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #firstName="ngModel"
+                             [(ngModel)]="tenantModel.firstName"
+                             name="first-name"
+                             id="first-name"
+                             [class.text-red-900]="f1.submitted && firstName.invalid"
+                             [class.ring-red-300]="f1.submitted && firstName.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+                             autocomplete="given-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && firstName.invalid " class="mt-2 text-sm text-red-600" id="firstName-error">Pflichtfeld</p>
                   </div>
-                  <p *ngIf="f1.submitted && firstName.invalid " class="mt-2 text-sm text-red-600" id="firstName-error">Pflichtfeld</p>
-                </div>
-                <div class="sm:col-span-3">
-                  <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Nachname</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #lastName="ngModel"
-                           [(ngModel)]="tenantModel.lastName"
-                           [class.text-red-900]="f1.submitted && lastName.invalid"
-                           [class.ring-red-300]="f1.submitted && lastName.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
-                           name="last-name"
-                           id="last-name"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <div class="sm:col-span-3">
+                    <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Nachname</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #lastName="ngModel"
+                             [(ngModel)]="tenantModel.lastName"
+                             [class.text-red-900]="f1.submitted && lastName.invalid"
+                             [class.ring-red-300]="f1.submitted && lastName.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
+                             name="last-name"
+                             id="last-name"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && lastName.invalid " class="mt-2 text-sm text-red-600" id="lastName-error">Pflichtfeld</p>
+
                   </div>
-                  <p *ngIf="f1.submitted && lastName.invalid " class="mt-2 text-sm text-red-600" id="lastName-error">Pflichtfeld</p>
+                  <div class="sm:col-span-3">
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #email="ngModel"
+                             [(ngModel)]="tenantModel.email"
+                             [class.text-red-900]="f1.submitted && email.invalid"
+                             [class.ring-red-300]="f1.submitted && email.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && email.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && email.invalid"
+                             name="email"
+                             id="email"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && email.invalid " class="mt-2 text-sm text-red-600" id="email-error">Pflichtfeld</p>
+
+
+                  </div>
+                  <div class="sm:col-span-3">
+                    <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Telefonnummer</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #phone="ngModel"
+                             [(ngModel)]="tenantModel.phone"
+                             [class.text-red-900]="f1.submitted && phone.invalid"
+                             [class.ring-red-300]="f1.submitted && phone.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && phone.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && phone.invalid"
+                             name="phone"
+                             id="phone"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && phone.invalid " class="mt-2 text-sm text-red-600" id="phone-error">Pflichtfeld</p>
+                  </div>
+                  <div class="col-span-full">
+                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresse mit Hausnummer</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #address="ngModel"
+                             [(ngModel)]="tenantModel.address"
+                             [class.text-red-900]="f1.submitted && address.invalid"
+                             [class.ring-red-300]="f1.submitted && address.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && address.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && address.invalid"
+                             name="address"
+                             id="address"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">Pflichtfeld</p>
+                  </div>
+
+                  <div class="sm:col-span-3 sm:col-start-1">
+                    <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">Postleitzahl</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #zip="ngModel"
+                             [(ngModel)]="tenantModel.zip"
+                             [class.text-red-900]="f1.submitted && zip.invalid"
+                             [class.ring-red-300]="f1.submitted && zip.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && zip.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && zip.invalid"
+                             name="zip"
+                             id="zip"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">Pflichtfeld</p>
+                  </div>
+                  <div class="sm:col-span-3 ">
+                    <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Stadt</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             required
+                             #city="ngModel"
+                             [(ngModel)]="tenantModel.city"
+                             [class.text-red-900]="f1.submitted && city.invalid"
+                             [class.ring-red-300]="f1.submitted && city.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && city.invalid"
+                             [class.focus:ring-red-500]="f1.submitted && city.invalid"
+                             name="city"
+                             id="city"
+                             autocomplete="family-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">Pflichtfeld</p>
+                  </div>
+                  <div class="col-span-full">
+                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">IBAN (Für Auszahlung benötigt)</label>
+                    <div class="mt-2">
+                      <input type="text"
+                             #address="ngModel"
+                             [(ngModel)]="tenantModel.iban"
+                             name="iban"
+                             id="iban"
+                             autocomplete="IBAN"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
 
                 </div>
-                <div class="sm:col-span-3">
-                  <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #email="ngModel"
-                           [(ngModel)]="tenantModel.email"
-                           [class.text-red-900]="f1.submitted && email.invalid"
-                           [class.ring-red-300]="f1.submitted && email.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && email.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && email.invalid"
-                           name="email"
-                           id="email"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                  <p *ngIf="f1.submitted && email.invalid " class="mt-2 text-sm text-red-600" id="email-error">Pflichtfeld</p>
-
-
-                </div>
-                <div class="sm:col-span-3">
-                  <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Telefonnummer</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #phone="ngModel"
-                           [(ngModel)]="tenantModel.phone"
-                           [class.text-red-900]="f1.submitted && phone.invalid"
-                           [class.ring-red-300]="f1.submitted && phone.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && phone.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && phone.invalid"
-                           name="phone"
-                           id="phone"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                  <p *ngIf="f1.submitted && phone.invalid " class="mt-2 text-sm text-red-600" id="phone-error">Pflichtfeld</p>
-                </div>
-                <div class="col-span-full">
-                  <label for="address" class="block text-sm font-medium leading-6 text-gray-900">Adresse mit Hausnummer</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #address="ngModel"
-                           [(ngModel)]="tenantModel.address"
-                           [class.text-red-900]="f1.submitted && address.invalid"
-                           [class.ring-red-300]="f1.submitted && address.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && address.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && address.invalid"
-                           name="address"
-                           id="address"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                  <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">Pflichtfeld</p>
-                </div>
-
-                <div class="sm:col-span-3 sm:col-start-1">
-                  <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">Postleitzahl</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #zip="ngModel"
-                           [(ngModel)]="tenantModel.zip"
-                           [class.text-red-900]="f1.submitted && zip.invalid"
-                           [class.ring-red-300]="f1.submitted && zip.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && zip.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && zip.invalid"
-                           name="zip"
-                           id="zip"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                  <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">Pflichtfeld</p>
-                </div>
-                <div class="sm:col-span-3 ">
-                  <label for="city" class="block text-sm font-medium leading-6 text-gray-900">Stadt</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           required
-                           #city="ngModel"
-                           [(ngModel)]="tenantModel.city"
-                           [class.text-red-900]="f1.submitted && city.invalid"
-                           [class.ring-red-300]="f1.submitted && city.invalid"
-                           [class.placeholder:text-red-300]="f1.submitted && city.invalid"
-                           [class.focus:ring-red-500]="f1.submitted && city.invalid"
-                           name="city"
-                           id="city"
-                           autocomplete="family-name"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                  <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">Pflichtfeld</p>
-                </div>
-                <div class="col-span-full">
-                  <label for="address" class="block text-sm font-medium leading-6 text-gray-900">IBAN (Für Auszahlung benötigt)</label>
-                  <div class="mt-2">
-                    <input type="text"
-                           #address="ngModel"
-                           [(ngModel)]="tenantModel.iban"
-                           name="iban"
-                           id="iban"
-                           autocomplete="IBAN"
-                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                  </div>
-                </div>
-
               </div>
             </div>
-          </div>
 
-          <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="submit"
-                    [disabled]="submittingRequest"
-                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              <div role="status" *ngIf="submittingRequest">
-                <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                </svg>
-                <span class="sr-only">Loading...</span>
-              </div>
-              Ändern</button>
-          </div>
-        </form>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+              <button type="submit"
+                      [disabled]="submittingRequest"
+                      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <div role="status" *ngIf="submittingRequest">
+                  <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                  </svg>
+                  <span class="sr-only">Loading...</span>
+                </div>
+                Ändern</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
 
-    <div class="flex-1">
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <!-- Other Settings Form Content -->
-        <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
-          <div class="space-y-12">
-            <div class="pb-12">
-              <h2 class="text-base font-semibold leading-7 text-gray-900">Sonstige Einstellungen</h2>
-              <p class="mt-1 text-sm leading-6 text-gray-600">Änderungen werden automatisch gespeichert</p>
-              <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
-              <fieldset class="mt-4">
-                <legend class="sr-only">Notifications</legend>
-                <div class="space-y-5">
-                  <div class="relative flex items-start">
-                    <div class="flex h-6 items-center">
-                      <input id="comments"
-                             [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
-                             (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
-                             aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+      <div class="flex-1">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <!-- Other Settings Form Content -->
+          <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
+            <div class="space-y-12">
+              <div class="pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Sonstige Einstellungen</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">Änderungen werden automatisch gespeichert</p>
+                <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
+                <fieldset class="mt-4">
+                  <legend class="sr-only">Notifications</legend>
+                  <div class="space-y-5">
+                    <div class="relative flex items-start">
+                      <div class="flex h-6 items-center">
+                        <input id="comments"
+                               [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
+                               (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
+                               aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="ml-3 text-sm leading-6">
+                        <label for="comments" class="font-medium text-gray-900">Bestellbestätigung</label>
+                        <p id="comments-description" class="text-gray-500">Erhalten Sie eine Bestätigung per Email bei Bestellungen und Abbestellungen</p>
+                      </div>
                     </div>
-                    <div class="ml-3 text-sm leading-6">
-                      <label for="comments" class="font-medium text-gray-900">Bestellbestätigung</label>
-                      <p id="comments-description" class="text-gray-500">Erhalten Sie eine Bestätigung per Email bei Bestellungen und Abbestellungen</p>
+                    <div class="relative flex items-start">
+                      <div class="flex h-6 items-center">
+                        <input id="candidates"
+                               [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
+                               (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
+                               aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="ml-3 text-sm leading-6">
+                        <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
+                        <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt</p>
+                      </div>
                     </div>
+                    <!--                    <div class="relative flex items-start">-->
+                    <!--                      <div class="flex h-6 items-center">-->
+                    <!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
+                    <!--                      </div>-->
+                    <!--                      <div class="ml-3 text-sm leading-6">-->
+                    <!--                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>-->
+                    <!--                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
                   </div>
-                  <div class="relative flex items-start">
-                    <div class="flex h-6 items-center">
-                      <input id="candidates"
-                             [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
-                             (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
-                             aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    </div>
-                    <div class="ml-3 text-sm leading-6">
-                      <label for="candidates" class="font-medium text-gray-900">Erinnerung Guthaben</label>
-                      <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt</p>
-                    </div>
-                  </div>
-                  <!--                    <div class="relative flex items-start">-->
-                  <!--                      <div class="flex h-6 items-center">-->
-                  <!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
-                  <!--                      </div>-->
-                  <!--                      <div class="ml-3 text-sm leading-6">-->
-                  <!--                        <label for="offers" class="font-medium text-gray-900">Emails Einrichtung</label>-->
-                  <!--                        <p id="offers-description" class="text-gray-500">Erhalten Sie Informationen und Änderungen von Ihrer Einrichtung</p>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                </div>
-              </fieldset>
-              <!--              </div>-->
+                </fieldset>
+                <!--              </div>-->
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+</ng-container>
 
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
 
