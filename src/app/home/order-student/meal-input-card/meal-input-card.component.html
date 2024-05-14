@@ -7,9 +7,11 @@
           <div class="flex flex-col items-end">
             <p >{{ orderDay.date | date:'EEEE dd.MM.yy':'de' }}</p>
             <div class="text-xs text-gray-500">
-              <span *ngIf="differenceTimeDeadline !== 'Bestellfrist ist abgelaufen!'">Bestellfrist endet:</span>
+
               <span *ngIf="typeDisplayOrder === 'week'"> {{ differenceTimeDeadline }}</span>
-              <span *ngIf="typeDisplayOrder === 'day'"> {{ differenceTimeDeadlineDay }}</span>
+              <span *ngIf="typeDisplayOrder === 'day'">
+                 <span *ngIf="differenceTimeDeadline !== 'Bestellfrist ist abgelaufen!'">Bestellfrist endet:</span>
+                {{ differenceTimeDeadlineDay }}</span>
             </div>
 
           </div>
