@@ -30,7 +30,7 @@ export class SettingsComponent implements OnInit{
           sendReminderBalance: false,
           amountBalance:0,
           permanentOrder:false,
-          displayTypeOrder:'week'
+          displayTypeOrderWeek:false
         }
       }
       this.pageLoaded = true;
@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit{
       })
     })
   }
-  editTenantOrderSettings(boolean:boolean,type:('orderConfirmationEmail' | 'sendReminderBalance')){
+  editTenantOrderSettings(boolean:boolean,type:('orderConfirmationEmail' | 'sendReminderBalance' | 'displayTypeOrderWeek' )){
     this.tenantModel.orderSettings[type] = boolean;
     this.tenantService.editParentTenant(this.tenantModel).subscribe((response)=>{
       this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {

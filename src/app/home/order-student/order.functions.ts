@@ -120,9 +120,9 @@ export function getTotalPriceSafe (orderStudent:OrderInterfaceStudentSave) {
   return totalPrice;
 }
 
-export function getDisplayOrderType(tenantStudent:TenantStudentInterface,type:string):string{
- if(tenantStudent.orderSettings.displayTypeOrder === 'week'){
-    return 'week'
+export function getDisplayOrderType(tenantStudent:TenantStudentInterface,type:boolean):boolean{
+ if(tenantStudent.orderSettings.displayTypeOrderWeek){
+    return true
  }
   return type;
 }

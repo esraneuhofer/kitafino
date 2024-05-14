@@ -47,7 +47,7 @@ export class RegisterTenantComponent implements OnInit {
       sendReminderBalance:false,
       amountBalance:0,
       permanentOrder:false,
-      displayTypeOrder:'week'
+      displayTypeOrderWeek:false
     }
   }
 

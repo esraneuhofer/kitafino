@@ -14,7 +14,7 @@ export interface TenantStudentInterface {
   zip: string;
   orderSettings:{
     orderConfirmationEmail:boolean;
-    displayTypeOrder:'week'
+    displayTypeOrderWeek:boolean
     sendReminderBalance:boolean;
     amountBalance:number;
     permanentOrder:boolean;

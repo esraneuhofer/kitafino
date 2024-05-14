@@ -18,6 +18,7 @@ var tenantparent = new Schema({
   username:String,
   orderSettings:{
     orderConfirmationEmail:Boolean,
+    displayTypeOrderWeek:Boolean,
     sendReminderBalance:Boolean,
     amountBalance:Number,
     permanentOrder:Boolean,

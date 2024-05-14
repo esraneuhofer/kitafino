@@ -211,6 +211,18 @@
                         <p id="candidates-description" class="text-gray-500">Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt</p>
                       </div>
                     </div>
+                    <div class="relative flex items-start">
+                      <div class="flex h-6 items-center">
+                        <input id="displayOrder"
+                               [(ngModel)]="tenantModel.orderSettings.displayTypeOrderWeek"
+                               (ngModelChange)="editTenantOrderSettings($event,'displayTypeOrderWeek')"
+                               aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                      </div>
+                      <div class="ml-3 text-sm leading-6">
+                        <label for="displayOrder" class="font-medium text-gray-900">Darstellung gesamte Woche</label>
+                        <p  class="text-gray-500">Wenn aktiviert wird die geasmte Woche in der App Ansicht dargestellt</p>
+                      </div>
+                    </div>
                     <!--                    <div class="relative flex items-start">-->
                     <!--                      <div class="flex h-6 items-center">-->
                     <!--                        <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->

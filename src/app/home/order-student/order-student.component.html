@@ -2,7 +2,7 @@
   <ng-container *ngIf="showErrorNoStudents">
     <app-banner-no-registration-order></app-banner-no-registration-order>
   </ng-container>
-  <ng-container *ngIf="!showErrorNoStudents && displayOrderType === 'week'">
+  <ng-container *ngIf="!showErrorNoStudents && displayOrderTypeWeek">
     <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4  top-0 z-50 mb-1 mt-2">
       <div class="flex justify-center">
         <div class="w-100">
@@ -62,7 +62,7 @@
       </ng-container>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="!showErrorNoStudents && displayOrderType === 'day'">
+  <ng-container *ngIf="!showErrorNoStudents && !displayOrderTypeWeek">
     <div class="container px-4  top-0 z-50 mb-1 mt-2">
       <div class="flex justify-center">
         <div class="w-100">

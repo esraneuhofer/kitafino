@@ -41,7 +41,7 @@ const textBanner = "Um eine Bestellung einzutrgen muss zuerst ein Verpflegungste
 })
 export class OrderStudentComponent implements OnInit {
 
-  displayOrderType: string = 'week';
+  displayOrderTypeWeek: boolean =true
   indexDay:number = 0;
   initStudent: boolean = false;
   mainDataLoaded: boolean = false;
@@ -74,8 +74,6 @@ export class OrderStudentComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
-    console.log(this.displayMinimize)
-
   }
 
   goToChargeMoney() {
@@ -95,7 +93,7 @@ export class OrderStudentComponent implements OnInit {
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
     if(this.displayMinimize){
-      this.displayOrderType = 'day';
+      this.displayOrderTypeWeek = false;
     }
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
@@ -155,7 +153,7 @@ export class OrderStudentComponent implements OnInit {
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, this.weekplanGroups, settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
-        this.displayOrderType = getDisplayOrderType(tenantStudent,this.displayOrderType)
+        this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
         this.allVacations = vacations;
         this.mainDataLoaded = true;
         this.setFirstInit(weekplan)
@@ -246,7 +244,7 @@ export class OrderStudentComponent implements OnInit {
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
     if(this.checkForErrors(this.selectedStudent,this.querySelection))return;
-    if(this.displayOrderType === 'week'){
+    if(this.displayOrderTypeWeek){
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     }else{
       this.changeDateDay(new Date())
