@@ -17,6 +17,7 @@ export function getLockDays(date:string, allVacations:VacationsInterface[], stat
   return lockDay;
 }
 
+
 export function isVacation(inputDate:Date,vacationArray:VacationsInterface[]){
   if(!vacationArray)return;
   let dateToCompare = setDateToCompare(inputDate);
@@ -70,7 +71,17 @@ export function checkDayWeekend(day:string):boolean{
   }
   return false;
 }
+export function getCustomDayIndex(date: Date): number {
+  // Get the standard day index (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+  const standardDayIndex = date.getDay();
 
+  // Map standard day index to custom day index
+  // Standard: 0 (Sunday), 1 (Monday), 2 (Tuesday), 3 (Wednesday), 4 (Thursday), 5 (Friday), 6 (Saturday)
+  // Custom:   0 (Monday), 1 (Tuesday), 2 (Wednesday), 3 (Thursday), 4 (Friday), 5 (Saturday), 6 (Sunday)
+  const customDayIndex = (standardDayIndex + 6) % 7;
+
+  return customDayIndex;
+}
 
 export function getFormattedDate(date:Date) {
   let result = new Date(date);

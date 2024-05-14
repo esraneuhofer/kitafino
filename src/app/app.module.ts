@@ -62,6 +62,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
 import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
+import { DateSelectionSingleComponent } from './home/order-student/date-selection-single/date-selection-single.component';
 
 registerLocaleData(localeDe);
 
@@ -108,6 +109,7 @@ registerLocaleData(localeDe);
     PermanentOrdersComponent,
     SuccessStripeComponent,
     NotSuccessStripeComponent,
+    DateSelectionSingleComponent,
   ],
   imports: [
     BrowserModule,

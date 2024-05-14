@@ -6,7 +6,7 @@ import localeDe from '@angular/common/locales/de';
 import {registerLocaleData} from "@angular/common";
 import {modifyOrderModelForSave, orderIsEmpty, orderIsNegative} from "../../../functions/order.functions";
 import {OrderService} from "../../../service/order.service";
-import {timeDifference} from "../order.functions";
+import {timeDifference, timeDifferenceDay} from "../order.functions";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmOrderComponent} from "../../dialogs/confirm-order/confirm-order.component";
 import {getEmailBody} from "../email-order.function";
@@ -103,9 +103,11 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() weekplanDay!: WeekplanDayInterface
   @Input() selectedStudent!: StudentInterface
   @Input() displayMinimize: boolean = false;
+  @Input() typeDisplayOrder: string = 'week';
   submittingOrder: boolean = false;
 
   differenceTimeDeadline: string = '';
+  differenceTimeDeadlineDay: string = '';
   timerInterval: any;
 
   pastOrder: boolean = false;
@@ -344,15 +346,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   checkDeadline(day: Date): void {
     const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
+    const distanceDay = timeDifferenceDay(this.settings.orderSettings.deadLineDaily, day);
     if (!distance) {
       // this.pastOrder = true;
       this.pastOrder = true;
       this.differenceTimeDeadline = 'Bestellfrist ist abgelaufen!';
+      this.differenceTimeDeadlineDay = 'Bestellfrist ist abgelaufen!';
       clearInterval(this.timerInterval);
     } else {
       clearInterval(this.timerInterval);
       this.pastOrder = false;
       this.differenceTimeDeadline = distance;
+      if(!distanceDay) return
+      this.differenceTimeDeadlineDay = distanceDay;
       this.timerInterval = setInterval(() => {
         this.checkDeadline(day);
       }, 1000);

@@ -29,7 +29,8 @@ export class SettingsComponent implements OnInit{
           orderConfirmationEmail: false,
           sendReminderBalance: false,
           amountBalance:0,
-          permanentOrder:false
+          permanentOrder:false,
+          displayTypeOrder:'week'
         }
       }
       this.pageLoaded = true;

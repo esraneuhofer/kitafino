@@ -14,6 +14,7 @@ import {
 } from "../classes/order_student.class";
 import * as moment from 'moment-timezone';
 import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
+import {TenantStudentInterface} from "../classes/tenant.class";
 
 function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
@@ -32,6 +33,8 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          indexDaySelected:number,
                          dateChange:string,
                          query:{week:number, year:number}):OrderInterfaceStudent{
+  console.log(weekplanSelectedWeek.weekplan[indexDaySelected])
+  console.log(indexDaySelected)
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange));
   if (orderStudent) {
     orderNew._id = orderStudent._id;
@@ -121,6 +124,22 @@ export function getDateMondayFromCalenderweek(dateQuery: { week: number, year: n
   return ISOweekStart;
 }
 
+export function formatDateToISO(date: Date): string {
+  const pad = (num: number) => num < 10 ? '0' + num : num;
+
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1); // Months are 0-based in JavaScript
+  const day = pad(date.getDate());
+  const hours = pad(0); // Always set to 00
+  const minutes = pad(0); // Always set to 00
+  const seconds = pad(0); // Always set to 00
+
+  // Create the formatted date string in ISO format with timezone offset +02:00
+  const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+02:00`;
+
+  return formattedDate;
+}
+
 
 export function orderIsEmpty(order: OrderInterfaceStudent): boolean {
   let boolean = true;
@@ -173,3 +192,5 @@ export function sortOrdersByDate(orders:DisplayOrderArrayIntrface[]) {
     return dateA - dateB;
   });
 }
+
+

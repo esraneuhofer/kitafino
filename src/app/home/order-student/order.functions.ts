@@ -2,6 +2,7 @@ import * as moment from 'moment-timezone';
 import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
+import {TenantStudentInterface} from "../../classes/tenant.class";
 
 
 export interface OrderSettingsDeadLineDailyInterface{
@@ -41,6 +42,36 @@ export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface
 
   // return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
   return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
+}
+
+export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):(string | null) {
+  let dayOrder = new Date(dateInputCompare);
+  const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
+  const dateObj = moment(deadLineDaily.time).toDate();
+  const hours_:any = dateObj.getHours();
+  const minutes_:any = dateObj.getMinutes();
+
+  daysSub.setHours(hours_)
+  daysSub.setMinutes(minutes_)
+  daysSub.setSeconds(0)
+  let difference = daysSub.getTime()- new Date().getTime() ;  // to ensure we get a positive difference
+
+  if(difference < 0){
+    return null
+  }
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  difference %= (1000 * 60 * 60 * 24);  // subtract the days
+
+  const hours = Math.floor(difference / (1000 * 60 * 60));
+  difference %= (1000 * 60 * 60);  // subtract the hours
+
+  const minutes = Math.floor(difference / (1000 * 60));
+  difference %= (1000 * 60);  // subtract the minutes
+
+  const seconds = Math.floor(difference / 1000);
+
+  return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
+  // return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
 export function addDayFromDate(date:Date, daysToAdd:number) {
@@ -87,4 +118,11 @@ export function getTotalPriceSafe (orderStudent:OrderInterfaceStudentSave) {
     totalPrice += order.amountSpecialFood * order.priceOrder;
   })
   return totalPrice;
+}
+
+export function getDisplayOrderType(tenantStudent:TenantStudentInterface,type:string):string{
+ if(tenantStudent.orderSettings.displayTypeOrder === 'week'){
+    return 'week'
+ }
+  return type;
 }

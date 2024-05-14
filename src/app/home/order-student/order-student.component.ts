@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {addDayFromDate, getSplit, getWeekNumber} from "./order.functions";
+import {addDayFromDate, getDisplayOrderType, getSplit, getWeekNumber} from "./order.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
 import {defaultIfEmpty, forkJoin} from "rxjs";
@@ -24,8 +24,8 @@ import {
 } from "../../classes/assignedWeekplan.class";
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
-import {getDateMondayFromCalenderweek} from "../../functions/order.functions";
-import {getLockDays} from "../../functions/date.functions";
+import {formatDateToISO, getDateMondayFromCalenderweek} from "../../functions/order.functions";
+import {checkDayWeekend, getCustomDayIndex, getLockDays} from "../../functions/date.functions";
 import * as moment from "moment-timezone";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-container/order-container.component";
@@ -41,9 +41,9 @@ const textBanner = "Um eine Bestellung einzutrgen muss zuerst ein Verpflegungste
 })
 export class OrderStudentComponent implements OnInit {
 
-  initDate: boolean = false;
+  displayOrderType: string = 'week';
+  indexDay:number = 0;
   initStudent: boolean = false;
-
   mainDataLoaded: boolean = false;
   textBanner = textBanner;
   pageLoaded: boolean = false;
@@ -74,6 +74,8 @@ export class OrderStudentComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
+    console.log(this.displayMinimize)
+
   }
 
   goToChargeMoney() {
@@ -90,14 +92,11 @@ export class OrderStudentComponent implements OnInit {
               private r: ActivatedRoute) {
   }
 
-  orderPlaced() {
-    this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
-      this.accountTenant = accountTenant;
-    })
-  }
-
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
+    if(this.displayMinimize){
+      this.displayOrderType = 'day';
+    }
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     forkJoin([
       this.generellService.getSettingsCaterer(),
@@ -156,6 +155,7 @@ export class OrderStudentComponent implements OnInit {
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, this.weekplanGroups, settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
+        this.displayOrderType = getDisplayOrderType(tenantStudent,this.displayOrderType)
         this.allVacations = vacations;
         this.mainDataLoaded = true;
         this.setFirstInit(weekplan)
@@ -168,12 +168,40 @@ export class OrderStudentComponent implements OnInit {
     );
   }
   changeDate(queryDate: QueryInterOrderInterface): void {
-    if(!this.initDate){
-      this.initDate = true;
-      return;
-    }
     this.querySelection = {...queryDate};
     this.getDataWeek()
+  }
+  changeDateDay(queryDate: any): void {
+
+    this.orderWeek = [];
+    this.pageLoaded = false;
+    const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
+    let dateToSearch = moment.tz(formatDateToISO(queryDate), 'Europe/Berlin').format()
+    if(!this.selectedStudent || !this.selectedStudent._id ){
+      this.pageLoaded = true;
+      return;
+    }
+    if(checkDayWeekend(dateToSearch)){
+      this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden')
+      this.pageLoaded = true;
+      return;
+    }
+    this.indexDay = getCustomDayIndex(new Date(queryDate));
+      forkJoin([
+      this.accountService.getAccountTenant(),
+      this.generellService.getWeekplanWeek(this.querySelection),
+      this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id})
+    ]).subscribe(([accountTenant, weekplan,orderStudent]: [AccountCustomerInterface, WeekplanMenuInterface,(OrderInterfaceStudentSave | null)]) => {
+      this.accountTenant = accountTenant;
+      ///Sets the Weekplan from Catering Company with Menus and Allergenes
+      this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
+      ///Sets the Lockdays Array, Vacation Customer or State Holiday
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+
+      if (!this.selectedStudent) return;
+      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays))
+        this.pageLoaded = true
+    })
   }
 
   getOrderDay(queryDate: QueryInterOrderInterface, selectedStudent: StudentInterface | null): void {
@@ -217,9 +245,13 @@ export class OrderStudentComponent implements OnInit {
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
-    console.log(this.selectedStudent)
     if(this.checkForErrors(this.selectedStudent,this.querySelection))return;
-    this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
+    if(this.displayOrderType === 'week'){
+      this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
+    }else{
+      this.changeDateDay(new Date())
+    }
+
   }
 
    getDataWeek() {
@@ -246,6 +278,7 @@ export class OrderStudentComponent implements OnInit {
     let promiseOrderWeek = [];
     for (let i = 0; i < 5; i++) {
       let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
+      console.log(dateToSearch)
       if (!this.selectedStudent) return;
       promiseOrderWeek.push(this.orderService.getOrderStudentDay({
         dateOrder: dateToSearch,
