@@ -39,6 +39,10 @@ export class DateSelectionSingleComponent implements OnInit {
   onDateChange(event: any) {
     this.selectedDate = new Date(event.target.value);
     this.getOrderDay.emit(this.selectedDate)
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement) {
+      inputElement.blur();
+    }
   }
 
   // Utility method to format Date to YYYY-MM-DD string
