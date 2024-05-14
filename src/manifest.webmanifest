@@ -1,11 +1,19 @@
 {
   "name": "Cateringexpert",
   "short_name": "Cateringexpert",
+  "description": "Eine App für das tägliches bestellen von Mittagessen für Kitas und Schulen",
+    "id": "cateringexpert.software.solutions.app",
  "theme_color": "#ffffff",
    "background_color": "#ffffff",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
+  "dir": "ltr",
+      "lang": "de",
+      "categories": ["business", "productivity", "utilities"],
+      "iarc_rating_id": "e10+",
+      "prefer_related_applications": false,
   "screenshots":[
    {
            "src": "assets/screenshots/screenshot_login.png",
@@ -66,7 +74,11 @@
       "src": "assets/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }
+    },
+    "related_applications": [],
+      "launch_handler": {
+        "client_mode": "navigate-new"
+      }
   ]
 
 }
