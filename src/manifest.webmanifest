@@ -1,38 +1,38 @@
 {
   "name": "Cateringexpert",
   "short_name": "Cateringexpert",
-  "description": "Eine App für das tägliches bestellen von Mittagessen für Kitas und Schulen",
-    "id": "cateringexpert.software.solutions.app",
- "theme_color": "#ffffff",
-   "background_color": "#ffffff",
+  "description": "Eine umfassende Lösung zur Bestellung von Essen für Kindergärten und Schulen.",
+  "id": "com.cateringexpert.app",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "dir": "ltr",
-      "lang": "de",
-      "categories": ["business", "productivity", "utilities"],
-      "iarc_rating_id": "e10+",
-      "prefer_related_applications": false,
-  "screenshots":[
-   {
-           "src": "assets/screenshots/screenshot_login.png",
-           "sizes": "499x605",
-           "type": "image/png",
-           "platform": "narrow"
-         },
-      {
-        "src": "assets/screenshots/screenshot_bestellung.png",
-        "sizes": "499x950",
-        "type": "image/png",
-        "platform": "narrow"
-      },
-       {
-              "src": "assets/screenshots/login_desktop.png",
-              "sizes": "1622x950",
-              "type": "image/png",
-              "platform": "wide"
-            }
+  "lang": "de",
+  "categories": ["business", "productivity", "utilities"],
+  "iarc_rating_id": "e10+",
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "assets/screenshots/screenshot_login.png",
+      "sizes": "499x605",
+      "type": "image/png",
+      "platform": "narrow"
+    },
+    {
+      "src": "assets/screenshots/screenshot_bestellung.png",
+      "sizes": "499x950",
+      "type": "image/png",
+      "platform": "narrow"
+    },
+    {
+      "src": "assets/screenshots/login_desktop.png",
+      "sizes": "1622x950",
+      "type": "image/png",
+      "platform": "wide"
+    }
   ],
   "icons": [
     {
@@ -74,11 +74,10 @@
       "src": "assets/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    "related_applications": [],
-      "launch_handler": {
-        "client_mode": "navigate-new"
-      }
-  ]
-
+    }
+  ],
+  "related_applications": [],
+  "launch_handler": {
+    "client_mode": "navigate-new"
+  }
 }

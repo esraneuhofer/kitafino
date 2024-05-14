@@ -25,6 +25,32 @@
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
+    },
+    {
+      "name": "external-resources",
+      "installMode": "lazy",
+      "updateMode": "lazy",
+      "resources": {
+        "urls": [
+          "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "https://rsms.me/inter/inter.css",
+          "https://www.paypal.com/sdk/js?client-id=*&currency=EUR&components=buttons,marks"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-calls",
+      "urls": [
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "1d",
+        "timeout": "10s"
+      }
     }
   ]
 }
