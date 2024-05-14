@@ -1,0 +1,43 @@
+<div class="container mx-auto px-4 mt-2">
+  <div class="flex justify-center">
+    <div class="w-full"> <!-- Container for the selects, ensuring full width -->
+      <div class="bg-white shadow-md rounded px-8  ">
+        <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
+          <!-- Kalenderwoche Select Input Container -->
+          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+<!--            <label *ngIf="!minWidth" class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">Datum</label>-->
+            <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">Datum</label>
+
+            <input
+              (change)="onDateChange($event)"
+              [ngModel]="getSelectedDateString()"
+              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              id="selectedDate"
+              name="selectedDate"
+              type="date"
+              required
+            />
+          </div>
+          <!-- Jahr Select Input Container -->
+
+          <!-- Verpflegungsteilnehmer Select Input Container -->
+          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0" *ngIf="registeredStudents.length > 1"> <!-- Adjusted for responsive width and padding -->
+<!--            <label *ngIf="!minWidth"  class="block text-sm font-medium leading-6 text-gray-900" for="selectedStudentModel">Verpflegungsteilnehmer</label>-->
+            <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedStudentModel">Verpflegungsteilnehmer</label>
+
+            <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
+                    [(ngModel)]="selectedStudent"
+                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="selectedStudentModel"
+                    name="selectedStudentModel"
+                    required>
+              <option [value]="null" disabled hidden selected>Bitte auswählen</option>
+              <option *ngFor="let student of registeredStudents" [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
