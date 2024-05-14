@@ -41,6 +41,7 @@ const textBanner = "Um eine Bestellung einzutrgen muss zuerst ein Verpflegungste
 })
 export class OrderStudentComponent implements OnInit {
 
+  isWeekend: boolean = false;
   displayOrderTypeWeek: boolean =true
   indexDay:number = 0;
   initStudent: boolean = false;
@@ -50,6 +51,7 @@ export class OrderStudentComponent implements OnInit {
   studentNoSubgroup: boolean = false;
   lockDays: boolean[] = [];
   displayMinimize: boolean = false;
+  selectedDay: Date = new Date();
 
   showErrorNoStudents: boolean = false; // Show if no Students is registered yet
   registeredStudents: StudentInterface[] = [];
@@ -169,17 +171,19 @@ export class OrderStudentComponent implements OnInit {
     this.querySelection = {...queryDate};
     this.getDataWeek()
   }
-  changeDateDay(queryDate: any): void {
+  changeDateDay(queryDate: Date): void {
+    this.selectedDay = queryDate;
 
     this.orderWeek = [];
     this.pageLoaded = false;
-    const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
+    const dateMonday = getDateMondayFromCalenderweek({week:getWeekNumber(queryDate),year:new Date(queryDate).getFullYear()});
     let dateToSearch = moment.tz(formatDateToISO(queryDate), 'Europe/Berlin').format()
     if(!this.selectedStudent || !this.selectedStudent._id ){
       this.pageLoaded = true;
       return;
     }
-    if(checkDayWeekend(dateToSearch)){
+    this.isWeekend = checkDayWeekend(dateToSearch)
+    if(this.isWeekend){
       this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden')
       this.pageLoaded = true;
       return;
