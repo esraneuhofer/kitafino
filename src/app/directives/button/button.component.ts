@@ -31,6 +31,8 @@ export class ButtonComponent implements OnInit{
     if(this.mr){
       this.buttonClass += ' mr-2'
     }
-    this.buttonClass += this.additionalClass
+    if (this.additionalClass) {
+      this.buttonClass += ` ${this.additionalClass}`;
+    }
   }
 }

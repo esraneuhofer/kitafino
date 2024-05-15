@@ -17,3 +17,12 @@ a:hover {
 .invalid-input:focus {
   box-shadow: 0 0 0 3px #bfdbfe !important; /* focus:ring-red-500 */
 }
+@media (max-width: 640px) {
+  .remove-class-xs-sm {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}

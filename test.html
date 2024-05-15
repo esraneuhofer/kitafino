@@ -1,1 +1,216 @@
-http://localhost:3002/api/payment-success/cs_test_a1Qlpe28o1gJATfgzhKL6pbyXzyfB0WnR1w61kLR2AhnmjAdc16dk0FQUO
+<ng-container *ngIf="pageLoaded && customerInfo">
+  <div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+          <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap">
+              <div class="sm:flex-auto">
+                <h1 class="text-base font-semibold leading-6 text-gray-900">Verpflegungsteilnehmer</h1>
+                <p class="mt-2 text-sm text-gray-700">Alle angemeldeten Verpflegungsteilnehmer</p>
+              </div>
+              <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none hidden sm:block">
+                <button type="button"
+                        (click)="routeToAccount()"
+                        class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Weiteren Verpflegunsteilnehmer/in anmelden
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-8 flow-root">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full align-middle xs:px-0 sm:px-6 lg:px-8">
+                  <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                    <tr>
+                      <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
+                      <th *ngIf="customerInfo.order.split.length > 1" scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Gruppe</th>
+                      <th *ngIf="specialFoodSelection.length > 0" scope="col" class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Allergiker Essen</th>
+                      <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                        <span class="sr-only">Edit</span>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                    <tr *ngFor="let student of registeredStudents">
+                      <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
+                      <td *ngIf="customerInfo.order.split.length > 1" class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup, customerInfo)}}</td>
+                      <td *ngIf="specialFoodSelection.length > 0" class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <span *ngIf="student.specialFood">
+                          {{getSpecialFoodFromId(student.specialFood, settings)}}
+                        </span>
+                      </td>
+                      <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                        <a class="text-indigo-600 hover:text-indigo-900 cursor-pointer" (click)="selectStudent(student)">Bearbeiten</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Knopf für kleine Bildschirme -->
+            <div class="mt-4 sm:hidden">
+              <button type="button"
+                      (click)="routeToAccount()"
+                      class="block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Weiteren Verpflegunsteilnehmer/in anmelden
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+<ng-container *ngIf="selectedStudent && pageLoaded && customerInfo">
+  <div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+          <div class="flex flex-wrap xs:mb-2 sm:mb-2 mb-4">
+            <div class="sm:flex-auto">
+              <h1 class="text-base font-semibold leading-6 text-gray-900">Verpflegungsteilnehmer bearbeiten</h1>
+              <!--        <p class="mt-2 text-sm text-gray-700">Änderung mit "Ändern" bestätigen</p>-->
+            </div>
+          </div>
+          <form #f1="ngForm" (ngSubmit)="f1.form.valid && editStudent(selectedStudent)" novalidate>
+            <div class="space-y-12">
+              <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+                <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+                  <div class="sm:col-span-4">
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Vorname</label>
+                    <div class="mt-2">
+                      <input #firstName="ngModel"
+                             [(ngModel)]="selectedStudent.firstName"
+                             [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
+                             [class.ring-red-300]="f1.submitted && firstName.invalid"
+                             [class.text-red-900]="f1.submitted && firstName.invalid"
+                             autocomplete="given-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                             id="firstName"
+                             name="firstName"
+                             required
+                             type="text">
+                    </div>
+                    <p *ngIf="f1.submitted && firstName.invalid " class="m-1 text-sm text-red-600">Pflichtfeld</p>
+                  </div>
+                  <div class="sm:col-span-4">
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="lastName">Nachname</label>
+                    <div class="mt-2">
+                      <input #lastName="ngModel"
+                             [(ngModel)]="selectedStudent.lastName"
+                             [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
+                             [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
+                             [class.ring-red-300]="f1.submitted && lastName.invalid"
+                             [class.text-red-900]="f1.submitted && lastName.invalid"
+                             autocomplete="given-name"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                             id="lastName"
+                             name="lastName"
+                             required
+                             type="text">
+                    </div>
+                    <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
+                  </div>
+                  <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                    <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Allergiker
+                      Essen</label>
+                    <select #subgroupModel="ngModel" (ngModelChange)="selectSpecialFood($event,selectedStudent)"
+                            [(ngModel)]="selectedStudent.specialFood"
+                            [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
+                            [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
+                            [class.ring-red-300]="f1.submitted && subgroupModel.invalid"
+                            [class.text-red-900]="f1.submitted && subgroupModel.invalid"
+                            class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            id="subgroup"
+                            name="subgroupModel">
+                      <option disabled hidden selected value="">Bitte auswählen</option>
+                      <option
+                        *ngFor="let specialFood of specialFoodSelection"
+                        [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
+                    </select>
+                    <button
+                      (click)="setSpecialFoodEmpty(selectedStudent)"
+                      *ngIf="selectedStudent.specialFood"
+                      class="mt-1 rounded-md bg-rose-400	 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500	 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      type="button">
+                      Sonderessen abwählen
+                    </button>
+                  </div>
+                  <!--            <div class="sm:col-span-4">-->
+                  <!--              <label for="subgroup" class="block text-sm font-medium leading-6 text-gray-900">Gruppe zuordnen</label>-->
+                  <!--              <select id="subgroup" name="subgroupModel"-->
+                  <!--                      #subgroupModel="ngModel"-->
+                  <!--                      [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"-->
+                  <!--                      [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"-->
+                  <!--                      [class.ring-red-300]="f1.submitted && subgroupModel.invalid"-->
+                  <!--                      [class.text-red-900]="f1.submitted && subgroupModel.invalid"-->
+                  <!--                      [required]="!subGroupUnknownModel"-->
+                  <!--                      [(ngModel)]="selectedSubgroup"-->
+                  <!--                      (ngModelChange)="isSelected($event)"-->
+                  <!--                      class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+                  <!--                <option value="" disabled selected hidden>Bitte auswählen</option>-->
+                  <!--                <option-->
+                  <!--                  *ngFor="let subgroup of customerInfo.order.split" [value]="subgroup.group">{{subgroup.displayGroup}}</option>-->
+                  <!--              </select>-->
+                  <!--              <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte auswählen oder ankreuzen</p>-->
+
+                  <!--            </div>-->
+                </div>
+                <div>
+                  <h2 class="text-base font-semibold leading-7 text-gray-900">Änderung</h2>
+                  <p class="mt-1 text-sm leading-6 text-gray-600">Um den Vor - oder Nachnamen des Verpflegungsteilnehmers zu ändern, trgen Sie die gewüscnhte Änderung ein
+                    und gehen Sie anschließend auf "Ändern". </p>
+
+                  <h2 *ngIf="specialFoodSelection.length > 0" class="text-base font-semibold leading-7 text-gray-900 mt-3">Allergiker Essen</h2>
+                  <p *ngIf="specialFoodSelection.length > 0" class=" text-sm leading-6 text-gray-600">
+                    Sollte der Verpflegungs-Teilnehmer Allergien haben, so wählen Sie bitte das entsprechende Essen
+                    aus.
+                    Dei Allergiker Essen werden von dem jeweiligen Caterer eingestellt. Sollte Sie Fragen hierzu
+                    haben wenden
+                    Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird dieses
+                    automatisch bei all Ihren Bestellungen dem Caterer übermittelt.
+                    <br> <br><b>Bitte beachten Sie: </b> Sollte das Allergiker Essen nachträglich geändert werden, so
+                    wird diese Änderung bei bereits abgegebene Bestellungen nicht berücksichtigt.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+              <app-button [typeButton]="'button'">  Zurück</app-button>
+              <app-button [submittingRequest]="submittingRequest">  Ändern</app-button>
+              <!--        <button-->
+              <!--          [disabled]="submittingRequest"-->
+              <!--          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"-->
+              <!--          type="submit">-->
+              <!--          Ändern-->
+              <!--          <div *ngIf="submittingRequest" role="status">-->
+              <!--            <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"-->
+              <!--                 fill="none" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg">-->
+              <!--              <path-->
+              <!--                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"-->
+              <!--                fill="currentColor"/>-->
+              <!--              <path-->
+              <!--                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"-->
+              <!--                fill="currentFill"/>-->
+              <!--            </svg>-->
+              <!--            <span class="sr-only">Loading...</span>-->
+              <!--          </div>-->
+              <!--        </button>-->
+              <!--                    <button type="button" (click)="show()"></button>-->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

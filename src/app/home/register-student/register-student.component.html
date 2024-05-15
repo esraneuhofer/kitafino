@@ -7,7 +7,8 @@
           <!-- Front of the card -->
           <div class="card-face front">
             <!-- Your existing form -->
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+              <div class="px-4 sm:px-6 lg:px-8">
               <form #f1="ngForm" (ngSubmit)="f1.form.valid && addStudent(f1)" novalidate>
                 <div class="space-y-12">
                   <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
@@ -161,12 +162,14 @@
                   <!--                    <button type="button" (click)="show()"></button>-->
                 </div>
               </form>
+              </div>
             </div>
           </div>
 
           <!-- Back of the card -->
           <div class="card-face back">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+              <div class="px-4 sm:px-6 lg:px-8">
               <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-2">
                   <div>
@@ -196,6 +199,7 @@
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

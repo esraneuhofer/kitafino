@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {forkJoin} from "rxjs";
+import {forkJoin, timeout} from "rxjs";
 import {CustomerInterface} from "../../../classes/customer.class";
 import {StudentInterface} from "../../../classes/student.class";
 import {StudentService} from "../../../service/student.service";
@@ -15,6 +15,8 @@ import {SettingInterfaceNew} from "../../../classes/setting.class";
   styleUrls: ['./manage-registration-student.component.scss']
 })
 export class ManageRegistrationStudentComponent implements OnInit{
+
+  isFlipped:boolean = false;
 
   subGroupUnknownModel: boolean = false;
 
@@ -72,7 +74,9 @@ export class ManageRegistrationStudentComponent implements OnInit{
     return nameSpecialFood;
   }
   routeToAccount(){
-    this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent});
+    this.submittingRequest = true;
+    setTimeout(() =>this.router.navigate(['../home/register_student'], {relativeTo: this.r.parent}), 30);
+
   }
   setSubgroupSelection(event: boolean) {
     if(event) {
@@ -82,6 +86,9 @@ export class ManageRegistrationStudentComponent implements OnInit{
   selectStudent(student:StudentInterface){
     this.selectedStudent = student;
     this.selectedSubgroup = student.subgroup;
+    setTimeout(() => this.isFlipped = true, 50);
+
+
   }
   ngOnInit() {
     forkJoin(

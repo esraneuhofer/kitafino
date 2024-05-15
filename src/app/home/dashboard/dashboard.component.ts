@@ -67,7 +67,9 @@ export class DashboardComponent {
   ordersStudentsDisplay: DisplayOrderArrayIntrface[] = [];
   submittingRequest: boolean = false;
   getTotalPriceSafe = getTotalPriceSafe;
-
+  getShortName(name: string): string {
+    return name.length > 6 ? name.slice(0, 6) + '...' : name;
+  }
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private accountService: AccountService,
               private studentService: StudentService,
