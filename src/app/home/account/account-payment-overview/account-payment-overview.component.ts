@@ -106,6 +106,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
       this.toastr.warning('Sie haben derzeit kein Guthaben auf Ihrem Konto.')
       return;
     }
+    this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmWithdrawDialogComponent, {
       width: '550px',
       data: {accountTenant: this.accountTenant, tenantStudent: this.tenantStudent},
@@ -114,16 +115,27 @@ export class AccountPaymentOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result) return;
+      if (!result){
+        this.submittingRequest = false;
+        return;
+      }
       const accountCharge = new ChargeAccountInterface(
         this.accountTenant,
         this.tenantStudent,
         'withdraw'
       );
       accountCharge.emailTenant = this.tenantStudent.email;
-      console.log('accountCharge', accountCharge)
       this.chargeService.addAccountChargesTenant(accountCharge).subscribe((response: any) => {
-        this.toastr.success('Abbuchung erfolgreich')
+        forkJoin([
+          this.chargeService.getAccountCharges(),
+          this.accountService.getAccountTenant()
+        ])
+          .subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
+          this.accountTenant = accountTenant;
+          this.accountCharges = accountCharges;
+          this.toastr.success('Abbuchung erfolgreich')
+          this.submittingRequest = false;
+        })
       })
 
     });

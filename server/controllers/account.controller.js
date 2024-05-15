@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
+const Tenantparent = mongoose.model('Tenantparent');
 const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
 const nodemailer = require('nodemailer');
+const {getEmailChargeAccount} = require('./email-charge-account');
+const {getEmailWithdrawAccount} =  require('./email-withdraw-account');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.1und1.de',
@@ -13,22 +16,24 @@ const transporter = nodemailer.createTransport({
     pass: '5/5e_FBw)JWTXpu!!adsaaa22'
   }
 });
-function getMailOptions (amount, req) {
+function getMailOptions (amount, req,tenantAccount) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>',
     to: req.body.emailTenant, // This should be dynamically set based on the tenant's email
     subject: 'Kontoaktivität',
-    text: getEmailTextCharge(amount, req.body.amount, req.body.typeCharge)
+    html: getEmailTextCharge(req.body.amount, req.body.typeCharge,tenantAccount)
   };
 }
 function getAmountAddRemove(type, amount) {
   return type === 'charge' ? amount : -amount;
 }
-function getEmailTextCharge(currentBalance, amount, type) {
+function getEmailTextCharge(amount, type, tenant) {
   if(type === 'charge') {
-    return `Ihrem Konto wurden ${amount}€ gutgeschrieben. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
+    return getEmailChargeAccount(amount, tenant.username);
+    // return `Ihrem Konto wurden ${amount}€ gutgeschrieben. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
   }
-  return `Ihrem Konto wurden ${amount}€ abgebucht. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
+  return getEmailWithdrawAccount(amount,tenant);
+  // return `Ihrem Konto wurden ${amount}€ abgebucht. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
 }
 
 
@@ -93,6 +98,7 @@ module.exports.addAccountChargesTenant = async (req, res) => {
     await accountCharge.save({ session });
     const userId = req.body.userId;
     const account = await AccountSchema.findOne({ userId }).session(session);
+    const tenantAccount = await Tenantparent.findOne({ userId }).session(session);
     const amountAddRemove = getAmountAddRemove(req.body.typeCharge, req.body.amount); // Assuming this correctly computes the amount to add or remove
     account.currentBalance += amountAddRemove;
 
@@ -109,8 +115,7 @@ module.exports.addAccountChargesTenant = async (req, res) => {
     await session.commitTransaction();
 
     // Define your mailOptions based on the operation's result, customize as needed
-    const mailOptions = getMailOptions(account.currentBalance, req); // Ensure this function generates the correct mail options
-    console.log(mailOptions);
+    const mailOptions = getMailOptions(account.currentBalance, req, tenantAccount); // Ensure this function generates the correct mail options
 
     // Send an email notification about the account charge update
     transporter.sendMail(mailOptions, function (error, info) {
