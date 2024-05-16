@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {addDayFromDate, getDisplayOrderType, getSplit, getWeekNumber} from "./order.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
-import {defaultIfEmpty, forkJoin} from "rxjs";
+import {combineLatest, defaultIfEmpty, forkJoin, map, timer} from "rxjs";
 import {CustomerInterface} from "../../classes/customer.class";
 import {WeekplanMenuInterface} from "../../classes/weekplan.interface";
 import {MealModelInterface} from "../../classes/meal.interface";
@@ -173,61 +173,92 @@ export class OrderStudentComponent implements OnInit {
   }
   changeDateDay(queryDate: Date): void {
     this.selectedDay = queryDate;
-
     this.orderWeek = [];
     this.pageLoaded = false;
-    const dateMonday = getDateMondayFromCalenderweek({week:getWeekNumber(queryDate),year:new Date(queryDate).getFullYear()});
-    let dateToSearch = moment.tz(formatDateToISO(queryDate), 'Europe/Berlin').format()
-    if(!this.selectedStudent || !this.selectedStudent._id ){
+
+    const dateMonday = getDateMondayFromCalenderweek({ week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() });
+    let dateToSearch = moment.tz(formatDateToISO(queryDate), 'Europe/Berlin').format();
+
+    if (!this.selectedStudent || !this.selectedStudent._id) {
       this.pageLoaded = true;
       return;
     }
-    this.isWeekend = checkDayWeekend(dateToSearch)
-    if(this.isWeekend){
-      this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden')
+
+    this.isWeekend = checkDayWeekend(dateToSearch);
+    if (this.isWeekend) {
+      this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
       this.pageLoaded = true;
       return;
     }
+
     this.indexDay = getCustomDayIndex(new Date(queryDate));
+
+    // Create a timer observable for 0.4 seconds
+    const delay$ = timer(400);
+
+    // Combine the delay observable with the forkJoin observable
+    combineLatest([
       forkJoin([
-      this.accountService.getAccountTenant(),
-      this.generellService.getWeekplanWeek(this.querySelection),
-      this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id})
-    ]).subscribe(([accountTenant, weekplan,orderStudent]: [AccountCustomerInterface, WeekplanMenuInterface,(OrderInterfaceStudentSave | null)]) => {
+        this.accountService.getAccountTenant(),
+        this.generellService.getWeekplanWeek(this.querySelection),
+        this.orderService.getOrderStudentDay({ dateOrder: dateToSearch, studentId: this.selectedStudent._id })
+      ]),
+      delay$
+    ]).pipe(
+      map(([results]) => results as [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)]) // Explicitly type the results
+    ).subscribe(([accountTenant, weekplan, orderStudent]: [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)]) => {
       this.accountTenant = accountTenant;
-      ///Sets the Weekplan from Catering Company with Menus and Allergenes
+
+      // Sets the Weekplan from Catering Company with Menus and Allergens
       this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
-      ///Sets the Lockdays Array, Vacation Customer or State Holiday
+
+      // Sets the Lockdays Array, Vacation Customer or State Holiday
       this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
 
       if (!this.selectedStudent) return;
-      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays))
-        this.pageLoaded = true
-    })
+
+      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays));
+      this.pageLoaded = true;
+    });
   }
 
-  getOrderDay(queryDate: QueryInterOrderInterface, selectedStudent: StudentInterface | null): void {
+  getOrderDay(queryDate: QueryInterOrderInterface): void {
     if (!this.selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
       this.pageLoaded = true;
       // this.fetchingOrder = false;
       return
     }
-    if (!selectedStudent || !this.selectedWeekplan) return;
+    if (!this.selectedWeekplan) return;
     this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.selectedWeekplan)
+  }
+  selectStudentSingle(student: StudentInterface | null) {
+    this.pageLoaded = false;
+    if(!this.selectedDay) {
+      this.toastr.error('Bitte wählen Sie einen Tag aus')
+      return;
+    }
+    if(this.checkForErrors(student)){
+      return;
+    }
+    this.selectedStudent = student;
+    this.changeDateDay(this.selectedDay)
   }
 
   selectStudent(student: StudentInterface | null) {
-    if(!this.initStudent){
-      this.initStudent = true;
+    this.pageLoaded = false;
+    if(this.checkForErrors(student)){
       return;
     }
-    this.checkForErrors(student, this.querySelection);
-    this.getOrderDay(this.querySelection, this.selectedStudent)
+   if(!this.initStudent){
+     this.initStudent = true;
+     return;
+   }
+    this.selectedStudent = student;
+    this.getOrderDay(this.querySelection)
   }
 
-  checkForErrors(selectedStudent:StudentInterface | null,query:QueryInterOrderInterface):boolean{
-    if(!query)return true;
+  checkForErrors(selectedStudent:StudentInterface | null):boolean{
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
@@ -236,7 +267,7 @@ export class OrderStudentComponent implements OnInit {
     }
     if (!selectedStudent.subgroup) {
       this.studentNoSubgroup = true;
-      this.pageLoaded = false;
+      this.pageLoaded = true;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return true
     }
@@ -247,7 +278,8 @@ export class OrderStudentComponent implements OnInit {
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
-    if(this.checkForErrors(this.selectedStudent,this.querySelection))return;
+    if(!this.querySelection)return;
+    if(this.checkForErrors(this.selectedStudent))return;
     if(this.displayOrderTypeWeek){
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     }else{
@@ -279,25 +311,30 @@ export class OrderStudentComponent implements OnInit {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     let promiseOrderWeek = [];
     for (let i = 0; i < 5; i++) {
-      let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
-      console.log(dateToSearch)
+      let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format();
+      console.log(dateToSearch);
       if (!this.selectedStudent) return;
       promiseOrderWeek.push(this.orderService.getOrderStudentDay({
         dateOrder: dateToSearch,
         studentId: this.selectedStudent._id || ''
-      }))
+      }));
     }
-    forkJoin(promiseOrderWeek).pipe(
-      defaultIfEmpty([null]),
-    ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
-      for (let i = 0; i < 5; i++) {
-        let date = addDayFromDate(dateMonday, i)
-        if (!this.selectedStudent) return;
-        this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays))
-      }
-      this.pageLoaded = true;
 
-    })
+    // Start the timer observable for 0.4 seconds
+    const timer$ = timer(400);
+
+    // Combine the forkJoin observable with the timer observable
+    combineLatest([forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])), timer$])
+      .pipe(
+        map(([order]) => order) // Extract the orders from the combined result
+      )
+      .subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+        for (let i = 0; i < 5; i++) {
+          let date = addDayFromDate(dateMonday, i);
+          if (!this.selectedStudent) return;
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays));
+        }
+        this.pageLoaded = true;
+      });
   }
-
 }

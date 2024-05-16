@@ -57,6 +57,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
       this.selectedSubgroup = '';
       this.selectedStudent = null;
       this.submittingRequest = false;
+      this.isFlipped = false;
       this.toaster.success('Änderung wurden erfolgreich übernommen','Erfolgreich');
 
     })
@@ -87,9 +88,8 @@ export class ManageRegistrationStudentComponent implements OnInit{
     this.selectedStudent = student;
     this.selectedSubgroup = student.subgroup;
     setTimeout(() => this.isFlipped = true, 50);
-
-
   }
+
   ngOnInit() {
     forkJoin(
       this.generellService.getCustomerInfo(),

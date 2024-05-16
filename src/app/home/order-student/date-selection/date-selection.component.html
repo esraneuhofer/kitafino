@@ -45,6 +45,15 @@
               <option *ngFor="let student of registeredStudents" [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
             </select>
           </div>
+          <div *ngIf="minWidth" class="w-full px-2 mb-2"> <!-- Full width for new line -->
+            <div class="flex items-center">
+              <input id="displayOrder"
+                     aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox"
+                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              <label for="displayOrder" class="ml-3 text-sm leading-6 font-medium text-gray-900">Darstellung gesamte Woche</label>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

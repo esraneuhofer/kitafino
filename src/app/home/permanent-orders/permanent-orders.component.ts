@@ -59,6 +59,9 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
 })
 export class PermanentOrdersComponent implements OnInit {
 
+
+  isFlipped:boolean = false;
+
   dayArray = dayArray;
   submittingRequest = false;
   menuSelection: DaysOrderPermanentInterfaceSelection[] = [];
@@ -95,6 +98,7 @@ export class PermanentOrdersComponent implements OnInit {
         this.permanentOrderExists = true
       }
       this.toastr.success('Dauerbestellung erfolgreich bearbeitet');
+      this.isFlipped = false;
       this.submittingRequest = false;
     });
   }
@@ -147,6 +151,7 @@ export class PermanentOrdersComponent implements OnInit {
       this.selectedPermanentOrder = null;
       return
     }
+    setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
     if (!permanentOrder) {
       this.permanentOrderExists = false
@@ -169,6 +174,7 @@ export class PermanentOrdersComponent implements OnInit {
       } else {
         this.toastr.error('Fehler beim Speichern der Dauerbestellung')
         this.submittingRequest = false
+        this.isFlipped = false
       }
     });
   }
@@ -203,6 +209,8 @@ export class PermanentOrdersComponent implements OnInit {
       } else {
         this.toastr.error('Fehler beim Löschen der Dauerbestellung')
         this.submittingRequest = false
+        this.isFlipped = false
+
       }
     });
   }
