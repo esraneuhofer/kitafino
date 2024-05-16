@@ -18,6 +18,11 @@ export class DateSelectionComponent  implements OnInit, OnChanges {
   @Input() minWidth: boolean = false;
   @Output() getOrderWeek:any = new EventEmitter<QueryInterOrderInterface>();
   @Output() selectStudent:any = new EventEmitter<StudentInterface | null>();
+  @Output() editDisplaySettings:any = new EventEmitter<boolean>();
+
+  @Input() displaySettings:boolean = false;
+
+
 
   selectedStudent: (StudentInterface | null) = null;
   selectedIndexYear:number = 1;
@@ -66,5 +71,9 @@ export class DateSelectionComponent  implements OnInit, OnChanges {
   setStudent(student:StudentInterface | null){
       this.selectedStudent = student;
       this.selectStudent.emit(this.selectedStudent)
+  }
+
+  editTenantOrderSettings(event:boolean):void{
+      this.editDisplaySettings.emit(event)
   }
 }

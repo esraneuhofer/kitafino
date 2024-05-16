@@ -2,10 +2,10 @@
 <div class="container mx-auto px-4 mt-8 sm:mt-0">
   <div class="flex justify-center">
     <div class="w-full"> <!-- Container for the selects, ensuring full width -->
-      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
+      <div class="bg-white shadow-md rounded px-8 pt-6 sm:pb-2 md:pb-2 xs:pb-2  mb-4 ">
         <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
 
-          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0"> <!-- Adjusted for responsive width and padding -->
+          <div class="w-full md:w-1/3 px-2 xs:mb-0 mb-4 md:mb-0"> <!-- Adjusted for responsive width and padding -->
             <label *ngIf="!minWidth"  class="block text-sm font-medium leading-6 text-gray-900" for="year">Jahr</label>
 
             <select (ngModelChange)="setCalenderWeeks($event)" [(ngModel)]="query.year"
@@ -17,7 +17,7 @@
           </div>
 
           <!-- Kalenderwoche Select Input Container -->
-          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0"> <!-- Use md:w-1/3 for 1/3 width on medium screens and up, px-2 for padding -->
+          <div class="w-full md:w-1/3 px-2 xs:mb-0 mb-4 md:mb-0"> <!-- Use md:w-1/3 for 1/3 width on medium screens and up, px-2 for padding -->
             <label *ngIf="!minWidth" class="block text-sm font-medium leading-6 text-gray-900" for="year">Kalenderwoche</label>
 
             <select #subgroupModel="ngModel" (ngModelChange)="initOrderForWeek($event,selectedStudent)"
@@ -32,7 +32,7 @@
           <!-- Jahr Select Input Container -->
 
           <!-- Verpflegungsteilnehmer Select Input Container -->
-          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0" *ngIf="registeredStudents.length > 1"> <!-- Adjusted for responsive width and padding -->
+          <div class="w-full md:w-1/3 px-2 xs:mb-0 mb-4 md:mb-0" *ngIf="registeredStudents.length > 1"> <!-- Adjusted for responsive width and padding -->
             <label *ngIf="!minWidth"  class="block text-sm font-medium leading-6 text-gray-900" for="year">Verpflegungsteilnehmer</label>
 
             <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
@@ -48,6 +48,8 @@
           <div *ngIf="minWidth" class="w-full px-2 mb-2"> <!-- Full width for new line -->
             <div class="flex items-center">
               <input id="displayOrder"
+                     [(ngModel)]="displaySettings"
+                     (ngModelChange)="editTenantOrderSettings($event)"
                      aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox"
                      class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
               <label for="displayOrder" class="ml-3 text-sm leading-6 font-medium text-gray-900">Darstellung gesamte Woche</label>

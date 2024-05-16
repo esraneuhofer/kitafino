@@ -21,7 +21,9 @@
         </div>
       </div>
     </div>
-    <app-date-selection (getOrderWeek)="changeDate($event)"
+    <app-date-selection (editDisplaySettings)="editSettings($event)"
+                        [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
+                        (getOrderWeek)="changeDate($event)"
                         (selectStudent)="selectStudent($event)"
                         [minWidth]="displayMinimize"
                         [registeredStudents]="registeredStudents"
@@ -82,6 +84,8 @@
       </div>
     </div>
     <app-date-selection-single
+      (editDisplaySettings)="editSettings($event)"
+      [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
       (getOrderDay)="changeDateDay($event)"
       (selectStudent)="selectStudentSingle($event)"
       [minWidth]="displayMinimize"
@@ -99,25 +103,26 @@
         <div class="container mx-auto px-4 mt-8 sm:mt-0">
           <div class="flex justify-center">
             <div class="w-full"> <!-- Container for the selects, ensuring full width -->
-<!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">-->
-                <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
-                  <!-- Kalenderwoche Select Input Container -->
-                  <div class="w-full px-2 mb-4 md:mb-0">
-                    <app-meal-input-card (orderPlaced)="changeDateDay(selectedDay)"
-                                         [customer]="customer"
-                                         [typeDisplayOrder]="'day'"
-                                         [displayMinimize]="displayMinimize"
-                                         [indexDay]="indexDay"
-                                         [lockDay]="lockDays[indexDay]"
-                                         [orderDay]="orderWeek[0]"
-                                         [selectedStudent]="selectedStudent"
-                                         [settings]="settings"
-                                         [tenantStudent]="tenantStudent"
-                                         [weekplanDay]="selectedWeekplan.weekplan[indexDay]">
-                    </app-meal-input-card>
-                  </div>
+              <!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">-->
+              <div class="flex flex-wrap -mx-2">
+                <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
+                <!-- Kalenderwoche Select Input Container -->
+                <div class="w-full px-2 mb-4 md:mb-0">
+                  <app-meal-input-card (orderPlaced)="changeDateDay(selectedDay)"
+                                       [customer]="customer"
+                                       [displayMinimize]="displayMinimize"
+                                       [indexDay]="indexDay"
+                                       [lockDay]="lockDays[indexDay]"
+                                       [orderDay]="orderWeek[0]"
+                                       [selectedStudent]="selectedStudent"
+                                       [settings]="settings"
+                                       [tenantStudent]="tenantStudent"
+                                       [typeDisplayOrder]="'day'"
+                                       [weekplanDay]="selectedWeekplan.weekplan[indexDay]">
+                  </app-meal-input-card>
                 </div>
-<!--              </div>-->
+              </div>
+              <!--              </div>-->
             </div>
           </div>
         </div>

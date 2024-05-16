@@ -15,6 +15,8 @@ export class DateSelectionSingleComponent implements OnInit {
   @Input() minWidth: boolean = false;
   @Output() getOrderDay:any = new EventEmitter<Date>();
   @Output() selectStudent:any = new EventEmitter<StudentInterface | null>();
+  @Input() displaySettings:boolean = false;
+  @Output() editDisplaySettings:any = new EventEmitter<boolean>();
 
   selectedStudent: (StudentInterface | null) = null;
   selectedDate: Date = new Date()
@@ -56,6 +58,8 @@ export class DateSelectionSingleComponent implements OnInit {
     this.selectedStudent = student;
     this.selectStudent.emit(this.selectedStudent)
   }
-
+  editTenantOrderSettings(event:boolean):void{
+    this.editDisplaySettings.emit(event)
+  }
 
 }

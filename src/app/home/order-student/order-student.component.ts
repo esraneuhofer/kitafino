@@ -171,6 +171,15 @@ export class OrderStudentComponent implements OnInit {
     this.querySelection = {...queryDate};
     this.getDataWeek()
   }
+
+  editSettings(event:boolean):void{
+    console.log(event)
+    this.pageLoaded = true;
+      this.tenantStudent.orderSettings.displayTypeOrderWeek = event;
+      this.tenantService.editParentTenant(this.tenantStudent).subscribe((response)=>{
+        window.location.reload();
+      })
+  }
   changeDateDay(queryDate: Date): void {
     this.selectedDay = queryDate;
     this.orderWeek = [];
@@ -337,4 +346,6 @@ export class OrderStudentComponent implements OnInit {
         this.pageLoaded = true;
       });
   }
+
+  protected readonly event = event;
 }
