@@ -16,19 +16,26 @@ function setLineItems(body){
     quantity: 1,
   }]
 }
+
+
 exports.createPaymentIntent = async (req, res) => {
   try {
-    // Assuming you receive username as part of the request body or derive it from session/user information
     const { username, userId } = req.body;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal', 'giropay'],
       line_items: setLineItems(req.body),
       mode: 'payment',
-      locale: 'de',  // Set the language to German
-      metadata: { userId:userId,username:username },  // Include metadata in the session
-      success_url: 'http://localhost:4200/home/account_overview',
-      cancel_url: 'http://localhost:4200/cancel-placeholder',
+      locale: 'de',
+      payment_intent_data: {
+        metadata: { userId: userId, username: username }
+      },
+      success_url: process.env.NODE_ENV === 'production'
+        ? 'https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success'
+        : 'http://localhost:4200/home/account_overview?status=success',
+      cancel_url: process.env.NODE_ENV === 'production'
+        ? 'https://kitafino-45139aec3e10.herokuapp.com/cancel-placeholder?status=failure'
+        : 'http://localhost:4200/cancel-placeholder?status=failure',
     });
 
     try {
@@ -36,14 +43,16 @@ exports.createPaymentIntent = async (req, res) => {
     } catch (error) {
       const errDetails = handleDatabaseError(error);
       res.status(errDetails.status).send({ error: errDetails.message });
-      return;  // Stop further execution in case of error
+      return;
     }
 
-    res.json({id: session.id});
+    res.json({ id: session.id });
   } catch (err) {
     console.error("Error", err);
-    res.status(500).send({error: err.message});
+    res.status(500).send({ error: err.message });
   }
 };
+
+
 
 

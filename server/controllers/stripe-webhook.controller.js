@@ -27,6 +27,7 @@ exports.webhook_stripe = async (request, response) => {
           username: paymentIntent.metadata.username, // Assuming you store username in metadata when creating the PaymentIntent
           userId: paymentIntent.metadata.userId // Assuming you store username in metadata when creating the PaymentIntent
         };
+        console.log(data)
         // Start a new Mongoose session for transaction
         const session = await mongoose.startSession();
         try {

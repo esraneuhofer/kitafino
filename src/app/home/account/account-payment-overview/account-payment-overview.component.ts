@@ -21,6 +21,7 @@ import {
 import {loadStripe} from '@stripe/stripe-js';
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
+import {ActivatedRoute} from "@angular/router";
 
 const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/in hinzufügen. Klicken Sie hier, um eine Schüler/in hinzuzufügen.';
 
@@ -36,9 +37,9 @@ export interface PaymentIntentResponse {
 export class AccountPaymentOverviewComponent implements OnInit {
   protected readonly textBanner = textBanner;
   page: number = 1;
-  pageSize: number = 10;
-  amountCharge: number = 25;
-
+  pageSize: number = 5;
+  amountCharge:number | null = null;
+  paymentFeeArray:{namePayment:string,amountFee:number}[] = [];
   pageLoaded: boolean = false;
   submittingRequest = false;
   accountCharges: AccountChargeInterface[] = [];
@@ -47,6 +48,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
   accountTenant!: AccountCustomerInterface;
 
   constructor(
+    private route: ActivatedRoute,
     private http: HttpClient,
     private clipboardService: ClipboardService,
     private dialog: MatDialog,
@@ -84,12 +86,20 @@ export class AccountPaymentOverviewComponent implements OnInit {
         AccountChargeInterface[],
         AccountCustomerInterface
       ]) => {
-        console.log('accountCharges', accountCharges)
+
         this.accountCharges = accountCharges;
-        this.pageLoaded = true;
         this.tenantStudent = tenantStudent
         this.registeredStudents = students;
         this.accountTenant = accountTenant;
+        this.route.queryParams.subscribe(params => {
+          const status = params['status'];
+          if (status === 'success') {
+            this.toastr.success('Einzahlung erfolgreich!', 'Erfolg');
+          } else if (status === 'failure') {
+            this.toastr.error('Einzahlung ist fehlgeschlagen', 'Fehler');
+          }
+        });
+        this.pageLoaded = true;
       })
   }
 
@@ -154,11 +164,59 @@ export class AccountPaymentOverviewComponent implements OnInit {
     return 'Abbuchung'
   }
 
-  redirectToStripeCheckout(amount:number) {
+  redirectToStripeCheckout(amount:number | null) {
+    if(!amount)return
     if(!this.tenantStudent.userId)return
     this.submittingRequest = true;
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username);
   }
   faClipboard = faClipboard;
+  estimatedFee: number = 0;
+   calculateFee( amount:number,paymentMethod:string) {
+    let feePercentage = 0;
+    let fixedFee = 0;
+
+    switch (paymentMethod) {
+      case 'Paypal':
+        feePercentage = 0.2 / 100;  // PayPal fees plus an additional 0.2%
+        fixedFee = 0.10;  // Plus PayPal's own fees
+        break;
+      case 'Giropay':
+        feePercentage = 1.4 / 100;
+        fixedFee = 0.25;
+        break;
+      case 'Kreditkarte':
+      case 'GooglePay':
+      case 'ApplePay':
+        feePercentage = 1.5 / 100;
+        fixedFee = 0.25;
+        break;
+      case 'Amex':
+      case 'Diners':
+      case 'Discover':
+      default:
+        feePercentage = 1.5 / 100;
+        fixedFee = 0.25;
+        break;
+    }
+
+    const feeAmount = amount * feePercentage + fixedFee;
+    return Math.ceil(feeAmount * 100) / 100;  // Auf zwei Dezimalstellen runden
+  }
+
+  arrayPaymentMethods = ['Giropay', 'Paypal', 'Kreditkarte','Amex'];
+  calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
+    let arr:{namePayment:string,amountFee:number}[] = [];
+    this.arrayPaymentMethods.forEach((paymentMethod) => {
+      arr.push({namePayment:paymentMethod,amountFee:this.calculateFee(amount, paymentMethod)})
+    })
+    return arr;
+  }
+  onAmountChange(event: any) {
+    this.amountCharge = event.target.value;
+    if(!this.amountCharge)return
+    this.estimatedFee = this.calculateFee(this.amountCharge, 'card');  // Default to 'card', you can change this as needed
+    this.paymentFeeArray = this.calculateFeeArray(this.amountCharge);
+  }
 
 }

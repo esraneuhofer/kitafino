@@ -6,21 +6,21 @@
             <div class="sm:flex-auto">
               <!--            <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>-->
               <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
-                <div class="flex">
-                  <div class="ml-3 flex-1 md:flex md:justify-between xs:text-center">
-                    <p class="mt-2 text-sm text-gray-700">Um Geld auf Ihr Konto einzuzahlen überweisen Sie bitte den
-                      gewünschten Betrag auf das folgende Konto:
+                <div class="flex justify-center">
+                  <div class="ml-3 flex-1 md:flex md:justify-between xs:text-center md:text-left">
+                    <p class="mt-2 text-sm text-gray-700">
+                      Um Geld auf Ihr Konto einzuzahlen, überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
                       <br><br>
                       Cateringexpert Software Solutions GmbH <br>
                       Deutsche Bank <br>
-                      IBAN: DE12345678901234567890
+                      <b>IBAN:</b> DE12345678901234567890
                       <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
                                [icon]="faClipboard"
                                [matTooltip]="'In Ablage kopieren'"
                                class="ml-1"></fa-icon>
                       <br>
-                      BIC: DEUTDEDBXXX <br>
-                      Verwendungszweck: <b>{{tenantStudent.username}}</b>
+                      <b>BIC:</b> DEUTDEDBXXX <br>
+                      <b>Verwendungszweck:</b> {{tenantStudent.username}}
                       <fa-icon (click)="copyToClipboard(tenantStudent.username)"
                                [icon]="faClipboard"
                                [matTooltip]="'In Ablage kopieren'"
@@ -28,39 +28,73 @@
                       <br><br>
 
                       <b>Wichtig:</b>
-                      Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im
-                      Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
-                      genau so in den Verwendungszweck eintragen, wie er registriert ist.
-                      Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
-                      Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage
-                      in Anspruch nehmen. <br><br>
+                      Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
+                      genau so in den Verwendungszweck eintragen, wie er registriert ist. Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
+                      Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen.
+                      <br><br>
 
                       Vielen Dank.
-
                     </p>
                   </div>
                 </div>
               </div>
 
+
               <div class="rounded-md bg-yellow-100 p-4 mt-2">
-                <div class="flex flex-col sm:flex-row justify-between items-center">
-                  <p class="text-sm text-gray-700 mb-4 sm:mb-0">
+                <div class="flex flex-col justify-between items-start">
+                  <p class="text-sm text-gray-700 mb-4">
                     Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem
                     Konto gutgeschrieben.
                   </p>
-                  <app-button (click)="redirectToStripeCheckout(amountCharge)" [mr]="true"
-                              [submittingRequest]="submittingRequest" [typeButton]="'primary'">Direkteinzahlung
-                  </app-button>
+                  <div class="w-full">
+                    <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2" #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)">
+                      <div class="flex flex-col w-full sm:w-auto">
+<!--                        <label for="amountChartModel" class="block text-sm font-medium text-gray-700 mb-1">Betrag</label>-->
+                        <input type="number"
+                               required
+                               #amountChartModel="ngModel"
+                               placeholder="Betrag eingeben"
+                               [(ngModel)]="amountCharge"
+                               min="5"
+                               (input)="onAmountChange($event)"
+                               name="amountChartModel"
+                               id="amountChartModel"
+                               [ngClass]="{'invalid-input': signInForm.submitted && amountChartModel.invalid}"
+                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300">
+                      </div>
+                      <p *ngIf="signInForm.submitted && amountChartModel.invalid " class="mt-2 text-sm text-red-600" id="projectId-error">Mindesteinzahlung beträgt 5€</p>
+
+                      <div class="flex  sm:justify-start items-center sm:items-end w-full ">
+                        <app-button [additionalClass]="'w-full '" [mr]="true" [submittingRequest]="submittingRequest" [typeButton]="'primary'">Direkteinzahlung</app-button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div *ngIf="amountCharge && amountCharge > 0" class="mt-2">
+                  <p class="text-sm text-gray-700">
+                    Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben. <br>
+                    <u>Die Einzahlung via Überweisung ist kostenfrei2</u><br><br>
+                    Geschätzte Gebühren:
+                  </p>
+                  <p class="text-sm text-gray-700" *ngFor="let eachPayment of paymentFeeArray">
+                   <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>
                 </div>
               </div>
+
+
+
+
               <div class="rounded-md bg-green-100 p-4 mt-2">
-                <div class="flex flex-col sm:flex-row justify-between items-center">
-                  <p class="text-sm text-gray-700 mb-4 sm:mb-0">
+                <div class="flex flex-col md:items-start">
+                  <p class="text-sm text-gray-700 mb-4">
                     Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   </p>
-                  <app-button [submittingRequest]="submittingRequest" (click)="openDialog()" [mr]="true" [typeButton]="'primary'">Geld abbuchen</app-button>
+                  <div class="flex justify-start w-full md:w-auto">
+                    <app-button [submittingRequest]="submittingRequest" (click)="openDialog()" [mr]="true" [typeButton]="'primary'">Geld abbuchen</app-button>
+                  </div>
                 </div>
               </div>
+
 
 
             </div>
@@ -80,7 +114,7 @@
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
-                  <tr *ngFor="let payment of accountCharges">
+                  <tr *ngFor="let payment of accountCharges  |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                     <td
                       class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
