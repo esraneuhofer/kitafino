@@ -20,6 +20,30 @@ export class SettingsComponent implements OnInit{
               private router: Router,
               private route: ActivatedRoute) {
   }
+  showFullIban: boolean = true;
+  isEditing: boolean = false;
+
+  get maskedIban(): string {
+    if(!this.tenantModel || !this.tenantModel.iban)return ''
+    if (this.showFullIban) {
+      return this.tenantModel.iban;
+    } else {
+      return this.tenantModel.iban.replace(/.(?=.{4})/g, '*'); // Maskiert alle Zeichen außer den letzten 4
+    }
+  }
+
+  toggleIbanVisibility(): void {
+    this.showFullIban = !this.showFullIban;
+  }
+
+  toggleEditIban(): void {
+    this.isEditing = !this.isEditing;
+    if (!this.isEditing) {
+      // Speichern der IBAN (hier könnten Sie zusätzliche Logik hinzufügen, z.B. Validierung)
+      console.log('IBAN gespeichert:', this.tenantModel.iban);
+    }
+  }
+
 
   ngOnInit() {
     this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
@@ -32,6 +56,9 @@ export class SettingsComponent implements OnInit{
           permanentOrder:false,
           displayTypeOrderWeek:false
         }
+      }
+      if(this.tenantModel.iban){
+        this.showFullIban = false;
       }
       this.pageLoaded = true;
     })

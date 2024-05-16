@@ -35,7 +35,7 @@ exports.createPaymentIntent = async (req, res) => {
         : 'http://localhost:4200/home/account_overview?status=success',
       cancel_url: process.env.NODE_ENV === 'production'
         ? 'https://kitafino-45139aec3e10.herokuapp.com/cancel-placeholder?status=failure'
-        : 'http://localhost:4200/cancel-placeholder?status=failure',
+        : 'http://localhost:4200/home/account_overview?status=failure',
     });
 
     try {

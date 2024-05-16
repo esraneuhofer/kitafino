@@ -21,7 +21,6 @@ async function addAccountChargesTenantStripe(data,session) {
   let userId = data.userId;
   // let userId = '65589d74e01397281ce02472'
   // let username = 'esne1234'
-  console.log("data",data)
   try {
     await session.startTransaction();
     const account = await getAccountTenant(userId, session);

@@ -6,9 +6,13 @@
             <div class="sm:flex-auto">
               <!--            <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>-->
               <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
-                <div class="flex justify-center">
-                  <div class="ml-3 flex-1 md:flex md:justify-between xs:text-center md:text-left">
+                <div class="flex flex-col items-start justify-center">
+                  <h3 class="text-sm font-medium m-3 mb-2 ">Einzahlung Überweisung</h3>
+
+                  <div class="ml-3 flex-1 md:flex md:justify-between md:text-left">
+
                     <p class="mt-2 text-sm text-gray-700">
+
                       Um Geld auf Ihr Konto einzuzahlen, überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
                       <br><br>
                       Cateringexpert Software Solutions GmbH <br>
@@ -42,6 +46,8 @@
 
               <div class="rounded-md bg-yellow-100 p-4 mt-2">
                 <div class="flex flex-col justify-between items-start">
+                  <h3 class="text-sm font-medium mb-2">Direkeinzahlung</h3>
+
                   <p class="text-sm text-gray-700 mb-4">
                     Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem
                     Konto gutgeschrieben.
@@ -86,6 +92,8 @@
 
               <div class="rounded-md bg-green-100 p-4 mt-2">
                 <div class="flex flex-col md:items-start">
+                  <h3 class="text-sm font-medium mb-2">Auszahlung</h3>
+
                   <p class="text-sm text-gray-700 mb-4">
                     Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   </p>

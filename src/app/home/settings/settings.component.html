@@ -141,17 +141,33 @@
                     <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">Pflichtfeld</p>
                   </div>
                   <div class="col-span-full">
-                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">IBAN (Für Auszahlung benötigt)</label>
-                    <div class="mt-2">
-                      <input type="text"
-                             #address="ngModel"
+                    <label for="iban" class="block text-sm font-medium leading-6 text-gray-900">IBAN (Für Auszahlung benötigt)</label>
+                    <div class="mt-2 relative">
+                      <!-- Eingabefeld zum Bearbeiten der IBAN -->
+                      <input *ngIf="showFullIban" type="text"
                              [(ngModel)]="tenantModel.iban"
                              name="iban"
                              id="iban"
                              autocomplete="IBAN"
                              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <!-- Eingabefeld für die maskierte Ansicht -->
+                      <input *ngIf="!showFullIban" type="text"
+                             [value]="maskedIban"
+                             readonly
+                             id="iban"
+                             name="iban"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <!-- Schaltfläche zum Umschalten der Ansicht -->
+                      <button (click)="toggleIbanVisibility()"
+                              type="button"
+                              class="absolute inset-y-0 right-0 px-3 py-1 text-sm font-medium text-gray-600">
+                        {{ showFullIban ? 'Verbergen' : 'Anzeigen' }}
+                      </button>
+                      <!-- Schaltfläche zum Bearbeiten/Speichern der IBAN -->
+
                     </div>
                   </div>
+
 
                 </div>
               </div>

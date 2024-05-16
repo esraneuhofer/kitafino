@@ -28,7 +28,11 @@ const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen S
 export interface PaymentIntentResponse {
   clientSecret: string;
 }
-
+function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
+  return accountCharges.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+}
 @Component({
   selector: 'app-account-payment-overview',
   templateUrl: './account-payment-overview.component.html',
@@ -63,6 +67,14 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const status = params['status'];
+      if (status === 'success') {
+        this.toastr.success('Einzahlung erfolgreich!', 'Erfolg');
+      } else if (status === 'failure') {
+        this.toastr.error('Einzahlung ist fehlgeschlagen', 'Fehler');
+      }
+    });
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
@@ -87,18 +99,11 @@ export class AccountPaymentOverviewComponent implements OnInit {
         AccountCustomerInterface
       ]) => {
 
-        this.accountCharges = accountCharges;
+        this.accountCharges = sortAccountChargesByDate(accountCharges);
         this.tenantStudent = tenantStudent
         this.registeredStudents = students;
         this.accountTenant = accountTenant;
-        this.route.queryParams.subscribe(params => {
-          const status = params['status'];
-          if (status === 'success') {
-            this.toastr.success('Einzahlung erfolgreich!', 'Erfolg');
-          } else if (status === 'failure') {
-            this.toastr.error('Einzahlung ist fehlgeschlagen', 'Fehler');
-          }
-        });
+
         this.pageLoaded = true;
       })
   }
@@ -157,8 +162,8 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   getType(type: string) {
-    if (type === 'charge') {
-      return 'Aufladung'
+    if (type === 'deposit') {
+      return 'Einzahlung'
     }
 
     return 'Abbuchung'
@@ -177,6 +182,10 @@ export class AccountPaymentOverviewComponent implements OnInit {
     let fixedFee = 0;
 
     switch (paymentMethod) {
+      case 'Link':
+        feePercentage = 1.2 / 100;  // PayPal fees plus an additional 0.2%
+        fixedFee = 0.25;  // Plus PayPal's own fees
+        break;
       case 'Paypal':
         feePercentage = 0.2 / 100;  // PayPal fees plus an additional 0.2%
         fixedFee = 0.10;  // Plus PayPal's own fees
@@ -204,7 +213,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     return Math.ceil(feeAmount * 100) / 100;  // Auf zwei Dezimalstellen runden
   }
 
-  arrayPaymentMethods = ['Giropay', 'Paypal', 'Kreditkarte','Amex'];
+  arrayPaymentMethods = ['Giropay', 'Paypal', 'Kreditkarte','Amex','Link'];
   calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
     let arr:{namePayment:string,amountFee:number}[] = [];
     this.arrayPaymentMethods.forEach((paymentMethod) => {
