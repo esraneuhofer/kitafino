@@ -145,6 +145,7 @@ export class PermanentOrdersComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterfaceId | null) {
+    console.log(student)
     this.submittingRequest = true;
     this.selectedStudent = student;
     if (!student) {

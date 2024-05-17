@@ -5,4 +5,4 @@
 
 
 // Todo: Bestellhitory überdenken und Suche bearbeiten
-//Dauerbestellung Flip Mode und check function
+//Todo: Dauerbestellungen auch nur möglich wenn untergruppe ausgewählt ist;

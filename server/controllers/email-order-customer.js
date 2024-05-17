@@ -30,11 +30,12 @@ function customerHasSpecialFood(customer,specialFoodId){
   return boolean;
 }
 
-function getEmailBodyOrderDayCustomer(weekkplanDay,ordersStudentCustomer,settings,customer,students,dateOrder) {
-  let orderFormatted = formatDate(new Date(dateOrder))
+function getEmailBodyOrderDayCustomer(weekplanDay, ordersStudentCustomer, settings, customer, students, dateOrder) {
+  let orderFormatted = formatDate(new Date(dateOrder));
+
   if (ordersStudentCustomer && ordersStudentCustomer.length > 0) {
-    const orderCustomer =getOrdersDay(ordersStudentCustomer, weekkplanDay,settings,customer,students)
-    const emailBody = setBodyEmail(orderCustomer,orderFormatted)
+    const orderCustomer = getOrdersDay(ordersStudentCustomer, weekplanDay, settings, customer, students);
+    const emailBody = setBodyEmail(orderCustomer, orderFormatted);
     const emailBodyBasic = {
       from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
@@ -42,9 +43,9 @@ function getEmailBodyOrderDayCustomer(weekkplanDay,ordersStudentCustomer,setting
       subject: 'Bestellung',
       html: emailBody
     };
-    console.lgo(emailBodyBasic.to)
     return emailBodyBasic;
-
+  } else {
+    return null; // Return null if no orders are found
   }
 }
 
@@ -85,7 +86,6 @@ function setEmptyArrayDay(settings,weekplanDay,customer){
       })
     })
     settings.orderSettings.specialFoods.forEach((eachType, indexType) => {
-      console.log(eachType._id)
       if(customerHasSpecialFood(customer,eachType._id)){
         obj.orders.push({
           typeSpecial: 'special',

@@ -5,7 +5,7 @@ import {formatCurrency} from "@angular/common";
 
 export function getEmailBodyCancel(objectData: EmailOrderInterface,price:number): any {
   const orderTime = getTimeToDisplay();
-  let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
+  let arrayEmail = [];
   if (objectData.sendCopyEmail) {
     arrayEmail.push(objectData.tenantStudent.email)
   }

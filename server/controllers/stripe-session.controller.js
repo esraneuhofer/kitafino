@@ -18,7 +18,6 @@ async function saveSessionInfo(sessionId, userId, username) {
 
 async function retrieveSessionInfo(sessionId) {
   try {
-    console.log('sessionId', sessionId)
     const sessionInfo = await SessionStripe.findOne({ sessionId });
     return sessionInfo;
   } catch (error) {

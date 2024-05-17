@@ -316,9 +316,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
-    const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
-    const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
     if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
+      const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
+      const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
       this.generalService.sendEmail(emailBody).subscribe({
         next: (emailResponse) => {
           this.orderPlaced.emit(true);

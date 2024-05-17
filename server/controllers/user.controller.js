@@ -134,12 +134,6 @@ const sendRegistrationEmail = async (emailOptions) => {
 }
 
 
-require('dotenv').config();
-const sgMail = require('@sendgrid/mail');
-const bcrypt = require('bcrypt');
-const Schooluser = require('./models/Schooluser'); // Passen Sie den Pfad zu Ihrem Modell an
-const { makePassword, getEmailResetPassword } = require('./utils'); // Passen Sie den Pfad zu Ihren Util-Funktionen an
-
 // Setzen Sie hier Ihren SendGrid API-Schlüssel
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 

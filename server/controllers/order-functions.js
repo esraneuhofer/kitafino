@@ -14,7 +14,7 @@ function getSpecialFoodNameById(settings, idSpecialFood) {
 
 function getNameMenuDay(permanentOrder,weekplanDay,settings){
   let nameMenu = 'Menu';
-  if(permanentOrder.typeOrder === 'special'){
+  if(permanentOrder.typeSpecial === 'special'){
     nameMenu = getSpecialFoodNameById(settings,permanentOrder.menuId)
   }else{
     return getSpecialNameById(settings,permanentOrder.menuId,weekplanDay)
@@ -32,21 +32,6 @@ function getSpecialNameById(settings, idSpecialFood,weekplanDay) {
      }
     }
   })
-  // for (let specialFood of settings.orderSettings.specials) {
-  //   if (specialFood._id.toString() === idSpecialFood.toString()) {
-  //     nameSpecialFood = specialFood.nameSpecial
-  //   }
-  // }
-  // for (let eachMenu of weekplanDay.mealTypesDay) {
-  //   if(eachMenu.idSpecial.toString() === idSpecialFood.toString()){
-  //     if(!eachMenu.idMenu)return nameSpecialFood;
-  //     for (let menu of menus) {
-  //       if (menu._id.toString() === eachMenu.idMenu.toString()) {
-  //         return menu.nameMenu
-  //       }
-  //     }
-  //   }
-  // }
   return nameSpecialFood;
 }
 
@@ -57,28 +42,19 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
   }
   if(eachPermanentOrderStudent.daysOrder[indexDay].typeSpecial === 'special'){
     let nameSpecialFood = getSpecialFoodNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId)
-    objOrder.specialFoodOrder.push({
-      idMenu:selectedWeekDay.menuId,
+    objOrder.orderMenus.push({
+      idMenu:null,
       typeOrder:'specialFood',
       nameOrder:nameSpecialFood,
-      idType:eachPermanentOrderStudent.daysOrder[indexDay].idSpecial,
-      amountSpecialFood:1,
-      priceMenu:priceStudent,
+      idType:eachPermanentOrderStudent.daysOrder[indexDay].menuId,
+      amountOrder:1,
+      priceOrder:priceStudent,
       menuSelected:true
     })
-    // let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay)
-    // objOrder.orderMenus.push({
-    //   typeOrder:'menu',
-    //   nameOrder:nameSpecial,
-    //   idType:eachPermanentOrderStudent.daysOrder[indexDay].menuId,
-    //   amountOrder:0,
-    //   priceOrder:priceStudent,
-    //   menuSelected:true
-    // })
   }else{
     let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay,menus)
     objOrder.orderMenus.push({
-      idMenu:selectedWeekDay.menuId,
+      idMenu:selectedWeekDay.menuId || null,
       typeOrder:'menu',
       nameOrder:nameSpecial,
       idType:eachPermanentOrderStudent.daysOrder[indexDay].menuId,
@@ -153,9 +129,12 @@ function getTotalPrice (order) {
   order.order.orderMenus.forEach((order) => {
     totalPrice += order.amountOrder * order.priceOrder;
   })
-  order.order.specialFoodOrder.forEach((order) => {
-    totalPrice += order.amountSpecialFood * order.priceMenu;
-  })
+  if(order.order.specialFoodOrder.length > 0){
+    order.order.specialFoodOrder.forEach((order) => {
+      totalPrice += order.amountSpecialFood * order.priceMenu;
+    })
+  }
+
   return totalPrice;
 }
 

@@ -11,6 +11,7 @@ async function addOrder(req) {
   req.body.userId = req._id;
 
   const orderAccount = prepareOrderDetails(req);
+
   const totalPrice = getTotalPrice(req.body);
   const session = await mongoose.startSession();
 
@@ -34,6 +35,7 @@ async function addOrder(req) {
 
     return { success: true, message: 'Order placed successfully' };
   } catch (error) {
+    console.log('error',error)
     await session.abortTransaction();
     // Forward the error from saveNewOrder
     throw new Error(error.message);
