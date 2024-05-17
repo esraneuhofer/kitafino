@@ -1,5 +1,7 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 const {isHoliday} = require("feiertagejs");
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const {getWeekNumber} = require("./deadline-deadline.functions");
 const {getEmailBodyOrderDayCustomer} = require("./email-order-customer");
 const {setOrderStudentBackend, getPriceStudent, getNameMenuDay} = require("./order-functions");
@@ -17,20 +19,9 @@ const StudentNew = mongoose.model('StudentNew');
 const {addOrder} = require('./place-order.controller');
 let getEmailSuccess = require('./email-order-regular').getHtmlOrder;
 let getEmailCancel = require('./email-permanent-order-cancel').getEmailHtmlCancelPermanentOrder;
-const nodemailer = require('nodemailer');
 const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
 const {studentHasNotPlacedOrderYet, getStundetById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
-const transporter = nodemailer.createTransport({
-  host: 'smtp.1und1.de',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
-  // service: 'Gmail',
-  auth: {
-    user: 'noreply@cateringexpert.de',
-    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
-  }
-});
-let mockReq;
+
 
 
 function setMockRequest(req) {
@@ -130,7 +121,7 @@ async function sendEmailDailyConfirmation(weekplanDay,allOrders,settings,custome
     // Generate the email body for the customer
     const emailBodyCustomerDay = getEmailBodyOrderDayCustomer(weekplanDay, allOrders, settings, customer, studentsCustomer,dayDeadlineOrder);
     // Send the email
-    await transporter.sendMail(emailBodyCustomerDay);
+    await sgMail.send(emailBodyCustomerDay);
 
     console.log("Email sent successfully");
   } catch (error) {
@@ -145,44 +136,64 @@ async function sendEmailDailyConfirmation(weekplanDay,allOrders,settings,custome
 
 
 async function sendSuccessEmail(req, response) {
-  const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay],req.weekkplanDay,req.settings);
-  const emailBody = getEmailSuccess(
-    req.nameCustomer,
-    req.nameStudent,
-    req.dateOrderEdited,
-    nameMenu,
-    req.priceStudent
-  );
+  try {
+    const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay], req.weekkplanDay, req.settings);
+    const emailBody = getEmailSuccess(
+      req.nameCustomer,
+      req.nameStudent,
+      req.dateOrderEdited,
+      nameMenu,
+      req.priceStudent
+    );
 
-  const emailBodyBasic = {
-    from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
-    replyTo: req.settings.orderSettings.confirmationEmail,
-    to: req.arrayEmail, // list of receivers
-    subject: 'Bestellung erfolgreich',
-    html: emailBody
-  };
+    const emailBodyBasic = {
+      from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
+      replyTo: req.settings.orderSettings.confirmationEmail,
+      to: req.arrayEmail, // list of receivers
+      subject: 'Bestellung erfolgreich',
+      html: emailBody
+    };
 
-  const successResponse = await transporter.sendMail(emailBodyBasic);
-  // console.log(`Successfully sent success email:`, successResponse);
+    // Senden der E-Mail mit SendGrid
+    await sgMail.send(emailBodyBasic);
+
+    console.log('Successfully sent success email');
+  } catch (error) {
+    console.error('Failed to send success email:', error);
+
+    // Je nach Bedarf können Sie den Fehler weiter werfen oder anders behandeln
+    throw error; // Dieser Fehler wird erneut ausgelöst, wenn Sie ihn weiter oben in der Anrufkette behandeln möchten
+  }
 }
 
 async function sendCancellationEmail(req, errorMessage) {
-  console.log('Error:', errorMessage);
-  const emailBody = getEmailCancel(
-    req.nameStudent,
-    req.dateOrderEdited,
-    errorMessage
-  );
-  const emailBodyBasic = {
-    from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
-    replyTo: req.settings.orderSettings.confirmationEmail,
-    to: req.arrayEmail, // list of receivers
-    subject: 'Bestellung nicht erfolgreich',
-    html: emailBody
-  };
+  try {
+    console.log('Error:', errorMessage);
+    const emailBody = getEmailCancel(
+      req.nameStudent,
+      req.dateOrderEdited,
+      errorMessage
+    );
 
-  const emailResponse = await transporter.sendMail(emailBodyBasic);
-  // console.log(`Successfully sent cancellation email:`, emailResponse);
+    const emailBodyBasic = {
+      from: `${req.settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
+      replyTo: req.settings.orderSettings.confirmationEmail,
+      to: req.arrayEmail, // list of receivers
+      subject: 'Bestellung nicht erfolgreich',
+      html: emailBody
+    };
+
+    // Senden der E-Mail mit SendGrid
+    await sgMail.send(emailBodyBasic);
+
+    console.log('Successfully sent cancellation email');
+  } catch (error) {
+    console.error('Failed to send cancellation email:', error);
+
+    // Je nach Bedarf können Sie den Fehler weiter werfen oder anders behandeln
+    throw error; // Dieser Fehler wird erneut ausgelöst, wenn Sie ihn weiter oben in der Anrufkette behandeln möchten
+  }
 }
+
 
 module.exports = processOrder;

@@ -1,22 +1,14 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const mongoose = require('mongoose');
 const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
 const OrderStudent = mongoose.model('OrderStudent');
 const StudentNew = mongoose.model('StudentNew');
 const schedule = require("node-schedule");
-const nodemailer = require('nodemailer');
 
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.1und1.de',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
-  // service: 'Gmail',
-  auth: {
-    user: 'noreply@cateringexpert.de',
-    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
-  }
-});
 
 
 const {getOrdersStudent,getDateMondayFromCalenderweek} = require('./deadline-orderclass.functions');
@@ -25,47 +17,59 @@ const {getWeekNumber} = require('./deadline-deadline.functions');
 const {getOrderBodyNew} = require('./deadline-email.functions');
 const {dateAndDayOfWeekToCron} = require('./date.functions');
 
-async function addTaskSendReminder(customer,settings) {
+async function addTaskSendReminder(customer, settings) {
   try {
     const now = new Date();
-    const currentWeek = getWeekNumber(now) +1 ;
+    const currentWeek = getWeekNumber(now) + 1;
     const currentYear = now.getFullYear();
 
-          const ordersStudentCustomer = await OrderStudent.find({ customerId: customer.customerId, kw: currentWeek, year: currentYear });
-          const studentsCustomer = await StudentNew.find({ customerId: customer.customerId });
-          const weekplanSelectedWeek = getWeekplanModel(settings, { year: currentYear, week: currentWeek });
-          if (ordersStudentCustomer && ordersStudentCustomer.length > 0) {
-            const orderCustomer = getOrdersStudent(
-              ordersStudentCustomer,
-              customer,
-              { queryYears: currentYear, queryCW: currentWeek },
-              settings,
-              weekplanSelectedWeek.weekplan,
-              studentsCustomer
-            );
-            let objectEmail = {
-              startDay: getDateMondayFromCalenderweek(currentWeek, currentYear),
-              type: 'order',
-              customerInfo: customer,
-              orderOverview: { queryYears: currentYear, queryCW: currentWeek },
-              settings: settings,
-              orderForEmail: orderCustomer.order,
-              orderForEmailEdit: orderCustomer,
-              sendEmailCustomer: true,
-              weekplanSelectedWeek: weekplanSelectedWeek,
-            };
-            let emailBody = getOrderBodyNew(objectEmail);
-            try {
-              const info = await transporter.sendMail(emailBody);
-              console.log('Mail sent:')
-            } catch (error) {
-              console.error('Error sending mail:', error);
-            }
-          }
+    const ordersStudentCustomer = await OrderStudent.find({ customerId: customer.customerId, kw: currentWeek, year: currentYear });
+    const studentsCustomer = await StudentNew.find({ customerId: customer.customerId });
+    const weekplanSelectedWeek = getWeekplanModel(settings, { year: currentYear, week: currentWeek });
+
+    if (ordersStudentCustomer && ordersStudentCustomer.length > 0) {
+      const orderCustomer = getOrdersStudent(
+        ordersStudentCustomer,
+        customer,
+        { queryYears: currentYear, queryCW: currentWeek },
+        settings,
+        weekplanSelectedWeek.weekplan,
+        studentsCustomer
+      );
+
+      let objectEmail = {
+        startDay: getDateMondayFromCalenderweek(currentWeek, currentYear),
+        type: 'order',
+        customerInfo: customer,
+        orderOverview: { queryYears: currentYear, queryCW: currentWeek },
+        settings: settings,
+        orderForEmail: orderCustomer.order,
+        orderForEmailEdit: orderCustomer,
+        sendEmailCustomer: true,
+        weekplanSelectedWeek: weekplanSelectedWeek,
+      };
+
+      let emailBody = getOrderBodyNew(objectEmail);
+
+      const mailOptions = {
+        to: customer.email, // Ensure you have the customer's email address
+        from: 'noreply@yourdomain.com', // Your verified SendGrid sender address
+        subject: 'Bestellungsübersicht für die Woche',
+        html: emailBody // HTML body
+      };
+
+      try {
+        await sgMail.send(mailOptions);
+        console.log('Mail sent successfully');
+      } catch (error) {
+        console.error('Error sending mail:', error);
+      }
+    }
   } catch (error) {
     console.error('Error in checkDeadlinesSendOrderEmail:', error);
   }
 }
+
 
 
 

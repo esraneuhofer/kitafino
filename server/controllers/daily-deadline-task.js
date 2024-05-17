@@ -4,9 +4,41 @@
 const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const TaskOrder = mongoose.model('TaskOrder');
+const Customer = mongoose.model('Customer');
+
 const processOrder = require('./task-daily-deadline.controller');
+const {dateAndDayOfWeekToCron} = require("./date.functions");
 const scheduledJobs = {};
 
+function generateDailyCronSchedule(datetimeString) {
+  // Datum und Uhrzeit validieren und parsen
+  const date = new Date(datetimeString);
+
+  if (isNaN(date.getTime())) {
+    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DD HH:MM:SS".');
+  }
+
+  const hours = date.getHours(); // Lokale Stunden
+  const minutes = date.getMinutes();
+
+  // Cron-Format-String konstruieren, der jeden Tag zur angegebenen Uhrzeit ausgeführt wird
+  const schedule = `${minutes} ${hours} * * *`;
+
+  return schedule;
+}
+
+
+
+
+async function setTaskCustomerDeadline(customerId,tenantId){
+  const customers = await Customer.find({ isCustomerNotStudent: false });
+  for(let eachCustomer of customers){
+    scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(generateDailyCronSchedule(eachCustomer.order.deadLineDaily.time), async () => {
+      await processOrder(eachCustomer.customerId,eachCustomer.tenantId);
+      // Optionally update task status in database after completion
+    });
+  };
+}
 module.exports.addTaskOrderDeadlineCustomer = async (req, res, next) => {
 // const addTaskOrderDeadlineCustomer = async (req, res, next) => {
   const tenantId = req.tenantId; // Or req.user._id, depending on your setup
@@ -45,4 +77,7 @@ module.exports.addTaskOrderDeadlineCustomer = async (req, res, next) => {
   }
 };
 
+module.exports = {
+  setTaskCustomerDeadline
+}
 // module.exports = addTaskOrderDeadlineCustomer;

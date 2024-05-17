@@ -1,3 +1,5 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 const mongoose = require("mongoose");
 const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
@@ -7,21 +9,11 @@ const Menu = mongoose.model('Menu');
 const Meal = mongoose.model('Meal');
 const Weekplan = mongoose.model('Weekplan');
 const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
-var nodemailer = require('nodemailer');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.1und1.de',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
-  // service: 'Gmail',
-  auth: {
-    user: 'noreply@cateringexpert.de',
-    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
-  }
-});
 
 
 module.exports.getSettingsCaterer = async (req, res, next) => {
@@ -139,16 +131,20 @@ module.exports.getVacationCustomer = async (req, res, next) => {
 
 
 
-module.exports.sendEmail = (req, res, next) =>{
-  var mailOptions = req.body;
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      return res.send(error);
-    }
-    else {
-      res.send(info)
-    }
-  })
+module.exports.sendEmail = async (req, res, next) => {
+  const mailOptions = req.body;
+
+  try {
+    // Senden der E-Mail mit SendGrid
+    await sgMail.send(mailOptions);
+
+    // Wenn die E-Mail erfolgreich gesendet wurde, senden Sie die Info zurück
+    res.send({ message: 'Email sent successfully', info: mailOptions });
+  } catch (error) {
+    // Wenn ein Fehler auftritt, senden Sie den Fehler zurück
+    console.error('Error sending email:', error);
+    res.status(500).send(error);
+  }
 };
 
 module.exports.getSingelWeekplanPdf = async (req, res, next) => {

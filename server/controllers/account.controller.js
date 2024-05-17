@@ -1,24 +1,21 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail')
 const mongoose = require("mongoose");
+
 const Tenantparent = mongoose.model('Tenantparent');
 const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
-const nodemailer = require('nodemailer');
 const {getEmailChargeAccount} = require('./email-charge-account');
 const {getEmailWithdrawAccount} =  require('./email-withdraw-account');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.1und1.de',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
-  // service: 'Gmail',
-  auth: {
-    user: 'noreply@cateringexpert.de',
-    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
-  }
-});
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
 function getMailOptions (amount, req,tenantAccount) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>',
+    replyTo: 'test@cateringexpert.de', // This should be dynamically set based on the tenant's email
+    bcc:'eltern_bestellung@cateringexpert.de',
     to: req.body.emailTenant, // This should be dynamically set based on the tenant's email
     subject: 'Kontoaktivität',
     html: getEmailTextCharge(req.body.amount, req.body.typeCharge,tenantAccount)
@@ -67,28 +64,7 @@ module.exports.getAccountCharges = async (req, res, next) => {
   }
 };
 
-// module.exports.chargeAccountTenant = (req, res, next) => {
-//   // Ensure that firstname and lastname are present in req.body
-//   let newCharge = new ChargeAccount({
-//     approved: req.body.approved,
-//     amount: req.body.amount,
-//     date: req.body.date,
-//     accountHolder: req.body.accountHolder,
-//     iban: req.body.iban,
-//     reference: req.body.reference,
-//     typeCharge: req.body.typeCharge,
-//     transactionId: req.body.transactionId,
-//     userId: req._id,
-//     customerId: req.customerId,
-//     tenantId: req.tenantId,
-//   });
-//
-//   newCharge.save().then(function (data) {
-//     res.json({ charge: data, isError: false, error:null });
-//   }, function (e) {
-//     res.json({ charge: null, isError: true, error: e });
-//   });
-// }
+
 module.exports.addAccountChargesTenant = async (req, res) => {
   const session = await mongoose.startSession();
   await session.startTransaction();
@@ -118,13 +94,13 @@ module.exports.addAccountChargesTenant = async (req, res) => {
     const mailOptions = getMailOptions(account.currentBalance, req, tenantAccount); // Ensure this function generates the correct mail options
 
     // Send an email notification about the account charge update
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error); // Optionally handle this differently or log more details
-      } else {
-        console.log('Email sent: ' + info.response); // Optionally log or handle email success
-      }
-    });
+    sgMail.send(mailOptions)
+      .then(() => {
+        console.log('Email sent successfully');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     res.json({ success: true, message: 'Account erfolgreich geändert' });
 

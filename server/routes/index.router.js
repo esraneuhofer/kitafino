@@ -93,7 +93,7 @@ router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenant
 
 
 
-router.post('/addTaskOrderDeadlineCustomer',jwtHelper.verifyJwtToken,ctrlDailyDeadline.addTaskOrderDeadlineCustomer)
+// router.post('/addTaskOrderDeadlineCustomer',jwtHelper.verifyJwtToken,ctrlDailyDeadline.addTaskOrderDeadlineCustomer)
 router.post('/create-payment-intent', jwtHelper.verifyJwtToken, crtlStripe.createPaymentIntent);
 
 router.post('/webhook',rawBodyBuffer ,ctrlWebhook.webhook_stripe)

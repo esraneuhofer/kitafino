@@ -38,10 +38,11 @@ function getEmailBodyOrderDayCustomer(weekkplanDay,ordersStudentCustomer,setting
     const emailBodyBasic = {
       from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
-      to: [settings.orderSettings.confirmationEmail], // list of receivers
+      to: settings.orderSettings.confirmationEmail, // list of receivers
       subject: 'Bestellung',
       html: emailBody
     };
+    console.lgo(emailBodyBasic.to)
     return emailBodyBasic;
 
   }

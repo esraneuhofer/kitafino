@@ -1,22 +1,14 @@
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
-const School = mongoose.model('SchoolNew');
 const Schooluser = mongoose.model('Schooluser');
-var nodemailer = require('nodemailer');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
 const {getHtmlRegistrationEmail} = require('./email-registration');
-var transporter = nodemailer.createTransport({
-  host: 'smtp.1und1.de',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
-  // service: 'Gmail',
-  auth: {
-    user: 'noreply@cateringexpert.de',
-    pass: '5/5e_FBw)JWTXpu!!adsaaa22'
-  }
-});
+
 function makePassword() {
   var text = "";
   var possible = "ABCDEFGHJKLMNOPQRSTUVWXYZ";
@@ -129,29 +121,39 @@ module.exports.register = async (req, res, next) => {
 
 const sendRegistrationEmail = async (emailOptions) => {
   try {
-    const info = await transporter.sendMail(emailOptions);
-    return { success: true, message: 'Verification email sent successfully.' };
+    await sgMail.send(emailOptions);
+    return { success: true, message: 'Verifizierungsmail erfolgreich gesendet.' };
   } catch (err) {
     console.error(err);
-    if (err.responseCode === 550) {
-      return { success: false, message: 'The email address provided is invalid. Please provide a valid email address.' };
+    if (err.code === 550) { // Hinweis: SendGrid-Fehlercodes überprüfen
+      return { success: false, message: 'Die angegebene E-Mail-Adresse ist ungültig. Bitte geben Sie eine gültige E-Mail-Adresse an.' };
     } else {
-      return { success: false, message: 'An error occurred while sending the email. Please try again later.' };
+      return { success: false, message: 'Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.' };
     }
   }
 }
 
 
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
+const bcrypt = require('bcrypt');
+const Schooluser = require('./models/Schooluser'); // Passen Sie den Pfad zu Ihrem Modell an
+const { makePassword, getEmailResetPassword } = require('./utils'); // Passen Sie den Pfad zu Ihren Util-Funktionen an
+
+// Setzen Sie hier Ihren SendGrid API-Schlüssel
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 module.exports.resetPassword = async (req, res, next) => {
   try {
     const username = req.body.username;
     const password = makePassword();
-    const mailOptions = getEmailResetPassword(username,password);
+    const mailOptions = getEmailResetPassword(username, password);
 
-    // Generating a salt and hashing the password
+    // Generieren eines Salzes und Hashen des Passworts
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    // Updating the user in the database
+
+    // Aktualisieren des Benutzers in der Datenbank
     const updatedUser = await Schooluser.findOneAndUpdate(
       { username: username },
       {
@@ -163,19 +165,20 @@ module.exports.resetPassword = async (req, res, next) => {
       { new: true }
     );
 
-    // Check if the username was found and updated
+    // Überprüfen, ob der Benutzername gefunden und aktualisiert wurde
     if (!updatedUser) {
       return res.status(404).send({ message: `Benutzername ${username} wurde nicht gefunden.`, error: true });
     }
 
-    // Sending the reset email
-    const info = await transporter.sendMail(mailOptions);
-    res.status(200).send({ message: `Password wurde zurückgesetzt. Eine Email mit Ihrem neuen Passwort wurde an ${username} versendet.`, error: false });
+    // Senden der Zurücksetz-E-Mail
+    await sgMail.send(mailOptions);
+    res.status(200).send({ message: `Passwort wurde zurückgesetzt. Eine E-Mail mit Ihrem neuen Passwort wurde an ${username} versendet.`, error: false });
   } catch (err) {
-    console.error(err); // It's good to log the error for debugging.
+    console.error(err); // Es ist gut, den Fehler für das Debuggen zu protokollieren.
     res.status(500).send({ message: 'Es gab ein Fehler beim Zurücksetzen des Passworts.', error: true });
   }
 }
+
 
 
 

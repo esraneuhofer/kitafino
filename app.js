@@ -15,7 +15,7 @@ const uri = process.env.MONGO_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected');
-    loadAndScheduleTasks().then(() => {
+    setTaskCustomerDeadline().then(() => {
       console.log('Tasks scheduled successfully.');
     }).catch((error) => {
       console.error('Failed to schedule tasks:', error);
@@ -97,4 +97,5 @@ switch (environment) {
 server.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
-const { loadAndScheduleTasks } = require(__dirname + '/server/controllers/deadline-timer.controller');
+const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
+// const { loadAndScheduleTasks } = require(__dirname + '/server/controllers/deadline-timer.controller');
