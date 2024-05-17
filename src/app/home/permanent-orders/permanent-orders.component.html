@@ -120,6 +120,7 @@
                       </fieldset>
                       <div class="flex mt-2 space-x-2">
                         <app-button [submittingRequest]="submittingRequest" *ngIf="!permanentOrderExists">Dauerbestellung hinzufügen</app-button>
+                        <app-button [buttonType]="'button'" [submittingRequest]="submittingRequest"  (click)="back()">Zurück</app-button>
                         <app-button [submittingRequest]="submittingRequest" [typeButton]="'warning'" *ngIf="permanentOrderExists">Ändern</app-button>
                         <app-button [buttonType]="'button'" [submittingRequest]="submittingRequest" [typeButton]="'danger'" *ngIf="permanentOrderExists" (click)="deletePermanentOrder(selectedPermanentOrder)">Löschen</app-button>
                       </div>

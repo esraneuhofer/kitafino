@@ -198,7 +198,9 @@ export class PermanentOrdersComponent implements OnInit {
       this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = ''
     }
   }
-
+  back(){
+    this.isFlipped = false
+  }
   deletePermanentOrder(permanentOrder: PermanentOrderInterface) {
     this.submittingRequest = true;
     this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder).subscribe((response: any) => {

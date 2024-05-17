@@ -144,6 +144,7 @@ export class OrderStudentComponent implements OnInit {
       ]) => {
         this.settings = settings;
         this.customer = customer;
+        console.log(customer)
         this.customer.stateHol = 'HE' //Testing
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
@@ -294,7 +295,6 @@ export class OrderStudentComponent implements OnInit {
     }else{
       this.changeDateDay(new Date())
     }
-
   }
 
    getDataWeek() {

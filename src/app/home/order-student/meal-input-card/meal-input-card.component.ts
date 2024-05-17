@@ -287,7 +287,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
         promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
       }
-
     }
     return promisesEmail
   }
@@ -300,7 +299,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         next: (data) => {
           if (data.success) {
             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich');
-            this.processEmailAfterCancellation(orderModel, result, data);
+            if(this.tenantStudent.orderSettings.orderConfirmationEmail){
+              this.processEmailAfterCancellation(orderModel, result, data);
+            }
           } else {
             // Handle the case where success is false but no HTTP error was thrown
             this.handleOrderCancellationFailure(indexMenu);
@@ -411,6 +412,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   private handleAccountSuccess(accountTenant: AccountCustomerInterface, orderModel: OrderInterfaceStudent, type: string, result: any) {
     if (accountTenant && (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance)) {
       const promisesEmail = this.getPromisesEmail(orderModel, type, result, accountTenant);
