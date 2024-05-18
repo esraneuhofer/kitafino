@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {StudentInterface} from "../../../classes/student.class";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {QueryInterOrderInterface} from "../../../functions/weekplan.functions";
+import {addDayFromDate} from "../order.functions";
 
 @Component({
   selector: 'app-date-selection-single',
@@ -25,10 +26,10 @@ export class DateSelectionSingleComponent implements OnInit {
 
 
   ngOnInit() {
-    this.selectedDate = new Date(); // Initialize with the current date or any other date
+    this.selectedDate = addDayFromDate(new Date(),+3); // Initialize with the current date or any other date
     if (this.registeredStudents.length >= 1) {
       this.selectedStudent = this.registeredStudents[0];
-      this.selectStudent.emit(this.selectedStudent)
+      this.getOrderDay.emit(this.selectedDate)
     }
   }
 

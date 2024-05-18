@@ -1,18 +1,23 @@
-<h2 mat-dialog-title>Guthaben auzahlen</h2>
-<mat-dialog-content>
-  <p>
-    Möchten Sie das Guthaben von {{data.accountTenant.currentBalance | currency}} auszahlen?
-    <br><br>
-
-    Das Geld wird an Ihr hinterlegetes Bankkonto überwiesen. Ihre hinterlegte IBAN lautet: <b>
-    {{data.tenantStudent.iban}}
-  </b>.
-    <br><br> Die Kontodaten können Sie in Ihrem Profil einsehen und bearbeiten. <br>
-    Bitte stellen Sie sicher, dass die Kontodaten korrekt sind.
-  </p><br>
-  <p>Die Überweisung dauert bis zu 5 Werktage</p>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <app-button [typeButton]="'default'" [mr]="true" mat-dialog-close>Abbrechen</app-button>
-  <app-button [typeButton]="'primary'" [mat-dialog-close]="true" cdkFocusInitial>Abbuchen</app-button>
-</mat-dialog-actions>
+<div
+  class="overflow-hidden x-4 text-left p-3">
+  <div>
+    <div class="mt-2">
+      <!--<h2 mat-dialog-title>{{data.menu.nameOrder}}</h2>-->
+      <h3 class="text-base font-semibold leading-6 text-gray-900">Guthaben auzahlen</h3>
+      <p class="text-sm text-gray-500 mt-3">
+        Möchten Sie das Guthaben von {{data.accountTenant.currentBalance | currency}} auszahlen?
+        <br><br>
+        Das Geld wird an Ihr hinterlegetes Bankkonto überwiesen. Ihre hinterlegte IBAN lautet: <b>
+        {{data.tenantStudent.iban}}
+      </b>.
+        <br><br> Die Kontodaten können Sie in Ihrem Profil einsehen und bearbeiten. <br>
+        Bitte stellen Sie sicher, dass die Kontodaten korrekt sind. <br><br>
+        Die Überweisung dauert bis zu 5 Werktage
+      </p><br>
+    </div>
+  </div>
+  <div class="flex justify-end">
+    <app-button [typeButton]="'default'" [mr]="true" mat-dialog-close>Abbrechen</app-button>
+    <app-button [typeButton]="'primary'" [mat-dialog-close]="true" cdkFocusInitial>Abbuchen</app-button>
+  </div>
+</div>

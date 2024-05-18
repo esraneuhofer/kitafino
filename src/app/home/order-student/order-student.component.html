@@ -6,7 +6,7 @@
     <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4  top-0 z-50 mb-1 mt-2">
       <div class="flex justify-center">
         <div class="w-100">
-          <div class="rounded-md bg-green-100 p-4">
+          <div class="rounded-md bg-green-100 p-4" >
             <div class="flex justify-between items-center">
               <p class="text-sm text-gray-700">
                 Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
@@ -65,11 +65,11 @@
     </ng-container>
   </ng-container>
   <ng-container *ngIf="!showErrorNoStudents && !displayOrderTypeWeek">
-    <div class="container px-4  top-0 z-50 mb-1 mt-2">
-      <div class="flex justify-center">
+    <div class="container px-4  top-0 z-50 mb-1 mt-2" >
+      <div class="flex justify-center ">
         <div class="w-100">
-          <div class="rounded-md bg-green-100 p-4">
-            <div class="flex justify-between items-center">
+          <div class="rounded-md balance-info p-4">
+            <div class="flex justify-between items-center" >
               <p class="text-sm text-gray-700">
                 Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                 <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"

@@ -5,29 +5,9 @@ const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const TaskOrder = mongoose.model('TaskOrder');
 const Customer = mongoose.model('Customer');
-
+const { generateDailyCronSchedule } = require('./deadline-deadline.functions');
 const processOrder = require('./task-daily-deadline.controller');
-const {dateAndDayOfWeekToCron} = require("./date.functions");
 const scheduledJobs = {};
-
-function generateDailyCronSchedule(datetimeString) {
-  // Datum und Uhrzeit validieren und parsen
-  const date = new Date(datetimeString);
-
-  if (isNaN(date.getTime())) {
-    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DD HH:MM:SS".');
-  }
-
-  const hours = date.getHours(); // Lokale Stunden
-  const minutes = date.getMinutes();
-
-  // Cron-Format-String konstruieren, der jeden Tag zur angegebenen Uhrzeit ausgeführt wird
-  const schedule = `${minutes} ${hours} * * *`;
-
-  return schedule;
-}
-
-
 
 
 async function setTaskCustomerDeadline(customerId,tenantId){

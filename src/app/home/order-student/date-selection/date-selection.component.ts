@@ -10,7 +10,7 @@ import {StudentInterface} from "../../../classes/student.class";
   templateUrl: './date-selection.component.html',
   styleUrls: ['./date-selection.component.scss']
 })
-export class DateSelectionComponent  implements OnInit, OnChanges {
+export class DateSelectionComponent  implements OnInit {
 
 
   @Input() registeredStudents!: StudentInterface[];
@@ -31,13 +31,6 @@ export class DateSelectionComponent  implements OnInit, OnChanges {
   query:QueryInterOrderInterface = {week: getWeekNumber(new Date()), year: new Date().getFullYear()};
   generatedKWArray: { value: string; week: number }[][] = [];
     constructor() { }
-
-    ngOnChanges(changes: SimpleChanges) {
-      // if (changes['minWidth']) {
-      //   console.log(changes['minWidth'].currentValue)
-      //   console.log(this.minWidth)
-      // }
-    }
 
   ngOnInit() {
       console.log(this.minWidth)

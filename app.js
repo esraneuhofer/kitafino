@@ -24,9 +24,9 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => {
     console.log(err);
   });
+
 require(__dirname + '/server/models/task-order.model');
 require(__dirname + '/server/models/session-info.model');
-
 require(__dirname + '/server/models/permanent-order.model');
 require(__dirname + '/server/models/weekplan.model');
 require(__dirname + '/server/models/transaction.model');

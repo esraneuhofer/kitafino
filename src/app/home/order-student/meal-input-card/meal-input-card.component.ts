@@ -26,6 +26,7 @@ import {EXPANSION_PANEL_ANIMATION_TIMING} from "@angular/material/expansion";
 import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.class";
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
+import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -211,6 +212,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string, indexMenu: number, onConfirm: (result: {
     sendCopyEmail: boolean
   }) => void): void {
+    console.log('orderModel', orderModel)
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
@@ -266,7 +268,16 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
         }, 400)
-        return alert('Sie können nur ein Menü pro Tag bestellen')
+
+          const dialogRef = this.dialog.open(DialogErrorComponent, {
+            width: '400px',
+            data: {header: 'Fehler bei der Bestellung', message: "Sie können nur ein Menü pro Tag bestellen. Bitte stornieren Sie die andere Bestellung zuerst."},
+            panelClass: 'custom-dialog-container',
+            position: {top: '100px'},
+
+          });
+        // alert('')
+          return
       }
       this.placeOrder(this.orderDay.orderStudentModel, 'order', indexMenu)
     } else {

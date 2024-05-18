@@ -107,7 +107,7 @@ function getTableSubgrouo(eachOrderSubgroup,isTotal) {
   let contentBodyTable = getContentBodyTable(eachOrderSubgroup,isTotal)
   let titleOrder = eachOrderSubgroup.nameSubGroup
   if(isTotal){
-    titleOrder = 'Geamtbestellung'
+    titleOrder = 'Gesamtbestellung'
   }
   let table = `
   <table cellPadding="0" cellSpacing="0" className="es-content" align="center" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">

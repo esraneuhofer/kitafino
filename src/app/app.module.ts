@@ -63,6 +63,7 @@ import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orde
 import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
 import { DateSelectionSingleComponent } from './home/order-student/date-selection-single/date-selection-single.component';
+import { DialogErrorComponent } from './directives/dialog-error/dialog-error.component';
 
 registerLocaleData(localeDe);
 
@@ -110,6 +111,7 @@ registerLocaleData(localeDe);
     SuccessStripeComponent,
     NotSuccessStripeComponent,
     DateSelectionSingleComponent,
+    DialogErrorComponent,
   ],
   imports: [
     BrowserModule,

@@ -51,7 +51,7 @@ export class OrderStudentComponent implements OnInit {
   studentNoSubgroup: boolean = false;
   lockDays: boolean[] = [];
   displayMinimize: boolean = false;
-  selectedDay: Date = new Date();
+  selectedDay: Date = addDayFromDate(new Date(), 3)
 
   showErrorNoStudents: boolean = false; // Show if no Students is registered yet
   registeredStudents: StudentInterface[] = [];

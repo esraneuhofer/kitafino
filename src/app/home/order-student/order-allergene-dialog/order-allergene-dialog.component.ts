@@ -21,8 +21,8 @@ export class OrderAllergeneDialogComponent {
     this.data.menu.allergensPerMeal.forEach((eachMeal,index) =>{
       this.orderModelCopy.push({nameMeal:eachMeal.nameMeal,allergenes:[]})
       eachMeal.allergenes.forEach(eachAllergene =>{
-        if(!this.orderModelCopy[index].allergenes.includes(eachAllergene)){
-          this.orderModelCopy[index].allergenes.push(eachAllergene)
+        if (!this.orderModelCopy[index].allergenes.some(a => a.name_allergene === eachAllergene.name_allergene)) {
+          this.orderModelCopy[index].allergenes.push(eachAllergene);
         }
       })
     })

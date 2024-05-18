@@ -62,7 +62,23 @@ function getWeekNumber(startD) {
   let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
+function generateDailyCronSchedule(datetimeString) {
+  // Datum und Uhrzeit validieren und parsen
+  const date = new Date(datetimeString);
 
+  if (isNaN(date.getTime())) {
+    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DD HH:MM:SS".');
+  }
+
+  const hours = date.getHours(); // Lokale Stunden
+  const minutes = date.getMinutes();
+
+  // Cron-Format-String konstruieren, der jeden Tag zur angegebenen Uhrzeit ausgeführt wird
+  const schedule = `${minutes} ${hours} * * *`;
+
+  return schedule;
+}
 module.exports = {
   getWeekNumber,
+  generateDailyCronSchedule,
   getDeadline};

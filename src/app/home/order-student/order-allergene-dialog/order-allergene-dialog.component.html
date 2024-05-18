@@ -1,16 +1,30 @@
-<h2 mat-dialog-title>{{data.menu.nameOrder}}</h2>
-<mat-dialog-content>
-  <p>Allergene enthalten:</p>
+<!--  <app-display-nutrition-menu [selectedMenu]="data.menu.menu" [settings]="data.settings"></app-display-nutrition-menu>-->
+<div
+  class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 text-left shadow-xl transition-all sm:w-full sm:max-w-lg sm:p-6">
+  <div>
+    <div class="xs:mt-5 sm:mt-5">
+      <!--<h2 mat-dialog-title>{{data.menu.nameOrder}}</h2>-->
+      <h3 class="text-base font-semibold leading-6 text-gray-900">{{data.menu.nameOrder}}</h3>
+      <p class="text-gray-500 mt-3 text-sm ">Allergene enthalten:</p>
 
-  <ng-container *ngFor="let eachRecipe of orderModelCopy">
-    <u><p class="mb-2 mt-4">{{eachRecipe.nameMeal}}</p></u>
-    <ul>
-      <li *ngIf="eachRecipe.allergenes.length === 0">Keine Allergene enthalten</li>
-      <li *ngFor="let allergen of eachRecipe.allergenes">{{allergen.short}}) {{allergen.name_allergene}}</li>
-    </ul>
-  </ng-container>
-  <!--  <app-display-nutrition-menu [selectedMenu]="data.menu.menu" [settings]="data.settings"></app-display-nutrition-menu>-->
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button class="btn btn-default mr-1" mat-dialog-close>Schließen</button>
-</mat-dialog-actions>
+      <ng-container *ngFor="let eachRecipe of orderModelCopy">
+        <p class=" mt-2">{{eachRecipe.nameMeal}}</p>
+        <ul>
+          <li *ngIf="eachRecipe.allergenes.length === 0">
+            <span class="text-gray-500 mt-2 ml-2 text-sm ">
+              Keine Allergene enthalten
+            </span>
+          </li>
+          <li *ngFor="let allergen of eachRecipe.allergenes; let i = index">
+      <span [ngClass]="{'text-gray-500 ml-2 text-sm ': true, 'mt-2': i === 0}">
+            {{allergen.short}}) {{allergen.name_allergene}}
+            </span>
+            </li>
+        </ul>
+      </ng-container>
+    </div>
+  </div>
+  <div class="mt-3 flex justify-end">
+    <app-button mat-dialog-close>Schließen</app-button>
+  </div>
+</div>

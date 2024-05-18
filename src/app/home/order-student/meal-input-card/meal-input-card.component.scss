@@ -25,20 +25,21 @@
   100% { transform: rotate(360deg); }
 }
 .background_blue {
-  background: #7DAEE6!important;
+  background: #60A5FA!important;
 }
 
 .background_yellow {
   background: #FFE792;
 }
 .background_lightgreen {
-  background: #D8B3E9;
-  background: -moz-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D8B3E9), color-stop(100%, #ECD8F5));
-  background: -webkit-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
-  background: -o-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
-  background: -ms-linear-gradient(top, #D8B3E9 0%, #ECD8F5 100%);
-  background: linear-gradient(to bottom, #D8B3E9 0%, #ECD8F5 100%);
+  background: #C4B5FD;
+  //background: #D8B3E9;
+  background: -moz-linear-gradient(top, #C4B5FD 0%, #ECD8F5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #C4B5FD), color-stop(100%, #ECD8F5));
+  background: -webkit-linear-gradient(top, #C4B5FD 0%, #ECD8F5 100%);
+  background: -o-linear-gradient(top, #C4B5FD 0%, #ECD8F5 100%);
+  background: -ms-linear-gradient(top, #C4B5FD 0%, #ECD8F5 100%);
+  background: linear-gradient(to bottom, #C4B5FD 0%, #ECD8F5 100%);
   background-size: 150% 150%;
   z-index: 3;
   opacity: 1;
@@ -91,3 +92,6 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+.order-deadline {
+}
+

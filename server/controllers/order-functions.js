@@ -35,13 +35,13 @@ function getSpecialNameById(settings, idSpecialFood,weekplanDay) {
   return nameSpecialFood;
 }
 
-function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, selectedWeekDay,indexDay,menus) {
+function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, selectedWeekDay,indexDay,menus,customer) {
   let objOrder = {
     orderMenus: [],
     specialFoodOrder: []
   }
   if(eachPermanentOrderStudent.daysOrder[indexDay].typeSpecial === 'special'){
-    let nameSpecialFood = getSpecialFoodNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId)
+    let nameSpecialFood = getSpecialFoodNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,customer)
     objOrder.orderMenus.push({
       idMenu:null,
       typeOrder:'specialFood',
@@ -52,7 +52,8 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
       menuSelected:true
     })
   }else{
-    let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay,menus)
+    console.log('selectedWeekDay',selectedWeekDay)
+    let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay,menus,customer)
     objOrder.orderMenus.push({
       idMenu:selectedWeekDay.menuId || null,
       typeOrder:'menu',
@@ -85,7 +86,7 @@ function setOrderStudentBackend(customer,
     dateOrder: dateOrder,
     tenantId: tenantId,
     studentId: eachPermanentOrderStudent.studentId,
-    order:getOrderStudent(priceStudent,settings,eachPermanentOrderStudent,selectedWeekDay,indexDay,menus)
+    order:getOrderStudent(priceStudent,settings,eachPermanentOrderStudent,selectedWeekDay,indexDay,menus,customer)
   }
 }
 
