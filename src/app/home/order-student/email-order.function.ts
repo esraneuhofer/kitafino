@@ -200,7 +200,6 @@ export function getEmailBody(objectData: EmailOrderInterface): any {
   if (objectData.sendCopyEmail) {
     arrayEmail.push(objectData.tenantStudent.email)
   }
-  const emailBody = getEmailBodyHtml(objectData, 'order');
   const emailBodyOrder = getHtmlOrder(objectData)
   let email = getBodyEmailGenerell(objectData, arrayEmail, emailBodyOrder);
   return email;
@@ -330,8 +329,6 @@ function getMenuName(object: EmailOrderInterface, eachOrderDay: OrderSubDetailNe
   let dessert = null;
   if (object.settings.orderSettings.showSideIfNotSeparate && object.customerInfo.order.sidedish) {
     side = getSideOrdDessertNameIfExist(object.weekplanDay.mealTypesDay, 'side');
-    console.log(side)
-
   }
   if (side) { // Only add to components if side is not null
     components.push(side);
@@ -344,7 +341,6 @@ function getMenuName(object: EmailOrderInterface, eachOrderDay: OrderSubDetailNe
 
   if (object.settings.orderSettings.showDessertIfNotSeparate && object.customerInfo.order.dessert) {
     dessert = getSideOrdDessertNameIfExist(object.weekplanDay.mealTypesDay, 'dessert');
-    console.log(dessert)
   }
   if (dessert) { // Only add to components if dessert is not null
     components.push(dessert);
@@ -355,7 +351,6 @@ function getMenuName(object: EmailOrderInterface, eachOrderDay: OrderSubDetailNe
 
 
 function getSideOrdDessertNameIfExist(menuDay: MealtypesWeekplan[], type: string) {
-  console.log(menuDay)
   let name = '';
   menuDay.forEach(eachMenu => {
     if (eachMenu.typeSpecial === type) {

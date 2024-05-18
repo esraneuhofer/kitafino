@@ -22,16 +22,32 @@ function getNameMenuDay(permanentOrder,weekplanDay,settings){
   return nameMenu;
 
 }
-function getSpecialNameById(settings, idSpecialFood,weekplanDay) {
-
+function getSpecialNameById(settings, idSpecialFood,weekplanDay,customer) {
   let nameSpecialFood = 'Menu';
+  let components = [];
+
   weekplanDay.mealTypesDay.forEach(eachMenu => {
     if(eachMenu.idSpecial.toString() === idSpecialFood.toString()){
      if(eachMenu.menu){
-       nameSpecialFood =  eachMenu.menu.nameMenu;
+       components.push(eachMenu.menu.nameMenu)
      }
     }
+    if(eachMenu.typeSpecial === 'side'){
+      if(eachMenu.menu) {
+        components.push(eachMenu.menu.nameMenu)
+
+      }
+    }
+    if (eachMenu.typeSpecial === 'dessert'){
+      if(eachMenu.menu) {
+        components.push(eachMenu.menu.nameMenu)
+      }
+    }
   })
+  let nameCombined = components.join(' , ')
+  if(nameCombined.length >0){
+    nameSpecialFood = nameCombined;
+  }
   return nameSpecialFood;
 }
 
