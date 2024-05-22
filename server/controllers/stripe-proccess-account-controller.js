@@ -70,6 +70,7 @@ async function addAccountCharge(account, username, balanceToAdd, session) {
   try {
     const newChargeAccount = new ChargeAccount({
       approved: true,
+      dateApproved: new Date(),
       amount: balanceToAdd,
       date: new Date(),
       paymentMethod: 'stripe',

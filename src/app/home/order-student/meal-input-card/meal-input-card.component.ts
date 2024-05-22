@@ -138,7 +138,15 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       })
     }
   }
-
+  getTooltipText(pastOrder: boolean, lockDay: boolean): string {
+    if (pastOrder) {
+      return 'Bestellfrist abgelaufen';
+    } else if (lockDay) {
+      return 'Schließtag';
+    } else {
+      return '';
+    }
+  }
   getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean): any {
 
     // Initialize an object with static and conditional classes
@@ -212,11 +220,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string, indexMenu: number, onConfirm: (result: {
     sendCopyEmail: boolean
   }) => void): void {
-    console.log('orderModel', orderModel)
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
-      data: {orderStudent: orderModel, type: type, indexMenu: indexMenu},
+      data: {orderStudent: orderModel, type: type, indexMenu: indexMenu,tenantStudent:this.tenantStudent},
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
@@ -304,14 +311,17 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
   cancelOrder(orderModel: OrderInterfaceStudent, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result) => {
+    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result:{sendCopyEmail:boolean}) => {
       this.submittingOrder = true;
       this.orderService.cancelOrderStudent(orderModel).subscribe({
         next: (data) => {
           if (data.success) {
             this.toastr.success('Bestellung wurde storniert', 'Erfolgreich');
-            if(this.tenantStudent.orderSettings.orderConfirmationEmail){
+            if(result.sendCopyEmail){
               this.processEmailAfterCancellation(orderModel, result, data);
+            }else{
+              this.orderPlaced.emit(true);
+              this.submittingOrder = false;
             }
           } else {
             // Handle the case where success is false but no HTTP error was thrown
@@ -327,7 +337,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
-    if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
       const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
       const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
       this.generalService.sendEmail(emailBody).subscribe({
@@ -341,10 +350,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           this.submittingOrder = false;
         }
       });
-    } else {
-      this.orderPlaced.emit(true);
-      this.submittingOrder = false;
-    }
   }
 
   private handleOrderCancellationFailure(indexMenu:number) {
@@ -384,7 +389,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   placeOrder(orderModel: OrderInterfaceStudent, type: string, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result) => {
+    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result:{sendCopyEmail:boolean}) => {
       this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
@@ -392,7 +397,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }
-  private async saveOrder(orderModifiedForSave: any, type: string, result: any, indexMenu: number) {
+  private async saveOrder(orderModifiedForSave: any, type: string, result: {sendCopyEmail:boolean}, indexMenu: number) {
     try {
       const data = await this.orderService.addOrderStudentDay(orderModifiedForSave).toPromise();
       this.handleOrderResponse(data, orderModifiedForSave, type, result, indexMenu);
@@ -402,7 +407,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.resetOrderSelection(indexMenu);
     }
   }
-  private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: any, indexMenu: number) {
+  private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}, indexMenu: number) {
     if (data.success) {
       this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich');
       this.fetchAccountAndHandleEmails(orderModel, type, result);
@@ -411,7 +416,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.resetOrderSelection(indexMenu);
     }
   }
-  private fetchAccountAndHandleEmails(orderModel: OrderInterfaceStudent, type: string, result: any) {
+  private fetchAccountAndHandleEmails(orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}) {
     this.accountService.getAccountTenant().subscribe({
       next: (accountTenant: AccountCustomerInterface) => {
         this.handleAccountSuccess(accountTenant, orderModel, type, result);
@@ -424,8 +429,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  private handleAccountSuccess(accountTenant: AccountCustomerInterface, orderModel: OrderInterfaceStudent, type: string, result: any) {
-    if (accountTenant && (this.tenantStudent.orderSettings.orderConfirmationEmail || this.tenantStudent.orderSettings.sendReminderBalance)) {
+  private handleAccountSuccess(accountTenant: AccountCustomerInterface, orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}) {
+    if (accountTenant && (result.sendCopyEmail || this.tenantStudent.orderSettings.sendReminderBalance)) {
       const promisesEmail = this.getPromisesEmail(orderModel, type, result, accountTenant);
       forkJoin(promisesEmail).subscribe({
         next: (data: any) => this.finalizeOrder(),

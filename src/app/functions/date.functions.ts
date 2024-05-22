@@ -113,3 +113,11 @@ export function getTimeToDisplay() {
   let formatted = moment(new Date()).format('YYYY-DD-YY HH:mm:ss') + ' Uhr';
   return formatted;
 }
+
+
+export function formatDateInput(date: Date): string {
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const day = ('0' + date.getDate()).slice(-2);
+  return `${year}-${month}-${day}`;
+}

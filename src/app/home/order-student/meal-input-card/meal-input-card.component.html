@@ -1,4 +1,4 @@
-<div class="container-font-size">
+<div class="container-font-size" >
   <div class="order-deadline shadow-lg rounded-lg overflow-hidden mb-2">
     <div class="p-4">
       <div class="flex justify-end">
@@ -20,11 +20,11 @@
     </div>
   </div>
   <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
-    <div [matTooltip]="lockDay ? 'Schließtag' : ''"
+    <div [matTooltip]="getTooltipText(pastOrder, lockDay)"
          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
          [ngStyle]="getMenuStyle(eachMenu)"
          class="shadow-lg rounded-lg overflow-hidden relative">
-      <div class="p-3">
+      <div class="p-3" >
         <!-- Top content goes here -->
         <div class="flex">
           <div class="w-full">
@@ -32,7 +32,7 @@
               <div *ngIf="eachMenu.displayMenu" class="w-1/6">
                 <input (ngModelChange)="setOrderDay($event,indexMenu)"
                        [(ngModel)]="eachMenu.menuSelected"
-                       [disabled]="pastOrder || lockDay"
+                        [disabled]="pastOrder || lockDay"
                        [name]="'menuSelected' + indexMenu + '_' + indexDay"
                        [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
               </div>

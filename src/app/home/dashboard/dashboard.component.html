@@ -230,7 +230,8 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr class="border-b border-gray-100" *ngFor="let order of ordersStudentsDisplay">
+
+                  <tr class="border-b border-gray-100" *ngFor="let order of ordersStudentsDisplay |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                     <td class="max-w-0 px-0 py-4 align-top" style="white-space: normal;">{{order.dateOrder | date:'dd.MM.yyyy'}}</td>
                     <td class="overflow-x-auto whitespace-normal hidden py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell" style="word-wrap: break-word; max-width: 150px;">{{order.orderedMenus}}</td>
                     <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">

@@ -3,7 +3,7 @@ import {StudentInterface} from "../../../classes/student.class";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {QueryInterOrderInterface} from "../../../functions/weekplan.functions";
 import {addDayFromDate} from "../order.functions";
-
+import {formatDateInput} from "../../../functions/date.functions";
 @Component({
   selector: 'app-date-selection-single',
   templateUrl: './date-selection-single.component.html',
@@ -35,7 +35,7 @@ export class DateSelectionSingleComponent implements OnInit {
 
   // Method to get date as a string in YYYY-MM-DD format
   getSelectedDateString(): string {
-    return this.formatDate(this.selectedDate);
+    return formatDateInput(this.selectedDate);
   }
 
   // Method to handle date change
@@ -49,12 +49,6 @@ export class DateSelectionSingleComponent implements OnInit {
   }
 
   // Utility method to format Date to YYYY-MM-DD string
-  private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
-  }
   setStudent(student:StudentInterface | null){
     this.selectedStudent = student;
     this.selectStudent.emit(this.selectedStudent)

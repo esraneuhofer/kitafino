@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {OrderInterfaceStudent} from "../../../classes/order_student.class";
 import {getTotalPrice} from "../../order-student/order.functions";
+import {TenantStudentInterface} from "../../../classes/tenant.class";
 
 @Component({
   selector: 'app-confirm-order',
@@ -16,9 +17,10 @@ export class ConfirmOrderComponent {
   text:string = 'Mit dem absenden der Bestellung wird Ihr Konto mit dem folgenden Betrag belastet:'
   btnText:string = 'Bestellen'
   buttonType:string =  'primary';
-  constructor(@Inject(MAT_DIALOG_DATA) private data: { orderStudent:OrderInterfaceStudent,type:string,indexMenu:number } ) {
-    console.log(data.orderStudent.order.orderMenus)
-    console.log(data.indexMenu)
+  constructor(@Inject(MAT_DIALOG_DATA) private data: {
+    tenantStudent:TenantStudentInterface,
+    orderStudent:OrderInterfaceStudent,type:string,indexMenu:number } ) {
+    this.sendCopyEmail = this.data.tenantStudent.orderSettings.orderConfirmationEmail
     this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder
     if(data.type === 'cancel'){
       this.header = 'Bestellung stornieren';

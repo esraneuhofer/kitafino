@@ -64,6 +64,8 @@ import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/su
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
 import { DateSelectionSingleComponent } from './home/order-student/date-selection-single/date-selection-single.component';
 import { DialogErrorComponent } from './directives/dialog-error/dialog-error.component';
+import { ExportCsvDialogComponent } from './directives/export-csv-dialog/export-csv-dialog.component';
+import { AccuntDetailsComponent } from './home/account/accunt-details/accunt-details.component';
 
 registerLocaleData(localeDe);
 
@@ -112,6 +114,8 @@ registerLocaleData(localeDe);
     NotSuccessStripeComponent,
     DateSelectionSingleComponent,
     DialogErrorComponent,
+    ExportCsvDialogComponent,
+    AccuntDetailsComponent,
   ],
   imports: [
     BrowserModule,

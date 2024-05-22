@@ -3,6 +3,7 @@ import {AccountCustomerInterface} from "./account.class";
 
 export interface AccountChargeInterface {
   approved: boolean,
+  dateApproved: Date | null;
   amount: number;
   date: Date;
   accountHolder: string;
@@ -17,6 +18,7 @@ export interface AccountChargeInterface {
 }
 export class ChargeAccountInterface implements AccountChargeInterface {
   approved: boolean = false;
+  dateApproved = null;
   amount = 0;
   date = new Date();
   accountHolder = '';

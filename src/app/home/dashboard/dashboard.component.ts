@@ -59,6 +59,9 @@ export interface DisplayOrderArrayIntrface {
 
 export class DashboardComponent {
 
+  page: number = 1;
+  pageSize: number = 6;
+
   tenant!: TenantStudentInterface;
   pageLoaded: boolean = false;
   accountTenant!: AccountCustomerInterface;

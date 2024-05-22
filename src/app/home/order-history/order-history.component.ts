@@ -6,6 +6,13 @@ import {StudentService} from "../../service/student.service";
 import {forkJoin} from "rxjs";
 import {StudentInterface} from "../../classes/student.class";
 import {getStudentNameById} from "../../functions/students.functions";
+import {
+  ConfirmWithdrawDialogComponent
+} from "../account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
+import {AccountChargeInterface, ChargeAccountInterface} from "../../classes/charge.class";
+import {AccountCustomerInterface} from "../../classes/account.class";
+import {ExportCsvDialogComponent} from "../../directives/export-csv-dialog/export-csv-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 function getTypeOrder(input:string):string{
   if(input === 'order'){
@@ -61,6 +68,7 @@ export class OrderHistoryComponent implements OnInit{
   pageSize = 7;
   constructor(private orderService:OrderService,
               private studentService:StudentService,
+              private dialog: MatDialog,
               private router: Router,
               private route: ActivatedRoute) {
   }
@@ -85,5 +93,21 @@ export class OrderHistoryComponent implements OnInit{
   }
   setPage(number:number){
     this.page += number;
+  }
+
+  openDialogExport(){
+    const dialogRef = this.dialog.open(ExportCsvDialogComponent, {
+      width: '550px',
+      data: {header: 'Exportieren', message: 'Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen'},
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
+
+    dialogRef.afterClosed().subscribe((result:{firstDate:string,secondDate:string}) => {
+      if (!result){
+        this.submittingRequest = false;
+        return;
+      }
+    });
   }
 }

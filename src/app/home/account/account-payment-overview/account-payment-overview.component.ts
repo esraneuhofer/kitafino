@@ -21,7 +21,7 @@ import {
 import {loadStripe} from '@stripe/stripe-js';
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/in hinzufügen. Klicken Sie hier, um eine Schüler/in hinzuzufügen.';
 
@@ -52,6 +52,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
   accountTenant!: AccountCustomerInterface;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
     private clipboardService: ClipboardService,
@@ -144,10 +145,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
         forkJoin([
           this.chargeService.getAccountCharges(),
           this.accountService.getAccountTenant()
-        ])
-          .subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
+        ]).subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
           this.accountTenant = accountTenant;
-          this.accountCharges = accountCharges;
+          this.accountCharges = sortAccountChargesByDate(accountCharges);
           this.toastr.success('Abbuchung erfolgreich')
           this.submittingRequest = false;
         })
@@ -226,6 +226,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
     if(!this.amountCharge)return
     this.estimatedFee = this.calculateFee(this.amountCharge, 'card');  // Default to 'card', you can change this as needed
     this.paymentFeeArray = this.calculateFeeArray(this.amountCharge);
+  }
+  goToLink(){
+    this.router.navigate(['../home/details_account'], {relativeTo: this.route.parent});
   }
 
 }

@@ -20,6 +20,7 @@ import {OrderHistoryComponent} from "./home/order-history/order-history.componen
 import {KindergardenSettingComponent} from "./home/kindergarden-setting/kindergarden-setting.component";
 import {WeekplanPdfComponent} from "./home/weekplan-pdf/weekplan-pdf.component";
 import {PermanentOrdersComponent} from "./home/permanent-orders/permanent-orders.component";
+import {AccuntDetailsComponent} from "./home/account/accunt-details/accunt-details.component";
 
 
 
@@ -47,6 +48,7 @@ export const appRoutes: Routes = [
       { path: 'permanent_order', component:PermanentOrdersComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'charge_account', component:ChargeAccountComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard,MainGuard]},
+      { path: 'details_account', component:AccuntDetailsComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'account_overview', component:AccountPaymentOverviewComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'kindergarten_settings', component:KindergardenSettingComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
