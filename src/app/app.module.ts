@@ -58,7 +58,7 @@ import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-st
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {ServiceWorkerModule, SwUpdate} from '@angular/service-worker';
 import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
 import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
@@ -152,4 +152,14 @@ registerLocaleData(localeDe);
   bootstrap: [AppComponent],
 
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private swUpdate: SwUpdate) {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.available.subscribe(() => {
+        if (confirm('Neue Version verfügbar. Seite neu laden?')) {
+          window.location.reload();
+        }
+      });
+    }
+  }
+}
