@@ -33,7 +33,6 @@ export class DateSelectionComponent  implements OnInit {
     constructor() { }
 
   ngOnInit() {
-      console.log(this.minWidth)
       this.queryYears = getYearsQuery();
       this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
       this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year

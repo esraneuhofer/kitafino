@@ -26,10 +26,10 @@ export class DateSelectionSingleComponent implements OnInit {
 
 
   ngOnInit() {
-    this.selectedDate = addDayFromDate(new Date(),+3); // Initialize with the current date or any other date
+    this.selectedDate = addDayFromDate(new Date(),0); // Initialize with the current date or any other date
     if (this.registeredStudents.length >= 1) {
       this.selectedStudent = this.registeredStudents[0];
-      this.getOrderDay.emit(this.selectedDate)
+      // this.getOrderDay.emit(this.selectedDate)
     }
   }
 
