@@ -242,14 +242,18 @@
                     <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">
                       <button
                         [ngClass]="order.cancelPossible ? 'bg-red-300 hover:bg-red-500' : 'bg-gray-400'"
-                        [disabled]="!order.cancelPossible"
+                        [disabled]="!order.cancelPossible || submittingRequest"
                         [matTooltip]="order.cancelPossible ? '' : 'Frist abgelaufen'"
-                        (click)="routeToAccount('order_student')"
+                        (click)="cancelOrder(order)"
                         class="rounded-md px-2 py-1 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+<!--                        <span *ngIf="order.cancelPossible">Stornieren</span>-->
+<!--                        <span *ngIf="!order.cancelPossible">Abgelaufen</span>-->
                         Stornieren
                       </button>
                     </td>
                   </tr>
+<!--                  (click)="routeToAccount('order_student')"-->
+
                   <tr *ngIf="ordersStudentsDisplay.length === 0">
                     <td colspan="100%" style="white-space: normal;">
                       <app-general-banner></app-general-banner>
@@ -270,4 +274,5 @@
     </div>
   </main>
 </ng-container>
+<app-loading-page [pageLoaded]="!submittingRequest"></app-loading-page>
 

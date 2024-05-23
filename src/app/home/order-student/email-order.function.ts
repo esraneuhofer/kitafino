@@ -185,7 +185,14 @@ export interface EmailOrderInterface {
   sendCopyEmail: boolean,
   selectedStudent: StudentInterface
 }
-
+export interface EmailOrderInterfaceCancel {
+  orderStudent: OrderInterfaceStudent,
+  settings: SettingInterfaceNew,
+  tenantStudent: TenantStudentInterface,
+  customerInfo: CustomerInterface,
+  sendCopyEmail: boolean,
+  selectedStudent: StudentInterface
+}
 function numberToEuroString(number: number): string {
   return `${number.toFixed(2).replace(".", ",")}€`;
 }

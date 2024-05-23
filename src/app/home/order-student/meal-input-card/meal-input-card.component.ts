@@ -195,7 +195,16 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       selectedStudent: this.selectedStudent
     }
   }
-
+  getEmailBodyDataCancel(orderModel: OrderInterfaceStudent, result: { sendCopyEmail: boolean }) {
+    return {
+      orderStudent: orderModel,
+      settings: this.settings,
+      tenantStudent: this.tenantStudent,
+      customerInfo: this.customer,
+      sendCopyEmail: result.sendCopyEmail,
+      selectedStudent: this.selectedStudent
+    }
+  }
   getMenuStyle(eachMenu: any): any {
     let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
     if (eachMenu.typeOrder === 'menu' && !this.displayMinimize) {
@@ -337,8 +346,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
-      const emailObject = this.getEmailBodyData(orderModel, 'cancel', result);
-      const emailBody = getEmailBodyCancel(emailObject, data.data.priceTotal);
+      const emailObject = this.getEmailBodyDataCancel(orderModel,  result);
+      const emailBody = getEmailBodyCancel(emailObject);
       this.generalService.sendEmail(emailBody).subscribe({
         next: (emailResponse) => {
           this.orderPlaced.emit(true);

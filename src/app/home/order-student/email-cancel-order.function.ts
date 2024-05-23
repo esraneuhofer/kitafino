@@ -1,9 +1,9 @@
-import {EmailOrderInterface} from "./email-order.function";
+import {EmailOrderInterface, EmailOrderInterfaceCancel} from "./email-order.function";
 import {getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
 import {formatCurrency} from "@angular/common";
 
 
-export function getEmailBodyCancel(objectData: EmailOrderInterface,price:number): any {
+export function getEmailBodyCancel(objectData: EmailOrderInterfaceCancel): any {
   const orderTime = getTimeToDisplay();
   let arrayEmail = [];
   if (objectData.sendCopyEmail) {
@@ -18,7 +18,7 @@ export function getEmailBodyCancel(objectData: EmailOrderInterface,price:number)
 
 
 
-function getHtmlCancel(objectData: EmailOrderInterface,orderTime:string): string {
+function getHtmlCancel(objectData: EmailOrderInterfaceCancel,orderTime:string): string {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="de">
  <head>
@@ -177,7 +177,7 @@ a[x-apple-data-detectors] {
 </html>`
 }
 export function getBodyEmailGenerell(
-  objectData:EmailOrderInterface,
+  objectData:EmailOrderInterfaceCancel ,
   arrayEmail:string[],
   orderTime:string):any{
   return {

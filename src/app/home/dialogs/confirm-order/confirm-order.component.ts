@@ -24,7 +24,7 @@ export class ConfirmOrderComponent {
     this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder
     if(data.type === 'cancel'){
       this.header = 'Bestellung stornieren';
-      this.text  = 'Mit dem absenden der Stornierung wird Ihrem Konto mit dem folgenden Betrag gutgeschrieben:'
+      this.text  = 'Mit dem absenden der Stornierung wird Ihrem Konto der folgende Betrag gutgeschrieben:'
       this.btnText = 'Stornieren'
       this.buttonType =  'danger';
     }
