@@ -1,208 +1,167 @@
 <ng-container *ngIf="pageLoaded">
-  <div class="container mx-auto  xs:px-0 mt-8">
+  <div class="container mx-auto xs:px-0 mt-8">
     <div class="flex justify-center">
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div [class.flipped]="isFlipped" class="relative perspective">
 
-          <!-- Front of the card -->
+          <!-- Vorderseite der Karte -->
           <div class="card-face front">
-            <!-- Your existing form -->
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
               <div class="px-4 sm:px-6 lg:px-8">
-              <form #f1="ngForm" (ngSubmit)="f1.form.valid && addStudent(f1)" novalidate>
-                <div class="space-y-12">
-                  <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-                    <div>
-                      <h2 class="text-base font-semibold leading-7 text-gray-900">Anmeldung</h2>
-                      <p class="mt-1 text-sm leading-6 text-gray-600">Bitte tragen Sie alle Daten ein und gehen
-                        Sie anschließend auf "anlegen". </p>
-                      <p class="mt-3 text-sm leading-6 text-gray-600">
-                        Im Anschluss erhalten Sie eine Bestätigung per Email an Ihre hinterlegte Emailadresse.
-                        <!--                        sowie einen automatisch generierten Benutzername.-->
-                      </p>
-                      <h2 *ngIf="specialFoodSelection.length > 0"
-                          class="text-base font-semibold leading-7 text-gray-900 mt-3">Allergiker Essen</h2>
-                      <p *ngIf="specialFoodSelection.length > 0" class=" text-sm leading-6 text-gray-600">
-                        <!--                        Sollte der Verpflegungs-Teilnehmer Allergien haben, so wählen Sie bitte das entsprechende Essen-->
-                        <!--                        aus.-->
-                        Verfügbare Allergiker Essen werden vom jeweiligen Caterer bereitgestellt.
-                        Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer.
-                        Wenn ein Allergiker Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen
-                        Verpflegungsteilnehmers frei geschaltet.
-                        <!--                        automatisch bei all Ihren Bestellungen dem Caterer übermittelt.-->
-                        <!--                        <br> <br><b>Bitte beachten Sie: </b> Sollte das Allergiker Essen nachträglich geändert werden, so-->
-                        <!--                        wird diese Änderung bei bereits abgegebene Bestellungen nicht berücksichtigt.-->
-                      </p>
-                    </div>
+                <form #f1="ngForm" (ngSubmit)="f1.form.valid && addStudent(f1)" novalidate>
+                  <div class="space-y-12">
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+                      <div>
+                        <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'REGISTRATION_HEADING' | translate }}</h2>
+                        <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'REGISTRATION_INSTRUCTIONS' | translate }}</p>
+                        <p class="mt-3 text-sm leading-6 text-gray-600">{{ 'REGISTRATION_CONFIRMATION' | translate }}</p>
+                        <h2 *ngIf="specialFoodSelection.length > 0" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_HEADING' | translate }}</h2>
+                        <p *ngIf="specialFoodSelection.length > 0" class="text-sm leading-6 text-gray-600">{{ 'SPECIAL_FOOD_INSTRUCTIONS' | translate }}</p>
+                      </div>
 
-                    <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-                      <div class="sm:col-span-4">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">Vorname</label>
-                        <div class="mt-2">
-                          <input #firstName="ngModel"
-                                 [(ngModel)]="studentModel.firstName"
-                                 [ngClass]="{'invalid-input': f1.submitted && firstName.invalid}"
-                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                 id="firstName"
-                                 name="firstName"
-                                 required
-                                 type="text">
+                      <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+                        <div class="sm:col-span-4">
+                          <label class="block text-sm font-medium leading-6 text-gray-900" for="firstName">{{ 'FIRST_NAME_LABEL' | translate }}</label>
+                          <div class="mt-2">
+                            <input #firstName="ngModel"
+                                   [(ngModel)]="studentModel.firstName"
+                                   [ngClass]="{'invalid-input': f1.submitted && firstName.invalid}"
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   id="firstName"
+                                   name="firstName"
+                                   required
+                                   type="text">
+                          </div>
+                          <p *ngIf="f1.submitted && firstName.invalid" class="m-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
                         </div>
-                        <p *ngIf="f1.submitted && firstName.invalid " class="m-1 text-sm text-red-600">Pflichtfeld</p>
-                      </div>
-                      <div class="sm:col-span-4">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="lastName">Nachname</label>
-                        <div class="mt-2">
-                          <input #lastName="ngModel"
-                                 [(ngModel)]="studentModel.lastName"
-                                 [ngClass]="{'invalid-input': f1.submitted && lastName.invalid}"
-                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                 id="lastName"
-                                 name="lastName"
-                                 required
-                                 type="text">
+                        <div class="sm:col-span-4">
+                          <label class="block text-sm font-medium leading-6 text-gray-900" for="lastName">{{ 'LAST_NAME_LABEL' | translate }}</label>
+                          <div class="mt-2">
+                            <input #lastName="ngModel"
+                                   [(ngModel)]="studentModel.lastName"
+                                   [ngClass]="{'invalid-input': f1.submitted && lastName.invalid}"
+                                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   id="lastName"
+                                   name="lastName"
+                                   required
+                                   type="text">
+                          </div>
+                          <p *ngIf="f1.submitted && lastName.invalid" class="mt-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
                         </div>
-                        <p *ngIf="f1.submitted && lastName.invalid " class="mt-1 text-sm text-red-600">Pflichtfeld</p>
+                        <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                          <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedSpecialFoodModel">{{ 'SPECIAL_FOOD_LABEL' | translate }}</label>
+                          <select #selectedSpecialFoodModel="ngModel" (ngModelChange)="selectSpecialFood($event)"
+                                  [(ngModel)]="selectedSpecialFood"
+                                  [ngClass]="{'invalid-input': f1.submitted && selectedSpecialFoodModel.invalid}"
+                                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  id="selectedSpecialFoodModel"
+                                  name="selectedSpecialFoodModel">
+                            <option disabled hidden selected value="">{{ 'PLEASE_SELECT' | translate }}</option>
+                            <option *ngFor="let specialFood of specialFoodSelection" [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
+                          </select>
+                        </div>
+                        <ng-container *ngIf="customerInfo.generalSettings.subGroupSettingTenant">
+                          <div class="sm:col-span-4">
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">{{ 'SUBGROUP_LABEL' | translate }}</label>
+                            <select #subgroupModel="ngModel" (ngModelChange)="isSelected($event)"
+                                    [(ngModel)]="selectedSubgroup"
+                                    [ngClass]="{'invalid-input': f1.submitted && subgroupModel.invalid}"
+                                    [required]="!subGroupUnknownModel"
+                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    id="subgroup"
+                                    name="subgroupModel">
+                              <option disabled hidden selected value="">{{ 'PLEASE_SELECT' | translate }}</option>
+                              <option *ngFor="let subgroup of customerInfo.order.split" [value]="subgroup.group">{{subgroup.displayGroup}}</option>
+                            </select>
+                            <p *ngIf="f1.submitted && subgroupModel.invalid" class="mt-1 text-sm text-red-600">{{ 'SUBGROUP_INSTRUCTIONS' | translate }}</p>
+                          </div>
+                          <div class="sm:col-span-4">
+                            <div class="space-y-5">
+                              <div class="relative flex items-start">
+                                <div class="flex h-6 items-center">
+                                  <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"
+                                         aria-describedby="comments-description"
+                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                         id="subGroupUnknown"
+                                         name="subGroupUnknown"
+                                         type="checkbox">
+                                </div>
+                                <div class="ml-3 text-sm leading-6">
+                                  <label class="font-medium text-gray-900" for="subGroupUnknown">{{ 'UNKNOWN_SUBGROUP_LABEL' | translate }}</label>
+                                  <p class="text-gray-500" id="comments-description">{{ 'UNKNOWN_SUBGROUP_INSTRUCTIONS' | translate }}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
                       </div>
-                      <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
-                        <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedSpecialFoodModel">Allergiker
-                          Essen</label>
-                        <select #selectedSpecialFoodModel="ngModel" (ngModelChange)="selectSpecialFood($event)"
-                                [(ngModel)]="selectedSpecialFood"
-                                [ngClass]="{'invalid-input': f1.submitted && selectedSpecialFoodModel.invalid}"
-                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                id="selectedSpecialFoodModel"
-                                name="selectedSpecialFoodModel">
-                          <option disabled hidden selected value="">Bitte auswählen</option>
-                          <option
-                            *ngFor="let specialFood of specialFoodSelection"
-                            [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
-                        </select>
-                      </div>
-                     <ng-container *ngIf="customerInfo.generalSettings.subGroupSettingTenant">
-                       <div class="sm:col-span-4">
-                         <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">Gruppe
-                           zuordnen</label>
-                         <select #subgroupModel="ngModel" (ngModelChange)="isSelected($event)"
-                                 [(ngModel)]="selectedSubgroup"
-                                 [ngClass]="{'invalid-input': f1.submitted && subgroupModel.invalid}"
-                                 [required]="!subGroupUnknownModel"
-                                 class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                 id="subgroup"
-                                 name="subgroupModel">
-                           <option disabled hidden selected value="">Bitte auswählen</option>
-                           <option
-                             *ngFor="let subgroup of customerInfo.order.split"
-                             [value]="subgroup.group">{{subgroup.displayGroup}}</option>
-                         </select>
-                         <p *ngIf="f1.submitted && subgroupModel.invalid " class="mt-1 text-sm text-red-600">Bitte
-                           auswählen oder "nicht bekannt" ankreuzen</p>
-
-                       </div>
-                       <div class="sm:col-span-4">
-                         <div class="space-y-5">
-                           <div class="relative flex items-start">
-                             <div class="flex h-6 items-center">
-                               <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"
-                                      aria-describedby="comments-description"
-                                      class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                      id="subGroupUnknown"
-                                      name="subGroupUnknown"
-                                      type="checkbox">
-                             </div>
-                             <div class="ml-3 text-sm leading-6">
-                               <label class="font-medium text-gray-900" for="subGroupUnknown">Nicht bekannt</label>
-                               <p class="text-gray-500" id="comments-description">Sollten Sie sich unsicher sein in
-                                 welche Untergruppe der Verplegungsteilnemher ist bitte anklicken</p>
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                     </ng-container>
                     </div>
-
-
                   </div>
-                </div>
 
-                <div class="mt-6 flex items-center justify-end gap-x-2 sm:gap-x-4">
-                  <button
-                    (click)="directToRoute('register')"
-                    [disabled]="submittingRequest"
-                    class="rounded-md
-                     bg-indigo-600
-                      px-3 py-2
-                      text-sm font-semibold
-                      text-white shadow-sm
-                      hover:bg-indigo-500
-                      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    type="button">
-                    Zurück
-                  </button>
-                  <button
-                    [disabled]="submittingRequest"
-                    class="rounded-md
-                    bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    type="submit">
-                    Anlegen
-                    <div *ngIf="submittingRequest" role="status">
-                      <svg aria-hidden="true"
-                           class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                           fill="none" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"/>
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentFill"/>
-                      </svg>
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </button>
-                  <!--                    <button type="button" (click)="show()"></button>-->
-                </div>
-              </form>
+                  <div class="mt-6 flex items-center justify-end gap-x-2 sm:gap-x-4">
+                    <button
+                            (click)="directToRoute('register')"
+                            [disabled]="submittingRequest"
+                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            type="button">
+                      {{ 'BACK_BUTTON' | translate }}
+                    </button>
+                    <button
+                            [disabled]="submittingRequest"
+                            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            type="submit">
+                      {{ 'SUBMIT_BUTTON' | translate }}
+                      <div *ngIf="submittingRequest" role="status">
+                        <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" fill="none" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                        </svg>
+                        <span class="sr-only">{{ 'LOADING' | translate }}</span>
+                      </div>
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
 
-          <!-- Back of the card -->
+          <!-- Rückseite der Karte -->
           <div class="card-face back">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
               <div class="px-4 sm:px-6 lg:px-8">
-              <div class="space-y-12">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-2">
-                  <div>
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Anmeldung erfolgreich</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600">
-                      Vielen Dank für Ihre Anmeldung.
-                      Wir haben Ihnen eine Bestätigungs-Email Ihrer Anmeldung an Ihre hinterlegte Emailadresse gesendet.
-                      <span *ngIf="customerInfo.order.split.length > 1"><br><br></span> {{registrationText}}
-                      <!--                      Dem Verpflegungsteilnehmer/in wurde automatisch ein Benutzername zugeordnet.-->
-                      <!--                      Der Benutzername ist für eine eindeutige Identifizeirung des Gutehaben Kontos ".-->
-                    </p>
-                    <div class="mt-3 text-sm leading-6 text-gray-600">
-                      <div class="flex flex-col sm:flex-row">
-                        <!-- Changes flex direction on small screens and reverts on larger screens -->
-                        <button
-                          (click)="directToRoute('account_overview')"
-                          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none mt-2 sm:mt-0 sm:ml-2">
-                          Konto aufladen
-                        </button>
-                        <button
-                          (click)="reloadPage()"
-                          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none mt-2 sm:mt-0 sm:ml-2">
-                          <!-- Adjusts spacing and margin on different screen sizes -->
-                          Weitere Anmeldung
-                        </button>
+                <div class="space-y-12">
+                  <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-2">
+                    <div>
+                      <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'REGISTRATION_SUCCESS_HEADING' | translate }}</h2>
+                      <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'REGISTRATION_SUCCESS_MESSAGE' | translate }}</p>
+                      <span *ngIf="customerInfo.order.split.length > 1">
+                        {{'REGISTRATION_TENANT_SUCCESS' | translate}}<br>
+                        <p class="mt-1 text-sm leading-6 text-gray-600">
+                          {{ 'REGISTRATION_SUCCESS_MESSAGE_SPLIT' | translate }}
+                        </p>
+                      </span>
+
+                      <div class="mt-3 text-sm leading-6 text-gray-600">
+                        <div class="flex flex-col sm:flex-row">
+                          <button
+                                  (click)="directToRoute('account_overview')"
+                                  class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none mt-2 sm:mt-0 sm:ml-2">
+                            {{ 'ACCOUNT_TOPUP_BUTTON' | translate }}
+                          </button>
+                          <button
+                                  (click)="reloadPage()"
+                                  class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus:outline-none mt-2 sm:mt-0 sm:ml-2">
+                            {{ 'NEW_REGISTRATION_BUTTON' | translate }}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

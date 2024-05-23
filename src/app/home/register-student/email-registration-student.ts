@@ -2,6 +2,7 @@ import {TenantStudentInterface} from "../../classes/tenant.class";
 import {CustomerInterface} from "../../classes/customer.class";
 import {StudentInterface} from "../../classes/student.class";
 import {SettingInterfaceNew} from "../../classes/setting.class";
+import {TranslateService} from "@ngx-translate/core";
 
 function getEinrichtungsobject(customer: CustomerInterface): string {
   const name = customer.contact.customer ? customer.contact.customer : '';
@@ -12,40 +13,56 @@ function getEinrichtungsobject(customer: CustomerInterface): string {
   return `${name} <br> ${street} <br> ${zip}  <br> ${phone} <br> ${email}`;
 }
 
-function getSpecialFoodForCustomerEmail(student: StudentInterface,settings:SettingInterfaceNew): string {
+function getSpecialFoodForCustomerEmail(student: StudentInterface, settings: SettingInterfaceNew, translate: TranslateService): string {
   let specialFood = "";
   if (student.specialFood) {
     let specialFoodItem = settings.orderSettings.specialFoods.find(special => special._id === student.specialFood);
-    let specialFoodName = specialFoodItem ? specialFoodItem.nameSpecialFood : 'Sonderkost'
+    let specialFoodName = specialFoodItem ? specialFoodItem.nameSpecialFood : translate.instant('SPECIAL_DIET');
     specialFood = `<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b><b>Sonderkost:</b></b> ${specialFoodName}<br>
+                      <b><b>${translate.instant('SPECIAL_DIET_LABEL')}:</b></b> ${specialFoodName}<br>
                       </p>`;
   }
   return specialFood;
 }
 
-function getNameSubGroup(student: StudentInterface,customer: CustomerInterface): string {
+
+function getNameSubGroup(student: StudentInterface, customer: CustomerInterface, translate: TranslateService): string {
   let subgroup = '';
   if (customer.order.split.length > 1) {
     let subGroup = customer.order.split.find(sub => sub.group === student.subgroup);
-    let nameGroup = subGroup ? subGroup.displayGroup : 'Untergruppe nicht zugeordent';
+    let nameGroup = subGroup ? subGroup.displayGroup : translate.instant('SUBGROUP_NOT_ASSIGNED');
     subgroup = `<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b>Untergruppe:</b> ${nameGroup}<br>
+                      <b>${translate.instant('SUBGROUP_LABEL_EMAIL')}:</b> ${nameGroup}<br>
                       </p>`;
   }
   return subgroup;
 }
-export function getEmailBodyRegistrationStudent(customer: CustomerInterface,
-                                                student: StudentInterface,
-                                                tenant: TenantStudentInterface,
-                                                setting:SettingInterfaceNew): any {
+
+
+export function getEmailBodyRegistrationStudent(
+    customer: CustomerInterface,
+    student: StudentInterface,
+    tenant: TenantStudentInterface,
+    setting: SettingInterfaceNew,
+    translate: TranslateService
+): any {
   const nameStudent = student.firstName + ' ' + student.lastName;
-  let specialFood = getSpecialFoodForCustomerEmail(student,setting);
-  let subgroup = getNameSubGroup(student,customer);
+  let specialFood = getSpecialFoodForCustomerEmail(student, setting,translate);
+  let subgroup = getNameSubGroup(student, customer,translate);
+
+  let subjectTranslation = translate.instant('EMAIL_REGISTRATION_SUBJECT');
+  let successMessage = translate.instant('EMAIL_REGISTRATION_SUCCESS_MESSAGE');
+  let institutionLabel = translate.instant('INSTITUTION_LABEL');
+  let addressLabel = translate.instant('ADDRESS_LABEL');
+  let phoneLabel = translate.instant('PHONE_LABEL');
+  let emailLabel = translate.instant('EMAIL_LABEL');
+  let confirmationMessage = translate.instant('EMAIL_REGISTRATION_CONFIRMATION');
+  let supportMessage = translate.instant('EMAIL_SUPPORT_MESSAGE');
+
   return {
-    from: 'Cateringexprt <noreply@cateringexpert.de>', // sender address
+    from: 'Cateringexpert <noreply@cateringexpert.de>', // sender address
     to: tenant.email, // list of receivers
-    subject: 'Anmeldungsbestätigung✔', // Subject line
+    subject: subjectTranslation, // Subject line
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="de">
  <head>
@@ -135,30 +152,30 @@ a[x-apple-data-detectors] {
                   <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                      <tr>
-                      <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h1 style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:bold;color:#333333">Anmeldung erfolgreich</h1></td>
+                      <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px"><h1 style="Margin:0;line-height:20px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:17px;font-style:normal;font-weight:bold;color:#333333">${successMessage}</h1></td>
                      </tr>
                      <tr>
                       <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Hiermit bestätigen wir Ihnen die Anmeldung</p><br>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">${confirmationMessage}</p><br>
 
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                       <b><b>Verpflegungsteilnehmer:</b></b> ${nameStudent}<br>
                       </p>
                       ${specialFood}
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b>Einrichtung:</b> ${customer.contact.customer}
+                      <b>${institutionLabel}:</b> ${customer.contact.customer}
                       </p>
                       ${subgroup}
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b>Adresse:</b> ${customer.contact.street} ${customer.contact.zipcode}<br>
+                      <b>${addressLabel}:</b> ${customer.contact.street} ${customer.contact.zipcode}<br>
                       </p>
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b>Telefon:</b> ${customer.contact.phone}<br>
+                      <b>${phoneLabel}:</b> ${customer.contact.phone}<br>
                       </p>
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b>Email:</b> ${customer.contact.email}
+                      <b>${emailLabel}:</b> ${customer.contact.email}
                       </p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Für Rückfragen stehen wir Ihnen gerne zur Verfügung.<br>Besuchen Sie uns auf unserer Webseite unter <a href="https://cateringexpert.de/hilfecenter" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">https://cateringexpert.de/hilfecenter</a><br>oder schreiben Sie uns eine E-Mail an <a href="mailto:support@cateringexpert.de" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#5C68E2;font-size:14px">support@cateringexpert.de</a>.<br><br>Wir melden uns zeitnah zurück.<br><br>Mit freundlichen Grüßen<br>Ihr Catering Expert Team</p></td>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">${supportMessage}</p></td>
                      </tr>
                    </table></td>
                  </tr>
@@ -222,5 +239,6 @@ a[x-apple-data-detectors] {
   </div>
  </body>
 </html>`
-  }
+  };
 }
+

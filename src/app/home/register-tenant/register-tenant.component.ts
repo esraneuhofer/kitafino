@@ -19,6 +19,7 @@ import {AccountCustomerInterface} from "../../classes/account.class";
 import {VacationsInterface} from "../../classes/vacation.interface";
 import {emailNotValid} from "../../functions/generell.functions";
 import {LanguageService} from "../../service/language.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register-tenant',
@@ -57,7 +58,8 @@ export class RegisterTenantComponent implements OnInit {
               private router:Router,
               private languageService: LanguageService,
               private toastr: ToastrService,
-              private userService: UserService) {
+              private userService: UserService,
+              private translate: TranslateService) {
 
   }
   switchLanguage(language: string): void {
@@ -105,10 +107,11 @@ export class RegisterTenantComponent implements OnInit {
       console.log(response)
       if (!response.error) {
         this.submittingRequest = false
-        this.toastr.success('Sie haben Ihre persönlichen Daten erfolgreich eingetragen', 'Erfolg')
-        this.router.navigateByUrl('/home/register_student');
+        this.translate.get('REGISTRATION_TENANT_SUCCESS').subscribe((res: string) => {
+          this.toastr.success(res);
+          this.router.navigateByUrl('/home/register_student');
+        });
       }else{
-
         this.submittingRequest = false
       }
     })

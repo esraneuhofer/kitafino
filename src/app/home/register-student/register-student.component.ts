@@ -12,13 +12,9 @@ import {forkJoin} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {getEmailBodyRegistrationStudent} from "./email-registration-student";
 import {SettingInterfaceNew} from "../../classes/setting.class";
+import {TranslateService} from "@ngx-translate/core";
 
-function getRegistrationText(customer:CustomerInterface):string{
-  if(customer.order.split.length > 1){
-    return 'Die Zuordnung der Schüler/innen zu den Verpflegungsgruppen erfolgt durch die Schule. Nach der Zuronderung durch die Einrichtung können Sie eine Bestellung aufgeben.';
-  }
- return  ''
-}
+
 @Component({
   selector: 'app-register-student',
   templateUrl: './register-student.component.html',
@@ -52,7 +48,8 @@ export class RegisterStudentComponent implements OnInit{
               private toaster:ToastrService,
               private r: ActivatedRoute,
               private generellService: GenerellService,
-              private tenantService: TenantServiceStudent){
+              private tenantService: TenantServiceStudent,
+              private translate: TranslateService){
   }
 
 
@@ -91,12 +88,12 @@ export class RegisterStudentComponent implements OnInit{
       this.registeredStudents = students;
       this.tenantStudent = tenant;
       this.settings = settings;
-      this.registrationText = getRegistrationText(this.customerInfo);
       this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo,this.settings);
       this.pageLoaded = true;
     })
 
   }
+
 
 
   addStudent(f:NgForm) {
@@ -113,7 +110,7 @@ export class RegisterStudentComponent implements OnInit{
           this.toaster.success('Verpflegungsteilnehmer/in wurde erfolgreich angelegt','Erfolgreich');
           f.resetForm();
 
-          const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings);
+          const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings,this.translate);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
             this.toaster.success('Email wurde versendet', 'Erfolgreich')
           })
