@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
 const Schooluser = mongoose.model('Schooluser');
+const SchoolNew = mongoose.model('SchoolNew');
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
@@ -68,15 +70,28 @@ module.exports.register = async (req, res, next) => {
 
   try {
     const emailRegistration = req.body.email.toLowerCase();
-
-    // Check for project existence and email uniqueness similar to previous examples
+    const projectExists  = await SchoolNew.findOne({projectId: req.body.projectId.toLowerCase()}).session(session);
+    if(!projectExists){
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).send({ message: res.__('PROJECT_NOT_EXIST'), isError: true });
+    }
+    // Check if email already exists
+    const existingUser = await Schooluser.findOne({ email: emailRegistration }).session(session);
+    if (existingUser) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).send({ message: res.__('EMAIL_ALREADY_REGISTERED'), isError: true });
+    }
 
     // Create new user
-    let user = new Schooluser({
+    const user = new Schooluser({
       email: emailRegistration,
       username: emailRegistration,
-      project_id: project._id,
-      // Additional properties...
+      project_id: projectExists._id,
+      customerId: projectExists.customerId,
+      tenantId: projectExists.tenantId,
+
     });
 
     // Generate password and hash
@@ -90,10 +105,10 @@ module.exports.register = async (req, res, next) => {
     await user.save(opts);
 
     // Prepare email options
-    let emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
-    let mailOptions = {
-      from: `${project.companyName} <noreply@cateringexpert.de>`,
-      bcc: project.emailRegistration || '',
+    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
+    const mailOptions = {
+      from: `Cateringexpert <noreply@yourdomain.com>`,
+      bcc: projectExists.emailRegistration || '',
       to: emailRegistration,
       subject: 'Accountinformationen✔',
       html: emailContent
@@ -110,12 +125,12 @@ module.exports.register = async (req, res, next) => {
     // Commit transaction if everything is successful
     await session.commitTransaction();
     session.endSession();
-    res.status(201).send({ message: 'Ihr Account wurde erfolgreich angelegt und eine Bestätigung wurde versendet.', isError: false });
+    res.status(201).send({ message: res.__('REGISTRATION_SUCCESS'), isError: false });
   } catch (err) {
     console.error(err);
     await session.abortTransaction();
     session.endSession();
-    res.status(500).send({ message: 'Ein Fehler ist aufgetreten bei der Registrierung.', isError: true });
+    res.status(500).send({ message: res.__('REGISTRATION_ERROR'), isError: true });
   }
 };
 

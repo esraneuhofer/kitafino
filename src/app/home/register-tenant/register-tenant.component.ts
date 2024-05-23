@@ -18,6 +18,7 @@ import {AssignedWeekplanInterface, WeekplanGroupClass} from "../../classes/assig
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {VacationsInterface} from "../../classes/vacation.interface";
 import {emailNotValid} from "../../functions/generell.functions";
+import {LanguageService} from "../../service/language.service";
 
 @Component({
   selector: 'app-register-tenant',
@@ -54,17 +55,22 @@ export class RegisterTenantComponent implements OnInit {
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private generellService: GenerellService,
               private router:Router,
+              private languageService: LanguageService,
               private toastr: ToastrService,
               private userService: UserService) {
 
   }
-
+  switchLanguage(language: string): void {
+    this.languageService.setLanguage(language);
+  }
   ngOnInit() {
     forkJoin([
       this.tenantServiceStudent.getTenantInformation(),
       this.generellService.getCustomerInfo()
     ]).subscribe({
       next: ([tenantStudent, customer]: [TenantStudentInterface, CustomerInterface]) => {
+        console.log(tenantStudent)
+        console.log(customer)
         if (tenantStudent) {
           this.router.navigateByUrl('/home/register_student');
         }

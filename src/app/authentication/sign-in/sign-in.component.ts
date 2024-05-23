@@ -5,7 +5,6 @@ import {StudentService} from "../../service/student.service";
 import {InstallPromptService} from "../../service/intstall-prompt.service";
 import {LanguageService} from "../../service/language.service";
 import {TranslateService} from "@ngx-translate/core";
-
 // function setMessage(message:string):string{
 //   if(message === 'Wrong password')return 'Das Passwort stimmt nicht mit der Email Adresse überein'
 //   if(message === 'Email is not registered')return 'Die Email Adresse konnte nicht gefunden werden'

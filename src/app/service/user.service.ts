@@ -22,7 +22,7 @@ export class UserService {
   }
 
   addUser(user:{email:string,projectId:string}) {
-    return this.http.post(environment.apiBaseUrl + '/register', user)
+    return this.http.post(environment.apiBaseUrl + '/register', user,{ withCredentials: true })
       .pipe(map((response: any) => response));
   }
 

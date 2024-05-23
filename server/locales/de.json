@@ -1,0 +1,20 @@
+{
+  "PROJECT_NOT_EXIST": "Das Projekt existiert nicht. Bitte überprüfen Sie Ihre Eingabe",
+  "EMAIL_ALREADY_REGISTERED": "Diese E-Mail ist bereits registriert.",
+  "REGISTRATION_SUCCESS": "Ihr Account wurde erfolgreich angelegt und eine Bestätigung wurde versendet.",
+  "REGISTRATION_ERROR": "Ein Fehler ist aufgetreten bei der Registrierung.",
+  "EMAIL_SUBJECT": "Accountinformationen✔",
+  "EMAIL_GREETING": "Vielen Dank für Ihre Anmeldung",
+  "EMAIL_WELCOME": "Wilkommen bei der Bestellanwendung von Cateringexpert.",
+  "EMAIL_LOGIN_INSTRUCTIONS": "Die Anmeldung finden Sie unter folgenden Adresse:",
+  "EMAIL_USERNAME": "Username:",
+  "EMAIL_PASSWORD": "Password:",
+  "EMAIL_NOTE": "Bitte beachten Sie bei der Eingabe des Passworts die Groß- und Kleinschreibung.",
+  "EMAIL_SUPPORT": "Sollten Sie Probleme oder Fragen haben, kontaktieren Sie uns bitte",
+  "EMAIL_CLOSING": "Grüße",
+  "EMAIL_SIGNATURE": "Cateringexpert",
+  "EMAIL_PRIVACY_NOTICE": "Datenschutzverordnung - Einwilligung",
+  "EMAIL_PRIVACY_CONTENT": "Mit Erhalt dieser Email stimme ich zu, dass die von mir mitgeteilten, persönlichen Daten zur Erfüllung der Geschäftsabwicklung von der Firma: Cateringexpert und verarbeitet werden dürfen. Die Daten verbleiben ausschließlich bei dem vorher genannten Unternehmen, sowie von diesem beauftragten Auftragsverarbeitern. Die Einwilligung kann jederzeit telefonisch, schriftlich per Post oder via Mail widerrufen werden.",
+  "EMAIL_PRIVACY_INFO": "Datenschutzinformation",
+  "EMAIL_PRIVACY_INFO_CONTENT": "Die Rechtmäßigkeit der Datenverarbeitung beruht auf Ihrer Einwilligung gemäß DSVGO zum Zweck der Kommunikation zu allgemeinen Informationen bzw. Auftragsbearbeitung und Auftragsabwicklung. Die von Ihnen bekannt gegebenen Daten werden bis auf Widerruf gespeichert."
+}

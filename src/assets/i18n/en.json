@@ -17,13 +17,22 @@
   "REGISTER_TITLE": "Register",
   "PROJECT_ID_LABEL": "Project ID",
   "REQUIRED_FIELD": "Required field",
-  "INVALID_EMAIL_ERROR": "{{errorMessageEmailInvalid}}",
+  "INVALID_EMAIL_ERROR": "Invalid email address",
   "REGISTER_BUTTON": "Register",
   "BACK_TO_LOGIN": "Back to login",
   "HERE": "here",
-  "RESET_PASSWORD_TITLE": "Reset Password",
+  "RESET_PASSWORD_TITLE": "Reset password",
   "ERROR_MESSAGE_DESCRIPTION": "Please verify",
   "REQUEST_NEW_PASSWORD_BUTTON": "Request new password",
   "ERROR_WRONG_PASSWORD": "The password does not match the email address",
-  "ERROR_EMAIL_NOT_REGISTERED": "The email address could not be found"
+  "ERROR_EMAIL_NOT_REGISTERED": "The email address could not be found",
+  "PERSONAL_INFORMATION": "Personal Information",
+  "WELCOME_MESSAGE": "Welcome to the ordering application for the institution",
+  "FORM_INSTRUCTIONS": "Please fill out the form first to continue. All entries can be changed later.",
+  "FIRST_NAME_LABEL": "First name",
+  "LAST_NAME_LABEL": "Last name",
+  "PHONE_LABEL": "Phone number",
+  "CONTINUE_BUTTON": "Continue",
+  "SELECTED_LANGUAGE_INSTRUCTIONS": "The selected language will be saved as a preference and can also be changed later."
+
 }

@@ -5,6 +5,7 @@ import {forkJoin} from "rxjs";
 import {UserService} from "../../service/user.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
 const validateEmail = (email: string) => {
   return email.match(
@@ -18,16 +19,15 @@ const validateEmail = (email: string) => {
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  showSucessMessage: boolean = false;
   serverErrorMessages: (string | null) = null;
   errorMessageEmailInvalid: (string | null) = null;
 
   submittingRequest: boolean = false;
   userModel = {email: '', projectId: ''};
 
-  constructor(public userService: UserService, private toaster: ToastrService,
-              private router: Router) {
+  constructor(public userService: UserService, private toastr: ToastrService,
+              private router: Router,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -36,9 +36,13 @@ export class SignUpComponent implements OnInit {
   onSubmit(form: NgForm): void {
     this.submittingRequest = true;
     this.serverErrorMessages = null;
+    this.errorMessageEmailInvalid = null;
 
     if (!validateEmail(form.value.email)) {
-      this.errorMessageEmailInvalid = 'Bitte geben Sie eine gültige Email Adresse an';
+      this.translate.get('EMAIL_INVALID').subscribe((res: string) => {
+        this.errorMessageEmailInvalid = res;
+        this.toastr.error(res);
+      });
       this.submittingRequest = false;
       return;
     }
@@ -48,19 +52,25 @@ export class SignUpComponent implements OnInit {
         this.submittingRequest = false;
         if (response.isError) {
           this.serverErrorMessages = response.message;
-          this.toaster.error(response.message);
+          this.toastr.error(response.message);
         } else {
           this.resetForm(form);
-          this.toaster.success("Der Account wurde angelegt");
-          this.toaster.success("Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet");
+          this.translate.get('REGISTRATION_SUCCESS').subscribe((res: string) => {
+            this.toastr.success(res);
+          });
+          this.translate.get('EMAIL_SENT').subscribe((res: string) => {
+            this.toastr.success(res);
+          });
           this.router.navigateByUrl('/login');
         }
       },
       error: (error) => {
         this.submittingRequest = false;
-        this.serverErrorMessages = error.error.message || 'Ein unerwarteter Fehler ist aufgetreten.';
-        if(!this.serverErrorMessages)return;
-        this.toaster.error(this.serverErrorMessages);
+        this.translate.get('UNEXPECTED_ERROR').subscribe((res: string) => {
+          this.serverErrorMessages = error.error.message || res;
+          const errorMessage = this.serverErrorMessages || 'Ein unbekannter Fehler ist aufgetreten';
+          this.toastr.error(errorMessage);
+        });
       }
     });
   }

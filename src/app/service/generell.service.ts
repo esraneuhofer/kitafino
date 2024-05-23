@@ -93,5 +93,11 @@ export class GenerellService {
     return this.http.post<PaymentIntentResponse>(`${environment.apiBaseUrl}/create-payment-intent`, body)
       .pipe(map(response => response));
   }
+  setLanguage(body: { lang: string }): Observable<any> {
+    return this.http.post<any>(`${environment.apiBaseUrl}/setLanguage`, body, { withCredentials: true })
+        .pipe(map(response => response));
+  }
+
+
 
 }

@@ -7,10 +7,14 @@ const path = require('path');
 require('dotenv').config();
 var environment = process.env.NODE_ENV;
 var app = express();
-
+const i18n = require('i18n');
 var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI;
+const cookieParser = require('cookie-parser');
+
+
+app.use(i18n.init);
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -24,6 +28,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => {
     console.log(err);
   });
+
+// CORS configuration
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || 'http://localhost:4200', // your frontend URL
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 require(__dirname + '/server/models/task-order.model');
 require(__dirname + '/server/models/session-info.model');
@@ -57,19 +68,34 @@ require(__dirname + '/server/config/passportConfig');
 //   limit: '50mb',
 //   extended: true
 // }));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: true
 }));
 
-// Conditionally apply JSON parser globally, excluding the webhook endpoint
+i18n.configure({
+    locales: ['en', 'de', 'tr', 'ar', 'pl', 'ru', 'it', 'el', 'es', 'ro', 'nl'],
+    directory: path.join(__dirname, '/server/locales'),
+    defaultLocale: 'de',
+    queryParameter: 'lang',
+    cookie: 'lang',
+});
+app.use(i18n.init);
+
+app.use((req, res, next) => {
+    console.log('Middleware is executed');
+    console.log(`Detected language: ${req.getLocale()}`);
+    next();
+});
+
 app.use((req, res, next) => {
   if (req.path === '/api/webhook') {
     return next();
   }
   bodyParser.json({limit: '50mb'})(req, res, next);
 });
-app.use(cors());
+
 app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
 app.use('/api', rtsIndex);

@@ -17,7 +17,7 @@
   "REGISTER_TITLE": "Registrieren Sie sich",
   "PROJECT_ID_LABEL": "Projekt ID",
   "REQUIRED_FIELD": "Pflichtfeld",
-  "INVALID_EMAIL_ERROR": "{{errorMessageEmailInvalid}}",
+  "INVALID_EMAIL_ERROR": "Ungültige Emailadresse",
   "REGISTER_BUTTON": "Registrieren",
   "BACK_TO_LOGIN": "Zurück zur Anmeldung",
   "HERE": "hier",
@@ -25,5 +25,18 @@
   "ERROR_MESSAGE_DESCRIPTION": "Vergewissern Sie sich",
   "REQUEST_NEW_PASSWORD_BUTTON": "Neues Passwort beantragen",
   "ERROR_WRONG_PASSWORD": "Das Passwort stimmt nicht mit der Email Adresse überein",
-  "ERROR_EMAIL_NOT_REGISTERED": "Die Email Adresse konnte nicht gefunden werden"
+  "ERROR_EMAIL_NOT_REGISTERED": "Die Email Adresse konnte nicht gefunden werden",
+  "PERSONAL_INFORMATION": "Persönliche Informationen",
+  "WELCOME_MESSAGE": "Wilkommen bei der Bestellanwendung für die Einrichtung:",
+  "FORM_INSTRUCTIONS": "Bitte füllen Sie zuerst das Formular aus um fortzufahren. Alle Eingaben können im Nachgang noch geändert werden.",
+  "FIRST_NAME_LABEL": "Vorname",
+  "LAST_NAME_LABEL": "Nachname",
+  "PHONE_LABEL": "Telefonnummer",
+  "CONTINUE_BUTTON": "Weiter",
+  "SELECTED_LANGUAGE_INSTRUCTIONS": "Die Ausgewählte Sprache wird als Präferenz gespeichert und kann ebenfalls im Nachgang geändert werden.",
+  "EMAIL_ALREADY_REGISTERED": "Diese E-Mail ist bereits registriert.",
+  "REGISTRATION_SUCCESS": "Ihr Account wurde erfolgreich angelegt und eine Bestätigung wurde versendet.",
+  "EMAIL_SENT": "Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet.",
+  "EMAIL_INVALID": "Bitte geben Sie eine gültige Email Adresse an.",
+  "UNEXPECTED_ERROR": "Ein unerwarteter Fehler ist aufgetreten."
 }

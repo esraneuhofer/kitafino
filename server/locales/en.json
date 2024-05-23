@@ -1,0 +1,6 @@
+{
+  "PROJECT_NOT_EXIST": "Project does not exist. Please check the project id.",
+  "EMAIL_ALREADY_REGISTERED": "This email is already registered.",
+  "REGISTRATION_SUCCESS": "Your account has been successfully created and a confirmation has been sent.",
+  "REGISTRATION_ERROR": "An error occurred during registration."
+}
