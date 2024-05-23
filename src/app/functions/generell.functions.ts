@@ -38,3 +38,7 @@ export function emailNotValid(email: string): boolean {
   var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.[a-zA-Z]{2,}$/;
   return !re.test(email);
 }
+
+export function jaOrderNein(input:boolean):string {
+  return input ? 'Ja' : 'Nein'
+}

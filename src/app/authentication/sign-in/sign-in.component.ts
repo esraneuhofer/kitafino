@@ -3,12 +3,14 @@ import { Router } from "@angular/router";
 import {UserService} from "../../service/user.service";
 import {StudentService} from "../../service/student.service";
 import {InstallPromptService} from "../../service/intstall-prompt.service";
+import {LanguageService} from "../../service/language.service";
+import {TranslateService} from "@ngx-translate/core";
 
-function setMessage(message:string):string{
-  if(message === 'Wrong password')return 'Das Passwort stimmt nicht mit der Email Adresse überein'
-  if(message === 'Email is not registered')return 'Die Email Adresse konnte nicht gefunden werden'
-  return message;
-}
+// function setMessage(message:string):string{
+//   if(message === 'Wrong password')return 'Das Passwort stimmt nicht mit der Email Adresse überein'
+//   if(message === 'Email is not registered')return 'Die Email Adresse konnte nicht gefunden werden'
+//   return message;
+// }
 // import '@khmyznikov/pwa-install';
 
 
@@ -25,9 +27,10 @@ export class SignInComponent implements OnInit {
   }
   isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   submittingRequest: boolean = false;
-  // @ViewChild('pwaInstallComponent') pwaInstallComponent!: ElementRef;
-  // @ViewChild('pwaInstallComponent') pwaInstallElementRef: ElementRef;
+
   constructor(private userService: UserService,
+              private translate: TranslateService,
+              private languageService: LanguageService,
               private renderer: Renderer2,
               private studentService: StudentService,
               private router: Router,
@@ -60,9 +63,20 @@ export class SignInComponent implements OnInit {
         console.log(err);
 
         this.submittingRequest = false;
-        this.serverErrorMessages = setMessage(err.error.message);
+        this.serverErrorMessages = this.setMessage(err.error.message);
       })
   }
+  setMessage(message: string): string {
+    if (message === 'Wrong password') {
+      return this.translate.instant('ERROR_WRONG_PASSWORD');
+    }
+    if (message === 'Email is not registered') {
+      return this.translate.instant('ERROR_EMAIL_NOT_REGISTERED');
+    }
+    return message;
+  }
+
+
   shouldShow(): boolean {
     return !!this.installPromptService.getInstallPromptEvent();
   }
@@ -83,10 +97,10 @@ export class SignInComponent implements OnInit {
     // }
   }
   ngOnInit() {
-
-
-    console.log("this.userService.isLoggedIn())");
-    // if(this.userService.isLoggedIn())
-    // this.router.navigateByUrl('home/dashboard');
   }
+  switchLanguage(language: string): void {
+    console.log(language);
+    this.languageService.setLanguage(language);
+  }
+
 }

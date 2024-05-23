@@ -161,13 +161,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.toastr.success('Text kopiert');
   }
 
-  getType(type: string) {
-    if (type === 'deposit') {
-      return 'Einzahlung'
-    }
 
-    return 'Abbuchung'
-  }
 
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return

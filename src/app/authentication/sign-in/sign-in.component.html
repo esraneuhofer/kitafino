@@ -1,18 +1,136 @@
+<!--<div class="flex min-h-full flex-col justify-center px-6 lg:px-8 login-background">-->
+<!--  <div class="sm:mx-auto sm:w-full sm:max-w-sm">-->
+<!--    &lt;!&ndash; Logo Image with moderately adjusted size using Tailwind CSS &ndash;&gt;-->
+<!--&lt;!&ndash;    <img class="mx-auto w-34 h-32" src="assets/logo.png" alt="Cateringexpert">&ndash;&gt;-->
+
+
+<!--    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;  <div class="sm:mx-auto sm:w-full sm:max-w-sm">&ndash;&gt;-->
+<!--  &lt;!&ndash;    &lt;!&ndash;    <img class="mx-auto h-15 w-auto" src="assets/logo.png" alt="Your Company">&ndash;&gt;&ndash;&gt;-->
+<!--  &lt;!&ndash;    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>&ndash;&gt;-->
+<!--  &lt;!&ndash;  </div>&ndash;&gt;-->
+
+<!--  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">-->
+<!--    <form class="space-y-6" #signInForm="ngForm"  (ngSubmit)="signInForm.valid && onSubmit()">-->
+<!--      <div class="rounded-md bg-red-50 p-4" *ngIf="serverErrorMessages">-->
+<!--        <div class="flex">-->
+<!--          <div class="flex-shrink-0">-->
+<!--            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+<!--              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div class="ml-3">-->
+<!--            <h3 class="text-sm font-medium text-red-800">Fehler</h3>-->
+<!--            <div class="mt-2 text-sm text-red-700">-->
+<!--              <p>{{serverErrorMessages}}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Adresse</label>-->
+<!--        <div class="mt-2">-->
+<!--          <input id="email"-->
+<!--                 name="email"-->
+<!--                 type="email"-->
+<!--                 autocomplete="username"-->
+<!--                 #emailModel="ngModel"-->
+<!--                 [(ngModel)]="signInModel.email"-->
+<!--                 [class.text-red-900]="signInForm.submitted && emailModel.invalid"-->
+<!--                 [class.ring-red-300]="signInForm.submitted && emailModel.invalid"-->
+<!--                 [class.placeholder:text-red-300]="signInForm.submitted && emailModel.invalid"-->
+<!--                 [class.focus:ring-red-500]="signInForm.submitted && emailModel.invalid"-->
+<!--                 required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--        </div>-->
+<!--        <p *ngIf="signInForm.submitted && emailModel.invalid " class="mt-2 text-sm text-red-600" id="email-error">Bitte geben Sie Ihre Email Adresse ein</p>-->
+<!--      </div>-->
+
+
+<!--      <div>-->
+<!--        <div class="flex items-center justify-between">-->
+<!--          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Passwort</label>-->
+<!--          <div class="text-sm">-->
+<!--            <a routerLink="/password_reset"  routerLinkActive="active" class="font-semibold text-indigo-600 hover:text-indigo-500">Passwort vergessen?</a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mt-2">-->
+<!--          <input id="password"-->
+<!--                 name="password"-->
+<!--                 type="password"-->
+<!--                 autocomplete="current-password"-->
+<!--                 required-->
+<!--                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"-->
+<!--                 #passwordModel="ngModel"-->
+<!--                 [(ngModel)]="signInModel.password"-->
+<!--                 [class.text-red-900]="signInForm.submitted && passwordModel.invalid"-->
+<!--                 [class.ring-red-300]="signInForm.submitted && passwordModel.invalid"-->
+<!--                 [class.placeholder:text-red-300]="signInForm.submitted && passwordModel.invalid"-->
+<!--                 [class.focus:ring-red-500]="signInForm.submitted && passwordModel.invalid">-->
+<!--        </div>-->
+<!--        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">Bitte geben Sie Ihr Passwort ein</p>-->
+<!--      </div>-->
+
+<!--      <div>-->
+<!--        <button type="submit"-->
+<!--                [disabled]="submittingRequest"-->
+<!--                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">-->
+
+<!--          Anmelden-->
+<!--          <div role="status" *ngIf="submittingRequest">-->
+<!--            <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>-->
+<!--              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>-->
+<!--            </svg>-->
+<!--            <span class="sr-only">Loading...</span>-->
+<!--          </div></button>-->
+<!--      </div>-->
+
+<!--    </form>-->
+
+<!--    <p class="mt-10 text-center text-sm text-gray-500">-->
+<!--      Noch kein Account ?-->
+<!--      <a routerLink="/signup"  routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">hier registrieren</a>-->
+<!--    </p>-->
+<!--    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="shouldShow()">-->
+<!--      Unsere Anwendung ist auch als Mobile App verfügbar-->
+<!--      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>-->
+<!--    </p>-->
+<!--    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="isSafari">-->
+<!--      Unsere Anwendung ist auch als Mobile App verfügbar-->
+<!--      <a (click)="promptInstallSafari()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>-->
+<!--    </p>-->
+<!--    <p class="mt-5 text-center">-->
+<!--      <app-select-language></app-select-language>-->
+<!--    </p>-->
+
+
+<!--  </div>-->
+
+<!--</div>-->
+<!--&lt;!&ndash;<pwa-install #pwaInstallComponent&ndash;&gt;-->
+<!--&lt;!&ndash;             manual-apple="true"&ndash;&gt;-->
+<!--&lt;!&ndash;             manual-chrome="true"&ndash;&gt;-->
+<!--&lt;!&ndash;             disable-chrome="true"&ndash;&gt;-->
+<!--&lt;!&ndash;             disable-close="true"&ndash;&gt;-->
+
+<!--&lt;!&ndash;             install-description="Custom call to install text"&ndash;&gt;-->
+<!--&lt;!&ndash;             disable-install-description="true"&ndash;&gt;-->
+<!--&lt;!&ndash;             disable-screenshots="true"&ndash;&gt;-->
+<!--&lt;!&ndash;             manifest-url="/manifest.webmanifest"&ndash;&gt;-->
+<!--&lt;!&ndash;             name="Cateringexpert"&ndash;&gt;-->
+<!--&lt;!&ndash;             description="Mittagesessen bestellen"&ndash;&gt;-->
+<!--&lt;!&ndash;             icon="/favicon.ico">&ndash;&gt;-->
+<!--&lt;!&ndash;</pwa-install>&ndash;&gt;-->
+
+
 <div class="flex min-h-full flex-col justify-center px-6 lg:px-8 login-background">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <!-- Logo Image with moderately adjusted size using Tailwind CSS -->
-<!--    <img class="mx-auto w-34 h-32" src="assets/logo.png" alt="Cateringexpert">-->
-
-
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ 'LOGIN_TITLE' | translate }}</h2>
   </div>
-  <!--  <div class="sm:mx-auto sm:w-full sm:max-w-sm">-->
-  <!--    &lt;!&ndash;    <img class="mx-auto h-15 w-auto" src="assets/logo.png" alt="Your Company">&ndash;&gt;-->
-  <!--    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Loggen Sie sich ein</h2>-->
-  <!--  </div>-->
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" #signInForm="ngForm"  (ngSubmit)="signInForm.valid && onSubmit()">
+    <form class="space-y-6" #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit()">
       <div class="rounded-md bg-red-50 p-4" *ngIf="serverErrorMessages">
         <div class="flex">
           <div class="flex-shrink-0">
@@ -21,15 +139,15 @@
             </svg>
           </div>
           <div class="ml-3">
-            <h3 class="text-sm font-medium text-red-800">Fehler</h3>
+            <h3 class="text-sm font-medium text-red-800">{{ 'ERROR_TITLE' | translate }}</h3>
             <div class="mt-2 text-sm text-red-700">
-              <p>{{serverErrorMessages}}</p>
+              <p>{{ serverErrorMessages }}</p>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Adresse</label>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">{{ 'EMAIL_LABEL' | translate }}</label>
         <div class="mt-2">
           <input id="email"
                  name="email"
@@ -43,15 +161,14 @@
                  [class.focus:ring-red-500]="signInForm.submitted && emailModel.invalid"
                  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
-        <p *ngIf="signInForm.submitted && emailModel.invalid " class="mt-2 text-sm text-red-600" id="email-error">Bitte geben Sie Ihre Email Adresse ein</p>
+        <p *ngIf="signInForm.submitted && emailModel.invalid " class="mt-2 text-sm text-red-600" id="email-error">{{ 'EMAIL_ERROR' | translate }}</p>
       </div>
-
 
       <div>
         <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Passwort</label>
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">{{ 'PASSWORD_LABEL' | translate }}</label>
           <div class="text-sm">
-            <a routerLink="/password_reset"  routerLinkActive="active" class="font-semibold text-indigo-600 hover:text-indigo-500">Passwort vergessen?</a>
+            <a routerLink="/password_reset" routerLinkActive="active" class="font-semibold text-indigo-600 hover:text-indigo-500">{{ 'PASSWORD_FORGOT' | translate }}</a>
           </div>
         </div>
         <div class="mt-2">
@@ -68,52 +185,36 @@
                  [class.placeholder:text-red-300]="signInForm.submitted && passwordModel.invalid"
                  [class.focus:ring-red-500]="signInForm.submitted && passwordModel.invalid">
         </div>
-        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">Bitte geben Sie Ihr Passwort ein</p>
+        <p *ngIf="signInForm.submitted && passwordModel.invalid " class="mt-2 text-sm text-red-600" id="passwordError">{{ 'PASSWORD_ERROR' | translate }}</p>
       </div>
 
       <div>
         <button type="submit"
                 [disabled]="submittingRequest"
                 class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-
-          Anmelden
+          {{ 'LOGIN_BUTTON' | translate }}
           <div role="status" *ngIf="submittingRequest">
             <svg aria-hidden="true" class="ml-1 w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
               <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">{{ 'LOADING' | translate }}</span>
           </div></button>
       </div>
-
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
-      Noch kein Account ?
-      <a routerLink="/signup"  routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">hier registrieren</a>
+      {{ 'NO_ACCOUNT' | translate }}
+      <a routerLink="/signup" routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'REGISTER_HERE' | translate }}</a>
     </p>
-    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="shouldShow()">
-      Unsere Anwendung ist auch als Mobile App verfügbar
-      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>
+    <p class="mt-10 text-center text-sm text-gray-500" *ngIf="shouldShow()">
+      {{ 'MOBILE_APP_AVAILABLE' | translate }}
+      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'INSTALL_APP' | translate }}</a>
     </p>
-    <p class="mt-10 text-center text-sm text-gray-500"  *ngIf="isSafari">
-      Unsere Anwendung ist auch als Mobile App verfügbar
-      <a (click)="promptInstallSafari()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">installieren?</a>
+    <p class="mt-10 text-center text-sm text-gray-500" *ngIf="isSafari">
+      {{ 'MOBILE_APP_AVAILABLE' | translate }}
+      <a (click)="promptInstallSafari()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'INSTALL_APP' | translate }}</a>
     </p>
+
   </div>
 </div>
-<!--<pwa-install #pwaInstallComponent-->
-<!--             manual-apple="true"-->
-<!--             manual-chrome="true"-->
-<!--             disable-chrome="true"-->
-<!--             disable-close="true"-->
-
-<!--             install-description="Custom call to install text"-->
-<!--             disable-install-description="true"-->
-<!--             disable-screenshots="true"-->
-<!--             manifest-url="/manifest.webmanifest"-->
-<!--             name="Cateringexpert"-->
-<!--             description="Mittagesessen bestellen"-->
-<!--             icon="/favicon.ico">-->
-<!--</pwa-install>-->
-

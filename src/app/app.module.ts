@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {appRoutes} from './app-routing.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { AuthenticationComponent} from "./authentication/authentication.component";
@@ -66,7 +66,14 @@ import { DateSelectionSingleComponent } from './home/order-student/date-selectio
 import { DialogErrorComponent } from './directives/dialog-error/dialog-error.component';
 import { ExportCsvDialogComponent } from './directives/export-csv-dialog/export-csv-dialog.component';
 import { AccuntDetailsComponent } from './home/account/accunt-details/accunt-details.component';
+import { SelectLanguageComponent } from './directives/select-language/select-language.component';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+// AoT requires an exported function for factories
 
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 registerLocaleData(localeDe);
 
 //
@@ -116,6 +123,7 @@ registerLocaleData(localeDe);
     DialogErrorComponent,
     ExportCsvDialogComponent,
     AccuntDetailsComponent,
+    SelectLanguageComponent,
   ],
   imports: [
     BrowserModule,
@@ -142,6 +150,13 @@ registerLocaleData(localeDe);
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
 
   ],

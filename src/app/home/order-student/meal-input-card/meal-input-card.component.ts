@@ -17,7 +17,7 @@ import {WeekplanDayInterface} from "../../../classes/weekplan.interface";
 import {ToastrService} from "ngx-toastr";
 import {getEmailBodyCancel} from "../email-cancel-order.function";
 import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {forkJoin, timeout} from "rxjs";
+import {forkJoin, of, timeout} from "rxjs";
 import {StudentInterface} from "../../../classes/student.class";
 import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
 import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-allergene-dialog.component";
@@ -295,7 +295,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   //Checks if Customer is Below Limit and if Email should be sent Email
   getPromisesEmail(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean },accountTenant:AccountCustomerInterface) {
     let promisesEmail = []
-    if (this.tenantStudent.orderSettings.orderConfirmationEmail) {
+    if (result.sendCopyEmail) {
       const emailObject = this.getEmailBodyData(orderModel, type, result);
       const emailBody = getEmailBody(emailObject);
       promisesEmail.push(this.generalService.sendEmail(emailBody));
@@ -429,10 +429,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  private handleAccountSuccess(accountTenant: AccountCustomerInterface, orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}) {
+  private handleAccountSuccess(
+    accountTenant: AccountCustomerInterface,
+    orderModel: OrderInterfaceStudent,
+    type: string,
+    result: { sendCopyEmail: boolean }
+  ) {
     if (accountTenant && (result.sendCopyEmail || this.tenantStudent.orderSettings.sendReminderBalance)) {
       const promisesEmail = this.getPromisesEmail(orderModel, type, result, accountTenant);
-      forkJoin(promisesEmail).subscribe({
+
+      // Check if promisesEmail is empty, if so, replace with an observable that emits an empty array
+      const emailObservable = promisesEmail.length > 0 ? forkJoin(promisesEmail) : of([]);
+
+      emailObservable.subscribe({
         next: (data: any) => this.finalizeOrder(),
         error: (emailError) => {
           console.error('Error sending emails:', emailError);
@@ -441,6 +450,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         }
       });
     } else {
+      console.error('Error retrieving account:', accountTenant);
       this.finalizeOrder();
     }
   }

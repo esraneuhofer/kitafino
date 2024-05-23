@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var chargeAccountSchema = new Schema({
   approved: { type: Boolean, required: true },
   amount: { type: Number, required: true },
+  dateApproved: { type: Date, required: true },
   date: { type: Date, required: true },
   iban: String,
   reference: String,
