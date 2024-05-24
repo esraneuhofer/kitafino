@@ -1,0 +1,61 @@
+<ng-container *ngIf="pageLoaded">
+    <div class="container mx-auto px-4 mt-8">
+        <div class="flex justify-center">
+            <div class="w-full xs-full sm:w-full md:w-11/12">
+                <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+                    <div class="px-4 sm:px-6 lg:px-8">
+                        <div class="flex flex-wrap">
+                            <div class="sm:flex-auto">
+                                <h1 class="text-base font-semibold leading-6 text-gray-900">
+                                    Dokumente</h1>
+                                <p class="mt-2 text-sm text-gray-700">
+                                    Dokumente
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-8 flow-root">
+                            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                                    <table class="min-w-full divide-y divide-gray-300">
+                                        <thead>
+                                        <tr>
+                                            <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                                                scope="col">
+                                                Name
+                                            </th>
+                                            <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
+                                                scope="col">
+                                                <span class="sr-only">Edit</span>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200">
+                                        <tr *ngFor="let document of helpDocuments">
+                                            <td class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
+                                                {{document.nameDocument}}
+                                            </td>
+                                            <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
+                                                <div class="align-right">
+                                                    <app-button (click)="selectDocument(document)" [buttonType]="'button'"
+                                                                [submittingRequest]="submittingRequest"
+                                                    >Bearbeiten
+                                                    </app-button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td *ngIf="helpDocuments.length === 0" colspan="100%">
+                                                <app-general-banner></app-general-banner>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
