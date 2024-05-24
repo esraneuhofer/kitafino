@@ -62,7 +62,9 @@ export class HomeComponent implements OnInit{
               private router:Router, private tenantService:TenantServiceStudent) {
 
   }
+  switchLanguage(language: string){
 
+  }
   ngOnInit() {
     this.pageLoaded = false;
     forkJoin(

@@ -144,7 +144,6 @@ export class OrderStudentComponent implements OnInit {
       ]) => {
         this.settings = settings;
         this.customer = customer;
-        console.log(customer)
         this.customer.stateHol = 'HE' //Testing
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
@@ -158,7 +157,7 @@ export class OrderStudentComponent implements OnInit {
         this.accountTenant = accountTenant;
         this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
         this.allVacations = vacations;
-        this.mainDataLoaded = true;
+
         this.setFirstInit(weekplan)
       },
       (error) => {
@@ -174,7 +173,6 @@ export class OrderStudentComponent implements OnInit {
   }
 
   editSettings(event:boolean):void{
-    console.log(event)
     this.pageLoaded = true;
       this.tenantStudent.orderSettings.displayTypeOrderWeek = event;
       this.tenantService.editParentTenant(this.tenantStudent).subscribe((response)=>{
@@ -191,6 +189,7 @@ export class OrderStudentComponent implements OnInit {
 
     if (!this.selectedStudent || !this.selectedStudent._id) {
       this.pageLoaded = true;
+      this.mainDataLoaded = true;
       return;
     }
 
@@ -198,6 +197,7 @@ export class OrderStudentComponent implements OnInit {
     if (this.isWeekend) {
       this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
       this.pageLoaded = true;
+      this.mainDataLoaded = true;
       return;
     }
 
@@ -229,6 +229,7 @@ export class OrderStudentComponent implements OnInit {
 
       this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays));
       this.pageLoaded = true;
+      this.mainDataLoaded = true;
     });
   }
 
@@ -236,6 +237,7 @@ export class OrderStudentComponent implements OnInit {
     if (!this.selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
       this.pageLoaded = true;
+      this.mainDataLoaded = true;
       // this.fetchingOrder = false;
       return
     }
@@ -272,11 +274,13 @@ export class OrderStudentComponent implements OnInit {
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
+      this.mainDataLoaded = true;
       this.pageLoaded = true;
       return true
     }
     if (!selectedStudent.subgroup) {
       this.studentNoSubgroup = true;
+      this.mainDataLoaded = true;
       this.pageLoaded = true;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return true
@@ -321,7 +325,6 @@ export class OrderStudentComponent implements OnInit {
     let promiseOrderWeek = [];
     for (let i = 0; i < 5; i++) {
       let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format();
-      console.log(dateToSearch);
       if (!this.selectedStudent) return;
       promiseOrderWeek.push(this.orderService.getOrderStudentDay({
         dateOrder: dateToSearch,
@@ -343,9 +346,9 @@ export class OrderStudentComponent implements OnInit {
           if (!this.selectedStudent) return;
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays));
         }
+        this.mainDataLoaded = true;
         this.pageLoaded = true;
       });
   }
 
-  protected readonly event = event;
 }

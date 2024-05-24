@@ -1,7 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {formatDateInput} from "../../functions/date.functions";
-
+export interface ExportCsvDialogData {
+  secondDate:string,
+  firstDate:string,
+  withdrawOrCancel:boolean,
+  depositsOrOrder:boolean
+}
 @Component({
   selector: 'app-export-csv-dialog',
   templateUrl: './export-csv-dialog.component.html',
@@ -12,7 +17,9 @@ export class ExportCsvDialogComponent {
   firstDate: string;
   secondDate: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {header:string, message: string}) {
+  depositsOrOrder = true;
+  withdrawOrCancel = true;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {header:string, message: string, isAccount:boolean}) {
     this.firstDate = this.formatDateInput(new Date());
     this.secondDate = this.formatDateInput(new Date());
   }

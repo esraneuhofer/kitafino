@@ -33,9 +33,24 @@
              required>
     </div>
   </div>
-
+  <div class="flex flex-col space-y-2 px-2">
+    <div>
+      <input   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox1" type="checkbox" id="checkbox1" [(ngModel)]="depositsOrOrder">
+      <label for="checkbox1" class="ml-2 text-sm font-medium leading-6 text-gray-900">
+        <span *ngIf="data.isAccount">Einzahlungen</span>
+        <span *ngIf="!data.isAccount">Bestellung</span>
+      </label>
+    </div>
+    <div>
+      <input   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox2" type="checkbox" id="checkbox2" [(ngModel)]="withdrawOrCancel">
+      <label for="checkbox2" class="ml-2 text-sm font-medium leading-6 text-gray-900">
+        <span *ngIf="data.isAccount">Auszahlungen</span>
+        <span *ngIf="!data.isAccount">Stornierung</span>
+      </label>
+    </div>
+  </div>
   <div class="flex justify-end mt-3">
     <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>Schließen</app-button>
-    <app-button [typeButton]="'primary'" [mat-dialog-close]="{secondDate:secondDate,firstDate:firstDate}" cdkFocusInitial>Exportieren</app-button>
+    <app-button [typeButton]="'primary'" [mat-dialog-close]="{secondDate:secondDate,firstDate:firstDate,withdrawOrCancel:withdrawOrCancel,depositsOrOrder:depositsOrOrder}" cdkFocusInitial>Exportieren</app-button>
   </div>
 </div>

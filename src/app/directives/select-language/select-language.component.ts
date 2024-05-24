@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostListener, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {GenerellService} from "../../service/generell.service";
@@ -29,7 +29,7 @@ export class SelectLanguageComponent {
   isOpen = false;
 
   @Output() changeLanguage = new EventEmitter<string>(); //Triggers Reload getSplits => recalculate Total
-
+  @Input() labelHidden = false;
 
 
   constructor(private translate: TranslateService,

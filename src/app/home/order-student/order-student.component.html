@@ -1,133 +1,135 @@
-<ng-container *ngIf="mainDataLoaded">
-  <ng-container *ngIf="showErrorNoStudents">
-    <app-banner-no-registration-order></app-banner-no-registration-order>
-  </ng-container>
-  <ng-container *ngIf="!showErrorNoStudents && displayOrderTypeWeek">
-    <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4  top-0 z-50 mb-1 mt-2">
-      <div class="flex justify-center">
-        <div class="w-100">
-          <div class="rounded-md bg-green-100 p-4" >
-            <div class="flex justify-between items-center">
-              <p class="text-sm text-gray-700">
-                Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
-                <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
-                   class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
-                  Einzahlen
-                  <span aria-hidden="true"> &rarr;</span>
-                </a>
-              </p>
+<div  [hidden]="!mainDataLoaded">
+  <ng-container>
+    <ng-container *ngIf="showErrorNoStudents">
+      <app-banner-no-registration-order></app-banner-no-registration-order>
+    </ng-container>
+    <ng-container *ngIf="!showErrorNoStudents && displayOrderTypeWeek">
+      <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4  top-0 z-50 mb-1 mt-2">
+        <div class="flex justify-center">
+          <div class="w-100">
+            <div class="rounded-md bg-green-100 p-4" >
+              <div class="flex justify-between items-center">
+                <p class="text-sm text-gray-700">
+                  Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
+                     class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
+                    Einzahlen
+                    <span aria-hidden="true"> &rarr;</span>
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <app-date-selection (editDisplaySettings)="editSettings($event)"
-                        [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
-                        (getOrderWeek)="changeDate($event)"
-                        (selectStudent)="selectStudent($event)"
-                        [minWidth]="displayMinimize"
-                        [registeredStudents]="registeredStudents"
-                        [settings]="settings"></app-date-selection>
-    <ng-container *ngIf="studentNoSubgroup">
-      <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
-    </ng-container>
-    <ng-container *ngIf="registeredStudents.length === 0">
-      <app-banner-no-student-order
-        [text]="textBanner"></app-banner-no-student-order>
-    </ng-container>
-    <ng-container *ngIf="!studentNoSubgroup">
-      <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
-        <div class="container mx-auto px-4">
-          <div class="flex justify-center">
-            <div class="w-100">
-              <div class="flex items-center"> <!-- Center content vertically and horizontally -->
-                <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
-                  <!-- Your div element will be repeated 5 times in these grid items -->
-                  <div *ngFor="let orderDay of orderWeek; let index = index" class="w-full">
-                    <app-meal-input-card (orderPlaced)="getDataWeek()"
-                                         [customer]="customer"
-                                         [displayMinimize]="displayMinimize"
-                                         [indexDay]="index"
-                                         [lockDay]="lockDays[index]"
-                                         [orderDay]="orderDay"
-                                         [selectedStudent]="selectedStudent"
-                                         [settings]="settings"
-                                         [tenantStudent]="tenantStudent"
-                                         [weekplanDay]="selectedWeekplan.weekplan[index]">
-                    </app-meal-input-card>
+      <app-date-selection (editDisplaySettings)="editSettings($event)"
+                          [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
+                          (getOrderWeek)="changeDate($event)"
+                          (selectStudent)="selectStudent($event)"
+                          [minWidth]="displayMinimize"
+                          [registeredStudents]="registeredStudents"
+                          [settings]="settings"></app-date-selection>
+      <ng-container *ngIf="studentNoSubgroup">
+        <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
+      </ng-container>
+      <ng-container *ngIf="registeredStudents.length === 0">
+        <app-banner-no-student-order
+                [text]="textBanner"></app-banner-no-student-order>
+      </ng-container>
+      <ng-container *ngIf="!studentNoSubgroup">
+        <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
+          <div class="container mx-auto px-4">
+            <div class="flex justify-center">
+              <div class="w-100">
+                <div class="flex items-center"> <!-- Center content vertically and horizontally -->
+                  <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
+                    <!-- Your div element will be repeated 5 times in these grid items -->
+                    <div *ngFor="let orderDay of orderWeek; let index = index" class="w-full">
+                      <app-meal-input-card (orderPlaced)="getDataWeek()"
+                                           [customer]="customer"
+                                           [displayMinimize]="displayMinimize"
+                                           [indexDay]="index"
+                                           [lockDay]="lockDays[index]"
+                                           [orderDay]="orderDay"
+                                           [selectedStudent]="selectedStudent"
+                                           [settings]="settings"
+                                           [tenantStudent]="tenantStudent"
+                                           [weekplanDay]="selectedWeekplan.weekplan[index]">
+                      </app-meal-input-card>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
-  <ng-container *ngIf="!showErrorNoStudents && !displayOrderTypeWeek">
-    <div class="container px-4  top-0 z-50 mb-1 mt-2" >
-      <div class="flex justify-center ">
-        <div class="w-100">
-          <div class="rounded-md balance-info p-4">
-            <div class="flex justify-between items-center" >
-              <p class="text-sm text-gray-700">
-                Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
-                <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
-                   class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
-                  Einzahlen
-                  <span aria-hidden="true"> &rarr;</span>
-                </a>
-              </p>
+    <ng-container *ngIf="!showErrorNoStudents && !displayOrderTypeWeek">
+      <div class="container px-4  top-0 z-50 mb-1 mt-2" >
+        <div class="flex justify-center ">
+          <div class="w-100">
+            <div class="rounded-md balance-info p-4">
+              <div class="flex justify-between items-center" >
+                <p class="text-sm text-gray-700">
+                  Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
+                     class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
+                    Einzahlen
+                    <span aria-hidden="true"> &rarr;</span>
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <app-date-selection-single
-      (editDisplaySettings)="editSettings($event)"
-      [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
-      (getOrderDay)="changeDateDay($event)"
-      (selectStudent)="selectStudentSingle($event)"
-      [minWidth]="displayMinimize"
-      [registeredStudents]="registeredStudents"
-      [settings]="settings"></app-date-selection-single>
-    <ng-container *ngIf="studentNoSubgroup">
-      <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
-    </ng-container>
-    <ng-container *ngIf="registeredStudents.length === 0">
-      <app-banner-no-student-order
-        [text]="textBanner"></app-banner-no-student-order>
-    </ng-container>
-    <ng-container *ngIf="!studentNoSubgroup && !isWeekend">
-      <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
-        <div class="container mx-auto px-4 mt-8 sm:mt-0">
-          <div class="flex justify-center">
-            <div class="w-full"> <!-- Container for the selects, ensuring full width -->
-              <!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">-->
-              <div class="flex flex-wrap -mx-2">
-                <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
-                <!-- Kalenderwoche Select Input Container -->
-                <div class="w-full px-2 mb-4 md:mb-0">
-                  <app-meal-input-card (orderPlaced)="changeDateDay(selectedDay)"
-                                       [customer]="customer"
-                                       [displayMinimize]="displayMinimize"
-                                       [indexDay]="indexDay"
-                                       [lockDay]="lockDays[indexDay]"
-                                       [orderDay]="orderWeek[0]"
-                                       [selectedStudent]="selectedStudent"
-                                       [settings]="settings"
-                                       [tenantStudent]="tenantStudent"
-                                       [typeDisplayOrder]="'day'"
-                                       [weekplanDay]="selectedWeekplan.weekplan[indexDay]">
-                  </app-meal-input-card>
+      <app-date-selection-single
+              (editDisplaySettings)="editSettings($event)"
+              [displaySettings]="tenantStudent.orderSettings.displayTypeOrderWeek"
+              (getOrderDay)="changeDateDay($event)"
+              (selectStudent)="selectStudentSingle($event)"
+              [minWidth]="displayMinimize"
+              [registeredStudents]="registeredStudents"
+              [settings]="settings"></app-date-selection-single>
+      <ng-container *ngIf="studentNoSubgroup">
+        <app-banner-no-subgroup-order></app-banner-no-subgroup-order>
+      </ng-container>
+      <ng-container *ngIf="registeredStudents.length === 0">
+        <app-banner-no-student-order
+                [text]="textBanner"></app-banner-no-student-order>
+      </ng-container>
+      <ng-container *ngIf="!studentNoSubgroup && !isWeekend">
+        <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
+          <div class="container mx-auto px-4 mt-8 sm:mt-0">
+            <div class="flex justify-center">
+              <div class="w-full"> <!-- Container for the selects, ensuring full width -->
+                <!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">-->
+                <div class="flex flex-wrap -mx-2">
+                  <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
+                  <!-- Kalenderwoche Select Input Container -->
+                  <div class="w-full px-2 mb-4 md:mb-0">
+                    <app-meal-input-card (orderPlaced)="changeDateDay(selectedDay)"
+                                         [customer]="customer"
+                                         [displayMinimize]="displayMinimize"
+                                         [indexDay]="indexDay"
+                                         [lockDay]="lockDays[indexDay]"
+                                         [orderDay]="orderWeek[0]"
+                                         [selectedStudent]="selectedStudent"
+                                         [settings]="settings"
+                                         [tenantStudent]="tenantStudent"
+                                         [typeDisplayOrder]="'day'"
+                                         [weekplanDay]="selectedWeekplan.weekplan[indexDay]">
+                    </app-meal-input-card>
+                  </div>
                 </div>
+                <!--              </div>-->
               </div>
-              <!--              </div>-->
             </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

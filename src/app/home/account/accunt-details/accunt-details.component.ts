@@ -6,16 +6,22 @@ import {StudentService} from "../../../service/student.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {forkJoin} from "rxjs";
-import {ExportCsvDialogComponent} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
+import {
+  ExportCsvDialogComponent,
+  ExportCsvDialogData
+} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
 import {AccountChargeInterface} from "../../../classes/charge.class";
 import {ChargingService} from "../../../service/charging.service";
 import {jaOrderNein} from "../../../functions/generell.functions";
+import {createXmlFile} from "../account-csv.function";
 
 function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
   return accountCharges.sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 }
+
+
 
 @Component({
   selector: 'app-accunt-details',
@@ -64,16 +70,17 @@ export class AccuntDetailsComponent {
   openDialogExport(){
     const dialogRef = this.dialog.open(ExportCsvDialogComponent, {
       width: '550px',
-      data: {header: 'Exportieren', message: 'Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen'},
+      data: {header: 'Exportieren', message: 'Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen', isAccount:true},
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
-
-    dialogRef.afterClosed().subscribe((result:{firstDate:string,secondDate:string}) => {
+    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
+      console.log(result);
       if (!result){
         this.submittingRequest = false;
         return;
       }
+      createXmlFile(this.accountCharges, result);
     });
   }
   getType(type: string) {
