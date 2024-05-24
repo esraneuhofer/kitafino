@@ -27,6 +27,15 @@ interface DaysOrderPermanentInterfaceSelection {
   nameMenu: string
 }
 
+function noDayIsSelected(permanentOrder: PermanentOrderInterface):boolean{
+  let selected = true
+    permanentOrder.daysOrder.forEach((day) => {
+        if(day.selected){
+            selected = false
+        }
+    })
+    return selected
+}
 function getFirstMenuSettings(settings: SettingInterfaceNew): string {
   for (let i = 0; i < settings.orderSettings.specials.length; i++) {
     if (settings.orderSettings.specials[i].typeOrder === 'menu') {
@@ -167,6 +176,11 @@ export class PermanentOrdersComponent implements OnInit {
 
   editOrAddPermanentOrders(permanentOrder: PermanentOrderInterface) {
     this.submittingRequest = true;
+    if(noDayIsSelected(permanentOrder)){
+        this.toastr.error('Bitte wählen Sie mindestens einen Tag aus')
+        this.submittingRequest = false;
+        return
+    }
     let routeId = permanentOrder._id ? 'editPermanentOrdersUser' : 'setPermanentOrdersUser';
     (this.permanentOrdersService as any)[routeId](permanentOrder).subscribe((response: any) => {
       if (!response.error) {

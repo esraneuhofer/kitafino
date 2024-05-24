@@ -49,7 +49,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SchoolOverviewComponent } from './home/school-overview/school-overview.component';
 import { BannerNoSubgroupOrderComponent } from './home/banners/banner-no-subgroup-order/banner-no-subgroup-order.component';
 import { OrderHistoryComponent } from './home/order-history/order-history.component';
-import { KindergardenSettingComponent } from './home/kindergarden-setting/kindergarden-setting.component';
 import { GeneralBannerComponent } from './home/banners/general-banner/general-banner.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { PaginationComponent } from './directives/pagination/pagination.component';
@@ -72,6 +71,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import { SchoolAnnouncmentsComponent } from './home/school-announcments/school-announcments.component';
 import { HelpDialogComponent } from './directives/help-dialog/help-dialog.component';
 import { FirstAccessDialogComponent } from './directives/first-access-dialog/first-access-dialog.component';
+import { HelpComponent } from './home/help/help.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -112,7 +112,6 @@ registerLocaleData(localeDe);
     SchoolOverviewComponent,
     BannerNoSubgroupOrderComponent,
     OrderHistoryComponent,
-    KindergardenSettingComponent,
     GeneralBannerComponent,
     PaginationComponent,
     BannerNoStudentOrderComponent,
@@ -130,6 +129,7 @@ registerLocaleData(localeDe);
     SchoolAnnouncmentsComponent,
     HelpDialogComponent,
     FirstAccessDialogComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,8 +17,9 @@ export class FirstAccessDialogComponent {
 
   closeFirstAccess(){
     const tenant = this.data;
-    // tenant.firstAccess = false;
+    tenant.firstAccess = false;
     this.tenantService.editParentTenant(tenant).subscribe((response)=>{
+      console.log(response);
       this.dialogRef.close();
     })
   }

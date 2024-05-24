@@ -32,7 +32,7 @@ import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-con
 import {OrderService} from "../../service/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
-const textBanner = "Um eine Bestellung einzutrgen muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden"
+const textBanner = "Um eine Bestellung einzutragen muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden"
 
 @Component({
   selector: 'app-order-student',
@@ -270,10 +270,12 @@ export class OrderStudentComponent implements OnInit {
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
+      this.pageLoaded = true;
       return true
     }
     if (!selectedStudent.subgroup) {
       this.studentNoSubgroup = true;
+      this.pageLoaded = true;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return true
     }

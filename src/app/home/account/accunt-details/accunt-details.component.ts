@@ -93,9 +93,10 @@ export class AccuntDetailsComponent {
 
   formatDateApproved(dateApproved: Date | null): string {
     if (dateApproved) {
-      const day = dateApproved.getDate().toString().padStart(2, '0');
-      const month = (dateApproved.getMonth() + 1).toString().padStart(2, '0');
-      const year = dateApproved.getFullYear().toString().slice(-2);
+      console.log(dateApproved);
+      const day = new Date(dateApproved).getDate().toString().padStart(2, '0');
+      const month = (new Date(dateApproved).getMonth() + 1).toString().padStart(2, '0');
+      const year = new Date(dateApproved).getFullYear().toString().slice(-2);
       return `${day}.${month}.${year}`;
     } else {
       return "Nein";
