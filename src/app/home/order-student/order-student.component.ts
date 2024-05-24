@@ -155,9 +155,9 @@ export class OrderStudentComponent implements OnInit {
         this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, this.weekplanGroups, settings);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
-        this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
         this.allVacations = vacations;
-
+        this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
+        this.mainDataLoaded = true;
         this.setFirstInit(weekplan)
       },
       (error) => {
@@ -189,7 +189,6 @@ export class OrderStudentComponent implements OnInit {
 
     if (!this.selectedStudent || !this.selectedStudent._id) {
       this.pageLoaded = true;
-      this.mainDataLoaded = true;
       return;
     }
 
@@ -197,7 +196,6 @@ export class OrderStudentComponent implements OnInit {
     if (this.isWeekend) {
       this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
       this.pageLoaded = true;
-      this.mainDataLoaded = true;
       return;
     }
 
@@ -229,7 +227,6 @@ export class OrderStudentComponent implements OnInit {
 
       this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays));
       this.pageLoaded = true;
-      this.mainDataLoaded = true;
     });
   }
 
@@ -237,7 +234,6 @@ export class OrderStudentComponent implements OnInit {
     if (!this.selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
       this.pageLoaded = true;
-      this.mainDataLoaded = true;
       // this.fetchingOrder = false;
       return
     }
@@ -274,14 +270,10 @@ export class OrderStudentComponent implements OnInit {
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
       this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
-      this.mainDataLoaded = true;
-      this.pageLoaded = true;
       return true
     }
     if (!selectedStudent.subgroup) {
       this.studentNoSubgroup = true;
-      this.mainDataLoaded = true;
-      this.pageLoaded = true;
       this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
       return true
     }
@@ -293,7 +285,9 @@ export class OrderStudentComponent implements OnInit {
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
     if(!this.querySelection)return;
-    if(this.checkForErrors(this.selectedStudent))return;
+    if(this.checkForErrors(this.selectedStudent)){
+      return;
+    }
     if(this.displayOrderTypeWeek){
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     }else{
@@ -325,7 +319,9 @@ export class OrderStudentComponent implements OnInit {
     let promiseOrderWeek = [];
     for (let i = 0; i < 5; i++) {
       let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format();
-      if (!this.selectedStudent) return;
+      if (!this.selectedStudent) {
+        return;
+      }
       promiseOrderWeek.push(this.orderService.getOrderStudentDay({
         dateOrder: dateToSearch,
         studentId: this.selectedStudent._id || ''
@@ -341,12 +337,13 @@ export class OrderStudentComponent implements OnInit {
         map(([order]) => order) // Extract the orders from the combined result
       )
       .subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i);
           if (!this.selectedStudent) return;
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays));
         }
-        this.mainDataLoaded = true;
+        console.log(JSON.parse(JSON.stringify(this.mainDataLoaded)))
         this.pageLoaded = true;
       });
   }

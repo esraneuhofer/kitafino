@@ -69,6 +69,9 @@ import { AccuntDetailsComponent } from './home/account/accunt-details/accunt-det
 import { SelectLanguageComponent } from './directives/select-language/select-language.component';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import { SchoolAnnouncmentsComponent } from './home/school-announcments/school-announcments.component';
+import { HelpDialogComponent } from './directives/help-dialog/help-dialog.component';
+import { FirstAccessDialogComponent } from './directives/first-access-dialog/first-access-dialog.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -124,6 +127,9 @@ registerLocaleData(localeDe);
     ExportCsvDialogComponent,
     AccuntDetailsComponent,
     SelectLanguageComponent,
+    SchoolAnnouncmentsComponent,
+    HelpDialogComponent,
+    FirstAccessDialogComponent,
   ],
   imports: [
     BrowserModule,

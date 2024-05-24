@@ -1,4 +1,5 @@
 export interface TenantStudentInterface {
+  firstAccess: boolean;
   _id?: string;
   userId?: string;
   tenantId?:string,

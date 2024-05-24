@@ -8,10 +8,6 @@ import {LanguageService} from "../service/language.service";
 })
 
 export class AuthenticationComponent {
-  constructor(private languageService: LanguageService) {
-  }
-  switchLanguage(language: string): void {
-    console.log(language);
-    this.languageService.setLanguage(language);
+  constructor() {
   }
 }

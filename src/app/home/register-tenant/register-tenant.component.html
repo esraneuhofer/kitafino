@@ -5,7 +5,7 @@
                 <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && setPersonalInformation()">
                     <div class="space-y-12">
                         <div class="mb-4">
-                            <app-select-language (changeLanguage)="switchLanguage($event)"></app-select-language>
+                            <app-select-language ></app-select-language>
                         </div>
                         <div class="border-b border-gray-900/10 pb-12">
                             <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'PERSONAL_INFORMATION' | translate }}</h2>

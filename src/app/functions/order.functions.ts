@@ -33,8 +33,6 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          indexDaySelected:number,
                          dateChange:string,
                          query:{week:number, year:number}):OrderInterfaceStudent{
-  console.log(weekplanSelectedWeek.weekplan[indexDaySelected])
-  console.log(indexDaySelected)
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange));
   if (orderStudent) {
     orderNew._id = orderStudent._id;

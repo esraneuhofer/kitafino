@@ -2,15 +2,23 @@
 import {Component, OnInit} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import {UserService} from "../service/user.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {LoadingService} from "../service/loading.service";
 import {TenantServiceStudent} from "../service/tenant.service";
 import {TenantStudentInterface} from "../classes/tenant.class";
-import {forkJoin} from "rxjs";
+import {filter, forkJoin} from "rxjs";
 import {GenerellService} from "../service/generell.service";
 import {StudentInterface} from "../classes/student.class";
 import {OrdersAccountInterface} from "../classes/order_account.interface";
 import {CustomerInterface} from "../classes/customer.class";
+import {
+  ExportCsvDialogComponent,
+  ExportCsvDialogData
+} from "../directives/export-csv-dialog/export-csv-dialog.component";
+import {createXmlFile} from "./account/account-csv.function";
+import {MatDialog} from "@angular/material/dialog";
+import {HelpDialogComponent} from "../directives/help-dialog/help-dialog.component";
+import {FirstAccessDialogComponent} from "../directives/first-access-dialog/first-access-dialog.component";
 
 @Component({
   selector: 'app-home',
@@ -55,16 +63,30 @@ export class HomeComponent implements OnInit{
   isOffCanvasMenuDialog = false;
   customerInfo!:CustomerInterface;
   pageLoaded: boolean = false;
+  currentRoute: string = '';
 
   tenantInformation!:TenantStudentInterface;
   constructor(private userService:UserService,
+              private dialog: MatDialog,
               private generalService:GenerellService,
+              private activatedRoute: ActivatedRoute,
               private router:Router, private tenantService:TenantServiceStudent) {
+    this.router.events.pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.currentRoute = event.urlAfterRedirects;
+    });
 
   }
-  switchLanguage(language: string){
-
+  openHelp(){
+    const dialogRef = this.dialog.open(HelpDialogComponent, {
+      width: '600px',
+      data: {route: this.currentRoute},
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
   }
+
   ngOnInit() {
     this.pageLoaded = false;
     forkJoin(
@@ -74,16 +96,20 @@ export class HomeComponent implements OnInit{
       (
         [tenant,customer]:
           [TenantStudentInterface,CustomerInterface])=>{
-        // this.userService.addTaskOrderDeadlineCustomer(customer).subscribe((res:any) => {
-        //   console.log(res);
-        // })
-
       if (!tenant){
         this.router.navigate(['/home/tenant']);
       } else {
         this.customerInfo = customer;
         this.tenantInformation = tenant;
         this.pageLoaded = true;
+        if(!this.tenantInformation.firstAccess){
+          const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
+            width: '600px',
+            data: this.tenantInformation,
+            panelClass: 'custom-dialog-container',
+            position: {top: '100px'}
+          });
+        }
       }
     })
   }

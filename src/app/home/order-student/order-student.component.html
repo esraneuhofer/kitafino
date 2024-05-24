@@ -1,4 +1,4 @@
-<div  [hidden]="!mainDataLoaded">
+<div *ngIf="mainDataLoaded">
   <ng-container>
     <ng-container *ngIf="showErrorNoStudents">
       <app-banner-no-registration-order></app-banner-no-registration-order>
@@ -72,7 +72,7 @@
             <div class="rounded-md balance-info p-4">
               <div class="flex justify-between items-center" >
                 <p class="text-sm text-gray-700">
-                  Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  Aktuelles Guthaben: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
                      class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
                     Einzahlen

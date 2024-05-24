@@ -6,19 +6,8 @@ import {UserService} from "../../service/user.service";
 import {ToastrService} from "ngx-toastr";
 import {forkJoin} from "rxjs";
 import {GenerellService} from "../../service/generell.service";
-import {SettingInterfaceNew} from "../../classes/setting.class";
 import {CustomerInterface} from "../../classes/customer.class";
-import {WeekplanMenuInterface} from "../../classes/weekplan.interface";
-import {MealModelInterface} from "../../classes/meal.interface";
-import {MenuInterface} from "../../classes/menu.interface";
-import {ArticleDeclarations} from "../../classes/allergenes.interface";
-import {ArticleInterface} from "../../classes/article.interface";
-import {StudentInterface} from "../../classes/student.class";
-import {AssignedWeekplanInterface, WeekplanGroupClass} from "../../classes/assignedWeekplan.class";
-import {AccountCustomerInterface} from "../../classes/account.class";
-import {VacationsInterface} from "../../classes/vacation.interface";
 import {emailNotValid} from "../../functions/generell.functions";
-import {LanguageService} from "../../service/language.service";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({
@@ -36,6 +25,7 @@ export class RegisterTenantComponent implements OnInit {
   pageLoaded: boolean = false;  //Set true when all data is fetched
 
   tenantModel: TenantStudentInterface = {
+    firstAccess: true,
     username: '',
     firstName: '',
     lastName: '',
@@ -56,23 +46,18 @@ export class RegisterTenantComponent implements OnInit {
   constructor(private tenantServiceStudent: TenantServiceStudent,
               private generellService: GenerellService,
               private router:Router,
-              private languageService: LanguageService,
               private toastr: ToastrService,
               private userService: UserService,
               private translate: TranslateService) {
 
   }
-  switchLanguage(language: string): void {
-    this.languageService.setLanguage(language);
-  }
+
   ngOnInit() {
     forkJoin([
       this.tenantServiceStudent.getTenantInformation(),
       this.generellService.getCustomerInfo()
     ]).subscribe({
       next: ([tenantStudent, customer]: [TenantStudentInterface, CustomerInterface]) => {
-        console.log(tenantStudent)
-        console.log(customer)
         if (tenantStudent) {
           this.router.navigateByUrl('/home/register_student');
         }

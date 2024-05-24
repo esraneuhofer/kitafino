@@ -3,6 +3,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {GenerellService} from "../../service/generell.service";
 import {lang} from "moment-timezone";
+import {LanguageService} from "../../service/language.service";
 const languagesConst: LanguageSelect[] = [
   { id: 1, name: 'Deutsch', avatar: 'https://flagcdn.com/w320/de.png', code: 'de' },  // Germany flag
   { id: 2, name: 'Türkçe', avatar: 'https://flagcdn.com/w320/tr.png', code: 'tr' },  // Turkey flag
@@ -28,13 +29,13 @@ export class SelectLanguageComponent {
   selectedLanguage:LanguageSelect = this.languages[0];
   isOpen = false;
 
-  @Output() changeLanguage = new EventEmitter<string>(); //Triggers Reload getSplits => recalculate Total
   @Input() labelHidden = false;
 
 
   constructor(private translate: TranslateService,
               private generellService: GenerellService,
               private eRef: ElementRef,
+              private languageService: LanguageService,
               private http: HttpClient) {
     // Set the initial language from sessionStorage or localStorage
     this.currentLanguage = sessionStorage.getItem('language') || localStorage.getItem('language') || 'de';
@@ -43,7 +44,7 @@ export class SelectLanguageComponent {
     // Set the selected person based on the current language
     this.selectedLanguage = this.languages.find(person => person.code === this.currentLanguage) || this.languages[0];
     this.generellService.setLanguage({lang:this.selectedLanguage.code}).subscribe((res:any)=>{
-      this.changeLanguage.emit(this.selectedLanguage.code);
+      this.languageService.setLanguage(this.selectedLanguage.code)
     })
   }
   @HostListener('document:click', ['$event'])
@@ -57,7 +58,7 @@ export class SelectLanguageComponent {
     this.selectedLanguage = language;
     this.isOpen = false;
     this.generellService.setLanguage({lang:language.code}).subscribe((res:any)=>{
-      this.changeLanguage.emit(language.code);
+      this.languageService.setLanguage(language.code)
     })
   }
 }

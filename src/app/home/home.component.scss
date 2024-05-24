@@ -1,0 +1,46 @@
+/* In Ihrem styles.css oder einem anderen globalen CSS, wenn erforderlich */
+.fixed {
+  position: fixed;
+}
+.bottom-4 {
+  bottom: 1rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.z-50 {
+  z-index: 50;
+}
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+.text-white {
+  color: #ffffff;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.h-12 {
+  height: 3rem;
+}
+.w-12 {
+  width: 3rem;
+}
+.max-w-lg {
+  max-width: 32rem;
+}
