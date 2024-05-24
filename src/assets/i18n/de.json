@@ -75,5 +75,6 @@
   "SUBGROUP_NOT_ASSIGNED": "Untergruppe nicht zugeordent",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING": "Untergruppe",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS": "Der Verpflegungsteilnehmer/in muss einer Untergruppe zugeordnet werden, bevor man Essen bestellen kann.",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET": "Die Einrichtung weist dem jeweiligem Schüler/in die Untergruppe zu. Bitte wenden Sie sich an die Einrichtung."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET": "Die Einrichtung weist dem jeweiligem Schüler/in die Untergruppe zu. Bitte wenden Sie sich an die Einrichtung.",
+  "SIBDER_ONE_DASHBORARD": "Übericht"
 }

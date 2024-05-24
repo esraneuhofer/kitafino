@@ -22,7 +22,21 @@ import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {ConfirmOrderComponent} from "../dialogs/confirm-order/confirm-order.component";
 import {getEmailBodyCancel} from "../order-student/email-cancel-order.function";
 import {CustomerInterface} from "../../classes/customer.class";
+import {SchoolMessageInterface} from "../../classes/school-message.interface";
+import {MessageService} from "../../service/message.service";
 
+const allMessages:SchoolMessageInterface[] = [
+    {
+        message: 'Wir wünschen Ihnen einen guten Appetit!',
+        heading: 'Guten Appetit!',
+        messagesSeen:[]
+    },
+    {
+        message: 'Wir wünschen sonstiges',
+        heading: 'Sonstiges',
+        messagesSeen:[]
+    }
+]
 function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], settings: SettingInterfaceNew): DisplayOrderArrayIntrface[] {
     let dateToday = setDateToCompare(new Date())
     let arrayDisplay: DisplayOrderArrayIntrface[] = [];
@@ -64,7 +78,7 @@ export class DashboardComponent {
 
     page: number = 1;
     pageSize: number = 6;
-
+    allMessages: SchoolMessageInterface[] = allMessages;
     tenant!: TenantStudentInterface;
     pageLoaded: boolean = false;
     accountTenant!: AccountCustomerInterface;
@@ -89,7 +103,9 @@ export class DashboardComponent {
                 private generalService: GenerellService,
                 private toastr: ToastrService,
                 private orderService: OrderService,
-                private generallService: GenerellService) {
+                private generallService: GenerellService,
+                private messageService: MessageService) {
+
     }
 
     ngOnInit() {
@@ -100,7 +116,8 @@ export class DashboardComponent {
             this.studentService.getRegisteredStudentsUser(),
             this.orderService.getOrderStudentYear({year: new Date().getFullYear()}),
             this.generallService.getSettingsCaterer(),
-            this.generalService.getCustomerInfo()
+            this.generalService.getCustomerInfo(),
+            this.messageService.getMessagesActive()
         ).subscribe((
             [
                 tenantInformation,
@@ -108,14 +125,16 @@ export class DashboardComponent {
                 students,
                 orderStudents,
                 setting,
-                customer
+                customer,
+                messages
             ]: [
                 TenantStudentInterface,
                 AccountCustomerInterface,
                 StudentInterface[],
                 OrderInterfaceStudentSave[],
                 SettingInterfaceNew,
-                CustomerInterface
+                CustomerInterface,
+                SchoolMessageInterface[]
             ]) => {
             this.tenant = tenantInformation;
             this.accountTenant = accountInformation;
@@ -123,6 +142,7 @@ export class DashboardComponent {
             this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, setting);
             this.settings = setting;
             this.customer = customer
+            this.allMessages = messages;
             this.pageLoaded = true;
         })
     }
@@ -213,5 +233,11 @@ export class DashboardComponent {
         this.submittingRequest = false;
     }
 
-
+    closeInfo(index:number) {
+        if(!this.tenant || !this.tenant.userId) return;
+        let messageObject = this.allMessages[index];
+        messageObject.messagesSeen.push(this.tenant.userId)
+        this.messageService.editMessage(messageObject).subscribe({
+        })
+    }
 }

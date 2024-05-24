@@ -72,6 +72,7 @@ import { SchoolAnnouncmentsComponent } from './home/school-announcments/school-a
 import { HelpDialogComponent } from './directives/help-dialog/help-dialog.component';
 import { FirstAccessDialogComponent } from './directives/first-access-dialog/first-access-dialog.component';
 import { HelpComponent } from './home/help/help.component';
+import { MessageInfoBoxComponent } from './directives/message-info-box/message-info-box.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -130,6 +131,7 @@ registerLocaleData(localeDe);
     HelpDialogComponent,
     FirstAccessDialogComponent,
     HelpComponent,
+    MessageInfoBoxComponent,
   ],
   imports: [
     BrowserModule,
