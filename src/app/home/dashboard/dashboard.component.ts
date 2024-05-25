@@ -25,18 +25,20 @@ import {CustomerInterface} from "../../classes/customer.class";
 import {SchoolMessageInterface} from "../../classes/school-message.interface";
 import {MessageService} from "../../service/message.service";
 
-const allMessages:SchoolMessageInterface[] = [
-    {
-        message: 'Wir wünschen Ihnen einen guten Appetit!',
-        heading: 'Guten Appetit!',
-        messagesSeen:[]
-    },
-    {
-        message: 'Wir wünschen sonstiges',
-        heading: 'Sonstiges',
-        messagesSeen:[]
+function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantStudentInterface): SchoolMessageInterface[] {
+    if (!tenant.userId) {
+        return [];
     }
-]
+    let usderId = tenant.userId;
+    let messagesArray: SchoolMessageInterface[] = []
+    messages.forEach((message) => {
+        if (!message.messageSeen.includes(usderId)) {
+            messagesArray.push(message)
+        }
+    })
+    return messagesArray;
+}
+
 function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], settings: SettingInterfaceNew): DisplayOrderArrayIntrface[] {
     let dateToday = setDateToCompare(new Date())
     let arrayDisplay: DisplayOrderArrayIntrface[] = [];
@@ -78,7 +80,7 @@ export class DashboardComponent {
 
     page: number = 1;
     pageSize: number = 6;
-    allMessages: SchoolMessageInterface[] = allMessages;
+    allMessages: SchoolMessageInterface[] = [];
     tenant!: TenantStudentInterface;
     pageLoaded: boolean = false;
     accountTenant!: AccountCustomerInterface;
@@ -109,6 +111,33 @@ export class DashboardComponent {
     }
 
     ngOnInit() {
+
+        // forkJoin(
+        //     [
+        //         this.messageService.addMessage({
+        //             message: 'Wir wünschen Ihnen einen guten Appetit!',
+        //             heading: 'Guten Appetit!',
+        //             messageSeen:[],
+        //             sentBy:'school'
+        //         }),
+        //         this.messageService.addMessage({
+        //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
+        //             heading: 'Wichtig!',
+        //             messageSeen:[],
+        //             sentBy:'caterer'
+        //         }),
+        //         this.messageService.addMessage({
+        //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
+        //             heading: 'Wichtig!',
+        //             messageSeen:[],
+        //             sentBy:'master'
+        //         })
+        //     ]
+        // ).subscribe({
+        //      next: (data) => {
+        //
+        //      }
+        //  })
         this.pageLoaded = false
         forkJoin(
             this.tenantServiceStudent.getTenantInformation(),
@@ -117,7 +146,7 @@ export class DashboardComponent {
             this.orderService.getOrderStudentYear({year: new Date().getFullYear()}),
             this.generallService.getSettingsCaterer(),
             this.generalService.getCustomerInfo(),
-            this.messageService.getMessagesActive()
+            this.messageService.getMessages()
         ).subscribe((
             [
                 tenantInformation,
@@ -134,7 +163,7 @@ export class DashboardComponent {
                 OrderInterfaceStudentSave[],
                 SettingInterfaceNew,
                 CustomerInterface,
-                SchoolMessageInterface[]
+                SchoolMessageInterface[],
             ]) => {
             this.tenant = tenantInformation;
             this.accountTenant = accountInformation;
@@ -142,7 +171,7 @@ export class DashboardComponent {
             this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, setting);
             this.settings = setting;
             this.customer = customer
-            this.allMessages = messages;
+            this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
             this.pageLoaded = true;
         })
     }
@@ -233,11 +262,17 @@ export class DashboardComponent {
         this.submittingRequest = false;
     }
 
-    closeInfo(index:number) {
-        if(!this.tenant || !this.tenant.userId) return;
-        let messageObject = this.allMessages[index];
-        messageObject.messagesSeen.push(this.tenant.userId)
-        this.messageService.editMessage(messageObject).subscribe({
+    closeInfo(message: SchoolMessageInterface) {
+        if (!this.tenant || !this.tenant.userId) return;
+        message.messageSeen.push(this.tenant.userId)
+        this.messageService.editMessage(message).subscribe({
+            next: (data) => {
+                this.messageService.getMessages().subscribe({
+                    next: (messages) => {
+                        this.allMessages = checkMessagesIfSeen(messages, this.tenant);
+                    }
+                })
+            }
         })
     }
 }

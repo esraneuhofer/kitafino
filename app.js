@@ -36,6 +36,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+require(__dirname + '/server/models/message.model');
 require(__dirname + '/server/models/task-order.model');
 require(__dirname + '/server/models/session-info.model');
 require(__dirname + '/server/models/permanent-order.model');
@@ -83,11 +84,6 @@ i18n.configure({
 });
 app.use(i18n.init);
 
-app.use((req, res, next) => {
-    console.log('Middleware is executed');
-    console.log(`Detected language: ${req.getLocale()}`);
-    next();
-});
 
 app.use((req, res, next) => {
   if (req.path === '/api/webhook') {

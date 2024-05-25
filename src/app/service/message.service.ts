@@ -17,16 +17,18 @@ export class MessageService {
     constructor(private http:HttpClient) {
 
     }
-    getMessagesActive(){
-        return this.http.get<SchoolMessageInterface>(environment.apiBaseUrl+'/getAccountTenant')
-            .pipe(map((response: SchoolMessageInterface) => (response)));
+    getMessages(){
+        return this.http.get<SchoolMessageInterface[]>(environment.apiBaseUrl+'/getMessages')
+            .pipe(map((response: SchoolMessageInterface[]) => (response)));
     }
-    getMessagesInactive(){
-        return this.http.get<SchoolMessageInterface>(environment.apiBaseUrl+'/getAccountTenant')
-            .pipe(map((response: SchoolMessageInterface) => (response)));
-    }
+
     editMessage(object: SchoolMessageInterface) {
-        return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
+        return this.http.post(environment.apiBaseUrl + '/editMessage', object)
             .pipe(map((response: any) => response));
     }
+    addMessage(object: SchoolMessageInterface) {
+        return this.http.post(environment.apiBaseUrl + '/addMessage', object)
+            .pipe(map((response: any) => response));
+    }
+
 }

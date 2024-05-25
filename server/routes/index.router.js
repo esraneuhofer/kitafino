@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 // router.use('/', tenantConfig.getTenantId);
 
+const ctrlMessage = require('../controllers/message.controller');
 const ctrlLanguage = require('../controllers/language.controller');
 const ctrlUser = require('../controllers/user.controller');
 const ctrlTenant = require('../controllers/tenant.controller');
@@ -103,6 +104,9 @@ router.post('/webhook',rawBodyBuffer ,ctrlWebhook.webhook_stripe)
 ////Language Requests ////
 
 router.post('/setLanguage',ctrlLanguage.setLanguage)
+router.get('/getMessages',ctrlMessage.getMessages)
+router.post('/editMessage',ctrlMessage.editMessage)
+router.post('/addMessage',ctrlMessage.addMessage)
 
 module.exports = router;
 

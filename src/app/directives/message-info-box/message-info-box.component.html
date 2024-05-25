@@ -1,0 +1,49 @@
+<div [ngClass]="{
+    'bg-green-50 text-green-800': eachMessage.sentBy === 'caterer',
+    'bg-blue-50 text-blue-800': eachMessage.sentBy === 'school',
+    'bg-red-50 text-red-800': eachMessage.sentBy === 'master'
+}" class="rounded-md p-4" *ngIf="eachMessage">
+    <div class="flex">
+        <div class="flex-shrink-0">
+            <svg class="h-5 w-5" [ngClass]="{
+                'text-green-400': eachMessage.sentBy === 'caterer',
+                'text-blue-400': eachMessage.sentBy === 'school',
+                'text-red-400': eachMessage.sentBy === 'master'
+            }" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div class="ml-3">
+            <h3 class="text-sm font-medium" [ngClass]="{
+                'text-green-800': eachMessage.sentBy === 'caterer',
+                'text-blue-800': eachMessage.sentBy === 'school',
+                'text-red-800': eachMessage.sentBy === 'master'
+            }">{{getMessageHeader(eachMessage.sentBy)}}</h3>
+            <div class="mt-2 text-sm" [ngClass]="{
+                'text-green-700': eachMessage.sentBy === 'caterer',
+                'text-blue-700': eachMessage.sentBy === 'school',
+                'text-red-700': eachMessage.sentBy === 'master'
+            }">
+                <p>
+                    {{eachMessage.message}}
+                </p>
+            </div>
+        </div>
+        <div class="ml-auto pl-3">
+            <div class="-mx-1.5 -my-1.5">
+                <button (click)="closeInfo(eachMessage)" type="button" class="inline-flex rounded-md p-1.5 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        [ngClass]="{
+                            'text-green-500 focus:ring-green-600 focus:ring-offset-green-50': eachMessage.sentBy === 'caterer',
+                            'text-blue-500 focus:ring-blue-600 focus:ring-offset-blue-50': eachMessage.sentBy === 'school',
+                            'text-red-500 focus:ring-red-600 focus:ring-offset-red-50': eachMessage.sentBy === 'master'
+                        }">
+                    <span class="sr-only">Dismiss</span>
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
