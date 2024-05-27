@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {QueryInterOrderInterface} from "../../functions/weekplan.functions";
 import {SchoolMessageInterface} from "../../classes/school-message.interface";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-message-info-box',
@@ -9,22 +10,23 @@ import {SchoolMessageInterface} from "../../classes/school-message.interface";
 })
 export class MessageInfoBoxComponent {
   @Input() eachMessage!: SchoolMessageInterface | null;
+  @Input() showButton: boolean = true;
   @Output() closeMessage:any = new EventEmitter<SchoolMessageInterface>();
 
-    constructor() {
+    constructor(private translate: TranslateService) {
       console.log(this.eachMessage);
     }
 
   closeInfo(message: SchoolMessageInterface) {
     this.closeMessage.emit(message);
   }
-  getMessageHeader(sentBy:string) {
+  getMessageHeader(sentBy: string) {
     if (sentBy === 'master') {
-      return 'Nachricht von Cateringexpert';
-    } else if(sentBy === 'school') {
-      return 'Nachricht von der Einrichtung';
-    }else{
-      return 'Nachricht vom Caterer'
+      return this.translate.instant('MESSAGE_FROM_CATERINGEXPERT');
+    } else if (sentBy === 'school') {
+      return this.translate.instant('MESSAGE_FROM_SCHOOL');
+    } else {
+      return this.translate.instant('MESSAGE_FROM_CATERER');
     }
   }
 

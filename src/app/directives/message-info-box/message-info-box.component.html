@@ -18,7 +18,7 @@
                 'text-green-800': eachMessage.sentBy === 'caterer',
                 'text-blue-800': eachMessage.sentBy === 'school',
                 'text-red-800': eachMessage.sentBy === 'master'
-            }">{{getMessageHeader(eachMessage.sentBy)}}</h3>
+            }" class="text-sm font-medium">{{getMessageHeader(eachMessage.sentBy)}} - {{eachMessage.createdAt | date:'dd.MM.yyyy'}}</h3>
             <div class="mt-2 text-sm" [ngClass]="{
                 'text-green-700': eachMessage.sentBy === 'caterer',
                 'text-blue-700': eachMessage.sentBy === 'school',
@@ -29,21 +29,18 @@
                 </p>
             </div>
         </div>
-        <div class="ml-auto pl-3">
-            <div class="-mx-1.5 -my-1.5">
-                <button (click)="closeInfo(eachMessage)" type="button" class="inline-flex rounded-md p-1.5 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                        [ngClass]="{
-                            'text-green-500 focus:ring-green-600 focus:ring-offset-green-50': eachMessage.sentBy === 'caterer',
-                            'text-blue-500 focus:ring-blue-600 focus:ring-offset-blue-50': eachMessage.sentBy === 'school',
-                            'text-red-500 focus:ring-red-600 focus:ring-offset-red-50': eachMessage.sentBy === 'master'
-                        }">
-                    <span class="sr-only">Dismiss</span>
-                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                    </svg>
-                </button>
-            </div>
+        <div class="ml-auto pl-3" *ngIf="showButton">
+            <button (click)="closeInfo(eachMessage)" type="button"
+                    class="mr-2 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 d-flex align-items-center"
+                    [ngClass]="{
+                'bg-green-200 text-green-800 hover:bg-green-300 focus:ring-green-300 focus:ring-offset-green-50': eachMessage.sentBy === 'caterer',
+                'bg-blue-200 text-blue-800 hover:bg-blue-300 focus:ring-blue-300 focus:ring-offset-blue-50': eachMessage.sentBy === 'school',
+                'bg-red-200 text-red-800 hover:bg-red-300 focus:ring-red-300 focus:ring-offset-red-50': eachMessage.sentBy === 'master'
+            }">
+                Schließen
+            </button>
         </div>
+
+
     </div>
 </div>
-

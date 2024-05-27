@@ -19,7 +19,9 @@ app.use(i18n.init);
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected');
-    setTaskCustomerDeadline().then(() => {
+      // Rufe die Funktion auf, um den neuen Cron-Job zu planen
+      scheduleDeleteOldMessages();
+      setTaskCustomerDeadline().then(() => {
       console.log('Tasks scheduled successfully.');
     }).catch((error) => {
       console.error('Failed to schedule tasks:', error);
@@ -119,5 +121,6 @@ switch (environment) {
 server.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
+
 const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
-// const { loadAndScheduleTasks } = require(__dirname + '/server/controllers/deadline-timer.controller');
+const { scheduleDeleteOldMessages } = require(__dirname + '/server/controllers/message.controller');

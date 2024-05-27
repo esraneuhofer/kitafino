@@ -6,6 +6,7 @@ import {lang} from "moment-timezone";
 import {LanguageService} from "../../service/language.service";
 const languagesConst: LanguageSelect[] = [
   { id: 1, name: 'Deutsch', avatar: 'https://flagcdn.com/w320/de.png', code: 'de' },  // Germany flag
+  { id: 12, name: 'Українська (Ukrainian)', avatar: 'https://flagcdn.com/w320/ua.png', code: 'uk' },  // Ukraine flag
   { id: 2, name: 'Türkçe', avatar: 'https://flagcdn.com/w320/tr.png', code: 'tr' },  // Turkey flag
   { id: 3, name: 'English', avatar: 'https://flagcdn.com/w320/gb.png', code: 'en' },  // UK flag
   { id: 4, name: 'العربية (Arabic)', avatar: 'https://flagcdn.com/w320/sa.png', code: 'ar' },  // Saudi Arabia flag (representing Arabic countries)
@@ -15,8 +16,14 @@ const languagesConst: LanguageSelect[] = [
   { id: 8, name: 'Ελληνικά (Greek)', avatar: 'https://flagcdn.com/w320/gr.png', code: 'el' },  // Greece flag
   { id: 9, name: 'Español', avatar: 'https://flagcdn.com/w320/es.png', code: 'es' },  // Spain flag
   { id: 10, name: 'Română', avatar: 'https://flagcdn.com/w320/ro.png', code: 'ro' },  // Romania flag
-  { id: 11, name: 'Nederlands', avatar: 'https://flagcdn.com/w320/nl.png', code: 'nl' }  // Netherlands flag
+  { id: 11, name: 'Nederlands', avatar: 'https://flagcdn.com/w320/nl.png', code: 'nl' },  // Netherlands flag
+  { id: 13, name: 'Français (French)', avatar: 'https://flagcdn.com/w320/fr.png', code: 'fr' },  // France flag
+  { id: 14, name: '中文 (Chinese)', avatar: 'https://flagcdn.com/w320/cn.png', code: 'zh' },  // China flag
+  { id: 15, name: 'हिंदी (Hindi)', avatar: 'https://flagcdn.com/w320/in.png', code: 'hi' },  // India flag
+  { id: 16, name: '廣東話 (Cantonese)', avatar: 'https://flagcdn.com/w320/hk.png', code: 'yue' },  // Hong Kong flag (Cantonese)
+  { id: 17, name: 'Български (Bulgarian)', avatar: 'https://flagcdn.com/w320/bg.png', code: 'bg' }  // Bulgaria flag
 ];
+
 interface LanguageSelect{id:number,name:string,avatar:string,code:string}
 @Component({
   selector: 'app-select-language',

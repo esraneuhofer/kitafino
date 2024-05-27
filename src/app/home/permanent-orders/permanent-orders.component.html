@@ -9,8 +9,8 @@
                                 <div class="flex flex-wrap">
                                     <div class="sm:flex-auto">
                                         <h1 class="text-base font-semibold leading-6 text-gray-900">
-                                            Dauerbestellungen</h1>
-                                        <p class="mt-2 text-sm text-gray-700">Eingetragene Dauerbestellungen</p>
+                                            {{ 'MANAGE_PERMANENT_ORDERS.HEADER' | translate }}</h1>
+                                        <p class="mt-2 text-sm text-gray-700">{{ 'MANAGE_PERMANENT_ORDERS.SUBHEADER' | translate }}</p>
                                     </div>
                                 </div>
                                 <div class="mt-8 flow-root">
@@ -21,15 +21,15 @@
                                                 <tr>
                                                     <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
                                                         scope="col">
-                                                        Name
+                                                        {{ 'MANAGE_PERMANENT_ORDERS.NAME' | translate }}
                                                     </th>
                                                     <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                                                         scope="col">
-                                                        Aktiv
+                                                        {{ 'MANAGE_PERMANENT_ORDERS.ACTIVE' | translate }}
                                                     </th>
                                                     <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
                                                         scope="col">
-                                                        <span class="sr-only">Edit</span>
+                                                        <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
                                                     </th>
                                                 </tr>
                                                 </thead>
@@ -40,13 +40,13 @@
                                                         <span class="hidden xs:inline sm:inline"> {{student.lastName + ' ' + student.firstName }}</span>
                                                     </td>
                                                     <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                                        {{hasDauerbestellung(student) ? 'Ja' : 'Nein'}}
+                                                        {{hasDauerbestellung(student) ? ( 'MANAGE_PERMANENT_ORDERS.YES' | translate ) : ( 'MANAGE_PERMANENT_ORDERS.NO' | translate )}}
                                                     </td>
                                                     <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
                                                         <div class="align-right">
                                                             <app-button (click)="selectStudent(student)" [buttonType]="'button'"
                                                                         [submittingRequest]="submittingRequest"
-                                                                        >Bearbeiten
+                                                            >{{ 'MANAGE_PERMANENT_ORDERS.EDIT_BUTTON' | translate }}
                                                             </app-button>
                                                         </div>
                                                     </td>
@@ -67,30 +67,25 @@
                     <div *ngIf="selectedPermanentOrder && selectedStudent" class="card-face back">
                         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
                             <div class="flex-1">
-                                <!-- Other Settings Form Content -->
                                 <form #f1="ngForm"
                                       (ngSubmit)="f1.form.valid && editOrAddPermanentOrders(selectedPermanentOrder)"
                                       novalidate>
                                     <div class="space-y-12">
                                         <div class="border-b border-gray-900/10 pb-12">
-                                            <h2 class="text-base font-semibold leading-7 text-gray-900">Dauerbestellung
-                                                für: {{selectedStudent.firstName}} {{selectedStudent.lastName}}</h2>
+                                            <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_PERMANENT_ORDERS.EDIT_HEADER' | translate }} {{selectedStudent.firstName}} {{selectedStudent.lastName}}</h2>
                                             <p class="mt-1 text-sm leading-6 text-gray-600">
-                <span *ngIf="permanentOrderExists">
-                  Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/in vor. Um eine Änderung an der Dauerbestellung vorzunehmen bestätigen Sie die Änderung mit dem Button "Dauerbestellung ändern".
-                </span>
+                                                <span *ngIf="permanentOrderExists">
+                                                  {{ 'MANAGE_PERMANENT_ORDERS.EXISTING_ORDER' | translate }}
+                                                </span>
                                                 <span *ngIf="!permanentOrderExists">
-                  Um eine Dauerbestellung anzulegen oder zu ändern wählen Sie die gewünschten
-                  Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl mit dem Button "Dauerbestellung anlegen".
-                </span>
+                                                  {{ 'MANAGE_PERMANENT_ORDERS.NEW_ORDER' | translate }}
+                                                </span>
                                             </p>
-                                            <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
                                             <fieldset class="mt-4">
                                                 <legend class="sr-only">Notifications</legend>
                                                 <div *ngFor="let day of selectedPermanentOrder.daysOrder; let index = index"
                                                      class="space-y-5 mb-2">
                                                     <div class="flex items-center">
-                                                        <!-- Checkbox Section with fixed width -->
                                                         <div class="lg:w-1/5 md:w-1/3 sm:w-1/2 w-full ">
                                                             <input (ngModelChange)="setLinePermanentOrder($event, index)"
                                                                    [(ngModel)]="selectedPermanentOrder.daysOrder[index].selected"
@@ -102,7 +97,6 @@
                                                             <label class="ml-2 text-sm font-medium text-gray-900"
                                                                    for="{{'comments' + index}}">{{ dayArray[index] }}</label>
                                                         </div>
-                                                        <!-- Dropdown Section with fixed width -->
                                                         <div class="lg:w-2/5 md:w-1/2 sm:w-1/2 w-full ">
                                                             <select #subgroupModel="ngModel"
                                                                     (ngModelChange)="setPermanentOrderType($event,index)"
@@ -112,8 +106,7 @@
                                                                     id="subgroup{{index}}"
                                                                     name="subgroupModel{{index}}"
                                                                     required>
-                                                                <option [value]="" disabled hidden>Bitte auswählen
-                                                                </option>
+                                                                <option [value]="" disabled hidden>{{ 'MANAGE_PERMANENT_ORDERS.SELECT_OPTION' | translate }}</option>
                                                                 <option *ngFor="let menu of menuSelection"
                                                                         [ngValue]="menu.menuId">
                                                                     {{ menu.nameMenu}}
@@ -122,25 +115,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                             </fieldset>
                                             <div class="flex mt-2 space-x-2">
                                                 <app-button *ngIf="!permanentOrderExists"
-                                                            [submittingRequest]="submittingRequest">Dauerbestellung hinzufügen
+                                                            [submittingRequest]="submittingRequest">{{ 'MANAGE_PERMANENT_ORDERS.ADD_ORDER' | translate }}
                                                 </app-button>
                                                 <app-button (click)="back()"
                                                             [buttonType]="'button'" [submittingRequest]="submittingRequest">
-                                                    Zurück
+                                                    {{ 'MANAGE_PERMANENT_ORDERS.BACK_BUTTON' | translate }}
                                                 </app-button>
                                                 <app-button *ngIf="permanentOrderExists"
-                                                            [submittingRequest]="submittingRequest" [typeButton]="'warning'">Ändern
+                                                            [submittingRequest]="submittingRequest" [typeButton]="'warning'">{{ 'MANAGE_PERMANENT_ORDERS.CHANGE_ORDER' | translate }}
                                                 </app-button>
                                                 <app-button (click)="deletePermanentOrder(selectedPermanentOrder)"
                                                             *ngIf="permanentOrderExists"
                                                             [buttonType]="'button'" [submittingRequest]="submittingRequest"
                                                             [typeButton]="'danger'">
-                                                    Löschen
+                                                    {{ 'MANAGE_PERMANENT_ORDERS.DELETE_ORDER' | translate }}
                                                 </app-button>
                                             </div>
 

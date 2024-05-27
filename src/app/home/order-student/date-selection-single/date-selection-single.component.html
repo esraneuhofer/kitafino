@@ -1,47 +1,47 @@
 <div class="container mx-auto px-4 mt-2">
-  <div class="flex justify-center">
-    <div class="w-full"> <!-- Container for the selects, ensuring full width -->
-      <div class="bg-white shadow-md rounded px-8  ">
-        <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
-          <!-- Kalenderwoche Select Input Container -->
-          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
-<!--            <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">Datum</label>-->
-            <input
-              (change)="onDateChange($event)"
-              [ngModel]="getSelectedDateString()"
-              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              id="selectedDate"
-              name="selectedDate"
-              type="date"
-              required
-            />
-          </div>
-          <!-- Verpflegungsteilnehmer Select Input Container -->
-          <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0" *ngIf="registeredStudents.length > 1"> <!-- Adjusted for responsive width and padding -->
-            <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedStudentModel">Verpflegungsteilnehmer/in</label>
-            <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
-                    [(ngModel)]="selectedStudent"
-                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    id="selectedStudentModel"
-                    name="selectedStudentModel"
-                    required>
-              <option [value]="null" disabled hidden selected>Bitte auswählen</option>
-              <option *ngFor="let student of registeredStudents" [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
-            </select>
-          </div>
-          <!-- Darstellung gesamte Woche Input Container -->
-          <div class="w-full px-2 mb-1"> <!-- Full width for new line -->
-            <div class="flex items-center">
-              <input id="displayOrder"
-                     [(ngModel)]="displaySettings"
-                     (ngModelChange)="editTenantOrderSettings($event)"
-                     aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox"
-                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-              <label for="displayOrder" class="ml-3 text-sm leading-6 font-medium text-gray-900">Gesamte Woche anzeigen</label>
+    <div class="flex justify-center">
+        <div class="w-full"> <!-- Container for the selects, ensuring full width -->
+            <div class="bg-white shadow-md rounded px-8">
+                <div class="flex flex-wrap -mx-2"> <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
+                    <!-- Kalenderwoche Select Input Container -->
+                    <div class="w-full md:w-1/3 px-2 mb-2 md:mb-0">
+                        <!-- <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">{{ 'ORDER.DATE' | translate }}</label> -->
+                        <input
+                                (change)="onDateChange($event)"
+                                [ngModel]="getSelectedDateString()"
+                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                id="selectedDate"
+                                name="selectedDate"
+                                type="date"
+                                required
+                        />
+                    </div>
+                    <!-- Verpflegungsteilnehmer Select Input Container -->
+                    <div class="w-full md:w-1/3 px-2 mb-2 md:mb-0" *ngIf="registeredStudents.length > 1"> <!-- Adjusted for responsive width and padding -->
+                        <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedStudentModel">{{ 'ORDER.STUDENT' | translate }}</label>
+                        <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
+                                [(ngModel)]="selectedStudent"
+                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                id="selectedStudentModel"
+                                name="selectedStudentModel"
+                                required>
+                            <option [value]="null" disabled hidden selected>{{ 'ORDER.PLEASE_SELECT' | translate }}</option>
+                            <option *ngFor="let student of registeredStudents" [ngValue]="student">{{student.firstName + ' ' + student.lastName}}</option>
+                        </select>
+                    </div>
+                    <!-- Darstellung gesamte Woche Input Container -->
+                    <div class="w-full px-2 mb-2"> <!-- Full width for new line -->
+                        <div class="flex items-center">
+                            <input id="displayOrder"
+                                   [(ngModel)]="displaySettings"
+                                   (ngModelChange)="editTenantOrderSettings($event)"
+                                   aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox"
+                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                            <label for="displayOrder" class="ml-3 text-sm leading-6 font-medium text-gray-900">{{ 'ORDER.SHOW_ENTIRE_WEEK' | translate }}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

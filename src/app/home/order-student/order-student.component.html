@@ -4,16 +4,16 @@
       <app-banner-no-registration-order></app-banner-no-registration-order>
     </ng-container>
     <ng-container *ngIf="!showErrorNoStudents && displayOrderTypeWeek">
-      <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4  top-0 z-50 mb-1 mt-2">
+      <div *ngIf="!displayMinimize || accountTenant.currentBalance === 0" class="container px-4 top-0 z-50 mb-1 mt-2">
         <div class="flex justify-center">
           <div class="w-100">
-            <div class="rounded-md bg-green-100 p-4" >
+            <div class="rounded-md bg-green-100 p-4">
               <div class="flex justify-between items-center">
                 <p class="text-sm text-gray-700">
-                  Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  {{ 'ORDER.CURRENT_BALANCE' | translate }}: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
                      class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
-                    Einzahlen
+                    {{ 'ORDER.DEPOSIT' | translate }}
                     <span aria-hidden="true"> &rarr;</span>
                   </a>
                 </p>
@@ -41,9 +41,8 @@
           <div class="container mx-auto px-4">
             <div class="flex justify-center">
               <div class="w-100">
-                <div class="flex items-center"> <!-- Center content vertically and horizontally -->
+                <div class="flex items-center">
                   <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
-                    <!-- Your div element will be repeated 5 times in these grid items -->
                     <div *ngFor="let orderDay of orderWeek; let index = index" class="w-full">
                       <app-meal-input-card (orderPlaced)="getDataWeek()"
                                            [customer]="customer"
@@ -66,16 +65,16 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="!showErrorNoStudents && !displayOrderTypeWeek">
-      <div class="container px-4  top-0 z-50 mb-1 mt-2" >
-        <div class="flex justify-center ">
+      <div class="container px-4 top-0 z-50 mb-1 mt-2">
+        <div class="flex justify-center">
           <div class="w-100">
             <div class="rounded-md balance-info p-4">
-              <div class="flex justify-between items-center" >
+              <div class="flex justify-between items-center">
                 <p class="text-sm text-gray-700">
-                  Aktuelles Guthaben: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
+                  {{ 'ORDER.CURRENT_BALANCE' | translate }}: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
                   <a (click)="goToChargeMoney()" *ngIf="accountTenant.currentBalance === 0"
                      class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600 cursor-pointer">
-                    Einzahlen
+                    {{ 'ORDER.DEPOSIT' | translate }}
                     <span aria-hidden="true"> &rarr;</span>
                   </a>
                 </p>
@@ -103,11 +102,8 @@
         <ng-container *ngIf="selectedStudent && querySelection && pageLoaded">
           <div class="container mx-auto px-4 mt-8 sm:mt-0">
             <div class="flex justify-center">
-              <div class="w-full"> <!-- Container for the selects, ensuring full width -->
-                <!--              <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">-->
+              <div class="w-full">
                 <div class="flex flex-wrap -mx-2">
-                  <!-- Use flex-wrap for responsive behavior and -mx-2 for horizontal margin correction -->
-                  <!-- Kalenderwoche Select Input Container -->
                   <div class="w-full px-2 mb-4 md:mb-0">
                     <app-meal-input-card (orderPlaced)="changeDateDay(selectedDay)"
                                          [customer]="customer"
@@ -123,7 +119,6 @@
                     </app-meal-input-card>
                   </div>
                 </div>
-                <!--              </div>-->
               </div>
             </div>
           </div>
