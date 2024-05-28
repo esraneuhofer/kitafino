@@ -8,7 +8,7 @@ export interface AccountChargeInterface {
   date: Date;
   accountHolder: string;
   iban: string;
-  reference: string;
+  // reference: string;
   typeCharge:string;
   tenantId: string;
   transactionId: string;
@@ -23,7 +23,7 @@ export class ChargeAccountInterface implements AccountChargeInterface {
   date = new Date();
   accountHolder = '';
   iban = '';
-  reference = '';
+  // reference = '';
   typeCharge = 'deposit';
   tenantId = '';
   userId = '';

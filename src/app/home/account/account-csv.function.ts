@@ -52,7 +52,7 @@ function generateXLS(charges: AccountChargeInterface[], dateRange: { firstDate: 
       <td>${dateToExcelDate(new Date(charge.date))}</td>
       <td>${charge.iban ?? ''}</td>
       <td>${formatCurrency(charge.amount)}</td>
-      <td>${charge.reference}</td>
+      <td>${charge.transactionId}</td>
       <td>${charge.dateApproved ? dateToExcelDate(new Date(charge.dateApproved)) : ''}</td>
       <td>${charge.typeCharge === 'withdraw' ? 'Abbuchung' : 'Einzahlung'}</td>
     </tr>`;
