@@ -21,7 +21,7 @@ import {
 import {loadStripe} from '@stripe/stripe-js';
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 
@@ -69,17 +69,23 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private dialogService: MessageDialogService,
     private cd: ChangeDetectorRef) {
   }
-
+  private updateUrlWithoutStatus() {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {}
+    };
+    this.router.navigate([], navigationExtras);
+  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
       if (status === 'success') {
-
         this.dialogService.openMessageDialog('Ihre Einzahlung war erfolgreich! <b> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben', 'Einzahlung Erfolgreich');
+        this.updateUrlWithoutStatus();
       } else if (status === 'failure') {
-        this.dialogService.openMessageDialog('Ihre Einzahlung ist fehlgeschlagen <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Soltle der Fehler bestehen bleiben wenden Sie sich bitte an support@cateringexpert.de', 'Fehler');
+        this.dialogService.openMessageDialog('Ihre Einzahlung ist fehlgeschlagen <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Sollten der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de', 'Fehler');
+        this.updateUrlWithoutStatus();
       }
-    });
+    })
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),

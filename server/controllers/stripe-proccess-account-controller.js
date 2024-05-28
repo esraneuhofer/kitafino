@@ -33,7 +33,9 @@ async function addAccountChargesTenantStripe(data,session) {
     await session.commitTransaction();
 
     return { success: true, message: 'Charge added successfully' };
+
   } catch (error) {
+    console.error('Error adding account charges:', error);
     await session.abortTransaction();
     throw new Error(error.message);
   } finally {
@@ -75,7 +77,6 @@ async function addAccountCharge(account, username, balanceToAdd, session) {
       date: new Date(),
       paymentMethod: 'stripe',
       iban: null,
-      reference: username,
       typeCharge: 'deposit',
       tenantId: account.tenantId,
       userId: account.userId,
