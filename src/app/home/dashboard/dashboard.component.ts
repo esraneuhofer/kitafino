@@ -118,19 +118,24 @@ export class DashboardComponent {
         //             message: 'Wir wünschen Ihnen einen guten Appetit!',
         //             heading: 'Guten Appetit!',
         //             messageSeen:[],
-        //             sentBy:'school'
+        //             sentBy:'school',
+        //           createdAt: new Date()
         //         }),
         //         this.messageService.addMessage({
         //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
         //             heading: 'Wichtig!',
         //             messageSeen:[],
-        //             sentBy:'caterer'
+        //             sentBy:'caterer',
+        //           createdAt: new Date()
+        //
         //         }),
         //         this.messageService.addMessage({
         //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
         //             heading: 'Wichtig!',
         //             messageSeen:[],
-        //             sentBy:'master'
+        //             sentBy:'master',
+        //           createdAt: new Date()
+        //
         //         })
         //     ]
         // ).subscribe({
@@ -172,6 +177,7 @@ export class DashboardComponent {
             this.settings = setting;
             this.customer = customer
             this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
+            console.log('allMessages', this.allMessages)
             this.pageLoaded = true;
         })
     }

@@ -1,5 +1,9 @@
 <ng-container *ngIf="pageLoaded">
   <main>
+    <ng-container *ngFor="let eachMessage of allMessages let index = index">
+      <app-message-info-box [eachMessage]="eachMessage" (closeMessage)="closeInfo($event)"></app-message-info-box>
+    </ng-container>
+
     <div class="mx-auto px-4 sm:py-0 sm:py-1 md:py-16 sm:px-6 lg:px-8 md:w-11/12 lg:w-11/12">
       <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         <!-- Invoice summary -->
@@ -96,9 +100,7 @@
 <!--<ng-container *ngIf="pageLoaded">-->
 <!--  <main>-->
 
-<!--      <ng-container *ngFor="let eachMessage of allMessages let index = index">-->
-<!--          <app-message-info-box [eachMessage]="eachMessage" (closeMessage)="closeInfo($event)"></app-message-info-box>-->
-<!--      </ng-container>-->
+
 
 <!--      <div class="mx-auto px-4 sm:py-0 sm:py-1 md:py-16 sm:px-6 lg:px-8 md:w-11/12 lg:w-11/12">-->
 <!--      <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">-->
