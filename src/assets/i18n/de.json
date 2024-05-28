@@ -169,6 +169,21 @@
     "BALANCE_REMINDER_DESCRIPTION": "Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt",
     "DISPLAY_ORDER": "Darstellung gesamte Woche",
     "DISPLAY_ORDER_DESCRIPTION": "Wenn aktiviert wird die gesamte Woche in der App Ansicht dargestellt"
-}
+},
+  "HELP": {
+    "HELP_ORDER": {
+      "order_student_HELP_HEADER": "Bestellung",
+      "order_student_HELP_DESCRIPTION": [
+        "Um eine Bestellungen aufzugeben wählen Sie zuerst das gewünschte Datum aus. ",
+        "Sollten Sie mehrere Kinder haben, können Sie das Kind auswählen, für das Sie bestellen möchten.<br>",
+        "Um das Gericht zu bestellen klicken Sie auf das Kästchen des gewünschten Gerichts.<br>",
+        "Um ein Gericht zu stornieren klicken Sie erneut auf das Kästchen des gewünschten Gerichts oder auf das Mülltonnen-Symbol.<br>",
+        "Um ein Gericht zu ändern müssen Sie zuerst das Gericht stornieren und dann das gewünschte Gericht bestellen.<br>",
+        "Um sich eine gesamte Woche anzeigen zu lassen klicken auf das Kästchen 'Gesamte Woche anzeigen'<br>",
+        "Zusätzlich haben Sie die Möglichkeit eine Dauerbestellung aufzugeben. gehen Sie dazu auf 'Dauerbestellung'.<br>"
+      ]
+    }
+
+  }
 }
 

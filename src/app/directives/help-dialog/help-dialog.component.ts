@@ -3,12 +3,16 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {isWidthToSmall} from "../../home/order-student/order-container/order-container.component";
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../service/language.service";
-import {help_text, InterfaceHelpLanguage} from "../../home/help_text";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 interface HelpText {
     header: string;
     contentSmall: string[];
     contentRegular: string[];
+}
+function getLastSegment(route:string):string {
+  const segments = route.split('/');
+  return segments[segments.length - 1];
 }
 
 interface RouteHelpText {
@@ -26,31 +30,22 @@ interface HelpTextData {
 })
 export class HelpDialogComponent {
     @HostListener('window:resize', ['$event'])
-    selectedJSON: {
-        headerHelp: string,
-        contentHelp: string[]
-    } = {
-        headerHelp: '',
-        contentHelp: []
-    }
+    public helpHeader: string = '';
+  public helpDescriptions: SafeHtml[] = [];
     displayMinimize: boolean = false;
-
-    constructor(@Inject(MAT_DIALOG_DATA) public data: {
-        route: string
-    }, private languageService: LanguageService) {
-        let lang = this.languageService.getLanguage();
-        let helpText: InterfaceHelpLanguage = help_text;
-        if (!lang) {
-            lang = 'de';
-        }
-
-        // this.displayMinimize = isWidthToSmall(window.innerWidth);
-        // if (this.displayMinimize) {
-        //     this.selectedJSON.contentHelp = object.contentSmall;
-        // } else {
-        //     this.selectedJSON.contentHelp = object.contentRegular;
-        // }
+    constructor(private translate: TranslateService,
+                private sanitizer: DomSanitizer,
+                @Inject(MAT_DIALOG_DATA) public data: { route: string}, private languageService: LanguageService) {
     }
-
+  ngOnInit(): void {
+      console.log(getLastSegment(this.data.route));
+      console.log('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_HEADER')
+    this.translate.get('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_HEADER').subscribe((res: string) => {
+      this.helpHeader = res;
+    });
+    this.translate.get('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_DESCRIPTION').subscribe((res: string[]) => {
+      this.helpDescriptions = res.map(description => this.sanitizer.bypassSecurityTrustHtml(description));
+    });
+  }
 
 }

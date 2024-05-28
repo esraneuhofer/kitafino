@@ -1,14 +1,15 @@
 <div class="overflow-hidden x-4 text-left p-3">
-    <div>
-        <div class="mt-2">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">{{selectedJSON.headerHelp}}</h3>
-            <p class="text-sm text-gray-500 mt-3" *ngFor="let text of selectedJSON.contentHelp">
-            </p>
-        </div>
+  <div>
+    <div class="mt-2">
+      <h3 class="text-base font-semibold leading-6 text-gray-900">Erklärung: {{ helpHeader }}</h3>
+      <div class="text-sm text-gray-500 mt-1" *ngFor="let text of helpDescriptions">
+        <span [innerHTML]="text"></span>
+      </div>
     </div>
+  </div>
 
-    <!-- Container for input fields -->
-    <div class="flex justify-end mt-3">
-        <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>Schließen</app-button>
-    </div>
+  <!-- Container for input fields -->
+  <div class="flex justify-end mt-3">
+    <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>Schließen</app-button>
+  </div>
 </div>
