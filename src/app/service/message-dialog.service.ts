@@ -8,11 +8,11 @@ import {DialogErrorComponent} from "../directives/dialog-error/dialog-error.comp
 export class MessageDialogService {
   constructor(private dialog: MatDialog) {}
 
-  openMessageDialog(message: string,header: string): void {
+  openMessageDialog(message: string,header: string,typeMessage:string): void {
     const sanitizedMessage = message;
     this.dialog.open(DialogErrorComponent, {
       width: '400px',
-      data: { header, message: sanitizedMessage },
+      data: { header, message: sanitizedMessage,typeMessage },
       panelClass: 'custom-dialog-container',
       position: { top: '100px' },
     });

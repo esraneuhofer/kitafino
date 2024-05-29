@@ -10,14 +10,8 @@ import {TenantStudentInterface} from "../../classes/tenant.class";
 })
 export class DialogErrorComponent {
 
-  error_header: string = 'Fehler';
-  error_message: string = 'Es liegt ein Fehler vor';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {header:string, message: string}) {
-    if (data) {
-      this.error_header = data.header;
-      this.error_message = data.message;
-    }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {header:string, message: string,typeMessage:string}) {
 
   }
 }

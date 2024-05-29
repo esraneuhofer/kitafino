@@ -125,10 +125,12 @@
 
 
 <div class="flex min-h-full flex-col justify-center px-6 lg:px-8 login-background">
-<!--  <p class=" text-center text-sm text-gray-500">-->
-<!--   Hilfe-->
-<!--    <a routerLink="/signup" routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">hier klicken</a>-->
-<!--  </p>-->
+  <p class=" text-center text-sm text-gray-500">
+
+    <a
+       (click)="openHelp()"
+       class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'LOGIN_HELP_CLICK_HERE' | translate }}</a>
+  </p>
 
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">{{ 'LOGIN_TITLE' | translate }}</h2>

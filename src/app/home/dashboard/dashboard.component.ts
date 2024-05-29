@@ -115,23 +115,23 @@ export class DashboardComponent {
         // forkJoin(
         //     [
         //         this.messageService.addMessage({
-        //             message: 'Wir wünschen Ihnen einen guten Appetit!',
-        //             heading: 'Guten Appetit!',
+        //             message: 'Für Freitag den 02.07.24 gibt es Lunchpakete für den Ausflug.',
+        //             heading: 'Ausflug am Freitag',
         //             messageSeen:[],
         //             sentBy:'school',
         //           createdAt: new Date()
         //         }),
         //         this.messageService.addMessage({
-        //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
-        //             heading: 'Wichtig!',
+        //             message: 'Menü 1: Spaghetti Bolognese, Menü 2 wird geändert zu Nudeln mit Tomatensoße',
+        //             heading: 'Menüänderung 03.07.2024',
         //             messageSeen:[],
         //             sentBy:'caterer',
         //           createdAt: new Date()
         //
         //         }),
         //         this.messageService.addMessage({
-        //             message: 'Wir wünschen Ihnen einen guten Appetit! Nochmal',
-        //             heading: 'Wichtig!',
+        //             message: 'Es finden Wartungsarbeiten am 05.07.2024 statt. Die Anwendung ist von 11:00 - 12:00 nicht zu erreichen. Wir danken für Ihr Verständnis.',
+        //             heading: 'Wartungsarbeiten 05.07.2024',
         //             messageSeen:[],
         //             sentBy:'master',
         //           createdAt: new Date()

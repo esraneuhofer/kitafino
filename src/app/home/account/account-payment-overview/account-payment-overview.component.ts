@@ -66,8 +66,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private chargeService: ChargingService,
     private accountService: AccountService,
     private paymentService: PaymentService,
-    private dialogService: MessageDialogService,
-    private cd: ChangeDetectorRef) {
+    private dialogService: MessageDialogService) {
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
@@ -79,10 +78,10 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
       if (status === 'success') {
-        this.dialogService.openMessageDialog('Ihre Einzahlung war erfolgreich! <b> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben', 'Einzahlung Erfolgreich');
+        this.dialogService.openMessageDialog('Ihre Einzahlung war erfolgreich! <br> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben', 'Einzahlung Erfolgreich', 'success');
         this.updateUrlWithoutStatus();
       } else if (status === 'failure') {
-        this.dialogService.openMessageDialog('Ihre Einzahlung ist fehlgeschlagen <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Sollten der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de', 'Fehler');
+        this.dialogService.openMessageDialog('Ihre Einzahlung ist fehlgeschlagen <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Sollten der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de', 'Fehler', 'error');
         this.updateUrlWithoutStatus();
       }
     })
@@ -124,10 +123,12 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   openDialog() {
-    if (!this.tenantStudent.iban) {
-      this.toastr.warning('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben. Sie können Ihre IBAN in den Einstellungen eintragen.')
+    // if (!this.tenantStudent.iban) {
+      this.dialogService.openMessageDialog('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben.<br> Sie können Ihre IBAN unter [Einstellungen] eintragen.', 'Fehler','warning');
+
+      // this.toastr.warning('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben. Sie können Ihre IBAN in den Einstellungen eintragen.')
       return;
-    }
+    // }
     if (this.accountTenant.currentBalance === 0) {
       this.toastr.warning('Sie haben derzeit kein Guthaben auf Ihrem Konto.')
       return;
@@ -160,9 +161,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
         ]).subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
           this.accountTenant = accountTenant;
           this.accountCharges = sortAccountChargesByDate(accountCharges);
-          const message = `Ihre Abbuchung ist bei uns eingegangen und wird bearbeitet.<br>Es kann bis zu 5 Werktagen dauern bis das Geld auf Ihr Konto überwiesen wurde.<br>Unter "Details Kontobewegung" können Sie den aktuellen Status einsehen.`;
-          this.dialogService.openMessageDialog(message, 'Abbuchung erfolgreich');
-          this.toastr.success('Abbuchung erfolgreich')
+          const message = `Ihre Abbuchung ist bei uns eingegangen und wird bearbeitet.<br>Es kann bis zu 5 Werktagen dauern bis das Geld auf Ihr Konto überwiesen wurde.<br>Unter [Details Kontobewegung] können Sie den aktuellen Status einsehen.`;
+          this.dialogService.openMessageDialog(message, 'Abbuchung erfolgreich','success');
+          // this.toastr.success('Abbuchung erfolgreich')
           this.submittingRequest = false;
         })
       })

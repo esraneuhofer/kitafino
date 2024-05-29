@@ -5,6 +5,7 @@ import {StudentService} from "../../service/student.service";
 import {InstallPromptService} from "../../service/intstall-prompt.service";
 import {LanguageService} from "../../service/language.service";
 import {TranslateService} from "@ngx-translate/core";
+import {MessageDialogService} from "../../service/message-dialog.service";
 // function setMessage(message:string):string{
 //   if(message === 'Wrong password')return 'Das Passwort stimmt nicht mit der Email Adresse überein'
 //   if(message === 'Email is not registered')return 'Die Email Adresse konnte nicht gefunden werden'
@@ -33,6 +34,7 @@ export class SignInComponent implements OnInit {
               private renderer: Renderer2,
               private studentService: StudentService,
               private router: Router,
+              private dialogService: MessageDialogService,
               private installPromptService: InstallPromptService) {
 
   }
@@ -84,6 +86,9 @@ export class SignInComponent implements OnInit {
     this.installPromptService.promptUser();
   }
 
+  openHelp(): void {
+    this.dialogService.openMessageDialog('Hilfe....', 'Hilfe','info');
+  }
   promptInstallSafari() {
     // const pwaInstallElement = this.pwaInstallComponent.nativeElement as any;
     // console.log('Element:', pwaInstallElement);

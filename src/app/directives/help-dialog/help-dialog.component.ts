@@ -38,8 +38,6 @@ export class HelpDialogComponent {
                 @Inject(MAT_DIALOG_DATA) public data: { route: string}, private languageService: LanguageService) {
     }
   ngOnInit(): void {
-      console.log(getLastSegment(this.data.route));
-      console.log('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_HEADER')
     this.translate.get('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_HEADER').subscribe((res: string) => {
       this.helpHeader = res;
     });
