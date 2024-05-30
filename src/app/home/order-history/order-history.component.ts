@@ -17,15 +17,16 @@ import {
 } from "../../directives/export-csv-dialog/export-csv-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {downloadOrderHistoryCsv} from "./order-history-csv.function";
+import {TranslateService} from "@ngx-translate/core";
 
-function getTypeOrder(input: string): string {
+function getTypeOrder(input: string,translate:TranslateService): string {
     if (input === 'order') {
-        return 'Bestellung';
+        return translate.instant('DASHBOARD.ORDER');
     }
-    return 'Stornierung'
+    return translate.instant('CANCELLATIONS')
 }
 
-function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface[], students: StudentInterface[]): OrderHistoryTableInterface[] {
+function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface[], students: StudentInterface[],translate:TranslateService): OrderHistoryTableInterface[] {
     let displayArrayAccountOrders: OrderHistoryTableInterface[] = [];
     ordersAccountOwner.forEach((orderAccountOwner: OrdersAccountInterface) => {
         orderAccountOwner.allOrdersDate.forEach((allOrdersDate) => {
@@ -34,7 +35,7 @@ function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface
                     dateOrderMenu: orderAccountOwner.dateOrderMenu,
                     nameStudent: getStudentNameById(orderAccountOwner.studentId, students),
                     dateTimeOrder: allOrdersDate.dateTimeOrder,
-                    typeOrder: getTypeOrder(allOrdersDate.type),
+                    typeOrder: getTypeOrder(allOrdersDate.type,translate),
                     price: order.priceMenu,
                     year: orderAccountOwner.year,
                     nameMenu: order.nameOrder
@@ -78,6 +79,7 @@ export class OrderHistoryComponent implements OnInit {
                 private studentService: StudentService,
                 private dialog: MatDialog,
                 private router: Router,
+                private translate:TranslateService,
                 private route: ActivatedRoute) {
     }
 
@@ -91,7 +93,7 @@ export class OrderHistoryComponent implements OnInit {
                     [StudentInterface[], OrdersAccountInterface[]]) => {
                 this.ordersAccountOwner = accountOrdersUsers;
                 this.registeredStudents = registeredStudents
-                this.displayArrayAccountOrders = this.displayArrayAccountOrdersSearch = setDisplayArrayAccountOrders(accountOrdersUsers, registeredStudents);
+                this.displayArrayAccountOrders = this.displayArrayAccountOrdersSearch = setDisplayArrayAccountOrders(accountOrdersUsers, registeredStudents,this.translate);
                 this.pageLoaded = true;
             })
     }
@@ -106,9 +108,11 @@ export class OrderHistoryComponent implements OnInit {
     }
 
     openDialogExport() {
+      let header = this.translate.instant('EXPORT');
+      let content = this.translate.instant('ORDER_HISTORY.MESSAGE_DIALOG');
         const dialogRef = this.dialog.open(ExportCsvDialogComponent, {
             width: '550px',
-            data: {header: 'Exportieren', message: 'Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen'},
+            data: {header: header, message: content},
             panelClass: 'custom-dialog-container',
             position: {top: '100px'}
         });

@@ -1,16 +1,13 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <!--<div class="bg-white shadow-md rounded">-->
-      <!--        <div class="px-4 sm:px-6 lg:px-8">-->
-      <!--          <div class="flex flex-wrap">-->
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
           <div class="lg:px-8">
             <div class="sm:flex sm:items-center">
               <div class="sm:flex-auto">
-                <h1 class="text-base font-semibold leading-6 text-gray-900">Wochenplan PDF</h1>
-                <p class="mt-2 text-sm text-gray-700">Liste aller Wochenpläne</p>
+                <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'WEEKPLAN_PDF.TITLE' | translate }}</h1>
+                <p class="mt-2 text-sm text-gray-700">{{ 'WEEKPLAN_PDF.DESCRIPTION' | translate }}</p>
               </div>
             </div>
             <div class="mt-8 flow-root">
@@ -21,7 +18,7 @@
 
                   <!-- Container for the Year select field -->
                   <div class="flex-1 flex flex-col">
-                    <label class="text-sm font-medium text-gray-900" for="year">Jahr</label>
+                    <label class="text-sm font-medium text-gray-900" for="year">{{ 'WEEKPLAN_PDF.YEAR' | translate }}</label>
                     <select (ngModelChange)="getWeekplanCalenderYear($event)" [(ngModel)]="queryYear"
                             class="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                             id="year"
@@ -33,7 +30,7 @@
 
                   <!-- Container for the Calendar Week select field -->
                   <div class="flex-1 flex flex-col">
-                    <label class="text-sm font-medium text-gray-900" for="calenderweek">Kalenderwoche</label>
+                    <label class="text-sm font-medium text-gray-900" for="calenderweek">{{ 'WEEKPLAN_PDF.CALENDAR_WEEK' | translate }}</label>
                     <select #subgroupModel="ngModel" (ngModelChange)="getWeekplanCalenderWeek($event,queryYear)"
                             [(ngModel)]="queryWeek"
                             class="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
@@ -55,10 +52,9 @@
                     <tr>
                       <th class="hidden sm:table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                           scope="col">
-                        Wochenplan
+                        {{ 'WEEKPLAN_PDF.WEEKPLAN' | translate }}
                       </th>
-                      <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Kalenderwoche
-                      </th>
+                      <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'WEEKPLAN_PDF.CALENDAR_WEEK' | translate }}</th>
                       <th class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 text-right"
                           scope="col"></th>
 
@@ -74,14 +70,14 @@
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right flex justify-end">
                         <app-button (click)="displayPdf(eachWeekplan)" *ngIf="!isSafari"
                                     [submittingRequest]="submittingRequest">
-                          Ansicht
+                          {{ 'WEEKPLAN_PDF.VIEW' | translate }}
                         </app-button>
                         <app-button (click)="downloadPdf(eachWeekplan)" [submittingRequest]="submittingRequest">
-                          Download
+                          {{ 'WEEKPLAN_PDF.DOWNLOAD' | translate }}
                         </app-button>
                       </td>
                     </tr>
-                    <tr *ngIf="allWeekplans.length==0">
+                    <tr *ngIf="allWeekplans.length == 0">
                       <td colspan="100%">
                         <app-general-banner></app-general-banner>
                       </td>
@@ -90,17 +86,22 @@
                     </tbody>
                   </table>
                   <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
-                  <!--                      <div class="flex flex-col md:flex-row mt-3">-->
-                  <!--                        <div class="md:w-3/3 w-full">-->
-                  <!--                          <div class="flex justify-end">-->
-                  <!--                            <ngb-pagination-->
-                  <!--                              [maxSize]="5" [rotate]="true" [boundaryLinks]="true"-->
-                  <!--                              [(page)]="page"-->
-                  <!--                              [pageSize]="pageSize"-->
-                  <!--                              [collectionSize]="allWeekplans.length"></ngb-pagination>-->
-                  <!--                          </div>-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
+                  <div class="flex flex-col md:flex-row mt-3">
+                    <div class="md:w-3/3 w-full">
+                      <div class="flex justify-start md:justify-end">
+                        <ngb-pagination
+                          [(page)]="page"
+                          [boundaryLinks]="false"
+                          [collectionSize]="allWeekplans.length"
+                          [maxSize]="3"
+                          [pageSize]="pageSize"
+                          [rotate]="true"
+                          [ellipses]="true"
+                          [directionLinks]="true"></ngb-pagination>
+
+                      </div>
+                    </div>
+                  </div>
 
                 </div>
               </div>
@@ -109,8 +110,6 @@
           </div>
         </div>
       </div>
-      <!--          </div>-->
-      <!--        </div>-->
     </div>
   </div>
 

@@ -73,6 +73,7 @@ import { HelpDialogComponent } from './directives/help-dialog/help-dialog.compon
 import { FirstAccessDialogComponent } from './directives/first-access-dialog/first-access-dialog.component';
 import { HelpComponent } from './home/help/help.component';
 import { MessageInfoBoxComponent } from './directives/message-info-box/message-info-box.component';
+import { ConfirmDialogPermanetOrderComponent } from './home/permanent-orders/confirm-dialog-permanet-order/confirm-dialog-permanet-order.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -132,6 +133,7 @@ registerLocaleData(localeDe);
     FirstAccessDialogComponent,
     HelpComponent,
     MessageInfoBoxComponent,
+    ConfirmDialogPermanetOrderComponent,
   ],
   imports: [
     BrowserModule,

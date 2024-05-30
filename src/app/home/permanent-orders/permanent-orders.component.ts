@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {StudentInterfaceId} from "../../classes/student.class";
+import {StudentInterface, StudentInterfaceId} from "../../classes/student.class";
 import {GenerellService} from "../../service/generell.service";
 import {ToastrService} from "ngx-toastr";
 import {TenantServiceStudent} from "../../service/tenant.service";
@@ -7,7 +7,7 @@ import {StudentService} from "../../service/student.service";
 import {AccountService} from "../../service/account.serive";
 import {ActivatedRoute, Router} from "@angular/router";
 import {forkJoin} from "rxjs";
-import {SettingInterfaceNew} from "../../classes/setting.class";
+import {SettingInterfaceNew, SpecialOrderSettings} from "../../classes/setting.class";
 import {CustomerInterface} from "../../classes/customer.class";
 import {dayArray} from "../../classes/weekplan.interface";
 import {TenantStudentInterface} from "../../classes/tenant.class";
@@ -19,6 +19,18 @@ import {
   PermanentOrderInterface
 } from "../../classes/permanent-order.interface";
 import {customerHasSpecialFood} from "../../functions/special-food.functions";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageService} from "../../service/message.service";
+import {MessageDialogService} from "../../service/message-dialog.service";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ExportCsvDialogComponent,
+  ExportCsvDialogData
+} from "../../directives/export-csv-dialog/export-csv-dialog.component";
+import {createXmlFile} from "../account/account-csv.function";
+import {
+  ConfirmDialogPermanetOrderComponent
+} from "./confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
 
 interface DaysOrderPermanentInterfaceSelection {
   selected: boolean,
@@ -45,7 +57,7 @@ function getFirstMenuSettings(settings: SettingInterfaceNew): string {
   return ''
 }
 
-function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface): DaysOrderPermanentInterfaceSelection[] {
+function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface,student:StudentInterfaceId): DaysOrderPermanentInterfaceSelection[] {
   let arrayMenu: DaysOrderPermanentInterfaceSelection[] = []
   settings.orderSettings.specials.forEach((special) => {
     if (special.typeOrder === 'menu') {
@@ -53,7 +65,7 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
     }
   })
   settings.orderSettings.specialFoods.forEach((special) => {
-    if (customerHasSpecialFood(customer, special._id)) {
+    if (customerHasSpecialFood(customer, special._id) && student.specialFood === special._id) {
       arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'special', nameMenu: special.nameSpecialFood})
     }
   })
@@ -70,7 +82,7 @@ export class PermanentOrdersComponent implements OnInit {
 
 
   isFlipped:boolean = false;
-
+  textBanner:string = '';
   dayArray = dayArray;
   submittingRequest = false;
   menuSelection: DaysOrderPermanentInterfaceSelection[] = [];
@@ -92,8 +104,10 @@ export class PermanentOrdersComponent implements OnInit {
               private studentService: StudentService,
               private accountService: AccountService,
               private permanentOrdersService: PermanentOrderService,
-              private router: Router,
-              private r: ActivatedRoute) {
+              private messageService: MessageDialogService,
+              private dialog: MatDialog,
+              private translate: TranslateService) {
+    this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
 
   initAfterEdit() {
@@ -106,7 +120,7 @@ export class PermanentOrdersComponent implements OnInit {
         this.selectedPermanentOrder = permanentOrder
         this.permanentOrderExists = true
       }
-      this.toastr.success('Dauerbestellung erfolgreich bearbeitet');
+      this.toastr.success(this.translate.instant('MANAGE_PERMANENT_ORDERS_SUCCESS_EDIT'));
       this.isFlipped = false;
       this.submittingRequest = false;
     });
@@ -145,7 +159,6 @@ export class PermanentOrdersComponent implements OnInit {
         this.accountTenant = accountTenant;
         this.permanentOrders = permanentOrders;
         this.pageLoaded = true;
-        this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer)
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -161,6 +174,7 @@ export class PermanentOrdersComponent implements OnInit {
       this.selectedPermanentOrder = null;
       return
     }
+    this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer,student)
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
     if (!permanentOrder) {
@@ -177,20 +191,30 @@ export class PermanentOrdersComponent implements OnInit {
   editOrAddPermanentOrders(permanentOrder: PermanentOrderInterface) {
     this.submittingRequest = true;
     if(noDayIsSelected(permanentOrder)){
-        this.toastr.error('Bitte wählen Sie mindestens einen Tag aus')
+        this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY'))
         this.submittingRequest = false;
         return
     }
-    let routeId = permanentOrder._id ? 'editPermanentOrdersUser' : 'setPermanentOrdersUser';
-    (this.permanentOrdersService as any)[routeId](permanentOrder).subscribe((response: any) => {
-      if (!response.error) {
-        this.submittingRequest = false;
-        this.initAfterEdit()
-      } else {
-        this.toastr.error('Fehler beim Speichern der Dauerbestellung')
-        this.submittingRequest = false
-        this.isFlipped = false
+    const dialogRef = this.dialog.open(ConfirmDialogPermanetOrderComponent, {
+      width: '550px',
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
+    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
+      if (!result){
+        return;
       }
+      let routeId = permanentOrder._id ? 'editPermanentOrdersUser' : 'setPermanentOrdersUser';
+      (this.permanentOrdersService as any)[routeId](permanentOrder).subscribe((response: any) => {
+        if (!response.error) {
+          this.submittingRequest = false;
+          this.initAfterEdit()
+        } else {
+          this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_SAVING'))
+          this.submittingRequest = false
+          this.isFlipped = false
+        }
+      });
     });
   }
 
@@ -224,7 +248,7 @@ export class PermanentOrdersComponent implements OnInit {
         this.selectedStudent = null;
         this.initAfterEdit()
       } else {
-        this.toastr.error('Fehler beim Löschen der Dauerbestellung')
+        this.toastr.error(this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_DELETING"))
         this.submittingRequest = false
         this.isFlipped = false
 

@@ -1,24 +1,20 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <!--      <div class="w-11/12">-->
-      <!--<div class="bg-white shadow-md rounded">-->
-      <!--        <div class="px-4 sm:px-6 lg:px-8">-->
-      <!--          <div class="flex flex-wrap">-->
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
           <div class="lg:px-8">
             <div class="sm:flex sm:items-center">
               <div class="sm:flex-auto">
-                <h1 class="text-base font-semibold leading-6 text-gray-900">Bestellhistorie</h1>
-                <p class="mt-2 text-sm text-gray-700">Liste aller Bestellungen und Stornierungen</p>
+                <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'ORDER_HISTORY.TITLE' | translate }}</h1>
+                <p class="mt-2 text-sm text-gray-700">{{ 'ORDER_HISTORY.DESCRIPTION' | translate }}</p>
               </div>
               <!-- Button for md and larger screens -->
               <div class="hidden md:block md:ml-auto">
                 <button
                   (click)="openDialogExport()"
                   class="mt-1 block px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  CSV Export
+                  {{ 'ORDER_HISTORY.CSV_EXPORT' | translate }}
                 </button>
               </div>
             </div>
@@ -34,14 +30,14 @@
                   <!-- Text input field -->
                   <input (input)="search($event)"
                          [(ngModel)]="searchTerm"
-                         class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full" placeholder="Suchen nach..."
+                         class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full" placeholder="{{ 'ORDER_HISTORY.SEARCH_PLACEHOLDER' | translate }}"
                          type="text">
                   <!-- Button for sm and smaller screens -->
                   <div class="block md:hidden mt-1 sm:mt-0">
                     <button
                       (click)="openDialogExport()"
                       class="block w-full px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                      CSV Export
+                      {{ 'ORDER_HISTORY.CSV_EXPORT' | translate }}
                     </button>
                   </div>
                 </div>
@@ -53,21 +49,17 @@
                   <thead>
                   <tr>
                     <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
-                      <span class="hidden sm:inline">Verpflegungsteilnehmer/in</span>
-                      <span class="inline sm:hidden">Name</span>
+                      <span class="hidden sm:inline">{{ 'ORDER_HISTORY.STUDENT' | translate }}</span>
+                      <span class="inline sm:hidden">{{ 'ORDER_HISTORY.NAME' | translate }}</span>
                     </th>
-                    <th class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        scope="col">Menu
-                    </th>
+                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.MENU' | translate }}</th>
                     <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
-                      <span class="hidden sm:inline">Bestelldatum Menu </span>
-                      <span class="inline sm:hidden">Datum</span>
+                      <span class="hidden sm:inline">{{ 'ORDER_HISTORY.ORDER_DATE_MENU' | translate }}</span>
+                      <span class="inline sm:hidden">{{ 'ORDER_HISTORY.DATE' | translate }}</span>
                     </th>
-                    <th class="hidden sm:table-cell  px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        scope="col">Durchgeführt
-                    </th>
-                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Preis</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Art</th>
+                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.EXECUTED' | translate }}</th>
+                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.PRICE' | translate }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.TYPE' | translate }}</th>
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
@@ -76,31 +68,24 @@
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <!-- Visible on small screens, shows truncated text -->
                       <span class="block sm:hidden">
-                            {{ eachAccountOwner.nameStudent | slice:0:5 }}
-                          </span>
+                        {{ eachAccountOwner.nameStudent | slice:0:5 }}
+                      </span>
                       <!-- Hidden on small screens, shows full text -->
                       <span class="hidden sm:block">
-                            {{ eachAccountOwner.nameStudent }}
-                          </span>
+                        {{ eachAccountOwner.nameStudent }}
+                      </span>
                     </td>
-                    <td
-                      class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.nameMenu}}</td>
-                    <td
-                      class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.dateOrderMenu | date:'dd.MM.yy'}}</td>
-                    <td
-                      class="hidden sm:table-cell  whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }}
-                      Uhr
-                    </td>
-                    <td
-                      class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.price |currency:'€'}}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachAccountOwner.typeOrder}}</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.nameMenu }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrderMenu | date:'dd.MM.yy' }}</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }} Uhr</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.price | currency:'€' }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.typeOrder }}</td>
                   </tr>
-                  <tr *ngIf="displayArrayAccountOrders.length==0">
+                  <tr *ngIf="displayArrayAccountOrders.length == 0">
                     <td colspan="100%">
                       <app-general-banner></app-general-banner>
                     </td>
                   </tr>
-                  <!-- More people... -->
                   </tbody>
                 </table>
                 <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
@@ -116,22 +101,16 @@
                         [rotate]="true"
                         [ellipses]="true"
                         [directionLinks]="true"></ngb-pagination>
-
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
 
         </div>
       </div>
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
-
 </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

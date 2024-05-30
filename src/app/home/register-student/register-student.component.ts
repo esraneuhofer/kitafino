@@ -102,17 +102,17 @@ export class RegisterStudentComponent implements OnInit{
     this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
         if(res.error){
           this.submittingRequest = false;
-          this.toaster.error('Schüler/in konnte nicht angelegt werden','Fehler');
+          this.toaster.error(this.translate.instant("REGISTER_STUDENT_ERROR_TOASTR"),this.translate.instant("ERROR_TITLE"));
         }else{
           this.submittingRequest = false;
           this.isFlipped = true;
           this.returnedUsernameStudent = res.student.username
-          this.toaster.success('Verpflegungsteilnehmer/in wurde erfolgreich angelegt','Erfolgreich');
+          this.toaster.success(this.translate.instant("REGISTER_SUCCESS_TOASTR"),this.translate.instant("SUCCESS"));
           f.resetForm();
 
           const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings,this.translate);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
-            this.toaster.success('Email wurde versendet', 'Erfolgreich')
+            this.toaster.success(this.translate.instant("EMAIL_SENT"),this.translate.instant("SUCCESS"));
           })
 
         }

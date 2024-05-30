@@ -147,7 +147,7 @@
                                                 <!-- Button section for small screens -->
                                                 <div class="mt-6 flex items-center justify-end gap-x-6 show-xs-sm border-top pt-4 sm:hidden">
                                                     <app-button (click)="isFlipped = false" [buttonType]="'button'">
-                                                        {{ 'MANAGE_STUDENTS.BACK' | translate }}
+                                                        {{ 'BACK_BUTTON' | translate }}
                                                     </app-button>
                                                     <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}
                                                     </app-button>
@@ -168,7 +168,7 @@
 
                                 <!-- Button section for larger screens -->
                                 <div class="mt-6 flex items-center justify-end gap-x-6 hidden sm:flex">
-                                    <app-button (click)="isFlipped = false" [buttonType]="'button'">{{ 'MANAGE_STUDENTS.BACK' | translate }}</app-button>
+                                    <app-button (click)="isFlipped = false" [buttonType]="'button'">{{ 'BACK_BUTTON' | translate }}</app-button>
                                     <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}</app-button>
                                 </div>
                             </form>

@@ -14,6 +14,7 @@ import {AccountChargeInterface} from "../../../classes/charge.class";
 import {ChargingService} from "../../../service/charging.service";
 import {jaOrderNein} from "../../../functions/generell.functions";
 import {createXmlFile} from "../account-csv.function";
+import {TranslateService} from "@ngx-translate/core";
 
 function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
   return accountCharges.sort((a, b) => {
@@ -38,11 +39,17 @@ export class AccuntDetailsComponent {
   accountCharges:AccountChargeInterface[] = [];
   page = 1;
   pageSize = 7;
+  goBack(){
+    console.log('go back');
+    this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
+  }
   constructor(private orderService:OrderService,
               private studentService:StudentService,
               private dialog: MatDialog,
               private chargeService: ChargingService,
               private router: Router,
+              private r: ActivatedRoute,
+              private translate: TranslateService,
               private route: ActivatedRoute) {
   }
 
@@ -68,38 +75,20 @@ export class AccuntDetailsComponent {
   }
 
   openDialogExport(){
+    let header = this.translate.instant('ACCOUNTDETAILS.HEADER_EXPORT');
+    let content = this.translate.instant('ACCOUNTDETAILS.CONTENT_EXPORT');
     const dialogRef = this.dialog.open(ExportCsvDialogComponent, {
       width: '550px',
-      data: {header: 'Exportieren', message: 'Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen', isAccount:true},
+      data: {header: header, message: content, isAccount:true},
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
     dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
-      console.log(result);
       if (!result){
         this.submittingRequest = false;
         return;
       }
       createXmlFile(this.accountCharges, result);
     });
-  }
-  getType(type: string) {
-    if (type === 'deposit') {
-      return 'Einzahlung'
-    }
-
-    return 'Abbuchung'
-  }
-
-  formatDateApproved(dateApproved: Date | null): string {
-    if (dateApproved) {
-      console.log(dateApproved);
-      const day = new Date(dateApproved).getDate().toString().padStart(2, '0');
-      const month = (new Date(dateApproved).getMonth() + 1).toString().padStart(2, '0');
-      const year = new Date(dateApproved).getFullYear().toString().slice(-2);
-      return `${day}.${month}.${year}`;
-    } else {
-      return "Nein";
-    }
   }
 }

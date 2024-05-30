@@ -13,6 +13,7 @@ const scheduledJobs = {};
 async function setTaskCustomerDeadline(customerId,tenantId){
   const customers = await Customer.find({ isCustomerNotStudent: false });
   for(let eachCustomer of customers){
+    console.log(eachCustomer.customerId)
     scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(generateDailyCronSchedule(eachCustomer.order.deadLineDaily.time), async () => {
       await processOrder(eachCustomer.customerId,eachCustomer.tenantId);
       // Optionally update task status in database after completion

@@ -38,10 +38,10 @@ export class HelpDialogComponent {
                 @Inject(MAT_DIALOG_DATA) public data: { route: string}, private languageService: LanguageService) {
     }
   ngOnInit(): void {
-    this.translate.get('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_HEADER').subscribe((res: string) => {
+    this.translate.get('HELP.' + getLastSegment(this.data.route) +'.HEADER').subscribe((res: string) => {
       this.helpHeader = res;
     });
-    this.translate.get('HELP.HELP_ORDER.'+ getLastSegment(this.data.route) +'_HELP_DESCRIPTION').subscribe((res: string[]) => {
+    this.translate.get('HELP.'+ getLastSegment(this.data.route) +'.DESCRIPTION').subscribe((res: string[]) => {
       this.helpDescriptions = res.map(description => this.sanitizer.bypassSecurityTrustHtml(description));
     });
   }

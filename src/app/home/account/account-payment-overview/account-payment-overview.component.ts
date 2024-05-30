@@ -18,14 +18,12 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   ConfirmWithdrawDialogComponent
 } from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
-import {loadStripe} from '@stripe/stripe-js';
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
-import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
 import {MessageDialogService} from "../../../service/message-dialog.service";
+import {TranslateService} from "@ngx-translate/core";
 
-const textBanner = 'Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/in hinzufügen. Klicken Sie hier, um eine Schüler/in hinzuzufügen.';
 
 export interface PaymentIntentResponse {
   clientSecret: string;
@@ -41,7 +39,7 @@ function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): Acc
   styleUrls: ['./account-payment-overview.component.scss']
 })
 export class AccountPaymentOverviewComponent implements OnInit {
-  protected readonly textBanner = textBanner;
+  textBanner = '';
   page: number = 1;
   pageSize: number = 5;
   amountCharge:number | null = null;
@@ -66,7 +64,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private chargeService: ChargingService,
     private accountService: AccountService,
     private paymentService: PaymentService,
-    private dialogService: MessageDialogService) {
+    private dialogService: MessageDialogService,
+    private translate: TranslateService) {
+    this.textBanner = translate.instant('ACCOUNT.TEXT_BANNER')
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
@@ -78,10 +78,14 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
       if (status === 'success') {
-        this.dialogService.openMessageDialog('Ihre Einzahlung war erfolgreich! <br> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben', 'Einzahlung Erfolgreich', 'success');
+        let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
+        let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
+        this.dialogService.openMessageDialog(reason,header, 'success');
         this.updateUrlWithoutStatus();
       } else if (status === 'failure') {
-        this.dialogService.openMessageDialog('Ihre Einzahlung ist fehlgeschlagen <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Sollten der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de', 'Fehler', 'error');
+        let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
+        let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+        this.dialogService.openMessageDialog(reason,header,'error');
         this.updateUrlWithoutStatus();
       }
     })
@@ -123,16 +127,18 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   openDialog() {
-    // if (!this.tenantStudent.iban) {
-      this.dialogService.openMessageDialog('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben.<br> Sie können Ihre IBAN unter [Einstellungen] eintragen.', 'Fehler','warning');
-
-      // this.toastr.warning('Bitte tragen Sie Ihre IBAN ein, um Geld abzuheben. Sie können Ihre IBAN in den Einstellungen eintragen.')
-      return;
-    // }
-    if (this.accountTenant.currentBalance === 0) {
-      this.toastr.warning('Sie haben derzeit kein Guthaben auf Ihrem Konto.')
+    if(!this.tenantStudent.iban){
+      let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
+      let reason = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS_NOT_IBAN')
+      this.dialogService.openMessageDialog(reason, heading,'warning');
       return;
     }
+    // if (this.accountTenant.currentBalance === 0) {
+      let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
+      let reason = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS_NOT_ENOUGH')
+      this.dialogService.openMessageDialog(reason,heading,'warning');
+      return;
+    // }
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmWithdrawDialogComponent, {
       width: '550px',
@@ -161,8 +167,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
         ]).subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
           this.accountTenant = accountTenant;
           this.accountCharges = sortAccountChargesByDate(accountCharges);
-          const message = `Ihre Abbuchung ist bei uns eingegangen und wird bearbeitet.<br>Es kann bis zu 5 Werktagen dauern bis das Geld auf Ihr Konto überwiesen wurde.<br>Unter [Details Kontobewegung] können Sie den aktuellen Status einsehen.`;
-          this.dialogService.openMessageDialog(message, 'Abbuchung erfolgreich','success');
+          const message = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_PROCESSED');
+          const header = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_HEADER');
+          this.dialogService.openMessageDialog(message, header,'success');
           // this.toastr.success('Abbuchung erfolgreich')
           this.submittingRequest = false;
         })
@@ -173,7 +180,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
 
   copyToClipboard(text: string) {
     this.clipboardService.copyToClipboard(text)
-    this.toastr.success('Text kopiert');
+    this.toastr.success(this.translate.instant('ACCOUNT.TEXT_COPIED'));
   }
 
 

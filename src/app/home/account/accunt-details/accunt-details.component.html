@@ -1,43 +1,51 @@
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
-      <!--      <div class="w-11/12">-->
-      <!--<div class="bg-white shadow-md rounded">-->
-      <!--        <div class="px-4 sm:px-6 lg:px-8">-->
-      <!--          <div class="flex flex-wrap">-->
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
           <div class="lg:px-8">
-            <div class="sm:flex sm:items-center">
+            <!-- Button for sm and smaller screens -->
+            <div class="block md:hidden w-full flex justify-end mb-2">
+              <button
+                (click)="goBack()"
+                class="px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                Zurück
+              </button>
+            </div>
+            <div class="sm:flex sm:items-center justify-between">
               <div class="sm:flex-auto">
-                <h1 class="text-base font-semibold leading-6 text-gray-900">Kontoaktivität</h1>
-                <p class="mt-2 text-sm text-gray-700">Liste aller Ein - und Auszahlungen</p>
+                <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'ACCOUNTDETAILS.TITLE' | translate }}</h1>
+                <p class="mt-2 text-sm text-gray-700">{{ 'ACCOUNTDETAILS.DESCRIPTION' | translate }}</p>
               </div>
-              <!-- Button for md and larger screens -->
-              <div class="hidden md:block md:ml-auto">
+              <!-- Button container for md and larger screens -->
+              <div class="hidden md:flex md:items-center md:space-x-2">
                 <button
                   (click)="openDialogExport()"
-                  class="mt-1 block px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  CSV Export
+                  class="mt-1 px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  {{ 'ACCOUNTDETAILS.CSV_EXPORT' | translate }}
+                </button>
+                <button
+                  (click)="goBack()"
+                  class="mt-1 px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  Zurück
                 </button>
               </div>
             </div>
             <div class="mt-8 flow-root">
               <div class="flow-root">
                 <!-- Container for input fields with half width -->
-                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
+                <div class="flex flex-col space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
                   <!-- Select input field -->
                   <select [(ngModel)]="queryYear"
                           class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
                     <option [ngValue]="2024">2024</option>
                   </select>
-
                   <!-- Button for sm and smaller screens -->
-                  <div class="block md:hidden mt-1 sm:mt-0">
+                  <div class="block md:hidden w-full">
                     <button
                       (click)="openDialogExport()"
                       class="block w-full px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                      CSV Export
+                      {{ 'ACCOUNTDETAILS.CSV_EXPORT' | translate }}
                     </button>
                   </div>
                 </div>
@@ -49,22 +57,27 @@
                   <thead>
                   <tr>
                     <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
-                      Datum
+                      {{ 'ACCOUNTDETAILS.DATE' | translate }}
                     </th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Art</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Genehmigt</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Betrag</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.TYPE' | translate }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.APPROVED' | translate }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.AMOUNT' | translate }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.TRANSACTION_ID' | translate }}</th>
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
                   <tr *ngFor="let payment of accountCharges  |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                    <td
-                      class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <span>{{getType(payment.typeCharge)}}</span>
+                      <span *ngIf="payment.typeCharge === 'deposit'">{{ 'ACCOUNTDETAILS.DEPOSIT' | translate}}</span>
+                      <span *ngIf="payment.typeCharge !== 'deposit'">{{ 'ACCOUNTDETAILS.WITHDRAW' | translate}}</span>
                     </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{formatDateApproved(payment.dateApproved)}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <span *ngIf="payment.dateApproved">{{payment.dateApproved | date:'dd.MM.yyyy'}}</span>
+                      <span *ngIf="!payment.dateApproved">{{ 'NEIN' | translate}}</span>
+                    </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.transactionId}}</td>
                   </tr>
                   <tr *ngIf="accountCharges.length === 0">
                     <td colspan="100%">
@@ -94,14 +107,11 @@
 
               </div>
             </div>
+            <!-- Button for sm and smaller screens -->
           </div>
         </div>
       </div>
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
-
 </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

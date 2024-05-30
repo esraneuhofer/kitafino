@@ -40,7 +40,7 @@
                                                         <span class="hidden xs:inline sm:inline"> {{student.lastName + ' ' + student.firstName }}</span>
                                                     </td>
                                                     <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                                        {{hasDauerbestellung(student) ? ( 'MANAGE_PERMANENT_ORDERS.YES' | translate ) : ( 'MANAGE_PERMANENT_ORDERS.NO' | translate )}}
+                                                        {{hasDauerbestellung(student) ? ( 'MANAGE_PERMANENT_ORDERS.YES' | translate ) : ( 'NEIN' | translate )}}
                                                     </td>
                                                     <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
                                                         <div class="align-right">
@@ -53,7 +53,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td *ngIf="registeredStudents.length === 0" colspan="100%">
-                                                        <app-general-banner></app-general-banner>
+                                                      <app-banner-no-student-order
+                                                        [text]="textBanner"></app-banner-no-student-order>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -122,7 +123,7 @@
                                                 </app-button>
                                                 <app-button (click)="back()"
                                                             [buttonType]="'button'" [submittingRequest]="submittingRequest">
-                                                    {{ 'MANAGE_PERMANENT_ORDERS.BACK_BUTTON' | translate }}
+                                                    {{ 'BACK_BUTTON' | translate }}
                                                 </app-button>
                                                 <app-button *ngIf="permanentOrderExists"
                                                             [submittingRequest]="submittingRequest" [typeButton]="'warning'">{{ 'MANAGE_PERMANENT_ORDERS.CHANGE_ORDER' | translate }}

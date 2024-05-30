@@ -119,7 +119,8 @@ export class DashboardComponent {
         //             heading: 'Ausflug am Freitag',
         //             messageSeen:[],
         //             sentBy:'school',
-        //           createdAt: new Date()
+        //           createdAt: new Date(),
+        //               validTill: new Date('2024-07-02')
         //         }),
         //         this.messageService.addMessage({
         //             message: 'Menü 1: Spaghetti Bolognese, Menü 2 wird geändert zu Nudeln mit Tomatensoße',

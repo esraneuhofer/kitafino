@@ -2,9 +2,7 @@
   <div>
     <div class="mt-2">
       <h3 class="text-base font-semibold leading-6 text-gray-900">{{data.header}}</h3>
-      <p class="text-sm text-gray-500 mt-3">
-        {{data.message}}
-      </p>
+      <p class="text-sm text-gray-500 mt-3">{{data.message}}</p>
     </div>
   </div>
 
@@ -12,18 +10,18 @@
   <div class="mt-3 flex flex-col md:flex-row md:space-x-4">
     <!-- First input field with label -->
     <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
-      <label class="block text-sm font-medium leading-6 text-gray-900" for="firstDate">Bereich von</label>
+      <label class="block text-sm font-medium leading-6 text-gray-900" for="firstDate">{{ 'ACCOUNTDETAILS.RANGE_FROM' | translate }}</label>
       <input [(ngModel)]="firstDate"
              (change)="onDateChange($event, 'firstDate')"
              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
              id="firstDate"
              name="firstDate"
              type="date"
-             placeholder="Erstes Feld">
+             placeholder="{{ 'ACCOUNTDETAILS.FIRST_FIELD' | translate }}">
     </div>
     <!-- Second input field with label -->
     <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
-      <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">Bereich bis</label>
+      <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedDate">{{ 'ACCOUNTDETAILS.RANGE_TO' | translate }}</label>
       <input [(ngModel)]="secondDate"
              (change)="onDateChange($event, 'secondDate')"
              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -35,22 +33,22 @@
   </div>
   <div class="flex flex-col space-y-2 px-2">
     <div>
-      <input   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox1" type="checkbox" id="checkbox1" [(ngModel)]="depositsOrOrder">
+      <input class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox1" type="checkbox" id="checkbox1" [(ngModel)]="depositsOrOrder">
       <label for="checkbox1" class="ml-2 text-sm font-medium leading-6 text-gray-900">
-        <span *ngIf="data.isAccount">Einzahlungen</span>
-        <span *ngIf="!data.isAccount">Bestellung</span>
+        <span *ngIf="data.isAccount">{{ 'ACCOUNTDETAILS.DEPOSITS' | translate }}</span>
+        <span *ngIf="!data.isAccount">{{ 'ACCOUNTDETAILS.ORDERS' | translate }}</span>
       </label>
     </div>
     <div>
-      <input   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox2" type="checkbox" id="checkbox2" [(ngModel)]="withdrawOrCancel">
+      <input class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" name="checkbox2" type="checkbox" id="checkbox2" [(ngModel)]="withdrawOrCancel">
       <label for="checkbox2" class="ml-2 text-sm font-medium leading-6 text-gray-900">
-        <span *ngIf="data.isAccount">Auszahlungen</span>
-        <span *ngIf="!data.isAccount">Stornierung</span>
+        <span *ngIf="data.isAccount">{{ 'ACCOUNTDETAILS.WITHDRAWALS' | translate }}</span>
+        <span *ngIf="!data.isAccount">{{ 'ACCOUNTDETAILS.CANCELLATIONS' | translate }}</span>
       </label>
     </div>
   </div>
   <div class="flex justify-end mt-3">
-    <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>Schließen</app-button>
-    <app-button [typeButton]="'primary'" [mat-dialog-close]="{secondDate:secondDate,firstDate:firstDate,withdrawOrCancel:withdrawOrCancel,depositsOrOrder:depositsOrOrder}" cdkFocusInitial>Exportieren</app-button>
+    <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>{{ 'ACCOUNTDETAILS.CLOSE' | translate }}</app-button>
+    <app-button [typeButton]="'primary'" [mat-dialog-close]="{secondDate:secondDate,firstDate:firstDate,withdrawOrCancel:withdrawOrCancel,depositsOrOrder:depositsOrOrder}" cdkFocusInitial>{{ 'ACCOUNTDETAILS.EXPORT' | translate }}</app-button>
   </div>
 </div>

@@ -31,8 +31,8 @@ import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class"
 import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-container/order-container.component";
 import {OrderService} from "../../service/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {TranslateService} from "@ngx-translate/core";
 
-const textBanner = "Um eine Bestellung einzutragen muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden"
 
 @Component({
   selector: 'app-order-student',
@@ -46,7 +46,7 @@ export class OrderStudentComponent implements OnInit {
   indexDay:number = 0;
   initStudent: boolean = false;
   mainDataLoaded: boolean = false;
-  textBanner = textBanner;
+  textBanner = '';
   pageLoaded: boolean = false;
   studentNoSubgroup: boolean = false;
   lockDays: boolean[] = [];
@@ -89,7 +89,9 @@ export class OrderStudentComponent implements OnInit {
               private accountService: AccountService,
               private orderService: OrderService,
               private router: Router,
+              private translate: TranslateService,
               private r: ActivatedRoute) {
+    this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
 
   ngOnInit() {
