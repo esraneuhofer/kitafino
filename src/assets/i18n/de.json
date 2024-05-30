@@ -197,6 +197,12 @@
         "Zusätzlich haben Sie die Möglichkeit eine Dauerbestellung aufzugeben. gehen Sie dazu auf <b>[Dauerbestellung]</b>'.<br>"
       ]
     },
+    "help": {
+      "HEADER": "Erklärungsdokumente",
+      "DESCRIPTION": [
+        "Hier finden Sie Hilfe zu den einzelnen Funktionen der Anwendung."
+      ]
+    },
     "dashboard": {
       "HEADER": "Übersicht",
       "DESCRIPTION": [
@@ -204,7 +210,7 @@
         "Sie können Bestellungen stornieren indem Sie auf <b>[Stornieren]</b> klicken.",
         "Sollte das Feld ausgegraut sein ist die Frist für eine Stornierung abgelaufen.<br><br>",
         "Sollten Nachrichten vom Caterer, der Einrichtung oder von Cateringexpert vorliegen, werden diese hier angezeigt.",
-        "Um die Nachricht als gelese zu markieren klicken Sie auf <b>[Schließen]</b>.",
+        "Um die Nachricht als gelsen zu markieren klicken Sie auf <b>[Schließen]</b>.",
         "Alte Nachrichten können Sie unter dem Reiter <b>[Mitteilungen]</b> einsehen.",
         "Nachrichten werden nach 30 Tagen automatisch gelöscht."
       ]
@@ -224,10 +230,7 @@
         "Um die Dauerbestellung zu bestätigen  gehen Sie auf [Dauerbestellung hinzufügen]."
       ]
     },
-    "charge_account": {
-      "HEADER": "Konto aufladen",
-      "DESCRIPTION": []
-    },
+
     "register_student": {
       "HEADER": "Schüler registrieren",
       "DESCRIPTION": [
@@ -240,20 +243,38 @@
       ]
     },
     "details_account": {
-      "HEADER": "Kontodetails",
-      "DESCRIPTION": []
+      "HEADER": "Kontoübersicht",
+      "DESCRIPTION": [
+        "In der Kontoübersicht haben Sie eine Einsicht in alle Ihre Ein- und Auszahlungen.",
+        "Für die Erstellung einer CSV Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
+      ]
     },
     "account_overview": {
-      "HEADER": "Kontoübersicht",
-      "DESCRIPTION": []
+      "HEADER": "Einzahlung",
+      "DESCRIPTION": [
+        "Für die Bestellung von Essen muss Ihr Konto mit Geld aufgeladen sein.",
+        "Sie können Geld entwerder per Überweisung oder direkt auf Ihr Konto einzahlen.",
+        "Die Einzahlung per Überweisung ist kostenfrei und dauert bis zu 3 Werktage.",
+        "Sollten Sie Geld direkt einzahlen möchten werden Sie auf unseren Zahlungsanbieter weitergeleitet.",
+        "Je nach Zahlungsanbieter können Gebühren anfallen. Die geschätzen Gebühren werden Ihnen angezeigt.",
+        "Um Geld von Ihrem Konto abzuheben klicken Sie auf <b>[Geld abbuchen]</b>."
+      ]
+
     },
     "kindergarten_settings": {
       "HEADER": "Kindergarteneinstellungen",
-      "DESCRIPTION": []
+      "DESCRIPTION": [
+        "Hier finden Sie alle Mitteilungen die von der Einrichtung, dem Caterer oder Cateringexpert versendet wurden.",
+        "Nachrichten werden nach 30 Tagen automatisch gelöscht"
+      ]
     },
     "order_history": {
       "HEADER": "Bestellhistorie",
-      "DESCRIPTION": []
+      "DESCRIPTION": [
+        "In der Bestellhistorie können haben SIe eine Einsicht in alle Ihre Bestellungen und Stornierungen.",
+        "Um nach einem bestimmten Eintrag zu suchen geben Sie den gewünschten Suchbegriff in das Suchfeld ein.",
+        "Für die Erstellung einer CSV Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
+      ]
     },
     "register": {
       "HEADER": "Schüler registrieren",
@@ -268,11 +289,20 @@
     },
     "settings": {
       "HEADER": "Einstellungen",
-      "DESCRIPTION": []
+      "DESCRIPTION": [
+        "Unter Einstellungen können Sie Ihre Stammdaten anpassen sowie auch Ihre Präfernezen für Bestellbestätigungen und Guthaben Erinnerungen einstellen. <br><br>",
+        "Die Einstellung der IBAN wird benötigt um Guthaben auszahlen zu können.",
+        "Die angegebene Email Adresse wird verwendet um Bestellbestätigungen und Guthaben Erinnerungen zu versenden.(sofern aktiviert) <br><br>",
+        "Bitte bestätigen Sie alle Änderungen mit [Ändern]."
+      ]
     },
     "weekplan_pdf": {
       "HEADER": "Wochenplan PDF",
-      "DESCRIPTION": []
+      "DESCRIPTION": [
+        "Der Wochenplan wird von Ihrem Caterer bereitgestellt und kann als PDF heruntergeladen werden.",
+        "Wählen Sie das gewünschte Jahr sowie die Kalenderwoche aus für den Sie den Wochenplan einsehen möchten.",
+        "Klicken Sie dann entweder auf <b>[Ansicht]</b> oder <b>[Herunterladen]</b>"
+      ]
     }
   },
   "ACCOUNT": {
@@ -296,7 +326,7 @@
     "PURPOSE": "Verwendungszweck",
     "IMPORTANT_NOTE": "Wichtig",
     "USERNAME_NOTE": "Geben Sie bitte unbedingt Ihren Benutzernamen",
-    "PURPOSE_INSTRUCTIONS": "im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen genau so in den Verwendungszweck eintragen, wie er registriert ist. Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden. Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen.",
+    "PURPOSE_INSTRUCTIONS": "im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen exakt so in den Verwendungszweck eintragen, wie angegeben. Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden. Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen.",
     "THANK_YOU": "Vielen Dank.",
     "MOVEMENT_DETAILS": "Details Kontobewegungen",
     "DIRECT_DEPOSIT": "Direkeinzahlung",
@@ -363,7 +393,7 @@
     "CALENDAR_WEEK": "Kalenderwoche",
     "WEEKPLAN": "Wochenplan",
     "VIEW": "Ansicht",
-    "DOWNLOAD": "Download"
+    "DOWNLOAD": "Herunterladen"
   },
   "NOTIFICATIONS": {
     "TITLE": "Mitteilungen",

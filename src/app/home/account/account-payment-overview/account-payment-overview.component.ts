@@ -66,7 +66,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private paymentService: PaymentService,
     private dialogService: MessageDialogService,
     private translate: TranslateService) {
-    this.textBanner = translate.instant('ACCOUNT.TEXT_BANNER')
+    this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
