@@ -40,9 +40,21 @@ async function getLatestPosts() {
   }
 }
 
+// Define CACHE_NAME and urlsToCache
+const CACHE_NAME = 'my-app-cache-v2';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  // Add other URLs to cache here
+];
+
 // Service Worker Install Event
 self.addEventListener('install', (event) => {
-  self.skipWaiting(); // Activate the new Service Worker immediately
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    }).then(() => self.skipWaiting()) // Activate the new Service Worker immediately
+  );
 });
 
 // Service Worker Activate Event
@@ -60,25 +72,19 @@ self.addEventListener('activate', (event) => {
       return self.clients.claim(); // Become available to all pages
     }).then(() => {
       // Reload all open clients to use the new Service Worker
-      self.clients.matchAll().then(clients => {
+      return self.clients.matchAll().then(clients => {
         clients.forEach(client => client.navigate(client.url));
       });
     })
   );
 });
 
-const CACHE_NAME = 'my-app-cache-v2';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  // Add other URLs to cache here
-];
-
-// Cache the specified resources during the install event
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
+// Fetch Event: First check the cache, then the network
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
   );
 });
