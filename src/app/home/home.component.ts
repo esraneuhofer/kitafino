@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit{
       width: '600px',
       data: {route: this.currentRoute},
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: {top: '20px'}
     });
   }
 
@@ -102,12 +102,12 @@ export class HomeComponent implements OnInit{
         this.customerInfo = customer;
         this.tenantInformation = tenant;
         this.pageLoaded = true;
-        if(this.tenantInformation.firstAccess){
+        if(!this.tenantInformation.firstAccess){
           const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
             width: '600px',
             data: this.tenantInformation,
             panelClass: 'custom-dialog-container',
-            position: {top: '100px'}
+            position: {top: '20px'}
           });
         }
       }

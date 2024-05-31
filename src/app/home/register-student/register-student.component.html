@@ -42,7 +42,10 @@
                           <p *ngIf="f1.submitted && lastName.invalid" class="mt-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
                         </div>
                         <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
-                          <label class="block text-sm font-medium leading-6 text-gray-900" for="selectedSpecialFoodModel">{{ 'SPECIAL_FOOD_LABEL' | translate }}</label>
+                          <app-label-tooltip [tooltip]="'SPECIAL_FOOD_INSTRUCTIONS'"
+                                             [idLabel]="'selectedSpecialFoodModel'"
+                                             [label]="'SPECIAL_FOOD_LABEL'"></app-label-tooltip>
+
                           <select #selectedSpecialFoodModel="ngModel" (ngModelChange)="selectSpecialFood($event)"
                                   [(ngModel)]="selectedSpecialFood"
                                   [ngClass]="{'invalid-input': f1.submitted && selectedSpecialFoodModel.invalid}"
@@ -55,7 +58,10 @@
                         </div>
                         <ng-container *ngIf="customerInfo.generalSettings.subGroupSettingTenant">
                           <div class="sm:col-span-4">
-                            <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">{{ 'SUBGROUP_LABEL' | translate }}</label>
+                            <app-label-tooltip [tooltip]="'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP'"
+                                               [idLabel]="'subgroup'"
+                                               [label]="'SUBGROUP_LABEL'"></app-label-tooltip>
+<!--                            <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">{{ 'SUBGROUP_LABEL' | translate }}</label>-->
                             <select #subgroupModel="ngModel" (ngModelChange)="isSelected($event)"
                                     [(ngModel)]="selectedSubgroup"
                                     [ngClass]="{'invalid-input': f1.submitted && subgroupModel.invalid}"

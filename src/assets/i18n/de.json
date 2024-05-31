@@ -86,6 +86,7 @@
   "SPECIAL_DIET_LABEL": "Sonderkost",
   "SUBGROUP_LABEL_EMAIL": "Untergruppe",
   "SUBGROUP_NOT_ASSIGNED": "Untergruppe nicht zugeordent",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP": "Der Verpflegungsteilnehmer/in muss einer Untergruppe zugeordnet werden. Sollten Sie die Untergruppe nicht kennen, wählen Sie bitte [Nicht bekannt] aus. Die Einrichtung wird die Zuordnung dann vornehmen",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING": "Untergruppe",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS": "Der Verpflegungsteilnehmer/in muss einer Untergruppe zugeordnet werden, bevor man Essen bestellen kann.",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET": "Die Einrichtung weist dem jeweiligem Schüler/in die Untergruppe zu. Bitte wenden Sie sich an die Einrichtung.",
@@ -162,7 +163,7 @@
   "MANAGE_PERMANENT_ORDERS_ERROR_DELETING": "Fehler beim Löschen der Dauerbestellung",
   "NEIN": "Nein",
   "MANAGE_TENANT_SETTINGS": {
-    "PERSONAL_INFO_HEADER": "Persönliche Informationen",
+    "PERSONAL_INFO_HEADER": "Registrierung",
     "PERSONAL_INFO_SUBHEADER": "Bestätigen Sie die Änderung anschließend mit \"Ändern\"",
     "FIRST_NAME": "Vorname",
     "LAST_NAME": "Nachname",

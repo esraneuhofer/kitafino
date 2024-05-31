@@ -23,7 +23,7 @@ function getTypeOrder(input: string,translate:TranslateService): string {
     if (input === 'order') {
         return translate.instant('DASHBOARD.ORDER');
     }
-    return translate.instant('CANCELLATIONS')
+    return translate.instant('ACCOUNTDETAILS.CANCELLATIONS')
 }
 
 function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface[], students: StudentInterface[],translate:TranslateService): OrderHistoryTableInterface[] {

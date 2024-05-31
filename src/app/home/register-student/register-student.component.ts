@@ -13,6 +13,8 @@ import {NgForm} from "@angular/forms";
 import {getEmailBodyRegistrationStudent} from "./email-registration-student";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {TranslateService} from "@ngx-translate/core";
+import {FirstAccessDialogComponent} from "../../directives/first-access-dialog/first-access-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -47,6 +49,7 @@ export class RegisterStudentComponent implements OnInit{
               private router:Router,
               private toaster:ToastrService,
               private r: ActivatedRoute,
+              private dialog: MatDialog,
               private generellService: GenerellService,
               private tenantService: TenantServiceStudent,
               private translate: TranslateService){
@@ -90,6 +93,14 @@ export class RegisterStudentComponent implements OnInit{
       this.tenantStudent = tenant;
       this.settings = settings;
       this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo,this.settings);
+      // if(!this.tenantStudent.firstAccess){
+      //   const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
+      //     width: '600px',
+      //     data: this.tenantStudent,
+      //     panelClass: 'custom-dialog-container',
+      //     position: {top: '1150px'}
+      //   });
+      // }
       this.pageLoaded = true;
     })
   }

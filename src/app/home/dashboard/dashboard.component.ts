@@ -178,7 +178,6 @@ export class DashboardComponent {
             this.settings = setting;
             this.customer = customer
             this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
-            console.log('allMessages', this.allMessages)
             this.pageLoaded = true;
         })
     }

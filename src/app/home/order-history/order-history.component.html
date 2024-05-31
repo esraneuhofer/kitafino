@@ -75,7 +75,7 @@
                         {{ eachAccountOwner.nameStudent }}
                       </span>
                     </td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.nameMenu }}</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500" [matTooltip]="eachAccountOwner.nameMenu">{{ eachAccountOwner.nameMenu | trimText:10 }}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrderMenu | date:'dd.MM.yy' }}</td>
                     <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }} Uhr</td>
                     <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.price | currency:'€' }}</td>

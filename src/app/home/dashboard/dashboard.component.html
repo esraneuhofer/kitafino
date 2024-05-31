@@ -62,7 +62,7 @@
                             [ngClass]="order.cancelPossible ? 'bg-red-300 hover:bg-red-500' : 'bg-gray-400'"
                             [disabled]="!order.cancelPossible"
                             [matTooltip]="order.cancelPossible ? '' : 'FIRSTPAGE.TOOLTIP_EXPIRED | translate }}'"
-                            (click)="routeToAccount('order_student')"
+                            (click)="cancelOrder(order)"
                             class="rounded-md px-2 py-1 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                       {{ 'FIRSTPAGE.CANCEL' | translate }}
                     </button>
