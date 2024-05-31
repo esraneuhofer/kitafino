@@ -28,7 +28,7 @@ export class RegisterStudentComponent implements OnInit{
   submittingRequest = false;
   studentModel:StudentInterface = setEmptyStudentModel();
   selectedSubgroup:string = '';
-  isFlipped:boolean = false;
+  isFlipped:boolean = true;
   studentAdded = {
     username:'',
     firstName:'',
