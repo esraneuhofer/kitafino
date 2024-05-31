@@ -39,3 +39,46 @@ async function getLatestPosts() {
     console.error('Error fetching latest posts:', error);
   }
 }
+
+// Service Worker Install Event
+self.addEventListener('install', (event) => {
+  self.skipWaiting(); // Activate the new Service Worker immediately
+});
+
+// Service Worker Activate Event
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) { // Adjust CACHE_NAME to your cache version
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(() => {
+      return self.clients.claim(); // Become available to all pages
+    }).then(() => {
+      // Reload all open clients to use the new Service Worker
+      self.clients.matchAll().then(clients => {
+        clients.forEach(client => client.navigate(client.url));
+      });
+    })
+  );
+});
+
+const CACHE_NAME = 'my-app-cache-v2';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  // Add other URLs to cache here
+];
+
+// Cache the specified resources during the install event
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
