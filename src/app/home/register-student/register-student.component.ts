@@ -28,7 +28,7 @@ export class RegisterStudentComponent implements OnInit{
   submittingRequest = false;
   studentModel:StudentInterface = setEmptyStudentModel();
   selectedSubgroup:string = '';
-  isFlipped:boolean = true;
+  isFlipped:boolean = false;
   studentAdded = {
     username:'',
     firstName:'',
@@ -123,7 +123,7 @@ export class RegisterStudentComponent implements OnInit{
 
           const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings,this.translate);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
-            this.toaster.success(this.translate.instant("EMAIL_SENT"),this.translate.instant("SUCCESS"));
+            this.toaster.success(this.translate.instant("REGISTRATION_STUNDENT_EMAIL_SENT"),this.translate.instant("SUCCESS"));
           })
 
         }

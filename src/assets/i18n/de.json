@@ -2,10 +2,10 @@
   "KONTO_AUFLADEN": "Konto aufladen",
   "KLICK_HERE_FOR_MORE_INFORMATION": "Klicken Sie hier für weitere Informationen",
   "CONFIRM_BUTTON": "Bestätigen",
-  "WARNING_PERMANENT_ORDER": "Die Dauerbestellung bleibt solange aktiv bis Sie diese ändern oder löschen. <br>Dies gilt auch bei Krankheit oder anderem Fehlen des Verpflegungsteilnehmers/in. <br><br>Cateringexpert übernimmt keine Haftung für abgegebenen Bestellungen die aufgrund von Krankheit oder anderem Fehlen nicht abgeholt werden. ",
-  "NO_STUDENT_REGISTERED_BANNER_TEXT": "Um eine Bestellung einzutragen muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden",
+  "WARNING_PERMANENT_ORDER": "Die Dauerbestellung bleibt solange aktiv, bis Sie diese ändern oder löschen.<br>Dies gilt auch bei Krankheit oder anderem Fehlen des Verpflegungsteilnehmers/in.<br><br>Cateringexpert übernimmt keine Haftung für abgegebene Bestellungen, die aufgrund von Krankheit oder anderem Fehlen nicht abgeholt werden.",
+  "NO_STUDENT_REGISTERED_BANNER_TEXT": "Um eine Bestellung einzutragen, muss zuerst ein Verpflegungsteilnehmer/in angemeldet werden",
   "ERKLAERUNG": "Erklärung",
-  "KLICK_HERE_FOR_MORE_HELP":"Hier klicken für weitere Hilfe",
+  "KLICK_HERE_FOR_MORE_HELP": "Hier klicken für weitere Hilfe",
   "NO_ENTRY_FOUND": "Es wurden keine Einträge gefunden",
   "LABEL_LANGUAGE_SELECT": "Sprache auswählen",
   "LOGIN_TITLE": "Loggen Sie sich ein",
@@ -41,17 +41,17 @@
   "ERROR_WRONG_PASSWORD": "Das Passwort stimmt nicht mit der Email Adresse überein",
   "ERROR_EMAIL_NOT_REGISTERED": "Die Email Adresse konnte nicht gefunden werden",
   "PERSONAL_INFORMATION": "Persönliche Informationen",
-  "WELCOME_MESSAGE": "Wilkommen bei der Bestellanwendung für die Einrichtung",
-  "FORM_INSTRUCTIONS": "Bitte füllen Sie zuerst das Formular aus um fortzufahren.",
+  "WELCOME_MESSAGE": "Willkommen bei der Bestellanwendung für die Einrichtung",
+  "FORM_INSTRUCTIONS": "Bitte füllen Sie zuerst das Formular aus, um fortzufahren.",
   "FIRST_NAME_LABEL": "Vorname",
   "LAST_NAME_LABEL": "Nachname",
   "PHONE_LABEL": "Telefonnummer",
   "CONTINUE_BUTTON": "Weiter",
-  "SELECTED_LANGUAGE_INSTRUCTIONS": "Die Ausgewählte Sprache wird als Präferenz gespeichert.",
+  "SELECTED_LANGUAGE_INSTRUCTIONS": "Die ausgewählte Sprache wird als Präferenz gespeichert.",
   "REGISTRATION_TENANT_CHANGES": "Alle Eingaben können im Nachgang noch geändert werden.",
   "EMAIL_ALREADY_REGISTERED": "Diese E-Mail ist bereits registriert.",
   "REGISTRATION_SUCCESS": "Ihr Account wurde erfolgreich angelegt und eine Bestätigung wurde versendet.",
-  "EMAIL_SENT": "Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet.",
+  "REGISTRATION_STUNDENT_EMAIL_SENT": "Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet.",
   "EMAIL_INVALID": "Bitte geben Sie eine gültige Email Adresse an.",
   "UNEXPECTED_ERROR": "Ein unerwarteter Fehler ist aufgetreten.",
   "REGISTRATION_TENANT_SUCCESS": "Ihre persönlichen Daten wurden erfolgreich eingetragen",
@@ -61,12 +61,12 @@
   "REGISTRATION_INSTRUCTIONS": "Bitte tragen Sie alle Daten ein und gehen Sie anschließend auf \"anlegen\".",
   "REGISTRATION_CONFIRMATION": "Im Anschluss erhalten Sie eine Bestätigung per Email an Ihre hinterlegte Emailadresse.",
   "SPECIAL_FOOD_HEADING": "Allergiker Essen",
-  "SPECIAL_FOOD_INSTRUCTIONS": "Verfügbare Allergiker Essen werden vom jeweiligen Caterer bereitgestellt. Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers frei geschaltet.",
+  "SPECIAL_FOOD_INSTRUCTIONS": "Verfügbare Allergiker Essen werden vom jeweiligen Caterer bereitgestellt. Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet.",
   "SPECIAL_FOOD_LABEL": "Allergiker Essen",
   "SUBGROUP_LABEL": "Gruppe zuordnen",
   "SUBGROUP_INSTRUCTIONS": "Bitte auswählen oder \"nicht bekannt\" ankreuzen",
   "UNKNOWN_SUBGROUP_LABEL": "Nicht bekannt",
-  "UNKNOWN_SUBGROUP_INSTRUCTIONS": "Sollten Sie sich unsicher sein in welche Untergruppe der Verplegungsteilnemher ist bitte anklicken",
+  "UNKNOWN_SUBGROUP_INSTRUCTIONS": "Sollten Sie sich unsicher sein, in welche Untergruppe der Verpflegungsteilnehmer gehört, bitte anklicken",
   "BACK_BUTTON": "Zurück",
   "SUBMIT_BUTTON_REGISTRATION_ANOTHER": "Weiteren Verpflegungsteilnehmer/in anlegen",
   "SUBMIT_BUTTON": "Anlegen",
@@ -74,8 +74,8 @@
   "REGISTRATION_SUCCESS_MESSAGE": "Vielen Dank für Ihre Anmeldung. Wir haben Ihnen eine Bestätigungs-Email Ihrer Anmeldung an Ihre hinterlegte Emailadresse gesendet.",
   "ACCOUNT_TOPUP_BUTTON": "Konto aufladen",
   "NEW_REGISTRATION_BUTTON": "Weitere Anmeldung",
-  "REGISTRATION_SUCCESS_MESSAGE_SPLIT": "Die Zuordnung der Schüler/innen zu der jeweiligen Untergruppe erfolgt durch die Einrichtung. Erst nach der Zuordnung durch die Einrichtung kann eine Bestellung aufgeben werden.",
-  "REGISTRATION_SUCCESS_MESSAGE_SPLIT_NOT_SUCCESS": "Es wurde keine Zuordnung zu einer Untergruppe vorgenommen. Erst nach der Zuordnung durch die Einrichtung kann eine Bestellung aufgeben werden.",
+  "REGISTRATION_SUCCESS_MESSAGE_SPLIT": "Die Zuordnung der Schüler/innen zu der jeweiligen Untergruppe erfolgt durch die Einrichtung. Erst nach der Zuordnung durch die Einrichtung kann eine Bestellung aufgegeben werden.",
+  "REGISTRATION_SUCCESS_MESSAGE_SPLIT_NOT_SUCCESS": "Es wurde keine Zuordnung zu einer Untergruppe vorgenommen. Erst nach der Zuordnung durch die Einrichtung kann eine Bestellung aufgegeben werden.",
   "PLEASE_SELECT": "Bitte auswählen",
   "EMAIL_REGISTRATION_SUBJECT": "Anmeldungsbestätigung✔",
   "EMAIL_REGISTRATION_SUCCESS_MESSAGE": "Anmeldung erfolgreich",
@@ -86,12 +86,12 @@
   "EMAIL_SUPPORT_MESSAGE": "Für Rückfragen stehen wir Ihnen gerne zur Verfügung.<br>Besuchen Sie uns auf unserer Webseite unter <a href='https://cateringexpert.de/hilfecenter'>https://cateringexpert.de/hilfecenter</a><br>oder schreiben Sie uns eine E-Mail an <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a>.",
   "SPECIAL_DIET_LABEL": "Sonderkost",
   "SUBGROUP_LABEL_EMAIL": "Untergruppe",
-  "SUBGROUP_NOT_ASSIGNED": "Untergruppe nicht zugeordent",
+  "SUBGROUP_NOT_ASSIGNED": "Untergruppe nicht zugeordnet",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP": "Der Verpflegungsteilnehmer/in muss einer Untergruppe zugeordnet werden. Sollten Sie die Untergruppe nicht kennen, wählen Sie bitte [Nicht bekannt] aus. Die Einrichtung wird die Zuordnung dann vornehmen",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING": "Untergruppe",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS": "Der Verpflegungsteilnehmer/in muss einer Untergruppe zugeordnet werden, bevor man Essen bestellen kann.",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET": "Die Einrichtung weist dem jeweiligem Schüler/in die Untergruppe zu. Bitte wenden Sie sich an die Einrichtung.",
-  "SIBDER_ONE_DASHBORARD": "Übericht",
+  "SIBDER_ONE_DASHBORARD": "Übersicht",
   "MESSAGE_FROM_CATERINGEXPERT": "Nachricht von Cateringexpert",
   "MESSAGE_FROM_SCHOOL": "Nachricht von der Einrichtung",
   "MESSAGE_FROM_CATERER": "Nachricht vom Caterer",
@@ -104,7 +104,7 @@
   "DASHBOARD.SETTINGS": "Einstellungen",
   "DASHBOARD.ACCOUNT_OVERVIEW": "Kontoübersicht",
   "DASHBOARD.ORDER_HISTORY": "Bestellhistorie",
-  "DASHBOARD.WEEKPLAN_PDF": "Wochenplan PDF",
+  "DASHBOARD.WEEKPLAN_PDF": "Wochenplan-PDF",
   "DASHBOARD.KINDERGARTEN_SETTINGS": "Mitteilungen",
   "DASHBOARD.HELP": "Hilfe",
   "DASHBOARD.MENU": "Menü",
@@ -142,8 +142,8 @@
   "MANAGE_STUDENTS.UNSELECT_SPECIAL_FOOD": "Sonderessen abwählen",
   "MANAGE_STUDENTS.SAVE": "Ändern",
   "MANAGE_STUDENTS.EDIT_TITLE": "Änderung",
-  "MANAGE_STUDENTS.EDIT_DESCRIPTION": "Um den Vor - oder Nachnamen des Verpflegungsteilnehmers zu ändern, tragen Sie die gewünschte Änderung ein und gehen Sie anschließend auf \"Ändern\".",
-  "MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION": "Sollte der Verpflegungs-Teilnehmer Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt. Sollte Sie Fragen hierzu haben wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird dieses automatisch bei all Ihren Bestellungen dem Caterer übermittelt.<br> <br><b>Bitte beachten Sie: </b> Sollte das Allergiker Essen nachträglich geändert werden, so wird diese Änderung bei bereits abgegebene Bestellungen nicht berücksichtigt.",
+  "MANAGE_STUDENTS.EDIT_DESCRIPTION": "Um den Vor- oder Nachnamen des Verpflegungsteilnehmers zu ändern, tragen Sie die gewünschte Änderung ein und gehen Sie anschließend auf \"Ändern\".",
+  "MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION": "Sollte der Verpflegungsteilnehmer Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt. Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird, wird dieses automatisch bei all Ihren Bestellungen dem Caterer übermittelt.<br><br><b>Bitte beachten Sie:</b> Sollte das Allergiker Essen nachträglich geändert werden, so wird diese Änderung bei bereits abgegebenen Bestellungen nicht berücksichtigt.",
   "MANAGE_PERMANENT_ORDERS.HEADER": "Dauerbestellungen",
   "MANAGE_PERMANENT_ORDERS.SUBHEADER": "Eingetragene Dauerbestellungen",
   "MANAGE_PERMANENT_ORDERS.NAME": "Name",
@@ -151,8 +151,8 @@
   "MANAGE_PERMANENT_ORDERS.EDIT": "Bearbeiten",
   "MANAGE_PERMANENT_ORDERS.EDIT_BUTTON": "Bearbeiten",
   "MANAGE_PERMANENT_ORDERS.EDIT_HEADER": "Dauerbestellung für:",
-  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/in vor. Um eine Änderung an der Dauerbestellung vorzunehmen bestätigen Sie die Änderung mit dem Button \"Dauerbestellung ändern\".",
-  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "Um eine Dauerbestellung anzulegen oder zu ändern wählen Sie die gewünschten Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl mit dem Button \"Dauerbestellung anlegen\".",
+  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/in vor. Um eine Änderung an der Dauerbestellung vorzunehmen, bestätigen Sie die Änderung mit dem Button \"Dauerbestellung ändern\".",
+  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "Um eine Dauerbestellung anzulegen oder zu ändern, wählen Sie die gewünschten Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl mit dem Button \"Dauerbestellung anlegen\".",
   "MANAGE_PERMANENT_ORDERS.SELECT_OPTION": "Bitte auswählen",
   "MANAGE_PERMANENT_ORDERS.ADD_ORDER": "Dauerbestellung hinzufügen",
   "MANAGE_PERMANENT_ORDERS.CHANGE_ORDER": "Ändern",
@@ -182,21 +182,21 @@
     "ORDER_CONFIRMATION": "Bestellbestätigung",
     "ORDER_CONFIRMATION_DESCRIPTION": "Erhalten Sie eine Bestätigung per Email bei Bestellungen und Abbestellungen",
     "BALANCE_REMINDER": "Erinnerung Guthaben",
-    "BALANCE_REMINDER_DESCRIPTION": "Erhalten Sie eine Erinnerung sobald Ihr Gutehaben unter 15,00€ fällt",
+    "BALANCE_REMINDER_DESCRIPTION": "Erhalten Sie eine Erinnerung, sobald Ihr Guthaben unter 15,00€ fällt",
     "DISPLAY_ORDER": "Darstellung gesamte Woche",
-    "DISPLAY_ORDER_DESCRIPTION": "Wenn aktiviert wird die gesamte Woche in der App Ansicht dargestellt"
+    "DISPLAY_ORDER_DESCRIPTION": "Wenn aktiviert, wird die gesamte Woche in der App-Ansicht dargestellt"
   },
   "HELP": {
     "order_student": {
       "HEADER": "Bestellung",
       "DESCRIPTION": [
-        "Um eine Bestellungen aufzugeben wählen Sie zuerst das gewünschte Datum aus.",
+        "Um eine Bestellungen aufzugeben, wählen Sie zuerst das gewünschte Datum aus.",
         "Sollten Sie mehrere Kinder haben, können Sie das Kind auswählen, für das Sie bestellen möchten.<br>",
-        "Um das Gericht zu bestellen klicken Sie auf das Kästchen des gewünschten Gerichts.<br>",
-        "Um ein Gericht zu stornieren klicken Sie erneut auf das Kästchen des gewünschten Gerichts oder auf das Mülltonnen-Symbol.<br>",
-        "Um ein Gericht zu ändern müssen Sie zuerst das Gericht stornieren und dann das gewünschte Gericht bestellen.<br>",
-        "Um sich eine gesamte Woche anzeigen zu lassen klicken auf das Kästchen <b>[Gesamte Woche anzeigen]</b><br>",
-        "Zusätzlich haben Sie die Möglichkeit eine Dauerbestellung aufzugeben. gehen Sie dazu auf <b>[Dauerbestellung]</b>'.<br>"
+        "Um das Gericht zu bestellen, klicken Sie auf das Kästchen des gewünschten Gerichts.<br>",
+        "Um ein Gericht zu stornieren, klicken Sie erneut auf das Kästchen des gewünschten Gerichts oder auf das Mülltonnen-Symbol.",
+        "Um ein Gericht zu ändern, müssen Sie zuerst das Gericht stornieren und dann das gewünschte Gericht bestellen.<br>",
+        "Um sich eine gesamte Woche anzeigen zu lassen, klicken Sie auf das Kästchen <b>[Gesamte Woche anzeigen]</b>.<br>",
+        "Zusätzlich haben Sie die Möglichkeit, eine Dauerbestellung aufzugeben. Gehen Sie dazu auf <b>[Dauerbestellung]</b>."
       ]
     },
     "help": {
@@ -208,11 +208,11 @@
     "dashboard": {
       "HEADER": "Übersicht",
       "DESCRIPTION": [
-        "In der Übersicht sehen Sie Ihr aktuelles Guthaben sowie die ihre letzten Bestellungen. <br><br>",
-        "Sie können Bestellungen stornieren indem Sie auf <b>[Stornieren]</b> klicken.",
-        "Sollte das Feld ausgegraut sein ist die Frist für eine Stornierung abgelaufen.<br><br>",
+        "In der Übersicht sehen Sie Ihr aktuelles Guthaben sowie Ihre letzten Bestellungen.<br><br>",
+        "Sie können Bestellungen stornieren, indem Sie auf <b>[Stornieren]</b> klicken.",
+        "Sollte das Feld ausgegraut sein, ist die Frist für eine Stornierung abgelaufen.<br><br>",
         "Sollten Nachrichten vom Caterer, der Einrichtung oder von Cateringexpert vorliegen, werden diese hier angezeigt.",
-        "Um die Nachricht als gelsen zu markieren klicken Sie auf <b>[Schließen]</b>.",
+        "Um die Nachricht als gelesen zu markieren, klicken Sie auf <b>[Schließen]</b>.",
         "Alte Nachrichten können Sie unter dem Reiter <b>[Mitteilungen]</b> einsehen.",
         "Nachrichten werden nach 30 Tagen automatisch gelöscht."
       ]
@@ -220,90 +220,88 @@
     "permanent_order": {
       "HEADER": "Dauerbestellungen",
       "DESCRIPTION": [
-        "Dauerbestellungen werden automatisch eingetragen sobald die Bestellfrist für den jeweilgen Tag abgelaufen ist.",
-        "<b>WICHTIG:</b> Die Dauerbestellung läuft solange bis Sie diese ändern oder löschen.",
+        "Dauerbestellungen werden automatisch eingetragen, sobald die Bestellfrist für den jeweiligen Tag abgelaufen ist.",
+        "<b>WICHTIG:</b> Die Dauerbestellung läuft solange, bis Sie diese ändern oder löschen.",
         "Dies gilt auch bei Krankheit oder anderem Fehlen des Verpflegungsteilnehmers/in.",
-        "Sollten Sie nicht genug Guthaben auf dem Konto haben wird die Bestellung nicht ausgeführt.",
-        "Sofern Sie den Email Versand für Bestellungen unter <b>[Einstellungen]</b> aktiviert haben, erhalten Sie eine Bestätigung oder Fehlermeldung für jede Bestellung per Email.",
+        "Sollten Sie nicht genug Guthaben auf dem Konto haben, wird die Bestellung nicht ausgeführt.",
+        "Sofern Sie den Email-Versand für Bestellungen unter <b>[Einstellungen]</b> aktiviert haben, erhalten Sie eine Bestätigung oder Fehlermeldung für jede Bestellung per Email.",
         "An eingetragenen Schließtagen oder Feiertagen wird keine Dauerbestellung ausgeführt.",
         "Die Eintragung der Schließzeiten erfolgt durch den Caterer oder die Einrichtung.<br><br>",
-        "Um eine Dauerbestellung aufzugeben gehen Sie auf <b>[Bearbeiten]</b> für den jewiligen Verpflegungsteilnehmer/in.",
+        "Um eine Dauerbestellung aufzugeben, gehen Sie auf <b>[Bearbeiten]</b> für den jeweiligen Verpflegungsteilnehmer/in.",
         "Anschließend können Sie die gewünschten Tage auswählen und das Menü für den jeweiligen Tag auswählen.",
-        "Um die Dauerbestellung zu bestätigen  gehen Sie auf [Dauerbestellung hinzufügen]."
+        "Um die Dauerbestellung zu bestätigen, gehen Sie auf [Dauerbestellung hinzufügen]."
       ]
     },
-
     "register_student": {
       "HEADER": "Schüler registrieren",
       "DESCRIPTION": [
-        "Um ein Verpflegungsteilnehmer/in (Kind) für die Bestellung anzulegen, tragen Sie den Vor - und Nachnamen des Kindes ein.<br><br>",
-        "Sollte das Kind Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt <br><br>",
-        "Bei mehreren Untergruppen wählen Sie bitte die entsprechende Untergruppe aus. Sollten Sie die Untergruppe nicht kennen wählen Sie bitte <b>[Nicht bekannt]</b> aus.",
+        "Um ein Verpflegungsteilnehmer/in (Kind) für die Bestellung anzulegen, tragen Sie den Vor- und Nachnamen des Kindes ein.<br><br>",
+        "Sollte das Kind Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt.<br><br>",
+        "Bei mehreren Untergruppen wählen Sie bitte die entsprechende Untergruppe aus. Sollten Sie die Untergruppe nicht kennen, wählen Sie bitte <b>[Nicht bekannt]</b> aus.",
         "Sollte die Einstellung der Untergruppe nur durch die Einrichtung erfolgen, so wird dies in der Anzeige angezeigt.",
-        "Ohne die Zuordnung zu einer Untergruppe kann keine Bestellung aufgegeben werden. <br><br>",
-        "Um einen weiteren Verpflegungsteilnehmer/in anzulegen klicken Sie auf <b>[Weiteren Verpflegungsteilnehmer/in anlegen]</b>."
+        "Ohne die Zuordnung zu einer Untergruppe kann keine Bestellung aufgegeben werden.<br><br>",
+        "Um einen weiteren Verpflegungsteilnehmer/in anzulegen, klicken Sie auf <b>[Weiteren Verpflegungsteilnehmer/in anlegen]</b>."
       ]
     },
     "details_account": {
       "HEADER": "Kontoübersicht",
       "DESCRIPTION": [
         "In der Kontoübersicht haben Sie eine Einsicht in alle Ihre Ein- und Auszahlungen.",
-        "Für die Erstellung einer CSV Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
+        "Für die Erstellung einer CSV-Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
       ]
     },
     "account_overview": {
       "HEADER": "Einzahlung",
       "DESCRIPTION": [
         "Für die Bestellung von Essen muss Ihr Konto mit Geld aufgeladen sein.",
-        "Sie können Geld entwerder per Überweisung oder direkt auf Ihr Konto einzahlen.",
+        "Sie können Geld entweder per Überweisung oder direkt auf Ihr Konto einzahlen.",
         "Die Einzahlung per Überweisung ist kostenfrei und dauert bis zu 3 Werktage.",
-        "Sollten Sie Geld direkt einzahlen möchten werden Sie auf unseren Zahlungsanbieter weitergeleitet.",
-        "Je nach Zahlungsanbieter können Gebühren anfallen. Die geschätzen Gebühren werden Ihnen angezeigt.",
-        "Um Geld von Ihrem Konto abzuheben klicken Sie auf <b>[Geld abbuchen]</b>."
+        "Sollten Sie Geld direkt einzahlen möchten, werden Sie auf unseren Zahlungsanbieter weitergeleitet.",
+        "Je nach Zahlungsanbieter können Gebühren anfallen. Die geschätzten Gebühren werden Ihnen angezeigt.",
+        "Um Geld von Ihrem Konto abzuheben, klicken Sie auf <b>[Geld abbuchen]</b>."
       ]
-
     },
     "kindergarten_settings": {
       "HEADER": "Kindergarteneinstellungen",
       "DESCRIPTION": [
-        "Hier finden Sie alle Mitteilungen die von der Einrichtung, dem Caterer oder Cateringexpert versendet wurden.",
-        "Nachrichten werden nach 30 Tagen automatisch gelöscht"
+        "Hier finden Sie alle Mitteilungen, die von der Einrichtung, dem Caterer oder Cateringexpert versendet wurden.",
+        "Nachrichten werden nach 30 Tagen automatisch gelöscht."
       ]
     },
     "order_history": {
       "HEADER": "Bestellhistorie",
       "DESCRIPTION": [
-        "In der Bestellhistorie können haben SIe eine Einsicht in alle Ihre Bestellungen und Stornierungen.",
-        "Um nach einem bestimmten Eintrag zu suchen geben Sie den gewünschten Suchbegriff in das Suchfeld ein.",
-        "Für die Erstellung einer CSV Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
+        "In der Bestellhistorie haben Sie eine Einsicht in alle Ihre Bestellungen und Stornierungen.",
+        "Um nach einem bestimmten Eintrag zu suchen, geben Sie den gewünschten Suchbegriff in das Suchfeld ein.",
+        "Für die Erstellung einer CSV-Datei, gehen Sie auf <b>[CSV Export]</b> und wählen Sie den gewünschten Zeitraum aus."
       ]
     },
     "register": {
       "HEADER": "Schüler registrieren",
       "DESCRIPTION": [
-        "Um ein Verpflegungsteilnehmer/in (Kind) für die Bestellung anzulegen, tragen Sie den Vor - und Nachnamen des Kindes ein.",
-        "Sollte das Kind Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt <br><br>",
-        "Bei mehreren Untergruppen wählen Sie bitte die entsprechende Untergruppe aus. Sollten Sie die Untergruppe nicht kennen wählen Sie bitte <b>[Nicht bekannt]</b> aus.",
+        "Um ein Verpflegungsteilnehmer/in (Kind) für die Bestellung anzulegen, tragen Sie den Vor- und Nachnamen des Kindes ein.",
+        "Sollte das Kind Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt.<br><br>",
+        "Bei mehreren Untergruppen wählen Sie bitte die entsprechende Untergruppe aus. Sollten Sie die Untergruppe nicht kennen, wählen Sie bitte <b>[Nicht bekannt]</b> aus.",
         "Sollte die Einstellung der Untergruppe nur durch die Einrichtung erfolgen, so wird dies in der Anzeige angezeigt.",
-        "Ohne die Zuordnung zu einer Untergruppe kann keine Bestellung aufgegeben werden. <br><br>",
-        "Um einen weiteren Verpflegungsteilnehmer/in anzulegen klicken Sie auf <b>[Weiteren Verpflegungsteilnehmer/in anlegen]</b>."
+        "Ohne die Zuordnung zu einer Untergruppe kann keine Bestellung aufgegeben werden.<br><br>",
+        "Um einen weiteren Verpflegungsteilnehmer/in anzulegen, klicken Sie auf <b>[Weiteren Verpflegungsteilnehmer/in anlegen]</b>."
       ]
     },
     "settings": {
       "HEADER": "Einstellungen",
       "DESCRIPTION": [
-        "Unter Einstellungen können Sie Ihre Stammdaten anpassen sowie auch Ihre Präfernezen für Bestellbestätigungen und Guthaben Erinnerungen einstellen. <br><br>",
-        "Die Einstellung der IBAN wird benötigt um Guthaben auszahlen zu können.",
-        "Die angegebene Email Adresse wird verwendet um Bestellbestätigungen und Guthaben Erinnerungen zu versenden.(sofern aktiviert) <br><br>",
+        "Unter Einstellungen können Sie Ihre Stammdaten anpassen sowie auch Ihre Präferenzen für Bestellbestätigungen und Guthaben-Erinnerungen einstellen.<br><br>",
+        "Die Einstellung der IBAN wird benötigt, um Guthaben auszahlen zu können.",
+        "Die angegebene Email Adresse wird verwendet, um Bestellbestätigungen und Guthaben-Erinnerungen zu versenden (sofern aktiviert).<br><br>",
         "Bitte bestätigen Sie alle Änderungen mit [Ändern]."
       ]
     },
     "weekplan_pdf": {
-      "HEADER": "Wochenplan PDF",
+      "HEADER": "Wochenplan-PDF",
       "DESCRIPTION": [
         "Der Wochenplan wird von Ihrem Caterer bereitgestellt und kann als PDF heruntergeladen werden.",
-        "Wählen Sie das gewünschte Jahr sowie die Kalenderwoche aus für den Sie den Wochenplan einsehen möchten.",
-        "Klicken Sie dann entweder auf <b>[Ansicht]</b> oder <b>[Herunterladen]</b>"
+        "Wählen Sie das gewünschte Jahr sowie die Kalenderwoche aus, für die Sie den Wochenplan einsehen möchten.",
+        "Klicken Sie dann entweder auf <b>[Ansicht]</b> oder <b>[Herunterladen]</b>."
       ]
     }
   },
@@ -311,12 +309,12 @@
     "ERROR_WITHDRAW_FUNDS": "Abhebung nicht möglich",
     "ERROR_WITHDRAW_FUNDS_NOT_ENOUGH": "Sie haben derzeit kein Guthaben auf Ihrem Konto.",
     "ERROR_WITHDRAW_FUNDS_NOT_IBAN": "Sie haben derzeit kein Guthaben auf Ihrem Konto.",
-    "WITHDRAW_DEPOSIT_FUNDS_PROCESSED": "Ihre Abbuchung ist bei uns eingegangen und wird bearbeitet.<br>Es kann bis zu 5 Werktagen dauern bis das Geld auf Ihr Konto überwiesen wurde.<br>Unter [Details Kontobewegung] können Sie den aktuellen Status einsehen.",
+    "WITHDRAW_DEPOSIT_FUNDS_PROCESSED": "Ihre Abbuchung ist bei uns eingegangen und wird bearbeitet.<br>Es kann bis zu 5 Werktagen dauern, bis das Geld auf Ihr Konto überwiesen wurde.<br>Unter [Details Kontobewegung] können Sie den aktuellen Status einsehen.",
     "WITHDRAW_DEPOSIT_FUNDS_HEADER": "Abbuchung erfolgreich",
     "TEXT_COPIED": "Text kopiert",
-    "SUCCESS_DEPOSIT_MESSAGE": "Ihre Einzahlung war erfolgreich! <br> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben.",
+    "SUCCESS_DEPOSIT_MESSAGE": "Ihre Einzahlung war erfolgreich!<br> Der Einzahlungsbetrag wurde Ihrem Konto gutgeschrieben.",
     "SUCCESS_DEPOSIT_MESSAGE_HEADER": "Einzahlung erfolgreich",
-    "ERROR_DEPOSIT_MESSAGE": "Ihre Einzahlung konnte nicht ausgeführt werden <br> Bitte überprüfen Sie Ihre Eingabe. <br><br> Sollten der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de",
+    "ERROR_DEPOSIT_MESSAGE": "Ihre Einzahlung konnte nicht ausgeführt werden.<br>Bitte überprüfen Sie Ihre Eingabe.<br><br>Sollte der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de",
     "ERROR_DEPOSIT_MESSAGE_HEADER": "Einzahlung fehlgeschlagen",
     "ACCOUNT.TEXT_BANNER": "Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/in hinzufügen. Klicken Sie hier, um eine Schüler/in hinzuzufügen.",
     "TITLE_DEPOSIT_TRANSFER": "Einzahlung Überweisung",
@@ -353,7 +351,7 @@
     "DEPOSIT": "Einzahlung",
     "WITHDRAW": "Auszahlung",
     "TITLE": "Kontoaktivität",
-    "DESCRIPTION": "Liste aller Ein - und Auszahlungen",
+    "DESCRIPTION": "Liste aller Ein- und Auszahlungen",
     "CSV_EXPORT": "CSV Export",
     "DATE": "Datum",
     "TYPE": "Art",
@@ -361,7 +359,7 @@
     "AMOUNT": "Betrag",
     "TRANSACTION_ID": "Transaktions Id",
     "HEADER_EXPORT": "Exportieren",
-    "CONTENT_EXPORT": "Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen",
+    "CONTENT_EXPORT": "Bitte wählen Sie den Zeitraum aus, den Sie exportieren möchten. Die Datei wird als CSV-Datei heruntergeladen",
     "RANGE_FROM": "Bereich von",
     "RANGE_TO": "Bereich bis",
     "FIRST_FIELD": "Erstes Feld",
@@ -373,23 +371,23 @@
     "EXPORT": "Exportieren"
   },
   "ORDER_HISTORY": {
-    "MESSAGE_DIALOG": "Bitte wählen Sie den Zeitraum aus den Sie exportieren möchten. Die Datei wird als CSV Datei heruntergeladen",
+    "MESSAGE_DIALOG": "Bitte wählen Sie den Zeitraum aus, den Sie exportieren möchten. Die Datei wird als CSV-Datei heruntergeladen",
     "TITLE": "Bestellhistorie",
     "DESCRIPTION": "Liste aller Bestellungen und Stornierungen",
     "CSV_EXPORT": "CSV Export",
     "STUDENT": "Verpflegungsteilnehmer/in",
     "NAME": "Name",
     "MENU": "Menü",
-    "DATE_ORDER": "Bestelldatum Menü",
+    "DATE_ORDER": "Bestelldatum des Menüs",
     "DATE": "Datum",
     "EXECUTED": "Durchgeführt",
     "PRICE": "Preis",
     "TYPE": "Art",
     "SEARCH_PLACEHOLDER": "Suchen nach...",
-    "ORDER_DATE_MENU": "Bestelldatum Menü"
+    "ORDER_DATE_MENU": "Bestelldatum des Menüs"
   },
   "WEEKPLAN_PDF": {
-    "TITLE": "Wochenplan PDF",
+    "TITLE": "Wochenplan-PDF",
     "DESCRIPTION": "Liste aller Wochenpläne",
     "YEAR": "Jahr",
     "CALENDAR_WEEK": "Kalenderwoche",
@@ -399,7 +397,7 @@
   },
   "NOTIFICATIONS": {
     "TITLE": "Mitteilungen",
-    "DESCRIPTION": "Alle Mitteilungen werden automatisch nach 30 Tagen gelöscht."
+    "DESCRIPTION": "Alle Mitteilungen werden nach 30 Tagen automatisch gelöscht."
   },
   "DOCUMENTS": {
     "TITLE": "Erklärungsdokumente",
@@ -409,4 +407,3 @@
     "EDIT_BUTTON": "Bearbeiten"
   }
 }
-

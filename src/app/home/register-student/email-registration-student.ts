@@ -52,6 +52,7 @@ export function getEmailBodyRegistrationStudent(
 
   let subjectTranslation = translate.instant('EMAIL_REGISTRATION_SUBJECT');
   let successMessage = translate.instant('EMAIL_REGISTRATION_SUCCESS_MESSAGE');
+  let verpflegungsteilnehmer = translate.instant('ORDER_HISTORY.STUDENT');
   let institutionLabel = translate.instant('INSTITUTION_LABEL');
   let addressLabel = translate.instant('ADDRESS_LABEL');
   let phoneLabel = translate.instant('PHONE_LABEL');
@@ -159,7 +160,7 @@ a[x-apple-data-detectors] {
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">${confirmationMessage}</p><br>
 
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                      <b><b>Verpflegungsteilnehmer:</b></b> ${nameStudent}<br>
+                      <b><b>${verpflegungsteilnehmer}:</b></b> ${nameStudent}<br>
                       </p>
                       ${specialFood}
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
