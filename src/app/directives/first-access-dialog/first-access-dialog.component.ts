@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject, NgZone} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TenantServiceStudent } from "../../service/tenant.service";
 import { TenantStudentInterface } from "../../classes/tenant.class";
@@ -27,17 +27,25 @@ export class FirstAccessDialogComponent {
   constructor(private tenantService: TenantServiceStudent,
               @Inject(MAT_DIALOG_DATA) public data: TenantStudentInterface,
               public dialogRef: MatDialogRef<FirstAccessDialogComponent>,
-              private _formBuilder: FormBuilder) {
+              private ngZone: NgZone) {
 
   }
 
   goToNextPage() {
-    this.currentPage++;
-    console.log(this.currentPage);
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        this.currentPage++;
+        this.ngZone.run(() => console.log(this.currentPage));
+      });
+    });
   }
 
   goToPreviousPage() {
-    this.currentPage--;
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        this.currentPage--;
+      });
+    });
   }
 
   closeFirstAccess() {
@@ -45,6 +53,6 @@ export class FirstAccessDialogComponent {
     tenant.firstAccess = false;
     this.tenantService.editParentTenant(tenant).subscribe((response) => {
       this.dialogRef.close();
-    })
+    });
   }
 }
