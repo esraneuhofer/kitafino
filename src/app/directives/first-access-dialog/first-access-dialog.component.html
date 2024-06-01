@@ -11,7 +11,7 @@
   </div>
   <mat-horizontal-stepper [linear]="true" [selectedIndex]="currentPage">
     <mat-step>
-      <div *ngIf="currentPage === 0" @pageAnimation>
+      <div *ngIf="currentPage === 0" >
 <!--        <div class="x-4 text-left">-->
           <div class="mt-2">
             <h3 class="text-base font-semibold leading-6 text-gray-900 text-center">
@@ -51,7 +51,7 @@
     </mat-step>
 
     <mat-step>
-      <div *ngIf="currentPage === 1" @pageAnimation>
+      <div *ngIf="currentPage === 1" >
         <div class="x-4 text-left">
           <div class="mt-2">
             <h3 class="text-base font-semibold leading-6 text-gray-900 mt-2 text-center">Navigation</h3>
@@ -79,7 +79,7 @@
 
     </mat-step>
     <mat-step>
-      <div *ngIf="currentPage === 2" @pageAnimation>
+      <div *ngIf="currentPage === 2" >
         <div class="x-4 text-left">
           <div class="mt-2">
             <h3 class="text-base font-semibold leading-6 text-gray-900">Ersten Schritte</h3>
