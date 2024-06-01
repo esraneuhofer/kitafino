@@ -127,7 +127,8 @@ export class DashboardComponent {
         //             heading: 'Menüänderung 03.07.2024',
         //             messageSeen:[],
         //             sentBy:'caterer',
-        //           createdAt: new Date()
+        //           createdAt: new Date(),
+        //           validTill: new Date('2024-07-02')
         //
         //         }),
         //         this.messageService.addMessage({
@@ -135,7 +136,8 @@ export class DashboardComponent {
         //             heading: 'Wartungsarbeiten 05.07.2024',
         //             messageSeen:[],
         //             sentBy:'master',
-        //           createdAt: new Date()
+        //           createdAt: new Date(),
+        //           validTill: new Date('2024-07-02')
         //
         //         })
         //     ]

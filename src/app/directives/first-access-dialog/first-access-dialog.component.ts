@@ -9,17 +9,17 @@ import { animate, style, transition, trigger } from "@angular/animations";
   selector: 'app-first-access-dialog',
   templateUrl: './first-access-dialog.component.html',
   styleUrls: ['./first-access-dialog.component.scss'],
-  // animations: [
-  //   trigger('pageAnimation', [
-  //     transition(':enter', [
-  //       style({ opacity: 0, transform: 'translate3d(100%, 0, 0)' }),
-  //       animate('300ms ease-in', style({ opacity: 1, transform: 'translate3d(0, 0, 0)' }))
-  //     ]),
-  //     transition(':leave', [
-  //       animate('300ms ease-out', style({ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }))
-  //     ])
-  //   ])
-  // ]
+  animations: [
+    // trigger('pageAnimation', [
+    //   transition(':enter', [
+    //     style({ opacity: 0, transform: 'translateX(100%)' }),
+    //     animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
+    //   ]),
+    //   transition(':leave', [
+    //     animate('300ms ease-out', style({ opacity: 0, transform: 'translateX(-100%)' }))
+    //   ])
+    // ])
+  ]
 })
 export class FirstAccessDialogComponent {
   currentPage: number = 0;

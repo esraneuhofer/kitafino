@@ -1,37 +1,141 @@
-<div class="overflow-hidden p-0 md:p-3">
+<!--<div class="overflow-hidden p-0 md:p-3">-->
+<!--  <div class="icon-wrapper">-->
+<!--    <button-->
+<!--      (click)="closeFirstAccess()"-->
+<!--      class="p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">-->
+<!--      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"-->
+<!--           xmlns="http://www.w3.org/2000/svg">-->
+<!--        <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--      </svg>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--  <mat-horizontal-stepper [linear]="true" [selectedIndex]="currentPage">-->
+<!--    <mat-step>-->
+<!--      <div *ngIf="currentPage === 0" >-->
+<!--&lt;!&ndash;        <div class="x-4 text-left">&ndash;&gt;-->
+<!--          <div class="mt-2">-->
+<!--            <h3 class="text-base font-semibold leading-6 text-gray-900 text-center">-->
+<!--              &lt;!&ndash;                <span>🎉🎈🎊</span>&ndash;&gt;-->
+<!--              Wilkommen bei Cateringexpert-->
+<!--              <span>🎉🎈🎊</span>-->
+<!--            </h3>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              Um Ihnen den Einstieg zu erleichtern, haben wir einige Schritte für Sie vorbereitet:-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Unterstützung:</b> Auf allen Seiten können Sie Hilfe erhalten, indem Sie auf das blaue Fragezeichen in-->
+<!--              der rechten unteren Ecke klicken.-->
+<!--              <button-->
+<!--                class="bg-blue-500 text-white p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">-->
+<!--                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"-->
+<!--                     xmlns="http://www.w3.org/2000/svg">-->
+<!--                  <path-->
+<!--                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"-->
+<!--                    stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                </svg>-->
+<!--              </button>-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Hilfethemen:</b> Im Menüpunkt "Hilfe" finden Sie verschiedene Hilfethemen mit detaillierten PDFs.-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Videoanleitungen:</b> Besuchen Sie unseren YouTube-Kanal (https://youtube.com), um Videoanleitungen zu-->
+<!--              den einzelnen Punkten von Cateringexpert anzusehen.-->
+<!--            </p>-->
+<!--          </div>-->
+<!--          <div class="flex justify-end mt-3">-->
+<!--            <app-button (click)="goToNextPage()" [typeButton]="'primary'">Weiter</app-button>-->
+<!--          </div>-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </mat-step>-->
+
+<!--    <mat-step>-->
+<!--      <div *ngIf="currentPage === 1" >-->
+<!--        <div class="x-4 text-left">-->
+<!--          <div class="mt-2">-->
+<!--            <h3 class="text-base font-semibold leading-6 text-gray-900 mt-2 text-center">Navigation</h3>-->
+<!--            <p class="text-sm text-gray-500 mt-3 mb-2">-->
+<!--              Um zwischen den einzelnen Menüpunkten zu wechseln, klicken Sie auf das Menüsymbol:-->
+<!--              <b>[Menu-->
+<!--                <svg class="inline-block h-6 w-6 align-middle" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">-->
+<!--                  <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                </svg>-->
+<!--                ]</b>-->
+<!--              in der oberen rechten Ecke.-->
+<!--            </p>-->
+<!--&lt;!&ndash;            <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_header.png">&ndash;&gt;-->
+<!--            <p class="text-sm text-gray-500 mt-3 mb-2">-->
+<!--              Anschließend öffnet sich das Menü, in dem Sie die gewünschte Seite auswählen können.-->
+<!--            </p>-->
+<!--&lt;!&ndash;            <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_sidebar.png">&ndash;&gt;-->
+<!--          </div>-->
+<!--          <div class="flex justify-end mt-4 ">-->
+<!--&lt;!&ndash;            <app-button (click)="goToPreviousPage()" [typeButton]="'primary'">Zurück</app-button>&ndash;&gt;-->
+<!--            <app-button (click)="goToNextPage()" [typeButton]="'primary'">Weiter</app-button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </mat-step>-->
+<!--    <mat-step>-->
+<!--      <div *ngIf="currentPage === 2" >-->
+<!--        <div class="x-4 text-left">-->
+<!--          <div class="mt-2">-->
+<!--            <h3 class="text-base font-semibold leading-6 text-gray-900">Ersten Schritte</h3>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Anmeldung:</b> Melden Sie zuerst einen Verpflegungsteilnehmer (Kind) an. Klicken Sie auf "Verpflegungsteilnehmer" und folgen Sie den Anweisungen.-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Konto aufladen:</b> Laden Sie Ihr Konto auf, um Bestellungen aufzugeben. Klicken Sie auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen.-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              <b>Bestellen:</b> Nach dem Aufladen Ihres Kontos können Sie Bestellungen aufgeben. Klicken Sie auf <b>[Bestellungen]</b> für tägliche Bestellungen oder auf <b>[Dauerbestellungen]</b> für Dauerbestellungen.-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              Weitere Informationen finden Sie auf der jeweiligen Seite oder unter <b>[Hilfe]</b>.-->
+<!--            </p>-->
+<!--            <p class="text-sm text-gray-500 mt-3">-->
+<!--              Viel Spaß mit der Anwendung!-->
+<!--            </p>-->
+
+<!--            <div class="flex justify-end mt-3">-->
+<!--&lt;!&ndash;              <app-button (click)="goToPreviousPage()" [typeButton]="'primary'">Zurück</app-button>&ndash;&gt;-->
+<!--              <app-button (click)="closeFirstAccess()" [typeButton]="'primary'">Schließen</app-button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-step>-->
+<!--  </mat-horizontal-stepper>-->
+<!--</div>-->
+<div class="overflow-hidden p-3">
   <div class="icon-wrapper">
     <button
       (click)="closeFirstAccess()"
-      class="p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
-      <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-           xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+      class=" p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
-  <mat-horizontal-stepper [linear]="true" [selectedIndex]="currentPage">
-    <mat-step>
-      <div *ngIf="currentPage === 0" >
-<!--        <div class="x-4 text-left">-->
+  <div class="steps-container">
+    <div class="step" *ngIf="currentPage === 0" >
+      <div class="x-4 text-left">
+        <div>
           <div class="mt-2">
             <h3 class="text-base font-semibold leading-6 text-gray-900 text-center">
-              <!--                <span>🎉🎈🎊</span>-->
-              Wilkommen bei Cateringexpert
-              <span>🎉🎈🎊</span>
+             Wilkommen bei Cateringexpert br<span>🎉🎈🎊</span>
             </h3>
             <p class="text-sm text-gray-500 mt-3">
               Um Ihnen den Einstieg zu erleichtern, haben wir einige Schritte für Sie vorbereitet:
             </p>
             <p class="text-sm text-gray-500 mt-3">
-              <b>Unterstützung:</b> Auf allen Seiten können Sie Hilfe erhalten, indem Sie auf das blaue Fragezeichen in
-              der rechten unteren Ecke klicken.
+              <b>Unterstützung:</b> Auf allen Seiten können Sie Hilfe erhalten, indem Sie auf das blaue Fragezeichen in der rechten unteren Ecke klicken.
               <button
                 class="bg-blue-500 text-white p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
-                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
-                    stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
             </p>
@@ -39,73 +143,64 @@
               <b>Hilfethemen:</b> Im Menüpunkt "Hilfe" finden Sie verschiedene Hilfethemen mit detaillierten PDFs.
             </p>
             <p class="text-sm text-gray-500 mt-3">
-              <b>Videoanleitungen:</b> Besuchen Sie unseren YouTube-Kanal (https://youtube.com), um Videoanleitungen zu
-              den einzelnen Punkten von Cateringexpert anzusehen.
+              <b>Videoanleitungen:</b> Besuchen Sie unseren YouTube-Kanal (https://youtube.com), um Videoanleitungen zu den einzelnen Punkten von Cateringexpert anzusehen.
             </p>
           </div>
-          <div class="flex justify-end mt-3">
-            <app-button (click)="goToNextPage()" [typeButton]="'primary'">Weiter</app-button>
-          </div>
-<!--        </div>-->
+        </div>
+        <div class="flex justify-end mt-3">
+          <app-button (click)="goToNextPage()" [typeButton]="'primary'">Weiter</app-button>
+        </div>
       </div>
-    </mat-step>
-
-    <mat-step>
-      <div *ngIf="currentPage === 1" >
-        <div class="x-4 text-left">
-          <div class="mt-2">
-            <h3 class="text-base font-semibold leading-6 text-gray-900 mt-2 text-center">Navigation</h3>
-            <p class="text-sm text-gray-500 mt-3 mb-2">
-              Um zwischen den einzelnen Menüpunkten zu wechseln, klicken Sie auf das Menüsymbol:
-              <b>[Menu
-                <svg class="inline-block h-6 w-6 align-middle" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                ]</b>
-              in der oberen rechten Ecke.
-            </p>
-<!--            <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_header.png">-->
-            <p class="text-sm text-gray-500 mt-3 mb-2">
-              Anschließend öffnet sich das Menü, in dem Sie die gewünschte Seite auswählen können.
-            </p>
-<!--            <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_sidebar.png">-->
-          </div>
-          <div class="flex justify-end mt-4 ">
+    </div>
+    <div class="step" *ngIf="currentPage === 1" >
+      <div class="x-4 text-left">
+        <div class="mt-2">
+          <h3 class="text-base font-semibold leading-6 text-gray-900 mt-2">Navigation</h3>
+          <p class="text-sm text-gray-500 mt-3 mb-2">
+            Um zwischen den einzelnen Menüpunkten zu wechseln, klicken Sie auf das Menüsymbol:
+            <b>[Menu
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block h-6 w-6 align-middle">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>]</b>
+            in der oberen rechten Ecke.
+          </p>
+          <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_header.png">
+          <p class="text-sm text-gray-500 mt-3 mb-2">
+            Anschließend öffnet sich das Menü, in dem Sie die gewünschte Seite auswählen können. <br>
+          </p>
+          <img alt="Deutsch" class="flag-icon mt-2" src="assets/img/first_access_sidebar.png">
+          <div class="flex justify-end mt-3">
 <!--            <app-button (click)="goToPreviousPage()" [typeButton]="'primary'">Zurück</app-button>-->
             <app-button (click)="goToNextPage()" [typeButton]="'primary'">Weiter</app-button>
           </div>
         </div>
       </div>
-
-    </mat-step>
-    <mat-step>
-      <div *ngIf="currentPage === 2" >
-        <div class="x-4 text-left">
-          <div class="mt-2">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">Ersten Schritte</h3>
-            <p class="text-sm text-gray-500 mt-3">
-              <b>Anmeldung:</b> Melden Sie zuerst einen Verpflegungsteilnehmer (Kind) an. Klicken Sie auf "Verpflegungsteilnehmer" und folgen Sie den Anweisungen.
-            </p>
-            <p class="text-sm text-gray-500 mt-3">
-              <b>Konto aufladen:</b> Laden Sie Ihr Konto auf, um Bestellungen aufzugeben. Klicken Sie auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen.
-            </p>
-            <p class="text-sm text-gray-500 mt-3">
-              <b>Bestellen:</b> Nach dem Aufladen Ihres Kontos können Sie Bestellungen aufgeben. Klicken Sie auf <b>[Bestellungen]</b> für tägliche Bestellungen oder auf <b>[Dauerbestellungen]</b> für Dauerbestellungen.
-            </p>
-            <p class="text-sm text-gray-500 mt-3">
-              Weitere Informationen finden Sie auf der jeweiligen Seite oder unter <b>[Hilfe]</b>.
-            </p>
-            <p class="text-sm text-gray-500 mt-3">
-              Viel Spaß mit der Anwendung!
-            </p>
-
-            <div class="flex justify-end mt-3">
-<!--              <app-button (click)="goToPreviousPage()" [typeButton]="'primary'">Zurück</app-button>-->
-              <app-button (click)="closeFirstAccess()" [typeButton]="'primary'">Schließen</app-button>
-            </div>
+    </div>
+    <div class="step" *ngIf="currentPage === 2">
+      <div class="x-4 text-left">
+        <div class="mt-2">
+          <h3 class="text-base font-semibold leading-6 text-gray-900">Ersten Schritte</h3>
+          <p class="text-sm text-gray-500 mt-3">
+            <b>Anmeldung:</b> Melden Sie zuerst einen Verpflegungsteilnehmer (Kind) an. Klicken Sie auf "Verpflegungsteilnehmer" und folgen Sie den Anweisungen.
+          </p>
+          <p class="text-sm text-gray-500 mt-3">
+            <b>Konto aufladen:</b> Laden Sie Ihr Konto auf, um Bestellungen aufzugeben. Klicken Sie auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen.
+          </p>
+          <p class="text-sm text-gray-500 mt-3">
+            <b>Bestellen:</b> Nach dem Aufladen Ihres Kontos können Sie Bestellungen aufgeben. Klicken Sie auf <b>[Bestellungen]</b> für tägliche Bestellungen oder auf <b>[Dauerbestellungen]</b> für Dauerbestellungen.
+          </p>
+          <p class="text-sm text-gray-500 mt-3">
+            Weitere Informationen finden Sie auf der jeweiligen Seite oder unter <b>[Hilfe]</b>.
+          </p>
+          <p class="text-sm text-gray-500 mt-3">
+            Viel Spaß mit der Anwendung!
+          </p>
+          <div class="flex justify-end mt-3">
+<!--            <app-button (click)="goToPreviousPage()" [typeButton]="'primary'">Zurück</app-button>-->
+            <app-button (click)="closeFirstAccess()" [typeButton]="'primary'">Schließen</app-button>
           </div>
         </div>
       </div>
-    </mat-step>
-  </mat-horizontal-stepper>
+    </div>
+  </div>
 </div>
