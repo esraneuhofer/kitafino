@@ -167,7 +167,6 @@ export class PermanentOrdersComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterfaceId | null) {
-    console.log(student)
     this.submittingRequest = true;
     this.selectedStudent = student;
     if (!student) {
@@ -175,8 +174,10 @@ export class PermanentOrdersComponent implements OnInit {
       return
     }
     this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer,student)
+
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
+    console.log(permanentOrder)
     if (!permanentOrder) {
       this.permanentOrderExists = false
       this.selectedPermanentOrder = new PermanentOrderClass(this.accountTenant.userId, student._id, this.accountTenant.customerId);
@@ -202,6 +203,7 @@ export class PermanentOrdersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
       if (!result){
+        this.submittingRequest = false;
         return;
       }
       let routeId = permanentOrder._id ? 'editPermanentOrdersUser' : 'setPermanentOrdersUser';

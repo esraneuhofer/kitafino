@@ -8,7 +8,8 @@ var message = new Schema({
     heading:String,
     message:String,
     messageSeen:[String],
-    sentBy:String
+    sentBy:String,
+  validTill:Date
 });
 
 var MessageSchema = mongoose.model('MessageSchema', message);

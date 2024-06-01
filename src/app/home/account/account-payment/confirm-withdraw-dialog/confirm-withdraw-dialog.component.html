@@ -2,13 +2,13 @@
   <div>
     <div class="mt-2">
       <!--<h2 mat-dialog-title>{{data.menu.nameOrder}}</h2>-->
-      <h3 class="text-base font-semibold leading-6 text-gray-900">{{ 'ACCOUNT.WITHDRAW_TITLE' | translate }}</h3>
+      <h3 class="text-base font-semibold leading-6 text-gray-900" [innerHTML]="">{{ 'ACCOUNT.WITHDRAW_TITLE' | translate }}</h3>
       <p class="text-sm text-gray-500 mt-3">
-        {{ 'ACCOUNT.WITHDRAW_CONFIRMATION' | translate }} {{data.accountTenant.currentBalance | currency}}?
+        {{ 'ACCOUNT.WITHDRAW_CONFIRMATION' | translate }} {{data.accountTenant.currentBalance | currency:'€'}}
         <br><br>
         {{ 'ACCOUNT.WITHDRAW_INSTRUCTIONS' | translate }} <b>{{data.tenantStudent.iban}}</b>.
         <br><br> {{ 'ACCOUNT.PROFILE_NOTE' | translate }} <br>
-        {{ 'ACCOUNT.BANK_DETAILS_NOTE' | translate }} <br><br>
+        <span [innerHTML]="'ACCOUNT.BANK_DETAILS_NOTE' | translate"></span> <br><br>
         {{ 'ACCOUNT.TRANSFER_DURATION' | translate }}
       </p><br>
     </div>

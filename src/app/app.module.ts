@@ -76,6 +76,7 @@ import { MessageInfoBoxComponent } from './directives/message-info-box/message-i
 import { ConfirmDialogPermanetOrderComponent } from './home/permanent-orders/confirm-dialog-permanet-order/confirm-dialog-permanet-order.component';
 import { TrimTextPipe} from "./directives/trim-text.pipe";
 import { LabelTooltipComponent } from './directives/label-tooltip/label-tooltip.component';
+import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-delete-special-food/confirm-delete-special-food.component';
 
 // AoT requires an exported function for factories
 
@@ -139,6 +140,7 @@ registerLocaleData(localeDe);
     ConfirmDialogPermanetOrderComponent,
     TrimTextPipe,
     LabelTooltipComponent,
+    ConfirmDeleteSpecialFoodComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../../functions/special-food.functions";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
+import {
+  ConfirmDialogPermanetOrderComponent
+} from "../../permanent-orders/confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
+import {ExportCsvDialogData} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  ConfirmDeleteSpecialFoodComponent
+} from "../../directives/confirm-delete-special-food/confirm-delete-special-food.component";
+import {PermanentOrderInterface} from "../../../classes/permanent-order.interface";
+import {PermanentOrderService} from "../../../service/permant-order.service";
 
 @Component({
   selector: 'app-manage-registration-student',
@@ -29,12 +39,38 @@ export class ManageRegistrationStudentComponent implements OnInit{
   specialFoodSelection:SpecialFoodSelectionStudent [] = [];
   settings!: SettingInterfaceNew;
   selectedSpecialFood:string = '';
+  permanentOrders: PermanentOrderInterface[] = [];
 
   setSpecialFoodEmpty(student:StudentInterface){
-    student.specialFood = null;
-   this.editStudent(student);
+    const dialogRef = this.dialog.open(ConfirmDeleteSpecialFoodComponent, {
+      width: '550px',
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
+    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
+      if (!result) {
+        return;
+      }
+      student.specialFood = null;
+      let promiseArray = [
+        this.studentService.editStudent(student)
+      ];
+
+      student.subgroup = this.selectedSubgroup;
+      const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
+      console.log(permanentOrder);
+      if(permanentOrder){
+        promiseArray.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
+      }
+      forkJoin(promiseArray).subscribe(()=> {
+        this.actionsAfterEditStudent();
+      })
+    })
+
   }
   constructor(  private router:Router,
+                private dialog: MatDialog,
+                private permanentOrdersService: PermanentOrderService,
                 private toaster:ToastrService,
                 private r: ActivatedRoute,
                 private studentService: StudentService,private generellService:GenerellService) {
@@ -50,16 +86,18 @@ export class ManageRegistrationStudentComponent implements OnInit{
     return groupName;
 
   }
+  actionsAfterEditStudent(){
+    this.selectedSubgroup = '';
+    this.selectedStudent = null;
+    this.submittingRequest = false;
+    this.isFlipped = false;
+    this.toaster.success('Änderung wurden erfolgreich übernommen','Erfolgreich');
+  }
   editStudent(student:StudentInterface){
     this.submittingRequest = true;
     student.subgroup = this.selectedSubgroup;
     this.studentService.editStudent(student).subscribe(response =>{
-      this.selectedSubgroup = '';
-      this.selectedStudent = null;
-      this.submittingRequest = false;
-      this.isFlipped = false;
-      this.toaster.success('Änderung wurden erfolgreich übernommen','Erfolgreich');
-
+      this.actionsAfterEditStudent();
     })
   }
 
@@ -94,12 +132,15 @@ export class ManageRegistrationStudentComponent implements OnInit{
     forkJoin(
       this.generellService.getCustomerInfo(),
       this.studentService.getRegisteredStudentsUser(),
-      this.generellService.getSettingsCaterer()
+      this.generellService.getSettingsCaterer(),
+      this.permanentOrdersService.getPermanentOrdersUser(),
+
     )
-      .subscribe(([customer,students,settings]:[CustomerInterface,StudentInterface[],SettingInterfaceNew])=>{
+      .subscribe(([customer,students,settings,permanentOrders]:[CustomerInterface,StudentInterface[],SettingInterfaceNew,PermanentOrderInterface[]])=>{
         this.customerInfo = customer;
         this.registeredStudents = students;
         this.settings = settings;
+        this.permanentOrders = permanentOrders;
         this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo,this.settings);
         this.pageLoaded = true;
       })

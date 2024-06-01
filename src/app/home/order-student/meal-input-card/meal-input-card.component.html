@@ -19,49 +19,55 @@
       </div>
     </div>
   </div>
-  <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
-    <div [matTooltip]="getTooltipText(pastOrder, lockDay)"
-         [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
-         [ngStyle]="getMenuStyle(eachMenu)"
-         class="shadow-lg rounded-lg overflow-hidden relative">
-      <div class="p-3" >
-        <!-- Top content goes here -->
-        <div class="flex">
-          <div class="w-full">
-            <div class="flex">
-              <div *ngIf="eachMenu.displayMenu" class="w-1/6">
-                <input (ngModelChange)="setOrderDay($event,indexMenu)"
-                       [(ngModel)]="eachMenu.menuSelected"
-                        [disabled]="pastOrder || lockDay"
-                       [name]="'menuSelected' + indexMenu + '_' + indexDay"
-                       [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
-              </div>
-              <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer">
-                <span>{{ eachMenu.nameOrder }}</span>
-                <span *ngIf="atLeastOneAllergene(eachMenu)"
-                      [matTooltip]="getTooltipContent(eachMenu.allergenes)">
+  <ng-container
+    [matTooltip]="getTooltipText(pastOrder, lockDay)"
+    matTooltipPosition="above"
+    matTooltipHideDelay="100">
+    <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
+      <div
+        [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
+        [ngStyle]="getMenuStyle(eachMenu)"
+        class="shadow-lg rounded-lg overflow-hidden relative">
+        <div class="p-3" >
+          <!-- Top content goes here -->
+          <div class="flex">
+            <div class="w-full">
+              <div class="flex">
+                <div *ngIf="eachMenu.displayMenu" class="w-1/6">
+                  <input (ngModelChange)="setOrderDay($event,indexMenu)"
+                         [(ngModel)]="eachMenu.menuSelected"
+                         [disabled]="pastOrder || lockDay"
+                         [name]="'menuSelected' + indexMenu + '_' + indexDay"
+                         [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
+                </div>
+                <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer">
+                  <span>{{ eachMenu.nameOrder }}</span>
+                  <span *ngIf="atLeastOneAllergene(eachMenu)"
+                        [matTooltip]="getTooltipContent(eachMenu.allergenes)">
                    <span class="allergen-ordinal">
                     ({{getAllergenes(eachMenu.allergenes)}})
                                </span>
         </span>
 
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- This part will always stay at the bottom, using absolute positioning -->
-      <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
-        <div class="flex justify-end">
-          {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
-          <fa-icon (click)="setOrderIcon(indexMenu,true)" *ngIf="!eachMenu.menuSelected"
-                   [icon]="faShoppingCart"></fa-icon>
-          <fa-icon (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
-                   class="ml-1"></fa-icon>
+        <!-- This part will always stay at the bottom, using absolute positioning -->
+        <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
+          <div class="flex justify-end">
+            {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
+            <fa-icon (click)="setOrderIcon(indexMenu,true)" *ngIf="!eachMenu.menuSelected"
+                     [icon]="faShoppingCart"></fa-icon>
+            <fa-icon (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
+                     class="ml-1"></fa-icon>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
 </div>
 <div *ngIf="submittingOrder" class="loading-screen">
   <div class="loading-circle"></div>

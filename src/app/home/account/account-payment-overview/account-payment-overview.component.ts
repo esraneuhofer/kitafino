@@ -127,18 +127,18 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
   openDialog() {
-    if(!this.tenantStudent.iban){
+    if(!this.tenantStudent.iban || !this.tenantStudent.address || !this.tenantStudent.city || !this.tenantStudent.zip){
       let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
       let reason = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS_NOT_IBAN')
       this.dialogService.openMessageDialog(reason, heading,'warning');
       return;
     }
-    // if (this.accountTenant.currentBalance === 0) {
+    if (this.accountTenant.currentBalance === 0) {
       let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
       let reason = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS_NOT_ENOUGH')
       this.dialogService.openMessageDialog(reason,heading,'warning');
       return;
-    // }
+    }
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmWithdrawDialogComponent, {
       width: '550px',

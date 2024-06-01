@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TenantStudentInterface} from "../../classes/tenant.class";
 import {ToastrService} from "ngx-toastr";
 import {isValidIBANNumber} from "../../functions/generell.functions";
+import {MessageDialogService} from "../../service/message-dialog.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-settings',
@@ -17,8 +19,8 @@ export class SettingsComponent implements OnInit{
   pageLoaded = false;
   constructor(private tenantService: TenantServiceStudent,
               private toastr: ToastrService,
-              private router: Router,
-              private route: ActivatedRoute) {
+              private translate: TranslateService,
+              private messageService:MessageDialogService) {
   }
   showFullIban: boolean = true;
   isEditing: boolean = false;
@@ -65,7 +67,8 @@ export class SettingsComponent implements OnInit{
   }
   editPersonalInformation(){
     if(this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)){
-      this.toastr.warning('Bitte geben Sie eine gültige IBAN ein')
+      let message = this.translate.instant('MANAGE_TENANT_SETTINGS.ERROR_INVALID_IBAN')
+      this.messageService.openMessageDialog(message,this.translate.instant('ERROR_TITLE'),'error')
       return
     }
     this.pageLoaded = false;
@@ -73,17 +76,20 @@ export class SettingsComponent implements OnInit{
 
       this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
         this.tenantModel = tenant;
-        this.toastr.success('Einstellungen gespeichert');
+        this.toastr.success(this.translate.instant('MANAGE_TENANT_SETTINGS.SUCCESS_SETTINGS_SAVED'));
         this.pageLoaded = true;
       })
     })
   }
   editTenantOrderSettings(boolean:boolean,type:('orderConfirmationEmail' | 'sendReminderBalance' | 'displayTypeOrderWeek' )){
+    this.submittingRequest = true;
     this.tenantModel.orderSettings[type] = boolean;
     this.tenantService.editParentTenant(this.tenantModel).subscribe((response)=>{
       this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
         this.tenantModel = tenant;
-        this.toastr.success('Einstellungen gespeichert');
+        this.toastr.success(this.translate.instant('MANAGE_TENANT_SETTINGS.SUCCESS_SETTINGS_SAVED'));
+        this.submittingRequest = false;
+
       })
     })
   }

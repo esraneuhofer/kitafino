@@ -35,9 +35,9 @@ export class RegisterTenantComponent implements OnInit {
     city: '',
     zip: '',
     orderSettings:{
-      orderConfirmationEmail:false,
-      sendReminderBalance:false,
-      amountBalance:0,
+      orderConfirmationEmail:true,
+      sendReminderBalance:true,
+      amountBalance:15,
       permanentOrder:false,
       displayTypeOrderWeek:false
     }
