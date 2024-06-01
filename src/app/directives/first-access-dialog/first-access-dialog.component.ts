@@ -12,28 +12,23 @@ import { animate, style, transition, trigger } from "@angular/animations";
   animations: [
     trigger('pageAnimation', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('300ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
+        style({ opacity: 0, transform: 'translate3d(100%, 0, 0)' }),
+        animate('300ms ease-in', style({ opacity: 1, transform: 'translate3d(0, 0, 0)' }))
       ]),
       transition(':leave', [
-        animate('300ms ease-out', style({ opacity: 0, transform: 'translateX(-100%)' }))
+        animate('300ms ease-out', style({ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }))
       ])
     ])
   ]
 })
 export class FirstAccessDialogComponent {
   currentPage: number = 0;
-  step1: FormGroup;
-  step2: FormGroup;
-  step3: FormGroup;
 
   constructor(private tenantService: TenantServiceStudent,
               @Inject(MAT_DIALOG_DATA) public data: TenantStudentInterface,
               public dialogRef: MatDialogRef<FirstAccessDialogComponent>,
               private _formBuilder: FormBuilder) {
-    this.step1 = this._formBuilder.group({});
-    this.step2 = this._formBuilder.group({});
-    this.step3 = this._formBuilder.group({});
+
   }
 
   goToNextPage() {

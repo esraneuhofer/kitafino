@@ -20,7 +20,7 @@
   "LOADING": "Laden...",
   "NO_ACCOUNT": "Noch kein Account?",
   "REGISTER_STUDENT_ERROR_TOASTR": "Schüler/in konnte nicht angelegt werden",
-  "REGISTER_SUCCESS_TOASTR": "Verpflegungsteilnehmer/in wurde erfolgreich angelegt",
+  "REGISTER_SUCCESS_TOASTR": "Verpflegungsteilnehmer/in wurde erfolgreich angelegt. <br> Wir haben Ihnen eine Email mit den Registrierungsinformationen an Ihre Email Adresse gesendet.",
   "SUCCESS": "Erfolgreich",
   "EMAIL_SENT": "Email wurde versendet",
   "REGISTER_HERE": "hier registrieren",

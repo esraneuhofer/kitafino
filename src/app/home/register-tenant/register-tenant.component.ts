@@ -92,10 +92,10 @@ export class RegisterTenantComponent implements OnInit {
       console.log(response)
       if (!response.error) {
         this.submittingRequest = false
-        this.translate.get('REGISTRATION_TENANT_SUCCESS').subscribe((res: string) => {
-          this.toastr.success(res);
+        // this.translate.get('REGISTRATION_TENANT_SUCCESS').subscribe((res: string) => {
+        //   this.toastr.success(res);
           this.router.navigateByUrl('/home/register_student');
-        });
+        // });
       }else{
         this.submittingRequest = false
       }

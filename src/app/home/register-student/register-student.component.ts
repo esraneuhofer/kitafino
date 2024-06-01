@@ -15,6 +15,7 @@ import {SettingInterfaceNew} from "../../classes/setting.class";
 import {TranslateService} from "@ngx-translate/core";
 import {FirstAccessDialogComponent} from "../../directives/first-access-dialog/first-access-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MessageDialogService} from "../../service/message-dialog.service";
 
 
 @Component({
@@ -52,6 +53,7 @@ export class RegisterStudentComponent implements OnInit{
               private dialog: MatDialog,
               private generellService: GenerellService,
               private tenantService: TenantServiceStudent,
+              private dialogeService: MessageDialogService,
               private translate: TranslateService){
   }
 
@@ -118,12 +120,16 @@ export class RegisterStudentComponent implements OnInit{
           this.submittingRequest = false;
           this.isFlipped = true;
           this.returnedUsernameStudent = res.student.username
-          this.toaster.success(this.translate.instant("REGISTER_SUCCESS_TOASTR"),this.translate.instant("SUCCESS"));
+          this.dialogeService.openMessageDialog(
+            this.translate.instant("REGISTER_SUCCESS_TOASTR"),
+            this.translate.instant("SUCCESS"),
+            'success');
+          // this.toaster.success(this.translate.instant("REGISTER_SUCCESS_TOASTR"),this.translate.instant("SUCCESS"));
           f.resetForm();
 
           const emailBody = getEmailBodyRegistrationStudent(this.customerInfo,res.student,this.tenantStudent,this.settings,this.translate);
           this.generalService.sendEmail(emailBody).subscribe((data: any) => {
-            this.toaster.success(this.translate.instant("REGISTRATION_STUNDENT_EMAIL_SENT"),this.translate.instant("SUCCESS"));
+            // this.toaster.success(this.translate.instant("REGISTRATION_STUNDENT_EMAIL_SENT"),this.translate.instant("SUCCESS"));
           })
 
         }
