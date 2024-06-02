@@ -41,6 +41,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class OrderStudentComponent implements OnInit {
 
+  textBannerWeekend:string = 'Am Wochenende kann keine Bestellung aufgegeben werden';
   isWeekend: boolean = false;
   displayOrderTypeWeek: boolean =true
   indexDay:number = 0;
@@ -92,6 +93,7 @@ export class OrderStudentComponent implements OnInit {
               private translate: TranslateService,
               private r: ActivatedRoute) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
+    this.textBannerWeekend = translate.instant("WEEKEND_NO_ORDER")
   }
 
   ngOnInit() {
@@ -196,7 +198,7 @@ export class OrderStudentComponent implements OnInit {
 
     this.isWeekend = checkDayWeekend(dateToSearch);
     if (this.isWeekend) {
-      this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
+      // this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
       this.pageLoaded = true;
       return;
     }

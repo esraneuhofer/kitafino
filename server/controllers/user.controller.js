@@ -5,7 +5,7 @@ const passport = require('passport');
 const _ = require('lodash');
 const Schooluser = mongoose.model('Schooluser');
 const SchoolNew = mongoose.model('SchoolNew');
-
+const {convertToSendGridFormat} = require('./sendgrid.function');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
@@ -106,14 +106,16 @@ module.exports.register = async (req, res, next) => {
 
     // Prepare email options
     const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
-    const mailOptions = {
-      from: `Cateringexpert <noreply@yourdomain.com>`,
+    const mailOptions = convertToSendGridFormat({
+      from: `Cateringexpert <noreply@cateringexpert.de>`,
       bcc: projectExists.emailRegistration || '',
       to: emailRegistration,
       subject: 'Accountinformationen✔',
       html: emailContent
-    };
-
+    });
+    let copy = JSON.parse(JSON.stringify(mailOptions));
+    delete copy.html;
+    console.log('mailOptions', copy);
     // Send the email
     const emailResult = await sendRegistrationEmail(mailOptions);
     if (!emailResult.success) {
@@ -140,6 +142,12 @@ const sendRegistrationEmail = async (emailOptions) => {
     return { success: true, message: 'Verifizierungsmail erfolgreich gesendet.' };
   } catch (err) {
     console.error(err);
+    if (err.response) {
+      console.error('SendGrid error code:', err.response.statusCode);
+      console.error('SendGrid error body:', err.response.body);
+    } else {
+      console.error('Error sending email:', err);
+    }
     if (err.code === 550) { // Hinweis: SendGrid-Fehlercodes überprüfen
       return { success: false, message: 'Die angegebene E-Mail-Adresse ist ungültig. Bitte geben Sie eine gültige E-Mail-Adresse an.' };
     } else {

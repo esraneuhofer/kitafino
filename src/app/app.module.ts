@@ -77,6 +77,7 @@ import { ConfirmDialogPermanetOrderComponent } from './home/permanent-orders/con
 import { TrimTextPipe} from "./directives/trim-text.pipe";
 import { LabelTooltipComponent } from './directives/label-tooltip/label-tooltip.component';
 import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-delete-special-food/confirm-delete-special-food.component';
+import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
 
 // AoT requires an exported function for factories
 
@@ -141,6 +142,7 @@ registerLocaleData(localeDe);
     TrimTextPipe,
     LabelTooltipComponent,
     ConfirmDeleteSpecialFoodComponent,
+    ErrorWeekendBannerComponent,
   ],
   imports: [
     BrowserModule,

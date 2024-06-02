@@ -208,14 +208,19 @@
       {{ 'NO_ACCOUNT' | translate }}
       <a routerLink="/signup" routerLinkActive="active" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'REGISTER_HERE' | translate }}</a>
     </p>
-    <p class="mt-10 text-center text-sm text-gray-500" *ngIf="shouldShow()">
-      {{ 'MOBILE_APP_AVAILABLE' | translate }}
-      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'INSTALL_APP' | translate }}</a>
-    </p>
-    <p class="mt-10 text-center text-sm text-gray-500" *ngIf="isSafari">
-      {{ 'MOBILE_APP_AVAILABLE' | translate }}
-      <a (click)="promptInstallSafari()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'INSTALL_APP' | translate }}</a>
-    </p>
+<!--    <p class="mt-10 text-center text-sm text-gray-500" *ngIf="shouldShow()">-->
+<!--      {{ 'MOBILE_APP_AVAILABLE' | translate }}-->
+<!--      <a (click)="promptInstall()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">{{ 'INSTALL_APP' | translate }}</a>-->
+<!--    </p>-->
+    <div class="mt-10 flex justify-center space-x-4">
+      <a href="https://play.google.com/store" target="_blank">
+        <img src="assets/img/google-play-badge-2022-2.svg" alt="Google Play Store" class="h-10">
+      </a>
+      <a href="https://www.apple.com/app-store/" target="_blank">
+        <img src="assets/img/Download_on_the_App_Store_Badge_DE_RGB_wht_092917.svg" alt="Apple App Store" class="h-10">
+      </a>
+    </div>
+
 
   </div>
 </div>

@@ -1,4 +1,8 @@
 {
+  "ADD_STUDENT_TEXT": "Verpflegungsteilnehmer/in hinzufügen",
+  "CHANGE_DAY": "Bestelltag ändern",
+  "WEEKEND_NO_ORDER":"Am Wochenende kann keine Bestellung aufgegeben werden",
+  "WEEKEND_NO_ORDER_DESCRIPTION_BOX":"Am Wochenende kann keine Bestellung aufgegeben werden. Bitte wählen Sie einen anderen Tag aus.",
   "KONTO_AUFLADEN": "Konto aufladen",
   "KLICK_HERE_FOR_MORE_INFORMATION": "Klicken Sie hier für weitere Informationen",
   "CONFIRM_BUTTON": "Bestätigen",
