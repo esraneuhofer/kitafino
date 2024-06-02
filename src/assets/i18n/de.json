@@ -65,7 +65,6 @@
   "REGISTRATION_STUDENT_DELETE_SPECIAL_FOOD_DIALOG": "Beim Löschen des Allergiker Essen wird eine vorhandene Dauerbestellung für den Verpflegungsteilnehmer/in gelöscht. Möchten Sie fortfahren? <br><br>Die Dauerbestellung kann im Anschluss wieder neu angelegt werden.",
   "REGISTRATION_INSTRUCTIONS": "Bitte tragen Sie alle Daten ein und gehen Sie anschließend auf \"anlegen\".",
   "REGISTRATION_CONFIRMATION": "Im Anschluss erhalten Sie eine Bestätigung per Email an Ihre hinterlegte Emailadresse.",
-  "SPECIAL_FOOD_HEADING": "Allergiker Essen",
   "SPECIAL_FOOD_INSTRUCTIONS": "Verfügbare Allergiker Essen werden vom jeweiligen Caterer bereitgestellt. Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet.",
   "SPECIAL_FOOD_LABEL": "Allergiker Essen",
   "SUBGROUP_LABEL": "Gruppe zuordnen",
