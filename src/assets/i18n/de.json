@@ -411,5 +411,9 @@
     "NAME": "Name",
     "EDIT": "Bearbeiten",
     "EDIT_BUTTON": "Bearbeiten"
-  }
+  },
+  "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Bitte wählen Sie einen Verpflegungsteilnehmer/in aus",
+  "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Dem Verpflegungsteilnehmer/in ist keine Gruppe zugeordnet",
+  "ORDER_STUDENT_SELECT_DAY": "Bitte wählen Sie einen Tag aus"
+
 }

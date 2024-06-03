@@ -236,7 +236,7 @@ export class OrderStudentComponent implements OnInit {
 
   getOrderDay(queryDate: QueryInterOrderInterface): void {
     if (!this.selectedStudent) {
-      this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
+      this.toastr.warning(this.translate.instant('ORDER_STUDENT_PLEASE_SELECT_STUDENT'));
       this.pageLoaded = true;
       // this.fetchingOrder = false;
       return
@@ -247,7 +247,7 @@ export class OrderStudentComponent implements OnInit {
   selectStudentSingle(student: StudentInterface | null) {
     this.pageLoaded = false;
     if(!this.selectedDay) {
-      this.toastr.error('Bitte wählen Sie einen Tag aus')
+      this.toastr.error(this.translate.instant('ORDER_STUDENT_SELECT_DAY'))
       return;
     }
     if(this.checkForErrors(student)){
@@ -273,14 +273,14 @@ export class OrderStudentComponent implements OnInit {
   checkForErrors(selectedStudent:StudentInterface | null):boolean{
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
-      this.toastr.warning('Bitte wählen Sie einen Verpflegungsteilnehmer aus');
+      this.toastr.warning(this.translate.instant('ORDER_STUDENT_PLEASE_SELECT_STUDENT'));
       this.pageLoaded = true;
       return true
     }
     if (!selectedStudent.subgroup) {
       this.studentNoSubgroup = true;
       this.pageLoaded = true;
-      this.toastr.warning('Dem Verpflegungsteilnehmer ist keine Gruppe zugeordnet');
+      this.toastr.warning(this.translate.instant('ORDER_STUDENT_NO_SUBGROUP_SELECTED'));
       return true
     }
     return false;
