@@ -54,6 +54,7 @@ async function addTaskSendReminder(customer, settings) {
       const mailOptions = {
         to: customer.email, // Ensure you have the customer's email address
         from: 'noreply@yourdomain.com', // Your verified SendGrid sender address
+        bcc:'eltern_bestellung@cateringexpert.de',
         subject: 'Bestellungsübersicht für die Woche',
         html: emailBody // HTML body
       };

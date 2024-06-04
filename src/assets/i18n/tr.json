@@ -170,7 +170,7 @@
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ayarlar kaydedildi",
     "ERROR_INVALID_IBAN": "IBAN ülke kodu ile başlamalı ve geçerli bir uzunluğa sahip olmalıdır. Lütfen girişinizi kontrol edin.",
-    "PERSONAL_INFO_HEADER": "Kayıt",
+    "PERSONAL_INFO_HEADER": "Temel veriler",
     "PERSONAL_INFO_SUBHEADER": "Değişikliği onaylamak için \"Değiştir\" düğmesine tıklayın",
     "FIRST_NAME": "Ad",
     "LAST_NAME": "Soyad",
@@ -414,5 +414,6 @@
   },
   "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Lütfen bir katılımcı seçin",
   "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Katılımcıya grup atanmadı",
-  "ORDER_STUDENT_SELECT_DAY": "Lütfen bir gün seçin"
+  "ORDER_STUDENT_SELECT_DAY": "Lütfen bir gün seçin",
+  "BENUTZERNAME": "Kullanıcı adı"
 }

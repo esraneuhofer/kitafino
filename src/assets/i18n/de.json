@@ -170,7 +170,7 @@
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Einstellungen gespeichert",
     "ERROR_INVALID_IBAN": "Die IBAN muss mit einem Länderzeichen beginnen und eine gültige Länge haben. Bitte überprüfen Sie Ihre Eingabe.",
-    "PERSONAL_INFO_HEADER": "Registrierung",
+    "PERSONAL_INFO_HEADER": "Stammdaten",
     "PERSONAL_INFO_SUBHEADER": "Bestätigen Sie die Änderung anschließend mit \"Ändern\"",
     "FIRST_NAME": "Vorname",
     "LAST_NAME": "Nachname",
@@ -414,6 +414,7 @@
   },
   "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Bitte wählen Sie einen Verpflegungsteilnehmer/in aus",
   "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Dem Verpflegungsteilnehmer/in ist keine Gruppe zugeordnet",
-  "ORDER_STUDENT_SELECT_DAY": "Bitte wählen Sie einen Tag aus"
+  "ORDER_STUDENT_SELECT_DAY": "Bitte wählen Sie einen Tag aus",
+  "BENUTZERNAME": "Benutzername"
 
 }

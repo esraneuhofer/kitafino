@@ -42,3 +42,12 @@ export function emailNotValid(email: string): boolean {
 export function jaOrderNein(input:boolean):string {
   return input ? 'Ja' : 'Nein'
 }
+
+export function convertNumberToCurrency(input:number):string{
+  let number = Math.round((input + Number.EPSILON) * 100) / 100
+  return formatter.format(number)
+}
+const formatter = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+});

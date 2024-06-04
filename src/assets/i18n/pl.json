@@ -170,7 +170,7 @@
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ustawienia zapisane",
     "ERROR_INVALID_IBAN": "IBAN musi zaczynać się od kodu kraju i mieć prawidłową długość. Proszę sprawdzić wprowadzone dane.",
-    "PERSONAL_INFO_HEADER": "Rejestracja",
+    "PERSONAL_INFO_HEADER": "Dane podstawowe",
     "PERSONAL_INFO_SUBHEADER": "Potwierdź zmianę klikając \"Zmień\"",
     "FIRST_NAME": "Imię",
     "LAST_NAME": "Nazwisko",
@@ -414,5 +414,6 @@
   },
   "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Proszę wybrać uczestnika",
   "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Uczestnik nie ma przypisanej grupy",
-  "ORDER_STUDENT_SELECT_DAY": "Proszę wybrać dzień"
+  "ORDER_STUDENT_SELECT_DAY": "Proszę wybrać dzień",
+  "BENUTZERNAME": "Nazwa użytkownika"
 }

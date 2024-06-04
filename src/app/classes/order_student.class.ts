@@ -147,13 +147,21 @@ function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterfac
 export function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
   if(settings.orderSettings.showDessertIfNotSeparate && typeSpecial === 'dessert') return false
   if(settings.orderSettings.showSideIfNotSeparate && typeSpecial === 'side') return false
-  // if(settings.orderSettings.dessertPortionChoose && typeSpecial === 'dessert') return true
-  // if(settings.orderSettings.sidePortionChoose && typeSpecial === 'side') return true
   return true;
 }
 
 export function getPriceOrder(): number{
   return 5;
+}
+export function getPriceOrderPlaced(orderStudent:OrderInterfaceStudent):number{
+    let price = 0;
+    orderStudent.order.orderMenus.forEach(eachOrder=>{
+      if(eachOrder.amountOrder > 0) price += eachOrder.priceOrder * eachOrder.amountOrder;
+    })
+    orderStudent.order.specialFoodOrder.forEach(eachOrder=>{
+      if(eachOrder.amountSpecialFood > 0) price += eachOrder.priceOrder * eachOrder.amountSpecialFood;
+    })
+    return price;
 }
 export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
                                   customer: CustomerInterface,
@@ -288,14 +296,6 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
         active: false,
       });
     }
-    // }else{
-    //   arraySpecial.push({
-    //     nameSpecialFood: specialFood.nameSpecialFood,
-    //     idSpecialFood: specialFood._id,
-    //     amountSpecialFood: 0,
-    //     active: false,
-    //     visible:false
-    //   })
   });
   return removeDuplicatesSpecialFood(arraySpecial);
 }

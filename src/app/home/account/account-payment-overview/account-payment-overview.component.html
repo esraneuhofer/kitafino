@@ -2,203 +2,89 @@
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
       <div class="w-full xs-full sm:w-full md:w-11/12">
-          <div>
-            <div class="sm:flex-auto">
-              <!--            <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">Einzahlung</h1>-->
-              <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
-                <div class="flex flex-col items-start justify-center">
-                  <h3 class="text-sm font-medium m-3 mb-2 ">Einzahlung Überweisung</h3>
+        <div>
+          <div class="sm:flex-auto">
+            <!-- <h1 class="text-base font-semibold leading-6 text-gray-900 mb-3">{{ 'ACCOUNT.TITLE_DEPOSIT' | translate }}</h1> -->
+            <div class="rounded-md bg-blue-50 p-4 whitespace-normal">
+              <div class="flex flex-col items-start justify-center">
+                <h3 class="text-sm font-medium m-3 mb-2">{{ 'ACCOUNT.TITLE_DEPOSIT_TRANSFER' | translate }}</h3>
 
-                  <div class="ml-3 flex-1 md:flex md:justify-between md:text-left">
-
-                    <p class="mt-2 text-sm text-gray-700">
-
-                      Um Geld auf Ihr Konto einzuzahlen, überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:
-                      <br><br>
-                      Cateringexpert Software Solutions GmbH <br>
-                      Deutsche Bank <br>
-                      <b>IBAN:</b> DE12345678901234567890
-                      <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
-                               [icon]="faClipboard"
-                               [matTooltip]="'In Ablage kopieren'"
-                               class="ml-1"></fa-icon>
-                      <br>
-                      <b>BIC:</b> DEUTDEDBXXX <br>
-                      <b>Verwendungszweck:</b> {{tenantStudent.username}}
-                      <fa-icon (click)="copyToClipboard(tenantStudent.username)"
-                               [icon]="faClipboard"
-                               [matTooltip]="'In Ablage kopieren'"
-                               class="ml-1"></fa-icon>
-                      <br><br>
-
-                      <b>Wichtig:</b>
-                      Geben Sie bitte unbedingt Ihren Benutzernamen: <b>{{tenantStudent.username}} </b> im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen
-                      genau so in den Verwendungszweck eintragen, wie er registriert ist. Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden.
-                      Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen.
-                      <br><br>
-
-                      Vielen Dank.
-                    </p>
-
-                  </div>
-                  <div class="mt-3 ml-3 flex-1 md:flex md:justify-between md:text-left">
-                    <app-button [submittingRequest]="submittingRequest" (click)="goToLink()" [mr]="true" [typeButton]="'primary'">Details Kontobewegungen</app-button>
-                  </div>
+                <div class="ml-3 flex-1 md:flex md:justify-between md:text-left">
+                  <p class="mt-2 text-sm text-gray-700">
+                    {{ 'ACCOUNT.DEPOSIT_INSTRUCTIONS' | translate }}
+                    <br><br>
+                    {{ 'ACCOUNT.COMPANY_NAME' | translate }} <br>
+                    {{ 'ACCOUNT.BANK_NAME' | translate }} <br>
+                    <b>{{ 'ACCOUNT.IBAN' | translate }}:</b> DE12345678901234567890
+                    <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
+                             [icon]="faClipboard"
+                             [matTooltip]="'In Ablage kopieren'"
+                             class="ml-1"></fa-icon>
+                    <br>
+                    <b>{{ 'ACCOUNT.BIC' | translate }}:</b> DEUTDEDBXXX <br>
+                    <b>{{ 'ACCOUNT.PURPOSE' | translate }}:</b> {{tenantStudent.username}}
+                    <fa-icon (click)="copyToClipboard(tenantStudent.username)"
+                             [icon]="faClipboard"
+                             [matTooltip]="'In Ablage kopieren'"
+                             class="ml-1"></fa-icon>
+                    <br><br>
+                    <b>{{ 'ACCOUNT.IMPORTANT_NOTE' | translate }}:</b>
+                    {{ 'ACCOUNT.USERNAME_NOTE' | translate }}: <b>{{tenantStudent.username}} </b> {{ 'ACCOUNT.PURPOSE_INSTRUCTIONS' | translate }}
+                    <br><br>
+                    {{ 'ACCOUNT.THANK_YOU' | translate }}
+                  </p>
+                </div>
+                <div class="mt-3 ml-3 flex-1 md:flex md:justify-between md:text-left">
+                  <app-button [submittingRequest]="submittingRequest" (click)="goToLink()" [mr]="true" [typeButton]="'primary'">{{ 'ACCOUNT.MOVEMENT_DETAILS' | translate }}</app-button>
                 </div>
               </div>
-
-
-              <div class="rounded-md bg-yellow-100 p-4 mt-2">
-                <div class="flex flex-col justify-between items-start">
-                  <h3 class="text-sm font-medium mb-2">Direkeinzahlung</h3>
-
-                  <p class="text-sm text-gray-700 mb-4">
-                    Geld direkt auf Ihr Konto einzahlen mit PayPal, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem
-                    Konto gutgeschrieben.
-                  </p>
-                  <div class="w-full">
-                    <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2" #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)">
-                      <div class="flex flex-col w-full sm:w-auto">
-<!--                        <label for="amountChartModel" class="block text-sm font-medium text-gray-700 mb-1">Betrag</label>-->
-                        <input type="number"
-                               required
-                               #amountChartModel="ngModel"
-                               placeholder="Betrag eingeben"
-                               [(ngModel)]="amountCharge"
-                               min="5"
-                               (input)="onAmountChange($event)"
-                               name="amountChartModel"
-                               id="amountChartModel"
-                               [ngClass]="{'invalid-input': signInForm.submitted && amountChartModel.invalid}"
-                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300">
-                      </div>
-                      <p *ngIf="signInForm.submitted && amountChartModel.invalid " class="mt-2 text-sm text-red-600" id="projectId-error">Mindesteinzahlung beträgt 5€</p>
-
-                      <div class="flex  sm:justify-start items-center sm:items-end w-full ">
-                        <app-button [additionalClass]="'w-full '" [mr]="true" [submittingRequest]="submittingRequest" [typeButton]="'primary'">Direkteinzahlung</app-button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div *ngIf="amountCharge && amountCharge > 0" class="mt-2">
-                  <p class="text-sm text-gray-700">
-                    Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben. <br>
-                    <u>Die Einzahlung per Überweisung ist kostenfrei</u><br><br>
-                    Geschätzte Gebühren:
-                  </p>
-                  <p class="text-sm text-gray-700" *ngFor="let eachPayment of paymentFeeArray">
-                   <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>
+            </div>
+            <div class="rounded-md bg-yellow-100 p-4 mt-2">
+              <div class="flex flex-col justify-between items-start">
+                <h3 class="text-sm font-medium mb-2">{{ 'ACCOUNT.DIRECT_DEPOSIT' | translate }}</h3>
+                <p class="text-sm text-gray-700 mb-4">{{ 'ACCOUNT.DIRECT_DEPOSIT_DESCRIPTION' | translate }}</p>
+                <div class="w-full">
+                  <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2" #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)">
+                    <div class="flex flex-col w-full sm:w-auto">
+                      <input type="number"
+                             required
+                             #amountChartModel="ngModel"
+                             placeholder="{{ 'ACCOUNT.ENTER_AMOUNT' | translate }}"
+                             [(ngModel)]="amountCharge"
+                             min="5"
+                             (input)="onAmountChange($event)"
+                             name="amountChartModel"
+                             id="amountChartModel"
+                             [ngClass]="{'invalid-input': signInForm.submitted && amountChartModel.invalid}"
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300">
+                    </div>
+                    <p *ngIf="signInForm.submitted && amountChartModel.invalid" class="mt-2 text-sm text-red-600" id="projectId-error">{{ 'ACCOUNT.MIN_DEPOSIT' | translate }}</p>
+                    <div class="flex sm:justify-start items-center sm:items-end w-full">
+                      <app-button [additionalClass]="'w-full '" [mr]="true" [submittingRequest]="submittingRequest" [typeButton]="'primary'">{{ 'ACCOUNT.DIRECT_DEPOSIT_BUTTON' | translate }}</app-button>
+                    </div>
+                  </form>
                 </div>
               </div>
-
-
-
-
-              <div class="rounded-md bg-green-100 p-4 mt-2">
-                <div class="flex flex-col md:items-start">
-                  <h3 class="text-sm font-medium mb-2">Auszahlung</h3>
-
-                  <p class="text-sm text-gray-700 mb-4">
-                    Ihr derzeitiges Guthaben beträgt: <b>{{accountTenant.currentBalance | currency:'€'}}</b>
-                  </p>
-                  <div class="flex justify-start w-full md:w-auto">
-                    <app-button [submittingRequest]="submittingRequest" (click)="openDialog()" [mr]="true" [typeButton]="'primary'">Geld abbuchen</app-button>
-                  </div>
+              <div *ngIf="amountCharge && amountCharge > 0" class="mt-2">
+                <p class="text-sm text-gray-700">
+                  {{ 'ACCOUNT.FEES_NOTE' | translate }}
+                </p>
+                <p class="text-sm text-gray-700" *ngFor="let eachPayment of paymentFeeArray">
+                  <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>
+              </div>
+            </div>
+            <div class="rounded-md bg-green-100 p-4 mt-2">
+              <div class="flex flex-col md:items-start">
+                <h3 class="text-sm font-medium mb-2">{{ 'ACCOUNT.WITHDRAW' | translate }}</h3>
+                <p class="text-sm text-gray-700 mb-4">{{ 'ACCOUNT.CURRENT_BALANCE' | translate }}: <b>{{accountTenant.currentBalance | currency:'€'}}</b></p>
+                <div class="flex justify-start w-full md:w-auto">
+                  <app-button [submittingRequest]="submittingRequest" (click)="openDialog()" [mr]="true" [typeButton]="'primary'">{{ 'ACCOUNT.WITHDRAW_BUTTON' | translate }}</app-button>
                 </div>
               </div>
-
-
-
             </div>
           </div>
-<!--          <div class="mt-8 flow-root ">-->
-<!--            <div class="bg-white shadow-md rounded">-->
-<!--              <div class="sm:flex sm:items-center">-->
-<!--                <div class="sm:flex-auto">-->
-<!--                  <h1 class="text-base font-semibold leading-6 text-gray-900">Bestellhistorie</h1>-->
-<!--                  <p class="mt-2 text-sm text-gray-700">Liste aller Bestellungen und Stornierungen</p>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Button for md and larger screens &ndash;&gt;-->
-<!--                <div class="hidden md:block md:ml-auto">-->
-<!--                  <button-->
-<!--                    class="mt-1 block px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
-<!--                    CSV Export-->
-<!--                  </button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="mt-8 flow-root">-->
-<!--                <div class="flow-root">-->
-<!--                  &lt;!&ndash; Container for input fields with half width &ndash;&gt;-->
-<!--                  <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4">-->
-<!--                    &lt;!&ndash; Select input field &ndash;&gt;-->
-<!--                    <select [(ngModel)]="queryYear"-->
-<!--                            class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">-->
-<!--                      <option [ngValue]="2024">2024</option>-->
-<!--                    </select>-->
-<!--                    &lt;!&ndash; Text input field &ndash;&gt;-->
-<!--                    <input (input)="search($event)"-->
-<!--                           [(ngModel)]="searchTerm"-->
-<!--                           class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full" placeholder="Suchen nach..."-->
-<!--                           type="text">-->
-<!--                    &lt;!&ndash; Button for sm and smaller screens &ndash;&gt;-->
-<!--                    <div class="block md:hidden mt-1 sm:mt-0">-->
-<!--                      <button-->
-<!--                        class="block w-full px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
-<!--                        CSV Export-->
-<!--                      </button>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            <div class="overflow-x-auto">-->
-<!--              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">-->
-<!--                 <table class="min-w-full divide-y divide-gray-300">-->
-<!--                  <thead>-->
-<!--                  <tr>-->
-<!--                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">-->
-<!--                      Datum-->
-<!--                    </th>-->
-<!--                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Art</th>-->
-<!--                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">Betrag</th>-->
-<!--                  </tr>-->
-<!--                  </thead>-->
-<!--                  <tbody class="divide-y divide-gray-200">-->
-<!--                  <tr *ngFor="let payment of accountCharges  |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">-->
-<!--                    <td-->
-<!--                      class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>-->
-<!--                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">-->
-<!--                      <span>{{getType(payment.typeCharge)}}</span>-->
-<!--                    </td>-->
-<!--                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>-->
-<!--                  </tr>-->
-<!--                  <tr *ngIf="accountCharges.length === 0">-->
-<!--                    <td colspan="100%">-->
-<!--                      <app-general-banner></app-general-banner>-->
-<!--                    </td>-->
-<!--                  </tr>-->
-<!--                  </tbody>-->
-<!--                </table>-->
-<!--                <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>-->
-<!--                <div class="flex flex-col md:flex-row mt-3">-->
-<!--                  <div class="md:w-3/3 w-full">-->
-<!--                    <div class="flex justify-start md:justify-end">-->
-<!--                      <ngb-pagination-->
-<!--                        [(page)]="page"-->
-<!--                        [boundaryLinks]="false"-->
-<!--                        [collectionSize]="accountCharges.length"-->
-<!--                        [directionLinks]="true"-->
-<!--                        [ellipses]="true"-->
-<!--                        [maxSize]="3"-->
-<!--                        [pageSize]="pageSize"-->
-<!--                        [rotate]="true"></ngb-pagination>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            </div>-->
-<!--          </div>-->
         </div>
+      </div>
     </div>
   </div>
 </ng-container>

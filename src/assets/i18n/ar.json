@@ -170,7 +170,7 @@
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "تم حفظ الإعدادات",
     "ERROR_INVALID_IBAN": "يجب أن يبدأ الـ IBAN برمز دولة وأن يكون بطول صحيح. يرجى التحقق من إدخال البيانات.",
-    "PERSONAL_INFO_HEADER": "التسجيل",
+    "PERSONAL_INFO_HEADER": "البيانات الأساسية",
     "PERSONAL_INFO_SUBHEADER": "أكد التغيير بالضغط على \"تغيير\"",
     "FIRST_NAME": "الاسم الأول",
     "LAST_NAME": "اسم العائلة",
@@ -414,5 +414,6 @@
   },
   "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "يرجى اختيار مشارك في الوجبات",
   "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "لم يتم تعيين مجموعة للمشارك في الوجبات",
-  "ORDER_STUDENT_SELECT_DAY": "يرجى اختيار يوم"
+  "ORDER_STUDENT_SELECT_DAY": "يرجى اختيار يوم",
+  "BENUTZERNAME": "اسم المستخدم"
 }

@@ -34,6 +34,7 @@ function getOrderBodyNew(obj) {
     from: obj.settings.tenantSettings.contact.companyName + '<noreply@cateringexpert.de>', // sender address
     replyTo: obj.settings.orderSettings.confirmationEmail,
     to: [emailArray], // list of receivers
+    bcc:'eltern_bestellung@cateringexpert.de',
     subject: 'Bestellbestätigung✔', // Subject line
     html: '<head>\n' +
       '  <meta charset="UTF-8">\n' +

@@ -110,7 +110,7 @@ export function getInvoiceDateOne(date:Date) {
 
 export function getTimeToDisplay() {
   // Format the date and time using Moment.js
-  let formatted = moment(new Date()).format('YYYY-DD-YY HH:mm:ss') + ' Uhr';
+  let formatted = moment(new Date()).format('DD.MM.YYYY HH:mm:ss') + ' Uhr';
   return formatted;
 }
 

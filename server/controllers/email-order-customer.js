@@ -39,6 +39,7 @@ function getEmailBodyOrderDayCustomer(weekplanDay, ordersStudentCustomer, settin
     const emailBodyBasic = {
       from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
+      bcc:'eltern_bestellung@cateringexpert.de',
       to: settings.orderSettings.confirmationEmail, // list of receivers
       subject: 'Bestellung',
       html: emailBody

@@ -7,7 +7,8 @@
           <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
             <div class="space-y-12">
               <div class="pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.PERSONAL_INFO_HEADER' | translate }}</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.PERSONAL_INFO_HEADER' | translate }} -
+                {{'BENUTZERNAME' | translate}}: {{tenantModel.username}}</h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'MANAGE_TENANT_SETTINGS.PERSONAL_INFO_SUBHEADER' | translate }}</p>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="sm:col-span-3">

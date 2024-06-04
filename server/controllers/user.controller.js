@@ -108,7 +108,7 @@ module.exports.register = async (req, res, next) => {
     const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
     const mailOptions = convertToSendGridFormat({
       from: `Cateringexpert <noreply@cateringexpert.de>`,
-      bcc: projectExists.emailRegistration || '',
+      bcc:'eltern_bestellung@cateringexpert.de',
       to: emailRegistration,
       subject: 'Accountinformationen✔',
       html: emailContent

@@ -170,7 +170,8 @@
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Налаштування збережено",
     "ERROR_INVALID_IBAN": "IBAN повинен починатися з коду країни і мати дійсну довжину. Будь ласка, перевірте введені дані.",
-    "PERSONAL_INFO_HEADER": "Реєстрація",
+    "PERSONAL_INFO_HEADER": "Основні дані",
+    "BENUTZERNAME": "Ім'я користувача",
     "PERSONAL_INFO_SUBHEADER": "Підтвердіть зміну натисканням \"Змінити\"",
     "FIRST_NAME": "Ім'я",
     "LAST_NAME": "Прізвище",
@@ -410,9 +411,10 @@
     "DESCRIPTION": "Усі документи відображаються обраною мовою. Для перегляду документа іншою мовою виберіть потрібну мову.",
     "NAME": "Ім'я",
     "EDIT": "Редагувати",
-    "EDIT_BUTTON": "Редагувати",
-    "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Будь ласка, виберіть учасника",
-    "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Учаснику не призначено групу",
-    "ORDER_STUDENT_SELECT_DAY": "Будь ласка, виберіть день"
-  }
+    "EDIT_BUTTON": "Редагувати"
+  },
+  "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Будь ласка, виберіть учасника",
+  "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Учаснику не призначено групу",
+  "ORDER_STUDENT_SELECT_DAY": "Будь ласка, виберіть день",
+  "BENUTZERNAME": "Ім'я користувача"
 }

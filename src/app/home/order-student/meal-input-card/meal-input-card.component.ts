@@ -350,6 +350,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       const emailBody = getEmailBodyCancel(emailObject);
       this.generalService.sendEmail(emailBody).subscribe({
         next: (emailResponse) => {
+          console.log('E-Mail erfolgreich gesendet:', emailResponse);
           this.orderPlaced.emit(true);
           this.submittingOrder = false;
         },
@@ -459,7 +460,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      console.error('Error retrieving account:', accountTenant);
       this.finalizeOrder();
     }
   }
