@@ -33,7 +33,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // CORS configuration
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:4200', // your frontend URL
+    // origin: process.env.FRONTEND_URL || 'http://localhost:4200', // your frontend URL
+   origin:'https://kitafino-45139aec3e10.herokuapp.com/login',
     credentials: true,
 };
 app.use(cors(corsOptions));

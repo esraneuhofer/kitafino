@@ -5,12 +5,12 @@
   "projects": {
     "schulanmeldungen": {
       "projectType": "application",
+      "root": "",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -73,7 +73,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
