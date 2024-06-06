@@ -27,6 +27,8 @@ import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.cla
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
 import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
+import {TranslateService} from "@ngx-translate/core";
+import {LanguageService} from "../../../service/language.service";
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -91,9 +93,9 @@ registerLocaleData(localeDe);
 })
 export class MealInputCardComponent implements OnInit, OnDestroy {
 
-  protected readonly atLeastOneAllergene = atLeastOneAllergene;
-  protected readonly getTooltipContent = getTooltipContent;
-  protected readonly getAllergenes = getAllergenes;
+  atLeastOneAllergene = atLeastOneAllergene;
+  getTooltipContent = getTooltipContent;
+  getAllergenes = getAllergenes;
   @Input() lockDay: boolean = false;
   @Input() indexDay!: number;
   @Input() orderDay!: MealCardInterface
@@ -116,12 +118,15 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   submittingRequest: boolean = false;
   faShoppingCart = faShoppingCart;
   faTrashCan = faTrashCan;
-
+  selectedLanguage: string = 'de';
   constructor(private orderService: OrderService,
               private toastr: ToastrService,
               private dialog: MatDialog,
               private generalService: GenerellService,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private languageService: LanguageService,
+              private translate: TranslateService) {
+    this.selectedLanguage = this.languageService.getLanguage();
 
   }
 
@@ -140,9 +145,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
   getTooltipText(pastOrder: boolean, lockDay: boolean): string {
     if (pastOrder) {
-      return 'Bestellfrist abgelaufen';
+      return this.translate.instant('BESTELLFRIST_ABGELAUFEN');
     } else if (lockDay) {
-      return 'Schließtag';
+      return this.translate.instant('SCHLLIESSTAG');
     } else {
       return '';
     }
@@ -254,11 +259,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkOrder(orderModel: OrderInterfaceStudent): string | null {
-    if (orderIsEmpty(orderModel)) return "Bitte wählen Sie mindestens ein Menü aus"
-    if (orderIsNegative(orderModel)) return "Es können keine negativen Zahlen bestellt werden" // Irrelevant
-    return null;
-  }
 
   checkOrderForOnlyOneMenu(orderModel: OrderInterfaceStudent, indexMenu: number): boolean {
     let copyOrderDay: OrderInterfaceStudent = JSON.parse(JSON.stringify(orderModel))
@@ -325,7 +325,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderService.cancelOrderStudent(orderModel).subscribe({
         next: (data) => {
           if (data.success) {
-            this.toastr.success('Bestellung wurde storniert', 'Erfolgreich');
+            this.toastr.success(this.translate.instant('BESTELLUNG_STORNIERT_ALERT'), this.translate.instant('SUCCESS'));
             if(result.sendCopyEmail){
               this.processEmailAfterCancellation(orderModel, result, data);
             }else{
@@ -377,8 +377,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (!distance) {
       // this.pastOrder = true;
       this.pastOrder = true;
-      this.differenceTimeDeadline = 'Bestellfrist ist abgelaufen!';
-      this.differenceTimeDeadlineDay = 'Bestellfrist ist abgelaufen!';
+      this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
+      this.differenceTimeDeadlineDay = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
       clearInterval(this.timerInterval);
     } else {
       clearInterval(this.timerInterval);
@@ -419,10 +419,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
   private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}, indexMenu: number) {
     if (data.success) {
-      this.toastr.success('Bestellung wurde gespeichert', 'Erfolgreich');
+      this.toastr.success(this.translate.instant('BESTELLUNG_EINGETRAGEN'), this.translate.instant('SUCCESS'));
       this.fetchAccountAndHandleEmails(orderModel, type, result);
     } else {
-      this.toastr.error('Bestellung wurde nicht gespeichert', 'Fehler');
+      this.toastr.error(this.translate.instant('BESTELLUNG_NICHT_EINGETRAGEN'), this.translate.instant('ERROR_TITLE'));
       this.resetOrderSelection(indexMenu);
     }
   }

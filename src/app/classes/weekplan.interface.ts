@@ -3,7 +3,7 @@ import {SettingInterfaceNew} from "./setting.class";
 import {Allergene} from "./allergenes.interface";
 import {QueryInterOrderInterface} from "../functions/weekplan.functions";
 export const numberFive = [
-  [0, 'Montag'],
+  [0, 'Montags'],
   [1, 'Dienstag'],
   [2, 'Mittwoch'],
   [3, 'Donnerstag'],

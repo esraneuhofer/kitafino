@@ -40,7 +40,20 @@ const corsOptions = {
   ],
   credentials: true,
 };
+
+
 app.use(cors(corsOptions));
+
+// Statische Dateien aus dem .well-known Verzeichnis bedienen
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+
+// Log all incoming requests
+// app.use((req, res, next) => {
+//   console.log(`${req.method} ${req.url}`);
+//   console.log('Headers:', req.headers);
+//   console.log('Body:', req.body);
+//   next();
+// });
 
 require(__dirname + '/server/models/message.model');
 require(__dirname + '/server/models/task-order.model');

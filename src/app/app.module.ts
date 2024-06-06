@@ -45,6 +45,23 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { ButtonComponent } from './directives/button/button.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
+import localeEn from '@angular/common/locales/en';
+import localeTr from '@angular/common/locales/tr';
+import localeAr from '@angular/common/locales/ar';
+import localeUk from '@angular/common/locales/uk';
+import localeEs from '@angular/common/locales/es';
+import localePl from '@angular/common/locales/pl';
+import localeZh from '@angular/common/locales/zh';
+import localeFr from '@angular/common/locales/fr';
+import localeIt from '@angular/common/locales/it';
+import localeRu from '@angular/common/locales/ru';
+import localeEl from '@angular/common/locales/el';
+import localeRo from '@angular/common/locales/ro';
+import localeNl from '@angular/common/locales/nl';
+import localeHi from '@angular/common/locales/hi';
+import localeYue from '@angular/common/locales/yue';
+import localeBg from '@angular/common/locales/bg';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SchoolOverviewComponent } from './home/school-overview/school-overview.component';
 import { BannerNoSubgroupOrderComponent } from './home/banners/banner-no-subgroup-order/banner-no-subgroup-order.component';
@@ -78,14 +95,34 @@ import { TrimTextPipe} from "./directives/trim-text.pipe";
 import { LabelTooltipComponent } from './directives/label-tooltip/label-tooltip.component';
 import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-delete-special-food/confirm-delete-special-food.component';
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
+import {LanguageService} from "./service/language.service";
 
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-registerLocaleData(localeDe);
+registerLocaleData(localeDe, 'de');
+registerLocaleData(localeEn, 'en');
+registerLocaleData(localeTr, 'tr');
+registerLocaleData(localeAr, 'ar');
+registerLocaleData(localeUk, 'uk');
+registerLocaleData(localeEs, 'es');
+registerLocaleData(localePl, 'pl');
+registerLocaleData(localeZh, 'zh');
+registerLocaleData(localeFr, 'fr');
+registerLocaleData(localeIt, 'it');
+registerLocaleData(localeRu, 'ru');
+registerLocaleData(localeEl, 'el');
+registerLocaleData(localeRo, 'ro');
+registerLocaleData(localeNl, 'nl');
+registerLocaleData(localeHi, 'hi');
+registerLocaleData(localeYue, 'yue');
+registerLocaleData(localeBg, 'bg');
 
+export function localeFactory(languageService: LanguageService) {
+  return languageService.getLanguage();
+}
 //
 @NgModule({
   declarations: [
@@ -179,14 +216,19 @@ registerLocaleData(localeDe);
     })
 
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true,
-  },  {
-    provide: LOCALE_ID,
-    useValue: 'de-DE'
-  }],
+  providers: [
+    LanguageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: LOCALE_ID,
+      useFactory: localeFactory,
+      deps: [LanguageService]
+    }
+  ],
   bootstrap: [AppComponent],
 
 })

@@ -1,8 +1,8 @@
 {
   "ADD_STUDENT_TEXT": "Verpflegungsteilnehmer/in hinzufügen",
   "CHANGE_DAY": "Bestelltag ändern",
-  "WEEKEND_NO_ORDER":"Am Wochenende kann keine Bestellung aufgegeben werden",
-  "WEEKEND_NO_ORDER_DESCRIPTION_BOX":"Am Wochenende kann keine Bestellung aufgegeben werden. Bitte wählen Sie einen anderen Tag aus.",
+  "WEEKEND_NO_ORDER": "Am Wochenende kann keine Bestellung aufgegeben werden",
+  "WEEKEND_NO_ORDER_DESCRIPTION_BOX": "Am Wochenende kann keine Bestellung aufgegeben werden. Bitte wählen Sie einen anderen Tag aus.",
   "KONTO_AUFLADEN": "Konto aufladen",
   "KLICK_HERE_FOR_MORE_INFORMATION": "Klicken Sie hier für weitere Informationen",
   "CONFIRM_BUTTON": "Bestätigen",
@@ -415,6 +415,12 @@
   "ORDER_STUDENT_PLEASE_SELECT_STUDENT": "Bitte wählen Sie einen Verpflegungsteilnehmer/in aus",
   "ORDER_STUDENT_NO_SUBGROUP_SELECTED": "Dem Verpflegungsteilnehmer/in ist keine Gruppe zugeordnet",
   "ORDER_STUDENT_SELECT_DAY": "Bitte wählen Sie einen Tag aus",
-  "BENUTZERNAME": "Benutzername"
+  "BENUTZERNAME": "Benutzername",
 
+  "BESTELLFRIST_ENDET": "Bestellfrist endet:",
+  "BESTELLFRIST_ABGELAUFEN": "Bestellfrist ist abgelaufen",
+  "SCHLLIESSTAG": "Schließtag",
+  "BESTELLUNG_STORNIERT_ALERT": "Bestellung wurde storniert",
+  "BESTELLUNG_EINGETRAGEN": "Bestellung wurde eingetragen",
+  "BESTELLUNG_NICHT_EINGETRAGEN": "Bestellung konnte nicht eingetragen werden"
 }

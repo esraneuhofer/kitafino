@@ -44,9 +44,25 @@ export class WeekplanPdfComponent implements OnInit{
   customerInfo!:CustomerInterface;
   submittingRequest = false;
   constructor(private generellService:GenerellService) { }
-  isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  isSafari:boolean = false;
+
+  checkIfSafariOrIOSApp(): boolean {
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+
+    // Check if running in a standalone mode (PWA) on iOS
+    const isInStandaloneMode = (navigator as any).standalone === true;
+
+    // Check if running in an iOS WebView (Capacitor)
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
+    const isIOSWebView = isIOS && !isSafari && !isInStandaloneMode;
+
+    return isSafari || isInStandaloneMode || isIOSWebView;
+  }
+
 
   ngOnInit() {
+    this.isSafari = this.checkIfSafariOrIOSApp();
     this.queryYears = getYearsQuery();
     this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
     this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year
@@ -80,24 +96,47 @@ export class WeekplanPdfComponent implements OnInit{
         byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
       const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], {type: 'application/pdf'});
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
 
       // Create a URL for the Blob object
       const blobUrl = URL.createObjectURL(blob);
 
-      // Create a link and trigger the download
-      var link = document.createElement('a');
-      link.download = data.name;
-      link.href = blobUrl;
-      document.body.appendChild(link);
-      link.click();
+      // Check if running in iOS WebView
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      const isInStandaloneMode = ('standalone' in navigator) && (navigator as any).standalone;
 
-      // Clean up by removing the link and revoking the Blob URL
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
+      if (isIOS && isInStandaloneMode) {
+        // If in iOS standalone mode, open the Blob URL in a new window
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const url = reader.result as string;
+          const newWindow = window.open(url, '_blank');
+          if (!newWindow) {
+            console.error('Failed to open new window');
+          }
+        };
+        reader.readAsDataURL(blob);
+      } else {
+        // Create a link and trigger the download
+        const link = document.createElement('a');
+        link.download = data.name;
+        link.href = blobUrl;
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up by removing the link and revoking the Blob URL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      }
+
       this.submittingRequest = false;
     });
   }
+
+
+
+
+
 
   displayPdf (model:WeekplanPdfInterface) {
     this.submittingRequest = true;
