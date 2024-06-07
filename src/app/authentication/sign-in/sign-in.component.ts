@@ -11,24 +11,6 @@ import {SavePassword} from "capacitor-ios-autofill-save-password";
 const { FingerprintAuth, Keychain,BiometricNative } = Plugins;
 
 
-export function isApp(): boolean {
-  const userAgent = navigator.userAgent || navigator.vendor;
-
-  // Überprüfen ob es sich um ein iOS Gerät handelt
-  const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
-
-  // Überprüfen ob es sich um ein Android Gerät handelt
-  const isAndroid = /android/i.test(userAgent);
-
-  // Überprüfen ob es sich um andere mobile Geräte handelt
-  const isMobile = /Mobile|Tablet|iPad|iPhone|iPod|Android|Silk|Opera Mini|BlackBerry|IEMobile|Kindle/.test(userAgent);
-
-  // Überprüfen ob es sich um ein Gerät mit einer mobilen Bildschirmgröße handelt
-  const isSmallScreen = window.innerWidth <= 1024;
-
-  return isIOS || isAndroid || isMobile || isSmallScreen;
-}
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -53,7 +35,7 @@ export class SignInComponent implements OnInit {
               private dialogService: MessageDialogService) { }
 
   ngOnInit() {
-    this.isMobileApp = isApp();
+    this.isMobileApp = Capacitor.isNativePlatform();
     console.log(this.isMobileApp);
 
     if (this.isMobileApp) {
@@ -121,7 +103,7 @@ export class SignInComponent implements OnInit {
     this.submittingRequest = true;
     try {
       const res: any = await this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).toPromise();
-      console.log(res);
+      console.log("response",res);
       this.submittingRequest = false;
       // Save credentials after successful login
       if (Capacitor.getPlatform() === 'ios') {
