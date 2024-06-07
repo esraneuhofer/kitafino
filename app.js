@@ -12,6 +12,7 @@ var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
 app.use(i18n.init);
@@ -31,14 +32,14 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log(err);
   });
 
-app.use('/api', (req, res) => {
-  const apiUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
-  // Leite die Anfrage weiter an den tatsächlichen API-Endpunkt
-  // Du kannst hierfür ein Proxy-Tool wie http-proxy-middleware verwenden
-  // Einfache Weiterleitung mit http-proxy-middleware
-  const { createProxyMiddleware } = require('http-proxy-middleware');
-  app.use('/api', createProxyMiddleware({ target: apiUrl, changeOrigin: true }));
+const apiProxy = createProxyMiddleware('/api', {
+  target: 'https://kitafino-45139aec3e10.herokuapp.com',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api': '/api', // Optional: falls du den API-Pfad anpassen musst
+  },
 });
+app.use('/api', apiProxy);
 
 
 // CORS configuration
