@@ -32,14 +32,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log(err);
   });
 
-const apiProxy = createProxyMiddleware('/api', {
-  target: 'https://kitafino-45139aec3e10.herokuapp.com',
+app.use('/api', createProxyMiddleware({
+  target: 'https://kitafino-45139aec3e10.herokuapp.com', // Stelle sicher, dass dies deine korrekte API-URL ist
   changeOrigin: true,
   pathRewrite: {
     '^/api': '/api', // Optional: falls du den API-Pfad anpassen musst
   },
-});
-app.use('/api', apiProxy);
+}));
 
 
 // CORS configuration
@@ -116,6 +115,7 @@ app.use(i18n.init);
 
 
 app.use((req, res, next) => {
+  console.log(req.headers['user-agent']);
   if (req.path === '/api/webhook') {
     return next();
   }
