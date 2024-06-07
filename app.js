@@ -36,7 +36,7 @@ app.use('/api', createProxyMiddleware({
   target: 'https://kitafino-45139aec3e10.herokuapp.com', // Stelle sicher, dass dies deine korrekte API-URL ist
   changeOrigin: true,
   pathRewrite: {
-    '^/api': '/api', // Optional: falls du den API-Pfad anpassen musst
+    '^/api': '', // Entfernt '/api' vom Pfad, bevor die Anfrage an das Ziel gesendet wird
   },
 }));
 
