@@ -31,6 +31,16 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log(err);
   });
 
+app.use('/api', (req, res) => {
+  const apiUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
+  // Leite die Anfrage weiter an den tatsächlichen API-Endpunkt
+  // Du kannst hierfür ein Proxy-Tool wie http-proxy-middleware verwenden
+  // Einfache Weiterleitung mit http-proxy-middleware
+  const { createProxyMiddleware } = require('http-proxy-middleware');
+  app.use('/api', createProxyMiddleware({ target: apiUrl, changeOrigin: true }));
+});
+
+
 // CORS configuration
 const corsOptions = {
   origin: [

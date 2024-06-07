@@ -8,9 +8,8 @@ import { MessageDialogService } from "../../service/message-dialog.service";
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import {Capacitor, Plugins} from '@capacitor/core';
 import {SavePassword} from "capacitor-ios-autofill-save-password";
-const { FingerprintAuth, Keychain } = Plugins;
+const { FingerprintAuth, Keychain,BiometricNative } = Plugins;
 
-const { BiometricNative } = Plugins;
 
 export function isApp(): boolean {
   const userAgent = navigator.userAgent || navigator.vendor;
