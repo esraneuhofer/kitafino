@@ -32,13 +32,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log(err);
   });
 
-// app.use('/api', createProxyMiddleware({
-//   target: 'https://kitafino-45139aec3e10.herokuapp.com', // Stelle sicher, dass dies deine korrekte API-URL ist
-//   changeOrigin: true,
-//   pathRewrite: {
-//     '^/api': '', // Entfernt '/api' vom Pfad, bevor die Anfrage an das Ziel gesendet wird
-//   },
-// }));
 
 
 // CORS configuration
@@ -121,6 +114,25 @@ app.use((req, res, next) => {
   }
   bodyParser.json({limit: '50mb'})(req, res, next);
 });
+
+// Dynamische Anpassung der apiBaseUrl basierend auf der Umgebung und dem User-Agent
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    const userAgent = req.headers['user-agent'];
+    if (userAgent && userAgent.includes('Capacitor')) {
+      req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
+    } else {
+      req.apiBaseUrl = '/api';
+    }
+    next();
+  });
+} else {
+  // Für localhost und andere Umgebungen
+  app.use((req, res, next) => {
+    req.apiBaseUrl = '/api';
+    next();
+  });
+}
 
 app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
