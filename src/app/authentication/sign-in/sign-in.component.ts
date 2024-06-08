@@ -99,32 +99,32 @@ export class SignInComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log(this.signInModel);
     this.submittingRequest = true;
     try {
       const res: any = await this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).toPromise();
       console.log("response",res);
       this.submittingRequest = false;
       // Save credentials after successful login
-      if (Capacitor.getPlatform() === 'ios') {
-        console.log('Saving credentials');
-        try {
-          await SavePassword['promptDialog']({
-            username: this.signInModel.email,
-            password: this.signInModel.password,
-          });
-          console.log('promptDialog success');
-        } catch (err: any) {
-          console.error('promptDialog failure', err);
-          if (err && err.message) {
-            console.error('Error message:', err.message);
-          } else {
-            console.error('Unknown error occurred');
-          }
-        }
-      }
+      // if (Capacitor.getPlatform() === 'ios') {
+      //   console.log('Saving credentials');
+      //   try {
+      //     await SavePassword['promptDialog']({
+      //       username: this.signInModel.email,
+      //       password: this.signInModel.password,
+      //     });
+      //     console.log('promptDialog success');
+      //   } catch (err: any) {
+      //     console.error('promptDialog failure', err);
+      //     if (err && err.message) {
+      //       console.error('Error message:', err.message);
+      //     } else {
+      //       console.error('Unknown error occurred');
+      //     }
+      //   }
+      // }
       this.userService.setToken(res['token']);
       this.studentService.getRegisteredStudentsUser().subscribe(students => {
+        console.log('students', students);
         if (students.length === 0) {
           this.router.navigateByUrl('home/register_student');
         } else {
@@ -133,7 +133,8 @@ export class SignInComponent implements OnInit {
         this.submittingRequest = false;
       });
     } catch (err:any) {
-      console.log(err);
+      console.log('err',err);
+      console.log('errMessage',err.error);
       this.submittingRequest = false;
       this.serverErrorMessages = this.setMessage(err.error.message);
     }

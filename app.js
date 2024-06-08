@@ -124,6 +124,7 @@ if (process.env.NODE_ENV === 'production') {
     } else {
       req.apiBaseUrl = '/api';
     }
+    console.log('apiBaseUrl:', req.apiBaseUrl);
     next();
   });
 } else {
@@ -136,7 +137,10 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
-app.use('/api', rtsIndex);
+app.use('/api', (req, res, next) => {
+  req.baseUrl = req.apiBaseUrl;
+  next();
+}, rtsIndex);
 
 // error handler
 app.use((err, req, res, next) => {
