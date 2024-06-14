@@ -5,8 +5,6 @@ import { StudentService } from "../../service/student.service";
 import { LanguageService } from "../../service/language.service";
 import { TranslateService } from "@ngx-translate/core";
 import { MessageDialogService } from "../../service/message-dialog.service";
-import {Capacitor, Plugins} from '@capacitor/core';
-const { FingerprintAuth, Keychain,BiometricNative } = Plugins;
 
 
 @Component({
@@ -33,68 +31,68 @@ export class SignInComponent implements OnInit {
               private dialogService: MessageDialogService) { }
 
   ngOnInit() {
-    this.isMobileApp = Capacitor.isNativePlatform();
-    console.log(this.isMobileApp);
-
-    if (this.isMobileApp) {
-      this.checkBiometricAuth();
-    }
+    // this.isMobileApp = Capacitor.isNativePlatform();
+    // console.log(this.isMobileApp);
+    //
+    // if (this.isMobileApp) {
+    //   this.checkBiometricAuth();
+    // }
   }
-
-  async saveCredentials() {
-    try {
-      await Keychain['set']({ key: 'username', value: this.signInModel.email });
-      await Keychain['set']({ key: 'password', value: this.signInModel.password });
-      console.log('Credentials saved successfully');
-    } catch (error) {
-      console.error('Failed to save credentials:', error);
-    }
-  }
-
-  async retrieveCredentials() {
-    try {
-      const username = await Keychain['get']({ key: 'username' });
-      const password = await Keychain['get']({ key: 'password' });
-      if (username.value && password.value) {
-        this.signInModel.email = username.value;
-        this.signInModel.password = password.value;
-      }
-    } catch (error) {
-      console.error('Error retrieving credentials:', error);
-    }
-  }
-  async checkBiometricAuth() {
-    if (!this.isMobileApp) return;
-
-    try {
-      const available = await FingerprintAuth['isAvailable']();
-      if (available) {
-        const result = await FingerprintAuth['verify']({
-          reason: 'Log in with your biometrics',
-          disableBackup: true,
-        });
-        if (result) {
-          this.retrieveCredentials();
-        }
-      }
-    } catch (error) {
-      console.error('Biometric authentication failed:', error);
-    }
-  }
-  async promptBiometricAuth() {
-    try {
-      const available = await BiometricNative['isAvailable']();
-      if (available) {
-        await BiometricNative['show']({
-          title: 'Log in',
-          subtitle: 'Log in with your biometrics',
-          disableBackup: true,
-        });
-      }
-    } catch (error) {
-      console.error('Biometric authentication failed:', error);
-    }
-  }
+  //
+  // async saveCredentials() {
+  //   try {
+  //     await Keychain['set']({ key: 'username', value: this.signInModel.email });
+  //     await Keychain['set']({ key: 'password', value: this.signInModel.password });
+  //     console.log('Credentials saved successfully');
+  //   } catch (error) {
+  //     console.error('Failed to save credentials:', error);
+  //   }
+  // }
+  //
+  // async retrieveCredentials() {
+  //   try {
+  //     const username = await Keychain['get']({ key: 'username' });
+  //     const password = await Keychain['get']({ key: 'password' });
+  //     if (username.value && password.value) {
+  //       this.signInModel.email = username.value;
+  //       this.signInModel.password = password.value;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error retrieving credentials:', error);
+  //   }
+  // }
+  // async checkBiometricAuth() {
+  //   if (!this.isMobileApp) return;
+  //
+  //   try {
+  //     const available = await FingerprintAuth['isAvailable']();
+  //     if (available) {
+  //       const result = await FingerprintAuth['verify']({
+  //         reason: 'Log in with your biometrics',
+  //         disableBackup: true,
+  //       });
+  //       if (result) {
+  //         this.retrieveCredentials();
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error('Biometric authentication failed:', error);
+  //   }
+  // }
+  // async promptBiometricAuth() {
+  //   try {
+  //     const available = await BiometricNative['isAvailable']();
+  //     if (available) {
+  //       await BiometricNative['show']({
+  //         title: 'Log in',
+  //         subtitle: 'Log in with your biometrics',
+  //         disableBackup: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error('Biometric authentication failed:', error);
+  //   }
+  // }
 
   onSubmit() {
     this.submittingRequest = true;
@@ -114,7 +112,7 @@ export class SignInComponent implements OnInit {
         });
 
         // Save credentials after successful login
-        this.saveCredentials();
+        // this.saveCredentials();
 
       },
       err => {

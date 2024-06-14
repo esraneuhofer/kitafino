@@ -4,23 +4,11 @@ PODS:
   - CapacitorApp (6.0.0):
     - Capacitor
   - CapacitorCordova (6.0.0)
-  - CapacitorIosAutofillSavePassword (3.0.0):
-    - Capacitor
-  - CapacitorSecureStoragePlugin (0.10.0):
-    - Capacitor
-    - SwiftKeychainWrapper
-  - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
-  - CapacitorIosAutofillSavePassword (from `../../node_modules/capacitor-ios-autofill-save-password`)
-  - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
-
-SPEC REPOS:
-  trunk:
-    - SwiftKeychainWrapper
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -29,19 +17,12 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/app"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
-  CapacitorIosAutofillSavePassword:
-    :path: "../../node_modules/capacitor-ios-autofill-save-password"
-  CapacitorSecureStoragePlugin:
-    :path: "../../node_modules/capacitor-secure-storage-plugin"
 
 SPEC CHECKSUMS:
   Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
   CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
   CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
-  CapacitorIosAutofillSavePassword: 1ade3f1fefa70bf2b81fa26d7e4677b2f15e50c5
-  CapacitorSecureStoragePlugin: ced6025438fbbdbfb9fffec4398e748572fc147b
-  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 8b987b2c5351636b3f40a6719dcb422d41862865
+PODFILE CHECKSUM: 4233f5c5f414604460ff96d372542c311b0fb7a8
 
 COCOAPODS: 1.15.2
