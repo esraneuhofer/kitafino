@@ -13,10 +13,10 @@ const stripePromise = loadStripe('pk_test_51MhCdsHY2mPrPTHEjdNTkPFA4UUgf4QCkUtld
 export class PaymentService {
   constructor(private generellService: GenerellService) {}
 
-  async redirectToStripeCheckout(amount:number,userId:string,username:string) {
+  async redirectToStripeCheckout(amount:number,userId:string,username:string,isPwa:boolean) {
     try {
       // Await the creation of the payment intent from your backend
-      const session:any = await this.generellService.createPaymentIntent({amountPayment:amount, userId:userId,username:username}).toPromise();
+      const session:any = await this.generellService.createPaymentIntent({amountPayment:amount, userId:userId,username:username,isPwa:isPwa}).toPromise();
 
       // Await the Stripe object
       const stripe:any = await stripePromise;

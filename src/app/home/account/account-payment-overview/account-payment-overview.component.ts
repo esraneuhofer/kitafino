@@ -184,12 +184,15 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
 
 
-
+  isPWA(): boolean {
+    return window.matchMedia('(display-mode: standalone)').matches;
+  }
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
     if(!this.tenantStudent.userId)return
+    const isPWA = this.isPWA(); // Funktion, um zu überprüfen, ob es sich um eine PWA handelt
     // this.submittingRequest = true;
-    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username);
+    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isPWA);
   }
   faClipboard = faClipboard;
   estimatedFee: number = 0;
