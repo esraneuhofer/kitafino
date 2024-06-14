@@ -5,9 +5,7 @@ import { StudentService } from "../../service/student.service";
 import { LanguageService } from "../../service/language.service";
 import { TranslateService } from "@ngx-translate/core";
 import { MessageDialogService } from "../../service/message-dialog.service";
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import {Capacitor, Plugins} from '@capacitor/core';
-import {SavePassword} from "capacitor-ios-autofill-save-password";
 const { FingerprintAuth, Keychain,BiometricNative } = Plugins;
 
 
