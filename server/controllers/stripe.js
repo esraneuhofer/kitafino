@@ -37,7 +37,6 @@ exports.createPaymentIntent = async (req, res) => {
         ? 'https://kitafino-45139aec3e10.herokuapp.com/account_overview?status=failure'
         : 'http://localhost:4200/home/account_overview?status=failure',
     });
-
     try {
       await saveSessionInfo(session.id, userId, username);
     } catch (error) {

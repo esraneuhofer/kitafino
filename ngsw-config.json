@@ -25,35 +25,6 @@
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
-    },
-    {
-      "name": "external-resources",
-      "installMode": "lazy",
-      "updateMode": "lazy",
-      "resources": {
-        "urls": [
-          "https://fonts.googleapis.com/icon?family=Material+Icons",
-          "https://rsms.me/inter/inter.css",
-          "https://www.paypal.com/sdk/js?client-id=*&currency=EUR&components=buttons,marks",
-          "https://flagcdn.com/w320/de.png",
-          "https://flagcdn.com/w320/ua.png",
-          "https://flagcdn.com/w320/tr.png",
-          "https://flagcdn.com/w320/gb.png",
-          "https://flagcdn.com/w320/sa.png",
-          "https://flagcdn.com/w320/pl.png",
-          "https://flagcdn.com/w320/ru.png",
-          "https://flagcdn.com/w320/it.png",
-          "https://flagcdn.com/w320/gr.png",
-          "https://flagcdn.com/w320/es.png",
-          "https://flagcdn.com/w320/ro.png",
-          "https://flagcdn.com/w320/nl.png",
-          "https://flagcdn.com/w320/fr.png",
-          "https://flagcdn.com/w320/cn.png",
-          "https://flagcdn.com/w320/in.png",
-          "https://flagcdn.com/w320/hk.png",
-          "https://flagcdn.com/w320/bg.png"
-        ]
-      }
     }
   ],
   "dataGroups": [

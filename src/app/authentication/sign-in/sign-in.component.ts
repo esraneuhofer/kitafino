@@ -5,6 +5,7 @@ import { StudentService } from "../../service/student.service";
 import { LanguageService } from "../../service/language.service";
 import { TranslateService } from "@ngx-translate/core";
 import { MessageDialogService } from "../../service/message-dialog.service";
+import {Capacitor} from "@capacitor/core";
 
 
 @Component({
@@ -31,7 +32,7 @@ export class SignInComponent implements OnInit {
               private dialogService: MessageDialogService) { }
 
   ngOnInit() {
-    // this.isMobileApp = Capacitor.isNativePlatform();
+    this.isMobileApp = Capacitor.isNativePlatform();
     // console.log(this.isMobileApp);
     //
     // if (this.isMobileApp) {

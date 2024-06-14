@@ -18,18 +18,18 @@ export class AppComponent implements OnInit{
   }
   ngOnInit() {
 
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/ngsw-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
-            console.log('Service Worker registration successful:', registration);
-          })
-          .catch(error => {
-            console.error('Service Worker registration failed:', error);
-          });
-      });
-    }
+    // if ('serviceWorker' in navigator) {
+    //   window.addEventListener('load', () => {
+    //     navigator.serviceWorker.register('/ngsw-worker.js')
+    //       .then(registration => {
+    //         console.log('Service Worker registered with scope:', registration.scope);
+    //         console.log('Service Worker registration successful:', registration);
+    //       })
+    //       .catch(error => {
+    //         console.error('Service Worker registration failed:', error);
+    //       });
+    //   });
+    // }
     this.apiService.setLanguage({lang:'en'}).subscribe(
       data => {
         console.log('Data received in component:', data);

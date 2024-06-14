@@ -5,23 +5,23 @@ import {GenerellService} from "../../service/generell.service";
 import {lang} from "moment-timezone";
 import {LanguageService} from "../../service/language.service";
 const languagesConst: LanguageSelect[] = [
-  { id: 1, name: 'Deutsch', avatar: 'https://flagcdn.com/w320/de.png', code: 'de' },  // Germany flag
-  { id: 3, name: 'English', avatar: 'https://flagcdn.com/w320/gb.png', code: 'en' },  // UK flag
-  { id: 2, name: 'Türkçe', avatar: 'https://flagcdn.com/w320/tr.png', code: 'tr' },  // Turkey flag
-  { id: 4, name: 'العربية (Arabic)', avatar: 'https://flagcdn.com/w320/sa.png', code: 'ar' },  // Saudi Arabia flag (representing Arabic countries)
-  { id: 12, name: 'Українська (Ukrainian)', avatar: 'https://flagcdn.com/w320/ua.png', code: 'uk' },  // Ukraine flag
-  { id: 9, name: 'Español', avatar: 'https://flagcdn.com/w320/es.png', code: 'es' },  // Spain flag
-  { id: 5, name: 'Polski', avatar: 'https://flagcdn.com/w320/pl.png', code: 'pl' },  // Poland flag
-  { id: 14, name: '中文 (Chinese)', avatar: 'https://flagcdn.com/w320/cn.png', code: 'zh' },  // China flag
-  { id: 13, name: 'Français (French)', avatar: 'https://flagcdn.com/w320/fr.png', code: 'fr' },  // France flag
-  { id: 7, name: 'Italiano', avatar: 'https://flagcdn.com/w320/it.png', code: 'it' },  // Italy flag
-  { id: 6, name: 'Русский (Russian)', avatar: 'https://flagcdn.com/w320/ru.png', code: 'ru' },  // Russia flag
-  { id: 8, name: 'Ελληνικά (Greek)', avatar: 'https://flagcdn.com/w320/gr.png', code: 'el' },  // Greece flag
-  { id: 10, name: 'Română', avatar: 'https://flagcdn.com/w320/ro.png', code: 'ro' },  // Romania flag
-  { id: 11, name: 'Nederlands', avatar: 'https://flagcdn.com/w320/nl.png', code: 'nl' },  // Netherlands flag
-  { id: 15, name: 'हिंदी (Hindi)', avatar: 'https://flagcdn.com/w320/in.png', code: 'hi' },  // India flag
-  { id: 16, name: '廣東話 (Cantonese)', avatar: 'https://flagcdn.com/w320/hk.png', code: 'yue' },  // Hong Kong flag (Cantonese)
-  { id: 17, name: 'Български (Bulgarian)', avatar: 'https://flagcdn.com/w320/bg.png', code: 'bg' }  // Bulgaria flag
+  { id: 1, name: 'Deutsch', avatar: '/assets/flags/de.png', code: 'de' },  // Germany flag
+  { id: 3, name: 'English', avatar: '/assets/flags/gb.png', code: 'en' },  // UK flag
+  { id: 2, name: 'Türkçe', avatar: '/assets/flags/tr.png', code: 'tr' },  // Turkey flag
+  { id: 4, name: 'العربية (Arabic)', avatar: '/assets/flags/sa.png', code: 'ar' },  // Saudi Arabia flag (representing Arabic countries)
+  { id: 12, name: 'Українська (Ukrainian)', avatar: '/assets/flags/ua.png', code: 'uk' },  // Ukraine flag
+  { id: 9, name: 'Español', avatar: '/assets/flags/es.png', code: 'es' },  // Spain flag
+  { id: 5, name: 'Polski', avatar: '/assets/flags/pl.png', code: 'pl' },  // Poland flag
+  { id: 14, name: '中文 (Chinese)', avatar: '/assets/flags/cn.png', code: 'zh' },  // China flag
+  { id: 13, name: 'Français (French)', avatar: '/assets/flags/fr.png', code: 'fr' },  // France flag
+  { id: 7, name: 'Italiano', avatar: '/assets/flags/it.png', code: 'it' },  // Italy flag
+  { id: 6, name: 'Русский (Russian)', avatar: '/assets/flags/ru.png', code: 'ru' },  // Russia flag
+  { id: 8, name: 'Ελληνικά (Greek)', avatar: '/assets/flags/gr.png', code: 'el' },  // Greece flag
+  { id: 10, name: 'Română', avatar: '/assets/flags/ro.png', code: 'ro' },  // Romania flag
+  { id: 11, name: 'Nederlands', avatar: '/assets/flags/nl.png', code: 'nl' },  // Netherlands flag
+  { id: 15, name: 'हिंदी (Hindi)', avatar: '/assets/flags/in.png', code: 'hi' },  // India flag
+  { id: 16, name: '廣東話 (Cantonese)', avatar: '/assets/flags/hk.png', code: 'yue' },  // Hong Kong flag (Cantonese)
+  { id: 17, name: 'Български (Bulgarian)', avatar: '/assets/flags/bg.png', code: 'bg' }  // Bulgaria flag
 ];
 
 interface LanguageSelect{id:number,name:string,avatar:string,code:string}
