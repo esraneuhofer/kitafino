@@ -29,7 +29,6 @@ self.addEventListener('periodicsync', (event) => {
 });
 
 async function getLatestPosts() {
-  // Your logic to fetch the latest posts goes here
   console.log('[Service Worker] Fetching latest posts...');
   try {
     const response = await fetch('/api/latest-posts');
@@ -40,7 +39,6 @@ async function getLatestPosts() {
   }
 }
 
-// Define CACHE_NAME and urlsToCache
 const CACHE_NAME = 'my-app-cache-v2';
 const urlsToCache = [
   '/',
@@ -48,43 +46,56 @@ const urlsToCache = [
   // Add other URLs to cache here
 ];
 
-// Service Worker Install Event
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
-    }).then(() => self.skipWaiting()) // Activate the new Service Worker immediately
+    }).then(() => self.skipWaiting())
   );
 });
 
-// Service Worker Activate Event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) { // Adjust CACHE_NAME to your cache version
+          if (cacheName !== CACHE_NAME) {
             return caches.delete(cacheName);
           }
         })
       );
-    }).then(() => {
-      return self.clients.claim(); // Become available to all pages
-    }).then(() => {
-      // Reload all open clients to use the new Service Worker
-      return self.clients.matchAll().then(clients => {
-        clients.forEach(client => client.navigate(client.url));
-      });
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
-// Fetch Event: First check the cache, then the network
+// Fetch Event: First check the cache, then the network with Debugging
 self.addEventListener('fetch', (event) => {
+  // Ignore WebSocket requests
+  if (event.request.url.startsWith('ws://')) {
+    console.log('[Service Worker] Ignoring WebSocket request:', event.request.url);
+    return;
+  }
+
+  console.log('Fetching:', event.request.url);
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then((response) => {
+      if (response) {
+        console.log('Cache hit:', event.request.url);
+        return response;
+      }
+      console.log('Network request for:', event.request.url);
+      return fetch(event.request).then((response) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          if (event.request.url.indexOf('http') === 0) {
+            console.log('[Service Worker] Caching new resource:', event.request.url);
+            cache.put(event.request.url, response.clone());
+          }
+          return response;
+        });
+      });
+    }).catch((error) => {
+      console.error('Fetch error:', error);
+      throw error;
+    })
   );
 });
