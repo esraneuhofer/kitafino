@@ -116,32 +116,33 @@ app.use((req, res, next) => {
 });
 
 // Dynamische Anpassung der apiBaseUrl basierend auf der Umgebung und dem User-Agent
-if (process.env.NODE_ENV === 'production') {
-  app.use((req, res, next) => {
-    const userAgent = req.headers['user-agent'];
-    if (userAgent && userAgent.includes('Capacitor')) {
-      req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
-    } else {
-      req.apiBaseUrl = '/api';
-    }
-    console.log('apiBaseUrl:', req.apiBaseUrl);
-    next();
-  });
-} else {
-  // Für localhost und andere Umgebungen
-  app.use((req, res, next) => {
-    req.apiBaseUrl = '/api';
-    next();
-  });
-}
-
-app.use(passport.initialize());
+// if (process.env.NODE_ENV === 'production') {
+//   app.use((req, res, next) => {
+//     const userAgent = req.headers['user-agent'];
+//     if (userAgent && userAgent.includes('Capacitor')) {
+//       req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
+//     } else {
+//       req.apiBaseUrl = '/api';
+//     }
+//     console.log('apiBaseUrl:', req.apiBaseUrl);
+//     next();
+//   });
+// } else {
+//   // Für localhost und andere Umgebungen
+//   app.use((req, res, next) => {
+//     req.apiBaseUrl = '/api';
+//     next();
+//   });
+// }
+//
+// app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
-app.use('/api', (req, res, next) => {
-  req.baseUrl = req.apiBaseUrl;
-  next();
-}, rtsIndex);
+// app.use('/api', (req, res, next) => {
+//   req.baseUrl = req.apiBaseUrl;
+//   next();
+// }, rtsIndex);
 
+app.use('/api', rtsIndex);
 // error handler
 app.use((err, req, res, next) => {
     if (err.name === 'ValidationError') {
