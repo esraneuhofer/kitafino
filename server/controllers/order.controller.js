@@ -20,7 +20,7 @@ module.exports.getAccountOrderUserYear = async (req, res, next) => {
 
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
-    const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: dayjs(req.query.dateOrder).tz('Europe/Berlin').toDate()});
+    const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: dayjs(req.query.dateOrder).tz('Europe/Berlin').format()});
     res.json(orderStudent);
   } catch (err) {
     console.error(err); // Log the error for debugging

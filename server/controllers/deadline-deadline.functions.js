@@ -78,7 +78,32 @@ function generateDailyCronSchedule(datetimeString) {
 
   return schedule;
 }
+function generateWeeklyCronSchedule(datetimeString, dayOfWeek) {
+  // Datum und Uhrzeit validieren und parsen
+  const date = new Date(datetimeString);
+
+  if (isNaN(date.getTime())) {
+    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DDTHH:MM:SSZ".');
+  }
+
+  if (dayOfWeek < 1 || dayOfWeek > 7) {
+    throw new Error('Ungültiger Tag der Woche. Bitte verwenden Sie einen Wert zwischen 1 (Montag) und 7 (Sonntag).');
+  }
+
+  const hours = date.getUTCHours(); // Stunden in UTC
+  const minutes = date.getUTCMinutes(); // Minuten in UTC
+
+  // Mapping von 1-7 (Montag-Sonntag) auf 0-6 (Sonntag-Samstag) für Cron
+  const cronDayOfWeek = (dayOfWeek % 7).toString();
+
+  // Cron-Format-String konstruieren, der zur angegebenen Uhrzeit am angegebenen Wochentag ausgeführt wird
+  const schedule = `${minutes} ${hours} * * ${cronDayOfWeek}`;
+
+  return schedule;
+}
+
 module.exports = {
   getWeekNumber,
   generateDailyCronSchedule,
+  generateWeeklyCronSchedule,
   getDeadline};

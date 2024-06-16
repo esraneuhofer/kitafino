@@ -5,25 +5,47 @@ const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 const TaskOrder = mongoose.model('TaskOrder');
 const Customer = mongoose.model('Customer');
-const { generateDailyCronSchedule } = require('./deadline-deadline.functions');
+const { generateDailyCronSchedule, generateWeeklyCronSchedule } = require('./deadline-deadline.functions');
 const {processOrder} = require('./task-daily-deadline.controller');
 const {processOrderWeekly} = require('./task-weekly-order-deadline');
 const scheduledJobs = {};
 
 
-async function setTaskCustomerDeadline(customerId,tenantId){
-  const customers = await Customer.find({ isCustomerNotStudent: false });
-  for(let eachCustomer of customers){
-    console.log(eachCustomer.customerId)
-    scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(generateDailyCronSchedule(eachCustomer.generalSettings.deadlineWeekly.time), async () => {
-      if(eachCustomer.generalSettings.isDeadlineDaily) {
-        await processOrder(eachCustomer.customerId, eachCustomer.tenantId);
-      }else{
-        await processOrderWeekly(eachCustomer.customerId, eachCustomer.tenantId);
+async function setTaskCustomerDeadline(customerId, tenantId) {
+  try {
+    const customers = await Customer.find({ isCustomerNotStudent: false });
+
+    for (let eachCustomer of customers) {
+      if (eachCustomer.generalSettings.isDeadlineDaily) {
+        console.log(eachCustomer.customerId);
+        scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(
+          generateDailyCronSchedule(eachCustomer.generalSettings.deadlineDaily.time), // Korrigiert von deadlineWeekly.time zu deadlineDaily.time
+          async () => {
+            try {
+              await processOrder(eachCustomer.customerId, eachCustomer.tenantId);
+              // Optionally update task status in database after completion
+            } catch (error) {
+              console.error(`Failed to process daily order for customer ${eachCustomer.customerId}:`, error);
+            }
+          }
+        );
+      } else {
+        scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(
+          generateWeeklyCronSchedule(eachCustomer.generalSettings.deadlineWeekly.time,eachCustomer.generalSettings.deadlineWeekly.day),
+          async () => {
+            try {
+              await processOrderWeekly(eachCustomer.customerId, eachCustomer.tenantId);
+              // Optionally update task status in database after completion
+            } catch (error) {
+              console.error(`Failed to process weekly order for customer ${eachCustomer.customerId}:`, error);
+            }
+          }
+        );
       }
-      // Optionally update task status in database after completion
-    });
-  };
+    }
+  } catch (error) {
+    console.error('Failed to set task customer deadline:', error);
+  }
 }
 module.exports.addTaskOrderDeadlineCustomer = async (req, res, next) => {
 // const addTaskOrderDeadlineCustomer = async (req, res, next) => {

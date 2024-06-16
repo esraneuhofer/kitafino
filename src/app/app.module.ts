@@ -97,6 +97,7 @@ import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-del
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
 import {LanguageService} from "./service/language.service";
 import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
+import {IonicModule} from "@ionic/angular";
 
 // AoT requires an exported function for factories
 
@@ -183,41 +184,42 @@ export function localeFactory(languageService: LanguageService) {
     ErrorWeekendBannerComponent,
     CustomToastrComponent,
   ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    RouterModule.forRoot(appRoutes),
-    HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    FormsModule,
-    ToastrModule.forRoot(),
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatDialogModule,
-    FontAwesomeModule,
-    MatTooltipModule,
-    NgbPagination,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    imports: [
+        BrowserModule,
+        CommonModule,
+        RouterModule.forRoot(appRoutes),
+        HttpClientModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        FormsModule,
+        ToastrModule.forRoot(),
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+        FontAwesomeModule,
+        MatTooltipModule,
+        NgbPagination,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        IonicModule
 
-  ],
+    ],
   providers: [
     LanguageService,
     {

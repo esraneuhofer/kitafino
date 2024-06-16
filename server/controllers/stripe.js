@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const {retrieveSessionInfo, saveSessionInfo,handleDatabaseError} = require('../controllers/stripe-session.controller');
+const {saveSessionInfo,handleDatabaseError} = require('../controllers/stripe-session.controller');
 
 function setLineItems(body){
   let amountEdited = body.amountPayment * 100
