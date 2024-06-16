@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const TaskOrder = mongoose.model('TaskOrder');
 const Customer = mongoose.model('Customer');
 const { generateDailyCronSchedule } = require('./deadline-deadline.functions');
-const processOrder = require('./task-daily-deadline.controller');
+const {processOrder} = require('./task-daily-deadline.controller');
 const {processOrderWeekly} = require('./task-weekly-order-deadline');
 const scheduledJobs = {};
 

@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 const OrderStudent = mongoose.model('OrderStudent');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
-const moment  = require('moment-timezone');
 const {getTotalPrice} = require('./order-functions');
 const AccountSchema = mongoose.model('AccountSchema');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 async function addOrder(req) {
   req.body.tenantId = req.tenantId;
@@ -68,7 +73,7 @@ async function saveOrderAccount(orderDetails, orderId, session) {
       studentId: orderDetails.studentId,
       orderId: orderId,
       dateOrderMenu: new Date(),
-      year: moment.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
+      year:dayjs.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
       priceAllOrdersDate: orderDetails.totalPrice,
       allOrdersDate: [
         { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}

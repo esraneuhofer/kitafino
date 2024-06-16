@@ -26,13 +26,18 @@ import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {formatDateToISO, getDateMondayFromCalenderweek} from "../../functions/order.functions";
 import {checkDayWeekend, getCustomDayIndex, getLockDays} from "../../functions/date.functions";
-import * as moment from "moment-timezone";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-container/order-container.component";
 import {OrderService} from "../../service/order.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastingService} from "../../service/toastr.service";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 
 @Component({
@@ -191,7 +196,7 @@ export class OrderStudentComponent implements OnInit {
     this.pageLoaded = false;
 
     const dateMonday = getDateMondayFromCalenderweek({ week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() });
-    let dateToSearch = moment.tz(formatDateToISO(queryDate), 'Europe/Berlin').format();
+    let dateToSearch = dayjs(formatDateToISO(queryDate)).tz('Europe/Berlin').format();
     this.querySelection = { week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() };
     if (!this.selectedStudent || !this.selectedStudent._id) {
       this.pageLoaded = true;
@@ -367,7 +372,7 @@ getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrd
   }
 
   for (let i = 0; i < 5; i++) {
-    let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format();
+    let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();
     promiseOrderWeek.push(this.orderService.getOrderStudentDay({
       dateOrder: dateToSearch,
       studentId: this.selectedStudent._id || ''

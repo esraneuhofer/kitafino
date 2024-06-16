@@ -27,10 +27,10 @@ var orderStudentSchema = new Schema({
 });
 
 // Utility function to set the date to 00:00:00.000 in Europe/Berlin timezone
+// Utility function to set the date to 00:00:00.000 in Europe/Berlin timezone
 function setUniformTime(date) {
-  return dayjs(date).tz('Europe/Berlin').startOf('day').toDate();
+  return dayjs(date).tz('Europe/Berlin').startOf('day').format(); // Format as ISO string
 }
-
 orderStudentSchema.pre('save', async function (next) {
   try {
     this.dateOrderPlaced = new Date();

@@ -12,9 +12,14 @@ import {
   OrderInterfaceStudent,
   OrderSubDetailNew, SpecialFoodOrderInterface
 } from "../classes/order_student.class";
-import * as moment from 'moment-timezone';
 import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
 import {TenantStudentInterface} from "../classes/tenant.class";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 
 export function convertDayToIsoString(day:string):string {
@@ -71,7 +76,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     studentId: copy.studentId || '',
     kw: copy.kw,
     year: copy.year,
-    dateOrder: copy.dateOrder,
+    dateOrder: dayjs(copy.dateOrder).tz('Europe/Berlin').utc().toDate(),
     dateOrderPlaced: copy.dateOrderPlaced,
     customerId: copy.customerId,
     order: {

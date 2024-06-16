@@ -1,10 +1,14 @@
-import * as moment from 'moment-timezone';
 import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {TenantStudentInterface} from "../../classes/tenant.class";
-import {OrderSettingsInterfaceNew} from "../../classes/setting.class";
 import {GeneralSettingsInterface} from "../../classes/general-settings.interface";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 
 export interface OrderSettingsDeadLineDailyInterface{
@@ -36,7 +40,7 @@ export function timeDifference(difference:number,withSeconds:boolean):string {
 export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):number {
   let dayOrder = new Date(dateInputCompare);
   const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
-  const dateObj = moment(deadLineDaily.time).toDate();
+  const dateObj = dayjs(deadLineDaily.time).toDate();
   const hours_:any = dateObj.getHours();
   const minutes_:any = dateObj.getMinutes();
 

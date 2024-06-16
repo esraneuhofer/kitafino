@@ -1,4 +1,11 @@
 
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 function studentHasNotPlacedOrderYet(permanentOrderStudent, orderStudents) {
   for (let eachOrderStudent of orderStudents) {
     if (permanentOrderStudent.studentId === eachOrderStudent.studentId) {
@@ -18,48 +25,15 @@ function getStudentById(studentId, studentsCustomer) {
 }
 
 function getDayDeadlineOrder(customer) {
-  let daysCustomer = customer.generalSettings.deadLineDaily;
-  console.log('daysCustomer', daysCustomer)
-  let today = new Date();
+  let daysCustomer = customer.generalSettings.deadlineDaily.day;
+  let futureDate = dayjs().add(daysCustomer, 'day');
 
-  // Add x days to today
-  today.setDate(today.getDate() + daysCustomer);
-  // Get the timezone offset in minutes and convert it to hours
-  let offset = today.getTimezoneOffset() / 60;
+  // In die Zeitzone 'Europe/Berlin' umwandeln und auf den Anfang des Tages setzen
+  let berlinDate = futureDate.tz('Europe/Berlin').startOf('day').format();
 
-  // Format the date in 'YYYY-MM-DDT00:00:00+HH:00' format
-  // Adjust the timezone offset to ensure it always shows as +01:00
-  let formattedDate = today.toISOString().split('T')[0] + 'T00:00:00+02:00';
-
-  return formattedDate;
+  console.log("berlinDate", berlinDate); // Formatiertes Datum in der Zeitzone 'Europe/Berlin'
+  return berlinDate;
 }
-
-function convertToIsoDate(dateString) {
-  const date = new Date(dateString);
-  date.setUTCHours(0, 0, 0, 0);
-  return date.toISOString();
-}
-function convertDayToIsoString(day) {
-  let date = new Date(day);
-  let formattedDate = date.toISOString().split('T')[0] + 'T00:00:00+02:00';
-  return formattedDate;
-}
-// function getDayWeeklyOrder(customer) {
-//   let daysCustomer = customer.generalSettings.deadLineDaily;
-//   console.log('daysCustomer', daysCustomer)
-//   let today = new Date();
-//
-//   // Add x days to today
-//   today.setDate(today.getDate() + daysCustomer);
-//   // Get the timezone offset in minutes and convert it to hours
-//   let offset = today.getTimezoneOffset() / 60;
-//
-//   // Format the date in 'YYYY-MM-DDT00:00:00+HH:00' format
-//   // Adjust the timezone offset to ensure it always shows as +01:00
-//   let formattedDate = today.toISOString().split('T')[0] + 'T00:00:00+02:00';
-//
-//   return formattedDate;
-// }
 
 
 function isVacation(inputDate,vacationArray){
@@ -96,7 +70,5 @@ module.exports = {
   studentHasNotPlacedOrderYet,
   getStudentById,
   getDayDeadlineOrder,
-  convertDayToIsoString,
   isVacation,
-  convertToIsoDate
 }

@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 const OrderStudent = mongoose.model('OrderStudent');
 const AccountSchema = mongoose.model('AccountSchema');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
-const moment  = require('moment-timezone');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 class ApplicationError extends Error {
   constructor(message, statusCode) {
@@ -120,7 +125,7 @@ function createCancellationEntry(orderAccount) {
     return latest.date > current.date ? latest : current;
   });
   const newEntry = JSON.parse(JSON.stringify(newestEntry));
-  newEntry.dateTimeOrder = moment.tz(new Date(), 'Europe/Berlin').format();
+  newEntry.dateTimeOrder = dayjs().tz('Europe/Berlin').format();
   newEntry.priceTotal = -Math.abs(newEntry.priceTotal); // Ensure it's negative
   newEntry.type = 'cancellation';
   return newEntry

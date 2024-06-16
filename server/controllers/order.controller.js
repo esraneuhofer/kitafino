@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
-const {convertToIsoDate} = require("./permanent-order.functions");
-const {addDayFromDate} = require("./date.functions");
 const OrderStudent = mongoose.model('OrderStudent');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 module.exports.getAccountOrderUserYear = async (req, res, next) => {
   try {
@@ -16,7 +20,7 @@ module.exports.getAccountOrderUserYear = async (req, res, next) => {
 
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
-    const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: (req.query.dateOrder)});
+    const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: dayjs(req.query.dateOrder).tz('Europe/Berlin').toDate()});
     res.json(orderStudent);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -26,7 +30,7 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
 
 module.exports.getOrderStudentWeek = async (req, res, next) => {
   try {
-    const orderStudentWeek = await OrderStudent.find({ studentId:req.query.studentId, dateOrder: { $gte: convertToIsoDate(req.query.monday), $lt: convertToIsoDate(addDayFromDate(req.query.monday, 5)) } })
+    const orderStudentWeek = await OrderStudent.find({ studentId:req.query.studentId,kw:req.query.kw, year: req.query.year})
     // const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: req.query.dateOrder});
     res.json(orderStudentWeek);
   } catch (err) {

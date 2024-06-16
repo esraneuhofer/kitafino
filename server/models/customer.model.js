@@ -24,12 +24,13 @@ var CancelOrderDailySchema = new Schema({
 });
 
 var generalSettingsSchema = new Schema({
-  subGroupSettingTenant: { type: Boolean, required: true },
-  showOrderDaily: { type: Boolean, required: true },
+  subGroupSettingTenant: { type: Boolean},
+  showOrderDaily: { type: Boolean},
   isDeadlineDaily: { type: Boolean, required: true },
   deadlineWeekly: { type: DeadlineWeeklySchema, required: true },
   deadlineDaily: { type: DeadlineDailySchema, required: true },
   cancelOrderDaily: { type: CancelOrderDailySchema, required: true },
+  state: { type: String, required: true },
 });
 
 var customerSchema = new Schema({

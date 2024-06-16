@@ -2,7 +2,12 @@ import {VacationsInterface} from "../classes/vacation.interface";
 import {addDayFromDate} from "../home/order-student/order.functions";
 import {numberFive} from "../classes/weekplan.interface";
 import {isHoliday} from 'feiertagejs';
-import * as moment from 'moment-timezone';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function getLockDays(date:string, allVacations:VacationsInterface[], state:any):boolean[] {
   let lockDay = [false, false, false, false, false];
@@ -109,8 +114,7 @@ export function getInvoiceDateOne(date:Date) {
 
 
 export function getTimeToDisplay() {
-  // Format the date and time using Moment.js
-  let formatted = moment(new Date()).format('DD.MM.YYYY HH:mm:ss') + ' Uhr';
+  let formatted = dayjs().tz('Europe/Berlin').format('DD.MM.YYYY HH:mm:ss') + ' Uhr';
   return formatted;
 }
 

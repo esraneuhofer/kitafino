@@ -23,13 +23,6 @@ const {studentHasNotPlacedOrderYet, getStudentById, getDayDeadlineOrder,isVacati
 const {sendSuccessEmail, sendCancellationEmail} = require("./email.functions");
 
 
-function setMockRequest(req) {
-  return {
-    tenantId: '651c635eca2c3d25809ce4f5',
-    customerId: '6540b2117d2b64903bb4e3a2',
-    _id: '65589d74e01397281ce02472',
-  };
-}
 //Todo: findWeek and Year according to orderFrist
 async function processOrder(customerId,tenantId){
   // let tenantId = '651c635eca2c3d25809ce4f5';
@@ -38,8 +31,9 @@ async function processOrder(customerId,tenantId){
     const customer = await Customer.findOne({customerId: customerId})
 
     const dayDeadlineOrder = getDayDeadlineOrder(customer)
-    const weekNumber = getWeekNumber(new Date()); // Implement this function based on your logic
-    const year = new Date().getFullYear();
+    console.log(dayDeadlineOrder)
+    const weekNumber = getWeekNumber(new Date(dayDeadlineOrder)); // Implement this function based on your logic
+    const year = new Date(dayDeadlineOrder).getFullYear();
     const settings = await Settings.findOne({tenantId: tenantId})
     const menus = await Menu.find({tenantId: tenantId})
     const weekplan = await Weekplan.findOne({tenantId: tenantId, year: year, week: weekNumber});
@@ -49,6 +43,7 @@ async function processOrder(customerId,tenantId){
     const studentsCustomer = await StudentNew.find({customerId: customerId});
     const orderStudents = await OrderStudent.find({customerId: customerId, dateOrder: dayDeadlineOrder});
     const indexDay = getIndexDayOrder(dayDeadlineOrder);
+    console.log(indexDay)
     for (let eachPermanentOrderStudent of permanentOrderStudents) {
 
       let tenantStudent = await TenantParent.findOne({userId: eachPermanentOrderStudent.userId});
@@ -84,7 +79,7 @@ async function processOrder(customerId,tenantId){
         _id: eachPermanentOrderStudent.userId,
         tenantStudent: tenantStudent,
       };
-      if(isHoliday(new Date(dayDeadlineOrder),customer.settings.state) || isVacation(dayDeadlineOrder,vacationCustomer)){
+      if(isHoliday(new Date(dayDeadlineOrder),customer.generalSettings.state) || isVacation(dayDeadlineOrder,vacationCustomer)){
         await sendCancellationEmail(mockReq, 'Für den ausgewählten Tag ist ein Schließtag / Feiertag eingetragen. Sollte dies nicht korrekt sein, wenden Sie sich bitte an die Einrichtung'); // Handle cancellation email in a separate function
         continue;
       }
@@ -116,6 +111,7 @@ async function processOrder(customerId,tenantId){
 
 async function sendEmailDailyConfirmation(weekplanDay, settings, customer, studentsCustomer, dayDeadlineOrder) {
   try {
+    console.log("dayDeadlineOrder",dayDeadlineOrder)
     // Retrieve all orders
     const allOrders = await OrderStudent.find({ customerId: customer.customerId, dateOrder: dayDeadlineOrder });
     // Generate the email body for the customer
@@ -141,5 +137,26 @@ async function sendEmailDailyConfirmation(weekplanDay, settings, customer, stude
   }
 }
 
+const testingDaily = async (req, res) => {
+  try {
+    let tenantIdString = '651c635eca2c3d25809ce4f5';
+    let customerIdString = "6540b2117d2b64903bb4e3a2";
 
-module.exports = processOrder;
+    // Convert strings to ObjectId
+    const customerId = new mongoose.Types.ObjectId(customerIdString);
+    const tenantId = new mongoose.Types.ObjectId(tenantIdString);
+
+    // Call the processOrderWeekly function
+    await processOrder(customerId, tenantId);
+
+    res.status(200).send({ message: 'Parent tenant edited successfully' });
+  } catch (error) {
+    console.error('Error in testing function:', error); // Log the error for debugging
+    res.status(500).send({ error: 'Failed to edit parent tenant' });
+  }
+};
+
+module.exports = {
+  processOrder,
+  testingDaily
+};

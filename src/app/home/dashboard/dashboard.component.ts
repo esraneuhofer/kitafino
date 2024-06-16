@@ -61,7 +61,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
 }
 
 export interface DisplayOrderArrayIntrface {
-    dateOrder: string,
+    dateOrder: Date,
     orderedMenus: string,
     nameStudent: string,
     price: number,

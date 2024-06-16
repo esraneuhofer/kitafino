@@ -10,14 +10,10 @@ const StudentNew = mongoose.model('StudentNew');
 const TenantParent = mongoose.model('Tenantparent');
 
 const {
-  getDayDeadlineOrder,
   getStudentById,
-  convertDayToIsoString,
   isVacation
 } = require("./permanent-order.functions");
-const {getWeekNumber} = require("./deadline-deadline.functions");
 const {getMenusForWeekplan} = require("./weekplan-functions");
-const {getIndexDayOrder} = require("./deadline-orderclass.functions");
 const {getPriceStudent, setOrderStudentBackend} = require("./order-functions");
 const {getInvoiceDateOne,calculateTargetWeekAndYear,getDateMondayFromCalenderweek, addDayFromDate} = require("./date.functions");
 const {isHoliday} = require("feiertagejs");
@@ -38,11 +34,11 @@ async function processOrderWeekly(customerId, tenantId) {
     const weekplan = await Weekplan.findOne({ tenantId: tenantId, year: targetYear, week: targetWeek });
     const weekplanEdited = getMenusForWeekplan(weekplan, settings, { year: targetYear, week: targetWeek }, menus);
     console.log(monday)
-    const [vacationCustomer, permanentOrderStudents, studentsCustomer, orderStudents] = await Promise.all([
+    console.log(targetWeek)
+    const [vacationCustomer, permanentOrderStudents, studentsCustomer] = await Promise.all([
       Vacation.find({ customerId: customerId }),
       PermanentOrderStudent.find({ customerId: customerId }),
       StudentNew.find({ customerId: customerId }),
-      OrderStudent.find({ customerId: customerId, dateOrder: { $gte: convertDayToIsoString(monday), $lt: convertDayToIsoString(addDayFromDate(monday, 5)) } })
     ]);
 
     for (let eachPermanentOrderStudent of permanentOrderStudents) {
@@ -70,17 +66,17 @@ async function processOrderWeekly(customerId, tenantId) {
             continue;
           }
           try {
-            // const response = await addOrder(mockReq, {});
+            const response = await addOrder(mockReq, {});
             // if (!response.success) throw new Error(response.message);
             try {
-              // await sendSuccessEmail(mockReq, response);
+              await sendSuccessEmail(mockReq, response);
             } catch (error) {
               console.error('Failed to send success email:', error.message);
             }
           } catch (error) {
             // console.error('Failed to add order:', error.message);
             try {
-              // await sendCancellationEmail(mockReq, error.message);
+              await sendCancellationEmail(mockReq, error.message);
             } catch (emailError) {
               console.error('Failed to send cancellation email:', emailError.message);
             }
@@ -91,7 +87,7 @@ async function processOrderWeekly(customerId, tenantId) {
 
     // Assuming dayDeadlineOrder and indexDay are correctly defined
     try {
-      // await sendEmailDailyConfirmationWeek(weekplanEdited.weekplan, settings, customer,targetWeek,targetYear, monday, studentsCustomer);
+      await sendEmailDailyConfirmationWeek(weekplanEdited.weekplan, settings, customer,targetWeek,targetYear, monday, studentsCustomer);
     } catch (error) {
       console.error('Failed to send daily confirmation email:', error.message);
     }

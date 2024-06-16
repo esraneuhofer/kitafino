@@ -29,11 +29,16 @@ import {
   getDateMondayFromCalenderweek,
   setOrderStudent
 } from "../../../functions/order.functions";
-import * as moment from 'moment-timezone';
 import {TenantStudentInterface} from "../../../classes/tenant.class";
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
-import { delay } from 'rxjs/operators';
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 
 
 export interface MealCardInterface {
@@ -172,7 +177,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
-        let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format()
+        let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();
         promiseOrderWeek.push(this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id || ''}))
       }
       forkJoin(promiseOrderWeek).pipe(

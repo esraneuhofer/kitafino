@@ -2,7 +2,6 @@ import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '
 import {TranslateService} from "@ngx-translate/core";
 import {HttpClient} from "@angular/common/http";
 import {GenerellService} from "../../service/generell.service";
-import {lang} from "moment-timezone";
 import {LanguageService} from "../../service/language.service";
 const languagesConst: LanguageSelect[] = [
   { id: 1, name: 'Deutsch', avatar: '/assets/flags/de.png', code: 'de' },  // Germany flag
