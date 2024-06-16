@@ -19,14 +19,13 @@ export class InstallPromptService {
   }
 
   promptUser() {
-    console.log('Prompting user to install the app');
     if (this.promptEvent) {
       this.promptEvent.prompt(); // Zeigt das Installationsbanner an
       this.promptEvent.userChoice.then((choiceResult: any) => {
         if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
+          // console.log('User accepted the A2HS prompt');
         } else {
-          console.log('User dismissed the A2HS prompt');
+          // console.log('User dismissed the A2HS prompt');
         }
         this.promptEvent = null; // Löscht das Ereignis nach der Verarbeitung
       });

@@ -40,7 +40,6 @@ export class AccuntDetailsComponent {
   page = 1;
   pageSize = 7;
   goBack(){
-    console.log('go back');
     this.router.navigate(['../home/account_overview'], {relativeTo: this.r.parent});
   }
   constructor(private orderService:OrderService,

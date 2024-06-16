@@ -68,7 +68,6 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
       menuSelected:true
     })
   }else{
-    console.log('selectedWeekDay',selectedWeekDay)
     let nameSpecial = getSpecialNameById(settings,eachPermanentOrderStudent.daysOrder[indexDay].menuId,selectedWeekDay,menus,customer)
     objOrder.orderMenus.push({
       idMenu:selectedWeekDay.menuId || null,

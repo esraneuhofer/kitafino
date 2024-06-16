@@ -99,7 +99,7 @@ export class SignInComponent implements OnInit {
     this.submittingRequest = true;
     this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.submittingRequest = false;
 
         this.userService.setToken(res['token']);
@@ -117,7 +117,7 @@ export class SignInComponent implements OnInit {
 
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.submittingRequest = false;
         this.serverErrorMessages = this.setMessage(err.error.message);
       });
@@ -139,7 +139,7 @@ export class SignInComponent implements OnInit {
   }
 
   switchLanguage(language: string): void {
-    console.log(language);
+    // console.log(language);
     this.languageService.setLanguage(language);
   }
 }

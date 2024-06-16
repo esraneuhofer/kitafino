@@ -6,3 +6,13 @@
 
 // Todo: Bestellhitory überdenken und Suche bearbeiten
 //Todo: Dauerbestellungen auch nur möglich wenn untergruppe ausgewählt ist;
+
+
+const obj = {
+  settings:'settings',
+  startDay: 'startDay',
+  sendEmailCustomer: 'sendEmailCustomer',
+  customerInfo: 'customerInfo',
+  orderOverview: 'orderOverview',
+
+}

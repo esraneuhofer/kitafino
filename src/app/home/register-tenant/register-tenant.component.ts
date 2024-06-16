@@ -89,7 +89,6 @@ export class RegisterTenantComponent implements OnInit {
       return
     }
     this.tenantServiceStudent.addParentTenant(this.tenantModel).subscribe((response: any) => {
-      console.log(response)
       if (!response.error) {
         this.submittingRequest = false
         // this.translate.get('REGISTRATION_TENANT_SUCCESS').subscribe((res: string) => {

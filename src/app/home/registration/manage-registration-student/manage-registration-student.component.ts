@@ -58,7 +58,6 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
       student.subgroup = this.selectedSubgroup;
       const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
-      console.log(permanentOrder);
       if(permanentOrder){
         promiseArray.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
       }

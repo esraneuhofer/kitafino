@@ -29,13 +29,11 @@ self.addEventListener('periodicsync', (event) => {
 });
 
 async function getLatestPosts() {
-  console.log('[Service Worker] Fetching latest posts...');
   try {
     const response = await fetch('/api/latest-posts');
     const data = await response.json();
-    console.log('Latest posts fetched:', data);
   } catch (error) {
-    console.error('Error fetching latest posts:', error);
+
   }
 }
 
@@ -72,29 +70,23 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   // Ignore WebSocket requests
   if (event.request.url.startsWith('ws://')) {
-    console.log('[Service Worker] Ignoring WebSocket request:', event.request.url);
     return;
   }
 
-  console.log('Fetching:', event.request.url);
   event.respondWith(
     caches.match(event.request).then((response) => {
       if (response) {
-        console.log('Cache hit:', event.request.url);
         return response;
       }
-      console.log('Network request for:', event.request.url);
       return fetch(event.request).then((response) => {
         return caches.open(CACHE_NAME).then((cache) => {
           if (event.request.url.indexOf('http') === 0) {
-            console.log('[Service Worker] Caching new resource:', event.request.url);
             cache.put(event.request.url, response.clone());
           }
           return response;
         });
       });
     }).catch((error) => {
-      console.error('Fetch error:', error);
       throw error;
     })
   );

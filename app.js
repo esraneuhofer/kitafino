@@ -14,24 +14,35 @@ const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-
-app.use(i18n.init);
+  app.use(i18n.init);
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected');
+  .then(async () => {
+    console.log('Connected to MongoDB');
+
+    try {
+      // Fiktive req und res Objekte für den Funktionsaufruf
+      const req = {}; // Füge notwendige req Eigenschaften hinzu
+      const res = {
+        status: (statusCode) => ({
+          send: (message) => console.log(`Response: ${statusCode}, Message:`, message)
+        })
+      };
+
+      await testing(req, res);
+
       // Rufe die Funktion auf, um den neuen Cron-Job zu planen
       scheduleDeleteOldMessages();
-      setTaskCustomerDeadline().then(() => {
+
+      await setTaskCustomerDeadline();
       console.log('Tasks scheduled successfully.');
-    }).catch((error) => {
-      console.error('Failed to schedule tasks:', error);
-    });
+    } catch (error) {
+      console.error('Failed to execute tasks:', error);
+    }
   })
   .catch(err => {
-    console.log(err);
+    console.error('Failed to connect to MongoDB:', err);
   });
-
 
 
 // CORS configuration
@@ -108,7 +119,6 @@ app.use(i18n.init);
 
 
 app.use((req, res, next) => {
-  console.log(req.headers['user-agent']);
   if (req.path === '/api/webhook') {
     return next();
   }
@@ -116,31 +126,31 @@ app.use((req, res, next) => {
 });
 
 // Dynamische Anpassung der apiBaseUrl basierend auf der Umgebung und dem User-Agent
-// if (process.env.NODE_ENV === 'production') {
-//   app.use((req, res, next) => {
-//     const userAgent = req.headers['user-agent'];
-//     if (userAgent && userAgent.includes('Capacitor')) {
-//       req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
-//     } else {
-//       req.apiBaseUrl = '/api';
-//     }
-//     console.log('apiBaseUrl:', req.apiBaseUrl);
-//     next();
-//   });
-// } else {
-//   // Für localhost und andere Umgebungen
-//   app.use((req, res, next) => {
-//     req.apiBaseUrl = '/api';
-//     next();
-//   });
-// }
-//
-// app.use(passport.initialize());
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    const userAgent = req.headers['user-agent'];
+    if (userAgent && userAgent.includes('Capacitor')) {
+      req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
+    } else {
+      req.apiBaseUrl = '/api';
+    }
+    // console.log('apiBaseUrl:', req.apiBaseUrl);
+    next();
+  });
+} else {
+  // Für localhost und andere Umgebungen
+  app.use((req, res, next) => {
+    req.apiBaseUrl = '/api';
+    next();
+  });
+}
+
+app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
-// app.use('/api', (req, res, next) => {
-//   req.baseUrl = req.apiBaseUrl;
-//   next();
-// }, rtsIndex);
+app.use('/api', (req, res, next) => {
+  req.baseUrl = req.apiBaseUrl;
+  next();
+}, rtsIndex);
 
 app.use('/api', rtsIndex);
 // error handler
@@ -167,5 +177,7 @@ server.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
 
+
 const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
 const { scheduleDeleteOldMessages } = require(__dirname + '/server/controllers/message.controller');
+const { testing } = require(__dirname + '/server/controllers/task-weekly-order-deadline');

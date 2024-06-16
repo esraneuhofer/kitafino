@@ -1,70 +1,89 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var PricesGroupBillingSchema = new Schema({
+  priceSpecial: Number,
+  idSpecial: String,
+  typeSpecial: String,
+});
 
-var pricesGroupBillingSchema = new Schema({
-  priceSpecial:Number,
-  idSpecial:String,
-  typeSpecial:String,
-})
+var DeadlineWeeklySchema = new Schema({
+  weeks: { type: Number, required: true },
+  day: { type: Number, required: true },
+  time: { type: Date, required: true },
+});
 
+var DeadlineDailySchema = new Schema({
+  day: { type: Number, required: true },
+  time: { type: Date, required: true },
+});
 
-var customer = new Schema({
+var CancelOrderDailySchema = new Schema({
+  day: { type: Number, required: true },
+  time: { type: Date, required: true },
+});
+
+var generalSettingsSchema = new Schema({
+  subGroupSettingTenant: { type: Boolean, required: true },
+  showOrderDaily: { type: Boolean, required: true },
+  isDeadlineDaily: { type: Boolean, required: true },
+  deadlineWeekly: { type: DeadlineWeeklySchema, required: true },
+  deadlineDaily: { type: DeadlineDailySchema, required: true },
+  cancelOrderDaily: { type: CancelOrderDailySchema, required: true },
+});
+
+var customerSchema = new Schema({
   tenantId: Schema.Types.ObjectId,
   customerId: Schema.Types.ObjectId,
-  active:Boolean,
+  active: Boolean,
   order: {
     lastActionWeek: Number,
-    deadLineDaily:{
+    deadLineDaily: {
       day: Number,
       time: String,
     },
     individualPricing: Boolean,
     addSubgroupsOrder: Boolean,
-    ignoreMinOrder:Boolean,
+    ignoreMinOrder: Boolean,
     deliveryTime: String,
     permanentOrder: Boolean,
-    showSpecialFood:Boolean,
-    hideSpecialFood:Boolean,
-    hideExtra:Boolean,
-    specialShow:[{idSpecialFood:String,nameSpecialFood:String,selected:Boolean}],
-    // split: Array,
+    showSpecialFood: Boolean,
+    hideSpecialFood: Boolean,
+    hideExtra: Boolean,
+    specialShow: [{ idSpecialFood: String, nameSpecialFood: String, selected: Boolean }],
     split: [{
-      displayGroup:String,
-      group:String,
-      raisePortion:{},
-      idGroupType:Schema.Types.ObjectId
+      displayGroup: String,
+      group: String,
+      raisePortion: {},
+      idGroupType: Schema.Types.ObjectId
     }],
-    // orderCycle:{type:String,required:'{PATH} is required!'},
     dessert: Boolean,
-    sidedish:Boolean,
-    showExtraOrder:Boolean
+    sidedish: Boolean,
+    showExtraOrder: Boolean
   },
   settings: {
     firstAccess: Boolean,
     substitute: Boolean,
-    remarks:String,
-    state:String
+    remarks: String,
+    state: String
   },
   billing: {
     headingInvoice: Array,
     group: [{
-      groupId:String,
-      idGroupType:Schema.Types.ObjectId,
-      displayNameBilling:String,
-      tax:String,
-      individualPricing:Boolean,
-      prices:[pricesGroupBillingSchema]
+      groupId: String,
+      idGroupType: Schema.Types.ObjectId,
+      displayNameBilling: String,
+      tax: String,
+      individualPricing: Boolean,
+      prices: [PricesGroupBillingSchema]
     }],
     invoiceCycle: String,
     customerNumber: String,
     paymentMethod: Boolean,
-    // tax:String,
-    // pricePortion:Number,
     separatePrice: Boolean,
     separateBilling: Boolean,
-    grossPrice:Boolean,
-    iban:String,
+    grossPrice: Boolean,
+    iban: String,
   },
   contact: {
     customer: {
@@ -76,19 +95,16 @@ var customer = new Schema({
     contactPerson: String,
     phone: String,
     fax: String,
-    secondEmail:String,
+    secondEmail: String,
     email: {
       type: String,
       lowercase: true,
-      // unique: true,
-      required:'{PATH} is required!'
+      required: '{PATH} is required!'
     },
-
-  }
-
+  },
+  generalSettings: generalSettingsSchema
 });
 
-
-var Customer = mongoose.model('Customer', customer);
+var Customer = mongoose.model('Customer', customerSchema);
 
 module.exports = Customer;

@@ -146,8 +146,6 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
-    console.log(this.displayMinimize)
-
   }
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);

@@ -6,8 +6,8 @@ const {getWeekNumber} = require("./deadline-deadline.functions");
 const {getEmailBodyOrderDayCustomer} = require("./email-order-customer");
 const {setOrderStudentBackend, getPriceStudent, getNameMenuDay} = require("./order-functions");
 const {getMenusForWeekplan} = require("./weekplan-functions");
-const mongoose = require("mongoose");
 const {getIndexDayOrder} = require("./deadline-orderclass.functions");
+const mongoose = require("mongoose");
 const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
 const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
@@ -16,13 +16,11 @@ const Vacation = mongoose.model('Vacation');
 const Menu = mongoose.model('Menu');
 const Weekplan = mongoose.model('Weekplan');
 const StudentNew = mongoose.model('StudentNew');
-const {addOrder} = require('./place-order.controller');
-let getEmailSuccess = require('./email-order-regular').getHtmlOrder;
-let getEmailCancel = require('./email-permanent-order-cancel').getEmailHtmlCancelPermanentOrder;
-const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
-const {studentHasNotPlacedOrderYet, getStundetById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
 const TenantParent = mongoose.model('Tenantparent');
-
+const {addOrder} = require('./place-order.controller');
+const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
+const {studentHasNotPlacedOrderYet, getStudentById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
+const {sendSuccessEmail, sendCancellationEmail} = require("./email.functions");
 
 
 function setMockRequest(req) {
@@ -32,7 +30,7 @@ function setMockRequest(req) {
     _id: '65589d74e01397281ce02472',
   };
 }
-
+//Todo: findWeek and Year according to orderFrist
 async function processOrder(customerId,tenantId){
   // let tenantId = '651c635eca2c3d25809ce4f5';
   // let customerId = "6540b2117d2b64903bb4e3a2";
@@ -54,7 +52,7 @@ async function processOrder(customerId,tenantId){
     for (let eachPermanentOrderStudent of permanentOrderStudents) {
 
       let tenantStudent = await TenantParent.findOne({userId: eachPermanentOrderStudent.userId});
-      let studentModel = getStundetById(eachPermanentOrderStudent.studentId, studentsCustomer);
+      let studentModel = getStudentById(eachPermanentOrderStudent.studentId, studentsCustomer);
       if (!studentModel) {
         continue
       }
@@ -140,71 +138,6 @@ async function sendEmailDailyConfirmation(weekplanDay, settings, customer, stude
     // Depending on your application's needs, you might also want to throw the error,
     // return it, or handle it in another specific way
     throw error; // This re-throws the caught error if you want to handle it further up the chain
-  }
-}
-
-async function sendSuccessEmail(req, response) {
-  try {
-    const nameMenu = getNameMenuDay(req.eachPermanentOrderStudent.daysOrder[req.indexDay], req.weekkplanDay, req.settings);
-    const emailBody = getEmailSuccess(
-      req.nameCustomer,
-      req.nameStudent,
-      req.dateOrderEdited,
-      nameMenu,
-      req.priceStudent
-    );
-    let recipient = '';
-    if(req.tenantStudent.orderSettings.orderConfirmationEmail){
-      recipient = req.tenantStudent.email;
-    }
-    const emailBodyBasic = {
-      from: `Cateringexpert <noreply@cateringexpert.de>`,
-      bcc:'eltern_bestellung@cateringexpert.de',
-      to: recipient, // list of receivers
-      subject: 'Bestellung erfolgreich',
-      html: emailBody
-    };
-
-    // Senden der E-Mail mit SendGrid
-    await sgMail.send(emailBodyBasic);
-
-    console.log('Successfully sent success email');
-  } catch (error) {
-    console.error('Failed to send success email:', error);
-
-    // Je nach Bedarf können Sie den Fehler weiter werfen oder anders behandeln
-    throw error; // Dieser Fehler wird erneut ausgelöst, wenn Sie ihn weiter oben in der Anrufkette behandeln möchten
-  }
-}
-
-async function sendCancellationEmail(req, errorMessage) {
-  try {
-    const emailBody = getEmailCancel(
-      req.nameStudent,
-      req.dateOrderEdited,
-      errorMessage
-    );
-    let recipient = '';
-    if(req.tenantStudent.orderSettings.orderConfirmationEmail){
-      recipient = req.tenantStudent.email;
-    }
-    const emailBodyBasic = {
-      from: `Cateringexpert <noreply@cateringexpert.de>`,
-      to: recipient, // list of receivers
-      bcc:'eltern_bestellung@cateringexpert.de',
-      subject: 'Bestellung nicht erfolgreich',
-      html: emailBody
-    };
-
-    // Senden der E-Mail mit SendGrid
-    await sgMail.send(emailBodyBasic);
-
-    console.log('Successfully sent cancellation email');
-  } catch (error) {
-    console.error('Failed to send cancellation email:', error);
-
-    // Je nach Bedarf können Sie den Fehler weiter werfen oder anders behandeln
-    throw error; // Dieser Fehler wird erneut ausgelöst, wenn Sie ihn weiter oben in der Anrufkette behandeln möchten
   }
 }
 

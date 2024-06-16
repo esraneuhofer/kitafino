@@ -96,6 +96,7 @@ import { LabelTooltipComponent } from './directives/label-tooltip/label-tooltip.
 import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-delete-special-food/confirm-delete-special-food.component';
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
 import {LanguageService} from "./service/language.service";
+import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
 
 // AoT requires an exported function for factories
 
@@ -180,6 +181,7 @@ export function localeFactory(languageService: LanguageService) {
     LabelTooltipComponent,
     ConfirmDeleteSpecialFoodComponent,
     ErrorWeekendBannerComponent,
+    CustomToastrComponent,
   ],
   imports: [
     BrowserModule,

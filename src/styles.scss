@@ -29,3 +29,39 @@ a:hover {
 .select-language {
   max-width: 130px; /* Legen Sie eine maximale Breite fest */
 }
+
+
+/* Optionale spezifische Anpassungen für verschiedene Typen von Toastr-Nachrichten */
+#toast-container > div.toast-success {
+  font-size: 14px !important; /* Schriftgröße verkleinern */
+  border-radius: 8px !important; /* Ecken abrunden */
+  background-color: #28a745 !important;
+  color: white !important;
+}
+#toast-container .toast-icon {
+  display: none !important;
+}
+/* Spezifische Anpassungen für Icons */
+#toast-container > div.toast-success .toast-icon {
+  font-size: 111px !important; /* Icon-Größe anpassen */
+}
+#toast-container .icon {
+  display: none !important;
+}
+#toast-container .toast-icon {
+  display: none !important;
+}
+#toast-container > div.toast-error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+#toast-container > div.toast-warning {
+  background-color: #ffc107 !important;
+  color: black !important;
+}
+
+#toast-container > div.toast-info {
+  background-color: #17a2b8 !important;
+  color: white !important;
+}

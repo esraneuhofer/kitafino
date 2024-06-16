@@ -177,7 +177,6 @@ export class PermanentOrdersComponent implements OnInit {
 
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
-    console.log(permanentOrder)
     if (!permanentOrder) {
       this.permanentOrderExists = false
       this.selectedPermanentOrder = new PermanentOrderClass(this.accountTenant.userId, student._id, this.accountTenant.customerId);
@@ -263,7 +262,6 @@ export class PermanentOrdersComponent implements OnInit {
     let typeSpecial = this.menuSelection.find((menu) => menu.menuId === event)
     if(!typeSpecial)return
     this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
-    console.log(typeSpecial.typeSpecial)
   }
 
 }

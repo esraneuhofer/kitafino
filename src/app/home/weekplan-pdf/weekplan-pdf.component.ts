@@ -71,7 +71,6 @@ export class WeekplanPdfComponent implements OnInit{
       this.generellService.getWeekplanPdfWeek({year:this.queryYear,week:this.queryWeek})
     ]).subscribe(([customerInfo,weekplansWeek]:[CustomerInterface,WeekplanPdfInterface[]]) => {
       this.customerInfo = customerInfo;
-      console.log(weekplansWeek);
       this.allWeekplans = this.getWeekplanQuery(weekplansWeek, this.customerInfo);
       this.pageLoaded = true;
     })

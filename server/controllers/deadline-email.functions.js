@@ -18,16 +18,8 @@ function getOrderBodyNew(obj) {
   if (obj.sendEmailCustomer) {
     emailArray.push(obj.customerInfo.contact.email);
   }
-  if (obj.type === 'order') {
     titleOrder = 'Vielen Dank für Ihre Bestellung';
     typeOrder = 'Bestellung';
-
-  } else {
-    obj.orderForEmail = obj.orderForEmailEdit;
-    titleOrder = 'Sie haben eine Änderung an Ihrer Bestellung vorgenommen';
-    typeOrder = 'Änderung';
-    editedBody = getEmailBody(obj, startDay, endDay, 'edit');
-  }
 
   var orderTime = getTimeToDisplay();
   let email = {
@@ -344,5 +336,7 @@ function customerHasSpecialVisibleEmail(specialFood, customerInfo) {
 }
 
 module.exports = {
-  getOrderBodyNew
+  getOrderBodyNew,
+  getMenuName,
+  customerHasSpecialVisibleEmail
 }

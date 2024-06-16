@@ -14,12 +14,12 @@ export class ApiService {
 
   setLanguage(body: { lang: string }): Observable<any> {
     const url = `${this.apiUrl}/setLanguage`;
-    console.log(`API Base URL: ${this.apiUrl}`);
-    console.log(`Sending POST request to ${url} with body:`, body);
+    // console.log(`API Base URL: ${this.apiUrl}`);
+    // console.log(`Sending POST request to ${url} with body:`, body);
     return this.http.post<any>(url, body, { withCredentials: true })
       .pipe(
         map(response => {
-          console.log('Response:', response);
+          // console.log('Response:', response);
           return response;
         }),
         catchError(this.handleError)
@@ -30,10 +30,10 @@ export class ApiService {
     console.error('Request failed with error:', error);
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred
-      console.error('Client-side error:', error.error.message);
+      // console.error('Client-side error:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code
-      console.error(`Backend returned code ${error.status}, body was: `, error.error);
+      // console.error(`Backend returned code ${error.status}, body was: `, error.error);
     }
     return throwError('Something went wrong; please try again later.');
   }

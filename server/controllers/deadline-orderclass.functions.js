@@ -183,6 +183,7 @@ function getOrdersStudent(ordersStudents,
                           settings,
                           selectedWeek,
                           allStudents) {
+
   if(ordersStudents.length === 0)return [];
   if(!customer)return [];
   if(allStudents.length === 0)return [];
@@ -191,7 +192,6 @@ function getOrdersStudent(ordersStudents,
       kw: orderOverview.queryCW,
       year: orderOverview.queryYears
     }, settings, selectedWeek)
-
   ordersStudents.forEach(eachOrderStudent =>{
     if(eachOrderStudent.customerId.equals(customer.customerId)){
 

@@ -7,6 +7,7 @@ const TaskOrder = mongoose.model('TaskOrder');
 const Customer = mongoose.model('Customer');
 const { generateDailyCronSchedule } = require('./deadline-deadline.functions');
 const processOrder = require('./task-daily-deadline.controller');
+const {processOrderWeekly} = require('./task-weekly-order-deadline');
 const scheduledJobs = {};
 
 
@@ -14,8 +15,12 @@ async function setTaskCustomerDeadline(customerId,tenantId){
   const customers = await Customer.find({ isCustomerNotStudent: false });
   for(let eachCustomer of customers){
     console.log(eachCustomer.customerId)
-    scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(generateDailyCronSchedule(eachCustomer.order.deadLineDaily.time), async () => {
-      await processOrder(eachCustomer.customerId,eachCustomer.tenantId);
+    scheduledJobs[eachCustomer.customerId] = schedule.scheduleJob(generateDailyCronSchedule(eachCustomer.generalSettings.deadlineWeekly.time), async () => {
+      if(eachCustomer.generalSettings.isDeadlineDaily) {
+        await processOrder(eachCustomer.customerId, eachCustomer.tenantId);
+      }else{
+        await processOrderWeekly(eachCustomer.customerId, eachCustomer.tenantId);
+      }
       // Optionally update task status in database after completion
     });
   };

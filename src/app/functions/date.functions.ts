@@ -121,3 +121,53 @@ export function formatDateInput(date: Date): string {
   const day = ('0' + date.getDate()).slice(-2);
   return `${year}-${month}-${day}`;
 }
+
+
+function generateScheduleSentence(schedule: {
+  weeks: string;
+  day: string;
+  time: Date;
+}): string {
+  // Definiere die Wochentage
+  const daysOfWeek: { [key: string]: string } = {
+    '1': 'Montag',
+    '2': 'Dienstag',
+    '3': 'Mittwoch',
+    '4': 'Donnerstag',
+    '5': 'Freitag',
+    '6': 'Samstag',
+    '7': 'Sonntag'
+  };
+
+  const weeks = parseInt(schedule.weeks);
+  const day = daysOfWeek[parseInt(schedule.day)] || 'unbekannter Tag';
+  const time = schedule.time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+
+  const weekText = weeks === 1 ? '1 Woche' : `${weeks} Wochen`;
+  const sentence = `Die Bestellfrist endet immer vor ${weekText}, am ${day} um ${time} Uhr.`;
+
+  return sentence;
+}
+
+function generateDailyDeadlineSentence(deadline: {
+  day: string;
+  time: Date;
+},type:string): string {
+  const daysOfWeek: { [key: number]: string } = {
+    1: 'Montag',
+    2: 'Dienstag',
+    3: 'Mittwoch',
+    4: 'Donnerstag',
+    5: 'Freitag',
+    6: 'Samstag',
+    7: 'Sonntag'
+  };
+  let day = daysOfWeek[parseInt(deadline.day)] || 'unbekannter Tag';
+  const time = deadline.time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+
+  if(type === 'deadline'){
+    return  `Die Bestellfrist endet immer am ${day} um ${time} Uhr.`;
+  }
+  return `Die Abbestellfrist endet immer am ${day} um ${time} Uhr.`;
+
+}

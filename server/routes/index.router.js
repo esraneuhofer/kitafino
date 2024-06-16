@@ -24,6 +24,8 @@ const {rawBodyBuffer} = require('../config/stripeWebhookMiddleware');
 const ctrlWebhook = require('../controllers/stripe-webhook.controller');
 const rateLimitHelper = require('../config/rateLimitHelper');
 
+
+
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/register', ctrlUser.register);
 router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
@@ -66,6 +68,7 @@ router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
 
 
 /////Order Requests ////
+router.get('/getOrderStudentWeek',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentWeek)
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
 router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
 // router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
@@ -107,6 +110,10 @@ router.post('/setLanguage',ctrlLanguage.setLanguage)
 router.get('/getMessages',ctrlMessage.getMessages)
 router.post('/editMessage',ctrlMessage.editMessage)
 router.post('/addMessage',ctrlMessage.addMessage)
+
+
+
+
 
 module.exports = router;
 

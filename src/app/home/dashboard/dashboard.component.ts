@@ -12,7 +12,7 @@ import {forkJoin} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {sortOrdersByDate} from "../../functions/order.functions";
-import {getTotalPriceSafe, timeDifference} from "../order-student/order.functions";
+import {getTotalPriceSafe, timeDifference, timeDifferenceDay} from "../order-student/order.functions";
 import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
@@ -53,7 +53,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
                 }).join(', '),
                 nameStudent: getStudentNameById(order.studentId, registeredStudendts),
                 price: getTotalPriceSafe(order),
-                cancelPossible: timeDifference(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
+                cancelPossible: timeDifferenceDay(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
                 order: orderCopy$
             })
     })
@@ -65,7 +65,7 @@ export interface DisplayOrderArrayIntrface {
     orderedMenus: string,
     nameStudent: string,
     price: number,
-    cancelPossible: string | null,
+    cancelPossible: number,
     order: OrderInterfaceStudent
 }
 

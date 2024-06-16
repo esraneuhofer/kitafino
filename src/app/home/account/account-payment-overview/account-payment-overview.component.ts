@@ -23,6 +23,7 @@ import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
+import {Capacitor} from "@capacitor/core";
 
 
 export interface PaymentIntentResponse {
@@ -157,10 +158,8 @@ export class AccountPaymentOverviewComponent implements OnInit {
         this.tenantStudent,
         'withdraw'
       );
-      console.log(accountCharge);
       accountCharge.emailTenant = this.tenantStudent.email;
       this.chargeService.addAccountChargesTenant(accountCharge).subscribe((response: any) => {
-        console.log(response);
         forkJoin([
           this.chargeService.getAccountCharges(),
           this.accountService.getAccountTenant()
@@ -190,7 +189,12 @@ export class AccountPaymentOverviewComponent implements OnInit {
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
     if(!this.tenantStudent.userId)return
-    const isPWA = this.isPWA(); // Funktion, um zu überprüfen, ob es sich um eine PWA handelt
+    // const isPWA = this.isPWA(); // Funktion, um zu überprüfen, ob es sich um eine PWA handelt
+    const platform = Capacitor.getPlatform();
+    // console.log('Platform:', platform);
+    const isPWA = platform === 'ios' || platform === 'android';
+    // console.log('isPWA:', isPWA);
+
     // this.submittingRequest = true;
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isPWA);
   }

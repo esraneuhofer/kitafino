@@ -20,7 +20,9 @@ function setLineItems(body){
 
 exports.createPaymentIntent = async (req, res) => {
   try {
-    const { username, userId } = req.body;
+    const { username, userId, isPwa } = req.body;
+    console.log("username:", req.body);
+    console.log("isPWA:", isPwa);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'giropay'],
@@ -37,6 +39,7 @@ exports.createPaymentIntent = async (req, res) => {
         ? 'https://kitafino-45139aec3e10.herokuapp.com/account_overview?status=failure'
         : 'http://localhost:4200/home/account_overview?status=failure',
     });
+
     try {
       await saveSessionInfo(session.id, userId, username);
     } catch (error) {

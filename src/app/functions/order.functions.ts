@@ -16,6 +16,13 @@ import * as moment from 'moment-timezone';
 import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
 import {TenantStudentInterface} from "../classes/tenant.class";
 
+
+export function convertDayToIsoString(day:string):string {
+  let date = new Date(day);
+  let formattedDate = date.toISOString().split('T')[0] + 'T00:00:00+02:00';
+  return formattedDate;
+}
+
 function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
     if (orderMenus[i].idType === idType) {
@@ -64,7 +71,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     studentId: copy.studentId || '',
     kw: copy.kw,
     year: copy.year,
-    dateOrder: moment.tz(copy.dateOrder, 'Europe/Berlin').format(),
+    dateOrder: copy.dateOrder,
     dateOrderPlaced: copy.dateOrderPlaced,
     customerId: copy.customerId,
     order: {

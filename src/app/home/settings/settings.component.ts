@@ -42,7 +42,6 @@ export class SettingsComponent implements OnInit{
     this.isEditing = !this.isEditing;
     if (!this.isEditing) {
       // Speichern der IBAN (hier könnten Sie zusätzliche Logik hinzufügen, z.B. Validierung)
-      console.log('IBAN gespeichert:', this.tenantModel.iban);
     }
   }
 

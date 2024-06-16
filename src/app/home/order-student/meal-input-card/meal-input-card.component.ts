@@ -6,7 +6,7 @@ import localeDe from '@angular/common/locales/de';
 import {registerLocaleData} from "@angular/common";
 import {modifyOrderModelForSave, orderIsEmpty, orderIsNegative} from "../../../functions/order.functions";
 import {OrderService} from "../../../service/order.service";
-import {timeDifference, timeDifferenceDay} from "../order.functions";
+import {getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay} from "../order.functions";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmOrderComponent} from "../../dialogs/confirm-order/confirm-order.component";
 import {getEmailBody} from "../email-order.function";
@@ -83,6 +83,13 @@ function setOrdersSide(ordersWeek: OrderSubDetailNew[], settings: SettingInterfa
 
   return array
 }
+
+
+function toUTCDate(date: Date): Date {
+  const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  return utcDate;
+}
+
 
 registerLocaleData(localeDe);
 
@@ -218,6 +225,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (eachMenu.typeOrder === 'menu' && this.displayMinimize) {
       minHeight = '80px'; // Set min-height to 140px for 'menu'
     }
+    if(eachMenu.typeOrder === 'specialFood'){
+      minHeight = '50px';
+    }
 
     return {'min-height': minHeight};
   }
@@ -350,12 +360,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       const emailBody = getEmailBodyCancel(emailObject);
       this.generalService.sendEmail(emailBody).subscribe({
         next: (emailResponse) => {
-          console.log('E-Mail erfolgreich gesendet:', emailResponse);
           this.orderPlaced.emit(true);
           this.submittingOrder = false;
         },
         error: (emailError) => {
-          console.error('Fehler beim Senden der E-Mail:', emailError);
           this.toastr.error('Fehler beim Senden der Bestätigungs-E-Mail.');
           this.submittingOrder = false;
         }
@@ -369,12 +377,28 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.submittingOrder = false;
   }
 
+  checkDeadline(day:Date) {
+    this.customer.generalSettings.isDeadlineDaily = false;
+    this.customer.generalSettings.deadlineWeekly = {
+      weeks: '1',
+      day: '3',
+      time: new Date('1970-01-01T18:00:00.000+00:00')
+    }
+    if(this.customer.generalSettings.isDeadlineDaily){
+      this.checkDeadlineDay(day)
+    }else{
+      let cw = getWeekNumber(day);
+      let year = day.getFullYear();
+      this.checkDeadlineWeek(cw,year)
+    }
 
+  }
 
-  checkDeadline(day: Date): void {
-    const distance = timeDifference(this.settings.orderSettings.deadLineDaily, day);
-    const distanceDay = timeDifferenceDay(this.settings.orderSettings.deadLineDaily, day);
-    if (!distance) {
+  checkDeadlineDay(day: Date): void {
+    const distance = timeDifferenceDay(this.settings.orderSettings.deadLineDaily, day);
+    // const convertedSeconds = timeDifference(distance,false);
+    // const convertedMinutes = timeDifference(distance,true);
+    if (distance < 0) {
       // this.pastOrder = true;
       this.pastOrder = true;
       this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
@@ -383,14 +407,36 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     } else {
       clearInterval(this.timerInterval);
       this.pastOrder = false;
-      this.differenceTimeDeadline = distance;
-      if(!distanceDay) return
-      this.differenceTimeDeadlineDay = distanceDay;
+      this.differenceTimeDeadline = timeDifference(distance,true);
+      this.differenceTimeDeadlineDay = timeDifference(distance,false);
       this.timerInterval = setInterval(() => {
-        this.checkDeadline(day);
+        this.checkDeadlineDay(day);
       }, 1000);
     }
   }
+
+  checkDeadlineWeek(cw:number, year:number) {
+    if (!cw || !year) {
+      return;
+    }
+    clearInterval(this.timerInterval);
+    let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
+    if (distance < 0) {
+      this.pastOrder = true;
+      this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
+      // this.differenceTimeDeadlineDay = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
+      clearInterval(this.timerInterval);
+    } else {
+      this.pastOrder = false;
+      this.differenceTimeDeadline = timeDifference(distance,true);
+      this.differenceTimeDeadlineDay = timeDifference(distance,false);
+      // this.diff = showDeadline(distance);
+      this.timerInterval = setInterval(() => {
+        this.checkDeadlineWeek(cw, year);
+      }, 1000);
+    }
+  }
+
 
   ngOnDestroy(): void {
     if (this.timerInterval) {
@@ -404,6 +450,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }
@@ -472,6 +519,5 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.orderPlaced.emit(true);
     this.submittingOrder = false;
   }
-
 
 }

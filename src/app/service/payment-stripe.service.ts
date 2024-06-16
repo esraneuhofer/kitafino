@@ -16,11 +16,9 @@ export class PaymentService {
   async redirectToStripeCheckout(amount: number, userId: string, username: string, isPwa: boolean) {
     try {
       // Log the input parameters
-      console.log('Starting redirectToStripeCheckout with params:', { amount, userId, username, isPwa });
 
       // Await the creation of the payment intent from your backend
       const session: any = await this.generellService.createPaymentIntent({ amountPayment: amount, userId: userId, username: username, isPwa: isPwa }).toPromise();
-      console.log('Payment Intent Session:', session);
 
       if (!session || !session.id) {
         throw new Error('Invalid session returned from backend');
@@ -28,7 +26,6 @@ export class PaymentService {
 
       // Await the Stripe object
       const stripe: any = await stripePromise;
-      console.log('Stripe Object:', stripe);
 
       // Check if stripe object is valid
       if (!stripe || typeof stripe.redirectToCheckout !== 'function') {

@@ -75,7 +75,6 @@ export class RegisterStudentComponent implements OnInit{
     this.studentModel.subgroup = event;
   }
   selectSpecialFood(event:string):void{
-    console.log('event',event)
     this.studentModel.specialFood = event;
   }
   ngOnInit() {

@@ -3,6 +3,8 @@ import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.clas
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {TenantStudentInterface} from "../../classes/tenant.class";
+import {OrderSettingsInterfaceNew} from "../../classes/setting.class";
+import {GeneralSettingsInterface} from "../../classes/general-settings.interface";
 
 
 export interface OrderSettingsDeadLineDailyInterface{
@@ -14,21 +16,7 @@ export interface OrderSettingsDeadLineDailyInterface{
   maxAmountAdd: number;
 }
 
-export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):(string | null) {
-  let dayOrder = new Date(dateInputCompare);
-  const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
-  const dateObj = moment(deadLineDaily.time).toDate();
-  const hours_:any = dateObj.getHours();
-  const minutes_:any = dateObj.getMinutes();
-
-  daysSub.setHours(hours_)
-  daysSub.setMinutes(minutes_)
-  daysSub.setSeconds(0)
-  let difference = daysSub.getTime()- new Date().getTime() ;  // to ensure we get a positive difference
-
-  if(difference < 0){
-    return null
-  }
+export function timeDifference(difference:number,withSeconds:boolean):string {
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   difference %= (1000 * 60 * 60 * 24);  // subtract the days
 
@@ -39,12 +27,13 @@ export function timeDifference(deadLineDaily:OrderSettingsDeadLineDailyInterface
   difference %= (1000 * 60);  // subtract the minutes
 
   const seconds = Math.floor(difference / 1000);
-
-  // return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
+  if(withSeconds){
+      return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
+  }
   return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
-export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):(string | null) {
+export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):number {
   let dayOrder = new Date(dateInputCompare);
   const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
   const dateObj = moment(deadLineDaily.time).toDate();
@@ -55,23 +44,8 @@ export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterf
   daysSub.setMinutes(minutes_)
   daysSub.setSeconds(0)
   let difference = daysSub.getTime()- new Date().getTime() ;  // to ensure we get a positive difference
+  return difference;
 
-  if(difference < 0){
-    return null
-  }
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  difference %= (1000 * 60 * 60 * 24);  // subtract the days
-
-  const hours = Math.floor(difference / (1000 * 60 * 60));
-  difference %= (1000 * 60 * 60);  // subtract the hours
-
-  const minutes = Math.floor(difference / (1000 * 60));
-  difference %= (1000 * 60);  // subtract the minutes
-
-  const seconds = Math.floor(difference / 1000);
-
-  return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min,  ${seconds} sek`;
-  // return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
 export function addDayFromDate(date:Date, daysToAdd:number) {
@@ -126,3 +100,56 @@ export function getDisplayOrderType(tenantStudent:TenantStudentInterface,type:bo
  }
   return type;
 }
+
+
+export function getDeadlineWeeklyFunction(customerGeneralSettings:GeneralSettingsInterface, weekNumber:number, startWeekNumber:number, startYear:number, endYear:number):number {
+  if (!weekNumber) {
+    return -1;
+  }
+  let yearsDiff = endYear - startYear;
+  let end: any = getDeadLineEnd(customerGeneralSettings.deadlineWeekly, weekNumber, startWeekNumber, yearsDiff, startYear);
+  let now:any = new Date();
+  return end - now;
+}
+
+export function getDeadLineEnd(object:{ weeks: string; day: string; time: Date; }, weeknumber:number, startWeek:number, yearsDiff:number, startYear:number) {
+  function getSub() {
+    let num = 0;
+    if (new Date().getDay() === 0) {
+      num = -1;
+    }
+    return num;
+  }
+
+  if (yearsDiff !== 0) {
+    let sub = getSub();
+    let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
+    let days = parseInt(object.day) - (new Date()).getDay() + (7 * diff) + (365 * yearsDiff);
+    if (startYear === 2020) {
+      days += 6;
+    }
+    let deadLine = addDayFromDate(new Date,days);
+    let dayDeadLine = deadLine.getDate();
+    let yearDeadLine = deadLine.getFullYear();
+    let monthDeadLine = deadLine.getMonth();
+    let time = new Date(object.time);
+    let hours = time.getHours();
+    let min = time.getMinutes();
+    return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
+  } else {
+    let sub = getSub();
+    let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
+    let days = parseInt(object.day) - (new Date()).getDay() + (7 * diff);
+    let deadLine =addDayFromDate(new Date,days);
+    let dayDeadLine = deadLine.getDate();
+    let yearDeadLine = deadLine.getFullYear();
+    let monthDeadLine = deadLine.getMonth();
+    let time = new Date(object.time);
+    let hours = time.getHours();
+    let min = time.getMinutes();
+    return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
+  }
+
+
+}
+

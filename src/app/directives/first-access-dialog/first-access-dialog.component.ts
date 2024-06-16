@@ -35,7 +35,7 @@ export class FirstAccessDialogComponent {
     this.ngZone.runOutsideAngular(() => {
       requestAnimationFrame(() => {
         this.currentPage++;
-        this.ngZone.run(() => console.log(this.currentPage));
+        // this.ngZone.run(() => console.log(this.currentPage));
       });
     });
   }
