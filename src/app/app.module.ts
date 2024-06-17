@@ -97,7 +97,6 @@ import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-del
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
 import {LanguageService} from "./service/language.service";
 import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
-import {IonicModule} from "@ionic/angular";
 
 // AoT requires an exported function for factories
 
@@ -216,8 +215,7 @@ export function localeFactory(languageService: LanguageService) {
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        }),
-        IonicModule
+        })
 
     ],
   providers: [

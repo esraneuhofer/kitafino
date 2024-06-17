@@ -1,0 +1,17 @@
+.toastr-container {
+  z-index: 9999; /* Sehr hoher z-index, um sicherzustellen, dass es über allem anderen steht */
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start; /* immer oben anzeigen */
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+/* Spezifische Anpassungen für kleine Bildschirme */
+@media (max-width: 640px) {
+  .toastr-container {
+    align-items: flex-start;
+  }
+}
