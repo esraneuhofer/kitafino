@@ -34,10 +34,10 @@ exports.createPaymentIntent = async (req, res) => {
       },
       success_url: process.env.NODE_ENV === 'production'
         ? 'https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success'
-        : 'http://localhost:4200/success_stripe',
+        : 'http://localhost:4200/home/dashboard?status=success',
       cancel_url: process.env.NODE_ENV === 'production'
         ? 'https://kitafino-45139aec3e10.herokuapp.com/account_overview?status=failure'
-        : 'http://localhost:4200/error_stripe',
+        : 'http://localhost:4200/dashboard?status=failure',
     });
 
     try {
