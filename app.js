@@ -152,7 +152,7 @@ app.use('/api', (req, res, next) => {
   next();
 }, rtsIndex);
 
-app.use('/api', rtsIndex);
+// app.use('/api', rtsIndex);
 // error handler
 app.use((err, req, res, next) => {
     if (err.name === 'ValidationError') {
