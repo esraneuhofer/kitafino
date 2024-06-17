@@ -9,11 +9,11 @@ export interface GeneralSettingsInterface {
     time: Date;
   };
   deadlineDaily: {
-    day: number;
+    day: string;
     time: Date;
   };
   cancelOrderDaily: {
-    day: number;
+    day: string;
     time: Date;
   };
 }

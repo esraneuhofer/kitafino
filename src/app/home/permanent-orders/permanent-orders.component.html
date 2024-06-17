@@ -82,6 +82,10 @@
                                                   {{ 'MANAGE_PERMANENT_ORDERS.NEW_ORDER' | translate }}
                                                 </span>
                                             </p>
+                                          <p class="mt-1 text-sm leading-6 text-gray-600">
+                                           <b>Wichtig</b> Die Dauerbestellung wird automatisch nach Ablauf der jeweiligen Bestellfrist ausgelöst.
+                                            <br> <u>{{bestellfrist}}</u>
+                                          </p>
                                             <fieldset class="mt-4">
                                                 <legend class="sr-only">Notifications</legend>
                                                 <div *ngFor="let day of selectedPermanentOrder.daysOrder; let index = index"

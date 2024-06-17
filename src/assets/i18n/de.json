@@ -422,5 +422,22 @@
   "SCHLLIESSTAG": "Schließtag",
   "BESTELLUNG_STORNIERT_ALERT": "Bestellung wurde storniert",
   "BESTELLUNG_EINGETRAGEN": "Bestellung wurde eingetragen",
-  "BESTELLUNG_NICHT_EINGETRAGEN": "Bestellung konnte nicht eingetragen werden"
+  "BESTELLUNG_NICHT_EINGETRAGEN": "Bestellung konnte nicht eingetragen werden",
+
+
+  "VORTAG":"Vortag",
+  "TAGE_VOR_DEM_JEWEILIGEM":"Tage vor dem jeweiligen Essenstag",
+  "BESTELLFRIST_ENDET_IMMER":"Die Bestellfrist endet immer",
+  "ABBESTELLFRIST_ENDET_IMMER":"Die Abbestellfrist endet immer",
+  "BESTELLFRIST_ENDET_IMMER_VOR":"Die Bestellfrist endet immer vor",
+  "UHR":"Uhr",
+  "Montag":"Montag",
+  "Dienstag":"Dienstag",
+  "Mittwoch":"Mittwoch",
+  "Donnerstag":"Donnerstag",
+  "Freitag":"Freitag",
+  "AM":"am",
+  "UM":"um",
+  "IN_DER_VORWOCHE":"in der Vorwoche",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Wochen vor der jeweiligen Bestellwoche"
 }

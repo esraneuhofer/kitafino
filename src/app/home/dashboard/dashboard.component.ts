@@ -12,7 +12,7 @@ import {forkJoin} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {sortOrdersByDate} from "../../functions/order.functions";
-import {getTotalPriceSafe, timeDifference, timeDifferenceDay} from "../order-student/order.functions";
+import {getTotalPriceSafe, timeDifferenceDay} from "../order-student/order.functions";
 import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";

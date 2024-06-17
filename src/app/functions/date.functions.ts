@@ -5,6 +5,8 @@ import {isHoliday} from 'feiertagejs';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import {CustomerInterface} from "../classes/customer.class";
+import {TranslateService} from "@ngx-translate/core";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -131,7 +133,7 @@ function generateScheduleSentence(schedule: {
   weeks: string;
   day: string;
   time: Date;
-}): string {
+},translate:TranslateService): string {
   // Definiere die Wochentage
   const daysOfWeek: { [key: string]: string } = {
     '1': 'Montag',
@@ -145,10 +147,10 @@ function generateScheduleSentence(schedule: {
 
   const weeks = parseInt(schedule.weeks);
   const day = daysOfWeek[parseInt(schedule.day)] || 'unbekannter Tag';
-  const time = schedule.time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
-
-  const weekText = weeks === 1 ? '1 Woche' : `${weeks} Wochen`;
-  const sentence = `Die Bestellfrist endet immer vor ${weekText}, am ${day} um ${time} Uhr.`;
+  const time = new Date(schedule.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+    console.log("asdasd")
+  const weekText = weeks === 1 ? translate.instant("IN_DER_VORWOCHE") : `${weeks} ${translate.instant("WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE")}`;
+  const sentence = `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${weekText}, ${translate.instant("AM")} ${day} ${translate.instant("UM")} ${time} ${translate.instant("UHR")}.`;
 
   return sentence;
 }
@@ -167,11 +169,54 @@ function generateDailyDeadlineSentence(deadline: {
     7: 'Sonntag'
   };
   let day = daysOfWeek[parseInt(deadline.day)] || 'unbekannter Tag';
-  const time = deadline.time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+  const time = new Date(deadline.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
 
   if(type === 'deadline'){
     return  `Die Bestellfrist endet immer am ${day} um ${time} Uhr.`;
   }
   return `Die Abbestellfrist endet immer am ${day} um ${time} Uhr.`;
 
+}
+
+// const var = {
+//   "VORTAG":"Vortag",
+//   "TAGE_VOR_DEM_JEWEILIGEM":"Tage vor dem jeweiligen Essenstag",
+//   "BESTELLFRIST_ENDET_IMMER":"Die Bestellfrist endet immer",
+//   "ABBESTELLFRIST_ENDET_IMMER":"Die Abbestellfrist endet immer um",
+//   "BESTELLFRIST_ENDET_IMMER_VOR":"Die Bestellfrist endet immer vor",
+//   "Uhr":"Uhr",
+//   "Montag":"Montag",
+//   "Dienstag":"Dienstag",
+//   "Mittwoch":"Mittwoch",
+//   "Donnerstag":"Donnerstag",
+//   "Freitag":"Freitag",
+//   "AM":"am",
+//   "UM":"um",
+//   "IN_DER_VORWOCHE":"in der Vorwoche",
+//   "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Wochen vor der jeweiligen Bestellwoche"
+// }
+function generateDailyDeadlineFixSentence(deadline: {
+  day: string;
+  time: Date;
+},type:string,translate:TranslateService): string {
+
+  let daysString = translate.instant("VORTAG")
+  if(deadline.day !== "1"){
+    daysString = deadline.day + ' ' + translate.instant("TAGE_VOR_DEM_JEWEILIGEM")
+  }
+  const time = new Date(deadline.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+
+  if(type === 'deadline'){
+    return  `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${daysString} ${translate.instant("UM")}  ${time} Uhr.`;
+  }
+  return `${translate.instant("ABBESTELLFRIST_ENDET_IMMER")} ${daysString} ${time} Uhr.`;
+
+}
+export function getBestellfrist(customer:CustomerInterface,translate:TranslateService):string{
+  let string = '';
+  if(customer.generalSettings.isDeadlineDaily){
+      return generateDailyDeadlineFixSentence(customer.generalSettings.deadlineDaily,'deadline',translate)
+  }else{
+    return generateScheduleSentence(customer.generalSettings.deadlineWeekly,translate)
+  }
 }

@@ -31,6 +31,7 @@ import {createXmlFile} from "../account/account-csv.function";
 import {
   ConfirmDialogPermanetOrderComponent
 } from "./confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
+import {getBestellfrist} from "../../functions/date.functions";
 
 interface DaysOrderPermanentInterfaceSelection {
   selected: boolean,
@@ -80,7 +81,7 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
 })
 export class PermanentOrdersComponent implements OnInit {
 
-
+  bestellfrist:string = '';
   isFlipped:boolean = false;
   textBanner:string = '';
   dayArray = dayArray;
@@ -158,7 +159,9 @@ export class PermanentOrdersComponent implements OnInit {
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.permanentOrders = permanentOrders;
+        this.bestellfrist = getBestellfrist(this.customer,this.translate)
         this.pageLoaded = true;
+
       },
       (error) => {
         console.error('An error occurred:', error);
