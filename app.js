@@ -14,6 +14,10 @@ const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+
+// Statische Dateien aus dem .well-known Verzeichnis bedienen
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+
   app.use(i18n.init);
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -58,8 +62,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Statische Dateien aus dem .well-known Verzeichnis bedienen
-app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
 
 // Log all incoming requests
 // app.use((req, res, next) => {
