@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {PlatformService} from "../../../service/platform.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-not-success-stripe',
@@ -7,4 +9,13 @@ import { Component } from '@angular/core';
 })
 export class NotSuccessStripeComponent {
 
+  isApp:boolean = false;
+  constructor(private platformService: PlatformService,private route: ActivatedRoute) {
+    this.isApp = this.platformService.isAndroid || this.platformService.isIos;
+  }
+
+  goBack(){
+      window.location.href = "https://kitafino-45139aec3e10.herokuapp.com/home/dashboard";
+
+  }
 }

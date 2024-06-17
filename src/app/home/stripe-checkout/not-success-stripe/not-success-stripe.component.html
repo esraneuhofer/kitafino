@@ -1,1 +1,27 @@
-<p>not-success-stripe works!</p>
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Einzahlung Erfolgreich</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="bg-white p-8 rounded shadow-md text-center">
+  <div class="flex items-center justify-center mb-4">
+    <h1 class="text-2xl font-bold">{{"ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER" | translate}}</h1>
+    <svg class="h-8 w-8 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" >
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+    </svg>
+  </div>
+  <p class="mb-4" [innerHTML]="'ACCOUNT.ERROR_DEPOSIT_MESSAGE' | translate"></p>
+
+  <p *ngIf="isApp">Bitte kehren Sie zurück in die App.</p>
+  <button *ngIf="!isApp" onclick="window.history.back()" class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+    {{"ACCOUNT.SUCCESS_BACK_TO_APP" | translate}}</button>
+</div>
+</body>
+
+</html>

@@ -20,7 +20,7 @@ function setLineItems(body){
 
 exports.createPaymentIntent = async (req, res) => {
   try {
-    const { username, userId, isPwa } = req.body;
+    const { username, userId, isPwa, amount } = req.body;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'giropay'],
@@ -28,14 +28,18 @@ exports.createPaymentIntent = async (req, res) => {
       mode: 'payment',
       locale: 'de',
       payment_intent_data: {
-        metadata: { userId: userId, username: username }
+        metadata: {
+          userId: userId,
+          username: username,
+          amount: amount
+        }
       },
       success_url: process.env.NODE_ENV === 'production'
-        ? 'https://kitafino-45139aec3e10.herokuapp.com/home/dashboard?status=success'
-        : 'http://localhost:4200/home/dashboard?status=success',
+        ? `https://kitafino-45139aec3e10.herokuapp.com/home/dashboard?status=success&amount=${amount}`
+        : `http://localhost:4200/home/dashboard?status=success&amount=${amount}`,
       cancel_url: process.env.NODE_ENV === 'production'
-        ? 'https://kitafino-45139aec3e10.herokuapp.com/dashboard?status=failure'
-        : 'http://localhost:4200/home/dashboard?status=failure',
+        ? `https://kitafino-45139aec3e10.herokuapp.com/dashboard?status=failure&amount=${amount}`
+        : `http://localhost:4200/home/dashboard?status=failure&amount=${amount}`,
     });
 
     try {
@@ -52,6 +56,7 @@ exports.createPaymentIntent = async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 };
+
 
 
 
