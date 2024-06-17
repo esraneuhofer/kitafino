@@ -13,7 +13,7 @@ const stripePromise = loadStripe('pk_test_51MhCdsHY2mPrPTHEjdNTkPFA4UUgf4QCkUtld
 export class PaymentService {
   constructor(private generellService: GenerellService) {}
 
-  async redirectToStripeCheckout(amount: number, userId: string, username: string, isPwa: boolean) {
+  async redirectToStripeCheckout(amount: number, userId: string, username: string, isIos: boolean,isAndroid:boolean) {
     try {
       // Log the input parameters
 

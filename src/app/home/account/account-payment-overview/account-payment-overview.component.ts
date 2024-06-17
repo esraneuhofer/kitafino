@@ -24,6 +24,7 @@ import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Capacitor} from "@capacitor/core";
+import {PlatformService} from "../../../service/platform.service";
 
 
 export interface PaymentIntentResponse {
@@ -66,6 +67,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private accountService: AccountService,
     private paymentService: PaymentService,
     private dialogService: MessageDialogService,
+    private platformService: PlatformService,
     private translate: TranslateService) {
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
@@ -189,14 +191,9 @@ export class AccountPaymentOverviewComponent implements OnInit {
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
     if(!this.tenantStudent.userId)return
-    // const isPWA = this.isPWA(); // Funktion, um zu überprüfen, ob es sich um eine PWA handelt
-    const platform = Capacitor.getPlatform();
-    // console.log('Platform:', platform);
-    const isPWA = platform === 'ios' || platform === 'android';
-    // console.log('isPWA:', isPWA);
 
     // this.submittingRequest = true;
-    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isPWA);
+    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,this.platformService.isIos,this.platformService.isAndroid);
   }
   faClipboard = faClipboard;
   estimatedFee: number = 0;
