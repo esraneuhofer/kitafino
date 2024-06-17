@@ -1,12 +1,14 @@
 const express = require('express');
+const path = require('path');
+var app = express();
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 var port = process.env.PORT || 3002;
-const path = require('path');
 require('dotenv').config();
 var environment = process.env.NODE_ENV;
-var app = express();
 const i18n = require('i18n');
 var server = require('http').createServer(app);
 const mongoose = require('mongoose');
@@ -15,8 +17,8 @@ const cookieParser = require('cookie-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 
-// Statische Dateien aus dem .well-known Verzeichnis bedienen
-app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+// Middleware für statische Dateien so früh wie möglich einfügen
+
 
   app.use(i18n.init);
 

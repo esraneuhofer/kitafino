@@ -16,7 +16,7 @@ export class SuccessStripeComponent implements OnInit {
       if (this.platformService.isAndroid) {
         window.location.href = "your-android-app://home/account_overview?status=success";
       } else if (this.platformService.isIos) {
-        window.location.href = "your-ios-app://home/account_overview?status=success";
+        window.location.href = "your-ios-app://home/dashboard?status=success";
       } else {
         window.location.href = environment.successUrl;
         window.location.href = "http://localhost:4200/home/account_overview?status=success";
@@ -27,13 +27,13 @@ export class SuccessStripeComponent implements OnInit {
     console.log('this.platformService.isAndroid',this.platformService.isAndroid);
     console.log('this.platformService.isIos',this.platformService.isIos);
 
-    if (this.platformService.isAndroid) {
-      window.location.href = "your-android-app://home/account_overview?status=success";
-    } else if (this.platformService.isIos) {
-      window.location.href = "your-ios-app://home/account_overview?status=success";
-    } else {
-      window.location.href = environment.successUrl;
-      window.location.href = "http://localhost:4200/home/account_overview?status=success";
-    }
+    // if (this.platformService.isAndroid) {
+    //   window.location.href = "your-android-app://home/dashboard";
+    // } else if (this.platformService.isIos) {
+      window.location.href = "your-ios-app://home/dashboard";
+    // } else {
+    //   window.location.href = environment.successUrl;
+    //   window.location.href = "http://localhost:4200/home/account_overview?status=success";
+    // }
   }
 }

@@ -6,7 +6,7 @@ import {DateOrderSingleInterface, orderCustomerSeed} from "../../seed.data";
 import {TenantServiceStudent} from "../../service/tenant.service";
 import {AccountService} from "../../service/account.serive";
 import {StudentService} from "../../service/student.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {forkJoin} from "rxjs";
 import {OrderService} from "../../service/order.service";
@@ -24,6 +24,8 @@ import {getEmailBodyCancel} from "../order-student/email-cancel-order.function";
 import {CustomerInterface} from "../../classes/customer.class";
 import {SchoolMessageInterface} from "../../classes/school-message.interface";
 import {MessageService} from "../../service/message.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageDialogService} from "../../service/message-dialog.service";
 
 function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantStudentInterface): SchoolMessageInterface[] {
     if (!tenant.userId) {
@@ -102,16 +104,37 @@ export class DashboardComponent {
                 private r: ActivatedRoute,
                 private router: Router,
                 private dialog: MatDialog,
+                private route: ActivatedRoute,
                 private generalService: GenerellService,
+                private dialogService: MessageDialogService,
                 private toastr: ToastrService,
                 private orderService: OrderService,
                 private generallService: GenerellService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private translate: TranslateService) {
 
     }
-
+  private updateUrlWithoutStatus() {
+    const navigationExtras: NavigationExtras = {
+      queryParams: {}
+    };
+    this.router.navigate([], navigationExtras);
+  }
     ngOnInit() {
-
+      this.route.queryParams.subscribe(params => {
+        const status = params['status'];
+        if (status === 'success') {
+          let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
+          let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
+          this.dialogService.openMessageDialog(reason,header, 'success');
+          this.updateUrlWithoutStatus();
+        } else if (status === 'failure') {
+          let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
+          let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+          this.dialogService.openMessageDialog(reason,header,'error');
+          this.updateUrlWithoutStatus();
+        }
+      })
         // forkJoin(
         //     [
         //         this.messageService.addMessage({
