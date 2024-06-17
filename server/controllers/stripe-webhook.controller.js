@@ -3,7 +3,7 @@ const stripe = require('stripe')('sk_test_51MhCdsHY2mPrPTHEZxMopIulzhGZdgDzOLMcP
 const express = require('express');
 const app = express();
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = "whsec_f0d3484b13e96c272f7f2d228444c2a45106cefa8d0a19fbd231318fd62b709a";
+const endpointSecret = "whsec_A7Yzl3wS7vNAc2edDd4jGOJWmHMzjEk7";
 const {addAccountChargesTenantStripe} = require('../controllers/stripe-proccess-account-controller');
 const {retrieveSessionInfo} = require('../controllers/stripe-session.controller');
 
