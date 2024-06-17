@@ -12,6 +12,10 @@ const config: CapacitorConfig = {
       backgroundColor: '#ffffff'
     },
   },
+  server: {
+    url: 'https://kitafino-45139aec3e10.herokuapp.com',
+    cleartext: true
+  },
   plugins: {
     SplashScreen: {
       launchShowDuration: 3000,
