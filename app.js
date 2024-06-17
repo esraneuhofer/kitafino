@@ -147,10 +147,10 @@ app.use((req, res, next) => {
 
 app.use(passport.initialize());
 const rtsIndex = require(__dirname + '/server/routes/index.router');
-app.use('/api', (req, res, next) => {
-  req.baseUrl = req.apiBaseUrl;
-  next();
-}, rtsIndex);
+// app.use('/api', (req, res, next) => {
+//   req.baseUrl = req.apiBaseUrl;
+//   next();
+// }, rtsIndex);
 
 app.use('/api', rtsIndex);
 // error handler
