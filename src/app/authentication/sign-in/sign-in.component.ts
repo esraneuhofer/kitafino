@@ -61,11 +61,11 @@ export class SignInComponent implements OnInit {
         this.submittingRequest = false;
         this.userService.setToken(res['token']);
         this.studentService.getRegisteredStudentsUser().subscribe(students => {
-          if (students.length === 0) {
-            this.router.navigateByUrl('home/register_student');
-          } else {
-            this.router.navigateByUrl('home/dashboard');
-          }
+          // if (students.length === 0) {
+          //   this.router.navigateByUrl('home/register_student');
+          // } else {
+          //   this.router.navigateByUrl('home/dashboard');
+          // }
           this.submittingRequest = false;
         });
 
