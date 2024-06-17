@@ -35,13 +35,19 @@ exports.createPaymentIntent = async (req, res) => {
         }
       },
       success_url: process.env.NODE_ENV === 'production'
-        ? `https://kitafino-45139aec3e10.herokuapp.com/home/dashboard?status=success&amount=${amount}`
-        : `http://localhost:4200/home/dashboard?status=success&amount=${amount}`,
+        ? `https://kitafino-45139aec3e10.herokuapp.com/success_stripe?status=success&amount=${amount}`
+        : `http://localhost:4200/home/success_stripe?status=success&amount=${amount}`,
       cancel_url: process.env.NODE_ENV === 'production'
-        ? `https://kitafino-45139aec3e10.herokuapp.com/dashboard?status=failure&amount=${amount}`
-        : `http://localhost:4200/home/dashboard?status=failure&amount=${amount}`,
+        ? `https://kitafino-45139aec3e10.herokuapp.com/error_stripe?status=failure&amount=${amount}`
+        : `http://localhost:4200/error_stripe?status=failure&amount=${amount}`,
     });
-
+  //   success_url: process.env.NODE_ENV === 'production'
+  //     ? `https://kitafino-45139aec3e10.herokuapp.com/home/dashboard?status=success&amount=${amount}`
+  //     : `http://localhost:4200/home/dashboard?status=success&amount=${amount}`,
+  //     cancel_url: process.env.NODE_ENV === 'production'
+  //     ? `https://kitafino-45139aec3e10.herokuapp.com/dashboard?status=failure&amount=${amount}`
+  //     : `http://localhost:4200/home/dashboard?status=failure&amount=${amount}`,
+  // });
     try {
       await saveSessionInfo(session.id, userId, username);
     } catch (error) {
