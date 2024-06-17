@@ -21,8 +21,6 @@ function setLineItems(body){
 exports.createPaymentIntent = async (req, res) => {
   try {
     const { username, userId, isPwa } = req.body;
-    console.log("username:", req.body);
-    console.log("isPWA:", isPwa);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'giropay'],

@@ -1,5 +1,5 @@
 import { CapacitorConfig } from '@capacitor/cli';
-import { env } from 'process';
+
 const config: CapacitorConfig = {
   appId: 'com.cateringexpert.appcateringexpert',
   appName: 'Cateringexpert',
@@ -13,7 +13,7 @@ const config: CapacitorConfig = {
     },
   },
   server: {
-    url: env.NODE_ENV === 'production' ? 'https://kitafino-45139aec3e10.herokuapp.com' : 'http://localhost:3002',
+    url: 'https://kitafino-45139aec3e10.herokuapp.com',
     cleartext: true
   },
   plugins: {
