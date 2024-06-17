@@ -20,29 +20,9 @@ function setLineItems(body){
 
 exports.createPaymentIntent = async (req, res) => {
   try {
-    const { username, userId, isPwa, isIos, isAndroid } = req.body;
+    const { username, userId, isPwa } = req.body;
     console.log("username:", req.body);
     console.log("isPWA:", isPwa);
-    console.log("isIos:", isIos);
-    console.log("isAndroid:", isAndroid);
-
-    let successUrl;
-    let cancelUrl;
-
-    if (isIos) {
-      successUrl = 'your-ios-app://home/account_overview?status=success';
-      cancelUrl = 'your-ios-app://home/account_overview?status=failure';
-    } else if (isAndroid) {
-      successUrl = 'your-android-app://home/account_overview?status=success';
-      cancelUrl = 'your-android-app://home/account_overview?status=failure';
-    } else {
-      successUrl = process.env.NODE_ENV === 'production'
-        ? 'https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success'
-        : 'http://localhost:4200/home/account_overview?status=success';
-      cancelUrl = process.env.NODE_ENV === 'production'
-        ? 'https://kitafino-45139aec3e10.herokuapp.com/account_overview?status=failure'
-        : 'http://localhost:4200/home/account_overview?status=failure';
-    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'giropay'],
@@ -52,8 +32,12 @@ exports.createPaymentIntent = async (req, res) => {
       payment_intent_data: {
         metadata: { userId: userId, username: username }
       },
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+      success_url: process.env.NODE_ENV === 'production'
+        ? 'https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success'
+        : 'http://localhost:4200/success_stripe',
+      cancel_url: process.env.NODE_ENV === 'production'
+        ? 'https://kitafino-45139aec3e10.herokuapp.com/account_overview?status=failure'
+        : 'http://localhost:4200/error_stripe',
     });
 
     try {
@@ -70,3 +54,7 @@ exports.createPaymentIntent = async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 };
+
+
+
+

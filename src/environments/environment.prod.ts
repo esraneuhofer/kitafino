@@ -5,5 +5,7 @@
 // };
 export const environment = {
   production: true,
-  apiBaseUrl: '/api'
+  apiBaseUrl: '/api',
+  successUrl: 'https://your-production-domain.com/home/account_overview?status=success',
+  cancelUrl: 'https://your-production-domain.com/home/account_overview?status=failure'
 };

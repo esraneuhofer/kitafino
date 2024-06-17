@@ -177,6 +177,7 @@ function setOrderAccount(order) {
 
 module.exports.addOrderStudentDay = async (req, res) => {
   try {
+    console.log('req',req.body)
     const result = await addOrder(req);
     res.json(result); // Successful response
   } catch (error) {

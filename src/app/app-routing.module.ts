@@ -23,6 +23,8 @@ import {AccuntDetailsComponent} from "./home/account/accunt-details/accunt-detai
 import {SchoolAnnouncmentsComponent} from "./home/school-announcments/school-announcments.component";
 import {HelpDialogComponent} from "./directives/help-dialog/help-dialog.component";
 import {HelpComponent} from "./home/help/help.component";
+import {SuccessStripeComponent} from "./home/stripe-checkout/success-stripe/success-stripe.component";
+import {NotSuccessStripeComponent} from "./home/stripe-checkout/not-success-stripe/not-success-stripe.component";
 
 
 
@@ -31,7 +33,16 @@ export const appRoutes: Routes = [
     path: 'signup', component: AuthenticationComponent,
     children: [{path: '', component: SignUpComponent}]
   },
-
+  {
+    path: 'login', component: AuthenticationComponent,
+    children: [{path: '', component: SignInComponent}]
+  },
+  {
+    path: 'success_stripe', component: SuccessStripeComponent,
+  },
+  {
+    path: 'error_stripe', component: NotSuccessStripeComponent,
+  },
   {
     path: 'login', component: AuthenticationComponent,
     children: [{path: '', component: SignInComponent}]
