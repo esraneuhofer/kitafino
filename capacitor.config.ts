@@ -7,10 +7,6 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   ios: {
     contentInset: 'always',
-    splashScreen: {
-      showSpinner: true,
-      backgroundColor: '#ffffff'
-    },
   },
   server: {
     hostname: 'my-app.com',
@@ -22,14 +18,17 @@ const config: CapacitorConfig = {
     SplashScreen: {
       launchShowDuration: 3000,
       launchAutoHide: true,
-      backgroundColor: "#ffffff",
-      androidSplashResourceName: "splash",  // Referenziert das Splash-Bild
+      androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
       androidScaleType: "CENTER_CROP",
-      showSpinner: false,
       iosSpinnerStyle: "small",
       spinnerColor: "#999999",
       splashFullScreen: true,
-      splashImmersive: true
+      splashImmersive: true,
+      // iOS spezifische Einstellungen
+      iosSplashResourceName: "LaunchScreen", // Referenziert das LaunchScreen.storyboard
+      iosScaleType: "CENTER_CROP",
+      showSpinner: true,
+      backgroundColor: "#ffffff"
     }
   }
 };
