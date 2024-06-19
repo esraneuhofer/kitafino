@@ -68,8 +68,8 @@
 
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.calenderWeek}}</td>
                       <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right flex justify-end">
-                        <app-button (click)="displayPdf(eachWeekplan)" *ngIf="!isSafari"
-                                    [submittingRequest]="submittingRequest">
+                        <app-button (click)="displayPdf(eachWeekplan)"
+                                    [submittingRequest]="submittingRequest" *ngIf="!isSafari || !isAndroid">
                           {{ 'WEEKPLAN_PDF.VIEW' | translate }}
                         </app-button>
                         <app-button (click)="downloadPdf(eachWeekplan)" [submittingRequest]="submittingRequest">

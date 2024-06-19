@@ -100,7 +100,7 @@ import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.
 import { CustomDatePipe } from './directives/custom-date.pipe';
 import {IonicModule, IonicRouteStrategy} from "@ionic/angular";
 import { CloseAccountDialogComponent } from './directives/close-account-dialog/close-account-dialog.component';
-
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -225,6 +225,7 @@ export function localeFactory(languageService: LanguageService) {
 
   ],
   providers: [
+    FileOpener,
     LanguageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {

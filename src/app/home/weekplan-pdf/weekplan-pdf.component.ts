@@ -6,6 +6,10 @@ import {getCalenderQuery, getYearsQuery} from "../order-student/date-selection/d
 import {forkJoin} from "rxjs";
 import {PlatformService} from "../../service/platform.service";
 import {Directory, Encoding, Filesystem} from "@capacitor/filesystem";
+import {displayWebFunction} from "./display-web.function";
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import {downloadPdfWeb} from "./download-web.function";
+import {downloadPdfIos} from "./download-ios.function";
 
 function isInGroups(group:string[],customerId:string){
   for(let i = 0; i < group.length; i++){
@@ -45,14 +49,16 @@ export class WeekplanPdfComponent implements OnInit{
   customerInfo!:CustomerInterface;
   submittingRequest = false;
   constructor(private generellService:GenerellService,
+              private fileOpener: FileOpener,
               private platformService: PlatformService) { }
   isSafari:boolean = false;
-
+  isAndroid:boolean = false;
 
 
 
   ngOnInit() {
     this.isSafari = this.platformService.isIos;
+    this.isAndroid = this.platformService.isAndroid;
     this.queryYears = getYearsQuery();
     this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
     this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year
@@ -75,150 +81,30 @@ export class WeekplanPdfComponent implements OnInit{
     })
     return arr;
   };
-  // downloadPdf(model: WeekplanPdfInterface) {
-  //   this.submittingRequest = true;
-  //   this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data: WeekplanPdfInterface) => {
-  //     // Convert Base64 to a Blob
-  //     const byteCharacters = atob(data.base64);
-  //     const byteNumbers = new Array(byteCharacters.length);
-  //     for (let i = 0; i < byteCharacters.length; i++) {
-  //       byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //     }
-  //     const byteArray = new Uint8Array(byteNumbers);
-  //     const blob = new Blob([byteArray], { type: 'application/pdf' });
-  //
-  //     // Create a URL for the Blob object
-  //     const blobUrl = URL.createObjectURL(blob);
-  //
-  //     // Check if running in iOS WebView
-  //     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-  //     const isInStandaloneMode = ('standalone' in navigator) && (navigator as any).standalone;
-  //
-  //     if (isIOS && isInStandaloneMode) {
-  //       // If in iOS standalone mode, open the Blob URL in a new window
-  //       const reader = new FileReader();
-  //       reader.onloadend = () => {
-  //         const url = reader.result as string;
-  //         const newWindow = window.open(url, '_blank');
-  //         if (!newWindow) {
-  //           console.error('Failed to open new window');
-  //         }
-  //       };
-  //       reader.readAsDataURL(blob);
-  //     } else {
-  //       // Create a link and trigger the download
-  //       const link = document.createElement('a');
-  //       link.download = data.name;
-  //       link.href = blobUrl;
-  //       document.body.appendChild(link);
-  //       link.click();
-  //
-  //       // Clean up by removing the link and revoking the Blob URL
-  //       document.body.removeChild(link);
-  //       URL.revokeObjectURL(blobUrl);
-  //     }
-  //
-  //     this.submittingRequest = false;
-  //   });
-  // }
-
 
   async downloadPdf(model: WeekplanPdfInterface) {
-    console.log('downloadPdf');
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
-      // Convert Base64 to a Blob
-      const byteCharacters = atob(data.base64);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      if (this.isAndroid || this.isSafari) {
+        await downloadPdfIos(data, this.fileOpener);
+      } else {
+        downloadPdfWeb(data);
       }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-      try {
-        const base64Data = await this.blobToBase64(blob);
-        const fileName = `${data.name}.pdf`;
-        console.log('Writing file new');
-
-        await Filesystem.writeFile({
-          path: fileName, // Use fileName instead of "filename.txt"
-          data: base64Data, // Ensure this is the correct data
-          directory: Directory.Documents,
-          encoding: Encoding.UTF8
-        });
-        console.log('Wrote file');
-      } catch (error) {
-        console.error('Error writing file', error);
-      }
-      // Read the file from the filesystem
-      // const fileUri = await Filesystem.getUri({
-      //   directory: Directory.Documents,
-      //   path: fileName
-      // });
-      //
-      // const fileContents = await Filesystem.readFile({
-      //   path: fileUri.uri
-      // });
-      //
-      // // Convert the file contents to a Base64 Data URL and display it
-      // const base64DataUrl = `data:application/pdf;base64,${fileContents.data}`;
-      //
-      // // Create an iframe and set its source to the Base64 Data URL
-      // const iframe = document.createElement('iframe');
-      // iframe.src = base64DataUrl;
-      // iframe.style.width = '100%';
-      // iframe.style.height = '100vh';
-      // document.body.appendChild(iframe);
 
       this.submittingRequest = false;
     });
   }
 
-  private blobToBase64(blob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64data = reader.result as string;
-        resolve(base64data.split(',')[1]); // Remove the data URL part
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  }
-
-
 
   displayPdf (model:WeekplanPdfInterface) {
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data:WeekplanPdfInterface) => {
-      if (/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {
-        // Cast navigator to any to bypass TypeScript checks
-        const navigatorAny: any = window.navigator;
-        if (navigatorAny.msSaveOrOpenBlob) {
-          // Your existing code here
-          var byteCharacters = atob(data.base64);
-          var byteNumbers = new Array(byteCharacters.length);
-          for (var i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-          }
-          var byteArray = new Uint8Array(byteNumbers);
-
-          var blob = new Blob([byteArray], {type: 'application/pdf'});
-          this.submittingRequest = false;
-          navigatorAny.msSaveOrOpenBlob(blob, data.name);
-        }
-      }else{
-        var x:any = window.open();
-        x.document.open();
-        var imgData ='data:application/pdf;base64, '+data.base64;
-        var iframe = "<iframe width='100%' height='100%' src='" + imgData + "'></iframe>";
-        // vm.loadingPdf = false;
-        x.document.write(iframe);
-        x.document.close();
-        this.submittingRequest = false;
+      if (!this.isSafari || !this.isAndroid) {
+        displayWebFunction(data);
+      } else {
 
       }
+      this.submittingRequest = false;
     })
   };
 

@@ -5,6 +5,7 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
 
+const ctrlHelp = require('../controllers/help.controller');
 const ctrlMessage = require('../controllers/message.controller');
 const ctrlLanguage = require('../controllers/language.controller');
 const ctrlUser = require('../controllers/user.controller');
@@ -114,6 +115,11 @@ router.get('/getMessages',ctrlMessage.getMessages)
 router.post('/editMessage',ctrlMessage.editMessage)
 router.post('/addMessage',ctrlMessage.addMessage)
 
+
+////Help Requests ////
+
+router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
+router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
 
 
 

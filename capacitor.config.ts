@@ -16,6 +16,7 @@ const config: CapacitorConfig = {
     // url: 'http://localhost:4200/'
   },
   plugins: {
+    "Cordova": {},
     "FileOpener": {
       "ios": {
         "usesFileOpener": true
