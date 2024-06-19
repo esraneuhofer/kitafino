@@ -453,5 +453,6 @@
   "KONTO_AUFLOESEN": "Konto auflösen",
   "KONTO_AUFLOESEN_DETAILS": "Im folgenden können Sie Ihr Konto auflösen.",
   "IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN": "<b>Bitte beachten Sie: </b> Ihr Konto ist nach der Auflösung nicht mehr aktiv ist und Sie keine Bestellungen mehr aufgeben können. Alle Einstellungen, Bestellungen und Kontodaten werden gelöscht. Diese Option ist nicht rückgängig zu machen.",
-  "GELD_AUSZAHLEN_KONTO_SCHLIESSEN": "Um Ihr Konto aufzulösen müssen Sie eine Auzahlung für Ihr Guthaben beantragen. Gehen Sie hierfür auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen."
+  "GELD_AUSZAHLEN_KONTO_SCHLIESSEN": "Um Ihr Konto aufzulösen müssen Sie eine Auzahlung für Ihr Guthaben beantragen. Gehen Sie hierfür auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen.",
+  "ANZEIGEN": "Anzeigen"
 }

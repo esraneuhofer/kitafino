@@ -1,47 +1,122 @@
+<!--<ng-container *ngIf="pageLoaded">-->
+<!--  <div class="container mx-auto px-4 mt-8">-->
+<!--    <div class="flex justify-center">-->
+<!--      <div class="w-full xs-full sm:w-full md:w-11/12">-->
+<!--        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">-->
+<!--          <div class="px-4 sm:px-6 lg:px-8">-->
+<!--            <div class="flex flex-wrap">-->
+<!--              <div class="sm:flex-auto">-->
+<!--                <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'DOCUMENTS.TITLE' | translate }}</h1>-->
+<!--                <p class="mt-2 text-sm text-gray-700">{{ 'DOCUMENTS.DESCRIPTION' | translate }}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="mt-8 flow-root">-->
+<!--              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">-->
+<!--                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">-->
+<!--                  <table class="min-w-full divide-y divide-gray-300">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                      <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">{{ 'DOCUMENTS.NAME' | translate }}</th>-->
+<!--                      <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0" scope="col"><span class="sr-only">{{ 'DOCUMENTS.EDIT' | translate }}</span></th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody class="divide-y divide-gray-200">-->
+<!--                    <tr *ngFor="let document of helpDocuments">-->
+<!--                      <td class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">{{document.nameFile}}</td>-->
+<!--                      <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">-->
+<!--                        <div class="align-right">-->
+<!--                          <app-button (click)="openHelpPdf(document)" [buttonType]="'button'" [submittingRequest]="submittingRequest">{{ 'ANZEIGEN' | translate }}</app-button>-->
+<!--                        </div>-->
+<!--                      </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                      <td *ngIf="helpDocuments.length === 0" colspan="100%">-->
+<!--                        <app-general-banner></app-general-banner>-->
+<!--                      </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                  </table>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-container>-->
 <ng-container *ngIf="pageLoaded">
   <div class="container mx-auto px-4 mt-8">
     <div class="flex justify-center">
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
-          <div class="px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-wrap">
+          <div class="lg:px-8">
+            <div class="sm:flex sm:items-center">
               <div class="sm:flex-auto">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'DOCUMENTS.TITLE' | translate }}</h1>
                 <p class="mt-2 text-sm text-gray-700">{{ 'DOCUMENTS.DESCRIPTION' | translate }}</p>
               </div>
             </div>
             <div class="mt-8 flow-root">
-              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-3">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                   <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                     <tr>
+<!--                      <th class="table-cell-padding-medium hidden sm:table-cell py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"-->
+<!--                          scope="col">-->
+<!--                        {{ 'DOCUMENTS.NAME' | translate }}-->
+<!--                      </th>-->
+<!--&lt;!&ndash;                      <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'DOCUMENTS.EDIT' | translate }}</th>&ndash;&gt;-->
+<!--                      <th class="table-cell-padding-medium px-3 py-3.5 text-right text-sm font-semibold text-gray-900 text-right"-->
+<!--                          scope="col"></th>-->
                       <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">{{ 'DOCUMENTS.NAME' | translate }}</th>
                       <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0" scope="col"><span class="sr-only">{{ 'DOCUMENTS.EDIT' | translate }}</span></th>
                     </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                    <tr *ngFor="let document of helpDocuments">
-                      <td class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">{{document.nameDocument}}</td>
-                      <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
-                        <div class="align-right">
-                          <app-button (click)="selectDocument(document)" [buttonType]="'button'" [submittingRequest]="submittingRequest">{{ 'DOCUMENTS.EDIT_BUTTON' | translate }}</app-button>
-                        </div>
+                    <tr
+                      *ngFor="let document of helpDocuments |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                      <td
+                        class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">{{document.nameFile}}</td>
+
+<!--                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.calenderWeek}}</td>-->
+                      <td class="table-cell-padding-medium whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right flex justify-end pr-0">
+                        <app-button (click)="openHelpPdf(document)" [buttonType]="'button'" [submittingRequest]="submittingRequest">{{ 'ANZEIGEN' | translate }}
+                        </app-button>
                       </td>
                     </tr>
-                    <tr>
-                      <td *ngIf="helpDocuments.length === 0" colspan="100%">
-                        <app-general-banner></app-general-banner>
-                      </td>
-                    </tr>
+                    <!-- More people... -->
                     </tbody>
                   </table>
+                  <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
+<!--                  <div class="flex flex-col md:flex-row mt-3">-->
+<!--                    <div class="md:w-3/3 w-full">-->
+<!--                      <div class="flex justify-start md:justify-end">-->
+<!--                        <ngb-pagination-->
+<!--                          [(page)]="page"-->
+<!--                          [boundaryLinks]="false"-->
+<!--                          [collectionSize]="helpDocuments.length"-->
+<!--                          [maxSize]="3"-->
+<!--                          [pageSize]="pageSize"-->
+<!--                          [rotate]="true"-->
+<!--                          [ellipses]="true"-->
+<!--                          [directionLinks]="true"></ngb-pagination>-->
+
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </ng-container>
+<app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
