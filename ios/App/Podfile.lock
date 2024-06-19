@@ -63,7 +63,7 @@ SPEC CHECKSUMS:
   CapacitorIosAutofillSavePassword: 1ade3f1fefa70bf2b81fa26d7e4677b2f15e50c5
   CapacitorSecureStoragePlugin: ced6025438fbbdbfb9fffec4398e748572fc147b
   CapacitorSplashScreen: 61645214e8f955ff2b80f16a6a3648960fe4c89f
-  CordovaPlugins: cf29de975ef31999b194730827d9ce66155096ce
+  CordovaPlugins: a2dfa262b6e431acb03008ce5d6d6ad27cb4ae00
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
 PODFILE CHECKSUM: c5622cea1de3f542b97c2aca40fdf94eef209446

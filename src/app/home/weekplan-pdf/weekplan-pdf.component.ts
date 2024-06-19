@@ -4,6 +4,8 @@ import {CustomerInterface} from "../../classes/customer.class";
 import {getWeekNumber} from "../order-student/order.functions";
 import {getCalenderQuery, getYearsQuery} from "../order-student/date-selection/date-selection.functions";
 import {forkJoin} from "rxjs";
+import {PlatformService} from "../../service/platform.service";
+import {Directory, Encoding, Filesystem} from "@capacitor/filesystem";
 
 function isInGroups(group:string[],customerId:string){
   for(let i = 0; i < group.length; i++){
@@ -121,7 +123,8 @@ export class WeekplanPdfComponent implements OnInit{
   // }
 
 
-  downloadPdf(model: WeekplanPdfInterface) {
+  async downloadPdf(model: WeekplanPdfInterface) {
+    console.log('downloadPdf');
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
       // Convert Base64 to a Blob
@@ -144,12 +147,25 @@ export class WeekplanPdfComponent implements OnInit{
         encoding: Encoding.UTF8
       });
 
+      // Read the file from the filesystem
       const fileUri = await Filesystem.getUri({
         directory: Directory.Documents,
         path: fileName
       });
 
-      window.open(fileUri.uri, '_system');
+      const fileContents = await Filesystem.readFile({
+        path: fileUri.uri
+      });
+
+      // Convert the file contents to a Base64 Data URL and display it
+      const base64DataUrl = `data:application/pdf;base64,${fileContents.data}`;
+
+      // Create an iframe and set its source to the Base64 Data URL
+      const iframe = document.createElement('iframe');
+      iframe.src = base64DataUrl;
+      iframe.style.width = '100%';
+      iframe.style.height = '100vh';
+      document.body.appendChild(iframe);
 
       this.submittingRequest = false;
     });
@@ -166,6 +182,9 @@ export class WeekplanPdfComponent implements OnInit{
       reader.readAsDataURL(blob);
     });
   }
+
+
+
   displayPdf (model:WeekplanPdfInterface) {
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data:WeekplanPdfInterface) => {
