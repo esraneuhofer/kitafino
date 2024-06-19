@@ -6,6 +6,19 @@ import {ToastrService} from "ngx-toastr";
 import {isValidIBANNumber} from "../../functions/generell.functions";
 import {MessageDialogService} from "../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogErrorComponent} from "../../directives/dialog-error/dialog-error.component";
+import {ExportCsvDialogData} from "../../directives/export-csv-dialog/export-csv-dialog.component";
+import {CloseAccountDialogComponent} from "../../directives/close-account-dialog/close-account-dialog.component";
+import {UserService} from "../../service/user.service";
+import {catchError} from "rxjs/operators";
+import {forkJoin, of} from "rxjs";
+import {SettingInterfaceNew} from "../../classes/setting.class";
+import {CustomerInterface} from "../../classes/customer.class";
+import {StudentInterfaceId} from "../../classes/student.class";
+import {AccountCustomerInterface} from "../../classes/account.class";
+import {PermanentOrderInterface} from "../../classes/permanent-order.interface";
+import {AccountService} from "../../service/account.serive";
 
 @Component({
   selector: 'app-settings',
@@ -17,16 +30,24 @@ export class SettingsComponent implements OnInit{
   tenantModel!: TenantStudentInterface;
   submittingRequest = false;
   pageLoaded = false;
+  submittingRequestDeletion = false;
+  accountTenant!: AccountCustomerInterface;
+
   constructor(private tenantService: TenantServiceStudent,
               private toastr: ToastrService,
+              private userService: UserService,
+              private dialog: MatDialog,
+              private router: Router,
+              private accountService: AccountService,
               private translate: TranslateService,
-              private messageService:MessageDialogService) {
+              private messageService: MessageDialogService) {
   }
+
   showFullIban: boolean = true;
   isEditing: boolean = false;
 
   get maskedIban(): string {
-    if(!this.tenantModel || !this.tenantModel.iban)return ''
+    if (!this.tenantModel || !this.tenantModel.iban) return ''
     if (this.showFullIban) {
       return this.tenantModel.iban;
     } else {
@@ -47,49 +68,105 @@ export class SettingsComponent implements OnInit{
 
 
   ngOnInit() {
-    this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
-      this.tenantModel = tenant;
-      if(!this.tenantModel.orderSettings){
+    forkJoin([
+      this.tenantService.getTenantInformation(),
+      this.accountService.getAccountTenant(),
+    ]).subscribe(
+      ([
+         tenantStudent,
+         accountTenant,
+       ]: [
+        TenantStudentInterface,
+        AccountCustomerInterface,
+      ]) => {
+        this.tenantModel = tenantStudent;
+        this.accountTenant = accountTenant;
+      if (!this.tenantModel.orderSettings) {
         this.tenantModel.orderSettings = {
           orderConfirmationEmail: false,
           sendReminderBalance: false,
-          amountBalance:0,
-          permanentOrder:false,
-          displayTypeOrderWeek:false
+          amountBalance: 0,
+          permanentOrder: false,
+          displayTypeOrderWeek: false
         }
       }
-      if(this.tenantModel.iban){
+      if (this.tenantModel.iban) {
         this.showFullIban = false;
       }
       this.pageLoaded = true;
     })
   }
-  editPersonalInformation(){
-    if(this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)){
+
+  editPersonalInformation() {
+    if (this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)) {
       let message = this.translate.instant('MANAGE_TENANT_SETTINGS.ERROR_INVALID_IBAN')
-      this.messageService.openMessageDialog(message,this.translate.instant('ERROR_TITLE'),'error')
+      this.messageService.openMessageDialog(message, this.translate.instant('ERROR_TITLE'), 'error')
       return
     }
     this.pageLoaded = false;
-    this.tenantService.editParentTenant(this.tenantModel).subscribe((response)=>{
+    this.tenantService.editParentTenant(this.tenantModel).subscribe((response) => {
 
-      this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
+      this.tenantService.getTenantInformation().subscribe((tenant: TenantStudentInterface) => {
         this.tenantModel = tenant;
         this.toastr.success(this.translate.instant('MANAGE_TENANT_SETTINGS.SUCCESS_SETTINGS_SAVED'));
         this.pageLoaded = true;
       })
     })
   }
-  editTenantOrderSettings(boolean:boolean,type:('orderConfirmationEmail' | 'sendReminderBalance' | 'displayTypeOrderWeek' )){
+
+  editTenantOrderSettings(boolean: boolean, type: ('orderConfirmationEmail' | 'sendReminderBalance' | 'displayTypeOrderWeek')) {
     this.submittingRequest = true;
     this.tenantModel.orderSettings[type] = boolean;
-    this.tenantService.editParentTenant(this.tenantModel).subscribe((response)=>{
-      this.tenantService.getTenantInformation().subscribe((tenant:TenantStudentInterface) => {
+    this.tenantService.editParentTenant(this.tenantModel).subscribe((response) => {
+      this.tenantService.getTenantInformation().subscribe((tenant: TenantStudentInterface) => {
         this.tenantModel = tenant;
         this.toastr.success(this.translate.instant('MANAGE_TENANT_SETTINGS.SUCCESS_SETTINGS_SAVED'));
         this.submittingRequest = false;
 
       })
+    })
+  }
+
+  closeAccount() {
+    if(this.accountTenant.currentBalance > 0){
+      this.messageService.openMessageDialog(
+        this.translate.instant('GELD_AUSZAHLEN_KONTO_SCHLIESSEN'),
+        this.translate.instant('ERROR_TITLE'),
+        'error'
+      )
+      return
+    }
+    this.submittingRequest = true;
+
+    const dialogRef = this.dialog.open(CloseAccountDialogComponent, {
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'},
+    });
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      console.log('The dialog was closed', result);
+      if (!result) {
+        this.submittingRequest = false;
+      } else {
+        this.submittingRequest = true;
+        this.userService.deactivateAccount().pipe(
+          catchError(err => {
+            console.error('Error deactivating account:', err);
+            // Display an error message to the user
+            // Handle the error and stop further processing
+            this.submittingRequest = false;
+            return of(null); // Return a safe fallback value or an empty observable
+          })
+        ).subscribe((response) => {
+          if (response && !response.error) {
+            this.userService.deleteToken();
+            this.router.navigate(['/login']);
+          } else {
+            // Handle failure response
+          }
+          this.submittingRequest = false;
+        });
+      }
     })
   }
 }

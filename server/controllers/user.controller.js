@@ -161,6 +161,40 @@ const sendRegistrationEmail = async (emailOptions) => {
 // Setzen Sie hier Ihren SendGrid API-Schlüssel
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+module.exports.deactivateAccount = async (req, res, next) => {
+  try {
+    const password = makePassword();
+
+    // Generieren eines Salzes und Hashen des Passworts
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    // Aktualisieren des Benutzers in der Datenbank
+    const updatedUser = await Schooluser.findOneAndUpdate(
+      { _id: req._id },
+      {
+        $set: {
+          saltSecret: salt,
+          password: hash
+        }
+      },
+      { new: true }
+    );
+
+    // Überprüfen, ob der Benutzername gefunden und aktualisiert wurde
+    if (!updatedUser) {
+      return res.status(404).send({ message: `Benutzername ${username} wurde nicht gefunden.`, error: true });
+    }
+
+    // Senden der Zurücksetz-E-Mail
+    res.status(200).send({ message: `Account wurde deaktiviert.`, error: false });
+  } catch (err) {
+    console.error(err); // Es ist gut, den Fehler für das Debuggen zu protokollieren.
+    res.status(500).send({ message: 'Es gab ein Fehler beim Zurücksetzen des Passworts.', error: true });
+  }
+}
+
+
 module.exports.resetPassword = async (req, res, next) => {
   try {
     const username = req.body.username;

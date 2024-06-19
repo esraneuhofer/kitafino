@@ -1,14 +1,14 @@
 <ng-container *ngIf="tenantModel && pageLoaded">
   <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12">
     <div class="flex flex-col md:flex-row gap-4">
-      <div class="flex-1">
+      <div class="w-full md:w-1/2">
         <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
           <!-- Personal Information Form Content -->
           <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
             <div class="space-y-12">
               <div class="pb-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.PERSONAL_INFO_HEADER' | translate }} -
-                {{'BENUTZERNAME' | translate}}: {{tenantModel.username}}</h2>
+                  {{'BENUTZERNAME' | translate}}: {{tenantModel.username}}</h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'MANAGE_TENANT_SETTINGS.PERSONAL_INFO_SUBHEADER' | translate }}</p>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="sm:col-span-3">
@@ -181,69 +181,93 @@
               </button>
             </div>
           </form>
+
         </div>
       </div>
 
-      <div class="flex-1">
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <!-- Other Settings Form Content -->
-          <form #f1="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
-            <div class="space-y-12">
-              <div class="pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.OTHER_SETTINGS_HEADER' | translate }}</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'MANAGE_TENANT_SETTINGS.OTHER_SETTINGS_SUBHEADER' | translate }}</p>
-                <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
-                <fieldset class="mt-4">
-                  <legend class="sr-only">Notifications</legend>
-                  <div class="space-y-5">
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="comments"
-                               [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
-                               (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
-                               aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+      <div class="w-full md:w-1/2 flex flex-col gap-4">
+        <div class="flex-1">
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <!-- Other Settings Form Content -->
+            <form #f2="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
+              <div class="space-y-12">
+                <div class="pb-12">
+                  <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.OTHER_SETTINGS_HEADER' | translate }}</h2>
+                  <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'MANAGE_TENANT_SETTINGS.OTHER_SETTINGS_SUBHEADER' | translate }}</p>
+                  <!--              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">-->
+                  <fieldset class="mt-4">
+                    <legend class="sr-only">Notifications</legend>
+                    <div class="space-y-5">
+                      <div class="relative flex items-start">
+                        <div class="flex h-6 items-center">
+                          <input id="comments"
+                                 [(ngModel)]="tenantModel.orderSettings.orderConfirmationEmail"
+                                 (ngModelChange)="editTenantOrderSettings($event,'orderConfirmationEmail')"
+                                 aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                          <label for="comments" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ORDER_CONFIRMATION' | translate }}</label>
+                          <p id="comments-description" class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.ORDER_CONFIRMATION_DESCRIPTION' | translate }}</p>
+                        </div>
                       </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="comments" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ORDER_CONFIRMATION' | translate }}</label>
-                        <p id="comments-description" class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.ORDER_CONFIRMATION_DESCRIPTION' | translate }}</p>
+                      <div class="relative flex items-start">
+                        <div class="flex h-6 items-center">
+                          <input id="candidates"
+                                 [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
+                                 (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
+                                 aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                          <label for="candidates" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.BALANCE_REMINDER' | translate }}</label>
+                          <p id="candidates-description" class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.BALANCE_REMINDER_DESCRIPTION' | translate }}</p>
+                        </div>
+                      </div>
+                      <div class="relative flex items-start">
+                        <!--                      <div class="flex h-6 items-center">-->
+                        <!--                        <input id="displayOrder"-->
+                        <!--                               [(ngModel)]="tenantModel.orderSettings.displayTypeOrderWeek"-->
+                        <!--                               (ngModelChange)="editTenantOrderSettings($event,'displayTypeOrderWeek')"-->
+                        <!--                               aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">-->
+                        <!--                      </div>-->
+                        <!--                      <div class="ml-3 text-sm leading-6">-->
+                        <!--                        <label for="displayOrder" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.DISPLAY_ORDER' | translate }}</label>-->
+                        <!--                        <p  class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.DISPLAY_ORDER_DESCRIPTION' | translate }}</p>-->
+                        <!--                      </div>-->
                       </div>
                     </div>
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="candidates"
-                               [(ngModel)]="tenantModel.orderSettings.sendReminderBalance"
-                               (ngModelChange)="editTenantOrderSettings($event,'sendReminderBalance')"
-                               aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                      </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="candidates" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.BALANCE_REMINDER' | translate }}</label>
-                        <p id="candidates-description" class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.BALANCE_REMINDER_DESCRIPTION' | translate }}</p>
-                      </div>
-                    </div>
-                    <!-- Uncomment if needed
-                    <div class="relative flex items-start">
-                      <div class="flex h-6 items-center">
-                        <input id="displayOrder"
-                               [(ngModel)]="tenantModel.orderSettings.displayTypeOrderWeek"
-                               (ngModelChange)="editTenantOrderSettings($event,'displayTypeOrderWeek')"
-                               aria-describedby="candidates-description" name="displayTypeOrderModel" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                      </div>
-                      <div class="ml-3 text-sm leading-6">
-                        <label for="displayOrder" class="font-medium text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.DISPLAY_ORDER' | translate }}</label>
-                        <p  class="text-gray-500">{{ 'MANAGE_TENANT_SETTINGS.DISPLAY_ORDER_DESCRIPTION' | translate }}</p>
-                      </div>
-                    </div>
-                    -->
-                  </div>
-                </fieldset>
-                <!--              </div>-->
+                  </fieldset>
+                  <!--              </div>-->
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form #f2="ngForm" novalidate (ngSubmit)="f1.form.valid && editPersonalInformation()">
+              <div class="space-y-12">
+                <div class="pb-12">
+                  <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'KONTO_AUFLOESEN' | translate }}</h2>
+
+                  <p class=" pb-1 text-sm leading-6 text-gray-600" [innerHTML]="'KONTO_AUFLOESEN_DETAILS' | translate"></p>
+                  <p class=" pb-1 text-sm leading-6 text-gray-600" [innerHTML]="'IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN' | translate"></p>
+                  <p class=" pb-4 text-sm leading-6 text-gray-600" [innerHTML]="'GELD_AUSZAHLEN_KONTO_SCHLIESSEN' | translate"></p>
+                  <app-button (click)="closeAccount()"
+                              [buttonType]="'button'"
+                              [submittingRequest]="submittingRequestDeletion"
+                              [typeButton]="'danger'">
+                    {{ 'KONTO_AUFLOESEN' | translate }}
+                  </app-button>
+                </div>
+              </div>
+            </form>
+
+          </div>
         </div>
       </div>
     </div>
   </div>
+
 </ng-container>
 
 <app-loading-page [pageLoaded]="!submittingRequest"></app-loading-page>

@@ -27,7 +27,9 @@ const rateLimitHelper = require('../config/rateLimitHelper');
 
 
 
+
 router.post('/resetPassword', ctrlUser.resetPassword);
+router.post('/deactivateAccount',jwtHelper.verifyJwtToken, ctrlUser.deactivateAccount);
 router.post('/register', ctrlUser.register);
 router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
 router.get('/getUsers', ctrlUser.getUsers);
@@ -75,7 +77,6 @@ router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStud
 router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
 // router.post('/addOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.addOrderStudentDay)
 router.post('/addOrderStudentDay', jwtHelper.verifyJwtToken, crtlPlaceOrder.addOrderStudentDay)
-
 router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,ctrlCancelOrder.cancelOrderStudent)
 
 router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAccountOrderUserYear)

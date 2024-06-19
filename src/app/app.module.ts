@@ -99,6 +99,7 @@ import {LanguageService} from "./service/language.service";
 import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
 import { CustomDatePipe } from './directives/custom-date.pipe';
 import {IonicModule, IonicRouteStrategy} from "@ionic/angular";
+import { CloseAccountDialogComponent } from './directives/close-account-dialog/close-account-dialog.component';
 
 // AoT requires an exported function for factories
 
@@ -185,6 +186,7 @@ export function localeFactory(languageService: LanguageService) {
     ErrorWeekendBannerComponent,
     CustomToastrComponent,
     CustomDatePipe,
+    CloseAccountDialogComponent,
   ],
   imports: [
     BrowserModule,

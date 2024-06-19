@@ -20,6 +20,10 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/resetPassword', obj)
       .pipe(map((response: any) => response));
   }
+  deactivateAccount() {
+    return this.http.post(environment.apiBaseUrl + '/deactivateAccount',{})
+      .pipe(map((response: any) => response));
+  }
 
   addUser(user:{email:string,projectId:string}) {
     return this.http.post(environment.apiBaseUrl + '/register', user,{ withCredentials: true })
