@@ -15,6 +15,10 @@ import {ChargingService} from "../../../service/charging.service";
 import {jaOrderNein} from "../../../functions/generell.functions";
 import {createXmlFile} from "../account-csv.function";
 import {TranslateService} from "@ngx-translate/core";
+import {TenantServiceStudent} from "../../../service/tenant.service";
+import {GenerellService} from "../../../service/generell.service";
+import {TenantStudentInterface} from "../../../classes/tenant.class";
+import {MessageDialogService} from "../../../service/message-dialog.service";
 
 function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
   return accountCharges.sort((a, b) => {
@@ -34,6 +38,7 @@ export class AccuntDetailsComponent {
   pageLoaded = false;
   registeredStudents:StudentInterface[] = [];
   queryYear:number = new Date().getFullYear();
+  tenantStudent!: TenantStudentInterface;
 
 
   accountCharges:AccountChargeInterface[] = [];
@@ -47,7 +52,10 @@ export class AccuntDetailsComponent {
               private dialog: MatDialog,
               private chargeService: ChargingService,
               private router: Router,
+              private dialogeService:MessageDialogService,
               private r: ActivatedRoute,
+              private tenantService: TenantServiceStudent,
+              private generellService: GenerellService,
               private translate: TranslateService,
               private route: ActivatedRoute) {
   }
@@ -56,15 +64,20 @@ export class AccuntDetailsComponent {
     forkJoin(
       this.studentService.getRegisteredStudentsUser(),
       this.chargeService.getAccountCharges(),
+      this.tenantService.getTenantInformation(),
+
     ).subscribe(
       (
         [
           registeredStudents,
-          accountCharges
+          accountCharges,
+          tenantStudent
         ]:
-          [StudentInterface[],AccountChargeInterface[]])=>{
+          [StudentInterface[],AccountChargeInterface[],TenantStudentInterface])=>{
         this.accountCharges= sortAccountChargesByDate(accountCharges);
-        this.registeredStudents = registeredStudents
+        this.registeredStudents = registeredStudents;
+        this.tenantStudent = tenantStudent;
+
         this.pageLoaded = true;
       })
   }
@@ -87,7 +100,26 @@ export class AccuntDetailsComponent {
         this.submittingRequest = false;
         return;
       }
-      createXmlFile(this.accountCharges, result);
+      let xlsContent  = createXmlFile(this.accountCharges, result);
+      const xlsBlob = new Blob([xlsContent], {type: 'application/vnd.ms-excel'});
+
+      this.generellService.sendCSVEmail({
+        file: xlsBlob,
+        firstDate: result.firstDate,
+        secondDate: result.secondDate,
+        type: 'Kontobewegungen',
+        email:this.tenantStudent.email
+      }).subscribe(response => {
+        this.dialogeService.openMessageDialog(
+          this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
+          this.translate.instant("SUCCESS"),
+          'success');
+      }, error => {
+        this.dialogeService.openMessageDialog(
+          this.translate.instant("ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI"),
+          this.translate.instant("ERROR_TITLE"),
+          'warning');
+      });
     });
   }
 }

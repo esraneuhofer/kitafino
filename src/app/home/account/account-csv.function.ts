@@ -1,9 +1,9 @@
 import {AccountChargeInterface} from "../../classes/charge.class";
 import {ExportCsvDialogData} from "../../directives/export-csv-dialog/export-csv-dialog.component";
 
-export function createXmlFile (charges: AccountChargeInterface[], dateRange: ExportCsvDialogData)  {
+export function createXmlFile (charges: AccountChargeInterface[], dateRange: ExportCsvDialogData):string  {
     let array = filterAndSortCharges(charges, dateRange);
-    generateXLS(array, dateRange);
+    return generateXLS(array, dateRange);
 }
 function filterAndSortCharges(
     charges: AccountChargeInterface[],
@@ -36,7 +36,7 @@ function formatCurrency(amount: number): string {
     return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
-function generateXLS(charges: AccountChargeInterface[], dateRange: { firstDate: string; secondDate: string }) {
+function generateXLS(charges: AccountChargeInterface[], dateRange: { firstDate: string; secondDate: string }):string {
     let xlsContent = `<table>
     <tr>
       <th>Datum Abbuchung</th>
@@ -59,12 +59,12 @@ function generateXLS(charges: AccountChargeInterface[], dateRange: { firstDate: 
     });
 
     xlsContent += `</table>`;
-
-    const xlsBlob = new Blob([xlsContent], { type: 'application/vnd.ms-excel' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(xlsBlob);
-    a.download = `Kontobewegung_${dateRange.firstDate}_to_${dateRange.secondDate}.xls`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    return xlsContent;
+    // const xlsBlob = new Blob([xlsContent], { type: 'application/vnd.ms-excel' });
+    // const a = document.createElement('a');
+    // a.href = URL.createObjectURL(xlsBlob);
+    // a.download = `Kontobewegung_${dateRange.firstDate}_to_${dateRange.secondDate}.xls`;
+    // document.body.appendChild(a);
+    // a.click();
+    // document.body.removeChild(a);
 }

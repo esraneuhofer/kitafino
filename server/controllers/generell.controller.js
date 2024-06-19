@@ -1,6 +1,6 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
-const multer = require('multer');
+// const multer = require('multer');
 const mongoose = require("mongoose");
 const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
@@ -15,7 +15,7 @@ const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
 const {convertToSendGridFormat} = require("./sendfrid.controller");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const upload = multer();
+// const upload = multer();
 
 
 
@@ -177,33 +177,43 @@ module.exports.getAllWeekplanPdf = async (req, res, next) => {
 };
 
 module.exports.sendCSVEmail = async (req, res, next) => {
-  const file = req.file;
-  const firstDate = req.body.firstDate;
-  const secondDate = req.body.secondDate;
-  const type = req.body.type;
-  const msg = {
-    to: req.body.email, // Empfängeradresse
-    from: '"Cateringexpert" <noreply@cateringexpert.de>', // Absenderadresse
-    subject: `${type} vom ${firstDate} bis ${secondDate}`,
-    text: 'Anbei finden Sie die angeforderte CSV-Datei.',
-    attachments: [
-      {
-        content: file.buffer.toString('base64'),
-        filename: file.originalname,
-        type: file.mimetype,
-        disposition: 'attachment'
-      }
-    ]
-  };
+  try {
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({ error: 'Keine Datei hochgeladen.' });
+    }
 
-  sgMail
-    .send(msg)
-    .then(() => {
-      res.status(200).send('E-Mail erfolgreich gesendet');
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).send(error.toString());
-    });
+    const firstDate = req.body.firstDate;
+    const secondDate = req.body.secondDate;
+    const type = req.body.type;
+    const email = req.body.email;
+
+    // Eingabevalidierung
+    if (!firstDate || !secondDate || !type || !email) {
+      return res.status(400).json({ error: 'Ungültige Eingabedaten.' });
+    }
+
+    const msg = {
+      to: email, // Empfängeradresse
+      from: '"Cateringexpert" <noreply@cateringexpert.de>', // Absenderadresse
+      subject: `${type} vom ${firstDate} bis ${secondDate}`,
+      text: 'Anbei finden Sie die angeforderte CSV-Datei.',
+      attachments: [
+        {
+          content: file.buffer.toString('base64'),
+          filename: file.originalname,
+          type: file.mimetype,
+          disposition: 'attachment'
+        }
+      ]
+    };
+
+    await sgMail.send(msg);
+    res.status(200).json({ message: 'E-Mail erfolgreich gesendet' });
+  } catch (error) {
+    console.error('Fehler beim Senden der E-Mail:', error);
+    res.status(500).json({ error: 'Interner Serverfehler' });
+  }
 };
+
 

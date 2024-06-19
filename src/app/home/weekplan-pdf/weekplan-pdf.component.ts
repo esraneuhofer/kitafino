@@ -5,7 +5,9 @@ import {getWeekNumber} from "../order-student/order.functions";
 import {getCalenderQuery, getYearsQuery} from "../order-student/date-selection/date-selection.functions";
 import {forkJoin} from "rxjs";
 import {PlatformService} from "../../service/platform.service";
-
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Plugins } from '@capacitor/core';
+const { FileOpener } = Plugins;
 
 function isInGroups(group:string[],customerId:string){
   for(let i = 0; i < group.length; i++){
@@ -75,9 +77,57 @@ export class WeekplanPdfComponent implements OnInit{
     })
     return arr;
   };
+  // downloadPdf(model: WeekplanPdfInterface) {
+  //   this.submittingRequest = true;
+  //   this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data: WeekplanPdfInterface) => {
+  //     // Convert Base64 to a Blob
+  //     const byteCharacters = atob(data.base64);
+  //     const byteNumbers = new Array(byteCharacters.length);
+  //     for (let i = 0; i < byteCharacters.length; i++) {
+  //       byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //     }
+  //     const byteArray = new Uint8Array(byteNumbers);
+  //     const blob = new Blob([byteArray], { type: 'application/pdf' });
+  //
+  //     // Create a URL for the Blob object
+  //     const blobUrl = URL.createObjectURL(blob);
+  //
+  //     // Check if running in iOS WebView
+  //     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  //     const isInStandaloneMode = ('standalone' in navigator) && (navigator as any).standalone;
+  //
+  //     if (isIOS && isInStandaloneMode) {
+  //       // If in iOS standalone mode, open the Blob URL in a new window
+  //       const reader = new FileReader();
+  //       reader.onloadend = () => {
+  //         const url = reader.result as string;
+  //         const newWindow = window.open(url, '_blank');
+  //         if (!newWindow) {
+  //           console.error('Failed to open new window');
+  //         }
+  //       };
+  //       reader.readAsDataURL(blob);
+  //     } else {
+  //       // Create a link and trigger the download
+  //       const link = document.createElement('a');
+  //       link.download = data.name;
+  //       link.href = blobUrl;
+  //       document.body.appendChild(link);
+  //       link.click();
+  //
+  //       // Clean up by removing the link and revoking the Blob URL
+  //       document.body.removeChild(link);
+  //       URL.revokeObjectURL(blobUrl);
+  //     }
+  //
+  //     this.submittingRequest = false;
+  //   });
+  // }
+
+
   downloadPdf(model: WeekplanPdfInterface) {
     this.submittingRequest = true;
-    this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data: WeekplanPdfInterface) => {
+    this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe(async (data: WeekplanPdfInterface) => {
       // Convert Base64 to a Blob
       const byteCharacters = atob(data.base64);
       const byteNumbers = new Array(byteCharacters.length);
@@ -87,25 +137,43 @@ export class WeekplanPdfComponent implements OnInit{
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-      // Create a URL for the Blob object
-      const blobUrl = URL.createObjectURL(blob);
-
       // Check if running in iOS WebView
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       const isInStandaloneMode = ('standalone' in navigator) && (navigator as any).standalone;
 
       if (isIOS && isInStandaloneMode) {
-        // If in iOS standalone mode, open the Blob URL in a new window
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const url = reader.result as string;
-          const newWindow = window.open(url, '_blank');
-          if (!newWindow) {
-            console.error('Failed to open new window');
+        // If in iOS standalone mode, save the Blob object as a file using Capacitor Filesystem
+        try {
+          const base64Data = await this.blobToBase64(blob);
+          const fileName = `${data.name}.pdf`;
+
+          await Filesystem.writeFile({
+            path: fileName,
+            data: base64Data,
+            directory: Directory.Documents,
+            encoding: Encoding.UTF8
+          });
+
+          const fileUri = await Filesystem.getUri({
+            directory: Directory.Documents,
+            path: fileName
+          });
+
+          const openResult = await (FileOpener as any)['open']({
+            path: fileUri.uri,
+            mimeType: 'application/pdf'
+          });
+
+          if (!openResult) {
+            console.error('Failed to open file');
           }
-        };
-        reader.readAsDataURL(blob);
+        } catch (error) {
+          console.error('Error writing or opening file', error);
+        }
       } else {
+        // Create a URL for the Blob object
+        const blobUrl = URL.createObjectURL(blob);
+
         // Create a link and trigger the download
         const link = document.createElement('a');
         link.download = data.name;
@@ -122,10 +190,17 @@ export class WeekplanPdfComponent implements OnInit{
     });
   }
 
-
-
-
-
+  private blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        resolve(base64data.split(',')[1]); // Remove the data URL part
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
 
   displayPdf (model:WeekplanPdfInterface) {
     this.submittingRequest = true;

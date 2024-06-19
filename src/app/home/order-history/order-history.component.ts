@@ -21,6 +21,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {TenantServiceStudent} from "../../service/tenant.service";
 import {GenerellService} from "../../service/generell.service";
 import {TenantStudentInterface} from "../../classes/tenant.class";
+import {MessageDialogService} from "../../service/message-dialog.service";
 
 function getTypeOrder(input: string, translate: TranslateService): string {
   if (input === 'order') {
@@ -82,6 +83,7 @@ export class OrderHistoryComponent implements OnInit {
   constructor(private orderService: OrderService,
               private studentService: StudentService,
               private dialog: MatDialog,
+              private dialogeService:MessageDialogService,
               private tenantService: TenantServiceStudent,
               private generellService: GenerellService,
               private router: Router,
@@ -133,6 +135,7 @@ export class OrderHistoryComponent implements OnInit {
       }
       let xlsContent = getXlsContent(this.displayArrayAccountOrdersSearch, result);
       const xlsBlob = new Blob([xlsContent], {type: 'application/vnd.ms-excel'});
+
       this.generellService.sendCSVEmail({
         file: xlsBlob,
         firstDate: result.firstDate,
@@ -140,9 +143,15 @@ export class OrderHistoryComponent implements OnInit {
         type: 'Bestellverlauf',
         email:this.tenantStudent.email
       }).subscribe(response => {
-        console.log('E-Mail erfolgreich gesendet');
+        this.dialogeService.openMessageDialog(
+          this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
+          this.translate.instant("SUCCESS"),
+          'success');
       }, error => {
-        console.error('Fehler beim Senden der E-Mail', error);
+        this.dialogeService.openMessageDialog(
+          this.translate.instant("ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI"),
+          this.translate.instant("ERROR_TITLE"),
+          'warning');
       });
       // downloadOrderHistoryCsv(this.displayArrayAccountOrdersSearch, result);
     });

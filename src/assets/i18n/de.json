@@ -447,5 +447,8 @@
   "IN_DER_VORWOCHE":"in der Vorwoche",
   "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Wochen vor der jeweiligen Bestellwoche",
   "UM_FORTZUFAHREN": "Um fortzufahren gehen Sie wieder zurück in die App",
-  "MEHR_INFO": "Info - klicken"
+  "MEHR_INFO": "Info - klicken",
+  "CSV_WURDE_ERFOLGREICH_VERSENDET": "CSV wurde erfolgreich versendet per Email versendet",
+  "ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI": "Es gab ein Fehler beim Versand der CSV-Datei"
+
 }

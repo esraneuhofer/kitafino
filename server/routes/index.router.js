@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
 
 const ctrlMessage = require('../controllers/message.controller');
@@ -65,7 +66,7 @@ router.get('/getVacationCustomer',jwtHelper.verifyJwtToken,ctrlGenerell.getVacat
 
 
 router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
-router.post('/sendCSVEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendCSVEmail)
+router.post('/sendCSVEmail',jwtHelper.verifyJwtToken,upload.single('file'),ctrlGenerell.sendCSVEmail)
 
 
 /////Order Requests ////
