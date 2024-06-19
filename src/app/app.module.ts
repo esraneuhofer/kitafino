@@ -2,7 +2,7 @@ import {LOCALE_ID, NgModule, isDevMode} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import  {CommonModule} from "@angular/common";
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
+import {RouteReuseStrategy, RouterModule} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import {appRoutes} from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
@@ -97,6 +97,8 @@ import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-del
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
 import {LanguageService} from "./service/language.service";
 import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
+import { CustomDatePipe } from './directives/custom-date.pipe';
+import {IonicModule, IonicRouteStrategy} from "@ionic/angular";
 
 // AoT requires an exported function for factories
 
@@ -182,44 +184,47 @@ export function localeFactory(languageService: LanguageService) {
     ConfirmDeleteSpecialFoodComponent,
     ErrorWeekendBannerComponent,
     CustomToastrComponent,
+    CustomDatePipe,
   ],
-    imports: [
-        BrowserModule,
-        CommonModule,
-        RouterModule.forRoot(appRoutes),
-        HttpClientModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatStepperModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        FormsModule,
-        ToastrModule.forRoot(),
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatDialogModule,
-        FontAwesomeModule,
-        MatTooltipModule,
-        NgbPagination,
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000'
-        }),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })
+  imports: [
+    BrowserModule,
+    CommonModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    FormsModule,
+    ToastrModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    FontAwesomeModule,
+    MatTooltipModule,
+    NgbPagination,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    IonicModule.forRoot({ mode: 'ios' })
 
-    ],
+  ],
   providers: [
     LanguageService,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

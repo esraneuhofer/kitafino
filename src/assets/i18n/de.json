@@ -122,7 +122,8 @@
   "ORDER.STUDENT": "Verpflegungsteilnehmer/in",
   "ORDER.PLEASE_SELECT": "Bitte auswählen",
   "FIRSTPAGE.SUMMARY": "Zusammenfassung",
-  "FIRSTPAGE.CURRENT_BALANCE": "Guthaben für Username",
+  "FIRSTPAGE.CURRENT_BALANCE": "Guthaben",
+  "FIRSTPAGE.USERNAME": "Username",
   "FIRSTPAGE.PLACED_ORDERS": "Aufgegebene Bestellungen",
   "FIRSTPAGE.PLACE_ORDER": "Bestellung aufgeben",
   "FIRSTPAGE.DATE": "Datum",
@@ -444,5 +445,7 @@
   "AM":"am",
   "UM":"um",
   "IN_DER_VORWOCHE":"in der Vorwoche",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Wochen vor der jeweiligen Bestellwoche"
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Wochen vor der jeweiligen Bestellwoche",
+  "UM_FORTZUFAHREN": "Um fortzufahren gehen Sie wieder zurück in die App",
+  "MEHR_INFO": "Info - klicken"
 }

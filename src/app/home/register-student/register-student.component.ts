@@ -51,6 +51,7 @@ export class RegisterStudentComponent implements OnInit{
               private toaster:ToastrService,
               private r: ActivatedRoute,
               private dialog: MatDialog,
+              private dialogService: MessageDialogService,
               private generellService: GenerellService,
               private tenantService: TenantServiceStudent,
               private dialogeService: MessageDialogService,
@@ -106,7 +107,20 @@ export class RegisterStudentComponent implements OnInit{
     })
   }
 
+  openDialog(type:string) {
+    let heading;
+    let reason;
+    if(type === 'special'){
+       heading = this.translate.instant('SPECIAL_FOOD_LABEL')
+       reason = this.translate.instant('SPECIAL_FOOD_INSTRUCTIONS')
+    }else{
+       heading = this.translate.instant('SUBGROUP_LABEL')
+       reason = this.translate.instant('SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP')
+    }
 
+    this.dialogService.openMessageDialog(reason, heading,'info');
+    console.log('open dialog');
+  }
 
   addStudent(f:NgForm) {
     // this.submittingRequest = true;

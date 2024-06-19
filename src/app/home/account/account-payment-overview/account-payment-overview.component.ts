@@ -67,6 +67,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private accountService: AccountService,
     private paymentService: PaymentService,
     private dialogService: MessageDialogService,
+    private r: ActivatedRoute,
     private platformService: PlatformService,
     private translate: TranslateService) {
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
@@ -191,9 +192,17 @@ export class AccountPaymentOverviewComponent implements OnInit {
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
     if(!this.tenantStudent.userId)return
+    this.submittingRequest = true;
+    const isIos = this.platformService.isIos
+    const isIosAndroid = this.platformService.isAndroid
 
-    // this.submittingRequest = true;
-    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,this.platformService.isIos,this.platformService.isAndroid);
+    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
+    if(isIosAndroid || isIos){
+      this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
+      this.submittingRequest = false;
+
+    }
+
   }
   faClipboard = faClipboard;
   estimatedFee: number = 0;

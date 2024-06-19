@@ -22,3 +22,10 @@
 .flipped .back {
   transform: rotateY(0deg);
 }
+.superset-info {
+  position: relative;
+  top: -0.4em; /* Höherer Wert für mehr Höhe */
+  font-size: smaller;
+  color: #0a53be;
+  cursor: pointer;
+}

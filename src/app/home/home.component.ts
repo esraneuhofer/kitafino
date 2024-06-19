@@ -1,5 +1,5 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import {UserService} from "../service/user.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
@@ -65,6 +65,28 @@ export class HomeComponent implements OnInit{
   pageLoaded: boolean = false;
   currentRoute: string = '';
 
+  handleRefresh(event:any) {
+    console.log('Begin async operation');
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      window.location.reload();
+    }, 2000);
+  }
+
+
+  public selectLanguageWidth: string = '130px'
+  updateSelectLanguageWidth(): void {
+    const width = window.innerWidth;
+    if (width <= 320) {
+      this.selectLanguageWidth = '130px';
+    } else if (width >= 351 && width <= 375) {
+      this.selectLanguageWidth = '180px';
+    } else {
+      this.selectLanguageWidth = '210px';
+    }
+  }
+
   tenantInformation!:TenantStudentInterface;
   constructor(private userService:UserService,
               private dialog: MatDialog,
@@ -86,9 +108,12 @@ export class HomeComponent implements OnInit{
       position: {top: '20px'}
     });
   }
-
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.updateSelectLanguageWidth();
+  }
   ngOnInit() {
-    this.pageLoaded = false;
+    this.updateSelectLanguageWidth();
     forkJoin(
       this.tenantService.getTenantInformation(),
       this.generalService.getCustomerInfo()

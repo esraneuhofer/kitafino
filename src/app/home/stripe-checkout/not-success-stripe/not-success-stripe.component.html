@@ -18,9 +18,10 @@
   </div>
   <p class="mb-4" [innerHTML]="'ACCOUNT.ERROR_DEPOSIT_MESSAGE' | translate"></p>
 
-  <p *ngIf="isApp">Bitte kehren Sie zurück in die App.</p>
-  <button *ngIf="!isApp" onclick="window.history.back()" class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
-    {{"ACCOUNT.SUCCESS_BACK_TO_APP" | translate}}</button>
+  <p>{{"UM_FORTZUFAHREN" | translate}}</p>
+
+<!--  <button *ngIf="!isApp" onclick="window.history.back()" class="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">-->
+<!--    {{"ACCOUNT.SUCCESS_BACK_TO_APP" | translate}}</button>-->
 </div>
 </body>
 

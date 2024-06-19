@@ -133,8 +133,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
               private accountService: AccountService,
               private languageService: LanguageService,
               private translate: TranslateService) {
-    this.selectedLanguage = this.languageService.getLanguage();
-
+    this.languageService.currentLanguage$.subscribe((language: string) => {
+      this.selectedLanguage = language;
+    });
   }
 
   ngOnInit() {

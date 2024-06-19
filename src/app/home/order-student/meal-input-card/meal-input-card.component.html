@@ -5,7 +5,9 @@
         <div class="w-full">
 
           <div class="flex flex-col items-end">
-            <p >{{ orderDay.date | date:'EEEE dd.MM.yy':selectedLanguage }}</p>
+
+            <p>{{ orderDay.date | customDate:'EEEE dd.MM.yy' }}</p>
+
             <div class="text-xs text-gray-500">
               <span *ngIf="pastOrder">{{'BESTELLFRIST_ABGELAUFEN' | translate}}</span>
               <span *ngIf="!pastOrder">{{'BESTELLFRIST_ENDET' | translate}}
