@@ -136,18 +136,21 @@ export class WeekplanPdfComponent implements OnInit{
       const byteArray = new Uint8Array(byteNumbers);
       const blob = new Blob([byteArray], { type: 'application/pdf' });
 
-      // Save the file to the filesystem
-      const base64Data = await this.blobToBase64(blob);
-      const fileName = `${data.name}.pdf`;
-      console.log('Writing file');
+      try {
+        const base64Data = await this.blobToBase64(blob);
+        const fileName = `${data.name}.pdf`;
+        console.log('Writing file new');
 
-      await Filesystem.writeFile({
-        path: "filename.txt",
-        data: data.base64,
-        directory: Directory.Documents,
-        encoding: Encoding.UTF8
-      });
-      console.log('Wrote file');
+        await Filesystem.writeFile({
+          path: fileName, // Use fileName instead of "filename.txt"
+          data: base64Data, // Ensure this is the correct data
+          directory: Directory.Documents,
+          encoding: Encoding.UTF8
+        });
+        console.log('Wrote file');
+      } catch (error) {
+        console.error('Error writing file', error);
+      }
       // Read the file from the filesystem
       // const fileUri = await Filesystem.getUri({
       //   directory: Directory.Documents,
