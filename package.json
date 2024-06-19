@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
-    "heroku-prebuild": "./install_yarn.sh && export PATH=\"$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH\" && yarn global add @angular/cli",
-    "heroku-postbuild": "yarn install --frozen-lockfile && ng build --configuration=production",
+    "heroku-prebuild": "npm install --legacy-peer-deps -g @angular/cli",
+    "heroku-postbuild": "ng build --configuration production",
     "build:sw": "workbox injectManifest workbox-config.js",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
@@ -95,7 +95,6 @@
     "workbox-build": "^7.1.0"
   },
   "engines": {
-    "node": "18.x",
-    "yarn": "1.22.22"
+    "node": "18.x"
   }
 }
