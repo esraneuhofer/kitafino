@@ -4,6 +4,7 @@ import {CustomerInterface} from "../../classes/customer.class";
 import {getWeekNumber} from "../order-student/order.functions";
 import {getCalenderQuery, getYearsQuery} from "../order-student/date-selection/date-selection.functions";
 import {forkJoin} from "rxjs";
+import {PlatformService} from "../../service/platform.service";
 
 
 function isInGroups(group:string[],customerId:string){
@@ -43,26 +44,15 @@ export class WeekplanPdfComponent implements OnInit{
   allWeekplans:WeekplanPdfInterface[] = [];
   customerInfo!:CustomerInterface;
   submittingRequest = false;
-  constructor(private generellService:GenerellService) { }
+  constructor(private generellService:GenerellService,
+              private platformService: PlatformService) { }
   isSafari:boolean = false;
 
-  checkIfSafariOrIOSApp(): boolean {
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
 
-    // Check if running in a standalone mode (PWA) on iOS
-    const isInStandaloneMode = (navigator as any).standalone === true;
-
-    // Check if running in an iOS WebView (Capacitor)
-    const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !(window as any).MSStream;
-    const isIOSWebView = isIOS && !isSafari && !isInStandaloneMode;
-
-    return isSafari || isInStandaloneMode || isIOSWebView;
-  }
 
 
   ngOnInit() {
-    this.isSafari = this.checkIfSafariOrIOSApp();
+    this.isSafari = this.platformService.isIos;
     this.queryYears = getYearsQuery();
     this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
     this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year

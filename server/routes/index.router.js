@@ -65,6 +65,7 @@ router.get('/getVacationCustomer',jwtHelper.verifyJwtToken,ctrlGenerell.getVacat
 
 
 router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
+router.post('/sendCSVEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendCSVEmail)
 
 
 /////Order Requests ////

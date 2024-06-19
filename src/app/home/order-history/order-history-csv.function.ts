@@ -2,10 +2,11 @@ import {ExportCsvDialogData} from "../../directives/export-csv-dialog/export-csv
 import {OrderHistoryTableInterface} from "./order-history.component";
 
 
-export function downloadOrderHistoryCsv(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData) {
-    const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
-    generateOrderHistoryXLS(filteredOrders, dateRange);
-}
+// export function downloadOrderHistoryCsv(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData) {
+    // const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
+  // generateOrderHistoryXLS(filteredOrders, dateRange);
+  // sendEmailGenerateOrderHistoryXLS(filteredOrders, dateRange);
+// }
 function filterAndSortOrderHistoryByDateRange(
     orders: OrderHistoryTableInterface[],
     dateRange: ExportCsvDialogData
@@ -69,3 +70,28 @@ function generateOrderHistoryXLS(orders: OrderHistoryTableInterface[], dateRange
     document.body.removeChild(a);
 }
 
+export function getXlsContent(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData):string {
+  const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
+  let xlsContent = `<table>
+    <tr>
+      <th>Datum Abgegeben</th>
+      <th>Datum Essen</th>
+      <th>Name Menu</th>
+      <th>Preis</th>
+      <th>Art</th>
+    </tr>`;
+
+  filteredOrders.forEach(order => {
+    xlsContent += `<tr>
+      <td>${dateToExcelDate(new Date(order.dateOrderMenu))}</td>
+      <td>${dateToExcelDate(new Date(order.dateOrderMenu))}</td>
+      <td>${order.nameMenu}</td>
+      <td>${formatCurrency(order.price)}</td>
+      <td>${order.typeOrder}</td>
+    </tr>`;
+  });
+
+  xlsContent += `</table>`;
+  return xlsContent;
+
+}

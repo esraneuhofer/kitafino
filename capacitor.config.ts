@@ -12,7 +12,7 @@ const config: CapacitorConfig = {
     hostname: 'my-app.com',
     androidScheme: 'https',
     cleartext: true,
-    url: 'https://kitafino-45139aec3e10.herokuapp.com'
+    // url: 'https://kitafino-45139aec3e10.herokuapp.com'
   },
   plugins: {
     SplashScreen: {

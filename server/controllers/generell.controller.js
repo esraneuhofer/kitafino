@@ -1,5 +1,6 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
+const multer = require('multer');
 const mongoose = require("mongoose");
 const Settings = mongoose.model('Settings');
 const Customer = mongoose.model('Customer');
@@ -12,7 +13,9 @@ const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
+const {convertToSendGridFormat} = require("./sendfrid.controller");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const upload = multer();
 
 
 
@@ -136,7 +139,7 @@ module.exports.sendEmail = async (req, res, next) => {
 
   try {
     // Senden der E-Mail mit SendGrid
-    await sgMail.send(mailOptions);
+    await sgMail.send(convertToSendGridFormat(mailOptions));
 
     // Wenn die E-Mail erfolgreich gesendet wurde, senden Sie die Info zurück
     res.send({ message: 'Email sent successfully', info: mailOptions });
@@ -172,3 +175,35 @@ module.exports.getAllWeekplanPdf = async (req, res, next) => {
     res.send(err);
   }
 };
+
+module.exports.sendCSVEmail = async (req, res, next) => {
+  const file = req.file;
+  const firstDate = req.body.firstDate;
+  const secondDate = req.body.secondDate;
+  const type = req.body.type;
+  const msg = {
+    to: req.body.email, // Empfängeradresse
+    from: '"Cateringexpert" <noreply@cateringexpert.de>', // Absenderadresse
+    subject: `${type} vom ${firstDate} bis ${secondDate}`,
+    text: 'Anbei finden Sie die angeforderte CSV-Datei.',
+    attachments: [
+      {
+        content: file.buffer.toString('base64'),
+        filename: file.originalname,
+        type: file.mimetype,
+        disposition: 'attachment'
+      }
+    ]
+  };
+
+  sgMail
+    .send(msg)
+    .then(() => {
+      res.status(200).send('E-Mail erfolgreich gesendet');
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send(error.toString());
+    });
+};
+
