@@ -61,7 +61,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 187bd7847b6f71467015a20200a1a071be3e5f14
-  CapacitorApp: bf8d08e1b451fe5eecdde62f0228431e911f21d4
+  CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
   CapacitorBrowser: 473c7fd70ddbe541608ff09ec1be14da0078279e
   CapacitorCamera: 3b77b3e8311b98220de65e63445c0e4d0b30ce3a
   CapacitorCordova: be703980ca797f847c3356f78fa175d21c8330c2

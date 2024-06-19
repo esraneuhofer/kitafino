@@ -51,14 +51,12 @@ export class WeekplanPdfComponent implements OnInit{
   constructor(private generellService:GenerellService,
               private fileOpener: FileOpener,
               private platformService: PlatformService) { }
-  isSafari:boolean = false;
-  isAndroid:boolean = false;
+  isApp:boolean = false;
 
 
 
   ngOnInit() {
-    this.isSafari = this.platformService.isIos;
-    this.isAndroid = this.platformService.isAndroid;
+    this.isApp = this.platformService.isIos || this.platformService.isAndroid
     this.queryYears = getYearsQuery();
     this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
     this.queryCalenderWeek = this.generatedKWArray[this.selectedIndexYear]; //Selects Calenderquery Array to current Year
@@ -85,7 +83,7 @@ export class WeekplanPdfComponent implements OnInit{
   async downloadPdf(model: WeekplanPdfInterface) {
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
-      if (this.isAndroid || this.isSafari) {
+      if (this.isApp) {
         await downloadPdfIos(data, this.fileOpener);
       } else {
         downloadPdfWeb(data);
@@ -99,7 +97,7 @@ export class WeekplanPdfComponent implements OnInit{
   displayPdf (model:WeekplanPdfInterface) {
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({_id: model._id}).subscribe((data:WeekplanPdfInterface) => {
-      if (!this.isSafari || !this.isAndroid) {
+      if (!this.isApp) {
         displayWebFunction(data);
       } else {
 
