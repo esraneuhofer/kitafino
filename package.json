@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
-    "heroku-prebuild": "yarn global add @angular/cli",
+    "heroku-prebuild": "./install_yarn.sh && yarn global add @angular/cli",
     "heroku-postbuild": "yarn install --frozen-lockfile && ng build --configuration production",
     "build:sw": "workbox injectManifest workbox-config.js",
     "build": "ng build --configuration production",
