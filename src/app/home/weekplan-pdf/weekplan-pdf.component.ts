@@ -139,33 +139,34 @@ export class WeekplanPdfComponent implements OnInit{
       // Save the file to the filesystem
       const base64Data = await this.blobToBase64(blob);
       const fileName = `${data.name}.pdf`;
+      console.log('Writing file');
 
       await Filesystem.writeFile({
-        path: fileName,
-        data: base64Data,
+        path: "filename.txt",
+        data: data.base64,
         directory: Directory.Documents,
         encoding: Encoding.UTF8
       });
-
+      console.log('Wrote file');
       // Read the file from the filesystem
-      const fileUri = await Filesystem.getUri({
-        directory: Directory.Documents,
-        path: fileName
-      });
-
-      const fileContents = await Filesystem.readFile({
-        path: fileUri.uri
-      });
-
-      // Convert the file contents to a Base64 Data URL and display it
-      const base64DataUrl = `data:application/pdf;base64,${fileContents.data}`;
-
-      // Create an iframe and set its source to the Base64 Data URL
-      const iframe = document.createElement('iframe');
-      iframe.src = base64DataUrl;
-      iframe.style.width = '100%';
-      iframe.style.height = '100vh';
-      document.body.appendChild(iframe);
+      // const fileUri = await Filesystem.getUri({
+      //   directory: Directory.Documents,
+      //   path: fileName
+      // });
+      //
+      // const fileContents = await Filesystem.readFile({
+      //   path: fileUri.uri
+      // });
+      //
+      // // Convert the file contents to a Base64 Data URL and display it
+      // const base64DataUrl = `data:application/pdf;base64,${fileContents.data}`;
+      //
+      // // Create an iframe and set its source to the Base64 Data URL
+      // const iframe = document.createElement('iframe');
+      // iframe.src = base64DataUrl;
+      // iframe.style.width = '100%';
+      // iframe.style.height = '100vh';
+      // document.body.appendChild(iframe);
 
       this.submittingRequest = false;
     });
