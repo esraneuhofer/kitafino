@@ -26,6 +26,18 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		 <key>NSExceptionDomains</key>
+      <dict>
+        <key>https://kitafino-45139aec3e10.herokuapp.com</key>
+        <dict>
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+          <key>NSTemporaryExceptionMinimumTLSVersion</key>
+          <string>TLSv1.0</string>
+        </dict>
+      </dict>
 	</dict>
 	<key>NSDocumentsFolderUsageDescription</key>
   <string>App benötigt Zugriff auf Dokumente, um PDFs zu speichern und zu öffnen.</string>

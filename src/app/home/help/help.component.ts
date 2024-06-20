@@ -48,6 +48,7 @@ export class HelpComponent implements OnInit {
   async openHelpPdf(id: string) {
     this.helpService.downloadHelpPdf(id).subscribe(
       (data) => {
+        alert('Download erfolgreich')
         const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob);
         window.open(url);
@@ -57,6 +58,7 @@ export class HelpComponent implements OnInit {
         }, 100);
       },
       (error) => {
+        alert(error)
         console.error('Download error', error);
       }
     );
