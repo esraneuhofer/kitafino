@@ -78,70 +78,19 @@ export class WeekplanPdfComponent implements OnInit{
     })
     return arr;
   };
-  async displayTest(model: { _id: string }) {
-    // PDF-Daten von der Datenbank abrufen
-    this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
-      const pdfBase64 = data.base64.replace(/\s/g, ''); // Entferne Leerzeichen und Zeilenumbrüche
-
-      // Protokollieren des Base64-Strings
-      console.log('Base64 PDF:', pdfBase64);
-
-      // PDF-Daten in ein Blob-Objekt umwandeln
-      const pdfBlob = this.base64ToBlob(pdfBase64, 'application/pdf');
-
-      // Protokollieren des Blob-Objekts
-      console.log('PDF Blob:', pdfBlob);
-
-      // Blob-Objekt in eine URL umwandeln
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-
-      // Überprüfen, ob die URL korrekt ist
-      console.log('Generated PDF URL:', pdfUrl);
-
-      // PDF im Browser öffnen
-      const options = {
-        url: pdfUrl,
-      };
-      await Browser.open(options)
-        .then(data => {
-          console.log('PDF opened:', data);
-        })
-        .catch(error => {
-          console.error('Error opening the PDF URL in the browser:', error);
-        });
-    }, error => {
-      console.error('Error fetching PDF data:', error);
-    });
+  async displayTest() {
+    const pdf_url = 'https://nittaiori.github.io/IonicPdf/pdf_test.pdf';
+    const options = {
+      url: pdf_url,
+    };
+    await Browser.open(options)
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
-
-  // Hilfsfunktion: Base64-String in ein Blob-Objekt umwandeln
-  base64ToBlob(base64: string, contentType: string = '', sliceSize: number = 512): Blob {
-    try {
-      const byteCharacters = atob(base64);
-      const byteArrays = [];
-
-      for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        const byteNumbers = new Array(slice.length);
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        const byteArray = new Uint8Array(byteNumbers);
-        byteArrays.push(byteArray);
-      }
-
-      const blob = new Blob(byteArrays, { type: contentType });
-      console.log('Blob created:', blob); // Protokollieren des erstellten Blobs
-      return blob;
-    } catch (error) {
-      console.error('Error creating blob from Base64:', error);
-      return new Blob(); // Rückgabe eines leeren Blobs im Fehlerfall
-    }
-  }
-
-
   async downloadPdf(model: WeekplanPdfInterface) {
     this.submittingRequest = true;
     this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
