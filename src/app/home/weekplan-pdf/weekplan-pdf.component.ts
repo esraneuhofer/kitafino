@@ -96,18 +96,56 @@ export class WeekplanPdfComponent implements OnInit{
   //       console.error(error);
   //     });
   // }
-  // async downloadPdf(model: WeekplanPdfInterface) {
-  //   this.submittingRequest = true;
-  //   this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
-  //     if (this.isApp) {
-  //       // await downloadPdfIos(data, this.fileOpener);
-  //     } else {
-  //       downloadPdfWeb(data);
-  //     }
-  //
-  //     this.submittingRequest = false;
-  //   });
-  // }
+  async displayTest(model: any) {
+    this.submittingRequest = true;
+
+    try {
+      const data = await this.generellService.getSingelWeekplanPdf({ _id: model._id }).toPromise();
+      console.log(data);
+
+      if (data && data.base64) {
+        const pdfBase64 = data.base64;
+        const pdfBlob = this.base64ToBlob(pdfBase64, 'application/pdf');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+
+        const options = {
+          url: pdfUrl,
+        };
+        console.log(options);
+        await Browser.open(options);
+
+        // URL-Objekt freigeben, wenn es nicht mehr benötigt wird
+        URL.revokeObjectURL(pdfUrl);
+      } else {
+        console.error('Kein PDF erhalten');
+        alert('Kein PDF erhalten');
+      }
+    } catch (error) {
+      console.error('Fehler beim Öffnen des PDFs:', error);
+      alert('Fehler beim Öffnen des PDFs: ' + error);
+    } finally {
+      this.submittingRequest = false;
+    }
+  }
+
+// Hilfsfunktion, um Base64-String in ein Blob-Objekt zu konvertieren
+  base64ToBlob(base64: string, contentType: string): Blob {
+    const byteCharacters = atob(base64);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    console.log("byteArrays");
+    console.log(byteArrays);
+    return new Blob(byteArrays, { type: contentType });
+  }
   async downloadPdf(id: string) {
     this.helpService.downloadHelpPdf(id).subscribe(
       (data) => {
