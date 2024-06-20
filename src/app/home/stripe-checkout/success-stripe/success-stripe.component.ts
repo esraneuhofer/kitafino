@@ -16,6 +16,7 @@ export class SuccessStripeComponent implements OnInit {
   ngOnInit() {
     this.isApp = this.platformService.isAndroid || this.platformService.isIos;
     this.route.queryParams.subscribe(params => {
+      console.log('params',params);
       this.amountCharged = +params['amount'];  // Das "+" konvertiert den Parameter in eine Zahl
     });
     // console.log('SuccessStripeComponent');

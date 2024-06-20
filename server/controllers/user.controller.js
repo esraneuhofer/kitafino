@@ -104,9 +104,9 @@ module.exports.register = async (req, res, next) => {
 
     // Save user
     await user.save(opts);
-
+    const lang = req.cookies.lang || 'de';
     // Prepare email options
-    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
+    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO,lang);
     const mailOptions = convertToSendGridFormat({
       from: `Cateringexpert <noreply@cateringexpert.de>`,
       bcc:'eltern_bestellung@cateringexpert.de',

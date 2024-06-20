@@ -19,23 +19,23 @@ function setLineItems(body){
 
 exports.createPaymentIntent = async (req, res) => {
   try {
-    const { username, userId, isIos, isAndroid, amount } = req.body;
+    const { username, userId, isIos, isAndroid, amountPayment } = req.body;
 
     const successUrl = process.env.NODE_ENV === 'production'
       ? isIos || isAndroid
-        ? `https://kitafino-45139aec3e10.herokuapp.com/success_stripe?status=success&amount=${amount}`
-        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success&amount=${amount}`
+        ? `https://kitafino-45139aec3e10.herokuapp.com/success_stripe?status=success&amount=${amountPayment}`
+        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success&amount=${amountPayment}`
       : isIos || isAndroid
-        ? `http://localhost:4200/success_stripe?status=success&amount=${amount}`
-        : `http://localhost:4200/home/account_overview?status=success&amount=${amount}`;
+        ? `http://localhost:4200/success_stripe?status=success&amount=${amountPayment}`
+        : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
 
     const cancelUrl = process.env.NODE_ENV === 'production'
       ? isIos || isAndroid
-        ? `https://kitafino-45139aec3e10.herokuapp.com/error_stripe?status=failure&amount=${amount}`
-        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=failure&amount=${amount}`
+        ? `https://kitafino-45139aec3e10.herokuapp.com/error_stripe?status=failure&amount=${amountPayment}`
+        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=failure&amount=${amountPayment}`
       : isIos || isAndroid
-        ? `http://localhost:4200/error_stripe?status=failure&amount=${amount}`
-        : `http://localhost:4200/home/account_overview?status=failure&amount=${amount}`;
+        ? `http://localhost:4200/error_stripe?status=failure&amount=${amountPayment}`
+        : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card', 'paypal', 'giropay'],
@@ -46,7 +46,7 @@ exports.createPaymentIntent = async (req, res) => {
         metadata: {
           userId: userId,
           username: username,
-          amount: amount
+          amount: amountPayment
         }
       },
       success_url: successUrl,

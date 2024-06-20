@@ -26,6 +26,7 @@ export class RegisterTenantComponent implements OnInit {
 
   tenantModel: TenantStudentInterface = {
     firstAccess: true,
+    firstAccessOrder: true,
     username: '',
     firstName: '',
     lastName: '',

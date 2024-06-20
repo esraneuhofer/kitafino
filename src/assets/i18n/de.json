@@ -454,5 +454,12 @@
   "KONTO_AUFLOESEN_DETAILS": "Im folgenden können Sie Ihr Konto auflösen.",
   "IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN": "<b>Bitte beachten Sie: </b> Ihr Konto ist nach der Auflösung nicht mehr aktiv ist und Sie keine Bestellungen mehr aufgeben können. Alle Einstellungen, Bestellungen und Kontodaten werden gelöscht. Diese Option ist nicht rückgängig zu machen.",
   "GELD_AUSZAHLEN_KONTO_SCHLIESSEN": "Um Ihr Konto aufzulösen müssen Sie eine Auzahlung für Ihr Guthaben beantragen. Gehen Sie hierfür auf <b>[Kontoübersicht]</b> und folgen Sie den Anweisungen.",
-  "ANZEIGEN": "Anzeigen"
+  "ANZEIGEN": "Anzeigen",
+  "WICHTIG_DAUERBESTELLUNG": " Die Dauerbestellung wird automatisch nach Ablauf der jeweiligen Bestellfrist ausgelöst.",
+  "WICHTIG": "Wichtig",
+  "BESTELLUNG_FIRST_INIT_TEXT_EINS": " Die Bestellfrist für die jeweiligen Bestelltage wird von Ihrem Cateringanbieter festgelegt. Nach Ablauf der Bestellfrist ist eine Abbestellung oder Änderung der Bestellung nicht mehr möglich.<br><b>Wichtig:</b> Wir (Cateringexpert) haben keinen Einfluss auf die Bestellfristen und können diese nicht ändern. Auch können wir nach Ablauf der Bestellfristen keine Änderungen mehr vornehmen.<br> Wir bedanken uns für Ihr Verständnis.",
+  "AKTUELLE_BESTELLFRIST": "Aktuelle Bestellfrist",
+  "WEITERE_INFORMATIONEN": "Weitere Informationen zur Bestellung finden Sie unten rechts auf der Seite.",
+  "ODER_UNTEN_AUF_DER_SEITE": "oder unter in der Seitennavigation unter",
+  "BESTELLFRIST_INFO": "Information Bestellfrist"
 }

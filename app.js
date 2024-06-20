@@ -124,6 +124,15 @@ i18n.configure({
 });
 app.use(i18n.init);
 
+app.use((req, res, next) => {
+  const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen
+  if (lang) {
+    i18n.setLocale(lang); // Locale auf die gespeicherte Sprache setzen
+  } else {
+    i18n.setLocale(i18n.getLocale()); // Standard-Sprache setzen
+  }
+  next();
+});
 
 app.use((req, res, next) => {
   if (req.path === '/api/webhook') {

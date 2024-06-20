@@ -12,12 +12,13 @@ export class MessageInfoBoxComponent {
   @Input() eachMessage!: SchoolMessageInterface | null;
   @Input() showButton: boolean = true;
   @Output() closeMessage:any = new EventEmitter<SchoolMessageInterface>();
-
+  submittingRequest: boolean = false;
     constructor(private translate: TranslateService) {
       // console.log(this.eachMessage);
     }
 
   closeInfo(message: SchoolMessageInterface) {
+      this.submittingRequest = true;
     this.closeMessage.emit(message);
   }
   getMessageHeader(sentBy: string) {

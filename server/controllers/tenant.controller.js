@@ -68,6 +68,7 @@ async function addAccount(req, session) {
 async function addTenantParent(req, session) {
   let newTenant = new TenantParent({
     firstAccess: true,
+    firstAccessOrder: true,
     schoolId: req.project_id,
     userId: req._id,
     customerId: req.customerId,

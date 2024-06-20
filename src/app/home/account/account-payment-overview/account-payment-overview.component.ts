@@ -81,6 +81,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
+      console.log('params',params);
       if (status === 'success') {
         let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
         let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')

@@ -1,4 +1,6 @@
 export interface TenantStudentInterface {
+
+  firstAccessOrder: boolean;
   firstAccess: boolean;
   _id?: string;
   userId?: string;

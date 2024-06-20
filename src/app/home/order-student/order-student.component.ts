@@ -35,6 +35,11 @@ import {ToastingService} from "../../service/toastr.service";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import {FirstAccessDialogComponent} from "../../directives/first-access-dialog/first-access-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  FirstAccessOrderDialogComponent
+} from "../../directives/first-access-order-dialog/first-access-order-dialog.component";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -96,6 +101,7 @@ export class OrderStudentComponent implements OnInit {
               private accountService: AccountService,
               private orderService: OrderService,
               private router: Router,
+              private dialog: MatDialog,
               private translate: TranslateService,
               private toastrService: ToastingService,
               private ngZone: NgZone,
@@ -169,6 +175,14 @@ export class OrderStudentComponent implements OnInit {
         this.allVacations = vacations;
         this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
         this.mainDataLoaded = true;
+        if(this.tenantStudent.firstAccessOrder){
+          const dialogRef = this.dialog.open(FirstAccessOrderDialogComponent, {
+            width: '600px',
+            data: {customer:customer,tenant:tenantStudent},
+            panelClass: 'custom-dialog-container',
+            position: {top: '20px'}
+          });
+        }
         this.setFirstInit(weekplan)
       },
       (error) => {

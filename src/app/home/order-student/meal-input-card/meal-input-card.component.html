@@ -25,9 +25,6 @@
       </div>
     </div>
   </div>
-  <span   [matTooltip]="getTooltipText(pastOrder, lockDay)"
-          matTooltipPosition="above"
-          matTooltipHideDelay="100">
   <ng-container>
     <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
       <div
@@ -73,7 +70,6 @@
       </div>
     </div>
   </ng-container>
-</span>
 </div>
 <div *ngIf="submittingOrder" class="loading-screen">
   <div class="loading-circle"></div>

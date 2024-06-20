@@ -101,6 +101,7 @@ import { CustomDatePipe } from './directives/custom-date.pipe';
 import {IonicModule, IonicRouteStrategy} from "@ionic/angular";
 import { CloseAccountDialogComponent } from './directives/close-account-dialog/close-account-dialog.component';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FirstAccessOrderDialogComponent } from './directives/first-access-order-dialog/first-access-order-dialog.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -187,6 +188,7 @@ export function localeFactory(languageService: LanguageService) {
     CustomToastrComponent,
     CustomDatePipe,
     CloseAccountDialogComponent,
+    FirstAccessOrderDialogComponent,
   ],
   imports: [
     BrowserModule,
