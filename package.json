@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
-    "heroku-prebuild": "npm install --legacy-peer-deps -g @angular/cli && npm install --force",
+    "heroku-prebuild": "yarn global add @angular/cli@latest && yarn install --force",
     "heroku-postbuild": "ng build --configuration production",
     "build:sw": "workbox injectManifest workbox-config.js",
     "build": "ng build --configuration production",
