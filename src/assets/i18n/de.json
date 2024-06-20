@@ -405,7 +405,7 @@
     "CALENDAR_WEEK": "Kalenderwoche",
     "WEEKPLAN": "Wochenplan",
     "VIEW": "Ansicht",
-    "DOWNLOAD": "Herunterladen"
+    "DOWNLOAD": "Anzeigen"
   },
   "NOTIFICATIONS": {
     "TITLE": "Mitteilungen",
@@ -429,8 +429,6 @@
   "BESTELLUNG_STORNIERT_ALERT": "Bestellung wurde storniert",
   "BESTELLUNG_EINGETRAGEN": "Bestellung wurde eingetragen",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Bestellung konnte nicht eingetragen werden",
-
-
   "VORTAG":"Vortag",
   "TAGE_VOR_DEM_JEWEILIGEM":"Tage vor dem jeweiligen Essenstag",
   "BESTELLFRIST_ENDET_IMMER":"Die Bestellfrist endet immer",
