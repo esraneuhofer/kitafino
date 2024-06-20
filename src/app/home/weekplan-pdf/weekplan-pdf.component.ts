@@ -83,16 +83,16 @@ export class WeekplanPdfComponent implements OnInit{
       url: pdf_url,
     };
     await Browser.open(options)
-      .then(data => {
-        // this.submittingRequest = false;
-
-        console.log(data);
-      })
-      .catch(error => {
-        // this.submittingRequest = false;
-        alert(error)
-        console.error(error);
-      });
+      // .then(data => {
+      //   // this.submittingRequest = false;
+      //
+      //   console.log(data);
+      // })
+      // .catch(error => {
+      //   // this.submittingRequest = false;
+      //   alert(error)
+      //   console.error(error);
+      // });
   }
   async downloadPdf(model: WeekplanPdfInterface) {
     this.submittingRequest = true;
