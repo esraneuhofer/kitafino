@@ -3,6 +3,13 @@ import {HelpPdfInterface, HelpService} from "../../service/help.service";
 import {LanguageService} from "../../service/language.service";
 import {PlatformService} from "../../service/platform.service";
 
+declare global {
+  interface Window {
+    webkitURL: typeof URL;
+  }
+}
+
+
 export interface HelpDocument {
     nameDocument: string;
     description: string;
@@ -42,7 +49,7 @@ export class HelpComponent implements OnInit {
     this.helpService.downloadHelpPdf(id).subscribe(
       (data) => {
         const blob = new Blob([data], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob) || window.webkitURL.createObjectURL(blob);
         window.open(url);
         // Optional: URL-Revoke, um Speicher freizugeben, wenn der Blob nicht mehr benötigt wird.
         setTimeout(() => {
