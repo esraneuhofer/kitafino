@@ -22,8 +22,9 @@ export async function downloadPdfIos(data: WeekplanPdfInterface, fileOpener: Fil
     const path = getUriResult.uri;
     await fileOpener.open(path, 'application/pdf')
       .then(() => console.log('File is opened'))
-      .catch(error => console.error('Error opening file', error));
+      .catch(error => alert('Error opening file'));
   } catch (error) {
+    alert(error);
     console.error('Unable to write file', error);
   }
 }

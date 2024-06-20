@@ -9,10 +9,10 @@ const config: CapacitorConfig = {
     contentInset: 'always',
   },
   server: {
-    // hostname: 'my-app.com',
-    // androidScheme: 'https',
-    // cleartext: true,
-    // url: 'https://kitafino-45139aec3e10.herokuapp.com'
+    hostname: 'my-app.com',
+    androidScheme: 'https',
+    cleartext: true,
+    url: 'https://kitafino-45139aec3e10.herokuapp.com'
     // url: 'http://localhost:4200/'
   },
   plugins: {
