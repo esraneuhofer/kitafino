@@ -38,16 +38,21 @@ export class HelpComponent implements OnInit {
         })
     }
 
-
-  async openHelpPdf(helpDocument: HelpPdfInterface) {
-    // this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {
-    //   console.log(data);
-    //   if (this.isApp) {
-    //     await downloadPdfHelpIos(data, this.fileOpener);
-    //   } else {
-    //     downloadPdfWeb(data);
-    //   }
-    // });
+  async openHelpPdf(id: string) {
+    this.helpService.downloadHelpPdf(id).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+        // Optional: URL-Revoke, um Speicher freizugeben, wenn der Blob nicht mehr benötigt wird.
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 100);
+      },
+      (error) => {
+        console.error('Download error', error);
+      }
+    );
   }
 
 

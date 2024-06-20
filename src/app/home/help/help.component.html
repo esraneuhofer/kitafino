@@ -83,7 +83,7 @@
 
 <!--                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{eachWeekplan.calenderWeek}}</td>-->
                       <td class="table-cell-padding-medium whitespace-nowrap px-1 py-2 text-sm text-gray-500 text-right flex justify-end pr-0">
-                        <app-button (click)="openHelpPdf(document)" [buttonType]="'button'" [submittingRequest]="submittingRequest">{{ 'ANZEIGEN' | translate }}
+                        <app-button (click)="openHelpPdf(document._id)" [buttonType]="'button'" [submittingRequest]="submittingRequest">{{ 'ANZEIGEN' | translate }}
                         </app-button>
                       </td>
                     </tr>

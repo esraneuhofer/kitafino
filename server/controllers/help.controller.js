@@ -82,3 +82,22 @@ module.exports.addHelpImage = async (req, res) => {
   }
 };
 
+
+module.exports.downloadHelpImage = async (req, res) => {
+  try {
+    const help = await Help.findById(req.params.id);
+    if (!help || !help.pdfPath) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    const filePath = path.resolve(__dirname, '..', help.pdfPath);
+    if (fs.existsSync(filePath)) {
+      res.download(filePath);
+    } else {
+      res.status(404).json({ error: 'File not found on server' });
+    }
+  } catch (error) {
+    console.error('Error fetching file:', error);
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -8,6 +8,7 @@ import {PlatformService} from "../../service/platform.service";
 import {displayWebFunction} from "./display-web.function";
 import {downloadPdfWeb} from "./download-web.function";
 import { Browser } from '@capacitor/browser';
+import {HelpService} from "../../service/help.service";
 
 function isInGroups(group:string[],customerId:string){
   for(let i = 0; i < group.length; i++){
@@ -47,6 +48,7 @@ export class WeekplanPdfComponent implements OnInit{
   customerInfo!:CustomerInterface;
   submittingRequest = false;
   constructor(private generellService:GenerellService,
+              private helpService:HelpService,
               private platformService: PlatformService) { }
   isApp:boolean = false;
 
@@ -76,35 +78,51 @@ export class WeekplanPdfComponent implements OnInit{
     })
     return arr;
   };
-  async displayTest() {
-    this.submittingRequest = true;
-    const pdf_url = 'https://nittaiori.github.io/IonicPdf/pdf_test.pdf';
-    const options = {
-      url: pdf_url,
-    };
-    await Browser.open(options)
-      .then(data => {
-        // this.submittingRequest = false;
-
-        console.log(data);
-      })
-      .catch(error => {
-        // this.submittingRequest = false;
-        alert(error)
-        console.error(error);
-      });
-  }
-  async downloadPdf(model: WeekplanPdfInterface) {
-    this.submittingRequest = true;
-    this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
-      if (this.isApp) {
-        // await downloadPdfIos(data, this.fileOpener);
-      } else {
-        downloadPdfWeb(data);
+  // async displayTest() {
+  //   this.submittingRequest = true;
+  //   const pdf_url = 'https://nittaiori.github.io/IonicPdf/pdf_test.pdf';
+  //   const options = {
+  //     url: pdf_url,
+  //   };
+  //   await Browser.open(options)
+  //     .then(data => {
+  //       // this.submittingRequest = false;
+  //
+  //       console.log(data);
+  //     })
+  //     .catch(error => {
+  //       // this.submittingRequest = false;
+  //       alert(error)
+  //       console.error(error);
+  //     });
+  // }
+  // async downloadPdf(model: WeekplanPdfInterface) {
+  //   this.submittingRequest = true;
+  //   this.generellService.getSingelWeekplanPdf({ _id: model._id }).subscribe(async (data: WeekplanPdfInterface) => {
+  //     if (this.isApp) {
+  //       // await downloadPdfIos(data, this.fileOpener);
+  //     } else {
+  //       downloadPdfWeb(data);
+  //     }
+  //
+  //     this.submittingRequest = false;
+  //   });
+  // }
+  async downloadPdf(id: string) {
+    this.helpService.downloadHelpPdf(id).subscribe(
+      (data) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+        // Optional: URL-Revoke, um Speicher freizugeben, wenn der Blob nicht mehr benötigt wird.
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+        }, 100);
+      },
+      (error) => {
+        console.error('Download error', error);
       }
-
-      this.submittingRequest = false;
-    });
+    );
   }
 
 

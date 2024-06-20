@@ -132,7 +132,7 @@ router.post('/addMessage',ctrlMessage.addMessage)
 router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
 router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
 router.post('/addHelpImage', jwtHelper.verifyJwtToken, upload.single('pdf'), ctrlHelp.addHelpImage);
-
+router.get('/download/:id', jwtHelper.verifyJwtToken, ctrlHelp.downloadHelpImage);
 
 module.exports = router;
 
