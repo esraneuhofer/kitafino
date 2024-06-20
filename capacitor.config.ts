@@ -16,12 +16,12 @@ const config: CapacitorConfig = {
     // url: 'http://localhost:3002'
   },
   plugins: {
-    "Cordova": {},
-    "FileOpener": {
-      "ios": {
-        "usesFileOpener": true
-      }
-    },
+    // "Cordova": {},
+    // "FileOpener": {
+    //   "ios": {
+    //     "usesFileOpener": true
+    //   }
+    // },
     SplashScreen: {
       launchShowDuration: 3000,
       launchAutoHide: true,
