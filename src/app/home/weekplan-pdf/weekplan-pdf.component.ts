@@ -86,13 +86,13 @@ export class WeekplanPdfComponent implements OnInit{
     };
     await Browser.open(options)
       .then(data => {
-        this.submittingRequest = false;
+        // this.submittingRequest = false;
 
         console.log(data);
       })
       .catch(error => {
-        this.submittingRequest = false;
-
+        // this.submittingRequest = false;
+        alert(error)
         console.error(error);
       });
   }

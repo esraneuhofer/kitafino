@@ -10,10 +10,10 @@ const config: CapacitorConfig = {
   },
   server: {
     hostname: 'my-app.com',
-    androidScheme: 'https',
+    androidScheme: 'http',
     cleartext: true,
-    url: 'https://kitafino-45139aec3e10.herokuapp.com'
-    // url: 'http://localhost:3002'
+    // url: 'https://kitafino-45139aec3e10.herokuapp.com'
+    url: 'http://localhost:3002'
   },
   plugins: {
     // "Cordova": {},
