@@ -79,15 +79,20 @@ export class WeekplanPdfComponent implements OnInit{
     return arr;
   };
   async displayTest() {
+    this.submittingRequest = true;
     const pdf_url = 'https://nittaiori.github.io/IonicPdf/pdf_test.pdf';
     const options = {
       url: pdf_url,
     };
     await Browser.open(options)
       .then(data => {
+        this.submittingRequest = false;
+
         console.log(data);
       })
       .catch(error => {
+        this.submittingRequest = false;
+
         console.error(error);
       });
   }
