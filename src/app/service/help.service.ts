@@ -1,15 +1,16 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
 import {SchoolMessageInterface} from "../classes/school-message.interface";
 import {OrderInterfaceStudentSave} from "../classes/order_student_safe.class";
 
 export interface HelpPdfInterface {
   routeName:string;
-  base64:string;
+  pdfPath:string;
   lang:string;
   nameFile:string;
+  filename:string;
 }
 
 @Injectable(
@@ -33,6 +34,11 @@ export class HelpService {
     console.log(object.routeName)
     return this.http.get<HelpPdfInterface>(environment.apiBaseUrl + '/getSingleHelpPdfBase', {params: object})
       .pipe(map((response: HelpPdfInterface) => (response)));
+  }
+
+  uploadHelpPdf(formData: FormData): Observable<any> {
+    return this.http.post(environment.apiBaseUrl + '/addHelpImage', formData)
+      .pipe(map((response: any) => response));
   }
 
 

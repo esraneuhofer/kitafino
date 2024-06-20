@@ -25,6 +25,7 @@ import {HelpDialogComponent} from "./directives/help-dialog/help-dialog.componen
 import {HelpComponent} from "./home/help/help.component";
 import {SuccessStripeComponent} from "./home/stripe-checkout/success-stripe/success-stripe.component";
 import {NotSuccessStripeComponent} from "./home/stripe-checkout/not-success-stripe/not-success-stripe.component";
+import {UploadComponent} from "./home/upload/upload.component";
 
 
 
@@ -40,6 +41,7 @@ export const appRoutes: Routes = [
   {
     path: 'success_stripe', component: SuccessStripeComponent,
   },
+
   {
     path: 'error_stripe', component: NotSuccessStripeComponent,
   },
@@ -58,6 +60,7 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
 
+      { path: 'upload', component:UploadComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'help', component:HelpComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'permanent_order', component:PermanentOrdersComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'charge_account', component:ChargeAccountComponent , canActivate: [AuthGuard,MainGuard]},

@@ -1,0 +1,21 @@
+<div>
+  <h2>Upload PDF</h2>
+  <input type="file" (change)="onFileSelected($event)" />
+  <div>
+    <label for="nameFile">Name File:</label>
+    <input id="nameFile" [(ngModel)]="infoModelKita.nameFile" />
+  </div>
+  <div>
+    <label for="lang">Language:</label>
+    <input id="lang" [(ngModel)]="infoModelKita.lang" />
+  </div>
+  <div>
+    <label for="filename">Filename:</label>
+    <input id="filename" [(ngModel)]="infoModelKita.filename" />
+  </div>
+  <div>
+    <label for="routeName">Route Name:</label>
+    <input id="routeName" [(ngModel)]="infoModelKita.routeName" />
+  </div>
+  <button (click)="onUpload()">Upload</button>
+</div>

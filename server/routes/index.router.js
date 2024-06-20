@@ -2,7 +2,17 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() }); // Speicher
+// Set up storage engine for multer with memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
+// Logging Middleware
+router.use((req, res, next) => {
+  console.log(`Received ${req.method} request for '${req.url}'`);
+  next();
+});
+
 // router.use('/', tenantConfig.getTenantId);
 
 const ctrlHelp = require('../controllers/help.controller');
@@ -118,10 +128,10 @@ router.post('/addMessage',ctrlMessage.addMessage)
 
 ////Help Requests ////
 
+// router.post('/addHelpImage',ctrlHelp.addHelpImage)
 router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
 router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
-
-
+router.post('/addHelpImage', jwtHelper.verifyJwtToken, upload.single('pdf'), ctrlHelp.addHelpImage);
 
 
 module.exports = router;
