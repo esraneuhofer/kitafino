@@ -5,10 +5,8 @@ import {getWeekNumber} from "../order-student/order.functions";
 import {getCalenderQuery, getYearsQuery} from "../order-student/date-selection/date-selection.functions";
 import {forkJoin} from "rxjs";
 import {PlatformService} from "../../service/platform.service";
-import {Directory, Encoding, Filesystem} from "@capacitor/filesystem";
 import {displayWebFunction} from "./display-web.function";
 import {downloadPdfWeb} from "./download-web.function";
-// import {downloadPdfIos} from "./download-ios.function";
 import { Browser } from '@capacitor/browser';
 
 function isInGroups(group:string[],customerId:string){

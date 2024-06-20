@@ -10,23 +10,23 @@ const config: CapacitorConfig = {
   },
   server: {
     hostname: 'my-app.com',
-    androidScheme: 'http',
+    androidScheme: 'https',
     cleartext: true,
-    // url: 'https://kitafino-45139aec3e10.herokuapp.com'
-    url: 'http://localhost:3002'
+    url: 'https://kitafino-45139aec3e10.herokuapp.com'
+    // url: 'http://localhost:4200/'
   },
   plugins: {
-    // "Cordova": {},
-    // "FileOpener": {
-    //   "ios": {
-    //     "usesFileOpener": true
-    //   }
-    // },
+    "Cordova": {},
+    "FileOpener": {
+      "ios": {
+        "usesFileOpener": true
+      }
+    },
     SplashScreen: {
       launchShowDuration: 3000,
       launchAutoHide: true,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
-      androidScaleType: "CENTER_CROP",
+      "androidScaleType": "CENTER_CROP",
       iosSpinnerStyle: "small",
       spinnerColor: "#999999",
       splashFullScreen: true,

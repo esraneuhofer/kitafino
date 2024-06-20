@@ -8,8 +8,6 @@ PODS:
   - CapacitorCamera (6.0.1):
     - Capacitor
   - CapacitorCordova (6.1.0)
-  - CapacitorFilesystem (6.0.0):
-    - Capacitor
   - CapacitorIosAutofillSavePassword (3.0.0):
     - Capacitor
   - CapacitorSecureStoragePlugin (0.10.0):
@@ -27,7 +25,6 @@ DEPENDENCIES:
   - "CapacitorBrowser (from `../../node_modules/@capacitor/browser`)"
   - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
-  - "CapacitorFilesystem (from `../../node_modules/@capacitor/filesystem`)"
   - CapacitorIosAutofillSavePassword (from `../../node_modules/capacitor-ios-autofill-save-password`)
   - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
@@ -48,8 +45,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/camera"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
-  CapacitorFilesystem:
-    :path: "../../node_modules/@capacitor/filesystem"
   CapacitorIosAutofillSavePassword:
     :path: "../../node_modules/capacitor-ios-autofill-save-password"
   CapacitorSecureStoragePlugin:
@@ -65,13 +60,12 @@ SPEC CHECKSUMS:
   CapacitorBrowser: 75d7d54af7a4e1f8e5b602c1690af0f16d068279
   CapacitorCamera: 81d84a12e7c8b3f5aa5bd4a18fc6f02bcef95980
   CapacitorCordova: be703980ca797f847c3356f78fa175d21c8330c2
-  CapacitorFilesystem: 5f419950394552ab21258c89360ffc0264c1ce14
   CapacitorIosAutofillSavePassword: d8af1217205996883f05af2bf9f6ff13997b8c84
   CapacitorSecureStoragePlugin: d0614dad282ba7f17736e6d12b5905f2c91fa1b9
   CapacitorSplashScreen: 8583a3390fef3bce7d8e677d63921125931a6468
   CordovaPlugins: a2dfa262b6e431acb03008ce5d6d6ad27cb4ae00
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 8dd4e6dc6ac1650258bfdc7c33965003cdc99e47
+PODFILE CHECKSUM: 3de12944e0042fa0ad1fab41f45ed58c504d6922
 
 COCOAPODS: 1.15.2
