@@ -17,7 +17,7 @@ const config: CapacitorConfig = {
   },
   plugins: {
     "Cordova": {},
-    "Browser": {},
+    "@capacitor/browser": {},
     "FileOpener": {
       "ios": {
         "usesFileOpener": true
