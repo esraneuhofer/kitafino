@@ -34,20 +34,20 @@ export class AppComponent implements OnInit {
   }
 
   async initializeApp() {
-    // Hide the splash (you should do this on app launch)
-    await SplashScreen.hide();
-
-    // Show the splash for an indefinite amount of time:
+    // Show the splash for an indefinite amount of time initially
     await SplashScreen.show({
       autoHide: false,
     });
 
-    // Show the splash for two seconds and then automatically hide it:
-    await SplashScreen.show({
-      showDuration: 1000,
-      autoHide: true,
-    });
-
     // Optional: Any other initialization logic can go here
+
+    // Hide the splash after your initialization logic is done
+    await SplashScreen.hide();
+
+    // If you need to show the splash screen again later, use this method:
+    // await SplashScreen.show({
+    //   showDuration: 2000,
+    //   autoHide: true,
+    // });
   }
 }

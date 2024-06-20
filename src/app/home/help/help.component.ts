@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {downloadPdfHelpIos} from "../weekplan-pdf/download-ios.function";
-import {downloadPdfWeb} from "../weekplan-pdf/download-web.function";
 import {HelpPdfInterface, HelpService} from "../../service/help.service";
-import {PlatformService} from "../../service/platform.service";
-import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {LanguageService} from "../../service/language.service";
+import {PlatformService} from "../../service/platform.service";
 
 export interface HelpDocument {
     nameDocument: string;
@@ -27,7 +24,6 @@ export class HelpComponent implements OnInit {
     lang: string = 'de'
   isApp: boolean = false;
     constructor(private helpService: HelpService,
-                private fileOpener: FileOpener,
                 private platformService: PlatformService,
                 private languageService: LanguageService,) {
     }
@@ -44,14 +40,14 @@ export class HelpComponent implements OnInit {
 
 
   async openHelpPdf(helpDocument: HelpPdfInterface) {
-    this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {
-      console.log(data);
-      if (this.isApp) {
-        await downloadPdfHelpIos(data, this.fileOpener);
-      } else {
-        downloadPdfWeb(data);
-      }
-    });
+    // this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {
+    //   console.log(data);
+    //   if (this.isApp) {
+    //     await downloadPdfHelpIos(data, this.fileOpener);
+    //   } else {
+    //     downloadPdfWeb(data);
+    //   }
+    // });
   }
 
 

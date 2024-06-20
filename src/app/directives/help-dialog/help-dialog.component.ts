@@ -5,10 +5,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../service/language.service";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {HelpService} from "../../service/help.service";
-import {downloadPdfHelpIos, downloadPdfIos} from "../../home/weekplan-pdf/download-ios.function";
-import {downloadPdfWeb} from "../../home/weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
-import {FileOpener} from "@ionic-native/file-opener/ngx";
 
 interface HelpText {
   header: string;
@@ -44,7 +41,6 @@ export class HelpDialogComponent {
 
   constructor(private translate: TranslateService,
               private helpService: HelpService,
-              private fileOpener: FileOpener,
               private platformService: PlatformService,
               private sanitizer: DomSanitizer,
               @Inject(MAT_DIALOG_DATA) public data: { route: string }, private languageService: LanguageService) {
@@ -63,14 +59,14 @@ export class HelpDialogComponent {
   }
 
   async openHelpPdf() {
-    this.helpService.getSingleHelpPdfBase({routeName: getLastSegment(this.data.route)}).subscribe(async (data: any) => {
-      console.log(data);
-      if (this.isApp) {
-        await downloadPdfHelpIos(data, this.fileOpener);
-      } else {
-        downloadPdfWeb(data);
-      }
-    });
+    // this.helpService.getSingleHelpPdfBase({routeName: getLastSegment(this.data.route)}).subscribe(async (data: any) => {
+    //   console.log(data);
+    //   if (this.isApp) {
+    //     await downloadPdfHelpIos(data, this.fileOpener);
+    //   } else {
+    //     downloadPdfWeb(data);
+    //   }
+    // });
   }
 
 }
