@@ -111,9 +111,9 @@ router.post('/webhook',rawBodyBuffer ,ctrlWebhook.webhook_stripe)
 ////Language Requests ////
 
 router.post('/setLanguage',ctrlLanguage.setLanguage)
-router.get('/getMessages',ctrlMessage.getMessages)
-router.post('/editMessage',ctrlMessage.editMessage)
-router.post('/addMessage',ctrlMessage.addMessage)
+router.get('/getMessages',jwtHelper.verifyJwtToken,ctrlMessage.getMessages)
+router.post('/editMessage',jwtHelper.verifyJwtToken,ctrlMessage.editMessage)
+router.post('/addMessage',jwtHelper.verifyJwtToken,ctrlMessage.addMessage)
 
 
 ////Help Requests ////
