@@ -310,6 +310,17 @@
         "Wählen Sie das gewünschte Jahr sowie die Kalenderwoche aus, für die Sie den Wochenplan einsehen möchten.",
         "Klicken Sie dann entweder auf <b>[Ansicht]</b> oder <b>[Herunterladen]</b>."
       ]
+    },
+    "login": {
+      "HEADER": "Anmeldung und Registrierung",
+      "DESCRIPTION": [
+        "Sollten Sie noch keinen Account erstellt haben gehen Sie auf <b>[hier registrieren]</b>.",
+        "Geben Sie dort die <b>Projekt ID</b> ein, die Sie von Ihrer Einrichtung erhalten haben, und eine gültige Email Adresse mit der Sie sich registrieren möchten",
+        "Nach der Registrierung erhalten Sie eine Email mit Ihrem Usernam (E-Mail Adresse), um Ihrem Passwort.",
+        "Um sich anzumelden, geben Sie Ihre Email Adresse und Ihr Passwort ein und klicken Sie auf <b>[Anmelden]</b>.",
+        "<b>WICHTIG:</b> Achten Sie bei der Eingabe Ihres Passwortes auf die korrekte Eingabe sowie Groß und Kleinschreibung."
+
+      ]
     }
   },
   "ACCOUNT": {

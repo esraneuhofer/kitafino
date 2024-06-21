@@ -7,6 +7,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { MessageDialogService } from "../../service/message-dialog.service";
 import {Capacitor} from "@capacitor/core";
 import { SavePassword } from 'capacitor-ios-autofill-save-password';
+import {HelpDialogComponent} from "../../directives/help-dialog/help-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-sign-in',
@@ -29,7 +31,7 @@ export class SignInComponent implements OnInit {
               private renderer: Renderer2,
               private studentService: StudentService,
               private router: Router,
-              private dialogService: MessageDialogService) { }
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.isMobileApp = Capacitor.isNativePlatform();
@@ -89,8 +91,13 @@ export class SignInComponent implements OnInit {
     return message;
   }
 
-  openHelp(): void {
-    this.dialogService.openMessageDialog('Hilfe....', 'Hilfe', 'info');
+  openHelp(){
+    const dialogRef = this.dialog.open(HelpDialogComponent, {
+      width: '600px',
+      data: {route: 'login'},
+      panelClass: 'custom-dialog-container',
+      position: {top: '20px'}
+    });
   }
 
   switchLanguage(language: string): void {
