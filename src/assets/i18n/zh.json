@@ -267,7 +267,7 @@
         "要从账户中提取资金，请点击<b>[提取资金]</b>。"
       ]
     },
-    "kindergarten_settings": {
+    "messages": {
       "HEADER": "幼儿园设置",
       "DESCRIPTION": [
         "在这里，您可以找到设施、餐饮提供商或 Cateringexpert 发送的所有消息。",

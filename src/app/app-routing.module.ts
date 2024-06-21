@@ -57,14 +57,13 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-
       { path: 'help', component:HelpComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'permanent_order', component:PermanentOrdersComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'charge_account', component:ChargeAccountComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'details_account', component:AccuntDetailsComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'account_overview', component:AccountPaymentOverviewComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'kindergarten_settings', component:SchoolAnnouncmentsComponent , canActivate: [AuthGuard,MainGuard]},
+      { path: 'messages', component:SchoolAnnouncmentsComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'order_history', component:OrderHistoryComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
