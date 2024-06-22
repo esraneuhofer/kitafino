@@ -435,6 +435,7 @@
   "Freitag": "Cuma",
   "AM": "tarihinde",
   "UM": "saatinde",
+  "FIRSTPAGE.USERNAME": "Kullanıcı Adı",
   "IN_DER_VORWOCHE": "önceki hafta",
   "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "İlgili sipariş haftasından önceki haftalar",
   "UM_FORTZUFAHREN": "Devam etmek için uygulamaya geri dönün",

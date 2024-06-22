@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var tenantparent = new Schema({
   firstAccess:Boolean,
   firstAccessOrder:Boolean,
+  registerDate:Date,
   tenantId:Schema.Types.ObjectId,
   customerId:Schema.Types.ObjectId,
   schoolId:Schema.Types.ObjectId,

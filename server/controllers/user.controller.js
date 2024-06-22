@@ -87,6 +87,7 @@ module.exports.register = async (req, res, next) => {
 
     // Create new user
     const user = new Schooluser({
+      registrationDate: new Date(),
       email: emailRegistration,
       username: emailRegistration,
       project_id: projectExists._id,

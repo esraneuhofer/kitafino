@@ -427,6 +427,7 @@
   "BESTELLFRIST_ENDET_IMMER": "The order deadline always ends",
   "ABBESTELLFRIST_ENDET_IMMER": "The cancellation deadline always ends",
   "BESTELLFRIST_ENDET_IMMER_VOR": "The order deadline always ends before",
+  "FIRSTPAGE.USERNAME": "Username",
   "UHR": "o'clock",
   "Montag": "Monday",
   "Dienstag": "Tuesday",

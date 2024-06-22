@@ -379,12 +379,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadline(day:Date) {
-    this.customer.generalSettings.isDeadlineDaily = false;
-    this.customer.generalSettings.deadlineWeekly = {
-      weeks: '1',
-      day: '3',
-      time: new Date('1970-01-01T18:00:00.000+00:00')
-    }
+
     if(this.customer.generalSettings.isDeadlineDaily){
       this.checkDeadlineDay(day)
     }else{
