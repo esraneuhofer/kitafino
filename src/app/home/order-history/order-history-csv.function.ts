@@ -1,12 +1,11 @@
 import {ExportCsvDialogData} from "../../directives/export-csv-dialog/export-csv-dialog.component";
 import {OrderHistoryTableInterface} from "./order-history.component";
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import {getInvoiceDateOne} from "../../functions/date.functions";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 
-// export function downloadOrderHistoryCsv(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData) {
-    // const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
-  // generateOrderHistoryXLS(filteredOrders, dateRange);
-  // sendEmailGenerateOrderHistoryXLS(filteredOrders, dateRange);
-// }
 function filterAndSortOrderHistoryByDateRange(
     orders: OrderHistoryTableInterface[],
     dateRange: ExportCsvDialogData
@@ -94,4 +93,63 @@ export function getXlsContent(orders: OrderHistoryTableInterface[], dateRange: E
   xlsContent += `</table>`;
   return xlsContent;
 
+}
+
+export function createPdfBuffer(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
+
+    const tableBody: any = [
+      [
+        { text: 'Datum Abgegeben', style: 'tableHeader' },
+        { text: 'Datum Essen', style: 'tableHeader' },
+        { text: 'Name Menu', style: 'tableHeader' },
+        { text: 'Preis', style: 'tableHeader' },
+        { text: 'Art', style: 'tableHeader' }
+      ]
+    ];
+
+    filteredOrders.forEach(order => {
+      tableBody.push([
+        getInvoiceDateOne(new Date(order.dateOrderMenu)),
+        getInvoiceDateOne(new Date(order.dateOrderMenu)),
+        order.nameMenu,
+        formatCurrency(order.price),
+        order.typeOrder
+      ]);
+    });
+
+    const docDefinition = {
+      content: [
+        { text: 'Order History', style: 'header' },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['15%', '15%', '45%', '10%', '15%'],
+            body: tableBody
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10] as [number, number, number, number] // Fix für die margin
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        }
+      },
+      defaultStyle: {
+        font: 'Roboto' // Verwenden Sie eine definierte Schriftart
+      }
+    };
+
+    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    pdfDocGenerator.getBlob((blob) => {
+      resolve(blob);
+    });
+  });
 }

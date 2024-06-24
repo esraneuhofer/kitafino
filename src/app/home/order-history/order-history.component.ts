@@ -16,12 +16,13 @@ import {
   ExportCsvDialogData
 } from "../../directives/export-csv-dialog/export-csv-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {getXlsContent} from "./order-history-csv.function";
+import {createPdfBuffer, getXlsContent} from "./order-history-csv.function";
 import {TranslateService} from "@ngx-translate/core";
 import {TenantServiceStudent} from "../../service/tenant.service";
 import {GenerellService} from "../../service/generell.service";
 import {TenantStudentInterface} from "../../classes/tenant.class";
 import {MessageDialogService} from "../../service/message-dialog.service";
+import {DetailsOrderDialogComponent} from "./details-order-dialog/details-order-dialog.component";
 
 function getTypeOrder(input: string, translate: TranslateService): string {
   if (input === 'order') {
@@ -129,32 +130,65 @@ export class OrderHistoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: ExportCsvDialogData) => {
+      let xlsBlob: Blob;
       if (!result) {
         this.submittingRequest = false;
         return;
       }
-      let xlsContent = getXlsContent(this.displayArrayAccountOrdersSearch, result);
-      const xlsBlob = new Blob([xlsContent], {type: 'application/vnd.ms-excel'});
+      if(result.typeDownload === 'csv'){
+        let xlsContent = getXlsContent(this.displayArrayAccountOrdersSearch, result);
+        xlsBlob = new Blob([xlsContent], {type: 'application/vnd.ms-excel'});
+        this.generellService.sendCSVEmail({
+          file: xlsBlob,
+          firstDate: result.firstDate,
+          secondDate: result.secondDate,
+          type: 'Bestellverlauf',
+          email:this.tenantStudent.email
+        }).subscribe(response => {
+          this.dialogeService.openMessageDialog(
+            this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
+            this.translate.instant("SUCCESS"),
+            'success');
+        }, error => {
+          this.dialogeService.openMessageDialog(
+            this.translate.instant("ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI"),
+            this.translate.instant("ERROR_TITLE"),
+            'warning');
+        });
+      }else{
+        createPdfBuffer(this.displayArrayAccountOrdersSearch, result).then(pdfBlob => {
+          console.log(pdfBlob);
+          this.generellService.sendPDFEmail({
+            file: pdfBlob,
+            firstDate: result.firstDate,
+            secondDate: result.secondDate,
+            type: 'Bestellverlauf',
+            email: this.tenantStudent.email
+          }).subscribe(response => {
+            console.log(response);
+            this.dialogeService.openMessageDialog(
+              this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
+              this.translate.instant("SUCCESS"),
+              'success');
+          }, error => {
+            this.dialogeService.openMessageDialog(
+              this.translate.instant("ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI"),
+              this.translate.instant("ERROR_TITLE"),
+              'warning');
+          });
+        })
 
-      this.generellService.sendCSVEmail({
-        file: xlsBlob,
-        firstDate: result.firstDate,
-        secondDate: result.secondDate,
-        type: 'Bestellverlauf',
-        email:this.tenantStudent.email
-      }).subscribe(response => {
-        this.dialogeService.openMessageDialog(
-          this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
-          this.translate.instant("SUCCESS"),
-          'success');
-      }, error => {
-        this.dialogeService.openMessageDialog(
-          this.translate.instant("ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI"),
-          this.translate.instant("ERROR_TITLE"),
-          'warning');
-      });
+      }
       // downloadOrderHistoryCsv(this.displayArrayAccountOrdersSearch, result);
     });
-
   }
+  openDetailsOrder(order:OrderHistoryTableInterface){
+    const dialogRef = this.dialog.open(DetailsOrderDialogComponent, {
+      width: '550px',
+      data: order,
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
+  }
+
 }

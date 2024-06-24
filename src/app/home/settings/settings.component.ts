@@ -97,6 +97,15 @@ export class SettingsComponent implements OnInit{
     })
   }
 
+  editPersonalInformationSetting(){
+    if(this.tenantModel.orderSettings.sendReminderBalance && this.tenantModel.orderSettings.amountBalance < 10){
+      this.messageService.openMessageDialog(
+        this.translate.instant('ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABENw'),'Mindestbestrag','warning'
+      )
+    }else{
+      this.editPersonalInformation();
+    }
+  }
   editPersonalInformation() {
     if (this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)) {
       let message = this.translate.instant('MANAGE_TENANT_SETTINGS.ERROR_INVALID_IBAN')
@@ -168,5 +177,11 @@ export class SettingsComponent implements OnInit{
         });
       }
     })
+  }
+
+  reminderBalanceSet(boolean:boolean):void{
+    if(!boolean){
+      this.tenantModel.orderSettings.amountBalance = 0;
+    }
   }
 }

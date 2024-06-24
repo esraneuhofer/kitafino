@@ -70,6 +70,7 @@ router.get('/getVacationCustomer',jwtHelper.verifyJwtToken,ctrlGenerell.getVacat
 
 router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)
 router.post('/sendCSVEmail',jwtHelper.verifyJwtToken,upload.single('file'),ctrlGenerell.sendCSVEmail)
+router.post('/sendPDFEmail',jwtHelper.verifyJwtToken,upload.single('file'),ctrlGenerell.sendPDFEmail)
 
 
 /////Order Requests ////

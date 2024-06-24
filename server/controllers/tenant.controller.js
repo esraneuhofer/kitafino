@@ -82,8 +82,8 @@ async function addTenantParent(req, session) {
     city: req.body.city,
     zip: req.body.zip,
     orderSettings: {
-      orderConfirmationEmail: false,
-      sendReminderBalance: false,
+      orderConfirmationEmail: true,
+      sendReminderBalance: true,
       amountBalance: 0,
       permanentOrder: false,
     },

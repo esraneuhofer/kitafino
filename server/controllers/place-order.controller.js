@@ -6,7 +6,11 @@ const AccountSchema = mongoose.model('AccountSchema');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
+const Tenantparent = mongoose.model('Tenantparent');
 
+const {setEmailReminder} = require('./email-balance-reminder');
+const sgMail = require("@sendgrid/mail");
+const {convertToSendGridFormat} = require("./sendfrid.controller");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -16,31 +20,39 @@ async function addOrder(req) {
   req.body.userId = req._id;
 
   const orderAccount = prepareOrderDetails(req);
-
   const totalPrice = getTotalPrice(req.body);
   const session = await mongoose.startSession();
 
   try {
     await session.startTransaction();
-
+    const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
     const account = await validateCustomerAccount(req._id, totalPrice, session);
     const orderId = new mongoose.Types.ObjectId();
     account.currentBalance -= totalPrice;
 
+    if (tenantAccount.orderSettings.sendReminderBalance && account.currentBalance < tenantAccount.orderSettings.amountBalance) {
+      let emailBody = setEmailReminder(account.currentBalance, tenantAccount.email);
+      try {
+        await sgMail.send(convertToSendGridFormat(emailBody));
+      } catch (emailError) {
+        console.log('Error sending email:', emailError);
+        // Optionally handle email error, e.g., log it or notify an admin
+      }
+    }
+
     await account.save({ session });
     await saveOrderAccount(orderAccount, orderId, session);
 
-    //Testing///
-    // req.body.dateOrder ='2024-05-06T00:00:00+02:00';
+    // Testing
+    // req.body.dateOrder = '2024-05-06T00:00:00+02:00';
     // req.body = [];
 
     await saveNewOrder(req.body, orderId, session);
-
     await session.commitTransaction();
 
     return { success: true, message: 'Order placed successfully' };
   } catch (error) {
-    console.log('error',error)
+    console.log('Error:', error);
     await session.abortTransaction();
     // Forward the error from saveNewOrder
     throw new Error(error.message);
@@ -48,6 +60,7 @@ async function addOrder(req) {
     session.endSession();
   }
 }
+
 
 
 async function validateCustomerAccount(userId, totalPrice, session) {
@@ -108,7 +121,6 @@ function handleDatabaseError(error, contextMessage) {
 async function saveNewOrder(orderDetails, orderId, session) {
   const newOrder = new OrderStudent(orderDetails);
   newOrder.orderId = orderId;
-
   try {
     await newOrder.save({ session });
   } catch (error) {

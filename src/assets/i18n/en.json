@@ -358,7 +358,7 @@
     "WITHDRAW": "Withdraw",
     "TITLE": "Account activity",
     "DESCRIPTION": "List of all deposits and withdrawals",
-    "CSV_EXPORT": "CSV Export",
+    "CSV_EXPORT": "Export via Email",
     "DATE": "Date",
     "TYPE": "Type",
     "APPROVED": "Approved",
@@ -377,10 +377,10 @@
     "EXPORT": "Export"
   },
   "ORDER_HISTORY": {
-    "MESSAGE_DIALOG": "Please select the period you want to export. The file will be downloaded as a CSV file",
+    "MESSAGE_DIALOG": "Please select the period you want to export.",
     "TITLE": "Order history",
     "DESCRIPTION": "List of all orders and cancellations",
-    "CSV_EXPORT": "CSV Export",
+    "CSV_EXPORT": "Export via Email",
     "STUDENT": "Participant",
     "NAME": "Name",
     "MENU": "Menu",

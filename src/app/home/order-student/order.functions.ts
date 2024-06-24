@@ -2,7 +2,7 @@ import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.clas
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {TenantStudentInterface} from "../../classes/tenant.class";
-import {GeneralSettingsInterface} from "../../classes/general-settings.interface";
+import {GeneralSettingsInterface} from "../../classes/customer.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';

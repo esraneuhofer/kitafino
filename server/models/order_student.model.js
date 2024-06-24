@@ -8,6 +8,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 var orderStudentSchema = new Schema({
+  billed: { type: Boolean, default: false },
   tenantId: Schema.Types.ObjectId,
   customerId: Schema.Types.ObjectId,
   userId: Schema.Types.ObjectId,

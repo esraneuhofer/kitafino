@@ -1,5 +1,6 @@
 const {getNameMenuDay} = require("./order-functions");
 const {setBodyEmail} = require("./generate-email-body-daily-order");
+const {convertToSendGridFormat} = require("./sendfrid.controller");
 
 function formatDate(date) {
   // Array of German day names
@@ -30,20 +31,42 @@ function customerHasSpecialFood(customer,specialFoodId){
   return boolean;
 }
 
+function isValidEmail(email) {
+  // Einfache E-Mail-Validierung mittels Regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function getToArray(confirmationEmail, customer) {
+  let arrayTOSendgrid = [confirmationEmail];
+
+  // Falls customer.generalSettings.sendEmailOrderAfterDeadline wahr ist, füge die confirmationEmail hinzu
+  if (isValidEmail(confirmationEmail) && customer.generalSettings && customer.generalSettings.sendEmailOrderAfterDeadline) {
+    let customerEmails = customer.contact.email.split(',').map(email => email.trim());
+    for (let email of customerEmails) {
+      if (isValidEmail(email)) {
+        arrayTOSendgrid.push(email);
+      }
+    }
+  }
+
+  return arrayTOSendgrid;
+}
+
 function getEmailBodyOrderDayCustomer(weekplanDay, ordersStudentCustomer, settings, customer, students, dateOrder) {
   let orderFormatted = formatDate(new Date(dateOrder));
-
+  let toArray = getToArray(settings.orderSettings.confirmationEmail,customer)
   if (ordersStudentCustomer && ordersStudentCustomer.length > 0) {
     const orderCustomer = getOrdersDay(ordersStudentCustomer, weekplanDay, settings, customer, students);
     const emailBody = setBodyEmail(orderCustomer, orderFormatted);
-    const emailBodyBasic = {
+    const emailBodyBasic =convertToSendGridFormat({
       from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
       bcc:'eltern_bestellung@cateringexpert.de',
       to: settings.orderSettings.confirmationEmail, // list of receivers
       subject: 'Bestellung',
       html: emailBody
-    };
+    });
     return emailBodyBasic;
   } else {
     return null; // Return null if no orders are found

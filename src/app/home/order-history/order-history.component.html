@@ -63,7 +63,9 @@
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
-                  <tr
+                  <tr class="cursor-pointer hover:bg-gray-50"
+                      style="cursor: pointer"
+                      (click)="openDetailsOrder(eachAccountOwner)"
                     *ngFor="let eachAccountOwner of displayArrayAccountOrders |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <!-- Visible on small screens, shows truncated text -->

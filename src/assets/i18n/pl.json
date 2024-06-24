@@ -358,7 +358,7 @@
     "WITHDRAW": "Wypłata",
     "TITLE": "Aktywność konta",
     "DESCRIPTION": "Lista wszystkich wpłat i wypłat",
-    "CSV_EXPORT": "Eksport CSV",
+    "CSV_EXPORT": "Eksport przez email",
     "DATE": "Data",
     "TYPE": "Typ",
     "APPROVED": "Zatwierdzone",
@@ -377,10 +377,10 @@
     "EXPORT": "Eksport"
   },
   "ORDER_HISTORY": {
-    "MESSAGE_DIALOG": "Proszę wybrać okres, który chcesz wyeksportować. Plik zostanie pobrany w formacie CSV",
+    "MESSAGE_DIALOG": "Proszę wybrać okres, który chcesz wyeksportować.",
     "TITLE": "Historia zamówień",
     "DESCRIPTION": "Lista wszystkich zamówień i anulacji",
-    "CSV_EXPORT": "Eksport CSV",
+    "CSV_EXPORT": "Eksport przez email",
     "STUDENT": "Uczestnik",
     "NAME": "Imię",
     "MENU": "Menu",

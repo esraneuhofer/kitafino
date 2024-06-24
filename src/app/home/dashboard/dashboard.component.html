@@ -1,5 +1,3 @@
-
-
 <ng-container *ngIf="pageLoaded">
   <main>
     <ng-container *ngFor="let eachMessage of allMessages let index = index">
@@ -51,18 +49,18 @@
                 <thead class="border-b border-gray-200 text-gray-900">
                 <tr>
                   <th scope="col" class="px-0 py-2 font-semibold w-32" style="font-size: smaller;">{{ 'FIRSTPAGE.DATE' | translate }}</th>
-                  <th scope="col" class="hidden py-2 pl-8 pr-0 text-right font-semibold sm:table-cell w-64" style="font-size: smaller;">{{ 'FIRSTPAGE.MENU' | translate }}</th>
+                  <th scope="col" class=" py-2 pl-8 pr-0 text-right font-semibold w-32" style="font-size: smaller;">{{ 'FIRSTPAGE.MENU' | translate }}</th>
                   <th scope="col" class="hidden py-2 pl-8 pr-0 text-right font-semibold sm:table-cell w-64" style="font-size: smaller;">{{ 'FIRSTPAGE.STUDENT' | translate }}</th>
-                  <th scope="col" class="py-2 pl-8 pr-0 text-right font-semibold w-32" style="font-size: smaller;">{{ 'FIRSTPAGE.COST' | translate }}</th>
+                  <th scope="col" class="hidden py-2 pl-8 pr-0 text-right font-semibold sm:table-cell w-64" style="font-size: smaller;">{{ 'FIRSTPAGE.COST' | translate }}</th>
                   <th scope="col" class="py-2 pl-8 pr-0 text-right font-semibold w-32" style="font-size: smaller;">{{ 'FIRSTPAGE.CANCEL' | translate }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="border-b border-gray-100" *ngFor="let order of ordersStudentsDisplay">
                   <td class="max-w-0 px-0 py-4 align-top" style="white-space: normal;">{{order.dateOrder | date:'dd.MM.yyyy'}}</td>
-                  <td class="overflow-x-auto whitespace-normal hidden py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell" style="word-wrap: break-word; max-width: 150px;">{{order.orderedMenus}}</td>
+                  <td class="overflow-x-auto whitespace-normal py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 " style="word-wrap: break-word; max-width: 150px;">{{order.orderedMenus}}</td>
                   <td class="hidden py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell">{{order.nameStudent}}</td>
-                  <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">{{order.price | currency:'€'}}</td>
+                  <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell hidden">{{order.price | currency:'€'}}</td>
                   <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">
                     <button
                       [ngClass]="order.cancelPossible > 0 ? 'bg-red-300 hover:bg-red-500' : 'bg-gray-400'"
@@ -89,7 +87,5 @@
   </main>
 </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
-
-
 <app-loading-page [pageLoaded]="!submittingRequest"></app-loading-page>
 

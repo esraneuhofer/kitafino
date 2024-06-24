@@ -24,6 +24,7 @@ var CancelOrderDailySchema = new Schema({
 });
 
 var generalSettingsSchema = new Schema({
+  allergiesSetByTenant: { type: Boolean},
   subGroupSettingTenant: { type: Boolean},
   showOrderDaily: { type: Boolean},
   isDeadlineDaily: { type: Boolean, required: true },

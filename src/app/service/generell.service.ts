@@ -14,6 +14,7 @@ import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assigned
 import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component";
 import {VacationsInterface} from "../classes/vacation.interface";
 import {PaymentIntentResponse} from "../home/account/account-payment-overview/account-payment-overview.component";
+import {OrderHistoryTableInterface} from "../home/order-history/order-history.component";
 
 
 @Injectable(
@@ -105,6 +106,25 @@ export class GenerellService {
     return this.http.post(environment.apiBaseUrl + '/sendCSVEmail', formData)
       .pipe(map((response: any) => response));
   }
+
+  sendPDFEmail(object: {
+    file: Blob,
+    firstDate: string,
+    secondDate: string,
+    type: string,
+    email: string
+  }): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', object.file, `Bestellhistorie_${object.firstDate}_to_${object.secondDate}.pdf`);
+    formData.append('firstDate', object.firstDate);
+    formData.append('secondDate', object.secondDate);
+    formData.append('type', object.type);
+    formData.append('email', object.email);
+
+    return this.http.post(environment.apiBaseUrl + '/sendPDFEmail', formData)
+      .pipe(map((response: any) => response));
+  }
+
   createPaymentIntent(body:{amountPayment:number, userId:string,username:string,isAndroid:boolean,isIos:boolean}): Observable<PaymentIntentResponse> {
     return this.http.post<PaymentIntentResponse>(`${environment.apiBaseUrl}/create-payment-intent`, body)
       .pipe(map(response => response));

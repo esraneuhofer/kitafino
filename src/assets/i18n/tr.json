@@ -358,7 +358,7 @@
     "WITHDRAW": "Çek",
     "TITLE": "Hesap aktivitesi",
     "DESCRIPTION": "Tüm mevduat ve çekimlerin listesi",
-    "CSV_EXPORT": "CSV İhracatı",
+    "CSV_EXPORT": "E-posta ile dışa aktar",
     "DATE": "Tarih",
     "TYPE": "Tür",
     "APPROVED": "Onaylı",
@@ -377,10 +377,10 @@
     "EXPORT": "İhracat"
   },
   "ORDER_HISTORY": {
-    "MESSAGE_DIALOG": "Lütfen ihracat etmek istediğiniz dönemi seçin. Dosya CSV formatında indirilecektir",
+    "MESSAGE_DIALOG": "Lütfen ihracat etmek istediğiniz dönemi seçin.",
     "TITLE": "Sipariş geçmişi",
     "DESCRIPTION": "Tüm siparişlerin ve iptallerin listesi",
-    "CSV_EXPORT": "CSV İhracatı",
+    "CSV_EXPORT": "E-posta ile dışa aktar",
     "STUDENT": "Katılımcı",
     "NAME": "İsim",
     "MENU": "Menü",

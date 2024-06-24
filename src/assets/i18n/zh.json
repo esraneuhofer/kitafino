@@ -358,7 +358,7 @@
     "WITHDRAW": "提款",
     "TITLE": "账户活动",
     "DESCRIPTION": "所有存款和提款的列表",
-    "CSV_EXPORT": "CSV 导出",
+    "CSV_EXPORT": "通过电子邮件导出",
     "DATE": "日期",
     "TYPE": "类型",
     "APPROVED": "已批准",
@@ -377,10 +377,10 @@
     "EXPORT": "导出"
   },
   "ORDER_HISTORY": {
-    "MESSAGE_DIALOG": "请选择您要导出的期间。文件将以 CSV 格式下载",
+    "MESSAGE_DIALOG": "请选择您要导出的期间。",
     "TITLE": "订单历史",
     "DESCRIPTION": "所有订单和取消的列表",
-    "CSV_EXPORT": "CSV 导出",
+    "CSV_EXPORT": "通过电子邮件导出",
     "STUDENT": "参与者",
     "NAME": "姓名",
     "MENU": "菜单",

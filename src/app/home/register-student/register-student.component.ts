@@ -35,7 +35,7 @@ export class RegisterStudentComponent implements OnInit{
     firstName:'',
     lastName:''
   }
-
+  isFirstChange:boolean = true;
   selectedSpecialFood:string = '';
   registrationText:string = '';
   pageLoaded:boolean = false;
@@ -76,6 +76,13 @@ export class RegisterStudentComponent implements OnInit{
     this.studentModel.subgroup = event;
   }
   selectSpecialFood(event:string):void{
+    if(this.isFirstChange){
+      this.dialogeService.openMessageDialog(
+        this.translate.instant('INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT'),
+        this.translate.instant('SPECIAL_FOOD_LABEL'),"info"
+      )
+      this.isFirstChange = false;
+    }
     this.studentModel.specialFood = event;
   }
   ngOnInit() {

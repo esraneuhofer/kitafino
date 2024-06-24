@@ -207,8 +207,9 @@ module.exports.sendCSVEmail = async (req, res, next) => {
         }
       ]
     };
-
     await sgMail.send(msg);
+
+    console.log('E-Mail erfolgreich gesendet')
     res.status(200).json({ message: 'E-Mail erfolgreich gesendet' });
   } catch (error) {
     console.error('Fehler beim Senden der E-Mail:', error);
@@ -216,4 +217,37 @@ module.exports.sendCSVEmail = async (req, res, next) => {
   }
 };
 
+module.exports.sendPDFEmail = async (req, res, next) => {
+  try {
+    const file = req.file;
+    const { firstDate, secondDate, type, email } = req.body;
+
+    // Eingabevalidierung
+    if (!file || !firstDate || !secondDate || !type || !email) {
+      return res.status(400).json({ error: 'Ungültige Eingabedaten.' });
+    }
+
+    const msg = {
+      to: email,
+      from: '"Cateringexpert" <noreply@cateringexpert.de>',
+      subject: `${type} vom ${firstDate} bis ${secondDate}`,
+      text: 'Anbei finden Sie die angeforderte PDF-Datei.',
+      attachments: [
+        {
+          content: file.buffer.toString('base64'),
+          filename: file.originalname,
+          type: file.mimetype,
+          disposition: 'attachment'
+        }
+      ]
+    };
+
+    await sgMail.send(msg);
+    console.log('E-Mail erfolgreich gesendet',msg);
+    res.status(200).json({ message: 'E-Mail erfolgreich gesendet' });
+  } catch (error) {
+    console.error('Fehler beim Senden der E-Mail:', error);
+    res.status(500).json({ error: 'Interner Serverfehler' });
+  }
+};
 

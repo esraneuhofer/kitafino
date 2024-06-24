@@ -5,7 +5,7 @@ const passport = require('passport');
 const _ = require('lodash');
 const Schooluser = mongoose.model('Schooluser');
 const SchoolNew = mongoose.model('SchoolNew');
-const {convertToSendGridFormat} = require('./sendgrid.function');
+const {convertToSendGridFormat} = require('./sendfrid.controller');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
