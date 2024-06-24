@@ -32,7 +32,6 @@ export async function downloadPdfIos(data: WeekplanPdfInterface, fileOpener: Fil
 export async function downloadPdfHelpIos(data: HelpPdfInterface, fileOpener: FileOpener): Promise<void> {
   const pdfBase64 = data.base64;
   const fileName = `${data.nameFile}.pdf`;
-
   try {
     await Filesystem.writeFile({
       path: fileName,

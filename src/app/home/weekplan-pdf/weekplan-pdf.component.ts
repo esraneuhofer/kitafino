@@ -86,7 +86,7 @@ export class WeekplanPdfComponent implements OnInit{
       if (this.isApp) {
         await downloadPdfIos(data, this.fileOpener);
       } else {
-        downloadPdfWeb(data);
+        downloadPdfWeb(data,data.name);
       }
 
       this.submittingRequest = false;

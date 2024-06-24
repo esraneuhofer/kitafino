@@ -1,6 +1,6 @@
 import {WeekplanPdfInterface} from "./weekplan-pdf.component";
 
-export function  downloadPdfWeb(data:WeekplanPdfInterface) {
+export function  downloadPdfWeb(data:WeekplanPdfInterface,nameFile:string) {
 
     // Convert Base64 to a Blob
     const byteCharacters = atob(data.base64);
@@ -32,7 +32,7 @@ export function  downloadPdfWeb(data:WeekplanPdfInterface) {
     } else {
       // Create a link and trigger the download
       const link = document.createElement('a');
-      link.download = data.name;
+      link.download = nameFile;
       link.href = blobUrl;
       document.body.appendChild(link);
       link.click();

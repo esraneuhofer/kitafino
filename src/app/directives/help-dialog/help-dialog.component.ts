@@ -68,7 +68,7 @@ export class HelpDialogComponent {
       if (this.isApp) {
         await downloadPdfHelpIos(data, this.fileOpener);
       } else {
-        downloadPdfWeb(data);
+        downloadPdfWeb(data,data.nameFile);
       }
     });
   }

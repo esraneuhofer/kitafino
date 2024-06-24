@@ -49,7 +49,7 @@ export class HelpComponent implements OnInit {
       if (this.isApp) {
         await downloadPdfHelpIos(data, this.fileOpener);
       } else {
-        downloadPdfWeb(data);
+        downloadPdfWeb(data,data.nameFile);
       }
     });
   }
