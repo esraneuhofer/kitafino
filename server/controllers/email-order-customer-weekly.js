@@ -28,7 +28,6 @@ async function sendEmailDailyConfirmationWeek(weekplan, settings, customer, curr
       weekplan,
       studentsCustomer
     );
-    console.log("orderCustomer", orderCustomer);
     // Generate the email body for the customer
     let obj = {
       startDay: monday,
@@ -37,7 +36,7 @@ async function sendEmailDailyConfirmationWeek(weekplan, settings, customer, curr
       orderOverview: {queryYears: currentYear, queryCW: currentWeek},
       settings: settings,
       orderForEmail: orderCustomer.order,
-      sendEmailCustomer: true,
+      sendEmailCustomer: customer.generalSettings.sendEmailOrderAfterDeadline,
       weekplanSelectedWeek: weekplan,
     }
     const emailBodyCustomerWeek = getOrderBody(obj);

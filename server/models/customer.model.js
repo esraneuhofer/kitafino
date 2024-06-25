@@ -27,6 +27,7 @@ var generalSettingsSchema = new Schema({
   allergiesSetByTenant: { type: Boolean},
   subGroupSettingTenant: { type: Boolean},
   showOrderDaily: { type: Boolean},
+  sendEmailOrderAfterDeadline: Boolean,
   isDeadlineDaily: { type: Boolean, required: true },
   deadlineWeekly: { type: DeadlineWeeklySchema, required: true },
   deadlineDaily: { type: DeadlineDailySchema, required: true },

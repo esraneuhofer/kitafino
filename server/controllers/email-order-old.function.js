@@ -1,7 +1,7 @@
 const {addDayFromDate, getInvoiceDateOne, getTimeToDisplay} = require('./date.functions');
 const {getMenuName,customerHasSpecialVisibleEmail} = require('./deadline-email.functions');
 const {getTotalPortion,getTotalPortionsDay,getDisplayName} = require('./order-model.functions');
-
+const {getToArray} = require('./email-order-customer');
 function getOrderBody(obj) {
   // console.log('obj', obj.orderForEmail);
   let eDay = addDayFromDate(obj.startDay, 4);
@@ -9,10 +9,8 @@ function getOrderBody(obj) {
   let endDay = getInvoiceDateOne(eDay);
   const emailBody = getEmailBody(obj, startDay, endDay, '#0b58a2');
   let headerEdit = '';
-  let emailArray = [obj.settings.orderSettings.confirmationEmail];
-  if (obj.sendEmailCustomer) {
-    emailArray.push(obj.customerInfo.contact.email);
-  }
+  let emailArray = getToArray(obj.settings.orderSettings.confirmationEmail, obj.customerInfo);
+
   const titleOrder = 'Vielen Dank für Ihre Bestellung';
   const typeOrder = 'Bestellung';
 

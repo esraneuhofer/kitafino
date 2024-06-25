@@ -49,7 +49,6 @@ function getToArray(confirmationEmail, customer) {
       }
     }
   }
-
   return arrayTOSendgrid;
 }
 
@@ -63,7 +62,7 @@ function getEmailBodyOrderDayCustomer(weekplanDay, ordersStudentCustomer, settin
       from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
       bcc:'eltern_bestellung@cateringexpert.de',
-      to: settings.orderSettings.confirmationEmail, // list of receivers
+      to: toArray, // list of receivers
       subject: 'Bestellung',
       html: emailBody
     });
@@ -146,4 +145,4 @@ function getIndexSubgroupStudent(orderStudent,emptyArray,students){
   return null;
 }
 
-module.exports = {getEmailBodyOrderDayCustomer};
+module.exports = {getEmailBodyOrderDayCustomer,getToArray};

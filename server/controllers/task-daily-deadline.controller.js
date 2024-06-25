@@ -21,6 +21,7 @@ const {addOrder} = require('./place-order.controller');
 const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
 const {studentHasNotPlacedOrderYet, getStudentById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
 const {sendSuccessEmail, sendCancellationEmail} = require("./email.functions");
+const {convertToSendGridFormat} = require("./sendfrid.controller");
 
 
 //Todo: findWeek and Year according to orderFrist
@@ -124,7 +125,7 @@ async function sendEmailDailyConfirmation(weekplanDay, settings, customer, stude
     }
 
     // Send the email
-    await sgMail.send(emailBodyCustomerDay);
+    await sgMail.send(convertToSendGridFormat(emailBodyCustomerDay));
 
     console.log("Email sent successfully");
   } catch (error) {

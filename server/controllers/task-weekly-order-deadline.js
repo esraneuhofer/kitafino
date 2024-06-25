@@ -33,8 +33,6 @@ async function processOrderWeekly(customerId, tenantId) {
     const menus = await Menu.find({ tenantId: tenantId });
     const weekplan = await Weekplan.findOne({ tenantId: tenantId, year: targetYear, week: targetWeek });
     const weekplanEdited = getMenusForWeekplan(weekplan, settings, { year: targetYear, week: targetWeek }, menus);
-    console.log(monday)
-    console.log(targetWeek)
     const [vacationCustomer, permanentOrderStudents, studentsCustomer] = await Promise.all([
       Vacation.find({ customerId: customerId }),
       PermanentOrderStudent.find({ customerId: customerId }),
