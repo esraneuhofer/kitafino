@@ -5,7 +5,7 @@ const Message = mongoose.model('MessageSchema');
 // Funktion zum Abrufen von Nachrichten
 module.exports.getMessages = async (req, res, next) => {
     try {
-        const messages = await Message.find({ 'customerId': req.customerId });
+        const messages = await Message.find({ 'tenantId': req.tenantId });
         res.json(messages);
     } catch (err) {
         console.error('Error getting Messages', err);

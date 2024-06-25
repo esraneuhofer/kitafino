@@ -27,7 +27,16 @@ import {MessageService} from "../../service/message.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MessageDialogService} from "../../service/message-dialog.service";
 
+export function customerIdContainedInMessasge(customers: { nameCustomer: string, customerId: string }[], tenant: TenantStudentInterface): boolean {
+  return customers.some((customer) => customer.customerId === tenant.customerId)
+}
 function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantStudentInterface): SchoolMessageInterface[] {
+  let messsagesForCustomer:SchoolMessageInterface[] = [];
+  messages.forEach(each =>{
+    if(each.customers.length === 0 || customerIdContainedInMessasge(each.customers,tenant)) {
+      messsagesForCustomer.push(each)
+    }
+  })
   if (!tenant.userId) {
     return [];
   }

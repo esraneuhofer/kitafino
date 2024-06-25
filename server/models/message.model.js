@@ -6,6 +6,7 @@ var message = new Schema({
     customerId: Schema.Types.ObjectId,
     createdAt: { type: Date, default: Date.now },
     heading:String,
+    customers:[{nameCustomer:String,customerId:String}],
     message:String,
     messageSeen:[String],
     sentBy:String,
