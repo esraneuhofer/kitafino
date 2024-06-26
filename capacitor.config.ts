@@ -23,18 +23,17 @@ const config: CapacitorConfig = {
       }
     },
     SplashScreen: {
-      launchShowDuration: 3000,
+      launchShowDuration: 2000,
       launchAutoHide: true,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
       "androidScaleType": "CENTER_CROP",
       iosSpinnerStyle: "small",
       spinnerColor: "#999999",
-      splashFullScreen: true,
+      splashFullScreen: false,
       splashImmersive: true,
       // iOS spezifische Einstellungen
       iosSplashResourceName: "LaunchScreen", // Referenziert das LaunchScreen.storyboard
       iosScaleType: "CENTER_CROP",
-      showSpinner: true,
       backgroundColor: "#ffffff"
     }
   }

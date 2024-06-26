@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-<!--  <item android:drawable="@android:color/white" />-->
+  <item android:drawable="@android:color/white" />
   <item>
-    <bitmap
-      android:gravity="center"
-      android:src="@drawable/splash" />
+    <inset
+      android:insetLeft="20%"
+      android:insetTop="20%"
+      android:insetRight="20%"
+      android:insetBottom="20%">
+      <bitmap
+        android:gravity="center"
+        android:src="@drawable/splash" />
+    </inset>
   </item>
 </layer-list>

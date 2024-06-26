@@ -65,14 +65,32 @@ export class HomeComponent implements OnInit{
   pageLoaded: boolean = false;
   currentRoute: string = '';
 
-  handleRefresh(event:any) {
+  handleRefresh(event: any) {
     console.log('Begin async operation');
-    setTimeout(() => {
-      // Any calls to load data go here
+
+    // Simuliere eine Datenladeoperation
+    this.loadData().then(() => {
       event.target.complete();
-      window.location.reload();
-    }, 2000);
+    });
   }
+
+  // Methode zum Laden der Daten (ersetze dies mit deiner tatsächlichen Datenlade-Logik)
+  async loadData() {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        console.log('Data loaded');
+        resolve();
+      }, 2000);
+    });
+  }
+  // handleRefresh(event:any) {
+  //   console.log('Begin async operation');
+  //   setTimeout(() => {
+  //     // Any calls to load data go here
+  //     event.target.complete();
+  //     window.location.reload();
+  //   }, 2000);
+  // }
 
 
   public selectLanguageWidth: string = '130px'
