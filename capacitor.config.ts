@@ -34,6 +34,7 @@ const config: CapacitorConfig = {
       // iOS spezifische Einstellungen
       iosSplashResourceName: "LaunchScreen", // Referenziert das LaunchScreen.storyboard
       iosScaleType: "CENTER_CROP",
+      showSpinner: true,
       backgroundColor: "#ffffff"
     }
   }
