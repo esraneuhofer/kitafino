@@ -3,10 +3,10 @@
   <item android:drawable="@android:color/white" />
   <item>
     <inset
-      android:insetLeft="20%"
-      android:insetTop="20%"
-      android:insetRight="20%"
-      android:insetBottom="20%">
+      android:insetLeft="30%"
+      android:insetTop="40%"
+      android:insetRight="30%"
+      android:insetBottom="40%">
       <bitmap
         android:gravity="center"
         android:src="@drawable/splash" />

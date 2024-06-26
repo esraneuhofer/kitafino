@@ -68,9 +68,9 @@ export class HomeComponent implements OnInit{
   handleRefresh(event: any) {
     console.log('Begin async operation');
 
-    // Simuliere eine Datenladeoperation
     this.loadData().then(() => {
       event.target.complete();
+      this.router.navigate([this.router.url]); // Navigiere zur aktuellen URL, um die Komponente neu zu laden
     });
   }
 
@@ -83,6 +83,7 @@ export class HomeComponent implements OnInit{
       }, 2000);
     });
   }
+
   // handleRefresh(event:any) {
   //   console.log('Begin async operation');
   //   setTimeout(() => {
