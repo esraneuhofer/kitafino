@@ -70,7 +70,8 @@ export class HomeComponent implements OnInit{
 
     this.loadData().then(() => {
       event.target.complete();
-      this.router.navigate([this.router.url]); // Navigiere zur aktuellen URL, um die Komponente neu zu laden
+      window.location.reload();
+      // this.router.navigate([this.router.url]); // Navigiere zur aktuellen URL, um die Komponente neu zu laden
     });
   }
 
