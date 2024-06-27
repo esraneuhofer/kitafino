@@ -54,6 +54,24 @@
         <p *ngIf="signInForm.submitted && errorMessageEmailInvalid" class="mt-2 text-sm text-red-600" id="email-invalid-error">{{ 'INVALID_EMAIL_ERROR' | translate }}</p>
       </div>
 
+      <div class="flex items-center">
+        <input id="terms"
+               name="terms"
+               type="checkbox"
+               #termsModel="ngModel"
+               [(ngModel)]="acceptUserTerms"
+               required
+               class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="terms" class="ml-2 block text-sm text-gray-900">
+          {{ 'AGB_ZUSTIMMEN_EINS' | translate}}
+          <a style="color:blue;text-decoration:underline" target="_blank" href="https://cateringexpert.de/agb-schulanmeldung.html">
+            {{ 'AGB_ZUSTIMMEN_ZWEI' | translate}}
+          </a>
+          {{ 'AGB_ZUSTIMMEN_DREI' | translate}}
+        </label>
+      </div>
+      <p *ngIf="signInForm.submitted && termsModel.invalid" class="mt-2 text-sm text-red-600" id="terms-error">{{ 'AGB_REQUIRED' | translate }}</p>
+
       <div>
         <button type="submit"
                 [disabled]="submittingRequest"

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {CustomerInterface} from "../classes/customer.class";
+import {PasswordNewInterface} from "../home/settings/settings.component";
 
 
 @Injectable(
@@ -18,6 +19,11 @@ export class UserService {
   }
   resetPassword(obj:{username:string}) {
     return this.http.post(environment.apiBaseUrl + '/resetPassword', obj)
+      .pipe(map((response: any) => response));
+  }
+
+  changePassword(obj:PasswordNewInterface) {
+    return this.http.post(environment.apiBaseUrl + '/changePassword', obj)
       .pipe(map((response: any) => response));
   }
   deactivateAccount() {

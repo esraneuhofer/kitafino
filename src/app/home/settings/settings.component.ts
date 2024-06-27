@@ -20,6 +20,11 @@ import {AccountCustomerInterface} from "../../classes/account.class";
 import {PermanentOrderInterface} from "../../classes/permanent-order.interface";
 import {AccountService} from "../../service/account.serive";
 
+export interface PasswordNewInterface {
+  oldPassword: string
+  newPassword: string
+  repeatNewPassword: string,
+}
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -32,7 +37,19 @@ export class SettingsComponent implements OnInit{
   pageLoaded = false;
   submittingRequestDeletion = false;
   accountTenant!: AccountCustomerInterface;
-
+  passwordErrors = {
+    tooShort: false,
+    noCapitalLetter: false,
+    noNumber: false,
+    noSpecialChar: false,
+    mismatch: false
+  };
+  showPasswords = false;
+  newPassword:PasswordNewInterface = {
+    oldPassword: '',
+    newPassword: '',
+    repeatNewPassword: '',
+  }
   constructor(private tenantService: TenantServiceStudent,
               private toastr: ToastrService,
               private userService: UserService,
@@ -183,5 +200,61 @@ export class SettingsComponent implements OnInit{
     if(!boolean){
       this.tenantModel.orderSettings.amountBalance = 0;
     }
+  }
+
+  changePassword() {
+    this.submittingRequest = true;
+
+    if (this.newPassword.newPassword !== this.newPassword.repeatNewPassword) {
+      this.messageService.openMessageDialog(
+        this.translate.instant('PASSWORD_MISMATCH'),
+        this.translate.instant('ERROR_TITLE'),
+        'error'
+      );
+      this.submittingRequest = false;
+      return;
+    }
+
+    this.userService.changePassword(this.newPassword).subscribe(
+      (response: any) => {
+        console.log('Response from changePassword:', response);
+        this.submittingRequest = false;
+
+        if (response.error) {
+          this.messageService.openMessageDialog(
+            this.translate.instant(response.message),
+            this.translate.instant('ERROR_TITLE'),
+            'error'
+          );
+        } else {
+          this.messageService.openMessageDialog(
+            this.translate.instant('PASSWORD_CHANGE_SUCCESS'),
+            this.translate.instant('SUCCESS_TITLE'),
+            'success'
+          );
+        }
+      },
+      (error: any) => {
+        console.error('Error from changePassword:', error);
+        this.submittingRequest = false;
+        this.messageService.openMessageDialog(
+          this.translate.instant(error.error.message),
+          this.translate.instant('ERROR_TITLE'),
+          'error'
+        );
+      }
+    );
+  }
+
+
+  validatePassword() {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])\w{8,}$/;
+    this.passwordErrors.tooShort = this.newPassword.newPassword.length < 8;
+    this.passwordErrors.noCapitalLetter = !/[A-Z]/.test(this.newPassword.newPassword);
+    this.passwordErrors.noNumber = !/\d/.test(this.newPassword.newPassword);
+    this.passwordErrors.noSpecialChar = !/[!@#$%^&*()_+]/.test(this.newPassword.newPassword);
+  }
+  hasErrors(): boolean {
+    return Object.values(this.passwordErrors).some(error => error === true);
   }
 }

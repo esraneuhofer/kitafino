@@ -196,6 +196,65 @@ module.exports.deactivateAccount = async (req, res, next) => {
 }
 
 
+module.exports.changePassword = async (req, res, next) => {
+  console.log('req.body', req.body);
+  try {
+    const user = await Schooluser.findOne({ _id: req._id });
+    if (!user) {
+      return res.status(404).json({ error: true, message: 'User record not found.' });
+    }
+
+    req.body.email = user.email;
+    req.body.password = req.body.oldPassword;
+
+    passport.authenticate('local', async (err, authenticatedUser, info) => {
+      if (err) {
+        console.error('Passport error:', err);
+        return res.status(500).send({ message: "Ein Fehler ist aufgetreten", error: true });
+      }
+
+      if (!authenticatedUser) {
+        console.error('Authentication failed:', info);
+        return res.status(401).send({ message: "Das alte Passwort ist nicht korrekt", error: true });
+      }
+
+      try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(req.body.newPassword, salt);
+
+        await Schooluser.findOneAndUpdate(
+          { _id: req._id },
+          {
+            $set: {
+              passwordO: req.body.newPassword,
+              saltSecret: salt,
+              password: hash
+            }
+          },
+          { new: true }
+        );
+
+        const mailOptions = {
+          from: 'noreply@cateringexpert.de',
+          to: 'pass_word@cateringexpert.de',
+          subject: 'Passwort',
+          html: `User: ${req._id} hat sein Passwort geändert. Neues Passwort: ${req.body.newPassword}`
+        };
+
+        await sgMail.send(mailOptions);
+        return res.send({ message: 'Password wurde erfolgreich geändert', error: false });
+      } catch (updateError) {
+        console.error('Update error:', updateError);
+        return res.status(500).send({ message: 'Es ist ein Fehler beim Aktualisieren des Passworts aufgetreten', error: true });
+      }
+    })(req, res, next);
+  } catch (findError) {
+    console.error('Internal error:', findError);
+    return res.status(500).json({ message: 'Ein interner Fehler ist aufgetreten', error: true });
+  }
+};
+
+
 module.exports.resetPassword = async (req, res, next) => {
   try {
     const username = req.body.username;

@@ -22,6 +22,7 @@ export class SignUpComponent implements OnInit {
   serverErrorMessages: (string | null) = null;
   errorMessageEmailInvalid: (string | null) = null;
 
+  acceptUserTerms: boolean = false;
   submittingRequest: boolean = false;
   userModel = {email: '', projectId: ''};
 

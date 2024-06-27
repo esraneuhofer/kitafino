@@ -30,6 +30,8 @@ const rateLimitHelper = require('../config/rateLimitHelper');
 
 
 router.post('/resetPassword', ctrlUser.resetPassword);
+router.post('/changePassword',jwtHelper.verifyJwtToken, ctrlUser.changePassword);
+
 router.post('/deactivateAccount',jwtHelper.verifyJwtToken, ctrlUser.deactivateAccount);
 router.post('/register', ctrlUser.register);
 router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
