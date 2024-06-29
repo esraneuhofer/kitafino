@@ -21,6 +21,10 @@ export class SignInComponent implements OnInit {
     email: '',
     password: ''
   }
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+  passwordVisible: boolean = false;
   isMobileApp: boolean = false;
   isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   submittingRequest: boolean = false;

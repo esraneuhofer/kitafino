@@ -77,7 +77,6 @@ export function getPriceStudent(selectedStudent: StudentInterface | null, custom
   let priceStudent = 0;
   customer.billing.group.forEach(eachGroup => {
       if(eachGroup.groupId === selectedStudent.subgroup){
-
           priceStudent = getPriceStudentDependingOnSettings(settings,eachGroup.prices)
       }
   })

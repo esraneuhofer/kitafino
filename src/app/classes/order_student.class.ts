@@ -1,4 +1,4 @@
-import {CustomerInterface} from "./customer.class";
+import {CustomerInterface, GroupBillingInterface} from "./customer.class";
 import {SettingInterfaceNew, SpecialFoodInterface} from "./setting.class";
 import {MealtypesWeekplan, WeekplanDayInterface} from "./weekplan.interface";
 import {StudentInterface} from "./student.class";
@@ -77,8 +77,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
               selectedWeek: WeekplanDayInterface,
               studentModel: (StudentInterface | null)
               ,dateOrder:Date) {
-    const priceStudent = getPriceStudent(studentModel,customer,settings)
-    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,priceStudent,studentModel);
+    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,studentModel);
     this.customerId = customer.customerId;
     this.dateOrder = dateOrder;
     this.kw = query.week;
@@ -96,6 +95,20 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   }
 }
 
+function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan):number{
+  let priceStudent = 0;
+  if(!studentModel)return priceStudent;
+  customer.billing.group.forEach(eachGroup => {
+    if(eachGroup.groupId === studentModel.subgroup){
+      eachGroup.prices.forEach((eachPrice,index)=>{
+        if(eachPrice.idSpecial === eachSpecial.idSpecial){
+          priceStudent = eachPrice.priceSpecial;
+        }
+      })
+    }
+  })
+  return priceStudent;
+}
 class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
   comment = '';
   orderMenus: OrderSubDetailNew[] = [];
@@ -104,25 +117,45 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
   constructor(customer: CustomerInterface,
               settings: SettingInterfaceNew,
               selectedWeek: WeekplanDayInterface,
-              priceStudent:number,
               studentModel: (StudentInterface | null)) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
+      let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial)
       let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
       if (order) {
         this.orderMenus.push(order);
       }
     });
     if(studentModel && studentModel.specialFood){
+      let priceSpecial = getPriceSpecialFood(studentModel.specialFood,customer,studentModel);
       let specialFood = getSpecialFoodById(studentModel.specialFood,settings);
       if(!specialFood)return;
-      const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceStudent,specialFood)
+      const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
       this.orderMenus.push(orderSpecial);
     }
     this.specialFoodOrder = getSpecialOrdersSubGroup(settings, customer)
 
   }
 }
-
+function getPriceSpecialFood(idSpecialFood:string,customer:CustomerInterface,studenModel:StudentInterface):number{
+  let price = 0;
+  let backupPrice:number = 0;
+  // console.log(customer.billing.group)
+  // console.log(idSpecialFood)
+  customer.billing.group.forEach(eachPrice=>{
+    if(eachPrice.groupId === studenModel.subgroup){
+      eachPrice.prices.forEach((eachPrice,index)=>{
+        let backupPrice = eachPrice.priceSpecial;
+        if(eachPrice.typeSpecial === 'special'){
+          price = eachPrice.priceSpecial;
+        }
+      })
+    }
+  })
+  if(price === 0){
+    price = backupPrice;
+  }
+  return price;
+}
 function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterface): OrderSubDetailNew {
   let order: OrderSubDetailNew = {
     menuSelected: false,

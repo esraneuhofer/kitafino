@@ -131,6 +131,7 @@ export class RegisterStudentComponent implements OnInit{
 
   addStudent(f:NgForm) {
     // this.submittingRequest = true;
+    this.isFirstChange = false;
     this.studentModel.subgroup = this.selectedSubgroup;
     this.studentService.addStudent(this.studentModel).subscribe((res: { error:boolean,student:StudentInterface })=>{
         if(res.error){

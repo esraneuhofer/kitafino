@@ -10,6 +10,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
 const {getHtmlRegistrationEmail} = require('./email-registration');
+const {getPasswordChangedEmail} = require('./change-password-email.function');
 
 function makePassword() {
   var text = "";
@@ -234,12 +235,7 @@ module.exports.changePassword = async (req, res, next) => {
           { new: true }
         );
 
-        const mailOptions = {
-          from: 'noreply@cateringexpert.de',
-          to: 'pass_word@cateringexpert.de',
-          subject: 'Passwort',
-          html: `User: ${req._id} hat sein Passwort geändert. Neues Passwort: ${req.body.newPassword}`
-        };
+        const mailOptions = convertToSendGridFormat(getPasswordChangedEmail(user.email));
 
         await sgMail.send(mailOptions);
         return res.send({ message: 'Password wurde erfolgreich geändert', error: false });
