@@ -65,6 +65,7 @@ module.exports.getUsers = (req, res, next) => {
   );
 }
 
+
 module.exports.register = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -72,21 +73,26 @@ module.exports.register = async (req, res, next) => {
 
   try {
     const emailRegistration = req.body.email.toLowerCase();
-    const projectExists  = await SchoolNew.findOne({projectId: req.body.projectId.toLowerCase()}).session(session);
-    if(!projectExists){
-        await session.abortTransaction();
-        session.endSession();
-        return res.status(400).send({ message: res.__('PROJECT_NOT_EXIST'), isError: true });
+    const projectId = req.body.projectId.toLowerCase();
+
+    console.log('Starting registration process for email:', emailRegistration, 'and projectId:', projectId);
+
+    const projectExists = await SchoolNew.findOne({ projectId }).session(session);
+    if (!projectExists) {
+      console.warn('Project does not exist:', projectId);
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(400).send({ message: res.__('PROJECT_NOT_EXIST'), isError: true });
     }
-    // Check if email already exists
+
     const existingUser = await Schooluser.findOne({ email: emailRegistration }).session(session);
     if (existingUser) {
+      console.warn('Email already registered:', emailRegistration);
       await session.abortTransaction();
       session.endSession();
       return res.status(400).send({ message: res.__('EMAIL_ALREADY_REGISTERED'), isError: true });
     }
 
-    // Create new user
     const user = new Schooluser({
       registrationDate: new Date(),
       email: emailRegistration,
@@ -94,50 +100,53 @@ module.exports.register = async (req, res, next) => {
       project_id: projectExists._id,
       customerId: projectExists.customerId,
       tenantId: projectExists.tenantId,
-
     });
 
-    // Generate password and hash
     user.passwordO = makePassword();
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(user.passwordO, salt);
     user.password = hash;
     user.saltSecret = salt;
 
-    // Save user
     await user.save(opts);
+    console.log('User created:', user._id);
+
     const lang = req.cookies.lang || 'de';
-    // Prepare email options
-    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO,lang);
+    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO, lang);
     const mailOptions = convertToSendGridFormat({
       from: `Cateringexpert <noreply@cateringexpert.de>`,
-      bcc:'eltern_bestellung@cateringexpert.de',
+      bcc: 'eltern_bestellung@cateringexpert.de',
       to: emailRegistration,
       subject: 'Accountinformationen✔',
       html: emailContent
     });
-    let copy = JSON.parse(JSON.stringify(mailOptions));
-    delete copy.html;
-    console.log('mailOptions', copy);
-    // Send the email
+
     const emailResult = await sendRegistrationEmail(mailOptions);
     if (!emailResult.success) {
+      console.error('Failed to send registration email:', emailResult.message);
       await session.abortTransaction();
       session.endSession();
       return res.status(400).send({ message: emailResult.message, isError: true });
     }
 
-    // Commit transaction if everything is successful
     await session.commitTransaction();
     session.endSession();
+    console.log('Registration successful for email:', emailRegistration);
     res.status(201).send({ message: res.__('REGISTRATION_SUCCESS'), isError: false });
   } catch (err) {
-    console.error(err);
-    await session.abortTransaction();
-    session.endSession();
+    console.error('Registration error:', err);
+    try {
+      await session.abortTransaction();
+    } catch (abortErr) {
+      console.error('Failed to abort transaction:', abortErr);
+    } finally {
+      session.endSession();
+    }
     res.status(500).send({ message: res.__('REGISTRATION_ERROR'), isError: true });
   }
 };
+
+
 
 const sendRegistrationEmail = async (emailOptions) => {
   try {
