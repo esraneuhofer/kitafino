@@ -8,54 +8,54 @@ import {OrderService} from "../../service/order.service";
 import {PermanentOrderService} from "../../service/permant-order.service";
 import {TenantStudentInterface} from "../../classes/tenant.class";
 
-function createUsersArray() {
-  let users:{email:string,projectId:string}[] = [];
-  let projectId = [{name: 'mond1234', kids: 15}, {name: 'nach1234', kids: 25}, {name: 'mari1234', kids: 150}]
-  projectId.forEach((projectId, indexProject) => {
-    for (let i = 0; i < projectId.kids; i++) {
-      users.push({
-        email: `user_catering_${i}_${indexProject}.de`,
-        projectId: projectId.name,
-      })
-    }
-  })
-  return users;
-}
-function createTenants(users: { email:string,_id:string,tenantId:string,customerId:string }[]): TenantStudentInterface[] {
-  let tenants: TenantStudentInterface[] = [];
-
-  users.forEach((user, index) => {
-    let firstName = `FirstName_${index + 1}`;
-    let lastName = `LastName_${index + 1}`;
-
-    let tenant: TenantStudentInterface = {
-      tenantId: user.tenantId,
-      customerId: user.customerId,
-      userId: user._id,
-      firstAccess: true,
-      firstAccessOrder: true,
-      username: '',
-      firstName: firstName,
-      lastName: lastName,
-      email: user.email,
-      phone: '',
-      address: '',
-      city: '',
-      zip: '',
-      orderSettings: {
-        orderConfirmationEmail: true,
-        sendReminderBalance: true,
-        amountBalance: 15,
-        permanentOrder: false,
-        displayTypeOrderWeek: false
-      }
-    };
-
-    tenants.push(tenant);
-  });
-
-  return tenants;
-}
+// function createUsersArray() {
+//   let users:{email:string,projectId:string}[] = [];
+//   let projectId = [{name: 'mond1234', kids: 15}, {name: 'nach1234', kids: 25}, {name: 'mari1234', kids: 150}]
+//   projectId.forEach((projectId, indexProject) => {
+//     for (let i = 0; i < projectId.kids; i++) {
+//       users.push({
+//         email: `user_catering_${i}_${indexProject}.de`,
+//         projectId: projectId.name,
+//       })
+//     }
+//   })
+//   return users;
+// }
+// function createTenants(users: { email:string,_id:string,tenantId:string,customerId:string }[]): TenantStudentInterface[] {
+//   let tenants: TenantStudentInterface[] = [];
+//
+//   users.forEach((user, index) => {
+//     let firstName = `FirstName_${index + 1}`;
+//     let lastName = `LastName_${index + 1}`;
+//
+//     let tenant: TenantStudentInterface = {
+//       tenantId: user.tenantId,
+//       customerId: user.customerId,
+//       userId: user._id,
+//       firstAccess: true,
+//       firstAccessOrder: true,
+//       username: '',
+//       firstName: firstName,
+//       lastName: lastName,
+//       email: user.email,
+//       phone: '',
+//       address: '',
+//       city: '',
+//       zip: '',
+//       orderSettings: {
+//         orderConfirmationEmail: true,
+//         sendReminderBalance: true,
+//         amountBalance: 15,
+//         permanentOrder: false,
+//         displayTypeOrderWeek: false
+//       }
+//     };
+//
+//     tenants.push(tenant);
+//   });
+//
+//   return tenants;
+// }
 
 
 @Component({
