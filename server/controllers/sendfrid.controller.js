@@ -105,8 +105,6 @@ const convertToSendGridFormat = (email) => {
 
     let copy = JSON.parse(JSON.stringify(mailOptions));
     delete copy.attachments;
-    console.log('Converted SendGrid mailOptions:', JSON.stringify(copy, null, 2));
-
     return mailOptions;
   } catch (error) {
     console.error('Error in convertToSendGridFormat:', error.message);

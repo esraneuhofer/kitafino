@@ -18,12 +18,30 @@ const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+const fs = require('fs');
+
+const originalWriteFile = fs.writeFile;
+fs.writeFile = function(...args) {
+  console.log(`fs.writeFile called with arguments:`, args);
+  originalWriteFile.apply(this, args);
+};
+
+const originalWriteFileSync = fs.writeFileSync;
+fs.writeFileSync = function(...args) {
+  console.log(`fs.writeFileSync called with arguments:`, args);
+  originalWriteFileSync.apply(this, args);
+};
+
+i18n.configure({
+  locales: ['en', 'de', 'tr', 'ar', 'pl', 'ru', 'it', 'el', 'es', 'ro', 'nl'],
+  directory: path.join(__dirname, '/server/locales'),
+  defaultLocale: 'de',
+  queryParameter: 'lang',
+  cookie: 'lang',
+});
+app.use(i18n.init);
 
 // Middleware für statische Dateien so früh wie möglich einfügen
-
-
-  app.use(i18n.init);
-
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
@@ -115,14 +133,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-i18n.configure({
-    locales: ['en', 'de', 'tr', 'ar', 'pl', 'ru', 'it', 'el', 'es', 'ro', 'nl'],
-    directory: path.join(__dirname, '/server/locales'),
-    defaultLocale: 'de',
-    queryParameter: 'lang',
-    cookie: 'lang',
-});
-app.use(i18n.init);
+
 
 app.use((req, res, next) => {
   const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen

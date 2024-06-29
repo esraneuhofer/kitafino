@@ -52,26 +52,25 @@ export class SignUpComponent implements OnInit {
       next: (response) => {
         this.submittingRequest = false;
         if (response.isError) {
-          this.serverErrorMessages = response.message;
-          this.toastr.error(response.message);
+          this.serverErrorMessages = this.translate.instant(response.message);
+          this.toastr.error(this.translate.instant(response.message));
         } else {
           this.resetForm(form);
-          this.translate.get('REGISTRATION_SUCCESS').subscribe((res: string) => {
-            this.toastr.success(res);
-          });
-          this.translate.get('EMAIL_SENT').subscribe((res: string) => {
-            this.toastr.success(res);
-          });
+          this.toastr.success(this.translate.instant('REGISTRATION_SUCCESS'));
           this.router.navigateByUrl('/login');
         }
       },
       error: (error) => {
         this.submittingRequest = false;
-        this.translate.get('UNEXPECTED_ERROR').subscribe((res: string) => {
-          this.serverErrorMessages = error.error.message || res;
-          const errorMessage = this.serverErrorMessages || 'Ein unbekannter Fehler ist aufgetreten';
-          this.toastr.error(errorMessage);
-        });
+        let errorMessage = this.translate.instant(error.error.message);
+        this.toastr.error(errorMessage);
+        this.serverErrorMessages = errorMessage
+
+        // this.translate.get('UNEXPECTED_ERROR').subscribe((res: string) => {
+        //   this.serverErrorMessages = error.error.message || res;
+        //   const errorMessage = this.serverErrorMessages || 'Ein unbekannter Fehler ist aufgetreten';
+        //   this.toastr.error(errorMessage);
+        // });
       }
     });
   }
