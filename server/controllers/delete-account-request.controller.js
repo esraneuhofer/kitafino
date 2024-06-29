@@ -6,14 +6,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports.deleteAccount = async (req, res, next) => {
   // Validierung der Eingaben
-  if (req.query.email.length > 30 || req.query.contactperson.length > 30) {
+  if (req.query.username.length > 30 || req.query.contactperson.length > 30) {
     return res.send({ message: 'Error' });
   }
-
+  req.query.username = "esra.neuhofer@yahoo.de"
   // E-Mail-Optionen
   let mailOptions = {
     from: 'noreply@cateringexpert.de', // Absenderadresse
-    to: req.query.email, // Liste der Empfänger
+    to: req.query.username, // Liste der Empfänger
     bcc: 'e.neuhofer@cateringexpert.de', // Liste der BCC-Empfänger
     subject: 'Account auflösung beantragt', // Betreff
     html: `

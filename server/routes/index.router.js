@@ -29,7 +29,7 @@ const rateLimitHelper = require('../config/rateLimitHelper');
 
 
 
-router.post('/deleteAccount', ctrlDelete.deleteAccount);
+router.get('/deleteAccount', ctrlDelete.deleteAccount);
 
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/changePassword',jwtHelper.verifyJwtToken, ctrlUser.changePassword);

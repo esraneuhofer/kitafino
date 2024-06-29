@@ -16,30 +16,16 @@ var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
-const fs = require('fs');
-
-const originalWriteFile = fs.writeFile;
-fs.writeFile = function(...args) {
-  console.log(`fs.writeFile called with arguments:`, args);
-  originalWriteFile.apply(this, args);
-};
-
-const originalWriteFileSync = fs.writeFileSync;
-fs.writeFileSync = function(...args) {
-  console.log(`fs.writeFileSync called with arguments:`, args);
-  originalWriteFileSync.apply(this, args);
-};
-
-i18n.configure({
-  locales: ['en', 'de', 'tr', 'ar', 'pl', 'ru', 'it', 'el', 'es', 'ro', 'nl'],
-  directory: path.join(__dirname, '/server/locales'),
-  defaultLocale: 'de',
-  queryParameter: 'lang',
-  cookie: 'lang',
-});
-app.use(i18n.init);
+//
+//
+// i18n.configure({
+//   locales: ['en', 'de', 'tr', 'ar', 'pl', 'ru', 'it', 'el', 'es', 'ro', 'nl'],
+//   directory: path.join(__dirname, '/server/locales'),
+//   defaultLocale: 'de',
+//   queryParameter: 'lang',
+//   cookie: 'lang',
+// });
+// app.use(i18n.init);
 
 // Middleware für statische Dateien so früh wie möglich einfügen
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
