@@ -280,7 +280,6 @@ export class OrderStudentComponent implements OnInit {
   }
 
   selectStudent(student: StudentInterface | null) {
-    console.log('student', student);
     this.pageLoaded = false;
     if(this.checkForErrors(student)){
       return;

@@ -17,7 +17,18 @@ export function setEmptyStudentModel():StudentInterface{
     username:'',
     customerId:'',
     subgroup:'',
-    specialFood: null
+    specialFood: null,
+
   }
 }
-
+export interface StudentInterfaceSeed {
+  _id?: string;
+  firstName: string;
+  lastName: string;
+  username:string;
+  subgroup:string,
+  customerId:string,
+  specialFood: string | null;
+  tenantId: string;
+  userId: string;
+}
