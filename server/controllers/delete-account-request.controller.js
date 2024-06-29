@@ -9,7 +9,6 @@ module.exports.deleteAccount = async (req, res, next) => {
   if (req.query.username.length > 30 || req.query.contactperson.length > 30) {
     return res.send({ message: 'Error' });
   }
-  req.query.username = "esra.neuhofer@yahoo.de"
   // E-Mail-Optionen
   let mailOptions = {
     from: 'noreply@cateringexpert.de', // Absenderadresse

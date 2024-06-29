@@ -63,6 +63,7 @@ const corsOptions = {
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
     'https://kitafino-45139aec3e10.herokuapp.com', // Heroku production URL
+    'https://cateringexpert.de'        // Your website domain
   ],
   credentials: true,
 };
