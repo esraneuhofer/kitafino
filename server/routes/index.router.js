@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
+const ctrlDelete = require('../controllers/delete-account-request.controller');
 
 const ctrlHelp = require('../controllers/help.controller');
 const ctrlMessage = require('../controllers/message.controller');
@@ -28,6 +29,7 @@ const rateLimitHelper = require('../config/rateLimitHelper');
 
 
 
+router.post('/deleteAccount', ctrlDelete.deleteAccount);
 
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/changePassword',jwtHelper.verifyJwtToken, ctrlUser.changePassword);
