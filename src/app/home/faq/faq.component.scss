@@ -1,0 +1,104 @@
+.bg-white {
+  background-color: white;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.max-w-7xl {
+  max-width: 80rem;
+}
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+.sm\:py-32 {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+.lg\:px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.lg\:py-40 {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+.max-w-4xl {
+  max-width: 56rem;
+}
+.divide-y {
+  border-bottom-width: 1px;
+}
+.divide-gray-900\/10 {
+  border-color: rgba(17, 24, 39, 0.1);
+}
+.text-2xl {
+  font-size: 1.5rem;
+}
+.font-bold {
+  font-weight: bold;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.tracking-tight {
+  letter-spacing: -0.015625rem;
+}
+.text-gray-900 {
+  color: #1f2937;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+.pt-6 {
+  padding-top: 1.5rem;
+}
+.flex {
+  display: flex;
+}
+.w-full {
+  width: 100%;
+}
+.items-start {
+  align-items: flex-start;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.text-left {
+  text-align: left;
+}
+.ml-6 {
+  margin-left: 1.5rem;
+}
+.h-7 {
+  height: 1.75rem;
+}
+.h-6 {
+  height: 1.5rem;
+}
+.pr-12 {
+  padding-right: 3rem;
+}
+.text-base {
+  font-size: 1rem;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.leading-7 {
+  line-height: 1.75rem;
+}
+.text-gray-600 {
+  color: #4b5563;
+}

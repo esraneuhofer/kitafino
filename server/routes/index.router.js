@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
-const ctrlDelete = require('../controllers/delete-account-request.controller');
+
+
 
 const ctrlHelp = require('../controllers/help.controller');
 const ctrlMessage = require('../controllers/message.controller');
@@ -125,6 +126,8 @@ router.post('/addMessage',jwtHelper.verifyJwtToken,ctrlMessage.addMessage)
 router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
 router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
 
+
+///Register Customer///
 
 
 

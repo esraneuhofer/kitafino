@@ -25,6 +25,7 @@ import {HelpDialogComponent} from "./directives/help-dialog/help-dialog.componen
 import {HelpComponent} from "./home/help/help.component";
 import {SuccessStripeComponent} from "./home/stripe-checkout/success-stripe/success-stripe.component";
 import {NotSuccessStripeComponent} from "./home/stripe-checkout/not-success-stripe/not-success-stripe.component";
+import {FaqComponent} from "./home/faq/faq.component";
 
 
 
@@ -70,6 +71,7 @@ export const appRoutes: Routes = [
       { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},
       { path: 'weekplan_pdf', component:WeekplanPdfComponent , canActivate: [AuthGuard]},
+      { path: 'faq', component:FaqComponent},
     ]
   },
   {

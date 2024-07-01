@@ -11,7 +11,7 @@ const passport = require('passport');
 var port = process.env.PORT || 3002;
 require('dotenv').config();
 var environment = process.env.NODE_ENV;
-const i18n = require('i18n');
+// const i18n = require('i18n');
 var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI;
@@ -122,15 +122,15 @@ app.use(bodyParser.urlencoded({
 
 
 
-app.use((req, res, next) => {
-  const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen
-  if (lang) {
-    i18n.setLocale(lang); // Locale auf die gespeicherte Sprache setzen
-  } else {
-    i18n.setLocale(i18n.getLocale()); // Standard-Sprache setzen
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen
+//   if (lang) {
+//     i18n.setLocale(lang); // Locale auf die gespeicherte Sprache setzen
+//   } else {
+//     i18n.setLocale(i18n.getLocale()); // Standard-Sprache setzen
+//   }
+//   next();
+// });
 
 app.use((req, res, next) => {
   if (req.path === '/api/webhook') {
