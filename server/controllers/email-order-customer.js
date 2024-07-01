@@ -49,6 +49,7 @@ function getToArray(confirmationEmail, customer) {
       }
     }
   }
+  console.log("Sendgrid Email Array: ", arrayTOSendgrid)
   return arrayTOSendgrid;
 }
 
@@ -58,14 +59,14 @@ function getEmailBodyOrderDayCustomer(weekplanDay, ordersStudentCustomer, settin
   if (ordersStudentCustomer && ordersStudentCustomer.length > 0) {
     const orderCustomer = getOrdersDay(ordersStudentCustomer, weekplanDay, settings, customer, students);
     const emailBody = setBodyEmail(orderCustomer, orderFormatted);
-    const emailBodyBasic =convertToSendGridFormat({
-      from: `${settings.tenantSettings.contact.companyName} <noreply@cateringexpert.de>`,
+    const emailBodyBasic ={
+      from: `${String(settings.tenantSettings.contact.companyName)} <noreply@cateringexpert.de>`,
       replyTo: settings.orderSettings.confirmationEmail,
       bcc:'eltern_bestellung@cateringexpert.de',
       to: toArray, // list of receivers
       subject: 'Bestellung',
       html: emailBody
-    });
+    };
     return emailBodyBasic;
   } else {
     return null; // Return null if no orders are found

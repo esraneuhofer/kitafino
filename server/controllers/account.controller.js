@@ -14,7 +14,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 function getMailOptions (amount, req,tenantAccount) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>',
-    replyTo: 'test@cateringexpert.de', // This should be dynamically set based on the tenant's email
+    replyTo: 'noreply@cateringexpert.de', // This should be dynamically set based on the tenant's email
     bcc:'eltern_bestellung@cateringexpert.de',
     to: req.body.emailTenant, // This should be dynamically set based on the tenant's email
     subject: 'Kontoaktivität',

@@ -11,8 +11,11 @@ import {setEmptyStudentModel, StudentInterface, StudentInterfaceSeed} from "../.
 import {CustomerInterface} from "../../classes/customer.class";
 import {setOrderDayStudent} from "../order-student/order-container/order-container.component";
 import {addDayFromDate} from "../order-student/order.functions";
-import {getWeekplanModel} from "../../classes/weekplan.interface";
+import {getWeekplanModel, numberFive} from "../../classes/weekplan.interface";
 import {SettingInterfaceNew} from "../../classes/setting.class";
+import {getMonday} from "../../functions/date.functions";
+import {getDateMondayFromCalenderweek} from "../../functions/order.functions";
+import {OrderInterfaceStudent} from "../../classes/order_student.class";
 
 function createUsersArray() {
   let users:{email:string,projectId:string}[] = [];
@@ -65,19 +68,32 @@ function createTenants(users: { email:string,_id:string,tenantId:string,customer
 function generateRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-function generateOrderStudents(settings:SettingInterfaceNew,customers:CustomerInterface[],student:StudentInterfaceSeed,indexDay:number){
-  let customer = customers.find((eachCustomer)=>eachCustomer.customerId === student.customerId);
-  if(!customer)return;
-  let query = {week:25,year:2024}
+function generateOrderStudents(settings:SettingInterfaceNew,customer:CustomerInterface,student:StudentInterfaceSeed,indexDay:number,query:{week:number,year:number}):OrderInterfaceStudent{
+
   let weekplan = getWeekplanModel(settings, query)
   let order = setOrderDayStudent(null, weekplan, settings, customer, student, indexDay,
     new Date(addDayFromDate(new Date,0)), query, [false,false,false,false,false])
-  let randomMenu = generateRandomInt(0, order.orderStudentModel.order.orderMenus - 1);
+  let randomMenu = generateRandomInt(0, order.orderStudentModel.order.orderMenus.length - 1);
   order.orderStudentModel.order.orderMenus[randomMenu].amountOrder = 1
   order.orderStudentModel.order.orderMenus[randomMenu].menuSelected = true
-  return order;
+  return order.orderStudentModel;
 }
 
+function generateOrders(students: StudentInterfaceSeed[], settings: SettingInterfaceNew, customers: CustomerInterface[]): OrderInterfaceStudent[] {
+  let query = {week:25,year:2024}
+  let orders: OrderInterfaceStudent[] = [];
+  let monday = getDateMondayFromCalenderweek(query);
+  students.forEach((student, index) => {
+    let customer = customers.find((eachCustomer) => eachCustomer.customerId === student.customerId);
+
+    numberFive.forEach((eachDay, indexDay) => {
+      if (!customer) return;
+      let order = generateOrderStudents(settings, customer, student, index,query);
+      orders.push(order);
+    })
+  });
+  return orders;
+}
 function createStudentsForTenants(tenants: TenantStudentInterface[], customer: CustomerInterface): StudentInterfaceSeed[] {
   let students: StudentInterfaceSeed[] = [];
 

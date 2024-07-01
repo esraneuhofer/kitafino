@@ -26,6 +26,7 @@ function getStudentById(studentId, studentsCustomer) {
 
 function getDayDeadlineOrder(customer) {
   let daysCustomer = customer.generalSettings.deadlineDaily.day;
+  console.log("daysCustomer", daysCustomer); // Anzahl Tage bis zur Deadline
   let futureDate = dayjs().add(daysCustomer, 'day');
 
   // In die Zeitzone 'Europe/Berlin' umwandeln und auf den Anfang des Tages setzen

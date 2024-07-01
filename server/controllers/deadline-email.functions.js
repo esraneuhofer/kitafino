@@ -219,7 +219,7 @@ function getMenuName(obj, indexDay, eachOrderDay) {
   let name = null;
   let dessert = null;
   if (obj.settings.orderSettings.showSideIfNotSeparate && obj.customerInfo.order.sidedish) {
-    side = getSideOrdDessertNameIfExist(obj.weekplanSelectedWeek.weekplan[indexDay].mealTypesDay, 'side');
+    side = getSideOrdDessertNameIfExist(obj.weekplanSelectedWeek[indexDay].mealTypesDay, 'side');
   }
   if (side) { // Only add to components if side is not null
     components.push(side);
@@ -231,7 +231,7 @@ function getMenuName(obj, indexDay, eachOrderDay) {
   }
 
   if (obj.settings.orderSettings.showDessertIfNotSeparate && obj.customerInfo.order.dessert) {
-    dessert = getSideOrdDessertNameIfExist(obj.weekplanSelectedWeek.weekplan[indexDay].mealTypesDay, 'dessert');
+    dessert = getSideOrdDessertNameIfExist(obj.weekplanSelectedWeek[indexDay].mealTypesDay, 'dessert');
   }
   if (dessert) { // Only add to components if dessert is not null
     components.push(dessert);

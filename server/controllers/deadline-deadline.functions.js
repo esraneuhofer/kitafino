@@ -90,15 +90,15 @@ function generateWeeklyCronSchedule(datetimeString, dayOfWeek) {
     throw new Error('Ungültiger Tag der Woche. Bitte verwenden Sie einen Wert zwischen 1 (Montag) und 7 (Sonntag).');
   }
 
-  const hours = date.getUTCHours(); // Stunden in UTC
-  const minutes = date.getUTCMinutes(); // Minuten in UTC
+  const hours = date.getHours(); // Lokale Stunden
+  const minutes = date.getMinutes();
 
   // Mapping von 1-7 (Montag-Sonntag) auf 0-6 (Sonntag-Samstag) für Cron
   const cronDayOfWeek = (dayOfWeek % 7).toString();
 
   // Cron-Format-String konstruieren, der zur angegebenen Uhrzeit am angegebenen Wochentag ausgeführt wird
   const schedule = `${minutes} ${hours} * * ${cronDayOfWeek}`;
-
+  console.log('Cron schedule:', schedule);
   return schedule;
 }
 

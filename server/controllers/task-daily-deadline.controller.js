@@ -22,44 +22,151 @@ const getInvoiceDateOne = require('./date.functions').getInvoiceDateOne;
 const {studentHasNotPlacedOrderYet, getStudentById, getDayDeadlineOrder,isVacation} = require("./permanent-order.functions");
 const {sendSuccessEmail, sendCancellationEmail} = require("./email.functions");
 const {convertToSendGridFormat} = require("./sendfrid.controller");
+const {notifyAdmin} = require("./email-order-customer-weekly");
 
 
 //Todo: findWeek and Year according to orderFrist
-async function processOrder(customerId,tenantId){
-  // let tenantId = '651c635eca2c3d25809ce4f5';
-  // let customerId = "6540b2117d2b64903bb4e3a2";
+// async function processOrder(customerId,tenantId){
+//   // let tenantId = '651c635eca2c3d25809ce4f5';
+//   // let customerId = "6540b2117d2b64903bb4e3a2";
+//   try {
+//     const customer = await Customer.findOne({customerId: customerId})
+//     customer.generalSettings.day = 1;
+//     customer.generalSettings.time = "1970-01-01 15:49:00";
+//     const dayDeadlineOrder = getDayDeadlineOrder(customer)
+//     const weekNumber = getWeekNumber(new Date(dayDeadlineOrder)); // Implement this function based on your logic
+//     const year = new Date(dayDeadlineOrder).getFullYear();
+//     const settings = await Settings.findOne({tenantId: tenantId})
+//     const menus = await Menu.find({tenantId: tenantId})
+//     const weekplan = await Weekplan.findOne({tenantId: tenantId, year: year, week: weekNumber});
+//     const weekplanEdited = getMenusForWeekplan(weekplan, settings, {year: year, week: weekNumber},menus);
+//     const vacationCustomer = await Vacation.find({customerId: customerId})
+//     const permanentOrderStudents = await PermanentOrderStudent.find({customerId: customerId});
+//     const studentsCustomer = await StudentNew.find({customerId: customerId});
+//     const orderStudents = await OrderStudent.find({customerId: customerId, dateOrder: dayDeadlineOrder});
+//     const indexDay = getIndexDayOrder(dayDeadlineOrder);
+//
+//     for (let eachPermanentOrderStudent of permanentOrderStudents) {
+//
+//       let tenantStudent = await TenantParent.findOne({ userId: eachPermanentOrderStudent.userId });
+//       let studentModel = getStudentById(eachPermanentOrderStudent.studentId, studentsCustomer);
+//       if (!studentModel) {
+//         continue;
+//       }
+//       if (!eachPermanentOrderStudent.daysOrder[indexDay].selected) {
+//         continue;
+//       }
+//       if (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, indexDay)) {
+//         continue;
+//       }
+//
+//       const priceStudent = getPriceStudent(studentModel, customer, settings);
+//
+//       let mockReq = {
+//         studentsCustomer: studentsCustomer,
+//         year: year,
+//         weekNumber: weekNumber,
+//         menus: menus,
+//         weekkplanDay: weekplanEdited.weekplan[indexDay],
+//         nameStudent: studentModel.firstName + ' ' + studentModel.lastName,
+//         dateOrderEdited: getInvoiceDateOne(dayDeadlineOrder),
+//         arrayEmail: [settings.orderSettings.confirmationEmail],
+//         nameCustomer: customer.contact.customer,
+//         priceStudent: getPriceStudent(studentModel, customer, settings),
+//         settings: settings,
+//         eachPermanentOrderStudent: eachPermanentOrderStudent,
+//         indexDay: indexDay,
+//         tenantId: tenantId,
+//         customerId: customerId,
+//         _id: eachPermanentOrderStudent.userId,
+//         tenantStudent: tenantStudent,
+//       };
+//
+//       if (isHoliday(new Date(dayDeadlineOrder), customer.generalSettings.state) || isVacation(dayDeadlineOrder, vacationCustomer)) {
+//         try {
+//           await sendCancellationEmail(mockReq, 'Für den ausgewählten Tag ist ein Schließtag / Feiertag eingetragen. Sollte dies nicht korrekt sein, wenden Sie sich bitte an die Einrichtung');
+//         } catch (emailError) {
+//           console.error('Failed to send cancellation email:', emailError);
+//         }
+//         continue;
+//       }
+//
+//       mockReq.body = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent, menus);
+//       // console.log('mockReq',mockReq.body)
+//       try {
+//         const response = await addOrder(mockReq, {});
+//         if (!response.success) {
+//           throw new Error(response.message);
+//         }
+//
+//         try {
+//           await sendSuccessEmail(mockReq, response);
+//         } catch (emailError) {
+//           console.error('Failed to send success email:', emailError);
+//         }
+//       } catch (error) {
+//         // console.error('Failed to add order:', error.message); // Ensure error logging is detailed
+//         try {
+//           await sendCancellationEmail(mockReq, error.message);
+//         } catch (emailError) {
+//           console.error('Failed to send cancellation email:', emailError);
+//         }
+//       }
+//     }
+//
+//
+//     await sendEmailDailyConfirmation(weekplanEdited.weekplan[indexDay],settings,customer,studentsCustomer,dayDeadlineOrder)
+//
+//   } catch
+//     (error) {
+//     console.error('Failed to check deadlines and send order email:', error);
+//     // Handle error appropriately
+//   }
+// }
+
+async function processOrder(customerId, tenantId) {
+  let weekplanEdited;
+  let dayDeadlineOrder;
+  let settings;
+  let customer;
+  let studentsCustomer;
+  let indexDay;
+
   try {
-    const customer = await Customer.findOne({customerId: customerId})
-
-    const dayDeadlineOrder = getDayDeadlineOrder(customer)
-    console.log(dayDeadlineOrder)
-    const weekNumber = getWeekNumber(new Date(dayDeadlineOrder)); // Implement this function based on your logic
+    customer = await Customer.findOne({ customerId: customerId });
+    // customer.generalSettings.day = 1;
+    // customer.generalSettings.time = "1970-01-01 15:49:00";
+    dayDeadlineOrder = getDayDeadlineOrder(customer);
+    const weekNumber = getWeekNumber(new Date(dayDeadlineOrder));
     const year = new Date(dayDeadlineOrder).getFullYear();
-    const settings = await Settings.findOne({tenantId: tenantId})
-    const menus = await Menu.find({tenantId: tenantId})
-    const weekplan = await Weekplan.findOne({tenantId: tenantId, year: year, week: weekNumber});
-    const weekplanEdited = getMenusForWeekplan(weekplan, settings, {year: year, week: weekNumber},menus);
-    const vacationCustomer = await Vacation.find({customerId: customerId})
-    const permanentOrderStudents = await PermanentOrderStudent.find({customerId: customerId});
-    const studentsCustomer = await StudentNew.find({customerId: customerId});
-    const orderStudents = await OrderStudent.find({customerId: customerId, dateOrder: dayDeadlineOrder});
-    const indexDay = getIndexDayOrder(dayDeadlineOrder);
-    console.log(indexDay)
-    for (let eachPermanentOrderStudent of permanentOrderStudents) {
+    settings = await Settings.findOne({ tenantId: tenantId });
+    const menus = await Menu.find({ tenantId: tenantId });
+    const weekplan = await Weekplan.findOne({ tenantId: tenantId, year: year, week: weekNumber });
+    weekplanEdited = getMenusForWeekplan(weekplan, settings, { year: year, week: weekNumber }, menus);
+    const vacationCustomer = await Vacation.find({ customerId: customerId });
+    const permanentOrderStudents = await PermanentOrderStudent.find({ customerId: customerId });
+    studentsCustomer = await StudentNew.find({ customerId: customerId });
+    const orderStudents = await OrderStudent.find({ customerId: customerId, dateOrder: dayDeadlineOrder });
+    indexDay = getIndexDayOrder(dayDeadlineOrder);
 
-      let tenantStudent = await TenantParent.findOne({userId: eachPermanentOrderStudent.userId});
+    let bulkOperations = [[]];
+    let emailPromises = [];
+    let batchIndex = 0;
+
+    for (let eachPermanentOrderStudent of permanentOrderStudents) {
+      let tenantStudent = await TenantParent.findOne({ userId: eachPermanentOrderStudent.userId });
       let studentModel = getStudentById(eachPermanentOrderStudent.studentId, studentsCustomer);
       if (!studentModel) {
-        continue
+        continue;
       }
-      if(!eachPermanentOrderStudent.daysOrder[indexDay].selected){
+      if (!eachPermanentOrderStudent.daysOrder[indexDay].selected) {
         continue;
       }
       if (!studentHasNotPlacedOrderYet(eachPermanentOrderStudent, orderStudents, indexDay)) {
         continue;
       }
 
-      const priceStudent = getPriceStudent(studentModel, customer, settings)
+      const priceStudent = getPriceStudent(studentModel, customer, settings);
 
       let mockReq = {
         studentsCustomer: studentsCustomer,
@@ -80,34 +187,86 @@ async function processOrder(customerId,tenantId){
         _id: eachPermanentOrderStudent.userId,
         tenantStudent: tenantStudent,
       };
-      if(isHoliday(new Date(dayDeadlineOrder),customer.generalSettings.state) || isVacation(dayDeadlineOrder,vacationCustomer)){
-        await sendCancellationEmail(mockReq, 'Für den ausgewählten Tag ist ein Schließtag / Feiertag eingetragen. Sollte dies nicht korrekt sein, wenden Sie sich bitte an die Einrichtung'); // Handle cancellation email in a separate function
+
+      if (isHoliday(new Date(dayDeadlineOrder), customer.generalSettings.state) || isVacation(dayDeadlineOrder, vacationCustomer)) {
+        emailPromises.push(
+          sendCancellationEmail(mockReq, 'Für den ausgewählten Tag ist ein Schließtag / Feiertag eingetragen. Sollte dies nicht korrekt sein, wenden Sie sich bitte an die Einrichtung')
+            .catch(emailError => {
+              console.error('Failed to send cancellation email:', emailError);
+              notifyAdmin(emailError, customer.contact.email, customerId);
+            })
+        );
         continue;
       }
 
-      mockReq.body = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent,menus)
-      // console.log('mockReq',mockReq.body)
+      mockReq.body = setOrderStudentBackend(customer, dayDeadlineOrder, tenantId, eachPermanentOrderStudent, weekplanEdited, settings, priceStudent, menus);
+
+      if (!bulkOperations[batchIndex]) {
+        bulkOperations[batchIndex] = [];
+      }
+
+      bulkOperations[batchIndex].push({
+        insertOne: {
+          document: mockReq.body
+        }
+      });
+
+      if (bulkOperations[batchIndex].length >= 100) {
+        batchIndex++;
+      }
+
       try {
         const response = await addOrder(mockReq, {});
         if (!response.success) {
           throw new Error(response.message);
         }
 
-        await sendSuccessEmail(mockReq, response); // Handle success email in a separate function
+        emailPromises.push(
+          sendSuccessEmail(mockReq, response)
+            .catch(emailError => {
+              console.error('Failed to send success email:', emailError);
+              notifyAdmin(emailError, customer.contact.email, customerId);
+            })
+        );
       } catch (error) {
-        // console.error('Failed to add order:', error.message); // Ensure error logging is detailed
-        await sendCancellationEmail(mockReq, error.message); // Handle cancellation email in a separate function
+        console.error('Failed to add order:', error);
+        emailPromises.push(
+          sendCancellationEmail(mockReq, error.message)
+            .catch(emailError => {
+              console.error('Failed to send cancellation email:', emailError);
+              notifyAdmin(emailError, customer.contact.email, customerId);
+            })
+        );
       }
     }
 
-    await sendEmailDailyConfirmation(weekplanEdited.weekplan[indexDay],settings,customer,studentsCustomer,dayDeadlineOrder)
+    // Write all bulk operations
+    for (const bulkOperation of bulkOperations) {
+      if (bulkOperation.length > 0) {
+        await OrderStudent.bulkWrite(bulkOperation);
+      }
+    }
 
-  } catch
-    (error) {
+    // Wait for all email promises to resolve
+    await Promise.all(emailPromises);
+  } catch (error) {
     console.error('Failed to check deadlines and send order email:', error);
-    // Handle error appropriately
+    notifyAdmin(error, customer.contact.email, customerId);
+  } finally {
+    try {
+      await sendEmailDailyConfirmation(weekplanEdited.weekplan[indexDay], settings, customer, studentsCustomer, dayDeadlineOrder);
+    } catch (confirmationError) {
+      console.error('Failed to send daily confirmation email:', confirmationError);
+      notifyAdmin(confirmationError, customer.contact.email, customerId);
+    }
   }
 }
+
+
+
+
+
+
 
 
 async function sendEmailDailyConfirmation(weekplanDay, settings, customer, studentsCustomer, dayDeadlineOrder) {
@@ -141,7 +300,7 @@ async function sendEmailDailyConfirmation(weekplanDay, settings, customer, stude
 const testingDaily = async (req, res) => {
   try {
     let tenantIdString = '651c635eca2c3d25809ce4f5';
-    let customerIdString = "6540b2117d2b64903bb4e3a2";
+    let customerIdString = "6540b2117d2b64903bb4e3b3";
 
     // Convert strings to ObjectId
     const customerId = new mongoose.Types.ObjectId(customerIdString);
@@ -150,7 +309,7 @@ const testingDaily = async (req, res) => {
     // Call the processOrderWeekly function
     await processOrder(customerId, tenantId);
 
-    res.status(200).send({ message: 'Parent tenant edited successfully' });
+    res.status(200).send({ message: 'Daily Tested succesfully' });
   } catch (error) {
     console.error('Error in testing function:', error); // Log the error for debugging
     res.status(500).send({ error: 'Failed to edit parent tenant' });
