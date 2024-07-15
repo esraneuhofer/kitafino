@@ -1,0 +1,35 @@
+<ng-container *ngIf="tenantModel && pageLoaded">
+  <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="w-full md:w-1/2 flex flex-col gap-4">
+
+        <div class="flex-1">
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form #f4="ngForm" novalidate >
+              <div class="space-y-12">
+                <div class="pb-12">
+                  <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'KONTO_AUFLOESEN' | translate }}</h2>
+
+                  <p class=" pb-1 text-sm leading-6 text-gray-600" [innerHTML]="'KONTO_AUFLOESEN_DETAILS' | translate"></p>
+                  <p class=" pb-1 text-sm leading-6 text-gray-600" [innerHTML]="'IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN' | translate"></p>
+                  <p class=" pb-4 text-sm leading-6 text-gray-600" [innerHTML]="'GELD_AUSZAHLEN_KONTO_SCHLIESSEN' | translate"></p>
+                  <app-button (click)="closeAccount()"
+                              [buttonType]="'button'"
+                              [submittingRequest]="submittingRequestDeletion"
+                              [typeButton]="'danger'">
+                    {{ 'KONTO_AUFLOESEN' | translate }}
+                  </app-button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<app-loading-page [pageLoaded]="!submittingRequest"></app-loading-page>
+<app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>

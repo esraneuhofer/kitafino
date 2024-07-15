@@ -117,7 +117,7 @@ export class SettingsComponent implements OnInit{
   editPersonalInformationSetting(){
     if(this.tenantModel.orderSettings.sendReminderBalance && this.tenantModel.orderSettings.amountBalance < 10){
       this.messageService.openMessageDialog(
-        this.translate.instant('ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABENw'),'Mindestbestrag','warning'
+        this.translate.instant('ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN'),'Mindestbestrag','warning'
       )
     }else{
       this.editPersonalInformation();
