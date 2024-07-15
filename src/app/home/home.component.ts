@@ -1,6 +1,6 @@
 
 import {Component, HostListener, OnInit} from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
+import {trigger, transition, style, animate, state} from '@angular/animations';
 import {UserService} from "../service/user.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {LoadingService} from "../service/loading.service";
@@ -25,6 +25,23 @@ import {FirstAccessDialogComponent} from "../directives/first-access-dialog/firs
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [
+    trigger('submenu', [
+      state('closed', style({
+        height: '0',
+        opacity: 0,
+        overflow: 'hidden',
+      })),
+      state('open', style({
+        height: '*',
+        opacity: 1,
+      })),
+      transition('closed => open', [
+        animate('300ms ease-in-out')
+      ]),
+      transition('open => closed', [
+        animate('300ms ease-in-out')
+      ]),
+    ]),
     trigger('opacity', [
       transition(':enter', [
         style({ opacity: 0 }),
@@ -59,15 +76,10 @@ import {FirstAccessDialogComponent} from "../directives/first-access-dialog/firs
 })
 export class HomeComponent implements OnInit{
 
-
-  isSubmenuOpen = false;
-
-  toggleSubmenu() {
-    this.isSubmenuOpen = !this.isSubmenuOpen;
-  }
-
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
+  isSubmenuOpen = false;
+
   customerInfo!:CustomerInterface;
   pageLoaded: boolean = false;
   currentRoute: string = '';
@@ -170,16 +182,32 @@ export class HomeComponent implements OnInit{
     this.userService.deleteToken();
     this.router.navigate(['/login']);
   }
-  toggleOffCanvasMenu(){
+  // toggleOffCanvasMenu(){
+  //   this.isOffCanvasMenu = !this.isOffCanvasMenu;
+  //
+  //   if (this.isOffCanvasMenuDialog){
+  //     setTimeout(() => {
+  //       this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
+  //     },400)
+  //   } else {
+  //     this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
+  //   }
+  // }
+  toggleOffCanvasMenu() {
     this.isOffCanvasMenu = !this.isOffCanvasMenu;
 
-    if (this.isOffCanvasMenuDialog){
+    if (this.isOffCanvasMenuDialog) {
       setTimeout(() => {
         this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
-      },400)
+      }, 400);
     } else {
       this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
     }
+  }
+
+  toggleSubmenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.isSubmenuOpen = !this.isSubmenuOpen;
   }
 }
 

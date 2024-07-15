@@ -26,6 +26,14 @@ import {HelpComponent} from "./home/help/help.component";
 import {SuccessStripeComponent} from "./home/stripe-checkout/success-stripe/success-stripe.component";
 import {NotSuccessStripeComponent} from "./home/stripe-checkout/not-success-stripe/not-success-stripe.component";
 import {FaqComponent} from "./home/faq/faq.component";
+import {
+  DeleteAccountSettingsComponent
+} from "./home/settings/delete-account-settings/delete-account-settings.component";
+import {PersonalSettingsComponent} from "./home/settings/personal-settings/personal-settings.component";
+import {OrderSettingsComponent} from "./home/settings/order-settings/order-settings.component";
+import {
+  ChangePasswordSettingsComponent
+} from "./home/settings/change-password-settings/change-password-settings.component";
 
 
 
@@ -70,6 +78,10 @@ export const appRoutes: Routes = [
       { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
       { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
       { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},
+      { path: 'settings_delete_account', component:DeleteAccountSettingsComponent , canActivate: [AuthGuard]},
+      { path: 'settings_personal', component:PersonalSettingsComponent , canActivate: [AuthGuard]},
+      { path: 'settings_order', component:OrderSettingsComponent , canActivate: [AuthGuard]},
+      { path: 'settings_password', component:ChangePasswordSettingsComponent , canActivate: [AuthGuard]},
       { path: 'weekplan_pdf', component:WeekplanPdfComponent , canActivate: [AuthGuard]},
       { path: 'faq', component:FaqComponent},
     ]

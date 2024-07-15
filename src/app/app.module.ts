@@ -105,6 +105,10 @@ import { FirstAccessOrderDialogComponent } from './directives/first-access-order
 import { DetailsOrderDialogComponent } from './home/order-history/details-order-dialog/details-order-dialog.component';
 import { SeedComponent } from './home/seed/seed.component';
 import { FaqComponent } from './home/faq/faq.component';
+import { PersonalSettingsComponent } from './home/settings/personal-settings/personal-settings.component';
+import { OrderSettingsComponent } from './home/settings/order-settings/order-settings.component';
+import { ChangePasswordSettingsComponent } from './home/settings/change-password-settings/change-password-settings.component';
+import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
 // AoT requires an exported function for factories
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -195,6 +199,10 @@ export function localeFactory(languageService: LanguageService) {
     DetailsOrderDialogComponent,
     SeedComponent,
     FaqComponent,
+    PersonalSettingsComponent,
+    OrderSettingsComponent,
+    ChangePasswordSettingsComponent,
+    DeleteAccountSettingsComponent,
   ],
   imports: [
     BrowserModule,
