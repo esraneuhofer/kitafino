@@ -62,7 +62,7 @@ const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
-    'https://kitafino-45139aec3e10.herokuapp.com', // Heroku production URL
+    'https://mittagessen-673f11611d04.herokuapp.com', // Heroku production URL
     'https://cateringexpert.de'        // Your website domain
   ],
   credentials: true,
@@ -144,7 +144,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     const userAgent = req.headers['user-agent'];
     if (userAgent && userAgent.includes('Capacitor')) {
-      req.apiBaseUrl = 'https://kitafino-45139aec3e10.herokuapp.com/api';
+      req.apiBaseUrl = 'https://mittagessen-673f11611d04.herokuapp.com/api';
     } else {
       req.apiBaseUrl = '/api';
     }

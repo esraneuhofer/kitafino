@@ -35,7 +35,7 @@ export class SuccessStripeComponent implements OnInit {
 
     console.log('this.platformService.isAndroid',this.platformService.isAndroid);
     console.log('this.platformService.isIos',this.platformService.isIos);
-    window.location.href = "https://kitafino-45139aec3e10.herokuapp.com/home/dashboard";
+    window.location.href = "https://mittagessen-673f11611d04.herokuapp.com/home/dashboard";
 
     // if (this.platformService.isAndroid) {
     //   window.location.href = "your-android-app://home/dashboard";

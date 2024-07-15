@@ -23,16 +23,16 @@ exports.createPaymentIntent = async (req, res) => {
 
     const successUrl = process.env.NODE_ENV === 'production'
       ? isIos || isAndroid
-        ? `https://kitafino-45139aec3e10.herokuapp.com/success_stripe?status=success&amount=${amountPayment}`
-        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=success&amount=${amountPayment}`
+        ? `https://mittagessen-673f11611d04.herokuapp.com/success_stripe?status=success&amount=${amountPayment}`
+        : `https://mittagessen-673f11611d04.herokuapp.com/home/account_overview?status=success&amount=${amountPayment}`
       : isIos || isAndroid
         ? `http://localhost:4200/success_stripe?status=success&amount=${amountPayment}`
         : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
 
     const cancelUrl = process.env.NODE_ENV === 'production'
       ? isIos || isAndroid
-        ? `https://kitafino-45139aec3e10.herokuapp.com/error_stripe?status=failure&amount=${amountPayment}`
-        : `https://kitafino-45139aec3e10.herokuapp.com/home/account_overview?status=failure&amount=${amountPayment}`
+        ? `https://mittagessen-673f11611d04.herokuapp.com/error_stripe?status=failure&amount=${amountPayment}`
+        : `https://mittagessen-673f11611d04.herokuapp.com/home/account_overview?status=failure&amount=${amountPayment}`
       : isIos || isAndroid
         ? `http://localhost:4200/error_stripe?status=failure&amount=${amountPayment}`
         : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
