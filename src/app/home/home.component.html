@@ -119,8 +119,8 @@
                     <path [attr.d]="isSubmenuOpen ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
-                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen ? 'open' : 'closed'" class="pl-8 space-y-1">
-                  <a [routerLink]="['settings_personal']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
+                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen" class="pl-8 space-y-1">
+                  <a [routerLink]="['settings_personal']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-base font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -130,7 +130,7 @@
                     </svg>
                     {{ 'DASHBOARD.SETTINGS.STAMMDATEN' | translate }}
                   </a>
-                  <a [routerLink]="['settings_order']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
+                  <a [routerLink]="['settings_order']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-base font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -139,7 +139,7 @@
                     </svg>
                     {{ 'DASHBOARD.SETTINGS.BESTELLEINSTELLUNG' | translate }}
                   </a>
-                  <a [routerLink]="['settings_password']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
+                  <a [routerLink]="['settings_password']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-base font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -149,7 +149,7 @@
                     </svg>
                     {{ 'DASHBOARD.SETTINGS.PASSWORT.AENDERN' | translate }}
                   </a>
-                  <a [routerLink]="['settings_delete_account']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
+                  <a [routerLink]="['settings_delete_account']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-base font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -331,7 +331,7 @@
                     <path [attr.d]="isSubmenuOpen ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
-                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen ? 'open' : 'closed'" class="pl-8 space-y-1">
+                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen" class="pl-8 space-y-1">
                   <a [routerLink]="['settings_personal']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">

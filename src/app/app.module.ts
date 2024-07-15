@@ -1,35 +1,35 @@
-import {LOCALE_ID, NgModule, isDevMode} from '@angular/core';
+import { LOCALE_ID, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import  {CommonModule} from "@angular/common";
+import { CommonModule, registerLocaleData } from "@angular/common";
 import { AppComponent } from './app.component';
-import {RouteReuseStrategy, RouterModule} from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {appRoutes} from './app-routing.module';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import { appRoutes } from './app-routing.module';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
-import { AuthenticationComponent} from "./authentication/authentication.component";
+import { AuthenticationComponent } from "./authentication/authentication.component";
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterStudentComponent } from './home/register-student/register-student.component';
-import {MatStepperModule} from "@angular/material/stepper";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
-import {MatCardModule} from "@angular/material/card";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { InputFieldComponent } from './directives/input-field/input-field.component';
 import { RegisterTenantComponent } from './home/register-tenant/register-tenant.component';
 import { SettingsComponent } from './home/settings/settings.component';
 import { ToastrComponent } from './directives/toastr/toastr.component';
-import {ToastrModule} from "ngx-toastr";
-import {AuthInterceptor} from "./auth/auth.interceptor";
+import { ToastrModule } from "ngx-toastr";
+import { AuthInterceptor } from "./auth/auth.interceptor";
 import { OrderStudentComponent } from './home/order-student/order-student.component';
 import { OrderContainerComponent } from './home/order-student/order-container/order-container.component';
 import { MealInputCardComponent } from './home/order-student/meal-input-card/meal-input-card.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 import { AccountPaymentOverviewComponent } from './home/account/account-payment-overview/account-payment-overview.component';
 import { RegistrationComponent } from './home/registration/registration/registration.component';
 import { ManageRegistrationStudentComponent } from './home/registration/manage-registration-student/manage-registration-student.component';
@@ -41,9 +41,8 @@ import { ButtonSpinnerComponent } from './directives/button-spinner/button-spinn
 import { DateSelectionComponent } from './home/order-student/date-selection/date-selection.component';
 import { BannerNoRegistrationOrderComponent } from './home/order-student/banner-no-registration-order/banner-no-registration-order.component';
 import { ConfirmOrderComponent } from './home/dialogs/confirm-order/confirm-order.component';
-import {MatDialogModule} from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { ButtonComponent } from './directives/button/button.component';
-import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import localeTr from '@angular/common/locales/tr';
@@ -67,14 +66,14 @@ import { SchoolOverviewComponent } from './home/school-overview/school-overview.
 import { BannerNoSubgroupOrderComponent } from './home/banners/banner-no-subgroup-order/banner-no-subgroup-order.component';
 import { OrderHistoryComponent } from './home/order-history/order-history.component';
 import { GeneralBannerComponent } from './home/banners/general-banner/general-banner.component';
-import {MatTooltipModule} from "@angular/material/tooltip";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { PaginationComponent } from './directives/pagination/pagination.component';
-import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
+import { NgbPagination } from "@ng-bootstrap/ng-bootstrap";
 import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-student-order/banner-no-student-order.component';
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
-import {ServiceWorkerModule, SwUpdate} from '@angular/service-worker';
+import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
 import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
@@ -83,22 +82,22 @@ import { DialogErrorComponent } from './directives/dialog-error/dialog-error.com
 import { ExportCsvDialogComponent } from './directives/export-csv-dialog/export-csv-dialog.component';
 import { AccuntDetailsComponent } from './home/account/accunt-details/accunt-details.component';
 import { SelectLanguageComponent } from './directives/select-language/select-language.component';
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { SchoolAnnouncmentsComponent } from './home/school-announcments/school-announcments.component';
 import { HelpDialogComponent } from './directives/help-dialog/help-dialog.component';
 import { FirstAccessDialogComponent } from './directives/first-access-dialog/first-access-dialog.component';
 import { HelpComponent } from './home/help/help.component';
 import { MessageInfoBoxComponent } from './directives/message-info-box/message-info-box.component';
 import { ConfirmDialogPermanetOrderComponent } from './home/permanent-orders/confirm-dialog-permanet-order/confirm-dialog-permanet-order.component';
-import { TrimTextPipe} from "./directives/trim-text.pipe";
+import { TrimTextPipe } from "./directives/trim-text.pipe";
 import { LabelTooltipComponent } from './directives/label-tooltip/label-tooltip.component';
 import { ConfirmDeleteSpecialFoodComponent } from './home/directives/confirm-delete-special-food/confirm-delete-special-food.component';
 import { ErrorWeekendBannerComponent } from './home/directives/error-weekend-banner/error-weekend-banner.component';
-import {LanguageService} from "./service/language.service";
+import { LanguageService } from "./service/language.service";
 import { CustomToastrComponent } from './directives/custom-toastr/custom-toastr.component';
 import { CustomDatePipe } from './directives/custom-date.pipe';
-import {IonicModule, IonicRouteStrategy} from "@ionic/angular";
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { CloseAccountDialogComponent } from './directives/close-account-dialog/close-account-dialog.component';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FirstAccessOrderDialogComponent } from './directives/first-access-order-dialog/first-access-order-dialog.component';
@@ -109,11 +108,12 @@ import { PersonalSettingsComponent } from './home/settings/personal-settings/per
 import { OrderSettingsComponent } from './home/settings/order-settings/order-settings.component';
 import { ChangePasswordSettingsComponent } from './home/settings/change-password-settings/change-password-settings.component';
 import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
-// AoT requires an exported function for factories
 
+// AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
 registerLocaleData(localeTr, 'tr');
@@ -135,7 +135,7 @@ registerLocaleData(localeBg, 'bg');
 export function localeFactory(languageService: LanguageService) {
   return languageService.getLanguage();
 }
-//
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -238,7 +238,6 @@ export function localeFactory(languageService: LanguageService) {
       }
     }),
     IonicModule.forRoot({ mode: 'ios' })
-
   ],
   providers: [
     FileOpener,
@@ -255,8 +254,7 @@ export function localeFactory(languageService: LanguageService) {
       deps: [LanguageService]
     }
   ],
-  bootstrap: [AppComponent],
-
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(private swUpdate: SwUpdate) {

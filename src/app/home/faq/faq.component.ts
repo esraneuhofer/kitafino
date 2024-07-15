@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 interface FAQ {
   id: number;
@@ -10,7 +11,23 @@ interface FAQ {
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+  styleUrls: ['./faq.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('void', style({
+        opacity: 0,
+        height: '0px',
+        overflow: 'hidden'
+      })),
+      state('*', style({
+        opacity: 1,
+        height: '*'
+      })),
+      transition('void <=> *', [
+        animate('300ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class FaqComponent {
   faqs: FAQ[] = [

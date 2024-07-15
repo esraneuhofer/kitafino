@@ -26,30 +26,17 @@ import {FirstAccessDialogComponent} from "../directives/first-access-dialog/firs
   styleUrls: ['./home.component.scss'],
   animations: [
     trigger('submenu', [
-      state('closed', style({
-        height: '0',
+      state('void', style({
         opacity: 0,
-        overflow: 'hidden',
+        height: '0px',
+        overflow: 'hidden'
       })),
-      state('open', style({
-        height: '*',
+      state('*', style({
         opacity: 1,
+        height: '*'
       })),
-      transition('closed => open', [
+      transition('void <=> *', [
         animate('300ms ease-in-out')
-      ]),
-      transition('open => closed', [
-        animate('300ms ease-in-out')
-      ]),
-    ]),
-    trigger('opacity', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease', style({  opacity: 1 }))
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('300ms ease', style({ opacity: 0 }))
       ])
     ]),
     trigger('opacityTranslateX', [

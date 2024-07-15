@@ -53,13 +53,16 @@
                       <img src="/assets/payment-icons/google-pay-icon.svg" alt="Google Pay" class="max-h-full max-w-full">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/amex-logo.svg" alt="American Express" class="max-h-full max-w-full">
-                    </div>
-                    <div class="flex items-center justify-center h-12 w-12">
                       <img src="/assets/payment-icons/master-logo.svg" alt="MasterCard" class="max-h-full max-w-full">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
                       <img src="/assets/payment-icons/visa-logo.svg" alt="Visa" class="max-h-full max-w-full">
+                    </div>
+                    <div class="flex items-center justify-center h-12 w-12">
+                      <img src="/assets/payment-icons/amex-logo.svg" alt="American Express" class="max-h-full max-w-full">
+                    </div>
+                    <div class="flex items-center justify-center h-12 w-12">
+                      <img src="/assets/payment-icons/giropay.svg" alt="Giro Pay" class="max-h-full max-w-full">
                     </div>
                   </div>
                   <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mt-4" #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)">

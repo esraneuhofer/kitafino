@@ -18,7 +18,7 @@
               </span>
             </button>
           </dt>
-          <dd class="mt-2 pr-12" [id]="'faq-' + faq.id" *ngIf="faq.open">
+          <dd class="mt-2 pr-12" [id]="'faq-' + faq.id" *ngIf="faq.open" [@fade]="faq.open ? 'open' : 'closed'">
             <p class="text-base leading-7 text-gray-600" [innerHTML]="faq.answer"></p>
           </dd>
         </div>
