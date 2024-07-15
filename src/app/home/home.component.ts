@@ -59,6 +59,13 @@ import {FirstAccessDialogComponent} from "../directives/first-access-dialog/firs
 })
 export class HomeComponent implements OnInit{
 
+
+  isSubmenuOpen = false;
+
+  toggleSubmenu() {
+    this.isSubmenuOpen = !this.isSubmenuOpen;
+  }
+
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
   customerInfo!:CustomerInterface;

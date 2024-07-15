@@ -63,7 +63,7 @@
                   <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell hidden">{{order.price | currency:'€'}}</td>
                   <td class="py-4 pl-8 pr-0 text-right align-top tabular-nums text-gray-700">
                     <button
-                      [ngClass]="order.cancelPossible > 0 ? 'bg-red-300 hover:bg-red-500' : 'bg-gray-400'"
+                      [ngClass]="order.cancelPossible > 0 ? 'bg-red-500 hover:bg-red-300' : 'bg-gray-400'"
                       [disabled]="order.cancelPossible <= 0"
                       [matTooltip]="order.cancelPossible > 0 ? '' : 'FIRSTPAGE.TOOLTIP_EXPIRED | translate }}'"
                       (click)="cancelOrder(order)"
