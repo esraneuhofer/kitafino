@@ -4,7 +4,6 @@ import {environment} from "../../environments/environment";
 import {catchError, map, Observable, of} from "rxjs";
 import {TenantStudentInterface} from "../classes/tenant.class";
 import {AccountCustomerInterface} from "../classes/account.class";
-import {Socket} from "ngx-socket-io";
 
 
 @Injectable(
@@ -15,7 +14,7 @@ export class AccountService {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-  constructor(private http:HttpClient,private socket: Socket) {
+  constructor(private http:HttpClient) {
 
   }
   getAccountTenant(){
@@ -23,7 +22,4 @@ export class AccountService {
       .pipe(map((response: AccountCustomerInterface) => (response)));
   }
 
-  getBalanceUpdates(): Observable<any> {
-    return this.socket.fromEvent('balanceUpdated');
-  }
 }

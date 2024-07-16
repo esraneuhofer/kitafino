@@ -26,6 +26,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {Capacitor} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
 
+import { App } from '@capacitor/app';
 
 export interface PaymentIntentResponse {
   clientSecret: string;
@@ -71,7 +72,10 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private r: ActivatedRoute,
     private platformService: PlatformService,
     private translate: TranslateService) {
-    this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
+
+    this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER');
+    // Lausch auf das App-Event
+    this.initializeAppListeners();
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
@@ -80,9 +84,6 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.router.navigate([], navigationExtras);
   }
   ngOnInit() {
-    this.accountService.getBalanceUpdates().subscribe((update: any) => {
-      this.currentBalance = update.currentBalance;
-    });
 
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
@@ -264,6 +265,42 @@ export class AccountPaymentOverviewComponent implements OnInit {
   }
   goToLink(){
     this.router.navigate(['../home/details_account'], {relativeTo: this.route.parent});
+  }
+
+  initializeAppListeners() {
+    App.addListener('appStateChange', ({ isActive }) => {
+      if (isActive) {
+        this.onAppResume();
+      }
+    });
+
+    App.addListener('resume', () => {
+      this.onAppResume();
+    });
+
+    App.addListener('pause', () => {
+      this.onAppPause();
+    });
+  }
+
+  onAppResume() {
+    console.log('App ist wieder im Vordergrund');
+    // Hier die gewünschte Funktion aufrufen
+    this.loadAccountCharges();
+  }
+
+  onAppPause() {
+    console.log('App ist im Hintergrund');
+    // Optional: Hier kannst du Dinge erledigen, wenn die App in den Hintergrund geht
+  }
+
+  loadAccountCharges() {
+    this.pageLoaded = false;
+    this.accountService.getAccountTenant().subscribe(accountTenant => {
+      this.accountTenant = accountTenant;
+      this.pageLoaded = true
+      console.log('Account charges loaded', this.accountTenant);
+    });
   }
 
 }
