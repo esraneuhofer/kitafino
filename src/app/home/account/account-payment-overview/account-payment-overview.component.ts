@@ -205,7 +205,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
 
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
-      this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
+      // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
       this.submittingRequest = false;
 
     }
@@ -277,10 +277,6 @@ export class AccountPaymentOverviewComponent implements OnInit {
     App.addListener('resume', () => {
       this.onAppResume();
     });
-
-    App.addListener('pause', () => {
-      this.onAppPause();
-    });
   }
 
   onAppResume() {
@@ -289,10 +285,6 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.loadAccountCharges();
   }
 
-  onAppPause() {
-    console.log('App ist im Hintergrund');
-    // Optional: Hier kannst du Dinge erledigen, wenn die App in den Hintergrund geht
-  }
 
   loadAccountCharges() {
     this.pageLoaded = false;
