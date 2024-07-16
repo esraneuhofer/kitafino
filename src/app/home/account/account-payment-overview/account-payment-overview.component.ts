@@ -52,6 +52,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
   registeredStudents: StudentInterface[] = [];
   tenantStudent!: TenantStudentInterface;
   accountTenant!: AccountCustomerInterface;
+  currentBalance:number = 0;
 
   constructor(
     private router: Router,
@@ -79,6 +80,10 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.router.navigate([], navigationExtras);
   }
   ngOnInit() {
+    this.accountService.getBalanceUpdates().subscribe((update: any) => {
+      this.currentBalance = update.currentBalance;
+    });
+
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
       console.log('params',params);

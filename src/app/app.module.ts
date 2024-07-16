@@ -108,6 +108,8 @@ import { PersonalSettingsComponent } from './home/settings/personal-settings/per
 import { OrderSettingsComponent } from './home/settings/order-settings/order-settings.component';
 import { ChangePasswordSettingsComponent } from './home/settings/change-password-settings/change-password-settings.component';
 import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
+import {environment} from "../environments/environment";
+import {SocketIoConfig} from "ngx-socket-io";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -135,6 +137,8 @@ registerLocaleData(localeBg, 'bg');
 export function localeFactory(languageService: LanguageService) {
   return languageService.getLanguage();
 }
+
+const config: SocketIoConfig = { url: environment.apiBaseUrl, options: {} }
 
 @NgModule({
   declarations: [

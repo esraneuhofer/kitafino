@@ -126,15 +126,32 @@ app.use(bodyParser.urlencoded({
 const AccountSchema = mongoose.model('AccountSchema');
 
 // Überwache Änderungen am Modell
-AccountSchema.watch().on('change', (change) => {
-  if (change.operationType === 'update') {
-    io.emit('balanceUpdated', change.fullDocument);
-  }
-});
-
-
+// Überwache Änderungen am Modell für spezifische Benutzer
 io.on('connection', (socket) => {
   console.log('Ein Benutzer ist verbunden');
+
+  // Erfasse den userId vom Client
+  const userId = socket.handshake.query.userId;
+  if (userId) {
+    // Füge den Socket zu einem Raum hinzu, der dem userId entspricht
+    socket.join(userId);
+
+    // Erstelle einen gefilterten Change Stream
+    const changeStream = AccountSchema.watch([{ $match: { 'fullDocument.userId': userId } }]);
+
+    changeStream.on('change', (change) => {
+      if (change.operationType === 'update') {
+        const updatedDoc = change.fullDocument;
+        io.to(updatedDoc.userId).emit('balanceUpdated', updatedDoc);
+      }
+    });
+
+    // Handle disconnection
+    socket.on('disconnect', () => {
+      changeStream.close();
+    });
+  }
+
   // Sende eine Testnachricht an den Client
   socket.emit('test', 'Verbindung erfolgreich');
 });
