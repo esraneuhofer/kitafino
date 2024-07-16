@@ -15,12 +15,15 @@ import {ChargingService} from "../../../service/charging.service";
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmWithdrawDialogComponent} from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
+import {
+  ConfirmWithdrawDialogComponent
+} from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
+import {Capacitor} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
 
 
@@ -49,7 +52,6 @@ export class AccountPaymentOverviewComponent implements OnInit {
   registeredStudents: StudentInterface[] = [];
   tenantStudent!: TenantStudentInterface;
   accountTenant!: AccountCustomerInterface;
-  currentBalance:number = 0;
 
   constructor(
     private router: Router,
@@ -68,10 +70,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
     private r: ActivatedRoute,
     private platformService: PlatformService,
     private translate: TranslateService) {
-
-    this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER');
-    // Lausch auf das App-Event
-    // this.initializeAppListeners();
+    this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
@@ -80,7 +79,6 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.router.navigate([], navigationExtras);
   }
   ngOnInit() {
-
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
       console.log('params',params);
@@ -201,7 +199,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
 
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
-      // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
+      this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
       this.submittingRequest = false;
 
     }
@@ -262,33 +260,5 @@ export class AccountPaymentOverviewComponent implements OnInit {
   goToLink(){
     this.router.navigate(['../home/details_account'], {relativeTo: this.route.parent});
   }
-
-  // initializeAppListeners() {
-  //   App.addListener('appStateChange', ({ isActive }) => {
-  //     if (isActive) {
-  //       this.onAppResume();
-  //     }
-  //   });
-  //
-  //   App.addListener('resume', () => {
-  //     this.onAppResume();
-  //   });
-  // }
-  //
-  // onAppResume() {
-  //   console.log('App ist wieder im Vordergrund');
-  //   // Hier die gewünschte Funktion aufrufen
-  //   this.loadAccountCharges();
-  // }
-  //
-  //
-  // loadAccountCharges() {
-  //   this.pageLoaded = false;
-  //   this.accountService.getAccountTenant().subscribe(accountTenant => {
-  //     this.accountTenant = accountTenant;
-  //     this.pageLoaded = true
-  //     console.log('Account charges loaded', this.accountTenant);
-  //   });
-  // }
 
 }
