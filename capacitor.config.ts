@@ -12,7 +12,7 @@ const config: CapacitorConfig = {
     hostname: 'my-app.com',
     androidScheme: 'https',
     cleartext: true,
-    url: 'https://kitafino-45139aec3e10.herokuapp.com'
+    url: 'https://mittagessen-673f11611d04.herokuapp.com'
     // url: 'http://localhost:4200/'
   },
   plugins: {
