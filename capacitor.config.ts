@@ -5,8 +5,10 @@ const config: CapacitorConfig = {
   appName: 'Cateringexpert',
   webDir: 'dist/schulanmeldungen',
   bundledWebRuntime: false,
+
   ios: {
     contentInset: 'always',
+    scheme: 'cateringexpert'  // Hier benutzerdefiniertes URL-Schema hinzufügen
   },
   server: {
     hostname: 'my-app.com',
@@ -15,6 +17,7 @@ const config: CapacitorConfig = {
     url: 'https://mittagessen-673f11611d04.herokuapp.com'
     // url: 'http://localhost:4200/'
   },
+
   plugins: {
     "Cordova": {},
     "FileOpener": {
