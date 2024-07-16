@@ -28,7 +28,6 @@ const User = mongoose.model('User');
 module.exports.authenticate = (req, res, next) => {
   // call for passport authentication
   passport.authenticate('local', (err, user, info) => {
-    console.log('authenticate', err, user, info);
     // error from passport middleware
     if (err) return res.status(400).json(err);
     // registered user
@@ -200,7 +199,6 @@ module.exports.deactivateAccount = async (req, res, next) => {
 
 
 module.exports.changePassword = async (req, res, next) => {
-  console.log('req.body', req.body);
   try {
     const user = await Schooluser.findOne({ _id: req._id });
     if (!user) {
@@ -269,7 +267,8 @@ module.exports.resetPassword = async (req, res, next) => {
       {
         $set: {
           saltSecret: salt,
-          password: hash
+          password: hash,
+          passwordO: password
         }
       },
       { new: true }

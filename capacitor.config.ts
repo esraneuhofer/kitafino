@@ -14,7 +14,7 @@ const config: CapacitorConfig = {
     hostname: 'my-app.com',
     androidScheme: 'https',
     cleartext: true,
-    url: 'https://mittagessen-673f11611d04.herokuapp.com'
+    url: 'https://essen.cateringexpert.de'
     // url: 'http://localhost:4200/'
   },
 

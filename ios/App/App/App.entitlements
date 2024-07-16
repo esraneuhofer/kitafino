@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:mittagessen-673f11611d04.herokuapp.com</string>
+		<string>applinks:essen.cateringexpert.de</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>

@@ -15,9 +15,7 @@ import {ChargingService} from "../../../service/charging.service";
 import {AccountService} from "../../../service/account.serive";
 import {AccountCustomerInterface} from "../../../classes/account.class";
 import {MatDialog} from "@angular/material/dialog";
-import {
-  ConfirmWithdrawDialogComponent
-} from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
+import {ConfirmWithdrawDialogComponent} from "../account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component";
 import {HttpClient} from "@angular/common/http";
 import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";

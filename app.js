@@ -62,7 +62,7 @@ const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
-    'https://mittagessen-673f11611d04.herokuapp.com', // Heroku production URL
+    'https://essen.cateringexpert.de', // Heroku production URL
     'https://cateringexpert.de'        // Your website domain
   ],
   credentials: true,
@@ -147,7 +147,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use((req, res, next) => {
     const userAgent = req.headers['user-agent'];
     if (userAgent && userAgent.includes('Capacitor')) {
-      req.apiBaseUrl = 'https://mittagessen-673f11611d04.herokuapp.com/api';
+      req.apiBaseUrl = 'https://essen.cateringexpert.de/api';
     } else {
       req.apiBaseUrl = '/api';
     }
@@ -181,6 +181,19 @@ app.use((err, req, res, next) => {
         console.log(err);
     }
 });
+
+app.get('/success_redirect', (req, res) => {
+  const { status, amount } = req.query;
+  const deepLink = `essenapp://success?status=${status}&amount=${amount}`;
+  res.redirect(deepLink);
+});
+
+app.get('/error_redirect', (req, res) => {
+  const { status, amount } = req.query;
+  const deepLink = `essenapp://error?status=${status}&amount=${amount}`;
+  res.redirect(deepLink);
+});
+
 switch (environment) {
   case 'production':
     app.use(express.static(__dirname + '/dist/schulanmeldungen'));

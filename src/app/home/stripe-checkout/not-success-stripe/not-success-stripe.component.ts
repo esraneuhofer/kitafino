@@ -15,7 +15,7 @@ export class NotSuccessStripeComponent {
   }
 
   goBack(){
-      window.location.href = "https://mittagessen-673f11611d04.herokuapp.com/home/dashboard";
+      window.location.href = "https://essen.cateringexpert.de/home/dashboard";
 
   }
 }
