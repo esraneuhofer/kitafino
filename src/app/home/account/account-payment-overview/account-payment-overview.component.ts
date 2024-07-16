@@ -23,10 +23,8 @@ import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
-import {Capacitor} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
 
-import { App } from '@capacitor/app';
 
 export interface PaymentIntentResponse {
   clientSecret: string;
@@ -75,7 +73,7 @@ export class AccountPaymentOverviewComponent implements OnInit {
 
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER');
     // Lausch auf das App-Event
-    this.initializeAppListeners();
+    // this.initializeAppListeners();
   }
   private updateUrlWithoutStatus() {
     const navigationExtras: NavigationExtras = {
@@ -267,32 +265,32 @@ export class AccountPaymentOverviewComponent implements OnInit {
     this.router.navigate(['../home/details_account'], {relativeTo: this.route.parent});
   }
 
-  initializeAppListeners() {
-    App.addListener('appStateChange', ({ isActive }) => {
-      if (isActive) {
-        this.onAppResume();
-      }
-    });
-
-    App.addListener('resume', () => {
-      this.onAppResume();
-    });
-  }
-
-  onAppResume() {
-    console.log('App ist wieder im Vordergrund');
-    // Hier die gewünschte Funktion aufrufen
-    this.loadAccountCharges();
-  }
-
-
-  loadAccountCharges() {
-    this.pageLoaded = false;
-    this.accountService.getAccountTenant().subscribe(accountTenant => {
-      this.accountTenant = accountTenant;
-      this.pageLoaded = true
-      console.log('Account charges loaded', this.accountTenant);
-    });
-  }
+  // initializeAppListeners() {
+  //   App.addListener('appStateChange', ({ isActive }) => {
+  //     if (isActive) {
+  //       this.onAppResume();
+  //     }
+  //   });
+  //
+  //   App.addListener('resume', () => {
+  //     this.onAppResume();
+  //   });
+  // }
+  //
+  // onAppResume() {
+  //   console.log('App ist wieder im Vordergrund');
+  //   // Hier die gewünschte Funktion aufrufen
+  //   this.loadAccountCharges();
+  // }
+  //
+  //
+  // loadAccountCharges() {
+  //   this.pageLoaded = false;
+  //   this.accountService.getAccountTenant().subscribe(accountTenant => {
+  //     this.accountTenant = accountTenant;
+  //     this.pageLoaded = true
+  //     console.log('Account charges loaded', this.accountTenant);
+  //   });
+  // }
 
 }
