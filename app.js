@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
-const { Server } = require('socket.io');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
