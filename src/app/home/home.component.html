@@ -20,7 +20,7 @@
     </div>
     <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
     <div *ngIf='isOffCanvasMenuDialog' aria-modal="true" class="relative z-40 lg:hidden" role="dialog">
-      <div *ngIf="isOffCanvasMenu" @opacity class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
+      <div *ngIf="isOffCanvasMenu"  class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
 
       <div (click)="toggleOffCanvasMenu()" *ngIf="isOffCanvasMenu" @opacityTranslateX class="fixed inset-0 z-40 flex">
         <div *ngIf='isOffCanvasMenu' @opacityTranslateX class="relative flex w-full max-w-xs flex-1 flex-col bg-white focus:outline-none">
@@ -119,7 +119,7 @@
                     <path [attr.d]="isSubmenuOpen ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
-                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen" class="pl-8 space-y-1">
+                <div *ngIf="isSubmenuOpen" @submenu class="pl-8 space-y-1">
                   <a [routerLink]="['settings_personal']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-base font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -331,7 +331,7 @@
                     <path [attr.d]="isSubmenuOpen ? 'M19 9l-7 7-7-7' : 'M9 5l7 7-7 7'" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
-                <div *ngIf="isSubmenuOpen" [@submenu]="isSubmenuOpen" class="pl-8 space-y-1">
+                <div *ngIf="isSubmenuOpen" @submenu class="pl-8 space-y-1">
                   <a [routerLink]="['settings_personal']" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-2 py-2 text-sm font-medium" routerLinkActive="bg-gray-200">
                     <svg aria-hidden="true" class="text-gray-400 group-hover:text-gray-500 mr-4 h-6 w-6" fill="none"
                          stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
