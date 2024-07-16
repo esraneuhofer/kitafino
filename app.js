@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
-
+const { Server } = require('socket.io');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -16,6 +16,7 @@ var server = require('http').createServer(app);
 const mongoose = require('mongoose');
 const uri = process.env.MONGO_URI;
 const cookieParser = require('cookie-parser');
+const io = new Server(server);
 //
 //
 // i18n.configure({
@@ -55,6 +56,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => {
     console.error('Failed to connect to MongoDB:', err);
   });
+
 
 
 // CORS configuration
@@ -121,6 +123,22 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+const AccountSchema = mongoose.model('AccountSchema');
+
+// Überwache Änderungen am Modell
+AccountSchema.watch().on('change', (change) => {
+  if (change.operationType === 'update') {
+    io.emit('balanceUpdated', change.fullDocument);
+  }
+});
+
+
+io.on('connection', (socket) => {
+  console.log('Ein Benutzer ist verbunden');
+  // Sende eine Testnachricht an den Client
+  socket.emit('test', 'Verbindung erfolgreich');
+});
+
 
 // app.use((req, res, next) => {
 //   const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen
@@ -128,7 +146,7 @@ app.use(bodyParser.urlencoded({
 //     i18n.setLocale(lang); // Locale auf die gespeicherte Sprache setzen
 //   } else {
 //     i18n.setLocale(i18n.getLocale()); // Standard-Sprache setzen
-//   }
+//   }co
 //   next();
 // });
 
