@@ -52,7 +52,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   registeredStudents: StudentInterface[] = [];
   tenantStudent!: TenantStudentInterface;
   accountTenant!: AccountCustomerInterface;
-
+  hasHandledReturn = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -131,8 +131,29 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     // Entferne den Event-Listener, wenn die Komponente zerstört wird
     window.removeEventListener('focus', this.handleWindowFocus);
   }
+  handleStripeReturn(): void {
+    const params = new URLSearchParams(window.location.search);
+    console.log('params',params);
+    const paymentStatus = params.get('status');
+    const paymentAmount = params.get('amount');
+    if (paymentStatus && paymentStatus === 'success') {
+      let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
+      let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
+      this.dialogService.openMessageDialog(reason,header, 'success');
+      this.updateUrlWithoutStatus();
+    } else if (paymentStatus && paymentStatus === 'failure') {
+      let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
+      let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+      this.dialogService.openMessageDialog(reason,header,'error');
+      this.updateUrlWithoutStatus();
+    }
+    console.log("asdadsasda")
+
+  }
+
   handleWindowFocus = (): void => {
-   alert("focus")
+    this.hasHandledReturn = false;
+    this.handleStripeReturn();
   }
 
   opendialog() {
