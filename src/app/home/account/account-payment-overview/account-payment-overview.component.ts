@@ -132,24 +132,25 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     window.removeEventListener('focus', this.handleWindowFocus);
   }
   handleStripeReturn(): void {
-    const params = new URLSearchParams(window.location.search);
-    console.log('params',params);
-    const paymentStatus = params.get('status');
-    const paymentAmount = params.get('amount');
-    const fullUrl = window.location.href;
-    alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount + ' fullUrl: ' + fullUrl)
-    if (paymentStatus && paymentStatus === 'success') {
-      let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
-      let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
-      this.dialogService.openMessageDialog(reason,header, 'success');
-      this.updateUrlWithoutStatus();
-    } else if (paymentStatus && paymentStatus === 'failure') {
-      let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
-      let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
-      this.dialogService.openMessageDialog(reason,header,'error');
-      this.updateUrlWithoutStatus();
-    }
-
+    window.location.reload();
+    // const params = new URLSearchParams(window.location.search);
+    // console.log('params',params);
+    // const paymentStatus = params.get('status');
+    // const paymentAmount = params.get('amount');
+    // const fullUrl = window.location.href;
+    // alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount + ' fullUrl: ' + fullUrl)
+    // if (paymentStatus && paymentStatus === 'success') {
+    //   let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
+    //   let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
+    //   this.dialogService.openMessageDialog(reason,header, 'success');
+    //   this.updateUrlWithoutStatus();
+    // } else if (paymentStatus && paymentStatus === 'failure') {
+    //   let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
+    //   let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+    //   this.dialogService.openMessageDialog(reason,header,'error');
+    //   this.updateUrlWithoutStatus();
+    // }
+    //
 
   }
 
@@ -227,7 +228,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     this.submittingRequest = true;
     const isIos = this.platformService.isIos
     const isIosAndroid = this.platformService.isAndroid
-
+    console.log('isIos',isIos);
+    console.log('isIosAndroid',isIosAndroid);
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
       // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});

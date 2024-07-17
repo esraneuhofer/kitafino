@@ -48,6 +48,7 @@ export const appRoutes: Routes = [
   {
     path: 'success_stripe', component: SuccessStripeComponent,
   },
+  {path: 'error_stripe', component: NotSuccessStripeComponent},
 
   {
     path: 'login', component: AuthenticationComponent,
@@ -63,7 +64,6 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-      {path: 'error_stripe', component: NotSuccessStripeComponent},
       {path: 'help', component: HelpComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'permanent_order', component: PermanentOrdersComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'charge_account', component: ChargeAccountComponent, canActivate: [AuthGuard, MainGuard]},
