@@ -50,3 +50,20 @@
   padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+.submenu-link {
+  font-size: 0.875rem; /* Kleinere Schriftgröße */
+  padding-left: 0.5rem; /* Weniger Platz nach links */
+  margin-left: 0.5rem; /* Weniger Abstand nach links */
+}
+
+.submenu-icon {
+  width: 1.25rem; /* Kleinere Icons */
+  height: 1.25rem; /* Kleinere Icons */
+  margin-right: 0.5rem; /* Abstand zwischen Icon und Text */
+}
+
+.submenu-link.flex {
+  display: flex;
+  align-items: center;
+}

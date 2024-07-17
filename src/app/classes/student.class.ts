@@ -6,12 +6,22 @@ export interface StudentInterface {
   subgroup:string,
   customerId:string,
   specialFood: string | null;
+  bildungTeilhabe: boolean;
+  // butFrom: string;
+  // butTo: string;
+  // butAmount: number;
+  bildungTeilhabeLog:{butFrom:string, butTo:string, butAmount:number}[]
 }
 export interface StudentInterfaceId extends StudentInterface{
   _id: string;
 }
 export function setEmptyStudentModel():StudentInterface{
   return {
+    bildungTeilhabe: false,
+    // butFrom: '',
+    // butTo: '',
+    // butAmount: 0,
+    bildungTeilhabeLog:[],
     firstName: '',
     lastName:'',
     username:'',

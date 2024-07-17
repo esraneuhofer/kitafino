@@ -109,6 +109,7 @@ import { OrderSettingsComponent } from './home/settings/order-settings/order-set
 import { ChangePasswordSettingsComponent } from './home/settings/change-password-settings/change-password-settings.component';
 import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
 import {environment} from "../environments/environment";
+import { ButComponent } from './home/but/but.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -205,6 +206,7 @@ export function localeFactory(languageService: LanguageService) {
     OrderSettingsComponent,
     ChangePasswordSettingsComponent,
     DeleteAccountSettingsComponent,
+    ButComponent,
   ],
   imports: [
     BrowserModule,

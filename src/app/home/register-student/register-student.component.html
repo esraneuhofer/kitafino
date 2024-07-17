@@ -98,6 +98,29 @@
                               </div>
                             </div>
                           </div>
+<!--                          <div class="sm:col-span-4">-->
+<!--                            <div class="space-y-5">-->
+<!--                              <div class="relative flex items-start">-->
+<!--                                <div class="flex h-6 items-center">-->
+<!--                                  <input [(ngModel)]="studentModel.bildungTeilhabe"-->
+<!--                                         aria-describedby="comments-description"-->
+<!--                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+<!--                                         id="but"-->
+<!--                                         name="but"-->
+<!--                                         type="checkbox">-->
+<!--                                </div>-->
+<!--                                <div class="ml-3 text-sm leading-6">-->
+<!--                                  <label class="font-medium text-gray-900" for="subGroupUnknown">Bildung und Teilhabe</label>-->
+<!--                                  <p class="text-gray-500" id="comments-bildungTeilhabe">Bitte nur ankreuzen, wenn ein Anspruch besteht</p>-->
+<!--                                  <p class="text-gray-500" id="moreInformation">-->
+<!--                                    <a style="color: #3b82f6" (click)="openInformationBut()"><u>-->
+<!--                                      Weitere Informationen hier klicken-->
+<!--                                    </u></a>-->
+<!--                                  </p>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
                         </ng-container>
                         <!-- Button hier eingefügt für kleine Bildschirme -->
                         <div class="sm:hidden flex justify-end mt-4">
@@ -127,6 +150,9 @@
                         <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
                         <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>
                         <p *ngIf="customerInfo.order.split.length > 1 &&  !customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>
+<!--                        <h2  class="text-base font-semibold leading-7 text-gray-900 mt-3">Bildung und Teilhabe</h2>-->
+<!--                        <p  class="text-sm leading-6 text-gray-600">Sollten Sie Anspruch auf Bildung und Teilhabe haben, können kreuzen Sie bitte das Feld [Bildung und Teilhabe] an. Damit Ihr Konto jedoch freigeschlatet wird für Bildung und Teilhabe, müssen Sie den Bewilligungsbescheid einrichen.</p>-->
+<!--                        <p class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>-->
 
                       </div>
                     </div>

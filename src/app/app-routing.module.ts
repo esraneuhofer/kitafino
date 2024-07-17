@@ -34,6 +34,7 @@ import {OrderSettingsComponent} from "./home/settings/order-settings/order-setti
 import {
   ChangePasswordSettingsComponent
 } from "./home/settings/change-password-settings/change-password-settings.component";
+import {ButComponent} from "./home/but/but.component";
 
 
 export const appRoutes: Routes = [
@@ -64,6 +65,8 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
+
+      {path: 'but', component: ButComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'help', component: HelpComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'permanent_order', component: PermanentOrdersComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'charge_account', component: ChargeAccountComponent, canActivate: [AuthGuard, MainGuard]},

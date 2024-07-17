@@ -51,7 +51,6 @@ export class RegisterStudentComponent implements OnInit{
               private toaster:ToastrService,
               private r: ActivatedRoute,
               private dialog: MatDialog,
-              private dialogService: MessageDialogService,
               private generellService: GenerellService,
               private tenantService: TenantServiceStudent,
               private dialogeService: MessageDialogService,
@@ -84,6 +83,13 @@ export class RegisterStudentComponent implements OnInit{
       this.isFirstChange = false;
     }
     this.studentModel.specialFood = event;
+  }
+
+  openInformationBut(){
+    this.dialogeService.openMessageDialog(
+      this.translate.instant('INFO_BUT_REGISTRATION_STUDENT'),
+      this.translate.instant('BUT_LABEL'),"info"
+    )
   }
   ngOnInit() {
     forkJoin(
@@ -125,7 +131,7 @@ export class RegisterStudentComponent implements OnInit{
        reason = this.translate.instant('SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP')
     }
 
-    this.dialogService.openMessageDialog(reason, heading,'info');
+    this.dialogeService.openMessageDialog(reason, heading,'info');
     console.log('open dialog');
   }
 

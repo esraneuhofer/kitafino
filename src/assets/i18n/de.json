@@ -510,5 +510,7 @@
   "PROJECT_NOT_EXIST": "Das Projekt existiert nicht. Bitte überprüfen Sie Ihre Eingabe",
   "REGISTRATION_ERROR": "Ein Fehler ist aufgetreten bei der Registrierung.",
   "UND": "und",
-  "EMAIL_LABEL_REGISTRATION": "E-Mail Adresse"
+  "EMAIL_LABEL_REGISTRATION": "E-Mail Adresse",
+  "NICHT_BEKANNT": "Nicht bekannt",
+  "UNSICHER_WELCHE_UNTERGRUPPE": "Sollten Sie sich unsicher sein, in welche Untergruppe der Verpflegungsteilnehmer gehört, bitte anklicken"
 }
