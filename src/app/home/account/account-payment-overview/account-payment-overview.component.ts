@@ -228,7 +228,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
-      this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
+      // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
       this.submittingRequest = false;
 
     }
