@@ -36,7 +36,6 @@ import {
 } from "./home/settings/change-password-settings/change-password-settings.component";
 
 
-
 export const appRoutes: Routes = [
   {
     path: 'signup', component: AuthenticationComponent,
@@ -49,9 +48,7 @@ export const appRoutes: Routes = [
   {
     path: 'success_stripe', component: SuccessStripeComponent,
   },
-  {
-    path: 'error_stripe', component: NotSuccessStripeComponent,
-  },
+
   {
     path: 'login', component: AuthenticationComponent,
     children: [{path: '', component: SignInComponent}]
@@ -60,30 +57,31 @@ export const appRoutes: Routes = [
     path: 'password_reset', component: AuthenticationComponent,
     children: [{path: '', component: ResetPasswordComponent}]
   },
-  { path: 'register_tenant', component:RegisterTenantComponent , canActivate: [AuthGuard]},
+  {path: 'register_tenant', component: RegisterTenantComponent, canActivate: [AuthGuard]},
   {
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'help', component:HelpComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'permanent_order', component:PermanentOrdersComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'charge_account', component:ChargeAccountComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'register_student', component:RegisterStudentComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'details_account', component:AccuntDetailsComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'account_overview', component:AccountPaymentOverviewComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'messages', component:SchoolAnnouncmentsComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'order_student', component:OrderStudentComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'order_history', component:OrderHistoryComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'dashboard', component:DashboardComponent , canActivate: [AuthGuard,MainGuard]},
-      { path: 'register', component:RegistrationComponent , canActivate: [AuthGuard]},
-      { path: 'settings', component:SettingsComponent , canActivate: [AuthGuard]},
-      { path: 'settings_delete_account', component:DeleteAccountSettingsComponent , canActivate: [AuthGuard]},
-      { path: 'settings_personal', component:PersonalSettingsComponent , canActivate: [AuthGuard]},
-      { path: 'settings_order', component:OrderSettingsComponent , canActivate: [AuthGuard]},
-      { path: 'settings_password', component:ChangePasswordSettingsComponent , canActivate: [AuthGuard]},
-      { path: 'weekplan_pdf', component:WeekplanPdfComponent , canActivate: [AuthGuard]},
-      { path: 'faq', component:FaqComponent},
+      {path: 'error_stripe', component: NotSuccessStripeComponent},
+      {path: 'help', component: HelpComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'permanent_order', component: PermanentOrdersComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'charge_account', component: ChargeAccountComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'register_student', component: RegisterStudentComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'details_account', component: AccuntDetailsComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'account_overview', component: AccountPaymentOverviewComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'messages', component: SchoolAnnouncmentsComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'order_student', component: OrderStudentComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'order_history', component: OrderHistoryComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, MainGuard]},
+      {path: 'register', component: RegistrationComponent, canActivate: [AuthGuard]},
+      {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+      {path: 'settings_delete_account', component: DeleteAccountSettingsComponent, canActivate: [AuthGuard]},
+      {path: 'settings_personal', component: PersonalSettingsComponent, canActivate: [AuthGuard]},
+      {path: 'settings_order', component: OrderSettingsComponent, canActivate: [AuthGuard]},
+      {path: 'settings_password', component: ChangePasswordSettingsComponent, canActivate: [AuthGuard]},
+      {path: 'weekplan_pdf', component: WeekplanPdfComponent, canActivate: [AuthGuard]},
+      {path: 'faq', component: FaqComponent},
     ]
   },
   {
