@@ -136,6 +136,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     console.log('params',params);
     const paymentStatus = params.get('status');
     const paymentAmount = params.get('amount');
+    alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount)
     if (paymentStatus && paymentStatus === 'success') {
       let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
       let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
@@ -147,7 +148,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       this.dialogService.openMessageDialog(reason,header,'error');
       this.updateUrlWithoutStatus();
     }
-    console.log("asdadsasda")
+
 
   }
 
