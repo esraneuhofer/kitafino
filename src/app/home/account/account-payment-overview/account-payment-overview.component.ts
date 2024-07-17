@@ -136,7 +136,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     console.log('params',params);
     const paymentStatus = params.get('status');
     const paymentAmount = params.get('amount');
-    alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount)
+    const fullUrl = window.location.href;
+    alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount + ' fullUrl: ' + fullUrl)
     if (paymentStatus && paymentStatus === 'success') {
       let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
       let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
