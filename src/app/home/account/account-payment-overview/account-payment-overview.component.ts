@@ -145,7 +145,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       this.updateUrlWithoutStatus();
     } else if (paymentStatus && paymentStatus === 'failure') {
       let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
-      let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+      // let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
       this.dialogService.openMessageDialog(reason,header,'error');
       this.updateUrlWithoutStatus();
     }
