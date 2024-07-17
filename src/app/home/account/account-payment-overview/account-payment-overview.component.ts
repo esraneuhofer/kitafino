@@ -40,7 +40,7 @@ function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): Acc
   templateUrl: './account-payment-overview.component.html',
   styleUrls: ['./account-payment-overview.component.scss']
 })
-export class AccountPaymentOverviewComponent implements OnInit {
+export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   textBanner = '';
   page: number = 1;
   pageSize: number = 5;
@@ -124,7 +124,15 @@ export class AccountPaymentOverviewComponent implements OnInit {
         this.accountTenant = accountTenant;
 
         this.pageLoaded = true;
+        window.addEventListener('focus', this.handleWindowFocus);
       })
+  }
+  ngOnDestroy(): void {
+    // Entferne den Event-Listener, wenn die Komponente zerstört wird
+    window.removeEventListener('focus', this.handleWindowFocus);
+  }
+  handleWindowFocus = (): void => {
+   alert("focus")
   }
 
   opendialog() {
