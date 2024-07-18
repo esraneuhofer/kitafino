@@ -16,7 +16,8 @@ const languagesConst: LanguageSelect[] = [
   { id: 7, name: 'Italiano', avatar: '/assets/flags/it.png', code: 'it' },  // Italy flag
   { id: 6, name: 'Русский (Russian)', avatar: '/assets/flags/ru.png', code: 'ru' },  // Russia flag
   { id: 8, name: 'Ελληνικά (Greek)', avatar: '/assets/flags/gr.png', code: 'el' },  // Greece flag
-  { id: 10, name: 'Română', avatar: '/assets/flags/ro.png', code: 'ro' },  // Romania flag
+  { id: 10, name: 'ไทย (Thailand)', avatar: '/assets/flags/th.png', code: 'th' },  // Thailand flag
+
   { id: 11, name: 'Nederlands', avatar: '/assets/flags/nl.png', code: 'nl' },  // Netherlands flag
   { id: 15, name: 'हिंदी (Hindi)', avatar: '/assets/flags/in.png', code: 'hi' },  // India flag
   { id: 16, name: '廣東話 (Cantonese)', avatar: '/assets/flags/hk.png', code: 'yue' },  // Hong Kong flag (Cantonese)

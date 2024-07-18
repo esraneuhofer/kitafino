@@ -4,11 +4,12 @@ import {isWidthToSmall} from "../../home/order-student/order-container/order-con
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../service/language.service";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {HelpService} from "../../service/help.service";
+import {HelpPdfInterface, HelpService} from "../../service/help.service";
 import {downloadPdfHelpIos, downloadPdfIos} from "../../home/weekplan-pdf/download-ios.function";
 import {downloadPdfWeb} from "../../home/weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
+import {forkJoin} from "rxjs";
 
 interface HelpText {
   header: string;
@@ -63,12 +64,21 @@ export class HelpDialogComponent {
   }
 
   async openHelpPdf() {
-    this.helpService.getSingleHelpPdfBase({routeName: getLastSegment(this.data.route)}).subscribe(async (data: any) => {
-      console.log(data);
+    let lastSegment = getLastSegment(this.data.route);
+    console.log(lastSegment);
+    console.log(this.lang);
+    let promise = []
+    if( lastSegment=== 'login'){
+      promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment,language:this.lang}).toPromise());
+    }else{
+      promise.push(this.helpService.getSingleHelpPdfBase({routeName: lastSegment}).toPromise());
+    }
+    forkJoin(promise).subscribe(async (help: any) => {
+      console.log(help);
       if (this.isApp) {
-        await downloadPdfHelpIos(data, this.fileOpener);
+        await downloadPdfHelpIos(help[0], this.fileOpener);
       } else {
-        downloadPdfWeb(data,data.nameFile);
+        downloadPdfWeb(help[0],help[0].nameFile);
       }
     });
   }

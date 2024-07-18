@@ -323,7 +323,9 @@
         "Geben Sie dort die <b>Projekt ID</b> ein, die Sie von Ihrer Einrichtung erhalten haben, und eine gültige Email Adresse mit der Sie sich registrieren möchten",
         "Nach der Registrierung erhalten Sie eine Email mit Ihrem Usernam (E-Mail Adresse), um Ihrem Passwort.",
         "Um sich anzumelden, geben Sie Ihre Email Adresse und Ihr Passwort ein und klicken Sie auf <b>[Anmelden]</b>.",
-        "<b>WICHTIG:</b> Achten Sie bei der Eingabe Ihres Passwortes auf die korrekte Eingabe sowie Groß und Kleinschreibung."
+        "<b>WICHTIG:</b> Achten Sie bei der Eingabe Ihres Passwortes auf die korrekte Eingabe sowie Groß und Kleinschreibung. </b></b>",
+        "Für eine ausführliche Anleitung klicken Sie auf <b>[Hier klicken für weitere Hilfe]</b>.",
+        "Das PDF Dokument wird in der eingestellten Sprach heruntergeladen"
 
       ]
     }

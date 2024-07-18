@@ -125,6 +125,7 @@ router.post('/addMessage',jwtHelper.verifyJwtToken,ctrlMessage.addMessage)
 
 router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
 router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
+router.get('/getSingleHelpPdfBaseLogin',ctrlHelp.getSingleHelpPdfBaseLogin)
 
 
 ///Register Customer///

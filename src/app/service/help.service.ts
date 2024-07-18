@@ -34,6 +34,11 @@ export class HelpService {
     return this.http.get<HelpPdfInterface>(environment.apiBaseUrl + '/getSingleHelpPdfBase', {params: object})
       .pipe(map((response: HelpPdfInterface) => (response)));
   }
+  getSingleHelpPdfBaseLogin(object:{routeName:string,language:string}) {
+    console.log(object.routeName)
+    return this.http.get<HelpPdfInterface>(environment.apiBaseUrl + '/getSingleHelpPdfBase', {params: object})
+      .pipe(map((response: HelpPdfInterface) => (response)));
+  }
 
 
 }
