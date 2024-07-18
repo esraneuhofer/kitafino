@@ -25,8 +25,8 @@ import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Capacitor} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
-import {App} from "@capacitor/app";
-
+import { Plugins } from '@capacitor/core';
+const { App } = Plugins;
 
 export interface PaymentIntentResponse {
   clientSecret: string;
@@ -126,12 +126,13 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
         this.pageLoaded = true;
         window.addEventListener('focus', this.handleWindowFocus);
+        App.addListener('appStateChange', this.handleAppStateChange);
       })
   }
   ngOnDestroy(): void {
     // Entferne den Event-Listener, wenn die Komponente zerstört wird
     window.removeEventListener('focus', this.handleWindowFocus);
-    App.addListener('appStateChange', this.handleAppStateChange);
+     App.removeListener('appStateChange', this.handleAppStateChange);
   }
   handleAppStateChange = (state: any) => {
     if (state.isActive) {
