@@ -182,20 +182,7 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.get('/success_redirect', (req, res) => {
-  console.log('req.query:', req.query);
-  const { status, amount } = req.query;
-  const deepLink = `essenapp://success_stripe?status=${status}&amount=${amount}`;
-  console.log('req.deepLink:', deepLink);
 
-  res.redirect(deepLink);
-});
-
-app.get('/error_redirect', (req, res) => {
-  const { status, amount } = req.query;
-  const deepLink = `essenapp://home/error_stripe?status=${status}&amount=${amount}`;
-  res.redirect(deepLink);
-});
 
 switch (environment) {
   case 'production':

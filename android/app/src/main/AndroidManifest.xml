@@ -22,20 +22,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
 
-      <!-- Deep Linking configuration -->
-      <intent-filter android:autoverify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="essenapp" android:host="success" />
-      </intent-filter>
-      <intent-filter android:autoverify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="essenapp" android:host="error" />
-      </intent-filter>
-
       <!-- Splash Screen configuration -->
       <meta-data
         android:name="android.app.splashscreen.SPLASH_SCREEN_STYLE"

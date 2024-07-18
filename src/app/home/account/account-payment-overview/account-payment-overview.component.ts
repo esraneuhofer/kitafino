@@ -25,6 +25,7 @@ import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Capacitor} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
+import {App} from "@capacitor/app";
 
 
 export interface PaymentIntentResponse {
@@ -130,7 +131,15 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Entferne den Event-Listener, wenn die Komponente zerstört wird
     window.removeEventListener('focus', this.handleWindowFocus);
+    App.addListener('appStateChange', this.handleAppStateChange);
   }
+  handleAppStateChange = (state: any) => {
+    if (state.isActive) {
+      console.log('App resumed');
+      this.handleStripeReturn();
+    }
+  }
+
   handleStripeReturn(): void {
     window.location.reload();
     // const params = new URLSearchParams(window.location.search);
@@ -155,7 +164,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   handleWindowFocus = (): void => {
-    this.hasHandledReturn = false;
     this.handleStripeReturn();
   }
 
