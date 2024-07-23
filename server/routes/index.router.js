@@ -7,6 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 
 
 
+const ctrlBut = require('../controllers/but.controller');
 const ctrlHelp = require('../controllers/help.controller');
 const ctrlMessage = require('../controllers/message.controller');
 const ctrlLanguage = require('../controllers/language.controller');
@@ -128,7 +129,13 @@ router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
 router.get('/getSingleHelpPdfBaseLogin',ctrlHelp.getSingleHelpPdfBaseLogin)
 
 
-///Register Customer///
+///BUT///
+
+router.get('/getButTenant',jwtHelper.verifyJwtToken,ctrlBut.getButTenant)
+router.get('/getSingleButDocument',jwtHelper.verifyJwtToken,ctrlBut.getSingleButDocument)
+router.get('/addOrEditBut',jwtHelper.verifyJwtToken,ctrlBut.addOrEditBut)
+router.post('/uploadButDocument',jwtHelper.verifyJwtToken,ctrlBut.uploadButDocument)
+router.get('/getButDocumentTenant',jwtHelper.verifyJwtToken,ctrlBut.getButDocumentTenant)
 
 
 

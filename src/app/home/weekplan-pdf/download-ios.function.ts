@@ -2,8 +2,9 @@ import { WeekplanPdfInterface } from './weekplan-pdf.component';
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import {HelpPdfInterface} from "../../service/help.service";
+import {ButDocumentInterface} from "../../classes/but.class";
 
-export async function downloadPdfIos(data: WeekplanPdfInterface, fileOpener: FileOpener): Promise<void> {
+export async function downloadPdfIos(data: WeekplanPdfInterface | ButDocumentInterface, fileOpener: FileOpener): Promise<void> {
   const pdfBase64 = data.base64;
   const fileName = `${data.name}.pdf`;
 

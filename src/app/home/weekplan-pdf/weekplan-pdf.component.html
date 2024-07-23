@@ -72,7 +72,7 @@
                                     [submittingRequest]="submittingRequest" *ngIf="!isApp">
                           {{ 'WEEKPLAN_PDF.VIEW' | translate }}
                         </app-button>
-                        <app-button (click)="downloadPdf(eachWeekplan)" [submittingRequest]="submittingRequest">
+                        <app-button *ngIf="isApp" (click)="downloadPdf(eachWeekplan)" [submittingRequest]="submittingRequest">
                           {{ 'WEEKPLAN_PDF.DOWNLOAD' | translate }}
                         </app-button>
                       </td>

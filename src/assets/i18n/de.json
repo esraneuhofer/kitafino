@@ -15,8 +15,8 @@
   "LOGIN_TITLE": "Loggen Sie sich ein",
   "ERROR_TITLE": "Fehler",
   "ERROR_MESSAGE": "{{serverErrorMessages}}",
-  "EMAIL_LABEL": "Username (E-Mail Adresse)",
-  "EMAIL_ERROR": "Bitte geben Sie Ihre Email Adresse ein",
+  "EMAIL_LABEL": "Username (E-Mail-Adresse)",
+  "EMAIL_ERROR": "Bitte geben Sie Ihre E-Mail-Adresse ein",
   "PASSWORD_LABEL": "Passwort",
   "PASSWORD_FORGOT": "Passwort vergessen?",
   "PASSWORD_ERROR": "Bitte geben Sie Ihr Passwort ein",
@@ -24,9 +24,9 @@
   "LOADING": "Laden...",
   "NO_ACCOUNT": "Noch kein Account?",
   "REGISTER_STUDENT_ERROR_TOASTR": "Schüler/in konnte nicht angelegt werden",
-  "REGISTER_SUCCESS_TOASTR": "Verpflegungsteilnehmer/in wurde erfolgreich angelegt. <br> Wir haben Ihnen eine Email mit den Registrierungsinformationen an Ihre Email Adresse gesendet.",
+  "REGISTER_SUCCESS_TOASTR": "Verpflegungsteilnehmer/in wurde erfolgreich angelegt. <br> Wir haben Ihnen eine E-Mail mit den Registrierungsinformationen an Ihre E-Mail-Adresse gesendet.",
   "SUCCESS": "Erfolgreich",
-  "EMAIL_SENT": "Email wurde versendet",
+  "EMAIL_SENT": "E-Mail wurde versendet",
   "REGISTER_HERE": "hier registrieren",
   "MOBILE_APP_AVAILABLE": "Unsere Anwendung ist auch als Mobile App verfügbar",
   "INSTALL_APP": "installieren?",
@@ -34,7 +34,7 @@
   "REGISTER_TITLE": "Registrieren Sie sich",
   "PROJECT_ID_LABEL": "Projekt ID",
   "REQUIRED_FIELD": "Pflichtfeld",
-  "INVALID_EMAIL_ERROR": "Ungültige Emailadresse",
+  "INVALID_EMAIL_ERROR": "Ungültige E-Mail-Adresse",
   "REGISTER_BUTTON": "Registrieren",
   "BACK_TO_LOGIN": "Zurück zur Anmeldung",
   "HERE": "hier",
@@ -55,8 +55,8 @@
   "REGISTRATION_TENANT_CHANGES": "Alle Eingaben können im Nachgang noch geändert werden.",
   "EMAIL_ALREADY_REGISTERED": "Diese E-Mail ist bereits registriert.",
   "REGISTRATION_SUCCESS": "Ihr Account wurde erfolgreich angelegt und eine Bestätigung wurde versendet.",
-  "REGISTRATION_STUNDENT_EMAIL_SENT": "Eine Email mit Ihren Accountinformationen wurde an Ihre Email Adresse gesendet.",
-  "EMAIL_INVALID": "Bitte geben Sie eine gültige Email Adresse an.",
+  "REGISTRATION_STUNDENT_EMAIL_SENT": "Eine E-Mail mit Ihren Accountinformationen wurde an Ihre E-Mail-Adresse gesendet.",
+  "EMAIL_INVALID": "Bitte geben Sie eine gültige E-Mail-Adresse an.",
   "UNEXPECTED_ERROR": "Ein unerwarteter Fehler ist aufgetreten.",
   "REGISTRATION_TENANT_SUCCESS": "Ihre persönlichen Daten wurden erfolgreich eingetragen",
   "REGISTRATION_SUCCESS_SUBGROUP_HEADING": "Zuordnung Untergruppe",
@@ -118,6 +118,7 @@
   "DASHBOARD.MENU": "Menü",
   "DASHBOARD.LOGOUT": "Logout",
   "DASHBOARD.FAQ": "FAQ",
+  "DASHBOARD.BUT": "Bildung- und Teilhabe",
   "ORDER.CURRENT_BALANCE": "Aktuelles Guthaben",
   "ORDER.DEPOSIT": "Einzahlen",
   "ORDER.YEAR": "Jahr",
@@ -328,6 +329,15 @@
         "Das PDF Dokument wird in der eingestellten Sprach heruntergeladen"
 
       ]
+    },
+    "but": {
+      "HEADER": "Bildung und Teilhabe beantragen",
+      "DESCRIPTION": [
+        "Um Bildung und Teilhabe zu für Ihren Account zu aktivieren müssen Sie uns einen aktuellen Bescheid hochladen Gehen Sie hierfür auf <b>[BuT aktivieren] </b> und laden Sie die Datei hoch.",
+        " Alternativ können Sie uns den Bescheid auch per Email zusenden an <a href='mailto:but@cateringexpert.de>but@cateringexpert.de</a> zusenden. Die Bearbeitung per Email kann jedoch bis zu 7 Werktage dauern.",
+        "<b>Wichtig</b>: Bitte geben Sie auch Ihren Benutzername, sowie den Namen des Kindes an, für den Sie Bildung und Teilhabe beantragen.",
+        "Sobald der Bescheid geprüft wurde, wird Bildung und Teilhabe für Ihren Account aktiviert. Sie erhalten eine Bestätigung per Email."
+      ]
     }
   },
   "ACCOUNT": {
@@ -512,7 +522,34 @@
   "PROJECT_NOT_EXIST": "Das Projekt existiert nicht. Bitte überprüfen Sie Ihre Eingabe",
   "REGISTRATION_ERROR": "Ein Fehler ist aufgetreten bei der Registrierung.",
   "UND": "und",
-  "EMAIL_LABEL_REGISTRATION": "E-Mail Adresse",
+  "EMAIL_LABEL_REGISTRATION": "E-Mail-Adresse",
   "NICHT_BEKANNT": "Nicht bekannt",
-  "UNSICHER_WELCHE_UNTERGRUPPE": "Sollten Sie sich unsicher sein, in welche Untergruppe der Verpflegungsteilnehmer gehört, bitte anklicken"
+  "UNSICHER_WELCHE_UNTERGRUPPE": "Sollten Sie sich unsicher sein, in welche Untergruppe der Verpflegungsteilnehmer gehört, bitte anklicken",
+  "BUT": {
+    "BILDUNG_UND_TEILHABE_HEADER": "Bildung und Teilhabe",
+    "BILDUNG_UND_TEILHABE_SUBHEADER": "Sollten Sie Anspruch auf Bildung und Teilhabe haben, können Sie diesen hier beantragen. </br> Um den Antrag zu stellen, klicken Sie auf <b>[BuT aktivieren]</b>.",
+    "BILDUNG_UND_TEILHABE_SUBHEADER_TWO": "Erst wenn der Status auf 'Genehmigt' gesetzt wurde, werden die Kosten für die Verpflegung übernommen.",
+    "EDIT_BUT_HEADER": "Bildung und Teilhabe für",
+    "EXISTING_BUT": "Es liegt bereits ein Antrag vor. Unter Status können Sie den aktuellen Stand einsehen. </br> Sobald der Antrag genehmigt wurde, werden die Kosten für die Verpflegung übernommen. </br> Um einen Antrag zu erneuern und verlängern laden Sie bitte den Bescheid für die Verlängerung hoch.",
+    "NEW_BUT": "Um einen Antrag zu stellen, laden Sie bitte den Bescheid für die Kostenübernahme hoch. </br> Sobald der Antrag genehmigt wurde, werden die Kosten für die Verpflegung übernommen.",
+    "WICHTIG_BUT": "Erst nach Genehmigung des Antrages durch uns werden die Kosten für die Verpflegung übernommen. Bis dahin müssen Sie die Kosten selbst tragen. Die Kosten werden rückwirkend übernommen.",
+    "UPLOAD_FILE_TYPES": "Zulässige Formate: .pdf,.jpg,.jpeg,.png",
+    "SELECT_FILE_BUT": "Datei für Bildung und Teilhabe auswählen",
+    "UPLOAD_FILE_BESCHEID": "Bescheid für Bildung und Teilhabe",
+    "UPLOAD_BUT_BUTTON": "Datei hochladen",
+    "TABLE_VON": "Von",
+    "TABLE_BIS": "Bis",
+    "NAME_FILE": "Name Dokument",
+    "DATE_UPLOAD_FILE": "Datum hochgeladen",
+    "VERLAUF_GENEHMIGT": "Eingetragene Bescheide",
+    "DESCRIPTION_TABLE": "Hier finden Sie alle eingetragenen Bescheide für Bildung und Teilhabe. Jeder Eintrag ist bestätigt und genehmigt.",
+    "UPLOADED_DOCUMENTS": "Hochgeladene Dokumente",
+    "ERINNERUNG_BUT": "Bitte denken Sie daran Ihren Bescheid für Bildung und Teilhabe rechtzeitig zu verlängern. Sollte der Bescheid ablaufen, werden die Kosten für die Verpflegung nicht mehr übernommen.",
+    "ADRESSE_CATERINGEXPERT": "Damit Sie die Bestellung über Cateringexpert aufgeben können, muss der Bescheid für Bildung und Teilhabe auf Cateringexpert ausgestellt werden. Um ein Schreiben für die Agentur für Arbeit zu erhalten, klicken Sie bitte auf <b>[Schreiben erstellen]</b>.",
+    "UPLOADED_FILE": "Hochgeladene Datei",
+    "UPLOAD_SUCCESS": "Dokument erfolgreich hochgeladen",
+    "UPLOAD_ERROR": "Fehler beim Upload. Bitte versuchen Sie es später erneut.",
+    "NO_FILE_SELECTED": "Keine Datei ausgewählt",
+    "FILE_WRONG": "Das Dokument ist fehlerhaft"
+  }
 }

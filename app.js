@@ -81,6 +81,8 @@ app.use(cors(corsOptions));
 // });
 
 require(__dirname + '/server/models/help.model');
+require(__dirname + '/server/models/but.model');
+require(__dirname + '/server/models/but_document.model');
 require(__dirname + '/server/models/message.model');
 require(__dirname + '/server/models/task-order.model');
 require(__dirname + '/server/models/session-info.model');

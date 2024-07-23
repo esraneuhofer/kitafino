@@ -7,6 +7,9 @@ export interface StudentInterface {
   customerId:string,
   specialFood: string | null;
   bildungTeilhabe: boolean;
+  tenantId?: string;
+  userId?: string;
+
   // butFrom: string;
   // butTo: string;
   // butAmount: number;

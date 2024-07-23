@@ -126,13 +126,17 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
         this.pageLoaded = true;
         window.addEventListener('focus', this.handleWindowFocus);
-        App['addListener']('appStateChange', this.handleAppStateChange);
+        if(this.platformService.isIos || this.platformService.isAndroid) {
+          App['addListener']('appStateChange', this.handleAppStateChange);
+        }
       })
   }
   ngOnDestroy(): void {
     // Entferne den Event-Listener, wenn die Komponente zerstört wird
     window.removeEventListener('focus', this.handleWindowFocus);
-    App['removeListener']('appStateChange', this.handleAppStateChange);
+    if(this.platformService.isIos || this.platformService.isAndroid){
+      App['removeListener']('appStateChange', this.handleAppStateChange);
+    }
   }
   handleAppStateChange = (state: any) => {
     if (state.isActive) {

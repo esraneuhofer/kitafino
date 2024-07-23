@@ -1,6 +1,7 @@
 import {WeekplanPdfInterface} from "./weekplan-pdf.component";
+import {ButDocumentInterface} from "../../classes/but.class";
 
-export function displayWebFunction(data:WeekplanPdfInterface): void {
+export function displayWebFunction(data:WeekplanPdfInterface | ButDocumentInterface): void {
   if (/msie\s|trident\/|edge\//i.test(window.navigator.userAgent)) {
     // Cast navigator to any to bypass TypeScript checks
     const navigatorAny: any = window.navigator;
