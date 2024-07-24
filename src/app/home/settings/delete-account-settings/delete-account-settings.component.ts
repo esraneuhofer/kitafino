@@ -81,7 +81,6 @@ export class DeleteAccountSettingsComponent implements OnInit{
       position: {top: '100px'},
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
-      console.log('The dialog was closed', result);
       if (!result) {
         this.submittingRequest = false;
       } else {

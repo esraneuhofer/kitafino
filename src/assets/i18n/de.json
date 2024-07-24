@@ -550,6 +550,8 @@
     "UPLOAD_SUCCESS": "Dokument erfolgreich hochgeladen",
     "UPLOAD_ERROR": "Fehler beim Upload. Bitte versuchen Sie es später erneut.",
     "NO_FILE_SELECTED": "Keine Datei ausgewählt",
-    "FILE_WRONG": "Das Dokument ist fehlerhaft"
+    "FILE_WRONG": "Das Dokument ist fehlerhaft",
+
+    "SCHREIBEN_ERSTELLEN": "Schreiben erstellen"
   }
 }

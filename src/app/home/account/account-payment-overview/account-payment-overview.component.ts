@@ -82,7 +82,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
-      console.log('params',params);
       if (status === 'success') {
         let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
         let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
@@ -140,7 +139,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
   handleAppStateChange = (state: any) => {
     if (state.isActive) {
-      console.log('App resumed');
       this.handleStripeReturn();
     }
   }
@@ -241,8 +239,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     this.submittingRequest = true;
     const isIos = this.platformService.isIos
     const isIosAndroid = this.platformService.isAndroid
-    console.log('isIos',isIos);
-    console.log('isIosAndroid',isIosAndroid);
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
       // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});

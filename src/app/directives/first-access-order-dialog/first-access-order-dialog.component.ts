@@ -25,7 +25,6 @@ export class FirstAccessOrderDialogComponent {
     const tenant = this.data.tenant;
     this.data.tenant.firstAccessOrder = false;
     this.tenantService.editParentTenant(tenant).subscribe((response) => {
-      console.log(response)
       this.dialogRef.close();
     });
   }

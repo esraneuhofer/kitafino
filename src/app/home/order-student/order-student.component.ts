@@ -404,7 +404,6 @@ getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrd
     )
     .subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
       this.ngZone.run(() => {
-        console.log('order', order);
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i);
           if (!this.selectedStudent) return;

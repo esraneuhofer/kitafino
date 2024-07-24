@@ -23,6 +23,7 @@ import {downloadPdfWeb} from "../weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {displayWebFunction} from "../weekplan-pdf/display-web.function";
+import {createPDF} from "./but-request-pdf.function";
 
 @Component({
   selector: 'app-but',
@@ -145,7 +146,6 @@ export class ButComponent implements OnInit{
 
   selectStudent(student: StudentInterfaceId | null) {
     this.submittingRequestFlip = true;
-    console.log(student)
     this.selectedStudent = student;
     if (!student) {
       this.submittingRequestFlip = false;
@@ -217,8 +217,8 @@ export class ButComponent implements OnInit{
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+      console.log('selectedFile', this.selectedFile.name);
       this.convertFileToBase64(this.selectedFile);
-      console.log(this.selectedFile);
     }
   }
   convertFileToBase64(file: File) {
@@ -226,7 +226,6 @@ export class ButComponent implements OnInit{
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.base64String = reader.result;
-      console.log(this.base64String);
     };
     reader.onerror = (error) => {
       console.error('Error converting file to base64: ', error);
@@ -251,14 +250,12 @@ export class ButComponent implements OnInit{
         userId: this.selectedStudent.userId,
         customerId: this.selectedStudent.customerId
       };
-      console.log(fileObject);
       this.butService.uploadButDocument(fileObject).subscribe(
         (response: any) => {
           this.toastr.success(this.translate.instant('BUT.UPLOAD_SUCCESS'));
           this.setFileEmpty();
           this.butService.getButDocumentTenant().subscribe((documents: ButDocumentInterface[]) => {
             this.documentsTenant = documents;
-            console.log('Upload erfolgreich', response);
             this.submittingRequest = false;
           })
         },
@@ -290,10 +287,22 @@ export class ButComponent implements OnInit{
       } else {
         displayWebFunction(data);
       }
-
       this.submittingRequest = false;
     });
   }
 
+  createWriting() {
+    createPDF(
+      'Max Mustermann',
+      '01.07.2024',
+      '5,00€',
+      'Caterer XYZ',
+      'DE12345678901234567890',
+      'ABCDEF12XXX',
+      'Cateringexpert',
+      'Ihr Name',
+      'Ihre Kontaktdaten'
+    );
+  }
 
 }

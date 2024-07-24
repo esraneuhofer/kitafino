@@ -51,7 +51,7 @@ module.exports.addOrEditBut = (req, res, next) => {
 module.exports.uploadButDocument = async (req, res, next) => {
   let newDoc = new ButDocument({
     username: req.body.username,
-    nameFile: req.body.nameFile,
+    name: req.body.name,
     base64: req.body.base64,
     dateUploaded: new Date(),
     studentId: req.body.studentId,
@@ -72,7 +72,7 @@ module.exports.getButDocumentTenant = async (req, res, next) => {
   try {
 
     // Using await to wait for the result of Tenant.find()
-    const allButCustomer = await ButDocument.find({ 'userId': req._id });
+    const allButCustomer = await ButDocument.find({ 'userId': req._id }, '-base64');
 
     // Sending the result back to the client
     res.json(allButCustomer);

@@ -17,7 +17,6 @@ export class LanguageService {
   }
 
   setLanguage(language: string): void {
-    console.log('setLanguage', language);
     this.currentLanguageSubject.next(language);
     this.translate.use(language);
     sessionStorage.setItem('language', language);

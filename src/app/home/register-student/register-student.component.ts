@@ -132,7 +132,6 @@ export class RegisterStudentComponent implements OnInit{
     }
 
     this.dialogeService.openMessageDialog(reason, heading,'info');
-    console.log('open dialog');
   }
 
   addStudent(f:NgForm) {

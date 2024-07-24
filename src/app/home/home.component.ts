@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit{
   currentRoute: string = '';
 
   handleRefresh(event: any) {
-    console.log('Begin async operation');
 
     this.loadData().then(() => {
       event.target.complete();
@@ -85,7 +84,6 @@ export class HomeComponent implements OnInit{
   async loadData() {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
-        console.log('Data loaded');
         resolve();
       }, 2000);
     });

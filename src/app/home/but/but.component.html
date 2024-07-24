@@ -12,6 +12,7 @@
                       {{ 'BUT.BILDUNG_UND_TEILHABE_HEADER' | translate }}</h1>
                     <p [innerHTML]="'BUT.BILDUNG_UND_TEILHABE_SUBHEADER' | translate"
                        class="mt-2 text-sm text-gray-700"></p>
+
                   </div>
                 </div>
                 <div class="mt-8 flow-root">
@@ -116,8 +117,8 @@
                           </td>
                         </tr>
                         <tr>
-                          <td *ngIf="registeredStudents.length === 0" colspan="100%">
-                            <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
+                          <td *ngIf="documentsTenant.length === 0" colspan="100%">
+                            <app-general-banner></app-general-banner>
                           </td>
                         </tr>
                         </tbody>
@@ -145,10 +146,14 @@
                       <p class="mt-1 text-sm leading-6 text-gray-600">
                         {{"BUT.WICHTIG_BUT" | translate}}
                       </p>
-                      <p class="mt-1 text-sm leading-6 text-gray-600">
+                      <p class="mt-1 text-sm leading-6 text-gray-600 mb-2">
                         <b>{{"WICHTIG" | translate}}</b>:
                         <span [innerHTML]="'BUT.ADRESSE_CATERINGEXPERT' | translate"></span>
                       </p>
+                      <app-button (click)="createWriting()" [buttonType]="'button'"
+                                  [submittingRequest]="submittingRequestFlip">
+                        {{'BUT.SCHREIBEN_ERSTELLEN' | translate}}
+                      </app-button>
                       <fieldset class="mt-4">
                         <legend class="sr-only">Notifications</legend>
                       </fieldset>

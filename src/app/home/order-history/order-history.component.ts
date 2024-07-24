@@ -157,7 +157,6 @@ export class OrderHistoryComponent implements OnInit {
         });
       }else{
         createPdfBuffer(this.displayArrayAccountOrdersSearch, result).then(pdfBlob => {
-          console.log(pdfBlob);
           this.generellService.sendPDFEmail({
             file: pdfBlob,
             firstDate: result.firstDate,
@@ -165,7 +164,6 @@ export class OrderHistoryComponent implements OnInit {
             type: 'Bestellverlauf',
             email: this.tenantStudent.email
           }).subscribe(response => {
-            console.log(response);
             this.dialogeService.openMessageDialog(
               this.translate.instant("CSV_WURDE_ERFOLGREICH_VERSENDET"),
               this.translate.instant("SUCCESS"),

@@ -45,7 +45,6 @@ export class HelpComponent implements OnInit {
 
   async openHelpPdf(helpDocument: HelpPdfInterface) {
     this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {
-      console.log(data);
       if (this.isApp) {
         await downloadPdfHelpIos(data, this.fileOpener);
       } else {

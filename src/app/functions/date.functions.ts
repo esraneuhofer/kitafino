@@ -148,7 +148,6 @@ function generateScheduleSentence(schedule: {
   const weeks = parseInt(schedule.weeks);
   const day = daysOfWeek[parseInt(schedule.day)] || 'unbekannter Tag';
   const time = new Date(schedule.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
-    console.log("asdasd")
   const weekText = weeks === 1 ? translate.instant("IN_DER_VORWOCHE") : `${weeks} ${translate.instant("WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE")}`;
   const sentence = `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${weekText}, ${translate.instant("AM")} ${day} ${translate.instant("UM")} ${time} ${translate.instant("UHR")}.`;
 

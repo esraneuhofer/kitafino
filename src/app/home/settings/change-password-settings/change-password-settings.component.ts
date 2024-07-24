@@ -97,7 +97,6 @@ export class ChangePasswordSettingsComponent {
 
     this.userService.changePassword(this.newPassword).subscribe(
       (response: any) => {
-        console.log('Response from changePassword:', response);
         this.submittingRequest = false;
 
         if (response.error) {

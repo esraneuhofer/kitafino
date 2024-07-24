@@ -170,7 +170,6 @@ export class SettingsComponent implements OnInit{
       position: {top: '100px'},
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
-      console.log('The dialog was closed', result);
       if (!result) {
         this.submittingRequest = false;
       } else {
@@ -217,7 +216,6 @@ export class SettingsComponent implements OnInit{
 
     this.userService.changePassword(this.newPassword).subscribe(
       (response: any) => {
-        console.log('Response from changePassword:', response);
         this.submittingRequest = false;
 
         if (response.error) {

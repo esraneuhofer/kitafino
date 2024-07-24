@@ -16,6 +16,7 @@ module.exports.getSingleHelpPdfBase = async (req, res, next) => {
 };
 
 module.exports.getSingleHelpPdfBaseLogin = async (req, res, next) => {
+  console.log('req.query.routeName',req.query.routeName);
   try {
     // Using await to wait for the result of Tenant.find()
     const HelpModel = await Help.findOne({ 'routeName': req.query.routeName, lang: req.query.language });

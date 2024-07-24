@@ -4,7 +4,6 @@ import {ButDocumentInterface} from "../../classes/but.class";
 export function  downloadPdfWeb(data:WeekplanPdfInterface | ButDocumentInterface,nameFile:string) {
   let link = document.createElement('a');
   link.download = data.name;
-  console.log(data.base64);
   let uri = 'data:application/pdf;base64, ' + data.base64;
   link.href = uri;
   document.body.appendChild(link);

@@ -54,7 +54,6 @@ export class HelpDialogComponent {
   ngOnInit(): void {
     this.isApp = this.platformService.isIos || this.platformService.isAndroid;
     this.lang = this.languageService.getLanguage()
-    console.log(getLastSegment(this.data.route));
     this.translate.get('HELP.' + getLastSegment(this.data.route) + '.HEADER').subscribe((res: string) => {
       this.helpHeader = res;
     });
@@ -65,8 +64,6 @@ export class HelpDialogComponent {
 
   async openHelpPdf() {
     let lastSegment = getLastSegment(this.data.route);
-    console.log(lastSegment);
-    console.log(this.lang);
     let promise = []
     if( lastSegment=== 'login'){
       promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment,language:this.lang}).toPromise());
@@ -74,7 +71,6 @@ export class HelpDialogComponent {
       promise.push(this.helpService.getSingleHelpPdfBase({routeName: lastSegment}).toPromise());
     }
     forkJoin(promise).subscribe(async (help: any) => {
-      console.log(help);
       if (this.isApp) {
         await downloadPdfHelpIos(help[0], this.fileOpener);
       } else {
