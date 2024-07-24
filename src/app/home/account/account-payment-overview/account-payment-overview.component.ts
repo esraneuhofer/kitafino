@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {StudentService} from "../../../service/student.service";
-import {forkJoin} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {CustomerInterface} from "../../../classes/customer.class";
 import {StudentInterface} from "../../../classes/student.class";
@@ -54,6 +54,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   tenantStudent!: TenantStudentInterface;
   accountTenant!: AccountCustomerInterface;
   hasHandledReturn = false;
+  queryParamsSubscription: Subscription = new Subscription();
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -73,14 +75,15 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     private translate: TranslateService) {
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
-  private updateUrlWithoutStatus() {
+  updateUrlWithoutStatus() {
+    console.log('Updating URL without status parameter');
     const navigationExtras: NavigationExtras = {
       queryParams: {}
     };
     this.router.navigate([], navigationExtras);
   }
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.queryParamsSubscription =  this.route.queryParams.subscribe(params => {
       const status = params['status'];
       if (status === 'success') {
         let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
@@ -124,30 +127,38 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.accountTenant = accountTenant;
 
         this.pageLoaded = true;
-
+        console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
         if(this.platformService.isIos || this.platformService.isAndroid) {
+          console.log('Adding appStateChange listener');
           App['addListener']('appStateChange', this.handleAppStateChange);
         }else{
+          console.log('Adding focus listener');
           window.addEventListener('focus', this.handleWindowFocus);
         }
       })
   }
   ngOnDestroy(): void {
-    // Entferne den Event-Listener, wenn die Komponente zerstört wird
-
-    if(this.platformService.isIos || this.platformService.isAndroid){
+    console.log('Component is being destroyed');
+    if (this.queryParamsSubscription) {
+      this.queryParamsSubscription.unsubscribe();
+    }
+    if (this.platformService.isIos || this.platformService.isAndroid) {
+      console.log('Removing appStateChange listener');
       App['removeListener']('appStateChange', this.handleAppStateChange);
-    }else{
+    } else {
+      console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
     }
   }
   handleAppStateChange = (state: any) => {
+    console.log('App state changed', state);
     if (state.isActive) {
       this.handleStripeReturn();
     }
   }
 
   handleStripeReturn(): void {
+    console.log('Handling Stripe return');
     window.location.reload();
     // const params = new URLSearchParams(window.location.search);
     // console.log('params',params);
@@ -171,6 +182,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   handleWindowFocus = (): void => {
+    console.log('Window focused');
     this.handleStripeReturn();
   }
 
