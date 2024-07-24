@@ -23,7 +23,7 @@ import {PaymentService} from "../../../service/payment-stripe.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {MessageDialogService} from "../../../service/message-dialog.service";
 import {TranslateService} from "@ngx-translate/core";
-import {Capacitor} from "@capacitor/core";
+import {Capacitor, PluginListenerHandle} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
 import { Plugins } from '@capacitor/core';
 const { App } = Plugins;
@@ -55,7 +55,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   accountTenant!: AccountCustomerInterface;
   hasHandledReturn = false;
   queryParamsSubscription: Subscription = new Subscription();
-
+  private appStateChangeListener: PluginListenerHandle | undefined;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -128,10 +128,12 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
         this.pageLoaded = true;
         console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
-        if(this.platformService.isIos || this.platformService.isAndroid) {
+        if (this.platformService.isIos || this.platformService.isAndroid) {
           console.log('Adding appStateChange listener');
-          App['addListener']('appStateChange', this.handleAppStateChange);
-        }else{
+          App.addListener('appStateChange', this.handleAppStateChange).then(listener => {
+            this.appStateChangeListener = listener;
+          });
+        } else {
           console.log('Adding focus listener');
           window.addEventListener('focus', this.handleWindowFocus);
         }
@@ -143,8 +145,10 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       this.queryParamsSubscription.unsubscribe();
     }
     if (this.platformService.isIos || this.platformService.isAndroid) {
-      console.log('Removing appStateChange listener');
-      App['removeListener']('appStateChange', this.handleAppStateChange);
+      if (this.appStateChangeListener) {
+        console.log('Removing appStateChange listener');
+        this.appStateChangeListener.remove();
+      }
     } else {
       console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
