@@ -4,6 +4,7 @@ const Message = mongoose.model('MessageSchema');
 
 // Funktion zum Abrufen von Nachrichten
 module.exports.getMessages = async (req, res, next) => {
+  console.log('req.tenantId', req.tenantId);
     try {
         const messages = await Message.find({ 'tenantId': req.tenantId });
         res.json(messages);
@@ -34,8 +35,8 @@ module.exports.addMessage = (req, res, next) => {
         messageSeen: [],
         createdAt: new Date(),
         sentBy: req.body.sentBy,
-        customerId: req.body.customerId,
-        tenantId: req.body.tenantId,
+        customerId: req.customerId,
+        tenantId: req.tenantId,
     });
 
     newModel.save().then(data => {

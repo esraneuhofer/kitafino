@@ -223,6 +223,7 @@ export class DashboardComponent {
       this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, setting);
       this.settings = setting;
       this.customer = customer
+      console.log('messages', messages)
       this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
       this.pageLoaded = true;
     })
