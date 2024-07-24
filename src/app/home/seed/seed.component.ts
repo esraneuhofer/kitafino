@@ -80,7 +80,7 @@ function generateOrderStudents(settings:SettingInterfaceNew,customer:CustomerInt
 }
 
 function generateOrders(students: StudentInterfaceSeed[], settings: SettingInterfaceNew, customers: CustomerInterface[]): OrderInterfaceStudent[] {
-  let query = {week:25,year:2024}
+  let query = {week:30,year:2024}
   let orders: OrderInterfaceStudent[] = [];
   let monday = getDateMondayFromCalenderweek(query);
   students.forEach((student, index) => {

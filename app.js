@@ -27,6 +27,8 @@ const cookieParser = require('cookie-parser');
 // app.use(i18n.init);
 
 // Middleware für statische Dateien so früh wie möglich einfügen
+
+
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');

@@ -156,6 +156,7 @@ export class DashboardComponent {
     // forkJoin(
     //     [
     //         this.messageService.addMessage({
+    //           customers:  [],
     //             message: 'Für Freitag den 02.07.24 gibt es Lunchpakete für den Ausflug.',
     //             heading: 'Ausflug am Freitag',
     //             messageSeen:[],
@@ -164,7 +165,8 @@ export class DashboardComponent {
     //               validTill: new Date('2024-07-02')
     //         }),
     //         this.messageService.addMessage({
-    //             message: 'Menü 1: Spaghetti Bolognese, Menü 2 wird geändert zu Nudeln mit Tomatensoße',
+    //           customers:  [],
+    //           message: 'Menü 1: Spaghetti Bolognese, Menü 2 wird geändert zu Nudeln mit Tomatensoße',
     //             heading: 'Menüänderung 03.07.2024',
     //             messageSeen:[],
     //             sentBy:'caterer',
@@ -173,7 +175,8 @@ export class DashboardComponent {
     //
     //         }),
     //         this.messageService.addMessage({
-    //             message: 'Es finden Wartungsarbeiten am 05.07.2024 statt. Die Anwendung ist von 11:00 - 12:00 nicht zu erreichen. Wir danken für Ihr Verständnis.',
+    //           customers:  [],
+    //           message: 'Es finden Wartungsarbeiten am 05.07.2024 statt. Die Anwendung ist von 11:00 - 12:00 nicht zu erreichen. Wir danken für Ihr Verständnis.',
     //             heading: 'Wartungsarbeiten 05.07.2024',
     //             messageSeen:[],
     //             sentBy:'master',

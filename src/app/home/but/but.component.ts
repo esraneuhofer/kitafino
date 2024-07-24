@@ -23,7 +23,7 @@ import {downloadPdfWeb} from "../weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {displayWebFunction} from "../weekplan-pdf/display-web.function";
-import {createPDF} from "./but-request-pdf.function";
+// import {createPDF} from "./but-request-pdf.function";
 
 @Component({
   selector: 'app-but',
@@ -117,7 +117,7 @@ export class ButComponent implements OnInit{
          tenantStudent,
          accountTenant,
          butStudents,
-          documentsBut
+         documentsBut
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -292,17 +292,17 @@ export class ButComponent implements OnInit{
   }
 
   createWriting() {
-    createPDF(
-      'Max Mustermann',
-      '01.07.2024',
-      '5,00€',
-      'Caterer XYZ',
-      'DE12345678901234567890',
-      'ABCDEF12XXX',
-      'Cateringexpert',
-      'Ihr Name',
-      'Ihre Kontaktdaten'
-    );
+  //   createPDF(
+  //     'Max Mustermann',
+  //     '01.07.2024',
+  //     '5,00€',
+  //     'Caterer XYZ',
+  //     'DE12345678901234567890',
+  //     'ABCDEF12XXX',
+  //     'Cateringexpert',
+  //     'Ihr Name',
+  //     'Ihre Kontaktdaten'
+  //   );
   }
 
 }
