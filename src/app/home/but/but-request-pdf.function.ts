@@ -1,6 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {SettingInterfaceNew} from "../../classes/setting.class";
+import {getInvoiceDateOne} from "../../functions/date.functions";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 const footer: {
@@ -64,7 +65,7 @@ export function createPDF(
       { text: `IBAN: ${iban}`, style: 'content' },
       { text: `BIC: ${bic}`, style: 'content' },
       '\n\n',
-      { text: 'Dieses Schreiben wurde aus unserem System erstellt und ist auch ohne Unterschrift gültig.', style: 'content' },
+      { text: `Dieses Schreiben wurde am ${getInvoiceDateOne(new Date())} aus unserem System erstellt und ist auch ohne Unterschrift gültig.`, style: 'content' },
     ],
     footer: function (currentPage:any, pageCount:any) {
       return getFooterColumns(currentPage, pageCount, footer);
