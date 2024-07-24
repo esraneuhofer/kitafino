@@ -128,12 +128,13 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
         this.pageLoaded = true;
         console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
+
         if (this.platformService.isIos || this.platformService.isAndroid) {
           console.log('Adding appStateChange listener');
-          App.addListener('appStateChange', this.handleAppStateChange).then(listener => {
+          App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
             this.appStateChangeListener = listener;
           });
-        } else {
+        }else {
           console.log('Adding focus listener');
           window.addEventListener('focus', this.handleWindowFocus);
         }

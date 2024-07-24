@@ -23,6 +23,7 @@ import {downloadPdfWeb} from "../weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {displayWebFunction} from "../weekplan-pdf/display-web.function";
+import {createPDF} from "./but-request-pdf.function";
 // import {createPDF} from "./but-request-pdf.function";
 
 @Component({
@@ -292,6 +293,20 @@ export class ButComponent implements OnInit{
   }
 
   createWriting() {
+    createPDF(
+      'Max Mustermann',
+      'John Doe',
+      '01.07.2024',
+      'Caterer XYZ',
+      'Kita Sonnenschein',
+      'max.mustermann',
+      'DE12345678901234567890',
+      'ABCDEF12XXX',
+      'Cateringexpert',
+      '../../../assets/logo_jpeg_small.jpg',
+      'Ihr Name',
+      'Ihre Kontaktdaten'
+    );
   //   createPDF(
   //     'Max Mustermann',
   //     '01.07.2024',
