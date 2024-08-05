@@ -298,7 +298,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
           const dialogRef = this.dialog.open(DialogErrorComponent, {
             width: '400px',
-            data: {header: 'Fehler bei der Bestellung', message: "Sie können nur ein Menü pro Tag bestellen. Bitte stornieren Sie die andere Bestellung zuerst."},
+            data: {header: this.translate.instant('FEHLER_BESTELLUNG'), message: this.translate.instant('NUR_EINE_BESTELLUNG_PRO_TAG')},
             panelClass: 'custom-dialog-container',
             position: {top: '100px'},
 

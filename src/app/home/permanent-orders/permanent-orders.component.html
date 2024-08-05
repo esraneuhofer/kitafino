@@ -83,7 +83,7 @@
                                                 </span>
                                             </p>
                                           <p class="mt-1 text-sm leading-6 text-gray-600">
-                                            <b>{{"WICHTIG" | translate}}</b>:   <b>{{"WICHTIG_DAUERBESTELLUNG" | translate}}</b>:
+                                            <b>{{"WICHTIG" | translate}}</b>:   <b>{{"WICHTIG_DAUERBESTELLUNG" | translate}}</b>
                                             <br> <u>{{bestellfrist}}</u>
                                           </p>
                                             <fieldset class="mt-4">
@@ -100,7 +100,7 @@
                                                                    id="{{'comments' + index}}"
                                                                    type="checkbox">
                                                             <label class="ml-2 text-sm font-medium text-gray-900"
-                                                                   for="{{'comments' + index}}">{{ dayArray[index] }}</label>
+                                                                   for="{{'comments' + index}}">{{ dayArray[index] | translate }}</label>
                                                         </div>
                                                         <div class="lg:w-2/5 md:w-1/2 sm:w-1/2 w-full ">
                                                             <select #subgroupModel="ngModel"

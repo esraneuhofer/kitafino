@@ -81,6 +81,7 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
 })
 export class PermanentOrdersComponent implements OnInit {
 
+
   bestellfrist:string = '';
   isFlipped:boolean = false;
   textBanner:string = '';

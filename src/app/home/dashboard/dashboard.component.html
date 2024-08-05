@@ -68,7 +68,8 @@
                       [matTooltip]="order.cancelPossible > 0 ? '' : 'FIRSTPAGE.TOOLTIP_EXPIRED | translate }}'"
                       (click)="cancelOrder(order)"
                       class="rounded-md px-2 py-1 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                      {{ 'FIRSTPAGE.CANCEL' | translate }}
+                     <span *ngIf="order.cancelPossible > 0"> {{ 'FIRSTPAGE.CANCEL' | translate }}</span>
+                      <span *ngIf="order.cancelPossible < 0">{{'FIRSTPAGE.TOOLTIP_EXPIRED' | translate}}</span>
                     </button>
                   </td>
                 </tr>

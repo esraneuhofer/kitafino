@@ -17,14 +17,14 @@
                  type="checkbox">
         </div>
         <div class="ml-3 text-sm leading-6">
-          <label class="font-medium text-gray-900" for="subGroupUnknown">Bestätigung per Email erhalten</label>
+          <label class="font-medium text-gray-900" for="subGroupUnknown">{{'BESTAETIGUNG_PER_EMAIL' | translate}}</label>
         </div>
       </div>
 
     </div>
   </div>
   <div class="flex justify-end mt-3">
-    <app-button [typeButton]="'default'" [mr]="true" mat-dialog-close>Abbrechen</app-button>
+    <app-button [typeButton]="'default'" [mr]="true" mat-dialog-close>{{'CANCEL_BUTTON' | translate}}</app-button>
     <app-button [typeButton]="buttonType" [mat-dialog-close]="{sendCopyEmail:sendCopyEmail}" cdkFocusInitial>{{btnText}}</app-button>
   </div>
 </div>

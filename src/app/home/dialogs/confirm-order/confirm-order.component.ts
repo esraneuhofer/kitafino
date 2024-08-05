@@ -1,8 +1,8 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {OrderInterfaceStudent} from "../../../classes/order_student.class";
-import {getTotalPrice} from "../../order-student/order.functions";
-import {TenantStudentInterface} from "../../../classes/tenant.class";
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { OrderInterfaceStudent } from "../../../classes/order_student.class";
+import { TenantStudentInterface } from "../../../classes/tenant.class";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirm-order',
@@ -11,28 +11,43 @@ import {TenantStudentInterface} from "../../../classes/tenant.class";
 })
 export class ConfirmOrderComponent {
 
-  total:number = 0;
-  sendCopyEmail:boolean = true;
-  header:string = 'Bestellung abschließen';
-  text:string = 'Mit dem absenden der Bestellung wird Ihr Konto mit dem folgenden Betrag belastet:'
-  btnText:string = 'Bestellen'
-  buttonType:string =  'primary';
-  constructor(@Inject(MAT_DIALOG_DATA) private data: {
-    tenantStudent:TenantStudentInterface,
-    orderStudent:OrderInterfaceStudent,type:string,indexMenu:number } ) {
-    this.sendCopyEmail = this.data.tenantStudent.orderSettings.orderConfirmationEmail
-    this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder
-    if(data.type === 'cancel'){
-      this.header = 'Bestellung stornieren';
-      this.text  = 'Mit dem absenden der Stornierung wird Ihrem Konto der folgende Betrag gutgeschrieben:'
-      this.btnText = 'Stornieren'
-      this.buttonType =  'danger';
-    }
-    if(data.type === 'edit'){
-      this.header = 'Bestellung ändern';
-      this.text  = 'Mit dem absenden der Änderung wird die ursprüngliche Bestellung storniert und anschließend die neue Bestellung abgeschlossen.'
-      this.btnText = 'Ändern'
-      this.buttonType =  'warning';
+  total: number = 0;
+  sendCopyEmail: boolean = true;
+  header: string;
+  text: string;
+  btnText: string;
+  buttonType: string = 'primary';
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: {
+      tenantStudent: TenantStudentInterface,
+      orderStudent: OrderInterfaceStudent,
+      type: string,
+      indexMenu: number
+    },
+    private translate: TranslateService
+  ) {
+    this.sendCopyEmail = this.data.tenantStudent.orderSettings.orderConfirmationEmail;
+    this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder;
+
+    switch (data.type) {
+      case 'cancel':
+        this.header = this.translate.instant('STORNIERUNG_HEADER');
+        this.text = this.translate.instant('STORNIERUNG_TEXT_DIALOG');
+        this.btnText = this.translate.instant('STORNIEREN_BUTTON');
+        this.buttonType = 'danger';
+        break;
+      case 'edit':
+        this.header = this.translate.instant('BESTELLUNG_AENDERN_HEADER');
+        this.text = this.translate.instant('BESTELLUNG_AENDERN_TEXT');
+        this.btnText = this.translate.instant('AENDERN_BUTTON');
+        this.buttonType = 'warning';
+        break;
+      default:
+        this.header = this.translate.instant('BESTELLUNG_ABSCHLIESSEN_HEADER');
+        this.text = this.translate.instant('BESTELLUNG_ABSCHLIESSEN_TEXT');
+        this.btnText = this.translate.instant('BESTELLEN_BUTTON');
+        break;
     }
   }
 }

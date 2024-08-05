@@ -476,7 +476,7 @@
   "MEHR_INFO": "Info - clicca",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "File inviato con successo via e-mail",
   "ES_GAB_EIN_FEHLER_BEIM_VERSAND_DER_CSV_DATEI": "Errore nell'invio del file",
-  "KONTO_AUFLOESEN": "Chiudi conto",
+  "KONTO_AUFLOESEN": "Chiudere il conto",
   "KONTO_AUFLOESEN_DETAILS": "Nel seguente puoi chiudere il tuo conto.",
   "IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN": "<b>Nota:</b> Dopo aver chiuso il conto, non sarà più attivo e non potrai più effettuare ordini. Tutte le impostazioni, gli ordini e i dati del conto verranno eliminati. Questa opzione è irreversibile.",
   "GELD_AUSZAHLEN_KONTO_SCHLIESSEN": "Per chiudere il tuo conto, devi richiedere un rimborso del saldo. Vai su <b>[Panoramica conto]</b> e segui le istruzioni.",
