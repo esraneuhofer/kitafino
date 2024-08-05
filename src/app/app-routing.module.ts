@@ -35,9 +35,11 @@ import {
   ChangePasswordSettingsComponent
 } from "./home/settings/change-password-settings/change-password-settings.component";
 import {ButComponent} from "./home/but/but.component";
+import {NoInternetComponent} from "./no-internet/no-internet.component";
 
 
 export const appRoutes: Routes = [
+  { path: 'no-internet', component: NoInternetComponent },
   {
     path: 'signup', component: AuthenticationComponent,
     children: [{path: '', component: SignUpComponent}]

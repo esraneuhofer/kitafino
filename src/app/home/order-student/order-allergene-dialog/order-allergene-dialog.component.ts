@@ -19,6 +19,7 @@ export class OrderAllergeneDialogComponent {
     if(!this.data.menu ||!this.data.menu.allergensPerMeal)return;
 
     this.data.menu.allergensPerMeal.forEach((eachMeal,index) =>{
+      if(eachMeal.nameMeal === 'Platzhalter Gericht')return;
       this.orderModelCopy.push({nameMeal:eachMeal.nameMeal,allergenes:[]})
       eachMeal.allergenes.forEach(eachAllergene =>{
         if (!this.orderModelCopy[index].allergenes.some(a => a.name_allergene === eachAllergene.name_allergene)) {

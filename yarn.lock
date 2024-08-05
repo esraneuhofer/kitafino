@@ -1570,6 +1570,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-6.1.1.tgz#4f82544957ecc2b945ec456a22f4cca3b2a06f30"
   integrity sha512-he6+Fhj6x1dSnOzM98xaPvioOU8MNO+qpodCJwnHE3mIRonTpFutXJK8DP8fnNhjDPk2km9VafLSfOeiZXNv3Q==
 
+"@capacitor/network@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/network/-/network-6.0.1.tgz#36b32028e0456c37497fc8dd55c28ac872a60b57"
+  integrity sha512-j+C1khUchNVol3HQGOhHKRAQ3Sc4DumzF8YVJqbkAkfOMHLWr/9g2H/P61yzqEr5kcidpOgWbBwQugHRv7o+7g==
+
 "@capacitor/splash-screen@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-6.0.1.tgz#562213f375a200a89cf8f33addf1f69ca882c1df"

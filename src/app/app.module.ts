@@ -110,6 +110,8 @@ import { ChangePasswordSettingsComponent } from './home/settings/change-password
 import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
 import {environment} from "../environments/environment";
 import { ButComponent } from './home/but/but.component';
+import { NoInternetComponent } from './no-internet/no-internet.component';
+import {NetworkService} from "./service/network.service";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -207,6 +209,7 @@ export function localeFactory(languageService: LanguageService) {
     ChangePasswordSettingsComponent,
     DeleteAccountSettingsComponent,
     ButComponent,
+    NoInternetComponent,
   ],
   imports: [
     BrowserModule,
@@ -256,7 +259,8 @@ export function localeFactory(languageService: LanguageService) {
       provide: LOCALE_ID,
       useFactory: localeFactory,
       deps: [LanguageService]
-    }
+    },
+    NetworkService
   ],
   bootstrap: [AppComponent]
 })

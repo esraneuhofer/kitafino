@@ -45,7 +45,7 @@
                 </div>
                 <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer">
                   <span>{{ eachMenu.nameOrder }}</span>
-                  <span *ngIf="atLeastOneAllergene(eachMenu)"
+                  <span *ngIf="atLeastOneAllergene(eachMenu) && !settings.orderSettings.hideNutritionSidebar"
                         [matTooltip]="getTooltipContent(eachMenu.allergenes)">
                    <span class="allergen-ordinal">
                     ({{getAllergenes(eachMenu.allergenes)}})
