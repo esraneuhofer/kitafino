@@ -10,17 +10,17 @@ var PricesGroupBillingSchema = new Schema({
 var DeadlineWeeklySchema = new Schema({
   weeks: { type: Number, required: true },
   day: { type: Number, required: true },
-  time: { type: Date, required: true },
+  time: { type: String, required: true },
 });
 
 var DeadlineDailySchema = new Schema({
   day: { type: Number, required: true },
-  time: { type: Date, required: true },
+  time: { type: String, required: true },
 });
 
 var CancelOrderDailySchema = new Schema({
   day: { type: Number, required: true },
-  time: { type: Date, required: true },
+  time: { type: String, required: true },
 });
 
 var generalSettingsSchema = new Schema({

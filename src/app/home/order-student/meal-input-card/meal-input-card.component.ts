@@ -418,6 +418,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       return;
     }
     clearInterval(this.timerInterval);
+    console.log('checkDeadlineWeek', this.customer.generalSettings);
     let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
     if (distance < 0) {
       this.pastOrder = true;

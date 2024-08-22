@@ -132,7 +132,7 @@ export function formatDateInput(date: Date): string {
 function generateScheduleSentence(schedule: {
   weeks: string;
   day: string;
-  time: Date;
+  time: string;
 },translate:TranslateService): string {
   // Definiere die Wochentage
   const daysOfWeek: { [key: string]: string } = {
@@ -196,7 +196,7 @@ function generateDailyDeadlineSentence(deadline: {
 // }
 function generateDailyDeadlineFixSentence(deadline: {
   day: string;
-  time: Date;
+  time: string;
 },type:string,translate:TranslateService): string {
 
   let daysString = translate.instant("VORTAG")
@@ -218,4 +218,17 @@ export function getBestellfrist(customer:CustomerInterface,translate:TranslateSe
   }else{
     return generateScheduleSentence(customer.generalSettings.deadlineWeekly,translate)
   }
+}
+
+
+export function  extractTime(time: string): { hours: number, minutes: number } {
+
+  // Split the time string into hours and minutes
+  const [hours, minutes] = time.split(':').map(Number);
+
+  // Return hours and minutes as an object
+  return {
+    hours: hours,
+    minutes: minutes
+  };
 }

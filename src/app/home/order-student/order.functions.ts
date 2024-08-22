@@ -6,6 +6,7 @@ import {GeneralSettingsInterface} from "../../classes/customer.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import {extractTime} from "../../functions/date.functions";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -37,19 +38,19 @@ export function timeDifference(difference:number,withSeconds:boolean):string {
   return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
-export function timeDifferenceDay(deadLineDaily:DeadlineDailyInterface,dateInputCompare:Date):number {
+export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
   let dayOrder = new Date(dateInputCompare);
-  const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
-  const dateObj = dayjs(deadLineDaily.time).toDate();
-  const hours_:any = dateObj.getHours();
-  const minutes_:any = dateObj.getMinutes();
+  const daysSub = addDayFromDate(dayOrder, -deadLineDaily.day);
 
-  daysSub.setHours(hours_)
-  daysSub.setMinutes(minutes_)
-  daysSub.setSeconds(0)
-  let difference = daysSub.getTime()- new Date().getTime() ;  // to ensure we get a positive difference
+  // Split the time string into hours and minutes
+  const [hours_, minutes_] = deadLineDaily.time.split(':').map(Number);
+
+  daysSub.setHours(hours_);
+  daysSub.setMinutes(minutes_);
+  daysSub.setSeconds(0);
+
+  let difference = daysSub.getTime() - new Date().getTime();  // to ensure we get a positive difference
   return difference;
-
 }
 
 export function addDayFromDate(date:Date, daysToAdd:number) {
@@ -116,7 +117,7 @@ export function getDeadlineWeeklyFunction(customerGeneralSettings:GeneralSetting
   return end - now;
 }
 
-export function getDeadLineEnd(object:{ weeks: string; day: string; time: Date; }, weeknumber:number, startWeek:number, yearsDiff:number, startYear:number) {
+export function getDeadLineEnd(object:{ weeks: string; day: string; time: string; }, weeknumber:number, startWeek:number, yearsDiff:number, startYear:number) {
   function getSub() {
     let num = 0;
     if (new Date().getDay() === 0) {
@@ -124,7 +125,7 @@ export function getDeadLineEnd(object:{ weeks: string; day: string; time: Date; 
     }
     return num;
   }
-
+    console.log(object.time)
   if (yearsDiff !== 0) {
     let sub = getSub();
     let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
@@ -136,9 +137,8 @@ export function getDeadLineEnd(object:{ weeks: string; day: string; time: Date; 
     let dayDeadLine = deadLine.getDate();
     let yearDeadLine = deadLine.getFullYear();
     let monthDeadLine = deadLine.getMonth();
-    let time = new Date(object.time);
-    let hours = time.getHours();
-    let min = time.getMinutes();
+    let hours = extractTime(object.time).hours;
+    let min = extractTime(object.time).minutes;
     return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
   } else {
     let sub = getSub();
@@ -148,9 +148,8 @@ export function getDeadLineEnd(object:{ weeks: string; day: string; time: Date; 
     let dayDeadLine = deadLine.getDate();
     let yearDeadLine = deadLine.getFullYear();
     let monthDeadLine = deadLine.getMonth();
-    let time = new Date(object.time);
-    let hours = time.getHours();
-    let min = time.getMinutes();
+    let hours = extractTime(object.time).hours;
+    let min = extractTime(object.time).minutes;
     return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
   }
 

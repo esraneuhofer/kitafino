@@ -54,6 +54,26 @@ function getDeadLineOne(object, weeknumber, startWeek, yearsDiff, startYear) {
 
 }
 
+function extractTime(time){
+
+  // Split the time string into hours and minutes
+  const [hours, minutes] = time.split(':').map(Number);
+
+  // Return hours and minutes as an object
+  return {
+    hours: hours,
+    minutes: minutes
+  };
+}
+
+function isValidTimeFormat(time) {
+  // Regular expression to match the format HH:MM
+  const timeFormatRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+  // Test the time string against the regular expression
+  return timeFormatRegex.test(time);
+}
+
 function getWeekNumber(startD) {
   let startDate =  new Date (startD);
   let d = new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()));
@@ -66,12 +86,12 @@ function generateDailyCronSchedule(datetimeString) {
   // Datum und Uhrzeit validieren und parsen
   const date = new Date(datetimeString);
 
-  if (isNaN(date.getTime())) {
-    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DD HH:MM:SS".');
+  if (!isValidTimeFormat(datetimeString)) {
+    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "HH:MM".');
   }
 
-  const hours = date.getHours(); // Lokale Stunden
-  const minutes = date.getMinutes();
+  const hours = extractTime(datetimeString).hours; // Lokale Stunden
+  const minutes = extractTime(datetimeString).minutes;
 
   // Cron-Format-String konstruieren, der jeden Tag zur angegebenen Uhrzeit ausgeführt wird
   const schedule = `${minutes} ${hours} * * *`;
@@ -82,16 +102,16 @@ function generateWeeklyCronSchedule(datetimeString, dayOfWeek) {
   // Datum und Uhrzeit validieren und parsen
   const date = new Date(datetimeString);
 
-  if (isNaN(date.getTime())) {
-    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "YYYY-MM-DDTHH:MM:SSZ".');
+  if (!isValidTimeFormat(datetimeString)) {
+    throw new Error('Ungültiges Datumsformat. Bitte verwenden Sie "HH:MM".');
   }
 
   if (dayOfWeek < 1 || dayOfWeek > 7) {
     throw new Error('Ungültiger Tag der Woche. Bitte verwenden Sie einen Wert zwischen 1 (Montag) und 7 (Sonntag).');
   }
 
-  const hours = date.getHours(); // Lokale Stunden
-  const minutes = date.getMinutes();
+  const hours = extractTime(datetimeString).hours; // Lokale Stunden
+  const minutes = extractTime(datetimeString).minutes;
 
   // Mapping von 1-7 (Montag-Sonntag) auf 0-6 (Sonntag-Samstag) für Cron
   const cronDayOfWeek = (dayOfWeek % 7).toString();

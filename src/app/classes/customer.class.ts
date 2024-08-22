@@ -88,7 +88,7 @@ export interface GeneralSettingsInterface {
   deadlineWeekly: {
     weeks: string;
     day: string;
-    time: Date;
+    time: string;
   };
   deadlineDaily: DeadlineDailyInterface;
   cancelOrderDaily:DeadlineDailyInterface
@@ -96,5 +96,5 @@ export interface GeneralSettingsInterface {
 
 export interface DeadlineDailyInterface{
   day: string;
-  time: Date;
+  time: string;
 }

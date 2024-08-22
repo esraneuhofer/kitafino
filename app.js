@@ -48,7 +48,7 @@ mongoose.connect(uriTest, { useNewUrlParser: true, useUnifiedTopology: true })
       // Rufe die Funktion auf, um den neuen Cron-Job zu planen
       scheduleDeleteOldMessages();
 
-      await setTaskCustomerDeadline();
+      // await setTaskCustomerDeadline();
       console.log('Tasks scheduled successfully.');
     } catch (error) {
       console.error('Failed to execute tasks:', error);
@@ -205,7 +205,7 @@ server.listen(port, function () {
 });
 
 
-const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
+// const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
 const { scheduleDeleteOldMessages } = require(__dirname + '/server/controllers/message.controller');
 // const { testing } = require(__dirname + '/server/controllers/task-weekly-order-deadline');
 // const { testingDaily } = require(__dirname + '/server/controllers/task-daily-deadline.controller');

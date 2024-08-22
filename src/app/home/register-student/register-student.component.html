@@ -41,7 +41,7 @@
                           </div>
                           <p *ngIf="f1.submitted && lastName.invalid" class="mt-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
                         </div>
-                        <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                        <div *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant" class="sm:col-span-4">
 <!--                          <app-label-tooltip [tooltip]="'SPECIAL_FOOD_INSTRUCTIONS'"-->
 <!--                                             [idLabel]="'selectedSpecialFoodModel'"-->
 <!--                                             [label]="'SPECIAL_FOOD_LABEL'"></app-label-tooltip>-->
@@ -59,7 +59,7 @@
                             <option *ngFor="let specialFood of specialFoodSelection" [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
                           </select>
                         </div>
-                        <ng-container *ngIf="customerInfo.generalSettings.subGroupSettingTenant">
+                        <ng-container *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant">
                           <div class="sm:col-span-4">
 <!--                            <app-label-tooltip [tooltip]="'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP'"-->
 <!--                                               [idLabel]="'subgroup'"-->
