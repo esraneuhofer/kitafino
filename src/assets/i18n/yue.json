@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "上傳文件時出錯。請稍後再試。",
     "NO_FILE_SELECTED": "未選擇文件",
     "FILE_WRONG": "文件有誤"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "創建書寫",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "完成訂單",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "提交訂單後，您的帳戶將扣除以下金額：",
+  "STORNIERUNG_HEADER": "取消訂單",
+  "STORNIERUNG_TEXT_DIALOG": "提交取消後，您的帳戶將退還以下金額：",
+  "BESTELLUNG_AENDERN_HEADER": "更改訂單",
+  "BESTELLUNG_AENDERN_TEXT": "提交更改後，原訂單將被取消，新訂單將完成。",
+  "BESTELLEN_BUTTON": "訂購",
+  "STORNIEREN_BUTTON": "取消",
+  "AENDERN_BUTTON": "更改",
+  "FEHLER_BESTELLUNG": "訂單錯誤",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "您每天只能訂購一個菜單。請先取消其他訂單。",
+  "BESTAETIGUNG_PER_EMAIL": "通過電子郵件接收確認"
 }

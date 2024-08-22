@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Fout bij uploaden. Probeer het later opnieuw.",
     "NO_FILE_SELECTED": "Geen bestand geselecteerd",
     "FILE_WRONG": "Het document is ongeldig"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Schrift aanmaken",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Bestelling voltooien",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Door de bestelling te verzenden, wordt het volgende bedrag van uw rekening afgeschreven:",
+  "STORNIERUNG_HEADER": "Bestelling annuleren",
+  "STORNIERUNG_TEXT_DIALOG": "Door de annulering te verzenden, wordt het volgende bedrag teruggestort op uw rekening:",
+  "BESTELLUNG_AENDERN_HEADER": "Bestelling wijzigen",
+  "BESTELLUNG_AENDERN_TEXT": "Door de wijziging te verzenden, wordt de oorspronkelijke bestelling geannuleerd en wordt de nieuwe bestelling voltooid.",
+  "BESTELLEN_BUTTON": "Bestellen",
+  "STORNIEREN_BUTTON": "Annuleren",
+  "AENDERN_BUTTON": "Wijzigen",
+  "FEHLER_BESTELLUNG": "Bestelfout",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "U kunt slechts één menu per dag bestellen. Annuleer eerst de andere bestelling.",
+  "BESTAETIGUNG_PER_EMAIL": "Ontvang bevestiging per e-mail"
 }

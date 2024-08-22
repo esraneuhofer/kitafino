@@ -546,5 +546,18 @@
     "UPLOAD_ERROR": "حدث خطأ أثناء التحميل. يرجى المحاولة لاحقًا.",
     "NO_FILE_SELECTED": "لم يتم اختيار ملف",
     "FILE_WRONG": "الوثيقة غير صحيحة"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "إنشاء كتابة",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "إتمام الطلب",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "بإرسال الطلب، سيتم خصم المبلغ التالي من حسابك:",
+  "STORNIERUNG_HEADER": "إلغاء الطلب",
+  "STORNIERUNG_TEXT_DIALOG": "بإرسال الإلغاء، سيتم إضافة المبلغ التالي إلى حسابك:",
+  "BESTELLUNG_AENDERN_HEADER": "تغيير الطلب",
+  "BESTELLUNG_AENDERN_TEXT": "بإرسال التغيير، سيتم إلغاء الطلب الأصلي وإتمام الطلب الجديد.",
+  "BESTELLEN_BUTTON": "اطلب",
+  "STORNIEREN_BUTTON": "إلغاء",
+  "AENDERN_BUTTON": "تغيير",
+  "FEHLER_BESTELLUNG": "خطأ في الطلب",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "يمكنك طلب قائمة واحدة فقط في اليوم. يرجى إلغاء الطلب الآخر أولاً.",
+  "BESTAETIGUNG_PER_EMAIL": "الحصول على تأكيد عبر البريد الإلكتروني"
 }

@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "Belge yüklenirken hata oluştu. Lütfen daha sonra tekrar deneyin.",
     "NO_FILE_SELECTED": "Dosya seçilmedi",
     "FILE_WRONG": "Belge hatalı"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Yazı oluştur",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Siparişi tamamla",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Siparişi göndererek hesabınızdan aşağıdaki tutar tahsil edilecektir:",
+  "STORNIERUNG_HEADER": "Siparişi iptal et",
+  "STORNIERUNG_TEXT_DIALOG": "İptali göndererek hesabınıza aşağıdaki tutar geri yüklenecektir:",
+  "BESTELLUNG_AENDERN_HEADER": "Siparişi değiştir",
+  "BESTELLUNG_AENDERN_TEXT": "Değişikliği göndererek orijinal sipariş iptal edilecek ve yeni sipariş tamamlanacaktır.",
+  "BESTELLEN_BUTTON": "Sipariş ver",
+  "STORNIEREN_BUTTON": "İptal et",
+  "AENDERN_BUTTON": "Değiştir",
+  "FEHLER_BESTELLUNG": "Sipariş hatası",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Günde sadece bir menü sipariş edebilirsiniz. Lütfen önce diğer siparişi iptal edin.",
+  "BESTAETIGUNG_PER_EMAIL": "Email ile onay al"
 }

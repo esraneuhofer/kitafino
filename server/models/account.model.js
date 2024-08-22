@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 const accountCustomerSchema = new mongoose.Schema({
-  userId: {type: String, required: true},
-  tenantId: {type: String, required: true},
-  customerId: {type: String, required: true},
-  currentBalance: {type: Number, required: true}
+  userId:{ type: Schema.Types.ObjectId, required: true },
+  tenantId:{ type: Schema.Types.ObjectId, required: true },
+  customerId:{ type: Schema.Types.ObjectId, required: true },
+  currentBalance: Number
 });
 
 var AccountSchema = mongoose.model('AccountSchema', accountCustomerSchema);

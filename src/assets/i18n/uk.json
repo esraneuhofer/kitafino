@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "Помилка завантаження. Будь ласка, спробуйте пізніше.",
     "NO_FILE_SELECTED": "Файл не вибрано",
     "FILE_WRONG": "Документ неправильний"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Створити запис",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Завершити замовлення",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Після відправлення замовлення з вашого рахунку буде знята наступна сума:",
+  "STORNIERUNG_HEADER": "Скасувати замовлення",
+  "STORNIERUNG_TEXT_DIALOG": "Після відправлення скасування на ваш рахунок буде зарахована наступна сума:",
+  "BESTELLUNG_AENDERN_HEADER": "Змінити замовлення",
+  "BESTELLUNG_AENDERN_TEXT": "Після відправлення змін оригінальне замовлення буде скасовано, і нове замовлення буде завершено.",
+  "BESTELLEN_BUTTON": "Замовити",
+  "STORNIEREN_BUTTON": "Скасувати",
+  "AENDERN_BUTTON": "Змінити",
+  "FEHLER_BESTELLUNG": "Помилка замовлення",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Ви можете замовити лише одне меню на день. Спочатку скасуйте інше замовлення.",
+  "BESTAETIGUNG_PER_EMAIL": "Отримати підтвердження електронною поштою"
 }

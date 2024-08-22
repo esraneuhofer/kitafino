@@ -125,7 +125,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.tenantStudent = tenantStudent
         this.registeredStudents = students;
         this.accountTenant = accountTenant;
-
+        console.log('accountTenant',this.accountTenant)
         this.pageLoaded = true;
         console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
 
@@ -227,7 +227,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         'withdraw'
       );
       accountCharge.emailTenant = this.tenantStudent.email;
-      this.chargeService.addAccountChargesTenant(accountCharge).subscribe((response: any) => {
+      this.chargeService.withdrawFunds(accountCharge).subscribe((response: any) => {
         forkJoin([
           this.chargeService.getAccountCharges(),
           this.accountService.getAccountTenant()

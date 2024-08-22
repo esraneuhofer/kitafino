@@ -11,6 +11,7 @@ export interface ButDocumentInterface {
   userId: string;
   customerId: string;
   username: string;
+  processed: boolean;
 }
 
 export interface ButStudentInterface {

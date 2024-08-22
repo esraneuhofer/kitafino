@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Erreur lors du téléchargement. Veuillez réessayer plus tard.",
     "NO_FILE_SELECTED": "Aucun fichier sélectionné",
     "FILE_WRONG": "Le document est incorrect"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Créer une écriture",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Finaliser la commande",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "En soumettant la commande, le montant suivant sera débité de votre compte :",
+  "STORNIERUNG_HEADER": "Annuler la commande",
+  "STORNIERUNG_TEXT_DIALOG": "En soumettant l'annulation, le montant suivant sera crédité sur votre compte :",
+  "BESTELLUNG_AENDERN_HEADER": "Modifier la commande",
+  "BESTELLUNG_AENDERN_TEXT": "En soumettant la modification, la commande originale sera annulée et la nouvelle commande sera complétée.",
+  "BESTELLEN_BUTTON": "Commander",
+  "STORNIEREN_BUTTON": "Annuler",
+  "AENDERN_BUTTON": "Modifier",
+  "FEHLER_BESTELLUNG": "Erreur de commande",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Vous ne pouvez commander qu'un menu par jour. Veuillez d'abord annuler l'autre commande.",
+  "BESTAETIGUNG_PER_EMAIL": "Recevoir la confirmation par email"
 }

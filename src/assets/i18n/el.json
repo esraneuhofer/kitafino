@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Σφάλμα κατά το ανέβασμα. Παρακαλούμε προσπαθήστε ξανά αργότερα.",
     "NO_FILE_SELECTED": "Δεν επιλέχθηκε αρχείο",
     "FILE_WRONG": "Το έγγραφο είναι εσφαλμένο"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Δημιουργία εγγραφής",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Ολοκλήρωση παραγγελίας",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Με την υποβολή της παραγγελίας, ο ακόλουθος ποσός θα χρεωθεί στο λογαριασμό σας:",
+  "STORNIERUNG_HEADER": "Ακύρωση παραγγελίας",
+  "STORNIERUNG_TEXT_DIALOG": "Με την υποβολή της ακύρωσης, ο ακόλουθος ποσός θα πιστωθεί στο λογαριασμό σας:",
+  "BESTELLUNG_AENDERN_HEADER": "Αλλαγή παραγγελίας",
+  "BESTELLUNG_AENDERN_TEXT": "Με την υποβολή της αλλαγής, η αρχική παραγγελία θα ακυρωθεί και η νέα παραγγελία θα ολοκληρωθεί.",
+  "BESTELLEN_BUTTON": "Παραγγελία",
+  "STORNIEREN_BUTTON": "Ακύρωση",
+  "AENDERN_BUTTON": "Αλλαγή",
+  "FEHLER_BESTELLUNG": "Σφάλμα παραγγελίας",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Μπορείτε να παραγγείλετε μόνο ένα μενού την ημέρα. Παρακαλώ ακυρώστε πρώτα την άλλη παραγγελία.",
+  "BESTAETIGUNG_PER_EMAIL": "Λάβετε επιβεβαίωση μέσω email"
 }

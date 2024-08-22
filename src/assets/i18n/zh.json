@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "上传失败。请稍后再试。",
     "NO_FILE_SELECTED": "未选择文件",
     "FILE_WRONG": "文件有误"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "创建书写",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "完成订单",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "提交订单后，您的账户将被扣除以下金额：",
+  "STORNIERUNG_HEADER": "取消订单",
+  "STORNIERUNG_TEXT_DIALOG": "提交取消后，您的账户将被退还以下金额：",
+  "BESTELLUNG_AENDERN_HEADER": "修改订单",
+  "BESTELLUNG_AENDERN_TEXT": "提交更改后，原订单将被取消，新订单将完成。",
+  "BESTELLEN_BUTTON": "订购",
+  "STORNIEREN_BUTTON": "取消",
+  "AENDERN_BUTTON": "更改",
+  "FEHLER_BESTELLUNG": "订单错误",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "您每天只能订购一个菜单。请先取消其他订单。",
+  "BESTAETIGUNG_PER_EMAIL": "通过电子邮件接收确认"
 }

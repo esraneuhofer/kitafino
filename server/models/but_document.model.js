@@ -11,7 +11,8 @@ var butdocument = new Schema({
   nameStudent: String,
   username: String,
   base64: String,
-  dateUploaded: Date
+  dateUploaded: Date,
+  processed: {type: Boolean, default: false},
 });
 
 

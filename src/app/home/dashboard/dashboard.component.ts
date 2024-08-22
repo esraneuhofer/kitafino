@@ -50,7 +50,7 @@ function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantS
   return messagesArray;
 }
 
-function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], settings: SettingInterfaceNew): DisplayOrderArrayIntrface[] {
+function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], customer: CustomerInterface): DisplayOrderArrayIntrface[] {
   let dateToday = setDateToCompare(new Date())
   let arrayDisplay: DisplayOrderArrayIntrface[] = [];
   if (!orders || !orders.length) return arrayDisplay;
@@ -64,7 +64,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
         }).join(', '),
         nameStudent: getStudentNameById(order.studentId, registeredStudendts),
         price: getTotalPriceSafe(order),
-        cancelPossible: timeDifferenceDay(settings.orderSettings.deadLineDaily, new Date(order.dateOrder)),
+        cancelPossible: timeDifferenceDay(customer.generalSettings.deadlineDaily, new Date(order.dateOrder)),
         order: orderCopy$
       })
   })
@@ -220,7 +220,7 @@ export class DashboardComponent {
       this.tenant = tenantInformation;
       this.accountTenant = accountInformation;
       this.students = students;
-      this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, setting);
+      this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students,customer);
       this.settings = setting;
       this.customer = customer
       console.log('messages', messages)
@@ -242,7 +242,7 @@ export class DashboardComponent {
         OrderInterfaceStudentSave[],
       ]) => {
       this.accountTenant = accountInformation;
-      this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, this.students, this.settings);
+      this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, this.students, this.customer);
       this.submittingRequest = false;
     })
   }

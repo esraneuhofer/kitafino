@@ -35,10 +35,10 @@ import {AccountCustomerInterface} from "../../../classes/account.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import {SchoolSettingsInterface} from "../../../classes/schoolSettings.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-
 
 
 export interface MealCardInterface {
@@ -46,24 +46,31 @@ export interface MealCardInterface {
   lockDay: boolean,
   date: Date
 }
+
 export function isWidthToSmall(input: number): boolean {
   return input <= 767;
 }
-function getPriceStudentDependingOnSettings(settings:SettingInterfaceNew,eachPrice: { priceSpecial: number, idSpecial: string, nameSpecial?: string, typeSpecial: string }[]): number {
+
+function getPriceStudentDependingOnSettings(settings: SettingInterfaceNew, eachPrice: {
+  priceSpecial: number,
+  idSpecial: string,
+  nameSpecial?: string,
+  typeSpecial: string
+}[]): number {
   let priceStudent = 0;
-  if(settings.invoiceSettings.differentPricesMenus){
+  if (settings.invoiceSettings.differentPricesMenus) {
     //Todo: Add different Prices for each Menu
     eachPrice.forEach(eachPrice => {
-      if(eachPrice.typeSpecial === 'menu'){
-        if(eachPrice.priceSpecial > priceStudent){
+      if (eachPrice.typeSpecial === 'menu') {
+        if (eachPrice.priceSpecial > priceStudent) {
           priceStudent = eachPrice.priceSpecial;
         }
       }
     })
-  }else{
+  } else {
     eachPrice.forEach(eachPrice => {
-      if(eachPrice.typeSpecial === 'menu'){
-        if(eachPrice.priceSpecial > priceStudent){
+      if (eachPrice.typeSpecial === 'menu') {
+        if (eachPrice.priceSpecial > priceStudent) {
           priceStudent = eachPrice.priceSpecial;
         }
       }
@@ -72,24 +79,25 @@ function getPriceStudentDependingOnSettings(settings:SettingInterfaceNew,eachPri
   return priceStudent;
 }
 
-export function getPriceStudent(selectedStudent: StudentInterface | null, customer: CustomerInterface,settings:SettingInterfaceNew): number {
-  if(!selectedStudent)return 0;
+export function getPriceStudent(selectedStudent: StudentInterface | null, customer: CustomerInterface, settings: SettingInterfaceNew): number {
+  if (!selectedStudent) return 0;
   let priceStudent = 0;
   customer.billing.group.forEach(eachGroup => {
-      if(eachGroup.groupId === selectedStudent.subgroup){
-          priceStudent = getPriceStudentDependingOnSettings(settings,eachGroup.prices)
-      }
+    if (eachGroup.groupId === selectedStudent.subgroup) {
+      priceStudent = getPriceStudentDependingOnSettings(settings, eachGroup.prices)
+    }
   })
   return priceStudent;
 }
 
 export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
-                            weekplanSelectedWeek: WeekplanMenuInterface,
-                            settings: SettingInterfaceNew,
-                            customer: CustomerInterface,
-                            selectedStudent: any, indexDaySelected: number,
-                            selectedDate: Date, query: { week: number, year: number },
-                            lockDays: boolean[]): MealCardInterface {
+                                   weekplanSelectedWeek: WeekplanMenuInterface,
+                                   settings: SettingInterfaceNew,
+                                   customer: CustomerInterface,
+                                   selectedStudent: any, indexDaySelected: number,
+                                   selectedDate: Date, query: { week: number, year: number },
+                                   lockDays: boolean[],
+                                   contractSettings: SchoolSettingsInterface): MealCardInterface {
   const orderModelStudent = setOrderStudent(
     order,
     weekplanSelectedWeek,
@@ -98,7 +106,8 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
     selectedStudent,
     indexDaySelected,
     selectedDate.toString(),
-    query);
+    query,
+    contractSettings);
   return {
     orderStudentModel: orderModelStudent,
     lockDay: lockDays[indexDaySelected],
@@ -123,8 +132,9 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() tenantStudent!: TenantStudentInterface;
   @Input() allVacations: VacationsInterface[] = [];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
+  @Input() schoolSettings!: SchoolSettingsInterface;
   orderWeek: MealCardInterface[] = [];
-  accountTenant?:AccountCustomerInterface
+  accountTenant?: AccountCustomerInterface
 
   displayMinimize: boolean = false;
 
@@ -135,22 +145,23 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   query: { week: number; year: number } = {week: 0, year: 0};
 
   constructor(private orderService: OrderService,
-              private accountService:AccountService,
+              private accountService: AccountService,
               private generellService: GenerellService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['querySelection']) {
-      this.querySelection = {... changes['querySelection'].currentValue}
+      this.querySelection = {...changes['querySelection'].currentValue}
       this.query = this.querySelection
       this.getDataWeek();
     }
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event:any) {
+  onResize(event: any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
   }
+
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
   }
@@ -167,7 +178,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       this.accountService.getAccountTenant(),
       this.generellService.getWeekplanWeek(this.query),
 
-    ]).subscribe(([accountTenant,weekplan]: [AccountCustomerInterface,WeekplanMenuInterface]) => {
+    ]).subscribe(([accountTenant, weekplan]: [AccountCustomerInterface, WeekplanMenuInterface]) => {
       this.accountTenant = accountTenant;
 
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
@@ -177,14 +188,17 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();
-        promiseOrderWeek.push(this.orderService.getOrderStudentDay({dateOrder: dateToSearch, studentId: this.selectedStudent._id || ''}))
+        promiseOrderWeek.push(this.orderService.getOrderStudentDay({
+          dateOrder: dateToSearch,
+          studentId: this.selectedStudent._id || ''
+        }))
       }
       forkJoin(promiseOrderWeek).pipe(
         defaultIfEmpty([null]),
       ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays))
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays,this.schoolSettings))
         }
         this.pageLoaded = true;
 

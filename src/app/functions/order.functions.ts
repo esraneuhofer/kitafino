@@ -17,6 +17,7 @@ import {TenantStudentInterface} from "../classes/tenant.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import {SchoolSettingsInterface} from "../classes/schoolSettings.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -44,8 +45,9 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          selectedStudent:StudentInterface | null,
                          indexDaySelected:number,
                          dateChange:string,
-                         query:{week:number, year:number}):OrderInterfaceStudent{
-  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange));
+                         query:{week:number, year:number},
+                                contractSettings:SchoolSettingsInterface):OrderInterfaceStudent{
+  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;

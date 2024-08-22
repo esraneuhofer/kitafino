@@ -8,6 +8,7 @@ import {MealModelInterface} from "./meal.interface";
 import {OrderInterfaceStudentSave} from "./order_student_safe.class";
 import {getPriceStudent} from "../home/order-student/order-container/order-container.component";
 import {getSpecialFoodById} from "../functions/special-food.functions";
+import {SchoolSettingsInterface} from "./schoolSettings.class";
 
 
 export interface SpecialFoodOrderInterface {
@@ -76,8 +77,9 @@ export class OrderClassStudent implements OrderInterfaceStudent {
               settings: SettingInterfaceNew,
               selectedWeek: WeekplanDayInterface,
               studentModel: (StudentInterface | null)
-              ,dateOrder:Date) {
-    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,studentModel);
+              ,dateOrder:Date,
+              contractSettings:SchoolSettingsInterface) {
+    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,studentModel,contractSettings);
     this.customerId = customer.customerId;
     this.dateOrder = dateOrder;
     this.kw = query.week;
@@ -95,7 +97,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   }
 }
 
-function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan):number{
+function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:SchoolSettingsInterface):number{
   let priceStudent = 0;
   if(!studentModel)return priceStudent;
   customer.billing.group.forEach(eachGroup => {
@@ -107,6 +109,12 @@ function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInte
       })
     }
   })
+  if(contractSettings.whoPayCharges === 'parent'){
+    priceStudent += contractSettings.amountPerOrder;
+  }
+  if(contractSettings.essensgeldEinrichtung > 0){
+    priceStudent += contractSettings.essensgeldEinrichtung;
+  }
   return priceStudent;
 }
 class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
@@ -117,9 +125,10 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
   constructor(customer: CustomerInterface,
               settings: SettingInterfaceNew,
               selectedWeek: WeekplanDayInterface,
-              studentModel: (StudentInterface | null)) {
+              studentModel: (StudentInterface | null),
+              contractSettings:SchoolSettingsInterface) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
-      let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial)
+      let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial,contractSettings)
       let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
       if (order) {
         this.orderMenus.push(order);

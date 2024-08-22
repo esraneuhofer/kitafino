@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "เกิดข้อผิดพลาดในการอัปโหลด โปรดลองอีกครั้งในภายหลัง",
     "NO_FILE_SELECTED": "ไม่ได้เลือกไฟล์",
     "FILE_WRONG": "เอกสารไม่ถูกต้อง"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "สร้างการเขียน",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "เสร็จสิ้นการสั่งซื้อ",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "เมื่อส่งคำสั่งซื้อ บัญชีของคุณจะถูกหักเงินจำนวนต่อไปนี้:",
+  "STORNIERUNG_HEADER": "ยกเลิกคำสั่งซื้อ",
+  "STORNIERUNG_TEXT_DIALOG": "เมื่อส่งการยกเลิก บัญชีของคุณจะได้รับเงินคืนจำนวนต่อไปนี้:",
+  "BESTELLUNG_AENDERN_HEADER": "เปลี่ยนคำสั่งซื้อ",
+  "BESTELLUNG_AENDERN_TEXT": "เมื่อส่งการเปลี่ยนแปลง คำสั่งซื้อเดิมจะถูกยกเลิกและคำสั่งซื้อใหม่จะเสร็จสิ้น",
+  "BESTELLEN_BUTTON": "สั่งซื้อ",
+  "STORNIEREN_BUTTON": "ยกเลิก",
+  "AENDERN_BUTTON": "เปลี่ยนแปลง",
+  "FEHLER_BESTELLUNG": "ข้อผิดพลาดในการสั่งซื้อ",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "คุณสามารถสั่งซื้อเมนูได้เพียงหนึ่งเมนูต่อวัน กรุณายกเลิกคำสั่งซื้ออื่นก่อน",
+  "BESTAETIGUNG_PER_EMAIL": "รับการยืนยันทางอีเมล"
 }

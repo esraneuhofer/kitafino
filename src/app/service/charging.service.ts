@@ -19,6 +19,11 @@ export class ChargingService {
     return this.http.post(environment.apiBaseUrl+'/addAccountChargesTenant',object)
       .pipe(map((response: any) => response));
   }
+  withdrawFunds(object:ChargeAccountInterface){
+    return this.http.post(environment.apiBaseUrl+'/withdrawFunds',object)
+      .pipe(map((response: any) => response));
+  }
+
   getAccountCharges(){
     return this.http.get<AccountChargeInterface[]>(environment.apiBaseUrl+'/getAccountCharges')
       .pipe(map((response: AccountChargeInterface[]) => response));

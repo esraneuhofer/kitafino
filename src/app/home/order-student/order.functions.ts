@@ -1,4 +1,4 @@
-import {CustomerInterface, CustomerOrderSplit} from "../../classes/customer.class";
+import {CustomerInterface, CustomerOrderSplit, DeadlineDailyInterface} from "../../classes/customer.class";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {TenantStudentInterface} from "../../classes/tenant.class";
@@ -37,7 +37,7 @@ export function timeDifference(difference:number,withSeconds:boolean):string {
   return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
-export function timeDifferenceDay(deadLineDaily:OrderSettingsDeadLineDailyInterface,dateInputCompare:Date):number {
+export function timeDifferenceDay(deadLineDaily:DeadlineDailyInterface,dateInputCompare:Date):number {
   let dayOrder = new Date(dateInputCompare);
   const daysSub = addDayFromDate(dayOrder, - deadLineDaily.day)
   const dateObj = dayjs(deadLineDaily.time).toDate();

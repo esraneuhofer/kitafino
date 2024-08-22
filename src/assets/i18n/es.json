@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "Error al cargar. Por favor, inténtelo de nuevo más tarde.",
     "NO_FILE_SELECTED": "No se seleccionó ningún archivo",
     "FILE_WRONG": "El documento es incorrecto"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Crear escritura",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Finalizar pedido",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Al enviar el pedido, se cargará el siguiente importe en su cuenta:",
+  "STORNIERUNG_HEADER": "Cancelar pedido",
+  "STORNIERUNG_TEXT_DIALOG": "Al enviar la cancelación, se abonará el siguiente importe en su cuenta:",
+  "BESTELLUNG_AENDERN_HEADER": "Modificar pedido",
+  "BESTELLUNG_AENDERN_TEXT": "Al enviar el cambio, se cancelará el pedido original y se completará el nuevo pedido.",
+  "BESTELLEN_BUTTON": "Pedir",
+  "STORNIEREN_BUTTON": "Cancelar",
+  "AENDERN_BUTTON": "Cambiar",
+  "FEHLER_BESTELLUNG": "Error en el pedido",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Solo puede pedir un menú por día. Por favor, cancele el otro pedido primero.",
+  "BESTAETIGUNG_PER_EMAIL": "Recibir confirmación por correo electrónico"
 }

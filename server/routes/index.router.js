@@ -8,6 +8,7 @@ const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 
 
 const ctrlBut = require('../controllers/but.controller');
+const ctrlGet = require('../controllers/get.controller');
 const ctrlHelp = require('../controllers/help.controller');
 const ctrlMessage = require('../controllers/message.controller');
 const ctrlLanguage = require('../controllers/language.controller');
@@ -97,6 +98,7 @@ router.post('/deletePermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.
 ///Acoount Requests ////
 router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTenant);
 router.post('/addAccountChargesTenant',jwtHelper.verifyJwtToken,crtlAccount.addAccountChargesTenant);
+router.post('/withdrawFunds',jwtHelper.verifyJwtToken,crtlAccount.withdrawFunds);
 router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountCharges);
 
 /////Transaction Requests ////
@@ -136,6 +138,13 @@ router.get('/getSingleButDocument',jwtHelper.verifyJwtToken,ctrlBut.getSingleBut
 router.get('/addOrEditBut',jwtHelper.verifyJwtToken,ctrlBut.addOrEditBut)
 router.post('/uploadButDocument',jwtHelper.verifyJwtToken,ctrlBut.uploadButDocument)
 router.get('/getButDocumentTenant',jwtHelper.verifyJwtToken,ctrlBut.getButDocumentTenant)
+
+
+///Get Only///
+
+router.get('/getSchoolSettings',jwtHelper.verifyJwtToken,ctrlGet.getSchoolSettings)
+
+
 
 
 

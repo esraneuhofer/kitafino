@@ -6,7 +6,7 @@ var butmodel = new Schema({
   studentId: {type: Schema.Types.ObjectId, required: true},
   tenantId: {type: Schema.Types.ObjectId, required: true},
   userId: {type: Schema.Types.ObjectId, required: true},
-  bildungTeilhabeLog:[{butFrom:String, butTo:String, butAmount:Number}]
+  bildungTeilhabeLog:[{butFrom:String, butTo:String, butAmount:Number}],
 });
 
 

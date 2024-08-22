@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Errore durante il caricamento. Si prega di riprovare più tardi.",
     "NO_FILE_SELECTED": "Nessun file selezionato",
     "FILE_WRONG": "Il documento è errato"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Crea scrittura",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Completa l'ordine",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Inviando l'ordine, l'importo seguente verrà addebitato sul tuo conto:",
+  "STORNIERUNG_HEADER": "Annulla ordine",
+  "STORNIERUNG_TEXT_DIALOG": "Inviando l'annullamento, l'importo seguente verrà accreditato sul tuo conto:",
+  "BESTELLUNG_AENDERN_HEADER": "Modifica ordine",
+  "BESTELLUNG_AENDERN_TEXT": "Inviando la modifica, l'ordine originale verrà annullato e il nuovo ordine verrà completato.",
+  "BESTELLEN_BUTTON": "Ordina",
+  "STORNIEREN_BUTTON": "Annulla",
+  "AENDERN_BUTTON": "Modifica",
+  "FEHLER_BESTELLUNG": "Errore di ordine",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Puoi ordinare solo un menù al giorno. Si prega di annullare prima l'altro ordine.",
+  "BESTAETIGUNG_PER_EMAIL": "Ricevi conferma via email"
 }

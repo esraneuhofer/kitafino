@@ -40,6 +40,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   FirstAccessOrderDialogComponent
 } from "../../directives/first-access-order-dialog/first-access-order-dialog.component";
+import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
+import {SchoolService} from "../../service/school.service";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -84,6 +86,7 @@ export class OrderStudentComponent implements OnInit {
   accountTenant!: AccountCustomerInterface;
   weekplanSelectedWeek: (WeekplanMenuInterface | null) = null;
   orderWeek: MealCardInterface[] = [];
+  schoolSettings!: SchoolSettingsInterface;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -104,6 +107,7 @@ export class OrderStudentComponent implements OnInit {
               private dialog: MatDialog,
               private translate: TranslateService,
               private toastrService: ToastingService,
+              private schoolService: SchoolService,
               private ngZone: NgZone,
               private r: ActivatedRoute) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
@@ -128,7 +132,8 @@ export class OrderStudentComponent implements OnInit {
       this.generellService.getAssignedWeekplan(this.querySelection),
       this.generellService.getWeekplanGroups(),
       this.accountService.getAccountTenant(),
-      this.generellService.getVacationCustomer()
+      this.generellService.getVacationCustomer(),
+      this.schoolService.getSchoolSettings()
     ]).subscribe(
       ([
          settings,
@@ -143,7 +148,8 @@ export class OrderStudentComponent implements OnInit {
          assignedWeekplans,
          weekplanGroups,
          accountTenant,
-         vacations
+         vacations,
+        schoolSettings
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -157,7 +163,8 @@ export class OrderStudentComponent implements OnInit {
         AssignedWeekplanInterface[],
         WeekplanGroupClass[],
         AccountCustomerInterface,
-        VacationsInterface[]
+        VacationsInterface[],
+        SchoolSettingsInterface
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -173,8 +180,13 @@ export class OrderStudentComponent implements OnInit {
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
+        this.schoolSettings = schoolSettings;
         this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
         this.mainDataLoaded = true;
+        if( !this.schoolSettings){
+          this.toastr.error('Keine Schuleinstellungen gefunden')
+          return
+        }
         if(this.tenantStudent.firstAccessOrder){
           const dialogRef = this.dialog.open(FirstAccessOrderDialogComponent, {
             width: '600px',
@@ -250,7 +262,7 @@ export class OrderStudentComponent implements OnInit {
 
       if (!this.selectedStudent) return;
 
-      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays));
+      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays,this.schoolSettings));
       this.pageLoaded = true;
     });
   }
@@ -407,7 +419,7 @@ getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrd
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i);
           if (!this.selectedStudent) return;
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays));
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays,this.schoolSettings));
         }
         this.pageLoaded = true;
       });

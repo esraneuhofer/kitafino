@@ -547,5 +547,18 @@
     "UPLOAD_ERROR": "अपलोड में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
     "NO_FILE_SELECTED": "कोई फ़ाइल चयनित नहीं",
     "FILE_WRONG": "दस्तावेज़ गलत है"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "लिखावट बनाएँ",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "ऑर्डर पूरा करें",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "ऑर्डर सबमिट करने पर, आपके खाते से निम्नलिखित राशि काट ली जाएगी:",
+  "STORNIERUNG_HEADER": "ऑर्डर रद्द करें",
+  "STORNIERUNG_TEXT_DIALOG": "रद्दीकरण सबमिट करने पर, निम्नलिखित राशि आपके खाते में जमा कर दी जाएगी:",
+  "BESTELLUNG_AENDERN_HEADER": "ऑर्डर बदलें",
+  "BESTELLUNG_AENDERN_TEXT": "परिवर्तन सबमिट करने पर, मूल ऑर्डर रद्द हो जाएगा और नया ऑर्डर पूरा हो जाएगा।",
+  "BESTELLEN_BUTTON": "ऑर्डर करें",
+  "STORNIEREN_BUTTON": "रद्द करें",
+  "AENDERN_BUTTON": "बदलें",
+  "FEHLER_BESTELLUNG": "ऑर्डर में त्रुटि",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "आप प्रतिदिन केवल एक मेनू ऑर्डर कर सकते हैं। कृपया पहले दूसरे ऑर्डर को रद्द करें।",
+  "BESTAETIGUNG_PER_EMAIL": "ईमेल द्वारा पुष्टि प्राप्त करें"
 }

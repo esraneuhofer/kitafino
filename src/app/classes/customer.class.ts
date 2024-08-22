@@ -90,13 +90,11 @@ export interface GeneralSettingsInterface {
     day: string;
     time: Date;
   };
-  deadlineDaily: {
-    day: string;
-    time: Date;
-  };
-  cancelOrderDaily: {
-    day: string;
-    time: Date;
-  };
+  deadlineDaily: DeadlineDailyInterface;
+  cancelOrderDaily:DeadlineDailyInterface
 }
 
+export interface DeadlineDailyInterface{
+  day: string;
+  time: Date;
+}

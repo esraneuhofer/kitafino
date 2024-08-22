@@ -17,136 +17,136 @@ import {getMonday} from "../../functions/date.functions";
 import {getDateMondayFromCalenderweek} from "../../functions/order.functions";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 
-function createUsersArray() {
-  let users:{email:string,projectId:string}[] = [];
-  let projectId = [{name: 'mond1234', kids: 15}, {name: 'nach1234', kids: 25}, {name: 'mari1234', kids: 150}]
-  projectId.forEach((projectId, indexProject) => {
-    for (let i = 0; i < projectId.kids; i++) {
-      users.push({
-        email: `user_catering_${i}_${indexProject}.de`,
-        projectId: projectId.name,
-      })
-    }
-  })
-  return users;
-}
-function createTenants(users: { email:string,_id:string,tenantId:string,customerId:string }[]): TenantStudentInterface[] {
-  let tenants: TenantStudentInterface[] = [];
-
-  users.forEach((user, index) => {
-    let firstName = `FirstName_${index + 1}`;
-    let lastName = `LastName_${index + 1}`;
-
-    let tenant: TenantStudentInterface = {
-      tenantId: user.tenantId,
-      customerId: user.customerId,
-      userId: user._id,
-      firstAccess: true,
-      firstAccessOrder: true,
-      username: '',
-      firstName: firstName,
-      lastName: lastName,
-      email: user.email,
-      phone: '',
-      address: '',
-      city: '',
-      zip: '',
-      orderSettings: {
-        orderConfirmationEmail: true,
-        sendReminderBalance: true,
-        amountBalance: 15,
-        permanentOrder: false,
-        displayTypeOrderWeek: false
-      }
-    };
-
-    tenants.push(tenant);
-  });
-
-  return tenants;
-}
-function generateRandomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function generateOrderStudents(settings:SettingInterfaceNew,customer:CustomerInterface,student:StudentInterfaceSeed,indexDay:number,query:{week:number,year:number}):OrderInterfaceStudent{
-
-  let weekplan = getWeekplanModel(settings, query)
-  let order = setOrderDayStudent(null, weekplan, settings, customer, student, indexDay,
-    new Date(addDayFromDate(new Date,0)), query, [false,false,false,false,false])
-  let randomMenu = generateRandomInt(0, order.orderStudentModel.order.orderMenus.length - 1);
-  order.orderStudentModel.order.orderMenus[randomMenu].amountOrder = 1
-  order.orderStudentModel.order.orderMenus[randomMenu].menuSelected = true
-  return order.orderStudentModel;
-}
-
-function generateOrders(students: StudentInterfaceSeed[], settings: SettingInterfaceNew, customers: CustomerInterface[]): OrderInterfaceStudent[] {
-  let query = {week:30,year:2024}
-  let orders: OrderInterfaceStudent[] = [];
-  let monday = getDateMondayFromCalenderweek(query);
-  students.forEach((student, index) => {
-    let customer = customers.find((eachCustomer) => eachCustomer.customerId === student.customerId);
-
-    numberFive.forEach((eachDay, indexDay) => {
-      if (!customer) return;
-      let order = generateOrderStudents(settings, customer, student, index,query);
-      orders.push(order);
-    })
-  });
-  return orders;
-}
-function createStudentsForTenants(tenants: TenantStudentInterface[], customer: CustomerInterface): StudentInterfaceSeed[] {
-  let students: StudentInterfaceSeed[] = [];
-
-  tenants.forEach((tenant) => {
-    let numChildren = generateRandomInt(1, 100); // Random number between 1 and 100 for percentage calculation
-
-    let numKids: number;
-    if (numChildren <= 90) {
-      numKids = 1;
-    } else if (numChildren <= 98) {
-      numKids = 2;
-    } else {
-      numKids = 3;
-    }
-
-    for (let i = 0; i < numKids; i++) {
-      let firstName = `ChildFirstName_${i + 1}`;
-      let lastName = `ChildLastName_${i + 1}`;
-      let subgroupIndex = generateRandomInt(0, customer.order.split.length - 1);
-      let subgroup = customer.order.split[subgroupIndex].group;
-      let specialFood: string | null = null;
-
-      let selectSpecialFood = generateRandomInt(1, 100); // Random number for special food selection
-      if (selectSpecialFood <= 5 && customer.order.specialShow.length > 0) {
-        let specialIndex = generateRandomInt(0, customer.order.specialShow.length - 1);
-        specialFood = customer.order.specialShow[specialIndex].idSpecialFood;
-      }
-
-      let student: StudentInterfaceSeed = {
-        firstName: '',
-        lastName:'',
-        username:'',
-        customerId:'',
-        subgroup:'',
-        specialFood: null,
-        userId:'',
-        tenantId:'',
-      }
-      if(!tenant.userId || ! tenant.tenantId ||!tenant.customerId)return;
-
-      student.firstName = firstName,
-        student.lastName = lastName,
-        student.subgroup = subgroup,
-        student.specialFood = specialFood,
-        student.userId = tenant.userId,
-        student.tenantId =  tenant.tenantId,
-        student.customerId =  tenant.customerId // Using tenant ID as customer ID for example
-
-      students.push(student);
-    }
-  });
-  return students;
-}
+// function createUsersArray() {
+//   let users:{email:string,projectId:string}[] = [];
+//   let projectId = [{name: 'mond1234', kids: 15}, {name: 'nach1234', kids: 25}, {name: 'mari1234', kids: 150}]
+//   projectId.forEach((projectId, indexProject) => {
+//     for (let i = 0; i < projectId.kids; i++) {
+//       users.push({
+//         email: `user_catering_${i}_${indexProject}.de`,
+//         projectId: projectId.name,
+//       })
+//     }
+//   })
+//   return users;
+// }
+// function createTenants(users: { email:string,_id:string,tenantId:string,customerId:string }[]): TenantStudentInterface[] {
+//   let tenants: TenantStudentInterface[] = [];
+//
+//   users.forEach((user, index) => {
+//     let firstName = `FirstName_${index + 1}`;
+//     let lastName = `LastName_${index + 1}`;
+//
+//     let tenant: TenantStudentInterface = {
+//       tenantId: user.tenantId,
+//       customerId: user.customerId,
+//       userId: user._id,
+//       firstAccess: true,
+//       firstAccessOrder: true,
+//       username: '',
+//       firstName: firstName,
+//       lastName: lastName,
+//       email: user.email,
+//       phone: '',
+//       address: '',
+//       city: '',
+//       zip: '',
+//       orderSettings: {
+//         orderConfirmationEmail: true,
+//         sendReminderBalance: true,
+//         amountBalance: 15,
+//         permanentOrder: false,
+//         displayTypeOrderWeek: false
+//       }
+//     };
+//
+//     tenants.push(tenant);
+//   });
+//
+//   return tenants;
+// }
+// function generateRandomInt(min: number, max: number): number {
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+// function generateOrderStudents(settings:SettingInterfaceNew,customer:CustomerInterface,student:StudentInterfaceSeed,indexDay:number,query:{week:number,year:number}):OrderInterfaceStudent{
+//
+//   // let weekplan = getWeekplanModel(settings, query)
+//   // let order = setOrderDayStudent(null, weekplan, settings, customer, student, indexDay,
+//   //   new Date(addDayFromDate(new Date,0)), query, [false,false,false,false,false])
+//   // let randomMenu = generateRandomInt(0, order.orderStudentModel.order.orderMenus.length - 1);
+//   // order.orderStudentModel.order.orderMenus[randomMenu].amountOrder = 1
+//   // order.orderStudentModel.order.orderMenus[randomMenu].menuSelected = true
+//   // return order.orderStudentModel;
+// }
+//
+// function generateOrders(students: StudentInterfaceSeed[], settings: SettingInterfaceNew, customers: CustomerInterface[]): OrderInterfaceStudent[] {
+//   let query = {week:30,year:2024}
+//   let orders: OrderInterfaceStudent[] = [];
+//   let monday = getDateMondayFromCalenderweek(query);
+//   students.forEach((student, index) => {
+//     let customer = customers.find((eachCustomer) => eachCustomer.customerId === student.customerId);
+//
+//     numberFive.forEach((eachDay, indexDay) => {
+//       if (!customer) return;
+//       let order = generateOrderStudents(settings, customer, student, index,query);
+//       orders.push(order);
+//     })
+//   });
+//   return orders;
+// }
+// function createStudentsForTenants(tenants: TenantStudentInterface[], customer: CustomerInterface): StudentInterfaceSeed[] {
+//   let students: StudentInterfaceSeed[] = [];
+//
+//   tenants.forEach((tenant) => {
+//     let numChildren = generateRandomInt(1, 100); // Random number between 1 and 100 for percentage calculation
+//
+//     let numKids: number;
+//     if (numChildren <= 90) {
+//       numKids = 1;
+//     } else if (numChildren <= 98) {
+//       numKids = 2;
+//     } else {
+//       numKids = 3;
+//     }
+//
+//     for (let i = 0; i < numKids; i++) {
+//       let firstName = `ChildFirstName_${i + 1}`;
+//       let lastName = `ChildLastName_${i + 1}`;
+//       let subgroupIndex = generateRandomInt(0, customer.order.split.length - 1);
+//       let subgroup = customer.order.split[subgroupIndex].group;
+//       let specialFood: string | null = null;
+//
+//       let selectSpecialFood = generateRandomInt(1, 100); // Random number for special food selection
+//       if (selectSpecialFood <= 5 && customer.order.specialShow.length > 0) {
+//         let specialIndex = generateRandomInt(0, customer.order.specialShow.length - 1);
+//         specialFood = customer.order.specialShow[specialIndex].idSpecialFood;
+//       }
+//
+//       let student: StudentInterfaceSeed = {
+//         firstName: '',
+//         lastName:'',
+//         username:'',
+//         customerId:'',
+//         subgroup:'',
+//         specialFood: null,
+//         userId:'',
+//         tenantId:'',
+//       }
+//       if(!tenant.userId || ! tenant.tenantId ||!tenant.customerId)return;
+//
+//       student.firstName = firstName,
+//         student.lastName = lastName,
+//         student.subgroup = subgroup,
+//         student.specialFood = specialFood,
+//         student.userId = tenant.userId,
+//         student.tenantId =  tenant.tenantId,
+//         student.customerId =  tenant.customerId // Using tenant ID as customer ID for example
+//
+//       students.push(student);
+//     }
+//   });
+//   return students;
+// }
 
 
 @Component({

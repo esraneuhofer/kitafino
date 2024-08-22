@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Ошибка загрузки. Пожалуйста, попробуйте позже.",
     "NO_FILE_SELECTED": "Файл не выбран",
     "FILE_WRONG": "Документ поврежден"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Создать запись",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Завершить заказ",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "После отправки заказа с вашего счета будет снята следующая сумма:",
+  "STORNIERUNG_HEADER": "Отменить заказ",
+  "STORNIERUNG_TEXT_DIALOG": "После отправки отмены на ваш счет будет зачислена следующая сумма:",
+  "BESTELLUNG_AENDERN_HEADER": "Изменить заказ",
+  "BESTELLUNG_AENDERN_TEXT": "После отправки изменений оригинальный заказ будет отменен, и новый заказ будет завершен.",
+  "BESTELLEN_BUTTON": "Заказать",
+  "STORNIEREN_BUTTON": "Отменить",
+  "AENDERN_BUTTON": "Изменить",
+  "FEHLER_BESTELLUNG": "Ошибка заказа",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Вы можете заказывать только одно меню в день. Пожалуйста, сначала отмените другой заказ.",
+  "BESTAETIGUNG_PER_EMAIL": "Получить подтверждение по электронной почте"
 }

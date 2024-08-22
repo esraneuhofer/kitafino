@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Грешка при качването. Моля, опитайте отново по-късно.",
     "NO_FILE_SELECTED": "Няма избран файл",
     "FILE_WRONG": "Документът е грешен"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Създаване на писмено",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Завършване на поръчка",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "С изпращането на поръчката, следната сума ще бъде удържана от вашата сметка:",
+  "STORNIERUNG_HEADER": "Отмяна на поръчка",
+  "STORNIERUNG_TEXT_DIALOG": "С изпращането на отмяната, следната сума ще бъде върната във вашата сметка:",
+  "BESTELLUNG_AENDERN_HEADER": "Промяна на поръчка",
+  "BESTELLUNG_AENDERN_TEXT": "С изпращането на промяната, оригиналната поръчка ще бъде отменена и новата поръчка ще бъде завършена.",
+  "BESTELLEN_BUTTON": "Поръчайте",
+  "STORNIEREN_BUTTON": "Отмени",
+  "AENDERN_BUTTON": "Промени",
+  "FEHLER_BESTELLUNG": "Грешка при поръчката",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Можете да поръчате само едно меню на ден. Моля, първо отменете другата поръчка.",
+  "BESTAETIGUNG_PER_EMAIL": "Получаване на потвърждение по имейл"
 }

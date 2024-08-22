@@ -2,7 +2,9 @@ require('dotenv').config();
 const sgMail = require('@sendgrid/mail')
 const mongoose = require("mongoose");
 
+
 const Tenantparent = mongoose.model('Tenantparent');
+const WithdrawModel = mongoose.model('WithdrawRequest');
 const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
 const {getEmailChargeAccount} = require('./email-charge-account');
@@ -140,3 +142,39 @@ async function handleTransactionError(session, error, res) {
 
 }
 
+module.exports.withdrawFunds = async (req, res) => {
+  // Schritt 1: Aufruf von addAccountChargesTenant
+  try {
+    await this.addAccountChargesTenant(req, res);
+
+    // Wenn keine Fehler aufgetreten sind, erstellen wir den neuen Eintrag im RequestDesolveModel
+    const charge = req.body.amount;  // Annahme: Der Betrag wird im Body der Anfrage übergeben
+
+    const requestDesolve = new WithdrawModel({
+      amount: charge,
+      tenantId: req.body.tenantId, // Annahme: tenantId ist im req.body vorhanden
+      customerId: req.body.customerId, // Annahme: customerId ist im req.body vorhanden
+      createdAt: new Date(),
+      userId: req.body.userId,
+      isPayed: false
+    });
+
+    await requestDesolve.save();
+
+    // Schritt 3: E-Mail senden
+    const mailOptions = {
+      to: 'auszahlung@cateringexpert.de',
+      from: 'noreply@cateringexpert.de',
+      subject: 'Auszahlungsanforderung',
+      text: `Es wurde eine Auszahlung von: ${charge} am: ${new Date().toLocaleDateString()} für: ${req.body.userId} beantragt.`
+    };
+
+    await sgMail.send(mailOptions);
+
+    res.json({ success: true, message: 'Auszahlungsanforderung erfolgreich erstellt und E-Mail gesendet.' });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Fehler bei der Auszahlungsanforderung.' });
+  }
+};

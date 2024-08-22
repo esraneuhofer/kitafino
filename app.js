@@ -28,8 +28,9 @@ const cookieParser = require('cookie-parser');
 
 // Middleware für statische Dateien so früh wie möglich einfügen
 
+const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uriTest, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
 
@@ -82,6 +83,8 @@ app.use(cors(corsOptions));
 //   next();
 // });
 
+require(__dirname + '/server/models/school.model');
+require(__dirname + '/server/models/withdrawrequest.model');
 require(__dirname + '/server/models/help.model');
 require(__dirname + '/server/models/but.model');
 require(__dirname + '/server/models/but_document.model');

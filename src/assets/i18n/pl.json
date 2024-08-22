@@ -550,5 +550,18 @@
     "UPLOAD_ERROR": "Błąd podczas przesyłania. Proszę spróbować ponownie później.",
     "NO_FILE_SELECTED": "Nie wybrano pliku",
     "FILE_WRONG": "Dokument jest błędny"
-  }
+  },
+  "SCHREIBEN_ERSTELLEN": "Utwórz zapis",
+  "BESTELLUNG_ABSCHLIESSEN_HEADER": "Zakończ zamówienie",
+  "BESTELLUNG_ABSCHLIESSEN_TEXT": "Po przesłaniu zamówienia z Twojego konta zostanie pobrana następująca kwota:",
+  "STORNIERUNG_HEADER": "Anuluj zamówienie",
+  "STORNIERUNG_TEXT_DIALOG": "Po przesłaniu anulowania na Twoje konto zostanie zwrócona następująca kwota:",
+  "BESTELLUNG_AENDERN_HEADER": "Zmień zamówienie",
+  "BESTELLUNG_AENDERN_TEXT": "Po przesłaniu zmiany oryginalne zamówienie zostanie anulowane, a nowe zamówienie zostanie zrealizowane.",
+  "BESTELLEN_BUTTON": "Zamów",
+  "STORNIEREN_BUTTON": "Anuluj",
+  "AENDERN_BUTTON": "Zmień",
+  "FEHLER_BESTELLUNG": "Błąd zamówienia",
+  "NUR_EINE_BESTELLUNG_PRO_TAG": "Możesz zamówić tylko jedno menu dziennie. Najpierw anuluj inne zamówienie.",
+  "BESTAETIGUNG_PER_EMAIL": "Otrzymuj potwierdzenie e-mailem"
 }

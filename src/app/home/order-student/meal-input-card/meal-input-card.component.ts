@@ -393,7 +393,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineDay(day: Date): void {
-    const distance = timeDifferenceDay(this.settings.orderSettings.deadLineDaily, day);
+    const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
     if (distance < 0) {

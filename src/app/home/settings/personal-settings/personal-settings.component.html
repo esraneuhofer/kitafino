@@ -138,20 +138,28 @@
                     <label for="iban" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.IBAN' | translate }}</label>
                     <div class="mt-2 relative">
                       <!-- Eingabefeld zum Bearbeiten der IBAN -->
-                      <input *ngIf="showFullIban" type="text"
-                             [(ngModel)]="tenantModel.iban"
-                             name="iban"
-                             id="iban"
-                             autocomplete="IBAN"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <div class="flex rounded-md shadow-sm" *ngIf="showFullIban">
+                        <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span>
+                        <input  type="text"
+                               [(ngModel)]="tenantModel.iban"
+                               name="iban"
+                               id="iban"
+                               autocomplete="IBAN"
+                               class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
+
                       <!-- Eingabefeld für die maskierte Ansicht -->
-                      <input *ngIf="!showFullIban" type="text"
-                             [value]="maskedIban"
-                             readonly
-                             id="iban_hidden"
-                             name="iban"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <div class="flex rounded-md shadow-sm" *ngIf="!showFullIban">
+                        <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span>
+                        <input type="text"
+                               [value]="maskedIban"
+                               readonly
+                               id="iban_hidden"
+                               name="iban"
+                               class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      </div>
                     </div>
+
                     <!-- Schaltfläche zum Umschalten der Ansicht -->
                     <div class="mt-2 flex justify-end">
                       <button (click)="toggleIbanVisibility()"
