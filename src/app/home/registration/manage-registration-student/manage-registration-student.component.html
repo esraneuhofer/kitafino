@@ -128,10 +128,8 @@
                                                 <select #subgroupModel="ngModel"
                                                         (ngModelChange)="selectSpecialFood($event, selectedStudent)"
                                                         [(ngModel)]="selectedStudent.specialFood"
-                                                        [class.focus:ring-red-500]="f1.submitted && subgroupModel.invalid"
-                                                        [class.placeholder:text-red-300]="f1.submitted && subgroupModel.invalid"
-                                                        [class.ring-red-300]="f1.submitted && subgroupModel.invalid"
-                                                        [class.text-red-900]="f1.submitted && subgroupModel.invalid"
+                                                        [ngClass]="!customerInfo.generalSettings.allergiesSetByTenant ? 'opacity-50 cursor-not-allowed text-gray-500' : ''"
+                                                        [disabled]="!customerInfo.generalSettings.allergiesSetByTenant"
                                                         class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         id="subgroup" name="subgroupModel">
                                                     <option disabled hidden selected value="">{{ 'MANAGE_STUDENTS.PLEASE_SELECT' | translate }}</option>
@@ -139,7 +137,7 @@
                                                             [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
                                                 </select>
                                                 <button (click)="setSpecialFoodEmpty(selectedStudent)"
-                                                        *ngIf="selectedStudent.specialFood"
+                                                        *ngIf="selectedStudent.specialFood && customerInfo.generalSettings.allergiesSetByTenant"
                                                         class="mt-1 rounded-md bg-rose-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                         type="button">
                                                     {{ 'MANAGE_STUDENTS.UNSELECT_SPECIAL_FOOD' | translate }}
@@ -160,8 +158,10 @@
                                             <p class="hidden sm:flex mt-1 text-sm leading-6 text-gray-600" [innerHTML]="'MANAGE_STUDENTS.EDIT_DESCRIPTION' | translate"></p>
                                             <h2 *ngIf="specialFoodSelection.length > 0"
                                                 class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</h2>
-                                            <p *ngIf="specialFoodSelection.length > 0"
+                                            <p *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant"
                                                class="text-sm leading-6 text-gray-600" [innerHTML]="'MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION' | translate"></p>
+                                          <p *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant"
+                                             class="text-sm leading-6 text-gray-600" [innerHTML]="'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate"></p>
                                         </div>
                                     </div>
                                 </div>

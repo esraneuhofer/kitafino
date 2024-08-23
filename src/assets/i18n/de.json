@@ -561,5 +561,8 @@
   "AENDERN_BUTTON": "Ändern",
   "FEHLER_BESTELLUNG":"Fehler bei der Bestellung",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Sie können nur ein Menü pro Tag bestellen. Bitte stornieren Sie die andere Bestellung zuerst.",
-  "BESTAETIGUNG_PER_EMAIL":"Bestätigung per Email erhalten"
+  "BESTAETIGUNG_PER_EMAIL":"Bestätigung per Email erhalten",
+
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Verfügbare Allergiker-Essen können nur durch die Einrichtung freigeschaltet werden. Bitte wenden Sie sich an Ihre Einrichtung. Wenn ein Allergiker-Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet."
 }
