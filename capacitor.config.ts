@@ -14,8 +14,8 @@ const config: CapacitorConfig = {
     hostname: 'my-app.com',
     androidScheme: 'https',
     cleartext: true,
-    // url: 'https://essen.cateringexpert.de'
-    url: 'http://localhost:4200/'
+    url: 'https://essen.cateringexpert.de'
+    // url: 'http://localhost:4200/'
   },
 
   plugins: {
@@ -26,7 +26,7 @@ const config: CapacitorConfig = {
       }
     },
     SplashScreen: {
-      launchShowDuration: 2000,
+      launchShowDuration: 4000,
       launchAutoHide: true,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
       "androidScaleType": "CENTER_CROP",
