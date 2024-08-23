@@ -13,11 +13,33 @@ const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
+const Feedback = mongoose.model('FeedbackSchema');
+
 const {convertToSendGridFormat} = require("./sendfrid.controller");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const upload = multer();
 
 
+
+
+module.exports.sendFeedback = (req, res, next) => {
+  console.log(req.userId)
+  let newModel = new Feedback({
+    message: req.body.message,
+    createdAt: new Date(),
+    customerId: req.customerId,
+    tenantId: req.tenantId,
+    userId: req._id,
+  });
+
+  newModel.save().then(data => {
+    console.log('Feedback saved successfully:', data);
+    res.json({ student: data, error: false });
+  }).catch(e => {
+    console.log('Feedback saved error:', e);
+    res.json({ student: e, error: true });
+  });
+};
 
 module.exports.getSettingsCaterer = async (req, res, next) => {
   try {

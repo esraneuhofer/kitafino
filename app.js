@@ -83,6 +83,7 @@ app.use(cors(corsOptions));
 //   next();
 // });
 
+require(__dirname + '/server/models/feedback.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/withdrawrequest.model');
 require(__dirname + '/server/models/help.model');

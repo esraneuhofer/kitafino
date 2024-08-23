@@ -17,6 +17,9 @@ import {PaymentIntentResponse} from "../home/account/account-payment-overview/ac
 import {OrderHistoryTableInterface} from "../home/order-history/order-history.component";
 
 
+class FeedbackInterface {
+}
+
 @Injectable(
   {providedIn: 'root'}
 )
@@ -28,6 +31,13 @@ export class GenerellService {
   constructor(private http:HttpClient) {
 
   }
+
+  sendFeedback(feedback:FeedbackInterface){
+    return this.http.post(environment.apiBaseUrl+'/sendFeedback',feedback)
+      .pipe(map((response: any) => response));
+  }
+
+
   getSettingsCaterer(){
     return this.http.get<SettingInterfaceNew>(environment.apiBaseUrl+'/getSettingsCaterer')
       .pipe(map((response: SettingInterfaceNew) => (response)));

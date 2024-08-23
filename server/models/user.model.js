@@ -1,8 +1,8 @@
+require('dotenv').config(); // Lädt die .env-Datei
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var Schema = mongoose.Schema;
-
 var userSchema = new mongoose.Schema({
   fullName: {
         type: String,

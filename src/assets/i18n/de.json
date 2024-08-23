@@ -564,5 +564,10 @@
   "BESTAETIGUNG_PER_EMAIL":"Bestätigung per Email erhalten",
 
 
-  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Verfügbare Allergiker-Essen können nur durch die Einrichtung freigeschaltet werden. Bitte wenden Sie sich an Ihre Einrichtung. Wenn ein Allergiker-Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet."
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Verfügbare Allergiker-Essen können nur durch die Einrichtung freigeschaltet werden. Bitte wenden Sie sich an Ihre Einrichtung. Wenn ein Allergiker-Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet.",
+  "FEEDBACK": "Feedback",
+  "LABEL_FEEDBACK": "Feedback / Anregung",
+  "HEADER_FEEDBACK": "Teilen Sie uns Ihr Feedback und Ihre Anregungen mit!",
+  "PARAGRAPH_FEEDBACK": "Wir schätzen Ihre Meinung und freuen uns über jede Rückmeldung zu unserem Service.Konstruktive Kritik und Vorschläge für Verbesserungen oder Ergänzungen helfen uns, unsere Leistungen kontinuierlich zu optimieren.",
+  "DIALOG_FEEDBACK_MESSAGE": "Ihr Feedback wurde erfolgreich versendet."
 }

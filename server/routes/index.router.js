@@ -72,6 +72,7 @@ router.get('/getSingelWeekplanPdf',jwtHelper.verifyJwtToken,ctrlGenerell.getSing
 router.get('/getWeekplanPdfWeek',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanPdfWeek)
 router.get('/getAllWeekplanPdf',jwtHelper.verifyJwtToken,ctrlGenerell.getAllWeekplanPdf)
 router.get('/getVacationCustomer',jwtHelper.verifyJwtToken,ctrlGenerell.getVacationCustomer)
+router.post('/sendFeedback',jwtHelper.verifyJwtToken,ctrlGenerell.sendFeedback)
 
 
 router.post('/sendEmail',jwtHelper.verifyJwtToken,ctrlGenerell.sendEmail)

@@ -36,9 +36,11 @@ import {
 } from "./home/settings/change-password-settings/change-password-settings.component";
 import {ButComponent} from "./home/but/but.component";
 import {NoInternetComponent} from "./no-internet/no-internet.component";
+import {FeedbackComponent} from "./home/feedback/feedback.component";
 
 
 export const appRoutes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'no-internet', component: NoInternetComponent },
   {
     path: 'signup', component: AuthenticationComponent,
@@ -67,7 +69,7 @@ export const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-
+      {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
       {path: 'but', component: ButComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'help', component: HelpComponent, canActivate: [AuthGuard, MainGuard]},
       {path: 'permanent_order', component: PermanentOrdersComponent, canActivate: [AuthGuard, MainGuard]},
@@ -91,5 +93,7 @@ export const appRoutes: Routes = [
   },
   {
     path: '', redirectTo: '/login', pathMatch: 'full'
-  }
+  },
+  { path: '**', redirectTo: '/home/dashboard', pathMatch: 'full' },
+
 ];

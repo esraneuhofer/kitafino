@@ -112,6 +112,7 @@ import {environment} from "../environments/environment";
 import { ButComponent } from './home/but/but.component';
 import { NoInternetComponent } from './no-internet/no-internet.component';
 import {NetworkService} from "./service/network.service";
+import { FeedbackComponent } from './home/feedback/feedback.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -210,6 +211,7 @@ export function localeFactory(languageService: LanguageService) {
     DeleteAccountSettingsComponent,
     ButComponent,
     NoInternetComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,

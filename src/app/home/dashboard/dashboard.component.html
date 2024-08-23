@@ -65,7 +65,8 @@
                     <button
                       [ngClass]="order.cancelPossible > 0 ? 'bg-red-500 hover:bg-red-300' : 'bg-gray-400'"
                       [disabled]="order.cancelPossible <= 0"
-                      [matTooltip]="order.cancelPossible > 0 ? '' : 'FIRSTPAGE.TOOLTIP_EXPIRED | translate }}'"
+                      [matTooltip]="order.cancelPossible > 0 ? '' : ('FIRSTPAGE.TOOLTIP_EXPIRED' | translate)"
+
                       (click)="cancelOrder(order)"
                       class="rounded-md px-2 py-1 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                      <span *ngIf="order.cancelPossible > 0"> {{ 'FIRSTPAGE.CANCEL' | translate }}</span>
