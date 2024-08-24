@@ -79,16 +79,6 @@ function getPriceStudentDependingOnSettings(settings: SettingInterfaceNew, eachP
   return priceStudent;
 }
 
-export function getPriceStudent(selectedStudent: StudentInterface | null, customer: CustomerInterface, settings: SettingInterfaceNew): number {
-  if (!selectedStudent) return 0;
-  let priceStudent = 0;
-  customer.billing.group.forEach(eachGroup => {
-    if (eachGroup.groupId === selectedStudent.subgroup) {
-      priceStudent = getPriceStudentDependingOnSettings(settings, eachGroup.prices)
-    }
-  })
-  return priceStudent;
-}
 
 export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
                                    weekplanSelectedWeek: WeekplanMenuInterface,

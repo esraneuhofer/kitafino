@@ -5,7 +5,6 @@ import { environment } from "../environments/environment";
 import { ToastingService } from "./service/toastr.service";
 import { SplashScreen } from '@capacitor/splash-screen';
 import {Platform} from "@ionic/angular";
-import {Network} from "@capacitor/network";
 
 @Component({
   selector: 'app-root',

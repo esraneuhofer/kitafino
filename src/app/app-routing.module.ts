@@ -40,7 +40,7 @@ import {FeedbackComponent} from "./home/feedback/feedback.component";
 
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/dashboard', pathMatch: 'full' },
   { path: 'no-internet', component: NoInternetComponent },
   {
     path: 'signup', component: AuthenticationComponent,

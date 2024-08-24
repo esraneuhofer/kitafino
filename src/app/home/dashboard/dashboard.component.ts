@@ -277,6 +277,7 @@ export class DashboardComponent {
   }
 
   cancelOrder(order: DisplayOrderArrayIntrface) {
+    console.log('cancelOrder', order);
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
@@ -285,6 +286,7 @@ export class DashboardComponent {
       position: {top: '100px'}
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
       if (result) {
         this.orderService.cancelOrderStudent(order.order).subscribe({
           next: (data) => {

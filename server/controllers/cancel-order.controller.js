@@ -107,6 +107,7 @@ async function findAccount(userId, session) {
 }
 
 async function findOrderAccount(orderId, session) {
+  console.log('orderId', orderId);
   try {
     const orderAccount = await OrdersAccountSchema.findOne({ orderId }).session(session);
     if (!orderAccount) {

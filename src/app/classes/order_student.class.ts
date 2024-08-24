@@ -6,7 +6,6 @@ import {Allergene} from "./allergenes.interface";
 import {MenuInterface} from "./menu.interface";
 import {MealModelInterface} from "./meal.interface";
 import {OrderInterfaceStudentSave} from "./order_student_safe.class";
-import {getPriceStudent} from "../home/order-student/order-container/order-container.component";
 import {getSpecialFoodById} from "../functions/special-food.functions";
 import {SchoolSettingsInterface} from "./schoolSettings.class";
 
@@ -135,7 +134,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
       }
     });
     if(studentModel && studentModel.specialFood){
-      let priceSpecial = getPriceSpecialFood(studentModel.specialFood,customer,studentModel);
+      let priceSpecial = getPriceSpecialFood(studentModel.specialFood,customer,studentModel,contractSettings);
       let specialFood = getSpecialFoodById(studentModel.specialFood,settings);
       if(!specialFood)return;
       const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
@@ -145,23 +144,37 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
 
   }
 }
-function getPriceSpecialFood(idSpecialFood:string,customer:CustomerInterface,studenModel:StudentInterface):number{
+function getPriceSpecialFood(idSpecialFood:string,customer:CustomerInterface,studenModel:StudentInterface,contractSettings:SchoolSettingsInterface):number{
   let price = 0;
   let backupPrice:number = 0;
   // console.log(customer.billing.group)
-  // console.log(idSpecialFood)
-  customer.billing.group.forEach(eachPrice=>{
-    if(eachPrice.groupId === studenModel.subgroup){
-      eachPrice.prices.forEach((eachPrice,index)=>{
-        let backupPrice = eachPrice.priceSpecial;
-        if(eachPrice.typeSpecial === 'special'){
-          price = eachPrice.priceSpecial;
-        }
-      })
-    }
-  })
+  if(customer.billing.separatePrice){
+    customer.billing.group.forEach(eachPrice=>{
+      if(eachPrice.groupId === studenModel.subgroup){
+        eachPrice.prices.forEach((eachPrice,index)=>{
+          let backupPrice = eachPrice.priceSpecial;
+          if(eachPrice.typeSpecial === 'special'){
+            price = eachPrice.priceSpecial;
+          }
+        })
+      }
+    })
+  }else{
+    customer.billing.group.forEach(eachPrice=>{
+      if(eachPrice.groupId === studenModel.subgroup) {
+        price =  eachPrice.prices[0].priceSpecial
+      }
+    })
+  }
+
   if(price === 0){
     price = backupPrice;
+  }
+  if(contractSettings.whoPayCharges === 'parent'){
+    price += contractSettings.amountPerOrder;
+  }
+  if(contractSettings.essensgeldEinrichtung > 0){
+    price += contractSettings.essensgeldEinrichtung;
   }
   return price;
 }
