@@ -1,7 +1,5 @@
 // network.service.ts
 import { Injectable } from '@angular/core';
-import { Network } from '@capacitor/network';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
