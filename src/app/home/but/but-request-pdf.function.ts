@@ -32,8 +32,6 @@ export function createPDF(
   bic: string,
   accountHolder: string,
   logoPath: string,
-  yourName: string,
-  yourContactDetails: string
 ): void {
   const docDefinition:any = {
     header: {
@@ -66,6 +64,10 @@ export function createPDF(
       { text: `BIC: ${bic}`, style: 'content' },
       '\n\n',
       { text: `Dieses Schreiben wurde am ${getInvoiceDateOne(new Date())} aus unserem System erstellt und ist auch ohne Unterschrift gültig.`, style: 'content' },
+      '\n\n',
+      { text: `Mit freundlichen Grüßen`, style: 'content' },
+      '\n',
+      { text: `Esra Neuhofer`, style: 'content' },
     ],
     footer: function (currentPage:any, pageCount:any) {
       return getFooterColumns(currentPage, pageCount, footer);

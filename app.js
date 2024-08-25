@@ -33,32 +33,10 @@ const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mong
 mongoose.connect(uriTest, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
-
-    try {
-      // Fiktive req und res Objekte für den Funktionsaufruf
-      const req = {}; // Füge notwendige req Eigenschaften hinzu
-      const res = {
-        status: (statusCode) => ({
-          send: (message) => console.log(`Response: ${statusCode}, Message:`, message)
-        })
-      };
-
-      // await testing(req, res);
-      // await testingDaily(req, res);
-      // Rufe die Funktion auf, um den neuen Cron-Job zu planen
-      scheduleDeleteOldMessages();
-
-      // await setTaskCustomerDeadline();
-      console.log('Tasks scheduled successfully.');
-    } catch (error) {
-      console.error('Failed to execute tasks:', error);
-    }
   })
   .catch(err => {
     console.error('Failed to connect to MongoDB:', err);
   });
-
-
 
 // CORS configuration
 const corsOptions = {
@@ -206,7 +184,3 @@ server.listen(port, function () {
 });
 
 
-// const { setTaskCustomerDeadline } = require(__dirname + '/server/controllers/daily-deadline-task');
-const { scheduleDeleteOldMessages } = require(__dirname + '/server/controllers/message.controller');
-// const { testing } = require(__dirname + '/server/controllers/task-weekly-order-deadline');
-// const { testingDaily } = require(__dirname + '/server/controllers/task-daily-deadline.controller');

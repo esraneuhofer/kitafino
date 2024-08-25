@@ -5,6 +5,7 @@ import { environment } from "../environments/environment";
 import { ToastingService } from "./service/toastr.service";
 import { SplashScreen } from '@capacitor/splash-screen';
 import {Platform} from "@ionic/angular";
+// import {Network} from "@capacitor/network";
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('App component initialized');
     // this.initializeApp();
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
@@ -40,34 +42,41 @@ export class AppComponent implements OnInit {
   //     await this.checkNetworkStatus();
   //   });
   // }
-  //
-  // async checkNetworkStatus() {
-  //   const status = await Network.getStatus();
-  //
-  //   if (!status.connected) {
-  //     this.showNoNetworkAlert();
-  //   }
-  //
-  //   // Event Listener für Netzwerkstatus-Änderungen hinzufügen
-  //   Network.addListener('networkStatusChange', (status) => {
-  //     if (!status.connected) {
-  //       this.showNoNetworkAlert();
-  //     } else {
-  //       this.hideNetworkAlert();
-  //     }
-  //   });
-  //
-  //   SplashScreen.hide(); // Splashscreen ausblenden, nachdem die Netzwerküberprüfung abgeschlossen ist
-  // }
-  //
-  // showNoNetworkAlert() {
-  //   alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-  //   // Hier kannst du auch eine benutzerdefinierte Anzeige oder ein Modal öffnen
-  // }
-  //
-  // hideNetworkAlert() {
-  //   // Logik zum Schließen der Netzwerk-Warnung oder eines Modals, falls erforderlich
-  // }
+
+
+// async checkNetworkStatus() {
+//   const status = await Network.getStatus();
+//   console.log('Initial netwosrk status:', status);
+//
+//   if (!status.connected) {
+//     this.showNoNetworkAlert();
+//   } else {
+//     this.hideNetworkAlert();
+//   }
+//
+//   // Event Listener für Netzwerkstatus-Änderungen hinzufügen
+//   Network.addListener('networkStatusChange', (status) => {
+//     console.log('Network status changed:', status);
+//
+//     if (!status.connected) {
+//       this.showNoNetworkAlert();
+//     } else {
+//       this.hideNetworkAlert();
+//     }
+//   });
+//
+//   SplashScreen.hide(); // Splashscreen ausblenden, nachdem die Netzwerküberprüfung abgeschlossen ist
+// }
+
+
+  showNoNetworkAlert() {
+    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+    // Hier kannst du auch eine benutzerdefinierte Anzeige oder ein Modal öffnen
+  }
+
+  hideNetworkAlert() {
+    // Logik zum Schließen der Netzwerk-Warnung oder eines Modals, falls erforderlich
+  }
 
 
 
