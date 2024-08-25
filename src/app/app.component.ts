@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { LanguageService } from "./service/language.service";
 import { ApiService } from "./service/api.service";
 import { environment } from "../environments/environment";
 import { ToastingService } from "./service/toastr.service";
 import { SplashScreen } from '@capacitor/splash-screen';
 import {Platform} from "@ionic/angular";
-// import {Network} from "@capacitor/network";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,11 @@ import {Platform} from "@ionic/angular";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private toastrService: ToastingService,
+
+  networkListener: any
+  isOnline: boolean = navigator.onLine;
+
+  constructor(private toastr: ToastingService,
               private platform: Platform,
               private languageService: LanguageService,
               private apiService: ApiService) {
@@ -24,9 +27,36 @@ export class AppComponent implements OnInit {
     this.languageService.setLanguage(language);
   }
 
+
+  // Event Listener für Netzwerkstatus-Änderungen
+  @HostListener('window:online', ['$event'])
+  onOnline(event: Event) {
+    this.isOnline = true;
+    console.log('Online!');
+    alert('Internetverbindung. ');
+    // Handle going online
+  }
+
+  @HostListener('window:offline', ['$event'])
+  onOffline(event: Event) {
+    this.isOnline = false;
+    console.log('Offline!');
+    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+    // Handle going offline
+  }
+
+  updateNetworkStatus() {
+    if (this.isOnline) {
+      console.log('The application is online.');
+    } else {
+      console.log('The application is offline.');
+      alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+    }
+  }
   ngOnInit() {
-    console.log('App component initialized');
-    // this.initializeApp();
+    this.updateNetworkStatus();
+    this.initializeApp();
+    console.log('App component initialized!');
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
         // console.log('Data received in component:', data);
@@ -37,47 +67,12 @@ export class AppComponent implements OnInit {
     );
   }
 
-  // async initializeApp() {
-  //   this.platform.ready().then(async () => {
-  //     await this.checkNetworkStatus();
-  //   });
-  // }
+  async initializeApp() {
 
-
-// async checkNetworkStatus() {
-//   const status = await Network.getStatus();
-//   console.log('Initial netwosrk status:', status);
-//
-//   if (!status.connected) {
-//     this.showNoNetworkAlert();
-//   } else {
-//     this.hideNetworkAlert();
-//   }
-//
-//   // Event Listener für Netzwerkstatus-Änderungen hinzufügen
-//   Network.addListener('networkStatusChange', (status) => {
-//     console.log('Network status changed:', status);
-//
-//     if (!status.connected) {
-//       this.showNoNetworkAlert();
-//     } else {
-//       this.hideNetworkAlert();
-//     }
-//   });
-//
-//   SplashScreen.hide(); // Splashscreen ausblenden, nachdem die Netzwerküberprüfung abgeschlossen ist
-// }
-
-
-  showNoNetworkAlert() {
-    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-    // Hier kannst du auch eine benutzerdefinierte Anzeige oder ein Modal öffnen
+    this.platform.ready().then(async () => {
+      SplashScreen.hide();
+    });
   }
-
-  hideNetworkAlert() {
-    // Logik zum Schließen der Netzwerk-Warnung oder eines Modals, falls erforderlich
-  }
-
 
 
 }
