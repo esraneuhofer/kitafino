@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   onOnline(event: Event) {
     this.isOnline = true;
     console.log('Online!');
-    alert('Internetverbindung. ');
+    alert('Internetverbindung wieder hergestellt.');
     // Handle going online
   }
 
