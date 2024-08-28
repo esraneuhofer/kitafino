@@ -77,12 +77,13 @@
 //
 //
 // }
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { LanguageService } from "./service/language.service";
 import { ApiService } from "./service/api.service";
 import { ToastingService } from "./service/toastr.service";
 import { SplashScreen } from '@capacitor/splash-screen';
 import { Platform } from "@ionic/angular";
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-root',
@@ -91,13 +92,15 @@ import { Platform } from "@ionic/angular";
 })
 export class AppComponent implements OnInit {
 
-  isOnline: boolean = navigator.onLine;
+  isOnline: boolean = false; // Initial auf 'false' setzen
 
-  constructor(private toastr: ToastingService,
-              private platform: Platform,
-              private languageService: LanguageService,
-              private apiService: ApiService) {
-  }
+  constructor(
+    private toastr: ToastingService,
+    private platform: Platform,
+    private languageService: LanguageService,
+    private apiService: ApiService,
+    private ngZone: NgZone // NgZone importieren und im Konstruktor verwenden
+  ) { }
 
   ngOnInit() {
     this.initializeApp();
@@ -110,36 +113,37 @@ export class AppComponent implements OnInit {
       }
     );
 
-    // Initialen Netzwerkstatus prüfen
-    this.updateNetworkStatus();
-
-    // Event-Listener für Netzwerkstatus-Änderungen hinzufügen
-    window.addEventListener('online', this.onOnline.bind(this));
-    window.addEventListener('offline', this.onOffline.bind(this));
-  }
-
-  async initializeApp() {
-    this.platform.ready().then(async () => {
-      SplashScreen.hide();
-      this.updateNetworkStatus();  // Zuverlässige Prüfung des Netzwerks beim Start
+    // Netzwerkstatus-Listener einrichten mit NgZone
+    Network.addListener('networkStatusChange', (status) => {
+      this.ngZone.run(() => {
+        this.isOnline = status.connected;
+        this.updateNetworkStatus(); // UI-Änderungen im Angular-Kontext ausführen
+      });
     });
   }
 
-  onOnline() {
-    this.isOnline = true;
-    console.log('Online!');
-    // alert('Internetverbindung wieder hergestellt.');
+  async initializeApp() {
+    await this.platform.ready();
+    SplashScreen.hide();
+
+    // Überprüfung des Netzwerkstatus beim Start
+    this.checkInitialNetworkStatus();
   }
 
-  onOffline() {
-    this.isOnline = false;
-    console.log('Offline!');
-    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+  checkInitialNetworkStatus() {
+    // Hier die Netzwerkkonnektivität überprüfen und entsprechend handeln
+    Network.getStatus().then((status) => {
+      this.ngZone.run(() => {
+        this.isOnline = status.connected;
+        this.updateNetworkStatus();
+      });
+    });
   }
 
   updateNetworkStatus() {
     if (this.isOnline) {
       console.log('The application is online.');
+      alert('Internetverbindung wieder hergestellt.');
     } else {
       console.log('The application is offline.');
       alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
