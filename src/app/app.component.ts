@@ -128,7 +128,7 @@ export class AppComponent implements OnInit {
   onOnline() {
     this.isOnline = true;
     console.log('Online!');
-    alert('Internetverbindung wieder hergestellt.');
+    // alert('Internetverbindung wieder hergestellt.');
   }
 
   onOffline() {
