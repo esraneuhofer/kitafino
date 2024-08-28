@@ -77,14 +77,12 @@
 //
 //
 // }
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LanguageService } from "./service/language.service";
 import { ApiService } from "./service/api.service";
-import { environment } from "../environments/environment";
 import { ToastingService } from "./service/toastr.service";
 import { SplashScreen } from '@capacitor/splash-screen';
 import { Platform } from "@ionic/angular";
-import { Network } from '@capacitor/network'; // Importieren Sie das Network Plugin
 
 @Component({
   selector: 'app-root',
@@ -93,48 +91,50 @@ import { Network } from '@capacitor/network'; // Importieren Sie das Network Plu
 })
 export class AppComponent implements OnInit {
 
-  networkListener: any;
   isOnline: boolean = navigator.onLine;
 
   constructor(private toastr: ToastingService,
               private platform: Platform,
               private languageService: LanguageService,
               private apiService: ApiService) {
-    // console.log(`Environment API Base URL: ${environment.apiBaseUrl}`);  // Log the environment variable directly
-  }
-
-  switchLanguage(language: string): void {
-    this.languageService.setLanguage(language);
   }
 
   ngOnInit() {
     this.initializeApp();
-    console.log('App component initialized!');
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
-        // console.log('Data received in component:', data);
+        // Logik bei erfolgreicher Sprachänderung
       },
       error => {
-        // console.error('Error in component:', error);
+        // Fehlerbehandlung
       }
     );
 
-    // Netzwerkstatus-Listener einrichten
-    this.setupNetworkListener();
+    // Initialen Netzwerkstatus prüfen
+    this.updateNetworkStatus();
+
+    // Event-Listener für Netzwerkstatus-Änderungen hinzufügen
+    window.addEventListener('online', this.onOnline.bind(this));
+    window.addEventListener('offline', this.onOffline.bind(this));
   }
 
   async initializeApp() {
     this.platform.ready().then(async () => {
       SplashScreen.hide();
-      this.updateNetworkStatus();
+      this.updateNetworkStatus();  // Zuverlässige Prüfung des Netzwerks beim Start
     });
   }
 
-  setupNetworkListener() {
-    Network.addListener('networkStatusChange', (status) => {
-      this.isOnline = status.connected;
-      this.updateNetworkStatus();
-    });
+  onOnline() {
+    this.isOnline = true;
+    console.log('Online!');
+    alert('Internetverbindung wieder hergestellt.');
+  }
+
+  onOffline() {
+    this.isOnline = false;
+    console.log('Offline!');
+    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
   }
 
   updateNetworkStatus() {
