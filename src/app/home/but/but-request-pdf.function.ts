@@ -4,7 +4,7 @@ import {SettingInterfaceNew} from "../../classes/setting.class";
 import {getInvoiceDateOne} from "../../functions/date.functions";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
-const footer: {
+export const footer: {
     footerLeft: {footerText:string}[],
     footerMiddle: {footerText:string}[],
     footerRight: {footerText:string}[]
@@ -102,7 +102,7 @@ export function createPDF(
   pdfMake.createPdf(docDefinition).download('Bestätigungsschreiben.pdf');
 }
 
-function getFooterColumns(currentPage:number, pageCount:number, footer:any) {
+export function getFooterColumns(currentPage:number, pageCount:number, footer:any) {
   let arr = [];
   arr.push({text: getTextFooter('footerLeft', currentPage, pageCount, footer), style: 'documentFooterLeft'});
   arr.push({text: getTextFooter('footerMiddle', currentPage, pageCount, footer), style: 'documentFooterCenter'});

@@ -278,7 +278,7 @@ export class OrderStudentComponent implements OnInit {
     this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.selectedWeekplan)
   }
   selectStudentSingle(student: StudentInterface | null) {
-
+    console.log(student)
     this.pageLoaded = false;
     if(!this.selectedDay) {
       this.toastr.error(this.translate.instant('ORDER_STUDENT_SELECT_DAY'))
@@ -325,9 +325,9 @@ export class OrderStudentComponent implements OnInit {
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
     if(!this.querySelection)return;
-    if(this.checkForErrors(this.selectedStudent)){
-      return;
-    }
+    // if(this.checkForErrors(this.selectedStudent)){
+    //   return;
+    // }
     if(this.displayOrderTypeWeek){
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     }else{
