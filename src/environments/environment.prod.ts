@@ -5,7 +5,8 @@
 // };
 export const environment = {
   production: true,
-  apiBaseUrl: '/api',
+  // apiBaseUrl: '/api',
+  apiBaseUrl: 'https://essen.cateringexpert.de/api',  // Setze die vollständige URL
   successUrl: 'https://your-production-domain.com/home/account_overview?status=success',
   cancelUrl: 'https://your-production-domain.com/home/account_overview?status=failure'
 };
