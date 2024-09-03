@@ -17,7 +17,6 @@ const config: CapacitorConfig = {
     // url: 'https://essen.cateringexpert.de',
     // url: 'http://localhost:4200/'
   },
-
   plugins: {
     "Cordova": {},
     "FileOpener": {

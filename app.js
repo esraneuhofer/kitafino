@@ -43,7 +43,8 @@ const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
-    'capacitor://my-app.com',          // Die Domain, die in den Fehlermeldungen erscheint
+    'capacitor://my-app.com',
+    'https://my-app.com',
     'http://localhost',                // Localhost for Capacitor on Android
     'ionic://localhost',               // Ionic scheme for iOS Capacitor apps
     'https://essen.cateringexpert.de', // Deine Produktionsdomain

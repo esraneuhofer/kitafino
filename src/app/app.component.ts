@@ -54,6 +54,8 @@ export class AppComponent implements OnInit {
   //     alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
   //   }
   // }
+
+
   ngOnInit() {
 
     // this.initializeApp();
