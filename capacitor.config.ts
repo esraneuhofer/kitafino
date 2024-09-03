@@ -14,7 +14,7 @@ const config: CapacitorConfig = {
     hostname: 'my-app.com',
     androidScheme: 'https',
     cleartext: true,
-    // url: 'https://essen.cateringexpert.de'
+    url: 'https://essen.cateringexpert.de'
     // url: 'http://localhost:4200/'
   },
 
