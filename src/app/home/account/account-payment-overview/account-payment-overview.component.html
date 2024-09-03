@@ -14,8 +14,8 @@
                     {{ 'ACCOUNT.DEPOSIT_INSTRUCTIONS' | translate }}
                     <br><br>
                     {{ 'ACCOUNT.COMPANY_NAME' | translate }} <br>
-                    {{ 'ACCOUNT.BANK_NAME' | translate }} <br>
-                    <b>{{ 'ACCOUNT.IBAN' | translate }}:</b> DE12345678901234567890
+                   <b>Bank</b> {{ 'ACCOUNT.BANK_NAME' | translate }} <br>
+                    <b>{{ 'ACCOUNT.IBAN' | translate }}:</b> DE30 5107 0021 0980 5797 01
                     <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
                              [icon]="faClipboard"
                              [matTooltip]="'In Ablage kopieren'"
