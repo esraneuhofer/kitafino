@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit() {
-
+    SplashScreen.hide();
     this.initializeApp();
     console.log('App component initialized!');
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
@@ -68,11 +68,9 @@ export class AppComponent implements OnInit {
   }
 
   async initializeApp() {
-
-    this.platform.ready().then(async () => {
-      SplashScreen.hide();
-      this.updateNetworkStatus();
-    });
+    await this.platform.ready();
+    SplashScreen.hide();
+    this.updateNetworkStatus();
   }
 
 
