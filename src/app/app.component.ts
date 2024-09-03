@@ -29,33 +29,33 @@ export class AppComponent implements OnInit {
 
 
   // Event Listener für Netzwerkstatus-Änderungen
-  @HostListener('window:online', ['$event'])
-  onOnline(event: Event) {
-    this.isOnline = true;
-    console.log('Online!');
-    // alert('Internetverbindung wieder hergestellt.');
-    // Handle going online
-  }
-
-  @HostListener('window:offline', ['$event'])
-  onOffline(event: Event) {
-    this.isOnline = false;
-    console.log('Offline!');
-    alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-    // Handle going offline
-  }
-
-  updateNetworkStatus() {
-    if (this.isOnline) {
-      console.log('The application is online.');
-    } else {
-      console.log('The application is offline.');
-      alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-    }
-  }
+  // @HostListener('window:online', ['$event'])
+  // onOnline(event: Event) {
+  //   this.isOnline = true;
+  //   console.log('Online!');
+  //   // alert('Internetverbindung wieder hergestellt.');
+  //   // Handle going online
+  // }
+  //
+  // @HostListener('window:offline', ['$event'])
+  // onOffline(event: Event) {
+  //   this.isOnline = false;
+  //   console.log('Offline!');
+  //   alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+  //   // Handle going offline
+  // }
+  //
+  // updateNetworkStatus() {
+  //   if (this.isOnline) {
+  //     console.log('The application is online.');
+  //   } else {
+  //     console.log('The application is offline.');
+  //     alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
+  //   }
+  // }
   ngOnInit() {
 
-    this.initializeApp();
+    // this.initializeApp();
     console.log('App component initialized!');
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
@@ -66,14 +66,14 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
-  async initializeApp() {
-
-    await this.platform.ready();
-    await SplashScreen.hide();
-    this.updateNetworkStatus();
-  }
-
+  //
+  // async initializeApp() {
+  //
+  //   await this.platform.ready();
+  //   await SplashScreen.hide();
+  //   this.updateNetworkStatus();
+  // }
+  //
 
 }
 
