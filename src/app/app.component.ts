@@ -68,9 +68,9 @@ export class AppComponent implements OnInit {
   }
 
   async initializeApp() {
-    await SplashScreen.hide();
 
     await this.platform.ready();
+    await SplashScreen.hide();
     this.updateNetworkStatus();
   }
 
