@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
@@ -49,8 +50,8 @@ const corsOptions = {
   ],
   credentials: true,
 };
-app.use(cors());
-// app.use(cors(corsOptions));
+
+app.use(cors(corsOptions));
 
 
 
