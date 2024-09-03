@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //              fatalError("Could not instantiate initial view controller from LaunchScreen.storyboard!")
 //          }
 //
-//          // Add the splash view to the window
+//          // Add the splash view to the winqdow
 //          window.addSubview(splashView)
 //          window.bringSubviewToFront(splashView)
 //

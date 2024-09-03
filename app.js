@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
-
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
@@ -43,14 +42,17 @@ const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
+    'http://localhost',                // Localhost for Capacitor on Android
+    'ionic://localhost',               // Ionic scheme for iOS Capacitor apps
     'https://essen.cateringexpert.de', // Heroku production URL
     'https://cateringexpert.de'        // Your website domain
   ],
   credentials: true,
 };
+app.use(cors());
+// app.use(cors(corsOptions));
 
 
-app.use(cors(corsOptions));
 
 
 // Log all incoming requests
