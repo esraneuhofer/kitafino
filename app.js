@@ -43,13 +43,17 @@ const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
     'capacitor://localhost',           // Capacitor app scheme
+    'capacitor://my-app.com',          // Die Domain, die in den Fehlermeldungen erscheint
     'http://localhost',                // Localhost for Capacitor on Android
     'ionic://localhost',               // Ionic scheme for iOS Capacitor apps
-    'https://essen.cateringexpert.de', // Heroku production URL
-    'https://cateringexpert.de'        // Your website domain
+    'https://essen.cateringexpert.de', // Deine Produktionsdomain
+    'https://cateringexpert.de'        // Weitere relevante Domains
   ],
   credentials: true,
 };
+
+app.use(cors(corsOptions));
+
 
 app.use(cors(corsOptions));
 
