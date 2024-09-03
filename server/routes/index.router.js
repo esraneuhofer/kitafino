@@ -45,6 +45,7 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 
 
+
 router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.getRegisteredStudentsUser);
 
 
@@ -59,6 +60,7 @@ router.post('/editStudent',jwtHelper.verifyJwtToken,ctrlStudents.editStudent)
 
 
 //////Get Requests only////////
+router.get('/healthcheck',jwtHelper.verifyJwtToken,ctrlGenerell.healthcheck)
 router.get('/getSettingsCaterer',jwtHelper.verifyJwtToken,ctrlGenerell.getSettingsCaterer)
 router.get('/getCustomerInfo',jwtHelper.verifyJwtToken,ctrlGenerell.getCustomerInfo)
 router.get('/getWeekplanWeek',jwtHelper.verifyJwtToken,ctrlGenerell.getWeekplanWeek)

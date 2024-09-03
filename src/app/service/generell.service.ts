@@ -42,6 +42,12 @@ export class GenerellService {
     return this.http.get<SettingInterfaceNew>(environment.apiBaseUrl+'/getSettingsCaterer')
       .pipe(map((response: SettingInterfaceNew) => (response)));
   }
+
+  healthcheck(){
+    return this.http.get<any>(environment.apiBaseUrl+'/healthcheck')
+      .pipe(map((response: any) => (response)));
+  }
+
   getCustomerInfo(){
     return this.http.get<CustomerInterface>(environment.apiBaseUrl+'/getCustomerInfo')
       .pipe(map((response: CustomerInterface) => (response)));

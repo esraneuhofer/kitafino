@@ -51,6 +51,18 @@ module.exports.getSettingsCaterer = async (req, res, next) => {
   }
 };
 
+module.exports.healthcheck = (req, res) => {
+  try {
+    // Erfolgreiche Antwort senden, um anzuzeigen, dass der Server aktiv ist
+    res.status(200).json({ message: 'Server is up and running' });
+  } catch (err) {
+    console.error(err); // Fehlerprotokollierung für Debugging
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
+
+
+
 module.exports.getCustomerInfo = async (req, res, next) => {
   try {
     const customer = await Customer.findOne({ 'customerId': req.customerId });

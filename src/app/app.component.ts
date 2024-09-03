@@ -1,10 +1,10 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { LanguageService } from "./service/language.service";
 import { ApiService } from "./service/api.service";
-import { environment } from "../environments/environment";
 import { ToastingService } from "./service/toastr.service";
-import { SplashScreen } from '@capacitor/splash-screen';
 import {Platform} from "@ionic/angular";
+import {HttpClient} from "@angular/common/http";
+import {GenerellService} from "./service/generell.service";
 
 @Component({
   selector: 'app-root',
@@ -18,8 +18,11 @@ export class AppComponent implements OnInit {
 
   constructor(private toastr: ToastingService,
               private platform: Platform,
+              private http: HttpClient,
+              private generalService:GenerellService,
               private languageService: LanguageService,
               private apiService: ApiService) {
+
     // console.log(`Environment API Base URL: ${environment.apiBaseUrl}`);  // Log the environment variable directly
   }
 
@@ -56,10 +59,13 @@ export class AppComponent implements OnInit {
   // }
 
 
-  ngOnInit() {
 
-    // this.initializeApp();
+  ngOnInit() {
+    // Überprüfung der Backend-Verbindung
+
     console.log('App component initialized!');
+
+    // Spracheinstellung setzen
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
         // console.log('Data received in component:', data);
@@ -69,7 +75,11 @@ export class AppComponent implements OnInit {
       }
     );
   }
-  //
+
+
+
+
+//
   // async initializeApp() {
   //
   //   await this.platform.ready();
