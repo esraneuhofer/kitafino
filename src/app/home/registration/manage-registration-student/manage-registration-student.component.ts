@@ -36,6 +36,8 @@ export class ManageRegistrationStudentComponent implements OnInit{
   pageLoaded:boolean = false;
   submittingRequest = false;
   selectedSubgroup:string = '';
+  isDisabledSubgroup:boolean = false;
+
   specialFoodSelection:SpecialFoodSelectionStudent [] = [];
   settings!: SettingInterfaceNew;
   selectedSpecialFood:string = '';
@@ -124,6 +126,9 @@ export class ManageRegistrationStudentComponent implements OnInit{
   selectStudent(student:StudentInterface){
     this.selectedStudent = student;
     this.selectedSubgroup = student.subgroup;
+    if(this.selectedStudent && this.selectedStudent._id && this.selectedStudent.subgroup){
+      this.isDisabledSubgroup = true
+    }
     setTimeout(() => this.isFlipped = true, 50);
   }
 

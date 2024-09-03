@@ -1,181 +1,271 @@
 <ng-container *ngIf="pageLoaded && customerInfo">
-    <div class="container mx-auto px-4 mt-8">
-        <div class="flex justify-center">
-            <div class="w-full xs-full sm:w-full md:w-11/12">
-                <div [class.flipped]="isFlipped" class="relative perspective">
-                    <div class="card-face front">
-                        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
-                            <div class="px-4 sm:px-6 lg:px-8">
-                                <div class="flex flex-wrap">
-                                    <div class="sm:flex-auto">
-                                        <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'MANAGE_STUDENTS.TITLE' | translate }}</h1>
-                                        <p class="mt-2 text-sm text-gray-700">{{ 'MANAGE_STUDENTS.DESCRIPTION' | translate }}</p>
-                                    </div>
-                                    <div class="mt-4 sm:mt-0 sm:flex-none hidden sm:block ">
-                                        <app-button (click)="routeToAccount()" [submittingRequest]="submittingRequest"
-                                                    [typeButton]="'button'">
-                                            {{ 'MANAGE_STUDENTS.ADD_NEW_STUDENT' | translate }}
-                                        </app-button>
-                                    </div>
-                                </div>
+  <div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-center">
+      <div class="w-full xs-full sm:w-full md:w-11/12">
+        <div [class.flipped]="isFlipped" class="relative perspective">
+          <div class="card-face front">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+              <div class="px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap">
+                  <div class="sm:flex-auto">
+                    <h1
+                      class="text-base font-semibold leading-6 text-gray-900">{{ 'MANAGE_STUDENTS.TITLE' | translate }}</h1>
+                    <p class="mt-2 text-sm text-gray-700">{{ 'MANAGE_STUDENTS.DESCRIPTION' | translate }}</p>
+                  </div>
+                  <div class="mt-4 sm:mt-0 sm:flex-none hidden sm:block ">
+                    <app-button (click)="routeToAccount()" [submittingRequest]="submittingRequest"
+                                [typeButton]="'button'">
+                      {{ 'MANAGE_STUDENTS.ADD_NEW_STUDENT' | translate }}
+                    </app-button>
+                  </div>
+                </div>
 
-                                <div class="mt-8 flow-root">
-                                    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                        <div class="inline-block min-w-full align-middle xs:px-0 sm:px-6 lg:px-8">
-                                            <table class="min-w-full divide-y divide-gray-300">
-                                                <thead>
-                                                <tr>
-                                                    <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
-                                                        scope="col">
-                                                        {{ 'MANAGE_STUDENTS.NAME' | translate }}
-                                                    </th>
-                                                    <th *ngIf="customerInfo.order.split.length > 1" class="hidden sm:table-cell table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
-                                                        scope="col">
-                                                        {{ 'MANAGE_STUDENTS.GROUP' | translate }}
-                                                    </th>
-                                                    <th *ngIf="specialFoodSelection.length > 0" class="hidden sm:table-cell table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
-                                                        scope="col">
-                                                        {{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}
-                                                    </th>
-                                                    <th class="relative table-cell-padding-medium text-right-align text-sm font-medium sm:pr-0"
-                                                        scope="col">
-                                                        <span class="sr-only">{{ 'MANAGE_STUDENTS.EDIT' | translate }}</span>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody class="divide-y divide-gray-200">
-                                                <tr *ngFor="let student of registeredStudents">
-                                                    <td class="whitespace-nowrap table-cell-padding-medium text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
-                                                    <td *ngIf="customerInfo.order.split.length > 1"
-                                                        class="hidden sm:table-cell whitespace-nowrap table-cell-padding-medium text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup, customerInfo)}}</td>
-                                                    <td *ngIf="specialFoodSelection.length > 0"
-                                                        class="hidden sm:table-cell whitespace-nowrap table-cell-padding-medium text-sm text-gray-500">
+                <div class="mt-8 flow-root">
+                  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full align-middle xs:px-0 sm:px-6 lg:px-8">
+                      <table class="min-w-full divide-y divide-gray-300">
+                        <thead>
+                        <tr>
+                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                              scope="col">
+                            {{ 'MANAGE_STUDENTS.NAME' | translate }}
+                          </th>
+                          <th *ngIf="customerInfo.order.split.length > 1"
+                              class="hidden sm:table-cell table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                              scope="col">
+                            {{ 'MANAGE_STUDENTS.GROUP' | translate }}
+                          </th>
+                          <th *ngIf="specialFoodSelection.length > 0"
+                              class="hidden sm:table-cell table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                              scope="col">
+                            {{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}
+                          </th>
+                          <th class="relative table-cell-padding-medium text-right-align text-sm font-medium sm:pr-0"
+                              scope="col">
+                            <span class="sr-only">{{ 'MANAGE_STUDENTS.EDIT' | translate }}</span>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                        <tr *ngFor="let student of registeredStudents">
+                          <td
+                            class="whitespace-nowrap table-cell-padding-medium text-sm font-medium text-gray-900 sm:pl-0">{{student.lastName + ' ' + student.firstName }}</td>
+                          <td *ngIf="customerInfo.order.split.length > 1"
+                              class="hidden sm:table-cell whitespace-nowrap table-cell-padding-medium text-sm text-gray-500">{{getSubGroupNameFromId(student.subgroup, customerInfo)}}</td>
+                          <td *ngIf="specialFoodSelection.length > 0"
+                              class="hidden sm:table-cell whitespace-nowrap table-cell-padding-medium text-sm text-gray-500">
               <span *ngIf="student.specialFood">
                 {{getSpecialFoodFromId(student.specialFood, settings)}}
               </span>
-                                                    </td>
-                                                    <td class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
-                                                        <div>
-                                                            <app-button (click)="selectStudent(student)"
-                                                                        [buttonType]="'button'"
-                                                                        [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.EDIT' | translate }}
-                                                            </app-button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Knopf für kleine Bildschirme -->
-                                <div class="mt-4 sm:hidden w-full">
-                                    <app-button (click)="routeToAccount()" [submittingRequest]="submittingRequest" [typeButton]="'button'" class="w-full">
-                                        {{ 'MANAGE_STUDENTS.ADD_NEW_STUDENT' | translate }}
-                                    </app-button>
-                                </div>
-
+                          </td>
+                          <td
+                            class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
+                            <div>
+                              <app-button (click)="selectStudent(student)"
+                                          [buttonType]="'button'"
+                                          [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.EDIT' | translate }}
+                              </app-button>
                             </div>
-                        </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <div *ngIf="selectedStudent" class="card-face back">
-                        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
-                            <div class="flex flex-wrap xs:mb-2 sm:mb-2 mb-4">
-                                <div class="sm:flex-auto">
-                                    <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'MANAGE_STUDENTS.EDIT_STUDENT' | translate }}</h1>
-                                </div>
-                            </div>
-                            <form #f1="ngForm" (ngSubmit)="f1.form.valid && editStudent(selectedStudent)" novalidate>
-                                <div class="space-y-12">
-                                    <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-                                        <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-gray-900"
-                                                       for="firstName">{{ 'MANAGE_STUDENTS.FIRST_NAME' | translate }}</label>
-                                                <div class="mt-2">
-                                                    <input #firstName="ngModel" [(ngModel)]="selectedStudent.firstName"
-                                                           [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
-                                                           [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
-                                                           [class.ring-red-300]="f1.submitted && firstName.invalid"
-                                                           [class.text-red-900]="f1.submitted && firstName.invalid"
-                                                           autocomplete="given-name"
-                                                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                           id="firstName" name="firstName" required type="text">
-                                                </div>
-                                                <p *ngIf="f1.submitted && firstName.invalid"
-                                                   class="m-1 text-sm text-red-600">{{ 'MANAGE_STUDENTS.REQUIRED_FIELD' | translate }}</p>
-                                            </div>
-                                            <div class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-gray-900"
-                                                       for="lastName">{{ 'MANAGE_STUDENTS.LAST_NAME' | translate }}</label>
-                                                <div class="mt-2">
-                                                    <input #lastName="ngModel" [(ngModel)]="selectedStudent.lastName"
-                                                           [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
-                                                           [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
-                                                           [class.ring-red-300]="f1.submitted && lastName.invalid"
-                                                           [class.text-red-900]="f1.submitted && lastName.invalid"
-                                                           autocomplete="given-name"
-                                                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                           id="lastName" name="lastName" required type="text">
-                                                </div>
-                                                <p *ngIf="f1.submitted && lastName.invalid"
-                                                   class="mt-1 text-sm text-red-600">{{ 'MANAGE_STUDENTS.REQUIRED_FIELD' | translate }}</p>
-                                            </div>
-                                            <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
-                                                <label class="block text-sm font-medium leading-6 text-gray-900"
-                                                       for="subgroup">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</label>
-                                                <select #subgroupModel="ngModel"
-                                                        (ngModelChange)="selectSpecialFood($event, selectedStudent)"
-                                                        [(ngModel)]="selectedStudent.specialFood"
-                                                        [ngClass]="!customerInfo.generalSettings.allergiesSetByTenant ? 'opacity-50 cursor-not-allowed text-gray-500' : ''"
-                                                        [disabled]="!customerInfo.generalSettings.allergiesSetByTenant"
-                                                        class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        id="subgroup" name="subgroupModel">
-                                                    <option disabled hidden selected value="">{{ 'MANAGE_STUDENTS.PLEASE_SELECT' | translate }}</option>
-                                                    <option *ngFor="let specialFood of specialFoodSelection"
-                                                            [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
-                                                </select>
-                                                <button (click)="setSpecialFoodEmpty(selectedStudent)"
-                                                        *ngIf="selectedStudent.specialFood && customerInfo.generalSettings.allergiesSetByTenant"
-                                                        class="mt-1 rounded-md bg-rose-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                        type="button">
-                                                    {{ 'MANAGE_STUDENTS.UNSELECT_SPECIAL_FOOD' | translate }}
-                                                </button>
-                                                <!-- Button section for small screens -->
-                                                <div class="mt-6 flex items-center justify-end gap-x-6 show-xs-sm border-top pt-4 sm:hidden">
-                                                    <app-button (click)="isFlipped = false" [buttonType]="'button'">
-                                                        {{ 'BACK_BUTTON' | translate }}
-                                                    </app-button>
-                                                    <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}
-                                                    </app-button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h2 class="hidden sm:flex text-base font-semibold leading-7 text-gray-900">
-                                                {{ 'MANAGE_STUDENTS.EDIT_TITLE' | translate }}</h2>
-                                            <p class="hidden sm:flex mt-1 text-sm leading-6 text-gray-600" [innerHTML]="'MANAGE_STUDENTS.EDIT_DESCRIPTION' | translate"></p>
-                                            <h2 *ngIf="specialFoodSelection.length > 0"
-                                                class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</h2>
-                                            <p *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant"
-                                               class="text-sm leading-6 text-gray-600" [innerHTML]="'MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION' | translate"></p>
-                                          <p *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant"
-                                             class="text-sm leading-6 text-gray-600" [innerHTML]="'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate"></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Button section for larger screens -->
-                                <div class="mt-6 flex items-center justify-end gap-x-6 hidden sm:flex">
-                                    <app-button (click)="isFlipped = false" [buttonType]="'button'">{{ 'BACK_BUTTON' | translate }}</app-button>
-                                    <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}</app-button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+
+                <!-- Knopf für kleine Bildschirme -->
+                <div class="mt-4 sm:hidden w-full">
+                  <app-button (click)="routeToAccount()" [submittingRequest]="submittingRequest" [typeButton]="'button'"
+                              class="w-full">
+                    {{ 'MANAGE_STUDENTS.ADD_NEW_STUDENT' | translate }}
+                  </app-button>
+                </div>
+
+              </div>
             </div>
+          </div>
+          <div *ngIf="selectedStudent" class="card-face back">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
+              <div class="flex flex-wrap xs:mb-2 sm:mb-2 mb-4">
+                <div class="sm:flex-auto">
+                  <h1
+                    class="text-base font-semibold leading-6 text-gray-900">{{ 'MANAGE_STUDENTS.EDIT_STUDENT' | translate }}</h1>
+                </div>
+              </div>
+              <form #f1="ngForm" (ngSubmit)="f1.form.valid && editStudent(selectedStudent)" novalidate>
+                <div class="space-y-12">
+                  <div class="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+                    <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+                      <div class="sm:col-span-4">
+                        <label class="block text-sm font-medium leading-6 text-gray-900"
+                               for="firstName">{{ 'MANAGE_STUDENTS.FIRST_NAME' | translate }}</label>
+                        <div class="mt-2">
+                          <input #firstName="ngModel" [(ngModel)]="selectedStudent.firstName"
+                                 [class.focus:ring-red-500]="f1.submitted && firstName.invalid"
+                                 [class.placeholder:text-red-300]="f1.submitted && firstName.invalid"
+                                 [class.ring-red-300]="f1.submitted && firstName.invalid"
+                                 [class.text-red-900]="f1.submitted && firstName.invalid"
+                                 autocomplete="given-name"
+                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                 id="firstName" name="firstName" required type="text">
+                        </div>
+                        <p *ngIf="f1.submitted && firstName.invalid"
+                           class="m-1 text-sm text-red-600">{{ 'MANAGE_STUDENTS.REQUIRED_FIELD' | translate }}</p>
+                      </div>
+                      <div class="sm:col-span-4">
+                        <label class="block text-sm font-medium leading-6 text-gray-900"
+                               for="lastName">{{ 'MANAGE_STUDENTS.LAST_NAME' | translate }}</label>
+                        <div class="mt-2">
+                          <input #lastName="ngModel" [(ngModel)]="selectedStudent.lastName"
+                                 [class.focus:ring-red-500]="f1.submitted && lastName.invalid"
+                                 [class.placeholder:text-red-300]="f1.submitted && lastName.invalid"
+                                 [class.ring-red-300]="f1.submitted && lastName.invalid"
+                                 [class.text-red-900]="f1.submitted && lastName.invalid"
+                                 autocomplete="given-name"
+                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                 id="lastName" name="lastName" required type="text">
+                        </div>
+                        <p *ngIf="f1.submitted && lastName.invalid"
+                           class="mt-1 text-sm text-red-600">{{ 'MANAGE_STUDENTS.REQUIRED_FIELD' | translate }}</p>
+                      </div>
+                      <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                        <label class="block text-sm font-medium leading-6 text-gray-900"
+                               for="specialFoodSelectionModel">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</label>
+                        <select #specialFoodSelectionModel="ngModel"
+                                (ngModelChange)="selectSpecialFood($event, selectedStudent)"
+                                [(ngModel)]="selectedStudent.specialFood"
+                                [disabled]="!customerInfo.generalSettings.allergiesSetByTenant"
+                                [ngClass]="!customerInfo.generalSettings.allergiesSetByTenant ? 'opacity-50 cursor-not-allowed text-gray-500' : ''"
+                                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                id="specialFoodSelectionModel" name="specialFoodSelectionModel">
+                          <option disabled hidden selected
+                                  value="">{{ 'MANAGE_STUDENTS.PLEASE_SELECT' | translate }}</option>
+                          <option *ngFor="let specialFood of specialFoodSelection"
+                                  [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
+                        </select>
+                        <button (click)="setSpecialFoodEmpty(selectedStudent)"
+                                *ngIf="selectedStudent.specialFood && customerInfo.generalSettings.allergiesSetByTenant"
+                                class="mt-1 rounded-md bg-rose-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                type="button">
+                          {{ 'MANAGE_STUDENTS.UNSELECT_SPECIAL_FOOD' | translate }}
+                        </button>
+                        <!-- Button section for small screens -->
+                        <div class="mt-6 flex items-center justify-end gap-x-6 show-xs-sm border-top pt-4 sm:hidden">
+                          <app-button (click)="isFlipped = false" [buttonType]="'button'">
+                            {{ 'BACK_BUTTON' | translate }}
+                          </app-button>
+                          <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}
+                          </app-button>
+                        </div>
+                      </div>
+                      <ng-container
+                        *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant">
+                        <div class="sm:col-span-4">
+                          <!--                            <app-label-tooltip [tooltip]="'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP'"-->
+                          <!--                                               [idLabel]="'subgroup'"-->
+                          <!--                                               [label]="'SUBGROUP_LABEL'"></app-label-tooltip>-->
+                          <label class="block text-sm font-medium leading-6 text-gray-900" for="subgroup"
+                                 style="display: flex; align-items: center;">
+                            {{"SUBGROUP_LABEL" | translate}}
+                          </label>
+
+                          <select #subgroupModel="ngModel" (ngModelChange)="isSelected($event)"
+                                  [(ngModel)]="selectedSubgroup"
+                                  [disabled]="isDisabledSubgroup"
+                                  [ngClass]="{
+                                              'opacity-50 cursor-not-allowed text-gray-500': isDisabledSubgroup,
+                                              'invalid-input': f1.submitted && subgroupModel.invalid
+                                            }"
+
+                                  [required]="!subGroupUnknownModel"
+                                  class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                  id="subgroup"
+                                  name="subgroupModel">
+                            <option disabled hidden selected value="">{{ 'PLEASE_SELECT' | translate }}</option>
+                            <option *ngFor="let subgroup of customerInfo.order.split"
+                                    [value]="subgroup.group">{{subgroup.displayGroup}}</option>
+                          </select>
+                          <p *ngIf="f1.submitted && subgroupModel.invalid"
+                             class="mt-1 text-sm text-red-600">{{ 'SUBGROUP_INSTRUCTIONS' | translate }}</p>
+                        </div>
+                        <div class="sm:col-span-4">
+                          <div class="space-y-5">
+                            <div class="relative flex items-start">
+                              <div class="flex h-6 items-center">
+                                <input (ngModelChange)="setSubgroupSelection($event)" [(ngModel)]="subGroupUnknownModel"
+                                       aria-describedby="comments-description"
+                                       class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                       id="subGroupUnknown"
+                                       name="subGroupUnknown"
+                                       type="checkbox">
+                              </div>
+                              <div class="ml-3 text-sm leading-6">
+                                <label class="font-medium text-gray-900"
+                                       for="subGroupUnknown">{{ 'UNKNOWN_SUBGROUP_LABEL' | translate }}</label>
+                                <p class="text-gray-500"
+                                   id="comments-description">{{ 'UNKNOWN_SUBGROUP_INSTRUCTIONS' | translate }}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--                          <div class="sm:col-span-4">-->
+                        <!--                            <div class="space-y-5">-->
+                        <!--                              <div class="relative flex items-start">-->
+                        <!--                                <div class="flex h-6 items-center">-->
+                        <!--                                  <input [(ngModel)]="studentModel.bildungTeilhabe"-->
+                        <!--                                         aria-describedby="comments-description"-->
+                        <!--                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"-->
+                        <!--                                         id="but"-->
+                        <!--                                         name="but"-->
+                        <!--                                         type="checkbox">-->
+                        <!--                                </div>-->
+                        <!--                                <div class="ml-3 text-sm leading-6">-->
+                        <!--                                  <label class="font-medium text-gray-900" for="subGroupUnknown">Bildung und Teilhabe</label>-->
+                        <!--                                  <p class="text-gray-500" id="comments-bildungTeilhabe">Bitte nur ankreuzen, wenn ein Anspruch besteht</p>-->
+                        <!--                                  <p class="text-gray-500" id="moreInformation">-->
+                        <!--                                    <a style="color: #3b82f6" (click)="openInformationBut()"><u>-->
+                        <!--                                      Weitere Informationen hier klicken-->
+                        <!--                                    </u></a>-->
+                        <!--                                  </p>-->
+                        <!--                                </div>-->
+                        <!--                              </div>-->
+                        <!--                            </div>-->
+                        <!--                          </div>-->
+                      </ng-container>
+                    </div>
+                    <div>
+                      <h2 class="hidden sm:flex text-base font-semibold leading-7 text-gray-900">
+                        {{ 'MANAGE_STUDENTS.EDIT_TITLE' | translate }}</h2>
+                      <p [innerHTML]="'MANAGE_STUDENTS.EDIT_DESCRIPTION' | translate"
+                         class="hidden sm:flex mt-1 text-sm leading-6 text-gray-600"></p>
+                      <h2 *ngIf="specialFoodSelection.length > 0"
+                          class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</h2>
+                      <p *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant"
+                         [innerHTML]="'MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION' | translate"
+                         class="text-sm leading-6 text-gray-600"></p>
+                      <p *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant"
+                         [innerHTML]="'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate"
+                         class="text-sm leading-6 text-gray-600"></p>
+                      <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
+                      <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>
+                      <p *ngIf="customerInfo.order.split.length > 1 &&  !customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Button section for larger screens -->
+                <div class="mt-6 flex items-center justify-end gap-x-6 hidden sm:flex">
+                  <app-button (click)="isFlipped = false"
+                              [buttonType]="'button'">{{ 'BACK_BUTTON' | translate }}</app-button>
+                  <app-button
+                    [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}</app-button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </ng-container>
