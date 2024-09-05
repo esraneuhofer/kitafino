@@ -288,6 +288,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
   setOrderIcon(index: number, event: boolean) {
+    if(this.pastOrder)return;
     this.setOrderDay(event, index)
   }
 

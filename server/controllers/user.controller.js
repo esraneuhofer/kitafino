@@ -100,9 +100,9 @@ module.exports.register = async (req, res, next) => {
     });
 
     // Generate password and hash
-    user.passwordO = makePassword();
+    let password = makePassword();
     const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(user.passwordO, salt);
+    const hash = await bcrypt.hash(password, salt);
     user.password = hash;
     user.saltSecret = salt;
 
@@ -110,7 +110,7 @@ module.exports.register = async (req, res, next) => {
     await user.save(opts);
 
     // Prepare email options
-    const emailContent = getHtmlRegistrationEmail(user.email, user.passwordO);
+    const emailContent = getHtmlRegistrationEmail(user.email, password);
     const mailOptions = convertToSendGridFormat({
       from: `Cateringexpert <noreply@cateringexpert.de>`,
       bcc:'eltern_bestellung@cateringexpert.de',
@@ -227,7 +227,6 @@ module.exports.changePassword = async (req, res, next) => {
           { _id: req._id },
           {
             $set: {
-              passwordO: req.body.newPassword,
               saltSecret: salt,
               password: hash
             }
@@ -268,7 +267,6 @@ module.exports.resetPassword = async (req, res, next) => {
         $set: {
           saltSecret: salt,
           password: hash,
-          passwordO: password
         }
       },
       { new: true }

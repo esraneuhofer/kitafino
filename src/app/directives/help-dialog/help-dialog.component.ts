@@ -42,7 +42,7 @@ export class HelpDialogComponent {
   displayMinimize: boolean = false;
     isApp: boolean = false;
   lang: string = 'de';
-
+  submittingRequest: boolean = false;
   constructor(private translate: TranslateService,
               private helpService: HelpService,
               private fileOpener: FileOpener,
@@ -63,20 +63,33 @@ export class HelpDialogComponent {
   }
 
   async openHelpPdf() {
+    this.submittingRequest = true;
     let lastSegment = getLastSegment(this.data.route);
-    let promise = []
-    if( lastSegment=== 'login'){
-      promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment,language:this.lang}).toPromise());
-    }else{
+    let promise = [];
+
+    if (lastSegment === 'login') {
+      promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment, language: this.lang}).toPromise());
+    } else {
       promise.push(this.helpService.getSingleHelpPdfBase({routeName: lastSegment}).toPromise());
     }
-    forkJoin(promise).subscribe(async (help: any) => {
-      if (this.isApp) {
-        await downloadPdfHelpIos(help[0], this.fileOpener);
-      } else {
-        downloadPdfWeb(help[0],help[0].nameFile);
-      }
-    });
+
+    forkJoin(promise)
+      .subscribe({
+        next: async (help: any) => {
+          if (this.isApp) {
+            await downloadPdfHelpIos(help[0], this.fileOpener);
+          } else {
+            downloadPdfWeb(help[0], help[0].nameFile);
+          }
+        },
+        error: (err) => {
+          console.error('Error loading PDF', err);
+        },
+        complete: () => {
+          this.submittingRequest = false;
+        }
+      });
   }
+
 
 }

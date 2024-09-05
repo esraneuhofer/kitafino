@@ -14,9 +14,9 @@
                     {{ 'ACCOUNT.DEPOSIT_INSTRUCTIONS' | translate }}
                     <br><br>
                     {{ 'ACCOUNT.COMPANY_NAME' | translate }} <br>
-                   <b>Bank</b> {{ 'ACCOUNT.BANK_NAME' | translate }} <br>
+                    <b>Bank</b> {{ 'ACCOUNT.BANK_NAME' | translate }} <br>
                     <b>{{ 'ACCOUNT.IBAN' | translate }}:</b> DE30 5107 0021 0980 5797 01
-                    <fa-icon (click)="copyToClipboard('DE12345678901234567890')"
+                    <fa-icon (click)="copyToClipboard('DE30510700210980579701')"
                              [icon]="faClipboard"
                              [matTooltip]="'In Ablage kopieren'"
                              class="ml-1"></fa-icon>
@@ -29,59 +29,74 @@
                              class="ml-1"></fa-icon>
                     <br><br>
                     <b>{{ 'ACCOUNT.IMPORTANT_NOTE' | translate }}:</b>
-                    {{ 'ACCOUNT.USERNAME_NOTE' | translate }}: <b>{{tenantStudent.username}} </b> {{ 'ACCOUNT.PURPOSE_INSTRUCTIONS' | translate }}
+                    {{ 'ACCOUNT.USERNAME_NOTE' | translate }}:
+                    <b>{{tenantStudent.username}} </b> {{ 'ACCOUNT.PURPOSE_INSTRUCTIONS' | translate }}
+
+                  </p>
+                </div>
+                <br>
+                <div class="ml-3 flex-1 md:flex md:justify-between md:text-left">
+                  <p class=" text-sm text-gray-700" [innerHTML]="'MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION' | translate">
                     <br><br>
                     {{ 'ACCOUNT.THANK_YOU' | translate }}
                   </p>
                 </div>
+
                 <div class="mt-3 ml-3 flex-1 md:flex md:justify-between md:text-left">
-                  <app-button [submittingRequest]="submittingRequest" (click)="goToLink()" [mr]="true" [typeButton]="'primary'">{{ 'ACCOUNT.MOVEMENT_DETAILS' | translate }}</app-button>
+                  <app-button (click)="goToLink()" [mr]="true" [submittingRequest]="submittingRequest"
+                              [typeButton]="'primary'">{{ 'ACCOUNT.MOVEMENT_DETAILS' | translate }}</app-button>
                 </div>
               </div>
             </div>
             <div class="rounded-md bg-yellow-100 p-4 mt-2">
               <div class="flex flex-col justify-between items-start">
                 <h3 class="text-sm font-medium mb-2">{{ 'ACCOUNT.DIRECT_DEPOSIT' | translate }}</h3>
-                <p class="text-sm text-gray-700 mb-4" [innerHTML]="'ACCOUNT.DIRECT_DEPOSIT_DESCRIPTION' | translate"></p>
+                <p [innerHTML]="'ACCOUNT.DIRECT_DEPOSIT_DESCRIPTION' | translate"
+                   class="text-sm text-gray-700 mb-4"></p>
                 <div class="w-full">
                   <!-- Hier fügen wir die Bilder hinzu -->
                   <div class="flex space-x-2 mt-1">
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/apple-pay-icon.svg" alt="Apple Pay" class="max-h-full max-w-full">
+                      <img alt="Apple Pay" class="max-h-full max-w-full" src="/assets/payment-icons/apple-pay-icon.svg">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/google-pay-icon.svg" alt="Google Pay" class="max-h-full max-w-full">
+                      <img alt="Google Pay" class="max-h-full max-w-full"
+                           src="/assets/payment-icons/google-pay-icon.svg">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/master-logo.svg" alt="MasterCard" class="max-h-full max-w-full">
+                      <img alt="MasterCard" class="max-h-full max-w-full" src="/assets/payment-icons/master-logo.svg">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/visa-logo.svg" alt="Visa" class="max-h-full max-w-full">
+                      <img alt="Visa" class="max-h-full max-w-full" src="/assets/payment-icons/visa-logo.svg">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/amex-logo.svg" alt="American Express" class="max-h-full max-w-full">
+                      <img alt="American Express" class="max-h-full max-w-full"
+                           src="/assets/payment-icons/amex-logo.svg">
                     </div>
                     <div class="flex items-center justify-center h-12 w-12">
-                      <img src="/assets/payment-icons/giropay.svg" alt="Giro Pay" class="max-h-full max-w-full">
+                      <img alt="Giro Pay" class="max-h-full max-w-full" src="/assets/payment-icons/giropay.svg">
                     </div>
                   </div>
-                  <form class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mt-4" #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)">
+                  <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && redirectToStripeCheckout(amountCharge)"
+                        class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mt-4">
                     <div class="flex flex-col w-full sm:w-auto">
-                      <input type="number"
-                             required
-                             #amountChartModel="ngModel"
-                             placeholder="{{ 'ACCOUNT.ENTER_AMOUNT' | translate }}"
-                             [(ngModel)]="amountCharge"
-                             min="5"
+                      <input #amountChartModel="ngModel"
                              (input)="onAmountChange($event)"
-                             name="amountChartModel"
-                             id="amountChartModel"
+                             [(ngModel)]="amountCharge"
                              [ngClass]="{'invalid-input': signInForm.submitted && amountChartModel.invalid}"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300">
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ring-red-300"
+                             id="amountChartModel"
+                             min="10"
+                             name="amountChartModel"
+                             placeholder="{{ 'ACCOUNT.ENTER_AMOUNT' | translate }}"
+                             required
+                             type="number">
                     </div>
-                    <p *ngIf="signInForm.submitted && amountChartModel.invalid" class="mt-2 text-sm text-red-600" id="projectId-error">{{ 'ACCOUNT.MIN_DEPOSIT' | translate }}</p>
+                    <p *ngIf="signInForm.submitted && amountChartModel.invalid" class="mt-2 text-sm text-red-600"
+                       id="projectId-error">{{ 'ACCOUNT.MIN_DEPOSIT' | translate }}</p>
                     <div class="flex sm:justify-start items-center sm:items-end w-full">
-                      <app-button [additionalClass]="'w-full '" [mr]="true" [submittingRequest]="submittingRequest" [typeButton]="'primary'">{{ 'ACCOUNT.DIRECT_DEPOSIT_BUTTON' | translate }}</app-button>
+                      <app-button [additionalClass]="'w-full '" [mr]="true" [submittingRequest]="submittingRequest"
+                                  [typeButton]="'primary'">{{ 'ACCOUNT.DIRECT_DEPOSIT_BUTTON' | translate }}</app-button>
                     </div>
                   </form>
                 </div>
@@ -90,7 +105,7 @@
                 <p class="text-sm text-gray-700">
                   {{ 'ACCOUNT.FEES_NOTE' | translate }}
                 </p>
-                <p class="text-sm text-gray-700" *ngFor="let eachPayment of paymentFeeArray">
+                <p *ngFor="let eachPayment of paymentFeeArray" class="text-sm text-gray-700">
                   <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>
               </div>
             </div>
@@ -98,10 +113,12 @@
             <div class="rounded-md bg-green-100 p-4 mt-2">
               <div class="flex flex-col md:items-start">
                 <h3 class="text-sm font-medium mb-2">{{ 'ACCOUNT.WITHDRAW' | translate }}</h3>
-                <p class="text-sm text-gray-700 mb-4" [innerHTML]="'ACCOUNT.WITHDRAW_DETAILS' | translate"></p>
-                <p class="text-sm text-gray-700 mb-4">{{ 'ACCOUNT.CURRENT_BALANCE' | translate }}: <b>{{accountTenant.currentBalance | currency:'€'}}</b></p>
+                <p [innerHTML]="'ACCOUNT.WITHDRAW_DETAILS' | translate" class="text-sm text-gray-700 mb-4"></p>
+                <p class="text-sm text-gray-700 mb-4">{{ 'ACCOUNT.CURRENT_BALANCE' | translate }}:
+                  <b>{{accountTenant.currentBalance | currency:'€'}}</b></p>
                 <div class="flex justify-start w-full md:w-auto">
-                  <app-button [submittingRequest]="submittingRequest" (click)="openDialog()" [mr]="true" [typeButton]="'primary'">{{ 'ACCOUNT.WITHDRAW_BUTTON' | translate }}</app-button>
+                  <app-button (click)="openDialog()" [mr]="true" [submittingRequest]="submittingRequest"
+                              [typeButton]="'primary'">{{ 'ACCOUNT.WITHDRAW_BUTTON' | translate }}</app-button>
                 </div>
               </div>
             </div>

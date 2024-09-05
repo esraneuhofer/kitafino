@@ -176,7 +176,8 @@
   "NEIN": "لا",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "تم حفظ الإعدادات",
-    "ERROR_INVALID_IBAN": "يجب أن يبدأ رقم الآيبان بحرف البلد وأن يكون له طول صالح. يرجى التحقق من الإدخال.",
+    "ERROR_INVALID_IBAN": "رقم IBAN المدخل غير صالح. يرجى إدخال الأرقام الخاصة بـ IBAN فقط. <b>'DE'</b> تم تعبئتها مسبقًا. <br> يجب أن يكون حسابًا مصرفيًا ألمانيًا.",
+
     "PERSONAL_INFO_HEADER": "البيانات الأساسية",
     "PERSONAL_INFO_SUBHEADER": "يرجى تأكيد التعديل بالنقر على 'تعديل'",
     "FIRST_NAME": "الاسم الأول",

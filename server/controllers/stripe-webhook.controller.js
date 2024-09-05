@@ -9,10 +9,11 @@ const {retrieveSessionInfo} = require('../controllers/stripe-session.controller'
 
 exports.webhook_stripe = async (request, response) => {
   const sig = request.headers['stripe-signature'];
-
+  console.log(request.body)
   try {
 
     const event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    console.log(event)
     switch (event.type) {
       case 'checkout.session.completed':
         // metadata.username = event.data.object.metadata.username;

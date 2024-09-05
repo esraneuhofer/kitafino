@@ -1,8 +1,6 @@
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {getInvoiceDateOne} from "../../functions/date.functions";
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 export const footer: {
     footerLeft: {footerText:string}[],
@@ -32,8 +30,8 @@ export function createPDF(
   bic: string,
   accountHolder: string,
   logoPath: string,
-): void {
-  const docDefinition:any = {
+):any {
+ return  {
     header: {
       columns: [
         { text: '' },
@@ -46,7 +44,8 @@ export function createPDF(
       '\n\n',
       { text: 'Sehr geehrte Damen und Herren,', style: 'content' },
       '\n\n',
-      { text: `Hiermit bestätigen wir „Cateringexpert Software Solutions GmbH“ die Anmeldung des Verpflegungsteilnehmers ${nameStudent} durch ${nameParent} am ${dateRegistration} für die Mittagsverpflegung bei dem Caterer ${nameCateringService}.`, style: 'content' },
+      { text: `Hiermit bestätigen wir der „Cateringexpert Software Solutions GmbH“ die Anmeldung des Verpflegungsteilnehmers / der Verpflegungsteilnehmerin.
+         ${nameStudent} durch ${nameParent} am ${dateRegistration} für die Mittagsverpflegung bei dem Caterer ${nameCateringService}.`, style: 'content' },
       '\n\n',
       { text: `Der Essenlieferung erfolgt für die Einrichtung ${nameEinrichtung}.`, style: 'content' },
       '\n\n',
@@ -59,9 +58,16 @@ export function createPDF(
       '\n\n',
       { text: 'Die Zahlungen für die Essenverpflegung bitte auf das folgende Konto überweisen:', style: 'content' },
       '\n\n',
-      { text: `Kontoinhaber: ${accountHolder}`, style: 'content' },
-      { text: `IBAN: ${iban}`, style: 'content' },
-      { text: `BIC: ${bic}`, style: 'content' },
+      {text:[
+          { text: `Kontoinhaber:`, bold: true },
+          { text: ` ${accountHolder}`, style: 'content' },
+        ]},
+      {text:[  { text: `IBAN:`, bold: true },
+          { text: ` ${iban}`, style: 'content' },]},
+      {text:[ { text: `BIC:`, bold: true },
+          { text: ` ${bic}`, style: 'content' },]},
+
+
       '\n\n',
       { text: `Dieses Schreiben wurde am ${getInvoiceDateOne(new Date())} aus unserem System erstellt und ist auch ohne Unterschrift gültig.`, style: 'content' },
       '\n\n',
@@ -99,7 +105,7 @@ export function createPDF(
     }
   };
 
-  pdfMake.createPdf(docDefinition).download('Bestätigungsschreiben.pdf');
+
 }
 
 export function getFooterColumns(currentPage:number, pageCount:number, footer:any) {

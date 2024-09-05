@@ -1,3 +1,5 @@
+<fieldset [disabled]="pastOrder">
+
 <div class="container-font-size" >
   <div class="order-deadline shadow-lg rounded-lg overflow-hidden mb-2">
     <div class="p-4">
@@ -60,11 +62,13 @@
         <!-- This part will always stay at the bottom, using absolute positioning -->
         <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
           <div class="flex justify-end">
-            {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
-            <fa-icon (click)="setOrderIcon(indexMenu,true)" *ngIf="!eachMenu.menuSelected"
-                     [icon]="faShoppingCart"></fa-icon>
-            <fa-icon (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
-                     class="ml-1"></fa-icon>
+              {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
+              <fa-icon (click)="setOrderIcon(indexMenu,true)"
+                       *ngIf="!eachMenu.menuSelected"
+                       [icon]="faShoppingCart">
+              </fa-icon>
+              <fa-icon (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
+                       class="ml-1"></fa-icon>
           </div>
         </div>
       </div>
@@ -75,3 +79,4 @@
   <div class="loading-circle"></div>
 </div>
 
+</fieldset>

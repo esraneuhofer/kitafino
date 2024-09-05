@@ -24,7 +24,6 @@ var schoolSchema = new mongoose.Schema({
   // project: String,
   username: {type:String,unique: true},
   tenantUrl:String,
-  passwordO:String
 });
 // Methods
 schoolSchema.methods.verifyPassword = function (password) {

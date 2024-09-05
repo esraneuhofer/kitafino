@@ -25,7 +25,11 @@ import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {displayWebFunction} from "../weekplan-pdf/display-web.function";
 import {createPDF, getBase64ImageFromUrl} from "./but-request-pdf.function";
 import {getInvoiceDateOne} from "../../functions/date.functions";
-// import {createPDF} from "./but-request-pdf.function";
+
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import {WeekplanPdfInterface} from "../weekplan-pdf/weekplan-pdf.component";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-but',
@@ -76,24 +80,7 @@ export class ButComponent implements OnInit{
   loadMockData() {
 
     this.confirmedButStudent = [
-      {
-        dateConfirmed: '2023-07-17',
-        butFrom: '2023-07-01',
-        butTo: '2023-12-31',
-        butAmount: 150,
-        studentId: 'student1',
-        tenantId: 'tenant1',
-        userId: 'user1'
-      },
-      {
-        dateConfirmed: '2023-07-18',
-        butFrom: '2023-08-01',
-        butTo: '2023-12-31',
-        butAmount: 200,
-        studentId: 'student2',
-        tenantId: 'tenant2',
-        userId: 'user2'
-      }
+
     ];
   }
 
@@ -295,28 +282,61 @@ export class ButComponent implements OnInit{
   }
 
   createWriting() {
-    if(!this.selectedStudent || !this.tenantStudent){
+    this.submittingRequestFlip = true;
+    if (!this.selectedStudent || !this.tenantStudent) {
       this.toastr.warning('Es gab einen Fehler beim Erstellen des Schreibens');
-      return
+      this.submittingRequestFlip = false;
+      return;
     }
+
     let student = this.selectedStudent;
     let tenant = this.tenantStudent;
-    getBase64ImageFromUrl('../../../assets/logo.png').then(logoBase64 => {
-      createPDF(
-        student.firstName + ' ' + student.lastName,
-        tenant.firstName + ' ' + tenant.lastName,
-        getInvoiceDateOne(student.registrationDate),
-        this.settings.tenantSettings.contact.companyName,
-        this.customer.contact.customer,
-        tenant.username,
-        'DE12345678901234567890',
-        'ABCDEF12XXX',
-        'Cateringexpert Software Solutions GmbH',
-        logoBase64,
-      );
-    }).catch(error => {
-      console.error('Error loading image: ', error);
-    });
+
+    getBase64ImageFromUrl('../../../assets/logo.png')
+      .then(logoBase64 => {
+        let docDefinition = createPDF(
+          student.firstName + ' ' + student.lastName,
+          tenant.firstName + ' ' + tenant.lastName,
+          getInvoiceDateOne(student.registerDate),
+          this.settings.tenantSettings.contact.companyName,
+          this.customer.contact.customer,
+          tenant.username,
+          'DE30 5107 0021 0980 5797 01',
+          'DEUTDEDBXXX',
+          'Cateringexpert Software Solutions GmbH',
+          logoBase64,
+        );
+
+        const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+
+        if (this.isApp) {
+          // Export the PDF as base64 to be used in the downloadPdfIos function
+          pdfDocGenerator.getBase64(async (base64Data) => {
+            const data: any = {
+              base64: base64Data,
+              name: 'Bestätigungsschreiben'
+            };
+            try {
+              await downloadPdfIos(data, this.fileOpener);
+            } catch (error) {
+              console.error('Error opening PDF on iOS', error);
+              this.toastr.error('Fehler beim Öffnen der PDF-Datei auf iOS');
+            } finally {
+              this.submittingRequestFlip = false;
+            }
+          });
+        } else {
+          // Web download
+          pdfDocGenerator.download('Bestätigungsschreiben.pdf');
+          this.submittingRequestFlip = false;
+        }
+      })
+      .catch(error => {
+        console.error('Error loading image: ', error);
+        this.toastr.error('Fehler beim Laden des Logos');
+        this.submittingRequestFlip = false;
+      });
   }
+
 
 }

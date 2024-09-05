@@ -176,7 +176,8 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Impostazioni salvate",
-    "ERROR_INVALID_IBAN": "L'IBAN deve iniziare con un codice paese e avere una lunghezza valida. Si prega di verificare l'input.",
+    "ERROR_INVALID_IBAN": "L'IBAN inserito non è valido. Per favore, inserisci solo le cifre del tuo IBAN. <b>'DE'</b> è già precompilato. <br> Deve essere un conto bancario tedesco.",
+
     "PERSONAL_INFO_HEADER": "Dati principali",
     "PERSONAL_INFO_SUBHEADER": "Conferma la modifica facendo clic su \"Modifica\"",
     "FIRST_NAME": "Nome",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Deposito diretto",
     "DIRECT_DEPOSIT_DESCRIPTION": "Deposita denaro direttamente sul tuo conto con PayPal, Apple Pay, Google Pay, Giropay o carta di credito. Il denaro sarà accreditato immediatamente sul tuo conto. <br> Inserisci l'importo desiderato e clicca su <b>[Deposito diretto]</b>. Verrai quindi reindirizzato al nostro fornitore di servizi di pagamento.",
     "ENTER_AMOUNT": "Inserisci l'importo",
-    "MIN_DEPOSIT": "Il deposito minimo è di 5€",
+    "MIN_DEPOSIT": "Il deposito minimo è di 10€",
     "DIRECT_DEPOSIT_BUTTON": "Deposito diretto",
     "FEES_NOTE": "Le commissioni per i singoli pagamenti sono a carico dei fornitori di servizi di pagamento. Il deposito tramite bonifico bancario è gratuito. Commissioni stimate:",
     "WITHDRAW": "Prelievo",

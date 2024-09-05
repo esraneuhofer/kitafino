@@ -176,7 +176,8 @@
   "NEIN": "Nie",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ustawienia zapisane",
-    "ERROR_INVALID_IBAN": "IBAN musi zaczynać się od kodu kraju i mieć prawidłową długość. Proszę sprawdzić swoje dane.",
+    "ERROR_INVALID_IBAN": "Wprowadzony IBAN jest nieprawidłowy. Proszę podać tylko cyfry swojego IBAN. <b>'DE'</b> jest już wstępnie wypełnione. <br> Musi to być niemieckie konto bankowe.",
+
     "PERSONAL_INFO_HEADER": "Dane podstawowe",
     "PERSONAL_INFO_SUBHEADER": "Potwierdź zmiany klikając przycisk \"Zapisz\"",
     "FIRST_NAME": "Imię",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Wpłata bezpośrednia",
     "DIRECT_DEPOSIT_DESCRIPTION": "Wpłać pieniądze bezpośrednio na swoje konto za pomocą PayPal, Apple Pay, Google Pay, Giropay lub karty kredytowej. Pieniądze zostaną natychmiast zaksięgowane na Twoim koncie. <br> Wprowadź żądaną kwotę i kliknij na <b>[Wpłata bezpośrednia]</b>. Zostaniesz przekierowany do naszego dostawcy płatności.",
     "ENTER_AMOUNT": "Wprowadź kwotę",
-    "MIN_DEPOSIT": "Minimalna wpłata wynosi 5€",
+    "MIN_DEPOSIT": "Minimalna wpłata wynosi 10€",
     "DIRECT_DEPOSIT_BUTTON": "Wpłata bezpośrednia",
     "FEES_NOTE": "Opłaty za poszczególne płatności są naliczane przez dostawców płatności. Wpłata przelewem jest bezpłatna. Szacowane opłaty:",
     "WITHDRAW": "Wypłata",

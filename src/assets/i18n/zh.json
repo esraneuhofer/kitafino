@@ -176,7 +176,7 @@
   "NEIN": "否",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "设置已保存",
-    "ERROR_INVALID_IBAN": "IBAN必须以国家代码开头并具有有效长度。请检查您的输入。",
+    "ERROR_INVALID_IBAN": "输入的 IBAN 无效。请只输入您的 IBAN 数字。<b>'DE'</b> 已经预填。<br> 必须是一个德国银行账户。",
     "PERSONAL_INFO_HEADER": "基本信息",
     "PERSONAL_INFO_SUBHEADER": "确认更改后点击“更改”",
     "FIRST_NAME": "名字",
@@ -371,7 +371,7 @@
     "DIRECT_DEPOSIT": "直接存款",
     "DIRECT_DEPOSIT_DESCRIPTION": "通过PayPal、Apple Pay、Google Pay、Giropay或信用卡直接充值到您的账户。资金将立即记入您的账户。<br>请输入所需金额并点击<b>[直接存款]</b>。您将被重定向到我们的支付提供商。",
     "ENTER_AMOUNT": "输入金额",
-    "MIN_DEPOSIT": "最低存款金额为5欧元",
+    "MIN_DEPOSIT": "最低存款金额为10欧元",
     "DIRECT_DEPOSIT_BUTTON": "直接存款",
     "FEES_NOTE": "各支付提供商将收取单次支付费用。转账充值是免费的。估计费用：",
     "WITHDRAW": "提现",

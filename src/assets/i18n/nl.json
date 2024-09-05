@@ -176,7 +176,8 @@
   "NEIN": "Nee",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Instellingen opgeslagen",
-    "ERROR_INVALID_IBAN": "De IBAN moet beginnen met een landcode en een geldige lengte hebben. Controleer uw invoer.",
+    "ERROR_INVALID_IBAN": "De ingevoerde IBAN is ongeldig. Voer alstublieft alleen de cijfers van uw IBAN in. <b>'DE'</b> is al vooraf ingevuld. <br> Het moet een Duitse bankrekening zijn.",
+
     "PERSONAL_INFO_HEADER": "Basisgegevens",
     "PERSONAL_INFO_SUBHEADER": "Bevestig de wijziging met \"Wijzigen\"",
     "FIRST_NAME": "Voornaam",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Directe storting",
     "DIRECT_DEPOSIT_DESCRIPTION": "Geld direct op uw rekening storten met PayPal, Apple Pay, Google Pay, Giropay of creditcard. Het geld wordt direct op uw rekening bijgeschreven. <br> Voer het gewenste bedrag in en klik op <b>[Directe storting]</b>. U wordt vervolgens doorgestuurd naar onze betalingsprovider.",
     "ENTER_AMOUNT": "Voer bedrag in",
-    "MIN_DEPOSIT": "Minimale storting is 5€",
+    "MIN_DEPOSIT": "Minimale storting is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Directe storting",
     "FEES_NOTE": "De kosten voor individuele betalingen worden door de betalingsproviders in rekening gebracht. Storting per overboeking is gratis. Geschatte kosten:",
     "WITHDRAW": "Opname",

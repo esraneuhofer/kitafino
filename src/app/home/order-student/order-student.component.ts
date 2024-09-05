@@ -166,6 +166,7 @@ export class OrderStudentComponent implements OnInit {
         VacationsInterface[],
         SchoolSettingsInterface
       ]) => {
+        console.log(customer)
         this.settings = settings;
         this.customer = customer;
         this.customer.stateHol = 'HE' //Testing

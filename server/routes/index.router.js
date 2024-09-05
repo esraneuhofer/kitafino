@@ -6,7 +6,6 @@ const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
 
 
-
 const ctrlBut = require('../controllers/but.controller');
 const ctrlGet = require('../controllers/get.controller');
 const ctrlHelp = require('../controllers/help.controller');
@@ -39,7 +38,6 @@ router.post('/changePassword',jwtHelper.verifyJwtToken, ctrlUser.changePassword)
 router.post('/deactivateAccount',jwtHelper.verifyJwtToken, ctrlUser.deactivateAccount);
 router.post('/register', ctrlUser.register);
 router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
-router.get('/getUsers', ctrlUser.getUsers);
 router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 

@@ -44,11 +44,16 @@ export class HelpComponent implements OnInit {
 
 
   async openHelpPdf(helpDocument: HelpPdfInterface) {
+      this.submittingRequest = true;
     this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {
       if (this.isApp) {
         await downloadPdfHelpIos(data, this.fileOpener);
+        this.submittingRequest = false;
+
       } else {
         downloadPdfWeb(data,data.nameFile);
+        this.submittingRequest = false;
+
       }
     });
   }

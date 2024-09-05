@@ -9,7 +9,7 @@ export interface StudentInterface {
   bildungTeilhabe: boolean;
   tenantId?: string;
   userId?: string;
-  registrationDate: Date;
+  registerDate: Date;
   // butFrom: string;
   // butTo: string;
   // butAmount: number;
@@ -23,7 +23,7 @@ export function setEmptyStudentModel():StudentInterface{
     bildungTeilhabe: false,
     // butFrom: '',
     // butTo: '',
-    registrationDate: new Date(),
+    registerDate: new Date(),
     bildungTeilhabeLog:[],
     firstName: '',
     lastName:'',

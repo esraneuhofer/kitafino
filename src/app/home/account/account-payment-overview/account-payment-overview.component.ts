@@ -28,6 +28,9 @@ import {PlatformService} from "../../../service/platform.service";
 import { Plugins } from '@capacitor/core';
 const { App } = Plugins;
 
+function totalAmountExceedsLimit(amount: number,account:AccountCustomerInterface): boolean {
+  return (amount + account.currentBalance) > 300;
+}
 export interface PaymentIntentResponse {
   clientSecret: string;
 }
@@ -136,7 +139,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
           });
         }else {
           console.log('Adding focus listener');
-          window.addEventListener('focus', this.handleWindowFocus);
+          // window.addEventListener('focus', this.handleWindowFocus);
         }
       })
   }
@@ -256,10 +259,16 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
+    if(totalAmountExceedsLimit(amount,this.accountTenant)){
+      let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT')
+      let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT')
+      this.dialogService.openMessageDialog(reason,heading,'warning');
+    }
     if(!this.tenantStudent.userId)return
     this.submittingRequest = true;
     const isIos = this.platformService.isIos
     const isIosAndroid = this.platformService.isAndroid
+    console.log("isIos",isIos)
     this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
     if(isIosAndroid || isIos){
       // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});

@@ -176,7 +176,8 @@
   "NEIN": "否",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "設置已保存",
-    "ERROR_INVALID_IBAN": "IBAN 必須以國家代碼開頭並具有有效的長度。請檢查您的輸入。",
+    "ERROR_INVALID_IBAN": "輸入嘅 IBAN 無效。請只輸入你嘅 IBAN 數字。<b>'DE'</b> 已經預先填好。<br> 必須係德國銀行帳戶。",
+
     "PERSONAL_INFO_HEADER": "主數據",
     "PERSONAL_INFO_SUBHEADER": "確認更改後點擊“更改”",
     "FIRST_NAME": "名字",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "直接存款",
     "DIRECT_DEPOSIT_DESCRIPTION": "使用 PayPal、Apple Pay、Google Pay、Giropay 或信用卡直接存款到您的帳戶。款項將立即記入您的帳戶。<br>輸入所需金額並點擊 <b>[直接存款]</b>。然後，您將被重定向到我們的支付提供商。",
     "ENTER_AMOUNT": "輸入金額",
-    "MIN_DEPOSIT": "最低存款額為5歐元",
+    "MIN_DEPOSIT": "最低存款額為10歐元",
     "DIRECT_DEPOSIT_BUTTON": "直接存款",
     "FEES_NOTE": "各支付提供商將收取費用。轉賬存款是免費的。預計費用：",
     "WITHDRAW": "提款",

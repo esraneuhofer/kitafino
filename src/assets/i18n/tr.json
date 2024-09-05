@@ -176,7 +176,8 @@
   "NEIN": "Hayır",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ayarlar kaydedildi",
-    "ERROR_INVALID_IBAN": "IBAN, bir ülke kodu ile başlamalı ve geçerli bir uzunlukta olmalıdır. Lütfen girişinizi kontrol edin.",
+    "ERROR_INVALID_IBAN": "Girilen IBAN geçersiz. Lütfen yalnızca IBAN numaranızın rakamlarını girin. <b>'DE'</b> zaten önceden doldurulmuş. <br> Bu, bir Alman banka hesabı olmalıdır.",
+
     "PERSONAL_INFO_HEADER": "Temel veriler",
     "PERSONAL_INFO_SUBHEADER": "\"Değiştir\" düğmesine tıklayarak değişikliği onaylayın",
     "FIRST_NAME": "Ad",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Doğrudan para yatırma",
     "DIRECT_DEPOSIT_DESCRIPTION": "Hesabınıza doğrudan PayPal, Apple Pay, Google Pay, Giropay veya kredi kartı ile para yatırın. Para anında hesabınıza eklenir. <br> İstenilen miktarı girin ve <b>[Doğrudan para yatırma]</b> sekmesine tıklayın. Ardından ödeme sağlayıcımıza yönlendirileceksiniz.",
     "ENTER_AMOUNT": "Miktarı girin",
-    "MIN_DEPOSIT": "Minimum para yatırma miktarı 5€'dur",
+    "MIN_DEPOSIT": "Minimum para yatırma miktarı 10€'dur",
     "DIRECT_DEPOSIT_BUTTON": "Doğrudan para yatırma",
     "FEES_NOTE": "Bireysel ödemeler için ücretler, ödeme sağlayıcıları tarafından alınır. Banka havalesi ile para yatırma işlemi ücretsizdir. Tahmini ücretler:",
     "WITHDRAW": "Para çekme",

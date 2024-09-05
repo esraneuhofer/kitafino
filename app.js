@@ -30,7 +30,7 @@ const cookieParser = require('cookie-parser');
 
 const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(uriTest, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
   })

@@ -51,7 +51,7 @@
                             <div class="align-right">
                               <app-button (click)="selectStudent(student)" [buttonType]="'button'"
                                           [submittingRequest]="submittingRequestFlip">
-                                Antrag stellen
+                                {{'BUT_AKTIVIEREN' | translate}}
                               </app-button>
                             </div>
                           </td>
@@ -111,7 +111,7 @@
                             <div class="align-right">
                               <app-button (click)="openFile(file)" [buttonType]="'button'"
                                           [submittingRequest]="submittingRequestDownload">
-                                Datei anzeigen
+                                {{'DATEI_ANZEIGEN' | translate}}
                               </app-button>
                             </div>
                           </td>
@@ -232,8 +232,9 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td *ngIf="registeredStudents.length === 0" colspan="100%">
-                                  <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
+                                <td *ngIf="confirmedButStudent.length === 0" colspan="100%">
+                                  <app-general-banner></app-general-banner>
+
                                 </td>
                               </tr>
                               </tbody>

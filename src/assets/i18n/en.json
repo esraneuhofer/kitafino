@@ -176,7 +176,8 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Settings saved",
-    "ERROR_INVALID_IBAN": "The IBAN must start with a country code and have a valid length. Please check your input.",
+    "ERROR_INVALID_IBAN": "The entered IBAN is invalid. Please enter only the digits of your IBAN. <b>'DE'</b> is already pre-filled. <br> It must be a German bank account.",
+
     "PERSONAL_INFO_HEADER": "Master data",
     "PERSONAL_INFO_SUBHEADER": "Confirm the change by clicking \"Save\"",
     "FIRST_NAME": "First name",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Direct deposit",
     "DIRECT_DEPOSIT_DESCRIPTION": "Deposit money directly into your account with PayPal, Apple Pay, Google Pay, Giropay, or credit card. The money will be credited to your account immediately. <br> Enter the desired amount and click on <b>[Direct deposit]</b>. You will then be redirected to our payment provider.",
     "ENTER_AMOUNT": "Enter amount",
-    "MIN_DEPOSIT": "Minimum deposit is 5€",
+    "MIN_DEPOSIT": "Minimum deposit is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direct deposit",
     "FEES_NOTE": "Fees for individual payments are charged by the payment providers. Bank transfer is free of charge. Estimated fees:",
     "WITHDRAW": "Withdraw",

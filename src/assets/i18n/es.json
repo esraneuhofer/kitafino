@@ -176,7 +176,8 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Configuraciones guardadas",
-    "ERROR_INVALID_IBAN": "El IBAN debe comenzar con un código de país y tener una longitud válida. Por favor, verifique su entrada.",
+    "ERROR_INVALID_IBAN": "El IBAN ingresado no es válido. Por favor, ingrese solo los dígitos de su IBAN. <b>'DE'</b> ya está pre-rellenado. <br> Debe ser una cuenta bancaria alemana.",
+
     "PERSONAL_INFO_HEADER": "Datos maestros",
     "PERSONAL_INFO_SUBHEADER": "Confirme el cambio haciendo clic en \"Guardar\"",
     "FIRST_NAME": "Nombre",
@@ -371,7 +372,7 @@
     "DIRECT_DEPOSIT": "Depósito directo",
     "DIRECT_DEPOSIT_DESCRIPTION": "Deposite dinero directamente en su cuenta con PayPal, Apple Pay, Google Pay, Giropay o tarjeta de crédito. El dinero se acredita inmediatamente a su cuenta. <br> Ingrese el monto deseado y haga clic en <b>[Depósito directo]</b>. Luego será redirigido a nuestro proveedor de pagos.",
     "ENTER_AMOUNT": "Ingresar monto",
-    "MIN_DEPOSIT": "El depósito mínimo es de 5€",
+    "MIN_DEPOSIT": "El depósito mínimo es de 10€",
     "DIRECT_DEPOSIT_BUTTON": "Depósito directo",
     "FEES_NOTE": "Las tarifas para los pagos individuales son cobradas por los proveedores de pago. El depósito por transferencia bancaria es gratuito. Tarifas estimadas:",
     "WITHDRAW": "Retirar",
