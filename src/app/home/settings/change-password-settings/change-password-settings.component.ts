@@ -40,7 +40,7 @@ export class ChangePasswordSettingsComponent {
     this.passwordErrors.tooShort = this.newPassword.newPassword.length < 8;
     this.passwordErrors.noCapitalLetter = !/[A-Z]/.test(this.newPassword.newPassword);
     this.passwordErrors.noNumber = !/\d/.test(this.newPassword.newPassword);
-    this.passwordErrors.noSpecialChar = !/[!@#$%^&*()_+]/.test(this.newPassword.newPassword);
+    // this.passwordErrors.noSpecialChar = !/[!@#$%^&*()_+]/.test(this.newPassword.newPassword);
   }
   hasErrors(): boolean {
     return Object.values(this.passwordErrors).some(error => error === true);

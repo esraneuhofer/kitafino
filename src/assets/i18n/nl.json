@@ -564,5 +564,20 @@
   "AENDERN_BUTTON": "Wijzigen",
   "FEHLER_BESTELLUNG": "Bestelfout",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "U kunt slechts één menu per dag bestellen. Annuleer eerst de andere bestelling.",
-  "BESTAETIGUNG_PER_EMAIL": "Ontvang bevestiging per e-mail"
+  "BESTAETIGUNG_PER_EMAIL": "Ontvang bevestiging per e-mail",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Beschikbare allergenenmaaltijden kunnen alleen door de instelling worden geactiveerd. Neem contact op met uw instelling. Als een allergenenmaaltijd wordt geactiveerd, wordt deze in de bestelling van de betreffende deelnemer geactiveerd.",
+  "FEEDBACK": "Feedback",
+  "LABEL_FEEDBACK": "Feedback / Suggestie",
+  "HEADER_FEEDBACK": "Deel uw feedback en suggesties met ons!",
+  "PARAGRAPH_FEEDBACK": "We waarderen uw mening en zijn blij met alle feedback over onze service. Constructieve kritiek en suggesties voor verbeteringen of aanvullingen helpen ons om onze diensten voortdurend te optimaliseren.",
+  "DIALOG_FEEDBACK_MESSAGE": "Uw feedback is succesvol verzonden.",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "Om een storting te doen, moet u uw bankgegevens invoeren. Ga naar <b>[Instellingen] -> [Basisgegevens]</b> of klik op ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN ontbreekt",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Stortingslimiet overschreden",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Met het gekozen bedrag zou u de stortingslimiet van 300€ overschrijden. Kies een lager bedrag.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Belangrijk:</b> De voorschriften van de Federale Financiële Toezichthoudende Autoriteit (BaFin) stellen een maximumsaldo vast van <b>300,00 €</b>. Als dit saldo door stortingen wordt overschreden, wordt het gehele overtollige bedrag automatisch terugbetaald.",
+  "DATEI_ANZEIGEN": "Bestand bekijken",
+  "BUT_AKTIVIEREN": "BuT activeren"
+
 }

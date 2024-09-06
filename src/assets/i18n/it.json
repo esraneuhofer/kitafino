@@ -564,5 +564,21 @@
   "AENDERN_BUTTON": "Modifica",
   "FEHLER_BESTELLUNG": "Errore di ordine",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Puoi ordinare solo un menù al giorno. Si prega di annullare prima l'altro ordine.",
-  "BESTAETIGUNG_PER_EMAIL": "Ricevi conferma via email"
+  "BESTAETIGUNG_PER_EMAIL": "Ricevi conferma via email",
+
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "I pasti per allergici disponibili possono essere attivati solo dalla struttura. Si prega di contattare la propria struttura. Se un pasto per allergici viene attivato, sarà abilitato nell'ordine del partecipante interessato.",
+  "FEEDBACK": "Feedback",
+  "LABEL_FEEDBACK": "Feedback / Suggerimento",
+  "HEADER_FEEDBACK": "Condividi con noi i tuoi feedback e suggerimenti!",
+  "PARAGRAPH_FEEDBACK": "Apprezziamo la tua opinione e siamo felici di ricevere qualsiasi feedback sui nostri servizi. Le critiche costruttive e i suggerimenti per miglioramenti o aggiunte ci aiutano a ottimizzare continuamente i nostri servizi.",
+  "DIALOG_FEEDBACK_MESSAGE": "Il tuo feedback è stato inviato con successo.",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "Per effettuare un deposito, devi fornire i dettagli bancari. Vai su <b>[Impostazioni] -> [Dati di base]</b> oppure fai clic su ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN mancante",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Limite di deposito superato",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "L'importo selezionato supererebbe il limite di deposito di 300€. Si prega di scegliere un importo inferiore.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Importante:</b> I regolamenti dell'Autorità federale di vigilanza finanziaria (BaFin) stabiliscono un saldo massimo di <b>300,00 €</b>. Se questo saldo viene superato tramite depositi, l'intero importo eccedente verrà rimborsato automaticamente.",
+  "DATEI_ANZEIGEN": "Visualizza file",
+  "BUT_AKTIVIEREN": "Attiva BuT"
+
 }

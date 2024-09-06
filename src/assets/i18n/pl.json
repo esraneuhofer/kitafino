@@ -564,5 +564,21 @@
   "AENDERN_BUTTON": "Zmień",
   "FEHLER_BESTELLUNG": "Błąd zamówienia",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Możesz zamówić tylko jedno menu dziennie. Najpierw anuluj inne zamówienie.",
-  "BESTAETIGUNG_PER_EMAIL": "Otrzymuj potwierdzenie e-mailem"
+  "BESTAETIGUNG_PER_EMAIL": "Otrzymuj potwierdzenie e-mailem",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Dostępne posiłki dla alergików mogą być aktywowane wyłącznie przez placówkę. Skontaktuj się ze swoją placówką. Jeśli posiłek dla alergików zostanie aktywowany, zostanie on włączony do zamówienia odpowiedniego uczestnika.",
+  "FEEDBACK": "Opinie",
+  "LABEL_FEEDBACK": "Opinie / Sugestie",
+  "HEADER_FEEDBACK": "Podziel się z nami swoimi opiniami i sugestiami!",
+  "PARAGRAPH_FEEDBACK": "Cenimy Twoją opinię i cieszymy się z wszelkich uwag na temat naszej usługi. Konstruktywna krytyka i sugestie dotyczące usprawnień lub dodatków pomagają nam stale optymalizować nasze usługi.",
+  "DIALOG_FEEDBACK_MESSAGE": "Twoja opinia została pomyślnie wysłana.",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "Aby dokonać wpłaty, musisz podać swoje dane bankowe. Przejdź do <b>[Ustawienia] -> [Dane podstawowe]</b> lub kliknij ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "Brak numeru IBAN",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Przekroczono limit wpłat",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Wybrana kwota przekroczyłaby limit wpłaty wynoszący 300€. Proszę wybrać niższą kwotę.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Ważne:</b> Przepisy Federalnego Urzędu Nadzoru Finansowego (BaFin) ustalają maksymalny saldo na poziomie <b>300,00 €</b>. Jeśli saldo to zostanie przekroczone przez wpłaty, cała nadwyżka zostanie automatycznie zwrócona.",
+  "DATEI_ANZEIGEN": "Pokaż plik",
+  "BUT_AKTIVIEREN": "Aktywuj BuT",
+
+
 }

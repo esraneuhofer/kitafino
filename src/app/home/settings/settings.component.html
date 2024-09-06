@@ -306,7 +306,7 @@
               <div class="mt-6 flex items-center justify-end gap-x-6">
                 <app-button
                   [submittingRequest]="submittingRequest"
-                  [disabled]="hasErrors() || !newPassword || submittingRequest || newPassword.repeatNewPassword.length === 0">
+                  [isDisabled]="hasErrors() || !newPassword || submittingRequest || newPassword.repeatNewPassword.length === 0">
                   {{ 'MANAGE_TENANT_SETTINGS.SUBMIT_BUTTON' | translate }}
                 </app-button>
               </div>

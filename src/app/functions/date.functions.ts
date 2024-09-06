@@ -134,6 +134,7 @@ function generateScheduleSentence(schedule: {
   day: string;
   time: string;
 },translate:TranslateService): string {
+  console.log(schedule)
   // Definiere die Wochentage
   const daysOfWeek: { [key: string]: string } = {
     '1': 'Montag',
@@ -147,7 +148,7 @@ function generateScheduleSentence(schedule: {
 
   const weeks = parseInt(schedule.weeks);
   const day = daysOfWeek[parseInt(schedule.day)] || 'unbekannter Tag';
-  const time = new Date(schedule.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+  const time = schedule.time
   const weekText = weeks === 1 ? translate.instant("IN_DER_VORWOCHE") : `${weeks} ${translate.instant("WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE")}`;
   const sentence = `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${weekText}, ${translate.instant("AM")} ${day} ${translate.instant("UM")} ${time} ${translate.instant("UHR")}.`;
 
@@ -203,7 +204,7 @@ function generateDailyDeadlineFixSentence(deadline: {
   if(deadline.day !== "1"){
     daysString = deadline.day + ' ' + translate.instant("TAGE_VOR_DEM_JEWEILIGEM")
   }
-  const time = new Date(deadline.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+  const time = deadline.time
 
   if(type === 'deadline'){
     return  `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${daysString} ${translate.instant("UM")}  ${time} Uhr.`;

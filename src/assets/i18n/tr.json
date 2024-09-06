@@ -561,5 +561,20 @@
   "AENDERN_BUTTON": "Değiştir",
   "FEHLER_BESTELLUNG": "Sipariş hatası",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Günde sadece bir menü sipariş edebilirsiniz. Lütfen önce diğer siparişi iptal edin.",
-  "BESTAETIGUNG_PER_EMAIL": "Email ile onay al"
+  "BESTAETIGUNG_PER_EMAIL": "Email ile onay al",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Mevcut alerjen yemekler yalnızca tesis tarafından etkinleştirilebilir. Lütfen tesisinizle iletişime geçin. Bir alerjen yemek etkinleştirildiğinde, ilgili katılımcının siparişinde etkinleştirilecektir.",
+  "FEEDBACK": "Geri bildirim",
+  "LABEL_FEEDBACK": "Geri bildirim / Öneri",
+  "HEADER_FEEDBACK": "Geri bildirimlerinizi ve önerilerinizi bizimle paylaşın!",
+  "PARAGRAPH_FEEDBACK": "Görüşlerinize değer veriyoruz ve hizmetimizle ilgili her türlü geri bildirimi memnuniyetle karşılıyoruz. Yapıcı eleştiriler ve iyileştirme veya ekleme önerileri, hizmetlerimizi sürekli olarak optimize etmemize yardımcı olur.",
+  "DIALOG_FEEDBACK_MESSAGE": "Geri bildiriminiz başarıyla gönderildi.",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "Para yatırmak için banka bilgilerinizi girmeniz gerekiyor. <b>[Ayarlar] -> [Temel Bilgiler]</b> bölümüne gidin veya tıklayın ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN eksik",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Para yatırma limiti aşıldı",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Seçilen miktar, 300€ olan para yatırma limitini aşacaktır. Lütfen daha küçük bir miktar seçin.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Önemli:</b> Federal Finansal Denetleme Kurumu (BaFin) yönetmelikleri, maksimum bakiye sınırını <b>300,00 €</b> olarak belirlemektedir. Bu bakiye, para yatırma işlemleri yoluyla aşılırsa, aşan tutarın tamamı otomatik olarak iade edilecektir.",
+  "DATEI_ANZEIGEN": "Dosyayı göster",
+  "BUT_AKTIVIEREN": "BuT'u etkinleştir"
+
 }

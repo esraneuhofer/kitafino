@@ -564,5 +564,20 @@
   "AENDERN_BUTTON": "Modifier",
   "FEHLER_BESTELLUNG": "Erreur de commande",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Vous ne pouvez commander qu'un menu par jour. Veuillez d'abord annuler l'autre commande.",
-  "BESTAETIGUNG_PER_EMAIL": "Recevoir la confirmation par email"
+  "BESTAETIGUNG_PER_EMAIL": "Recevoir la confirmation par email",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Les repas pour allergiques disponibles ne peuvent être activés que par l'établissement. Veuillez contacter votre établissement. Si un repas pour allergiques est activé, il sera activé dans la commande du participant concerné.",
+  "FEEDBACK": "Retour d'information",
+  "LABEL_FEEDBACK": "Retour d'information / Suggestion",
+  "HEADER_FEEDBACK": "Partagez avec nous vos retours et suggestions !",
+  "PARAGRAPH_FEEDBACK": "Nous apprécions votre avis et nous nous réjouissons de recevoir tout retour concernant notre service. Les critiques constructives et les suggestions d'amélioration ou d'ajout nous aident à optimiser continuellement nos prestations.",
+  "DIALOG_FEEDBACK_MESSAGE": "Votre retour a été envoyé avec succès.",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "Pour effectuer un dépôt, vous devez saisir vos informations bancaires. Allez dans <b>[Paramètres] -> [Données de base]</b> ou cliquez sur ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN manquant",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Limite de dépôt dépassée",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Le montant sélectionné dépasserait la limite de dépôt de 300€. Veuillez choisir un montant inférieur.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important :</b> Les règlements de l'Autorité fédérale de surveillance financière (BaFin) fixent un solde maximum de <b>300,00 €</b>. Si ce solde est dépassé par des dépôts, l'intégralité du montant excédentaire sera automatiquement remboursée.",
+  "DATEI_ANZEIGEN": "Afficher le fichier",
+  "BUT_AKTIVIEREN": "Activer BuT"
+
 }

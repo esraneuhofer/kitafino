@@ -561,5 +561,20 @@
   "AENDERN_BUTTON": "更改",
   "FEHLER_BESTELLUNG": "訂單錯誤",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "您每天只能訂購一個菜單。請先取消其他訂單。",
-  "BESTAETIGUNG_PER_EMAIL": "通過電子郵件接收確認"
+  "BESTAETIGUNG_PER_EMAIL": "通過電子郵件接收確認",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "可用的過敏餐只能由設施啟動。請聯繫您的設施。如果過敏餐被啟動，將會在相關參與者的訂單中啟用。",
+  "FEEDBACK": "反饋",
+  "LABEL_FEEDBACK": "反饋 / 建議",
+  "HEADER_FEEDBACK": "與我們分享您的反饋和建議！",
+  "PARAGRAPH_FEEDBACK": "我們重視您的意見，並歡迎您對我們服務的任何反饋。建設性的批評和改進或補充的建議，有助於我們持續優化服務。",
+  "DIALOG_FEEDBACK_MESSAGE": "您的反饋已成功發送。",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "要進行存款，您必須提供您的銀行信息。請前往 <b>[設置] -> [基本資料]</b> 或點擊 ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "缺少 IBAN",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "超過存款限額",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "所選金額將超過300€的存款限額。請選擇較小的金額。",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>聯邦金融監管局 (BaFin) 的規定設定了最高餘額 <b>300.00 €</b>。如果通過存款超過該餘額，超過的全部金額將自動退還。",
+  "DATEI_ANZEIGEN": "查看文件",
+  "BUT_AKTIVIEREN": "啟動 BuT"
+
 }

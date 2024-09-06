@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ButtonComponent implements OnInit{
 
   @Input() additionalClass:string = '';
-  @Input() disabled:boolean = false;
+  @Input() isDisabled:boolean = false;
   @Input() typeButton: string = '';
   @Input() buttonType: string = 'submit';
   @Input() submittingRequest: boolean = false;

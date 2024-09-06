@@ -560,5 +560,20 @@
   "AENDERN_BUTTON": "更改",
   "FEHLER_BESTELLUNG": "订单错误",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "您每天只能订购一个菜单。请先取消其他订单。",
-  "BESTAETIGUNG_PER_EMAIL": "通过电子邮件接收确认"
+  "BESTAETIGUNG_PER_EMAIL": "通过电子邮件接收确认",
+
+  "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "可用的过敏餐只能由设施启用。请联系您的设施。如果激活了过敏餐，它将在相关参与者的订单中启用。",
+  "FEEDBACK": "反馈",
+  "LABEL_FEEDBACK": "反馈 / 建议",
+  "HEADER_FEEDBACK": "与我们分享您的反馈和建议！",
+  "PARAGRAPH_FEEDBACK": "我们重视您的意见，并欢迎您对我们服务的任何反馈。建设性的批评和改进或补充建议，有助于我们不断优化服务。",
+  "DIALOG_FEEDBACK_MESSAGE": "您的反馈已成功发送。",
+  "ERROR_MESSAGE_NO_IBAN_DIRECT": "要进行存款，您必须提供您的银行信息。前往 <b>[设置] -> [基本资料]</b> 或点击 ",
+  "ERROR_HEADER_NO_IBAN_DIRECT": "缺少 IBAN",
+  "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "超过存款限额",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "所选金额将超过300€的存款限额。请选择较小的金额。",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>联邦金融监管局 (BaFin) 的规定设定了最高余额 <b>300.00 €</b>。如果通过存款超过该余额，超过的全部金额将自动退还。",
+  "DATEI_ANZEIGEN": "查看文件",
+  "BUT_AKTIVIEREN": "启用 BuT"
+
 }
