@@ -36,8 +36,8 @@ export class HelpComponent implements OnInit {
         this.pageLoaded = true;
       this.isApp = this.platformService.isIos || this.platformService.isAndroid;
         this.lang = this.languageService.getLanguage();
-
         this.helpService.getAllHelpPdfNames().subscribe((data: HelpPdfInterface[]) => {
+          console.log(data);
             this.helpDocuments = data;
         })
     }

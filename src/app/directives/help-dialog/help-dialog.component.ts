@@ -11,6 +11,15 @@ import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {forkJoin} from "rxjs";
 
+function getSegmentDouble(segment: string): string {
+  if(segment === 'settings_personal'
+    || segment === 'settings_order' ||
+    segment === 'settings_password' ||
+    segment === 'settings_delete_account') {
+    return 'settings';
+  }
+  return segment;
+}
 interface HelpText {
   header: string;
   contentSmall: string[];
@@ -19,7 +28,7 @@ interface HelpText {
 
 function getLastSegment(route: string): string {
   const segments = route.split('/');
-  return segments[segments.length - 1];
+  return getSegmentDouble(segments[segments.length - 1])
 }
 
 interface RouteHelpText {
@@ -66,7 +75,7 @@ export class HelpDialogComponent {
     this.submittingRequest = true;
     let lastSegment = getLastSegment(this.data.route);
     let promise = [];
-
+    console.log('lastSegment', lastSegment);
     if (lastSegment === 'login') {
       promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment, language: this.lang}).toPromise());
     } else {
@@ -76,6 +85,9 @@ export class HelpDialogComponent {
     forkJoin(promise)
       .subscribe({
         next: async (help: any) => {
+          if(!help[0]) {
+            return;
+          }
           if (this.isApp) {
             await downloadPdfHelpIos(help[0], this.fileOpener);
           } else {

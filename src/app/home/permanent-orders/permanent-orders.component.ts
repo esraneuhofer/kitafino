@@ -32,6 +32,9 @@ import {
   ConfirmDialogPermanetOrderComponent
 } from "./confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
 import {getBestellfrist} from "../../functions/date.functions";
+import {
+  ConfirmDeletePermanentOrderDialogComponent
+} from "../../directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
 
 interface DaysOrderPermanentInterfaceSelection {
   selected: boolean,
@@ -246,19 +249,30 @@ export class PermanentOrdersComponent implements OnInit {
     this.isFlipped = false
   }
   deletePermanentOrder(permanentOrder: PermanentOrderInterface) {
-    this.submittingRequest = true;
-    this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder).subscribe((response: any) => {
-      if (!response.error) {
-        this.submittingRequest = false;
-        this.selectedStudent = null;
-        this.initAfterEdit()
-      } else {
-        this.toastr.error(this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_DELETING"))
-        this.submittingRequest = false
-        this.isFlipped = false
-
-      }
+    const dialogRef = this.dialog.open(ConfirmDeletePermanentOrderDialogComponent, {
+      width: '550px',
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
     });
+    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
+      if (!result){
+        return;
+      }
+      this.submittingRequest = true;
+      this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder).subscribe((response: any) => {
+        if (!response.error) {
+          this.submittingRequest = false;
+          this.selectedStudent = null;
+          this.initAfterEdit()
+        } else {
+          this.toastr.error(this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_DELETING"))
+          this.submittingRequest = false
+          this.isFlipped = false
+
+        }
+      });
+    })
+
   }
 
   setPermanentOrderType(event: string, indexLine: number) {

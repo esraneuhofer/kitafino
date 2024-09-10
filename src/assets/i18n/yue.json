@@ -572,8 +572,8 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "要進行存款，您必須提供您的銀行信息。請前往 <b>[設置] -> [基本資料]</b> 或點擊 ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "缺少 IBAN",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "超過存款限額",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "所選金額將超過300€的存款限額。請選擇較小的金額。",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>聯邦金融監管局 (BaFin) 的規定設定了最高餘額 <b>300.00 €</b>。如果通過存款超過該餘額，超過的全部金額將自動退還。",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "所選金額將超過250,00€的存款限額。請選擇較小的金額。",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>聯邦金融監管局 (BaFin) 的規定設定了最高餘額 <b>250,00€</b>。如果通過存款超過該餘額，超過的全部金額將自動退還。",
   "DATEI_ANZEIGEN": "查看文件",
   "BUT_AKTIVIEREN": "啟動 BuT"
 

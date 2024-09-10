@@ -572,8 +572,8 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "Para yatırmak için banka bilgilerinizi girmeniz gerekiyor. <b>[Ayarlar] -> [Temel Bilgiler]</b> bölümüne gidin veya tıklayın ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN eksik",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Para yatırma limiti aşıldı",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Seçilen miktar, 300€ olan para yatırma limitini aşacaktır. Lütfen daha küçük bir miktar seçin.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Önemli:</b> Federal Finansal Denetleme Kurumu (BaFin) yönetmelikleri, maksimum bakiye sınırını <b>300,00 €</b> olarak belirlemektedir. Bu bakiye, para yatırma işlemleri yoluyla aşılırsa, aşan tutarın tamamı otomatik olarak iade edilecektir.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Seçilen miktar, 250,00 € olan para yatırma limitini aşacaktır. Lütfen daha küçük bir miktar seçin.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Önemli:</b> Federal Finansal Denetleme Kurumu (BaFin) yönetmelikleri, maksimum bakiye sınırını <b>250,00 €</b> olarak belirlemektedir. Bu bakiye, para yatırma işlemleri yoluyla aşılırsa, aşan tutarın tamamı otomatik olarak iade edilecektir.",
   "DATEI_ANZEIGEN": "Dosyayı göster",
   "BUT_AKTIVIEREN": "BuT'u etkinleştir"
 

@@ -575,8 +575,8 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "Om een storting te doen, moet u uw bankgegevens invoeren. Ga naar <b>[Instellingen] -> [Basisgegevens]</b> of klik op ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN ontbreekt",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Stortingslimiet overschreden",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Met het gekozen bedrag zou u de stortingslimiet van 300€ overschrijden. Kies een lager bedrag.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Belangrijk:</b> De voorschriften van de Federale Financiële Toezichthoudende Autoriteit (BaFin) stellen een maximumsaldo vast van <b>300,00 €</b>. Als dit saldo door stortingen wordt overschreden, wordt het gehele overtollige bedrag automatisch terugbetaald.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Met het gekozen bedrag zou u de stortingslimiet van 250,00€ overschrijden. Kies een lager bedrag.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Belangrijk:</b> De voorschriften van de Federale Financiële Toezichthoudende Autoriteit (BaFin) stellen een maximumsaldo vast van <b>250,00 €</b>. Als dit saldo door stortingen wordt overschreden, wordt het gehele overtollige bedrag automatisch terugbetaald.",
   "DATEI_ANZEIGEN": "Bestand bekijken",
   "BUT_AKTIVIEREN": "BuT activeren"
 

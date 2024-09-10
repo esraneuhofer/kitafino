@@ -114,6 +114,9 @@ import { NoInternetComponent } from './no-internet/no-internet.component';
 import {NetworkService} from "./service/network.service";
 import { FeedbackComponent } from './home/feedback/feedback.component';
 import { IbanFormatDirective } from './directives/iban-format.directive';
+import {
+  ConfirmDeletePermanentOrderDialogComponent
+} from "./directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -214,6 +217,7 @@ export function localeFactory(languageService: LanguageService) {
     NoInternetComponent,
     FeedbackComponent,
     IbanFormatDirective,
+    ConfirmDeletePermanentOrderDialogComponent,
   ],
   imports: [
     BrowserModule,

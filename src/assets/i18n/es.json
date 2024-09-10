@@ -572,8 +572,8 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "Para realizar un depósito, debe proporcionar los datos de su banco. Vaya a <b>[Configuración] -> [Datos Básicos]</b> o haga clic en ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "Falta el IBAN",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Límite de depósito superado",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "La cantidad seleccionada excedería el límite de depósito de 300 €. Por favor, elija una cantidad menor.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Importante:</b> Las regulaciones de la Autoridad Federal de Supervisión Financiera (BaFin) establecen un saldo máximo de <b>300,00 €</b>. Si este saldo se excede mediante depósitos, el monto excedente se reembolsará automáticamente.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "La cantidad seleccionada excedería el límite de depósito de 250,00€. Por favor, elija una cantidad menor.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Importante:</b> Las regulaciones de la Autoridad Federal de Supervisión Financiera (BaFin) establecen un saldo máximo de <b>250,00 €</b>. Si este saldo se excede mediante depósitos, el monto excedente se reembolsará automáticamente.",
   "DATEI_ANZEIGEN": "Ver archivo",
   "BUT_AKTIVIEREN": "Activar BuT"
 

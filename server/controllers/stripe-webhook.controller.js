@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const stripe = require('stripe')('sk_test_51MhCdsHY2mPrPTHEZxMopIulzhGZdgDzOLMcPg9e3Ni7ZRRP0JVDAAp7BbXcGwFdOlQMSTlDF9MIYG3t5MmRmSSF00Edwvtng7');
+require('dotenv').config();
+const secretKey = process.env.STRIPE_SECRET_KEY;
+const stripe = require('stripe')(secretKey);
 const express = require('express');
 const app = express();
 // This is your Stripe CLI webhook secret for testing your endpoint locally.

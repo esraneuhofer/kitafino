@@ -133,7 +133,7 @@
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
               <div class="flex-1">
                 <form #f1="ngForm"
-                      (ngSubmit)="f1.form.valid && editOrAddBut(selectedBut)"
+                      (ngSubmit)="f1.form.valid"
                       novalidate>
                   <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
@@ -196,7 +196,7 @@
                       </div>
                       <div class="flex mt-2 space-x-2">
                         <app-button (click)="uploadFile()" *ngIf="!butExists"
-                                    [submittingRequest]="submittingRequest">{{ 'BUT.UPLOAD_BUT_BUTTON' | translate }}</app-button>
+                                    [submittingRequest]="submittingRequest">{{ 'BUT.UPLOAD_BUT_BUTTON' | translate }} ss</app-button>
                         <!--                        <app-button *ngIf="butExists" [submittingRequest]="submittingRequest" [typeButton]="'warning'">{{ 'MANAGE_PERMANENT_ORDERS.CHANGE_ORDER' | translate }}</app-button>-->
                       </div>
                       <div class="space-y-6 mt-4">

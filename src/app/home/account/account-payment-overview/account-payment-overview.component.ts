@@ -259,11 +259,12 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
-    if(totalAmountExceedsLimit(amount,this.accountTenant)){
-      let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT')
-      let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT')
-      this.dialogService.openMessageDialog(reason,heading,'warning');
-    }
+    // if(totalAmountExceedsLimit(amount,this.accountTenant)){
+    //   let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT')
+    //   let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT')
+    //   this.dialogService.openMessageDialog(reason,heading,'warning');
+    //   return;
+    // }
     if(!this.tenantStudent.userId)return
     this.submittingRequest = true;
     const isIos = this.platformService.isIos

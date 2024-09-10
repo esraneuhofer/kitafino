@@ -24,7 +24,7 @@ module.exports.getSingleHelpPdfBaseLogin = async (req, res, next) => {
     res.json(HelpModel);
   } catch (err) {
     console.error('HelpModel:', err); // Log the error for debugging
-    res.status(500).json({ message: 'HelpModel kann nciht gefuden werden', error: err.message });
+    res.status(500).json({ message: 'HelpModel kann nicht gefunden werden', error: err.message });
   }
 };
 

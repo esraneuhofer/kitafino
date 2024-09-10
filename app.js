@@ -55,12 +55,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-app.use(cors(corsOptions));
-
-
-
-
 // Log all incoming requests
 // app.use((req, res, next) => {
 //   console.log(`${req.method} ${req.url}`);
