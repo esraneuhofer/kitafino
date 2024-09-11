@@ -25,8 +25,8 @@ const config: CapacitorConfig = {
       }
     },
     SplashScreen: {
-      launchShowDuration: 4000,
-      launchAutoHide: true,
+      launchShowDuration: 2000,
+      launchAutoHide: false,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
       "androidScaleType": "CENTER_CROP",
       iosSpinnerStyle: "small",
