@@ -5,7 +5,6 @@ import { ToastingService } from "./service/toastr.service";
 import {Platform} from "@ionic/angular";
 import {HttpClient} from "@angular/common/http";
 import {GenerellService} from "./service/generell.service";
-import {SplashScreen} from "@capacitor/splash-screen";
 
 @Component({
   selector: 'app-root',
@@ -62,11 +61,10 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
+
     // Überprüfung der Backend-Verbindung
 
-    console.log('App component initialized!');
-    this.initializeApp();
-    // Spracheinstellung setzen
+    console.log('App component initialized! INIT');
     this.apiService.setLanguage({ lang: 'en' }).subscribe(
       data => {
         // console.log('Data received in component:', data);
@@ -80,11 +78,6 @@ export class AppComponent implements OnInit {
 
 
 
-
-  async initializeApp() {
-    await this.platform.ready();
-    await SplashScreen.hide();
-  }
 
 
 }

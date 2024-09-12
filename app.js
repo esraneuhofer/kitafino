@@ -42,7 +42,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
-    'capacitor://localhost',           // Capacitor app scheme
+    'capacitor://localhost',
+    'http://10.0.2.2:4200',     // Capacitor app scheme
     'capacitor://my-app.com',
     'https://my-app.com',
     'http://localhost',                // Localhost for Capacitor on Android
