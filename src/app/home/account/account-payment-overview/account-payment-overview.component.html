@@ -101,8 +101,7 @@
                 </div>
               </div>
               <div *ngIf="amountCharge && amountCharge > 0" class="mt-2">
-                <p class="text-sm text-gray-700">
-                  {{ 'ACCOUNT.FEES_NOTE' | translate }}
+                <p class="text-sm text-gray-700" [innerHTML]="'ACCOUNT.FEES_NOTE' | translate">
                 </p>
                 <p *ngFor="let eachPayment of paymentFeeArray" class="text-sm text-gray-700">
                   <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>

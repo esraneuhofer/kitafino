@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Wprowadź kwotę",
     "MIN_DEPOSIT": "Minimalna wpłata wynosi 10€",
     "DIRECT_DEPOSIT_BUTTON": "Wpłata bezpośrednia",
-    "FEES_NOTE": "Opłaty za poszczególne płatności są naliczane przez dostawców płatności. Wpłata przelewem jest bezpłatna. Szacowane opłaty:",
+    "FEES_NOTE": "Opłaty za pojedyncze płatności są naliczane przez dostawców usług płatniczych. <br> Wpłata przelewem bankowym jest <b>bezpłatna</b>. Dlatego zalecamy wpłatę przelewem bankowym. <br> Opłata za wpłatę jest potrącana bezpośrednio z kwoty wpłaty. Dla następującej kwoty wpłaty otrzymałbyś następujące saldo: <br><br>",
+
     "WITHDRAW": "Wypłata",
     "WITHDRAW_DETAILS": "Aby wypłacić środki, kliknij na <b>[Wypłać pieniądze]</b> i potwierdź swoje dane. Proszę pamiętać, że musi być wprowadzony prawidłowy IBAN.",
     "CURRENT_BALANCE": "Twoje obecne saldo wynosi",

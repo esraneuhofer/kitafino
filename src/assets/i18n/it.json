@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Inserisci l'importo",
     "MIN_DEPOSIT": "Il deposito minimo è di 10€",
     "DIRECT_DEPOSIT_BUTTON": "Deposito diretto",
-    "FEES_NOTE": "Le commissioni per i singoli pagamenti sono a carico dei fornitori di servizi di pagamento. Il deposito tramite bonifico bancario è gratuito. Commissioni stimate:",
+    "FEES_NOTE": "Le commissioni per i pagamenti singoli sono addebitate dai fornitori di servizi di pagamento. <br> Il deposito tramite bonifico bancario è <b>gratuito</b>. Pertanto, consigliamo di depositare tramite bonifico bancario. <br> La commissione per il deposito viene detratta direttamente dall'importo del deposito. Per il seguente importo del deposito, riceverai il seguente credito: <br><br>",
+
     "WITHDRAW": "Prelievo",
     "WITHDRAW_DETAILS": "Per prelevare il tuo saldo, clicca su <b>[Preleva denaro]</b> e conferma l'input successivamente. Si prega di notare che deve essere inserito un IBAN valido.",
     "CURRENT_BALANCE": "Il tuo saldo attuale è",

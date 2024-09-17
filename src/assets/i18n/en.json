@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Enter amount",
     "MIN_DEPOSIT": "Minimum deposit is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direct deposit",
-    "FEES_NOTE": "Fees for individual payments are charged by the payment providers. Bank transfer is free of charge. Estimated fees:",
+    "FEES_NOTE": "Fees for individual payments are charged by payment providers. <br> Depositing via bank transfer is <b>free of charge</b>. We therefore recommend depositing via bank transfer. <br> The fee for the deposit is deducted directly from your deposit amount. For the following deposit amount, you would receive the following credit: <br><br>",
+
     "WITHDRAW": "Withdraw",
     "WITHDRAW_DETAILS": "To withdraw your balance, click on <b>[Withdraw money]</b> and confirm your input afterward. Please note that a valid IBAN must be stored.",
     "CURRENT_BALANCE": "Your current balance is",

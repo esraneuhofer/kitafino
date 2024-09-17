@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Entrer le montant",
     "MIN_DEPOSIT": "Le dépôt minimum est de 10€",
     "DIRECT_DEPOSIT_BUTTON": "Dépôt direct",
-    "FEES_NOTE": "Les frais pour les paiements individuels sont facturés par les prestataires de paiement. Le dépôt par virement est gratuit. Frais estimés :",
+    "FEES_NOTE": "Les frais pour les paiements individuels sont facturés par les prestataires de services de paiement. <br> Le dépôt par virement bancaire est <b>gratuit</b>. Nous recommandons donc de déposer via un virement bancaire. <br> Les frais de dépôt sont directement déduits de votre montant de dépôt. Pour le montant de dépôt suivant, vous recevrez le crédit suivant: <br><br>",
+
     "WITHDRAW": "Retrait",
     "WITHDRAW_DETAILS": "Pour retirer votre solde, cliquez sur <b>[Retirer de l'argent]</b> et confirmez votre saisie par la suite. Veuillez noter qu'un IBAN valide doit être renseigné.",
     "CURRENT_BALANCE": "Votre solde actuel est de",

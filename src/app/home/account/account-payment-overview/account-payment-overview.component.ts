@@ -32,11 +32,11 @@ import {
 const { App } = Plugins;
 
 const  arrayPaymentMethods = ['Giropay', 'Kreditkarte','Amex', 'Paypal'];
-const  arrayPaymentMethodsName = ['Giropay', 'Kreditkarte / Apple Pay / Google Pay','Amex', 'Paypal'];
+export const  arrayPaymentMethodsName = ['Giropay', 'Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
 export function calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
   let arr:{namePayment:string,amountFee:number}[] = [];
-  arrayPaymentMethods.forEach((paymentMethod) => {
-    arr.push({namePayment:paymentMethod,amountFee:calculateFee(amount, paymentMethod)})
+  arrayPaymentMethods.forEach((paymentMethod,index) => {
+    arr.push({namePayment:arrayPaymentMethodsName[index],amountFee:calculateFee(amount, paymentMethod)})
   })
   return arr;
 }
@@ -46,7 +46,7 @@ function calculateFee(amount: number, paymentMethod: string): number {
   let fixedFee: number = 0;
 
   // Puffer von 0,1 % hinzufügen
-  const buffer = 0.1 / 100;
+  const buffer = 0.2 / 100;
 
   if (paymentMethod === 'Giropay') {
     feePercentage = (1.2 / 100) + buffer; // Ergibt 1,3 %
@@ -97,6 +97,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   hasHandledReturn = false;
   queryParamsSubscription: Subscription = new Subscription();
   private appStateChangeListener: PluginListenerHandle | undefined;
+
+  arrayPaymentMethodsName = arrayPaymentMethodsName;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

@@ -374,7 +374,7 @@
     "ENTER_AMOUNT": "Betrag eingeben",
     "MIN_DEPOSIT": "Mindesteinzahlung beträgt 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direkteinzahlung",
-    "FEES_NOTE": "Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben.Die Einzahlung per Überweisung ist kostenfrei Ihr Auszahlungsbetrag für diese Einzahlung beträgt",>
+    "FEES_NOTE": "Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben. <br> Die Einzahlung per Überweisung ist <b>kostenfrei</b>. Wir empfehlen daher die Einzahlung per Überweisung. <br> Die Gebühr für die Einzahlung wird direkt von Ihrem Einzahlungsbetrag abgezogen. Für den folgenden Einzahlungsbetrag würden Sie folgendes Guthaben gutgeschrieben bekommen: <br><br>",
     "WITHDRAW": "Auszahlung",
     "WITHDRAW_DETAILS": "Um sich Ihr Guthaben auszahlen zu lassen, klicken Sie auf <b>[Geld abbuchen]</b> und bestätigen Sie Ihre Eingabe im Anschluss. Bitte beachten Sie, dass eine gültige IBAN hinterlegt sein muss.",
     "CURRENT_BALANCE": "Ihr derzeitiges Guthaben beträgt",

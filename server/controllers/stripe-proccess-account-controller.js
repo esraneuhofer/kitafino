@@ -27,27 +27,27 @@ async function addAccountChargesTenantStripe(data, session) {
 
   switch (paymentProvider) {
     case 'giropay':
-      feePercentage = 1.3 / 100; // 1.2% + 0.1% Puffer
+      feePercentage = 1.5 / 100; // 1.2% + 0.1% Puffer
       fixedFee = 0.25;
       break;
     case 'paypal':
-      feePercentage = 3.59 / 100; // 3.49% + 0.1% Puffer
+      feePercentage = 3.79 / 100; // 3.49% + 0.1% Puffer
       fixedFee = 0.49;
       break;
     case 'card':
-      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
       fixedFee = 0.25;
       break;
     case 'amex':
-      feePercentage = 2.6 / 100; // 2.5% + 0.1% Puffer
+      feePercentage = 2.8 / 100; // 2.5% + 0.1% Puffer
       fixedFee = 0.25;
       break;
     case 'google_pay':
-      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
       fixedFee = 0.25;
       break;
     case 'apple_pay':
-      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
       fixedFee = 0.25;
       break;
     default:

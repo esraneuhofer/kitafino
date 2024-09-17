@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Ingresar monto",
     "MIN_DEPOSIT": "El depósito mínimo es de 10€",
     "DIRECT_DEPOSIT_BUTTON": "Depósito directo",
-    "FEES_NOTE": "Las tarifas para los pagos individuales son cobradas por los proveedores de pago. El depósito por transferencia bancaria es gratuito. Tarifas estimadas:",
+    "FEES_NOTE": "Las tarifas para pagos individuales son cobradas por los proveedores de servicios de pago. <br> El depósito por transferencia bancaria es <b>gratuito</b>. Por lo tanto, recomendamos el depósito por transferencia bancaria. <br> La tarifa para el depósito se deduce directamente del monto de su depósito. Para el siguiente monto de depósito, recibiría el siguiente saldo: <br><br>",
+
     "WITHDRAW": "Retirar",
     "WITHDRAW_DETAILS": "Para retirar su saldo, haga clic en <b>[Retirar dinero]</b> y confirme su entrada. Por favor, tenga en cuenta que se debe proporcionar un IBAN válido.",
     "CURRENT_BALANCE": "Su saldo actual es",

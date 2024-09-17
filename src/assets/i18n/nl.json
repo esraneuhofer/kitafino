@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Voer bedrag in",
     "MIN_DEPOSIT": "Minimale storting is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Directe storting",
-    "FEES_NOTE": "De kosten voor individuele betalingen worden door de betalingsproviders in rekening gebracht. Storting per overboeking is gratis. Geschatte kosten:",
+    "FEES_NOTE": "De kosten voor individuele betalingen worden in rekening gebracht door betalingsproviders. <br> Storten via bankoverschrijving is <b>gratis</b>. We raden daarom aan om via bankoverschrijving te storten. <br> De kosten voor de storting worden direct van uw stortingsbedrag afgetrokken. Voor het volgende stortingsbedrag zou u het volgende tegoed ontvangen: <br><br>",
+
     "WITHDRAW": "Opname",
     "WITHDRAW_DETAILS": "Om uw saldo op te nemen, klikt u op <b>[Geld opnemen]</b> en bevestigt u uw invoer. Zorg ervoor dat er een geldige IBAN is ingevoerd.",
     "CURRENT_BALANCE": "Uw huidige saldo is",

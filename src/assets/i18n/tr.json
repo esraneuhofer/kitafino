@@ -374,7 +374,8 @@
     "ENTER_AMOUNT": "Miktarı girin",
     "MIN_DEPOSIT": "Minimum para yatırma miktarı 10€'dur",
     "DIRECT_DEPOSIT_BUTTON": "Doğrudan para yatırma",
-    "FEES_NOTE": "Bireysel ödemeler için ücretler, ödeme sağlayıcıları tarafından alınır. Banka havalesi ile para yatırma işlemi ücretsizdir. Tahmini ücretler:",
+    "FEES_NOTE": "Bireysel ödemeler için ücretler ödeme sağlayıcıları tarafından tahsil edilir. <br> Havale ile para yatırma <b>ücretsizdir</b>. Bu nedenle havale ile para yatırmanızı öneririz. <br> Para yatırma ücreti doğrudan yatırdığınız tutardan kesilir. Aşağıdaki para yatırma tutarı için şu kadar kredi alırsınız: <br><br>",
+
     "WITHDRAW": "Para çekme",
     "WITHDRAW_DETAILS": "Bakiyenizi çekmek için, <b>[Para çek]</b> sekmesine tıklayın ve girişinizi onaylayın. Lütfen geçerli bir IBAN sağlanması gerektiğini unutmayın.",
     "CURRENT_BALANCE": "Mevcut bakiyeniz",
