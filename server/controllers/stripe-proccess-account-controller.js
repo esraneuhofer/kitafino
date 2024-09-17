@@ -15,12 +15,49 @@ exports.addAccountChargesTenant = async (req, res) => {
     res.status(500).send({ error: err.message });
   }
 };
-async function addAccountChargesTenantStripe(data,session) {
-  let paymentAmount = data.paymentAmount/100;
+async function addAccountChargesTenantStripe(data, session) {
+  let paymentAmount = data.paymentAmount / 100; // Stripe amounts are in cents
   let username = data.username;
   let userId = data.userId;
-  // let userId = '65589d74e01397281ce02472'
-  // let username = 'esne1234'
+  let paymentProvider = data.paymentProvider;
+
+  // Set the fee structure based on the payment provider
+  let feePercentage = 0;
+  let fixedFee = 0;
+
+  switch (paymentProvider) {
+    case 'giropay':
+      feePercentage = 1.3 / 100; // 1.2% + 0.1% Puffer
+      fixedFee = 0.25;
+      break;
+    case 'paypal':
+      feePercentage = 3.59 / 100; // 3.49% + 0.1% Puffer
+      fixedFee = 0.49;
+      break;
+    case 'card':
+      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      fixedFee = 0.25;
+      break;
+    case 'amex':
+      feePercentage = 2.6 / 100; // 2.5% + 0.1% Puffer
+      fixedFee = 0.25;
+      break;
+    case 'google_pay':
+      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      fixedFee = 0.25;
+      break;
+    case 'apple_pay':
+      feePercentage = 1.5 / 100; // 1.4% + 0.1% Puffer
+      fixedFee = 0.25;
+      break;
+    default:
+      throw new Error(`Unsupported payment provider: ${paymentProvider}`);
+  }
+
+  // Calculate the net amount after deducting fees
+  const fee = paymentAmount * feePercentage + fixedFee;
+  const netAmount = paymentAmount - fee;
+
   try {
     await session.startTransaction();
     const account = await getAccountTenant(userId, session);
@@ -28,8 +65,8 @@ async function addAccountChargesTenantStripe(data,session) {
       throw new Error('Account not found');
     }
 
-    await saveAccount(account, paymentAmount, session);
-    await addAccountCharge(account, username, paymentAmount, session);
+    await saveAccount(account, netAmount, session);
+    await addAccountCharge(account, username, netAmount, session);
     await session.commitTransaction();
 
     return { success: true, message: 'Charge added successfully' };
@@ -42,6 +79,7 @@ async function addAccountChargesTenantStripe(data,session) {
     session.endSession();
   }
 }
+
 
 async function getAccountTenant(userId, session) {
   try {

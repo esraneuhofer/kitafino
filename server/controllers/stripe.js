@@ -52,7 +52,7 @@ exports.createPaymentIntent = async (req, res) => {
       success_url: successUrl,
       cancel_url: cancelUrl,
     });
-    console.log(session)
+
     try {
       await saveSessionInfo(session.id, userId, username);
     } catch (error) {

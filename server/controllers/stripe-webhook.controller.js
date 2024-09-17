@@ -28,7 +28,8 @@ exports.webhook_stripe = async (request, response) => {
         const data = {
           paymentAmount: paymentIntent.amount, // Stripe amounts are in cents
           username: paymentIntent.metadata.username, // Assuming you store username in metadata when creating the PaymentIntent
-          userId: paymentIntent.metadata.userId // Assuming you store username in metadata when creating the PaymentIntent
+          userId: paymentIntent.metadata.userId, // Assuming you store userId in metadata when creating the PaymentIntent
+          paymentProvider: paymentIntent.payment_method_types[0] // The first element contains the payment method type (e.g., 'card', 'paypal')
         };
         // Start a new Mongoose session for transaction
         const session = await mongoose.startSession();

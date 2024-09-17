@@ -265,7 +265,7 @@
     </div>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:flex lg:flex-shrink-0">
+    <div class="hidden lg:flex lg:flex-shrink-0" *ngIf="customerInfo">
       <div class="flex w-64 flex-col">
         <div class="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-gray-100">
           <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
@@ -503,7 +503,7 @@
         </div>
       </div>
     </div>
-    <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
+    <div class="flex min-w-0 flex-1 flex-col overflow-hidden" *ngIf="customerInfo">
       <div class="lg:hidden">
         <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-1.5">
           <div>

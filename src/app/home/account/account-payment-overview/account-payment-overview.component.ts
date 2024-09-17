@@ -26,7 +26,45 @@ import {TranslateService} from "@ngx-translate/core";
 import {Capacitor, PluginListenerHandle} from "@capacitor/core";
 import {PlatformService} from "../../../service/platform.service";
 import { Plugins } from '@capacitor/core';
+import {
+  ConfirmStripePaymentComponent
+} from "../account-payment/confirm-stripe-payment/confirm-stripe-payment.component";
 const { App } = Plugins;
+
+const  arrayPaymentMethods = ['Giropay', 'Kreditkarte','Amex', 'Paypal'];
+const  arrayPaymentMethodsName = ['Giropay', 'Kreditkarte / Apple Pay / Google Pay','Amex', 'Paypal'];
+export function calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
+  let arr:{namePayment:string,amountFee:number}[] = [];
+  arrayPaymentMethods.forEach((paymentMethod) => {
+    arr.push({namePayment:paymentMethod,amountFee:calculateFee(amount, paymentMethod)})
+  })
+  return arr;
+}
+
+function calculateFee(amount: number, paymentMethod: string): number {
+  let feePercentage: number = 0;
+  let fixedFee: number = 0;
+
+  // Puffer von 0,1 % hinzufügen
+  const buffer = 0.1 / 100;
+
+  if (paymentMethod === 'Giropay') {
+    feePercentage = (1.2 / 100) + buffer; // Ergibt 1,3 %
+    fixedFee = 0.25;
+  } else if (paymentMethod === 'Paypal') {
+    feePercentage = (3.49 / 100) + buffer; // Ergibt 3,59 %
+    fixedFee = 0.49;
+  } else if (paymentMethod === 'Kreditkarte') {
+    feePercentage = (1.4 / 100) + buffer; // Ergibt 1,5 %
+    fixedFee = 0.25;
+  } else if (paymentMethod === 'Amex') {
+    feePercentage = (2.5 / 100) + buffer; // Ergibt 2,6 %
+    fixedFee = 0.25;
+  }
+
+  const fee = amount * feePercentage + fixedFee;
+  return amount - fee - 0.02;
+}
 
 function totalAmountExceedsLimit(amount: number,account:AccountCustomerInterface): boolean {
   return (amount + account.currentBalance) > 300;
@@ -265,70 +303,41 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     //   this.dialogService.openMessageDialog(reason,heading,'warning');
     //   return;
     // }
-    if(!this.tenantStudent.userId)return
-    this.submittingRequest = true;
-    const isIos = this.platformService.isIos
-    const isIosAndroid = this.platformService.isAndroid
-    console.log("isIos",isIos)
-    this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
-    if(isIosAndroid || isIos){
-      // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
-      this.submittingRequest = false;
+    const dialogRef = this.dialog.open(ConfirmStripePaymentComponent, {
+      width: '550px',
+      data: {amount: amount},
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
 
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result){
+        this.submittingRequest = false;
+        return;
+      }
+      if(!this.tenantStudent.userId)return
+      this.submittingRequest = true;
+      const isIos = this.platformService.isIos
+      const isIosAndroid = this.platformService.isAndroid
+      console.log("isIos",isIos)
+      this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
+      if(isIosAndroid || isIos){
+        // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});
+        this.submittingRequest = false;
+
+      }
+
+    })
+
 
   }
   faClipboard = faClipboard;
-  estimatedFee: number = 0;
-   calculateFee( amount:number,paymentMethod:string) {
-    let feePercentage = 0;
-    let fixedFee = 0;
 
-    switch (paymentMethod) {
-      case 'Link':
-        feePercentage = 1.2 / 100;  // PayPal fees plus an additional 0.2%
-        fixedFee = 0.25;  // Plus PayPal's own fees
-        break;
-      case 'Paypal':
-        feePercentage = 0.2 / 100;  // PayPal fees plus an additional 0.2%
-        fixedFee = 0.10;  // Plus PayPal's own fees
-        break;
-      case 'Giropay':
-        feePercentage = 1.4 / 100;
-        fixedFee = 0.25;
-        break;
-      case 'Kreditkarte':
-      case 'GooglePay':
-      case 'ApplePay':
-        feePercentage = 1.5 / 100;
-        fixedFee = 0.25;
-        break;
-      case 'Amex':
-      case 'Diners':
-      case 'Discover':
-      default:
-        feePercentage = 1.5 / 100;
-        fixedFee = 0.25;
-        break;
-    }
 
-    const feeAmount = amount * feePercentage + fixedFee;
-    return Math.ceil(feeAmount * 100) / 100;  // Auf zwei Dezimalstellen runden
-  }
-
-  arrayPaymentMethods = ['Giropay', 'Paypal', 'Kreditkarte','Amex','Link'];
-  calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
-    let arr:{namePayment:string,amountFee:number}[] = [];
-    this.arrayPaymentMethods.forEach((paymentMethod) => {
-      arr.push({namePayment:paymentMethod,amountFee:this.calculateFee(amount, paymentMethod)})
-    })
-    return arr;
-  }
   onAmountChange(event: any) {
     this.amountCharge = event.target.value;
     if(!this.amountCharge)return
-    this.estimatedFee = this.calculateFee(this.amountCharge, 'card');  // Default to 'card', you can change this as needed
-    this.paymentFeeArray = this.calculateFeeArray(this.amountCharge);
+    this.paymentFeeArray = calculateFeeArray(this.amountCharge);
   }
   goToLink(){
     this.router.navigate(['../home/details_account'], {relativeTo: this.route.parent});

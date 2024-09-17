@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit{
   isOffCanvasMenuDialog = false;
   isSubmenuOpen = false;
 
-  customerInfo!:CustomerInterface;
+  customerInfo:CustomerInterface | undefined;
   pageLoaded: boolean = false;
   currentRoute: string = '';
 

@@ -117,6 +117,7 @@ import { IbanFormatDirective } from './directives/iban-format.directive';
 import {
   ConfirmDeletePermanentOrderDialogComponent
 } from "./directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
+import { ConfirmStripePaymentComponent } from './home/account/account-payment/confirm-stripe-payment/confirm-stripe-payment.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -218,6 +219,7 @@ export function localeFactory(languageService: LanguageService) {
     FeedbackComponent,
     IbanFormatDirective,
     ConfirmDeletePermanentOrderDialogComponent,
+    ConfirmStripePaymentComponent,
   ],
   imports: [
     BrowserModule,
