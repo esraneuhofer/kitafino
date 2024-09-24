@@ -370,7 +370,7 @@
     "THANK_YOU": "Dank u wel.",
     "MOVEMENT_DETAILS": "Details rekeningbewegingen",
     "DIRECT_DEPOSIT": "Directe storting",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Geld direct op uw rekening storten met PayPal, Apple Pay, Google Pay, Giropay of creditcard. Het geld wordt direct op uw rekening bijgeschreven. <br> Voer het gewenste bedrag in en klik op <b>[Directe storting]</b>. U wordt vervolgens doorgestuurd naar onze betalingsprovider.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Geld direct op uw rekening storten met PayPal, Apple Pay, Google Pay of creditcard. Het geld wordt direct op uw rekening bijgeschreven. <br> Voer het gewenste bedrag in en klik op <b>[Directe storting]</b>. U wordt vervolgens doorgestuurd naar onze betalingsprovider.",
     "ENTER_AMOUNT": "Voer bedrag in",
     "MIN_DEPOSIT": "Minimale storting is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Directe storting",

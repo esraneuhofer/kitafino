@@ -370,7 +370,7 @@
     "THANK_YOU": "Thank you.",
     "MOVEMENT_DETAILS": "Account movement details",
     "DIRECT_DEPOSIT": "Direct deposit",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Deposit money directly into your account with PayPal, Apple Pay, Google Pay, Giropay, or credit card. The money will be credited to your account immediately. <br> Enter the desired amount and click on <b>[Direct deposit]</b>. You will then be redirected to our payment provider.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Deposit money directly into your account with PayPal, Apple Pay, Google Pay, or credit card. The money will be credited to your account immediately. <br> Enter the desired amount and click on <b>[Direct deposit]</b>. You will then be redirected to our payment provider.",
     "ENTER_AMOUNT": "Enter amount",
     "MIN_DEPOSIT": "Minimum deposit is 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direct deposit",

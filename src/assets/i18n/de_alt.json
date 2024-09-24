@@ -370,7 +370,7 @@
     "THANK_YOU": "Vielen Dank.",
     "MOVEMENT_DETAILS": "Details Kontobewegungen",
     "DIRECT_DEPOSIT": "Direkeinzahlung",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Geld direkt auf Ihr Konto einzahlen mit PayPal, Apple Pay, Google Pay, Giropay oder Kreditkarte. Das Geld wird sofort Ihrem Konto gutgeschrieben. <br> Tragen Sie den gewünschten Betrag ein und klicken Sie auf <b>[Direkteinzahlung]</b>. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Geld direkt auf Ihr Konto einzahlen mit PayPal, Apple Pay, Google Pay oder Kreditkarte. Das Geld wird sofort Ihrem Konto gutgeschrieben. <br> Tragen Sie den gewünschten Betrag ein und klicken Sie auf <b>[Direkteinzahlung]</b>. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.",
     "ENTER_AMOUNT": "Betrag eingeben",
     "MIN_DEPOSIT": "Mindesteinzahlung beträgt 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direkteinzahlung",

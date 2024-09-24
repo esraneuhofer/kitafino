@@ -369,7 +369,7 @@
     "THANK_YOU": "谢谢。",
     "MOVEMENT_DETAILS": "账户活动详情",
     "DIRECT_DEPOSIT": "直接存款",
-    "DIRECT_DEPOSIT_DESCRIPTION": "通过PayPal、Apple Pay、Google Pay、Giropay或信用卡直接充值到您的账户。资金将立即记入您的账户。<br>请输入所需金额并点击<b>[直接存款]</b>。您将被重定向到我们的支付提供商。",
+    "DIRECT_DEPOSIT_DESCRIPTION": "通过PayPal、Apple Pay、Google Pay、或信用卡直接充值到您的账户。资金将立即记入您的账户。<br>请输入所需金额并点击<b>[直接存款]</b>。您将被重定向到我们的支付提供商。",
     "ENTER_AMOUNT": "输入金额",
     "MIN_DEPOSIT": "最低存款金额为10欧元",
     "DIRECT_DEPOSIT_BUTTON": "直接存款",

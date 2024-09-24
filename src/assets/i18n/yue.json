@@ -370,7 +370,7 @@
     "THANK_YOU": "謝謝。",
     "MOVEMENT_DETAILS": "帳戶交易詳細信息",
     "DIRECT_DEPOSIT": "直接存款",
-    "DIRECT_DEPOSIT_DESCRIPTION": "使用 PayPal、Apple Pay、Google Pay、Giropay 或信用卡直接存款到您的帳戶。款項將立即記入您的帳戶。<br>輸入所需金額並點擊 <b>[直接存款]</b>。然後，您將被重定向到我們的支付提供商。",
+    "DIRECT_DEPOSIT_DESCRIPTION": "使用 PayPal、Apple Pay、Google Pay 或信用卡直接存款到您的帳戶。款項將立即記入您的帳戶。<br>輸入所需金額並點擊 <b>[直接存款]</b>。然後，您將被重定向到我們的支付提供商。",
     "ENTER_AMOUNT": "輸入金額",
     "MIN_DEPOSIT": "最低存款額為10歐元",
     "DIRECT_DEPOSIT_BUTTON": "直接存款",

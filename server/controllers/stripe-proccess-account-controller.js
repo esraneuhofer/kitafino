@@ -1,53 +1,59 @@
 const mongoose = require("mongoose");
 const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
+const {getEmailChargeAccount} = require("./email-charge-account");
+const {convertToSendGridFormat} = require("./sendfrid.controller");
+const sgMail = require("@sendgrid/mail");
+const TenantParent = mongoose.model('Tenantparent');
 
-exports.addAccountChargesTenant = async (req, res) => {
-  try {
-    if (session.payment_status === 'paid') {
-      // Begin transaction and account charges logic
-      const result = await addAccountChargesTenant(req, res);
-      res.json(result);
-    } else {
-      res.status(402).send({ error: 'Payment required' });
-    }
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-};
+
+//
+// exports.addAccountChargesTenant = async (req, res) => {
+//   try {
+//     if (session.payment_status === 'paid') {
+//       // Begin transaction and account charges logic
+//       const result = await addAccountChargesTenant(req, res);
+//       res.json(result);
+//     } else {
+//       res.status(402).send({ error: 'Payment required' });
+//     }
+//   } catch (err) {
+//     res.status(500).send({ error: err.message });
+//   }
+// };
 async function addAccountChargesTenantStripe(data, session) {
   let paymentAmount = data.paymentAmount / 100; // Stripe amounts are in cents
   let username = data.username;
   let userId = data.userId;
   let paymentProvider = data.paymentProvider;
+  let transactionId = data.transactionId;
 
   // Set the fee structure based on the payment provider
   let feePercentage = 0;
   let fixedFee = 0;
 
+  // Puffer von 0,1 % hinzufügen
+  const buffer = 0.3 / 100;
+
   switch (paymentProvider) {
-    case 'giropay':
-      feePercentage = 1.5 / 100; // 1.2% + 0.1% Puffer
-      fixedFee = 0.25;
-      break;
     case 'paypal':
-      feePercentage = 3.79 / 100; // 3.49% + 0.1% Puffer
+      feePercentage = (3.49 / 100) + buffer; // Ergibt 3,59 %
       fixedFee = 0.49;
       break;
     case 'card':
-      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = (1.4 / 100) + buffer; // Ergibt 1,5 %
       fixedFee = 0.25;
       break;
     case 'amex':
-      feePercentage = 2.8 / 100; // 2.5% + 0.1% Puffer
+      feePercentage = (2.5 / 100) + buffer; // Ergibt 2,6 %
       fixedFee = 0.25;
       break;
     case 'google_pay':
-      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = (1.4 / 100) + buffer; // Ergibt 1,5 %
       fixedFee = 0.25;
       break;
     case 'apple_pay':
-      feePercentage = 1.7 / 100; // 1.4% + 0.1% Puffer
+      feePercentage = (1.4 / 100) + buffer; // Ergibt 1,5 %
       fixedFee = 0.25;
       break;
     default:
@@ -56,18 +62,36 @@ async function addAccountChargesTenantStripe(data, session) {
 
   // Calculate the net amount after deducting fees
   const fee = paymentAmount * feePercentage + fixedFee;
-  const netAmount = paymentAmount - fee;
+  const netAmount = paymentAmount - fee - 0.02;
 
   try {
     await session.startTransaction();
     const account = await getAccountTenant(userId, session);
+
     if (!account) {
       throw new Error('Account not found');
     }
+    const tenant = await getTenantInformation(userId, session);
+    if (!tenant) {
+      throw new Error('Tenant not found');
+    }
 
     await saveAccount(account, netAmount, session);
-    await addAccountCharge(account, username, netAmount, session);
+    await addAccountCharge(account, username, netAmount, session, transactionId);
+
     await session.commitTransaction();
+
+    // E-Mail-Optionen vorbereiten
+    const mailOptions = getMailOptions(netAmount, username, new Date(), fee, tenant.email,transactionId);
+
+    // E-Mail-Versand außerhalb der Transaktion
+    try {
+      await sgMail.send(convertToSendGridFormat(mailOptions));
+      console.log('E-Mail erfolgreich gesendet.');
+    } catch (emailError) {
+      console.error('Fehler beim Senden der E-Mail:', emailError);
+      // Optional: Weitere Fehlerbehandlung, z.B. Benachrichtigung eines Administrators
+    }
 
     return { success: true, message: 'Charge added successfully' };
 
@@ -92,6 +116,17 @@ async function getAccountTenant(userId, session) {
   }
 }
 
+async function getTenantInformation(userId, session) {
+  try {
+    // Using the session for a transaction context
+    const tenant = await TenantParent.findOne({ userId: userId }).session(session);
+    return tenant; // Return the account object for further processing
+  } catch (error) {
+    console.error("Error getting tenant:", error);
+    throw error; // Throw the error to be handled by the caller
+  }
+}
+
 async function saveAccount(account, balanceToAdd, session) {
   try {
     account.currentBalance += balanceToAdd;  // Adjust balance
@@ -106,19 +141,23 @@ async function saveAccount(account, balanceToAdd, session) {
 }
 
 
-async function addAccountCharge(account, username, balanceToAdd, session) {
+async function addAccountCharge(account, username, balanceToAdd, session,transactionId) {
   try {
     const newChargeAccount = new ChargeAccount({
       approved: true,
+      username: username,
+      reference: 'username',
       dateApproved: new Date(),
       amount: balanceToAdd,
-      date: new Date(),
+      datePaymentReceived: new Date(),
+      accountHolder: account.accountHolder,
+      iban: 'stripe',
       paymentMethod: 'stripe',
-      iban: null,
-      typeCharge: 'deposit',
+      typeCharge: 'einzahlung',
       tenantId: account.tenantId,
       userId: account.userId,
-      customerId: account.customerId
+      customerId: account.customerId,
+      transactionId:transactionId
     });
 
     await newChargeAccount.save({ session });
@@ -148,6 +187,17 @@ function handleDatabaseError(error, contextMessage) {
   customError.status = httpStatusCode;
   throw customError;
 }
+
+function getMailOptions (amount,username,paymentDate,fee,emailTenant,transactionId) {
+  return {
+    from: '"Cateringexpert" <noreply@cateringexpert.de>',
+    bcc:'eltern_bestellung@cateringexpert.de',
+    to: emailTenant, // This should be dynamically set based on the tenant's email
+    subject: 'Kontoaktivität',
+    html: getEmailChargeAccount(amount,username,paymentDate,fee,transactionId)
+  };
+}
+
 
 module.exports = {
   addAccountChargesTenantStripe

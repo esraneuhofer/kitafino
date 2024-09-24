@@ -370,7 +370,7 @@
     "THANK_YOU": "Grazie.",
     "MOVEMENT_DETAILS": "Dettagli movimento conto",
     "DIRECT_DEPOSIT": "Deposito diretto",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Deposita denaro direttamente sul tuo conto con PayPal, Apple Pay, Google Pay, Giropay o carta di credito. Il denaro sarà accreditato immediatamente sul tuo conto. <br> Inserisci l'importo desiderato e clicca su <b>[Deposito diretto]</b>. Verrai quindi reindirizzato al nostro fornitore di servizi di pagamento.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Deposita denaro direttamente sul tuo conto con PayPal, Apple Pay, Google Pay o carta di credito. Il denaro sarà accreditato immediatamente sul tuo conto. <br> Inserisci l'importo desiderato e clicca su <b>[Deposito diretto]</b>. Verrai quindi reindirizzato al nostro fornitore di servizi di pagamento.",
     "ENTER_AMOUNT": "Inserisci l'importo",
     "MIN_DEPOSIT": "Il deposito minimo è di 10€",
     "DIRECT_DEPOSIT_BUTTON": "Deposito diretto",

@@ -31,8 +31,8 @@ import {
 } from "../account-payment/confirm-stripe-payment/confirm-stripe-payment.component";
 const { App } = Plugins;
 
-const  arrayPaymentMethods = ['Giropay', 'Kreditkarte','Amex', 'Paypal'];
-export const  arrayPaymentMethodsName = ['Giropay', 'Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
+const  arrayPaymentMethods = ['Kreditkarte','Amex', 'Paypal'];
+export const  arrayPaymentMethodsName = ['Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
 export function calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
   let arr:{namePayment:string,amountFee:number}[] = [];
   arrayPaymentMethods.forEach((paymentMethod,index) => {
@@ -46,12 +46,9 @@ function calculateFee(amount: number, paymentMethod: string): number {
   let fixedFee: number = 0;
 
   // Puffer von 0,1 % hinzufügen
-  const buffer = 0.2 / 100;
+  const buffer = 0.3 / 100;
 
-  if (paymentMethod === 'Giropay') {
-    feePercentage = (1.2 / 100) + buffer; // Ergibt 1,3 %
-    fixedFee = 0.25;
-  } else if (paymentMethod === 'Paypal') {
+ if (paymentMethod === 'Paypal') {
     feePercentage = (3.49 / 100) + buffer; // Ergibt 3,59 %
     fixedFee = 0.49;
   } else if (paymentMethod === 'Kreditkarte') {
@@ -66,8 +63,20 @@ function calculateFee(amount: number, paymentMethod: string): number {
   return amount - fee - 0.02;
 }
 
-function totalAmountExceedsLimit(amount: number,account:AccountCustomerInterface): boolean {
-  return (amount + account.currentBalance) > 300;
+function totalAmountExceedsLimit(amount: number | string, account: AccountCustomerInterface, registeredStudents: number): boolean {
+
+  let max = 250;
+  if (registeredStudents > 1) {
+    max = registeredStudents * 250;
+  }
+
+  // Wandelt amount in eine Zahl um, falls es ein String ist
+  const amountAsNumber = typeof amount === 'string'
+    ? parseFloat(amount)
+    : amount;
+
+
+  return (amountAsNumber + account.currentBalance) > max;
 }
 export interface PaymentIntentResponse {
   clientSecret: string;
@@ -299,12 +308,12 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
-    // if(totalAmountExceedsLimit(amount,this.accountTenant)){
-    //   let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT')
-    //   let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT')
-    //   this.dialogService.openMessageDialog(reason,heading,'warning');
-    //   return;
-    // }
+    if(totalAmountExceedsLimit(amount,this.accountTenant,this.registeredStudents.length)){
+      let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT')
+      let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT')
+      this.dialogService.openMessageDialog(reason,heading,'warning');
+      return;
+    }
     const dialogRef = this.dialog.open(ConfirmStripePaymentComponent, {
       width: '550px',
       data: {amount: amount},

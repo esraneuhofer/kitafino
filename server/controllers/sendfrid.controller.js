@@ -6,7 +6,7 @@ const convertToSendGridFormat = (email) => {
       throw new Error("The 'from' field is required.");
     }
 
-    console.log('from',from);
+    console.log('from Sendgrid',from);
     // Split the 'from' field into email and name if needed
     const fromParts = from.match(/(.*)<(.*)>/);
     const fromEmail = fromParts ? fromParts[2].trim() : from;

@@ -38,7 +38,7 @@ exports.createPaymentIntent = async (req, res) => {
         : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'paypal', 'giropay'],
+      payment_method_types: ['card', 'paypal'],
       line_items: setLineItems(req.body),
       mode: 'payment',
       locale: 'de',

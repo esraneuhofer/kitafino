@@ -370,7 +370,7 @@
     "THANK_YOU": "Teşekkür ederiz.",
     "MOVEMENT_DETAILS": "Hesap hareket detayları",
     "DIRECT_DEPOSIT": "Doğrudan para yatırma",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Hesabınıza doğrudan PayPal, Apple Pay, Google Pay, Giropay veya kredi kartı ile para yatırın. Para anında hesabınıza eklenir. <br> İstenilen miktarı girin ve <b>[Doğrudan para yatırma]</b> sekmesine tıklayın. Ardından ödeme sağlayıcımıza yönlendirileceksiniz.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Hesabınıza doğrudan PayPal, Apple Pay, Google Pay veya kredi kartı ile para yatırın. Para anında hesabınıza eklenir. <br> İstenilen miktarı girin ve <b>[Doğrudan para yatırma]</b> sekmesine tıklayın. Ardından ödeme sağlayıcımıza yönlendirileceksiniz.",
     "ENTER_AMOUNT": "Miktarı girin",
     "MIN_DEPOSIT": "Minimum para yatırma miktarı 10€'dur",
     "DIRECT_DEPOSIT_BUTTON": "Doğrudan para yatırma",
