@@ -131,13 +131,4 @@ function createCancellationEntry(orderAccount) {
   return newEntry
 }
 
-function getTotalPricesAllOrdersDate(allOrdersDate) {
-  let totalPrice = 0;
-  allOrdersDate.forEach((order) => {
-    if(!order)return;
-    totalPrice += order.priceTotal;
-  })
-  return totalPrice;
-}
-
 

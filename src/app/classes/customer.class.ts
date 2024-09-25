@@ -76,6 +76,7 @@ interface CustomerOrderSplit{
 export interface GeneralSettingsInterface {
   subGroupSettingTenant: boolean; // Decides if the tenant has the ability to set subgroups if false the subgroups are set by the Customer/Einrichtung
   allergiesSetByTenant: boolean; // Decides if the tenant has the ability to set allergies if false the allergies are set by the Customer/Einrichtung
+  showAllSpecialFood: boolean;
   showOrderDaily: boolean; // Decides if the tenant chooses each day for the order with input:Date or per week with selectField
   isDeadlineDaily: boolean; // Decides if the tenant has a daily deadline for the order
   isDeadlineWeekly: boolean; // Decides if the tenant has a weekly deadline for the order

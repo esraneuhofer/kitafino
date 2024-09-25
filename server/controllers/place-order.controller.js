@@ -11,7 +11,6 @@ const Tenantparent = mongoose.model('Tenantparent');
 const {setEmailReminder} = require('./email-balance-reminder');
 const sgMail = require("@sendgrid/mail");
 const {convertToSendGridFormat} = require("./sendfrid.controller");
-const {notifyAdmin} = require("./email-order-customer-weekly");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 

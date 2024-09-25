@@ -30,7 +30,7 @@ const cookieParser = require('cookie-parser');
 
 const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(uriTest, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
   })
@@ -71,11 +71,9 @@ require(__dirname + '/server/models/help.model');
 require(__dirname + '/server/models/but.model');
 require(__dirname + '/server/models/but_document.model');
 require(__dirname + '/server/models/message.model');
-require(__dirname + '/server/models/task-order.model');
 require(__dirname + '/server/models/session-info.model');
 require(__dirname + '/server/models/permanent-order.model');
 require(__dirname + '/server/models/weekplan.model');
-require(__dirname + '/server/models/transaction.model');
 require(__dirname + '/server/models/orders_account.model');
 require(__dirname + '/server/models/weekplan_group.model');
 require(__dirname + '/server/models/order_student.model');

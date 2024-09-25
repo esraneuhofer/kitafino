@@ -33,6 +33,7 @@ var generalSettingsSchema = new Schema({
   deadlineDaily: { type: DeadlineDailySchema, required: true },
   cancelOrderDaily: { type: CancelOrderDailySchema, required: true },
   state: { type: String, required: true },
+  showAllSpecialFood: { type: Boolean },
 });
 
 var customerSchema = new Schema({

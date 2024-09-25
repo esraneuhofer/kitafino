@@ -10,7 +10,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const bcrypt = require('bcryptjs');
 const {getEmailResetPassword} = require('./email-reset-password')
 const {getHtmlRegistrationEmail} = require('./email-registration');
-const {getPasswordChangedEmail} = require('./change-password-email.function');
+const {getEmailChangePassword} = require('./get-email-body-change-password');
 
 function makePassword() {
   var text = "";
@@ -234,7 +234,7 @@ module.exports.changePassword = async (req, res, next) => {
           { new: true }
         );
 
-        const mailOptions = convertToSendGridFormat(getPasswordChangedEmail(user.email));
+        const mailOptions = convertToSendGridFormat(getEmailChangePassword(user.email));
 
         await sgMail.send(mailOptions);
         return res.send({ message: 'Password wurde erfolgreich geändert', error: false });

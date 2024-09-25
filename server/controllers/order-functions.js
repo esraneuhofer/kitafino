@@ -1,6 +1,3 @@
-const {getIndexDayOrder} =  require("./deadline-orderclass.functions")
-const {getWeekNumber} = require("./deadline-deadline.functions");
-const {set} = require("mongoose");
 
 function getSpecialFoodNameById(settings, idSpecialFood) {
   let nameSpecialFood = 'Allergiker Essen';
@@ -82,28 +79,6 @@ function getOrderStudent(priceStudent, settings, eachPermanentOrderStudent, sele
   return objOrder;
 }
 
-function setOrderStudentBackend(customer,
-                                dateOrder,
-                                tenantId,
-                                eachPermanentOrderStudent,
-                                selectedWeek,
-                                settings,
-                                priceStudent,
-                                menus){
-  const indexDay = getIndexDayOrder(dateOrder);
-  let calenderWeek = getWeekNumber(new Date(dateOrder))
-  let year = new Date(dateOrder).getFullYear();
-  const selectedWeekDay = selectedWeek.weekplan[indexDay];
-  return {
-    kw: calenderWeek,
-    year: year,
-    customerId: customer.customerId,
-    dateOrder: dateOrder,
-    tenantId: tenantId,
-    studentId: eachPermanentOrderStudent.studentId,
-    order:getOrderStudent(priceStudent,settings,eachPermanentOrderStudent,selectedWeekDay,indexDay,menus,customer)
-  }
-}
 
 function getPriceStudent(selectedStudent, customer, settings) {
   if(!selectedStudent)return 0;
@@ -156,7 +131,6 @@ function getTotalPrice (order) {
 
 module.exports = {
   getTotalPrice,
-  setOrderStudentBackend,
   getPriceStudent,
   getNameMenuDay
 };

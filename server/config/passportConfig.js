@@ -11,7 +11,7 @@ passport.use(
     async (email, password, done) => {
       try {
         // Find a user with the provided email
-        const user = await Schooluser.findOne({ email });
+        const user = await Schooluser.findOne({ email: email.toLowerCase() });
 
         // If no user with the provided email is found
         if (!user) {

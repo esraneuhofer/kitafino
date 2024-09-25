@@ -18,23 +18,7 @@ function getTotalPortion(orderGroup,setting) {
   }
   return total;
 }
-function getTotalPortionsDay(orderModelDay ,settings) {
-  let total = 0;
-  if(!orderModelDay)return 0;
-  orderModelDay.forEach(eachDay => {
-    total += getTotalPortion(eachDay,settings);
-  });
-  return total;
-}
-function getDisplayName(splitName,customerInfo) {
-  let name = '';
-  customerInfo.order.split.forEach(eachSplit => {
-    if (eachSplit.group === splitName) {
-      name = eachSplit.displayGroup;
-    }
-  });
-  return name;
-}
+
 function specialFoodStillExistsInSettings(idSpecialFood, settings) {
   return settings.orderSettings.specialFoods.some(eachSpecialFood => eachSpecialFood._id === idSpecialFood);
 }
@@ -53,8 +37,6 @@ function hideSpecialFoodIfNoMenuShown(order, showMenuWithoutName) {
 }
 
 module.exports = {
-  getTotalPortionsDay,
-  getDisplayName,
   getTotalPortion,
   hideSpecialFoodIfNoMenuShown
 };

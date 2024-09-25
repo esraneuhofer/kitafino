@@ -1,4 +1,4 @@
-const {getWeekNumber} = require("./deadline-deadline.functions");
+
 
 function addDayFromDate(date, daysToAdd) {
   ///Adds x-Amount of Days to specific Day
@@ -125,6 +125,14 @@ function getDateMondayFromCalenderweek(week, year) {
 //     ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
 //   return ISOweekStart;
 // }
+function getWeekNumber(startD) {
+  let startDate =  new Date (startD);
+  let d = new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()));
+  let dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
 
 
 
@@ -134,7 +142,6 @@ module.exports = {
   getInvoiceDateOne,
   getTimeToDisplay,
   dateAndDayOfWeekToCron,
-  addHourToTime,
-  calculateTargetWeekAndYear,
+  getWeekNumber,
   getDateMondayFromCalenderweek
 };

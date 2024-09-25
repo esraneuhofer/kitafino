@@ -7,6 +7,7 @@ var butdocument = new Schema({
   tenantId: {type: Schema.Types.ObjectId, required: true},
   userId: {type: Schema.Types.ObjectId, required: true},
   customerId:  {type: Schema.Types.ObjectId, required: true},
+  schoolId: {type: Schema.Types.ObjectId, required: true},
   name: String,
   nameStudent: String,
   username: String,
@@ -14,6 +15,7 @@ var butdocument = new Schema({
   dateUploaded: Date,
   processed: {type: Boolean, default: false},
 });
+
 
 
 var ButDocumentSchema = mongoose.model('ButDocumentSchema', butdocument);

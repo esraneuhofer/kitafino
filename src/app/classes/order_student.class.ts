@@ -132,12 +132,25 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
         this.orderMenus.push(order);
       }
     });
-    if(studentModel && studentModel.specialFood){
+    if(studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood){
       let priceSpecial = getPriceSpecialFood(studentModel.specialFood,customer,studentModel,contractSettings);
       let specialFood = getSpecialFoodById(studentModel.specialFood,settings);
       if(!specialFood)return;
       const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
       this.orderMenus.push(orderSpecial);
+    }
+    if(studentModel && customer.generalSettings.showAllSpecialFood){
+      if(customer.order.showSpecialFood && customer.order.specialShow.length > 0){
+        customer.order.specialShow.forEach(eachSpecial=>{
+          if(eachSpecial.selected){
+            let priceSpecial = getPriceSpecialFood(eachSpecial.idSpecialFood,customer,studentModel,contractSettings);
+            let specialFood = getSpecialFoodById(eachSpecial.idSpecialFood,settings);
+            if(!specialFood)return;
+            const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
+            this.orderMenus.push(orderSpecial);
+          }
+        })
+      }
     }
     this.specialFoodOrder = getSpecialOrdersSubGroup(settings, customer)
 

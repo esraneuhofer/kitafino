@@ -17,10 +17,7 @@ const ctrlGenerell = require('../controllers/generell.controller');
 const ctrlStudents = require('../controllers/student.controller');
 const crtlAccount = require('../controllers/account.controller');
 const crtlOrder = require('../controllers/order.controller');
-const crtlTransaction = require('../controllers/transaction.controller');
 const crtlPermanent = require('../controllers/permanent-order.controller');
-const ctrlTest = require('../controllers/task-daily-deadline.controller');
-const ctrlDailyDeadline = require('../controllers/daily-deadline-task');
 const crtlPlaceOrder = require('../controllers/place-order.controller');
 const ctrlCancelOrder = require('../controllers/cancel-order.controller');
 const crtlStripe = require('../controllers/stripe');
@@ -100,7 +97,6 @@ router.post('/withdrawFunds',jwtHelper.verifyJwtToken,crtlAccount.withdrawFunds)
 router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountCharges);
 
 /////Transaction Requests ////
-router.get('/getTransactionTenant',jwtHelper.verifyJwtToken,crtlTransaction.getTransactionTenant);
 
 ////Permanent Orders//////
 router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
