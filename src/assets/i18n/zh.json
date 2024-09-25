@@ -572,8 +572,8 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "要进行存款，您必须提供您的银行信息。前往 <b>[设置] -> [基本资料]</b> 或点击 ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "缺少 IBAN",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "超过存款限额",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "所选金额将超过250,00€的存款限额。请选择较小的金额。",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>联邦金融监管局 (BaFin) 的规定设定了最高余额 <b>250,00€</b>。如果通过存款超过该余额，超过的全部金额将自动退还。",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "选择此金额将超出每位膳食参与者250,00 €的存款限额。请选择较小的金额。",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要提示：</b>根据联邦金融监管局 (BaFin) 的规定，每位膳食参与者的最高余额为<b>250,00 €</b>。如果通过存款超出此余额，超出的全部金额将自动退还。",
   "DATEI_ANZEIGEN": "查看文件",
   "BUT_AKTIVIEREN": "启用 BuT"
 

@@ -11,10 +11,7 @@ export const numberFive = [
 ];
 export const dayArray: any = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
 
-export interface OrderOverViewOrderInterface {
-  queryYears: number,
-  queryCW: number,
-}
+
 
 export interface WeekplanDayInterface {
   nameDay:string,
@@ -38,7 +35,7 @@ export interface MealtypesWeekplan {
   allergensPerMeal?:{nameMeal:string,allergenes:Allergene[]}[],
   allergenes:Allergene[]}
 
-export function getAllowOneMenuEachDay(setting:SettingInterfaceNew):boolean[]{
+function getAllowOneMenuEachDay(setting:SettingInterfaceNew):boolean[]{
   let arr:boolean[] = [];
   numberFive.forEach((each, index) => {
     arr.push(setting.orderSettings.onlyOneMenuSelectable)
@@ -55,7 +52,7 @@ export function getWeekplanModel(setting:SettingInterfaceNew,dateQuery:QueryInte
   }
 }
 
-export function getWeekplanArray(setting:SettingInterfaceNew):WeekplanDayInterface[]{
+function getWeekplanArray(setting:SettingInterfaceNew):WeekplanDayInterface[]{
   let arr:WeekplanDayInterface[] = [];
   numberFive.forEach((each, index) => {
     arr.push({

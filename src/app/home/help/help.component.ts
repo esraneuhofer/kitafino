@@ -6,12 +6,6 @@ import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {LanguageService} from "../../service/language.service";
 
-export interface HelpDocument {
-    nameDocument: string;
-    description: string;
-    base64: string;
-}
-
 @Component({
     selector: 'app-help',
     templateUrl: './help.component.html',

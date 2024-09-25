@@ -24,7 +24,7 @@ export function setAllergensMeal(meal:MealModelInterface, articleDeclaration: Al
   return meal;
 }
 
-export function findAllergenFromId(eachAllergen:{_id:string,name_allergene:string}, articleDeclaration:Allergene[]):(Allergene | null) {
+function findAllergenFromId(eachAllergen:{_id:string,name_allergene:string}, articleDeclaration:Allergene[]):(Allergene | null) {
   for (let i = 0; i < articleDeclaration.length; i++) {
     if (eachAllergen._id === articleDeclaration[i]._id) {
       return articleDeclaration[i];
@@ -58,7 +58,7 @@ export function getMenusForWeekplan(weekplan: WeekplanMenuInterface, menus: Menu
 }
 
 
-export function setAllergenesRecipeMenu(selectedMenuType:MealtypesWeekplan):{nameMeal:string,allergenes:Allergene[]}[]{
+function setAllergenesRecipeMenu(selectedMenuType:MealtypesWeekplan):{nameMeal:string,allergenes:Allergene[]}[]{
   let arrayRecipes:{nameMeal:string,allergenes:Allergene[]} []= [];
   if(selectedMenuType.menu) {
     selectedMenuType.menu.recipe.forEach(eachRecipe => {

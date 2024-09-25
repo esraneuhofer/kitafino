@@ -28,6 +28,8 @@
                              [matTooltip]="'In Ablage kopieren'"
                              class="ml-1"></fa-icon>
                     <br><br>
+                    <span [innerHTML]="'DEPOSIT_INSTRUCTIONS_NACHTRAG' | translate"></span>
+                    <br><br>
                     <b>{{ 'ACCOUNT.IMPORTANT_NOTE' | translate }}:</b>
                     {{ 'ACCOUNT.USERNAME_NOTE' | translate }}:
                     <b>{{tenantStudent.username}} </b> {{ 'ACCOUNT.PURPOSE_INSTRUCTIONS' | translate }}
@@ -72,6 +74,10 @@
                     <div class="flex items-center justify-center h-12 w-12">
                       <img alt="American Express" class="max-h-full max-w-full"
                            src="/assets/payment-icons/amex-logo.svg">
+                    </div>
+                    <div class="flex items-center justify-center h-12 w-12">
+                      <img alt="American Express" class="max-h-full max-w-full"
+                           src="/assets/payment-icons/paypal-logo.svg">
                     </div>
 <!--                    <div class="flex items-center justify-center h-12 w-12">-->
 <!--                      <img alt="Giro Pay" class="max-h-full max-w-full" src="/assets/payment-icons/giropay.svg">-->

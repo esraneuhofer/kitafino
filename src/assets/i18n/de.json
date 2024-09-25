@@ -575,10 +575,12 @@
   "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN fehlt",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Einzahlungslimit überschritten",
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Mit dem gewählten Betrag würden Sie das Einzahlungslimit von 250,00€ pro Verpflegungsteilnehmer überschreiten. <br> Bitte wählen Sie einen geringeren Betrag.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Wichtig:</b> Die Vorschriften der Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin) legen ein maximales Guthaben von <b>250,00 €</b> fest. Sollte dieses Guthaben durch Einzahlungen überschritten werden, wird der gesamte übersteigende Betrag automatisch zurückerstattet.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Wichtig:</b> Die Vorschriften der Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin) legen ein maximales Guthaben von <b>250,00 €</b> pro Verpflegungsteilnehmer fest. Sollte dieses Guthaben durch Einzahlungen überschritten werden, wird der gesamte übersteigende Betrag automatisch zurückerstattet.",
   "DATEI_ANZEIGEN": "Datei anzeigen",
   "BUT_AKTIVIEREN": "BuT aktivieren",
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Dauerbestellung löschen",
-  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten?"
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten?",
+
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Anschließend erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse."
 }

@@ -17,7 +17,7 @@ export interface AssignedWeekplanInterface {
   weekplanGroupAllowed: WeekplanModelGroupsAllowedInterfaceDay[]
 }
 
-export interface WeekplanModelGroupsAllowedInterfaceDay {
+interface WeekplanModelGroupsAllowedInterfaceDay {
   selectedMealsDay: { idSpecial: string, selected: boolean }[];
 }
 
@@ -52,7 +52,7 @@ function groupIsInWeekplanGroup(weekplanGroup:WeekplanGroupClass,customerInfo:Cu
   return isInGroup;
 }
 
-export function setNewAssignedWeekplan(weekplan: WeekplanMenuInterface,
+function setNewAssignedWeekplan(weekplan: WeekplanMenuInterface,
                                        dateQuery: { week: number, year: number }):AssignedWeekplanInterface {
   return {
     tenantId: '',
@@ -64,7 +64,7 @@ export function setNewAssignedWeekplan(weekplan: WeekplanMenuInterface,
   };
 }
 
-export function setEmptyAsignedWeekplan(weekplan: WeekplanMenuInterface, weekplanModelGroups: AssignedWeekplanInterface,settings:SettingInterfaceNew): AssignedWeekplanInterface {
+function setEmptyAsignedWeekplan(weekplan: WeekplanMenuInterface, weekplanModelGroups: AssignedWeekplanInterface,settings:SettingInterfaceNew): AssignedWeekplanInterface {
   let weekplanModelGroups$ = weekplanModelGroups;
 
   weekplan.weekplan.forEach((day, indexDay) => {

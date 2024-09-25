@@ -27,7 +27,7 @@ export function getMenusWithMealsAndArticle(menus:MenuInterface[], meals:MealMod
   return $menus;
 }
 
-export function getArticleFromId(id:string,array:ArticleInterface[]):(ArticleInterface | null){
+function getArticleFromId(id:string,array:ArticleInterface[]):(ArticleInterface | null){
   for(let i = 0; i  < array.length; i++){
     if(array[i]._id === id){
       return array[i];
@@ -35,7 +35,7 @@ export function getArticleFromId(id:string,array:ArticleInterface[]):(ArticleInt
   }
   return null;
 }
-export function getRecipeFromId(id:any,array:MealModelInterface[]):(MealModelInterface | null){
+function getRecipeFromId(id:any,array:MealModelInterface[]):(MealModelInterface | null){
   for(let i = 0; i  < array.length; i++){
     if(array[i]._id === id){
       return array[i];

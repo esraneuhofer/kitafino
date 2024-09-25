@@ -19,7 +19,7 @@ export interface SettingInterfaceNew {
   tenantSettings: TenantSettingsInterface;
 }
 
-export interface OrderSettingsDeadLineDailyInterface{
+interface OrderSettingsDeadLineDailyInterface{
   day: number;
   time: Date;
   timeBeginn:Date;
@@ -27,7 +27,7 @@ export interface OrderSettingsDeadLineDailyInterface{
   maxAmountRemove: number;
   maxAmountAdd: number;
 }
-export interface OrderSettingsInterfaceNew {
+interface OrderSettingsInterfaceNew {
   heightCard: number;
   hideNutritionSidebar: boolean;
   onlyShowEasyView: boolean;
@@ -79,7 +79,7 @@ export interface OrderSettingsInterfaceNew {
   minOrderAmountSub: number
 }
 
-export interface InvoiceSettingsInterface {
+interface InvoiceSettingsInterface {
   displayInvoiceCombined: boolean;
   differentPricesMenus: boolean;
   logo: {
@@ -107,7 +107,7 @@ export interface InvoiceSettingsInterface {
   invoiceNumberType: string;
 }
 
-export interface TenantSettingsInterface {
+interface TenantSettingsInterface {
   billing: {
     testPeriodEnds: string;
     emailVerified: string;
@@ -165,7 +165,7 @@ export interface TenantSettingsInterface {
   }
 }
 
-export interface GroupTypesSettingsIdInterface {
+interface GroupTypesSettingsIdInterface {
   nameGroupType: string;
   undeletable: boolean,
   _id: string

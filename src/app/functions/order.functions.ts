@@ -1,6 +1,5 @@
 import {
   OrderInterfaceStudentSave,
-  OrderSubDetailNewSafe,
   SpecialFoodOrderInterfaceSafe
 } from "../classes/order_student_safe.class";
 import {WeekplanMenuInterface} from "../classes/weekplan.interface";
@@ -13,7 +12,6 @@ import {
   OrderSubDetailNew, SpecialFoodOrderInterface
 } from "../classes/order_student.class";
 import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
-import {TenantStudentInterface} from "../classes/tenant.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
@@ -22,12 +20,6 @@ import {SchoolSettingsInterface} from "../classes/schoolSettings.class";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-
-export function convertDayToIsoString(day:string):string {
-  let date = new Date(day);
-  let formattedDate = date.toISOString().split('T')[0] + 'T00:00:00+02:00';
-  return formattedDate;
-}
 
 function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
@@ -118,12 +110,6 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
   return newObject;
 }
 
-export function getLockedStatus(pastOrder: boolean, lockDay: boolean): boolean {
-  if (pastOrder || lockDay) {
-    return true;
-  }
-  return false;
-}
 
 export function getDateMondayFromCalenderweek(dateQuery: { week: number, year: number }): Date {
   let simple = new Date(dateQuery.year, 0, 1 + (dateQuery.week - 1) * 7);

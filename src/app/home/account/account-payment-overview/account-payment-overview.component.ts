@@ -32,7 +32,7 @@ import {
 const { App } = Plugins;
 
 const  arrayPaymentMethods = ['Kreditkarte','Amex', 'Paypal'];
-export const  arrayPaymentMethodsName = ['Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
+const  arrayPaymentMethodsName = ['Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
 export function calculateFeeArray(amount: number):{namePayment:string,amountFee:number}[] {
   let arr:{namePayment:string,amountFee:number}[] = [];
   arrayPaymentMethods.forEach((paymentMethod,index) => {

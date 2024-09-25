@@ -25,7 +25,7 @@ export function getLockDays(date:string, allVacations:VacationsInterface[], stat
 }
 
 
-export function isVacation(inputDate:Date,vacationArray:VacationsInterface[]){
+function isVacation(inputDate:Date,vacationArray:VacationsInterface[]){
   if(!vacationArray)return;
   let dateToCompare = setDateToCompare(inputDate);
   let bool =false;

@@ -108,7 +108,6 @@ import { PersonalSettingsComponent } from './home/settings/personal-settings/per
 import { OrderSettingsComponent } from './home/settings/order-settings/order-settings.component';
 import { ChangePasswordSettingsComponent } from './home/settings/change-password-settings/change-password-settings.component';
 import { DeleteAccountSettingsComponent } from './home/settings/delete-account-settings/delete-account-settings.component';
-import {environment} from "../environments/environment";
 import { ButComponent } from './home/but/but.component';
 import { NoInternetComponent } from './no-internet/no-internet.component';
 import {NetworkService} from "./service/network.service";
@@ -120,7 +119,7 @@ import {
 import { ConfirmStripePaymentComponent } from './home/account/account-payment/confirm-stripe-payment/confirm-stripe-payment.component';
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -142,7 +141,7 @@ registerLocaleData(localeHi, 'hi');
 registerLocaleData(localeYue, 'yue');
 registerLocaleData(localeBg, 'bg');
 
-export function localeFactory(languageService: LanguageService) {
+function localeFactory(languageService: LanguageService) {
   return languageService.getLanguage();
 }
 

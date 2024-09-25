@@ -576,10 +576,10 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "Aby dokonać wpłaty, musisz podać swoje dane bankowe. Przejdź do <b>[Ustawienia] -> [Dane podstawowe]</b> lub kliknij ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "Brak numeru IBAN",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Przekroczono limit wpłat",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Wybrana kwota przekroczyłaby limit wpłaty wynoszący 250,00€. Proszę wybrać niższą kwotę.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Ważne:</b> Przepisy Federalnego Urzędu Nadzoru Finansowego (BaFin) ustalają maksymalny saldo na poziomie <b>250,00 €</b>. Jeśli saldo to zostanie przekroczone przez wpłaty, cała nadwyżka zostanie automatycznie zwrócona.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Przy wybranej kwocie przekroczyłbyś limit wpłaty w wysokości 250,00 € na uczestnika posiłku. Proszę wybrać mniejszą kwotę.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Ważne:</b> Przepisy Federalnego Urzędu Nadzoru Finansowego (BaFin) określają maksymalny stan konta w wysokości <b>250,00 €</b> na uczestnika posiłku. W przypadku przekroczenia tego limitu przez wpłaty, cała nadwyżka zostanie automatycznie zwrócona.",
   "DATEI_ANZEIGEN": "Pokaż plik",
-  "BUT_AKTIVIEREN": "Aktywuj BuT",
+  "BUT_AKTIVIEREN": "Aktywuj BuT"
 
 
 }

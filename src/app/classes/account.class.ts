@@ -1,4 +1,4 @@
-export interface TransactionInterface {
+interface TransactionInterface {
   transactionId: string;
   date: Date;
   amount: number;
@@ -6,7 +6,7 @@ export interface TransactionInterface {
 
 }
 
-export interface OrdersSingleInterface {
+interface OrdersSingleInterface {
   studentId: string;
   orderId: string;
   date: Date;

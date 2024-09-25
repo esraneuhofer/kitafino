@@ -10,7 +10,7 @@ export function getCalenderQuery(year:number) {
   return [getCalenderQuerySingleYear(year - 1), getCalenderQuerySingleYear(year), getCalenderQuerySingleYear(year + 1)];
 }
 
-export function getCalenderQuerySingleYear(year:number):{value:string,week:number}[] {
+function getCalenderQuerySingleYear(year:number):{value:string,week:number}[] {
 
   function getFirstMonday(year:number) {
     let diff = 0;

@@ -1,11 +1,10 @@
-import {CustomerInterface, GroupBillingInterface} from "./customer.class";
+import {CustomerInterface} from "./customer.class";
 import {SettingInterfaceNew, SpecialFoodInterface} from "./setting.class";
 import {MealtypesWeekplan, WeekplanDayInterface} from "./weekplan.interface";
 import {StudentInterface} from "./student.class";
 import {Allergene} from "./allergenes.interface";
 import {MenuInterface} from "./menu.interface";
 import {MealModelInterface} from "./meal.interface";
-import {OrderInterfaceStudentSave} from "./order_student_safe.class";
 import {getSpecialFoodById} from "../functions/special-food.functions";
 import {SchoolSettingsInterface} from "./schoolSettings.class";
 
@@ -34,7 +33,7 @@ export interface OrderInterfaceStudent {
 
 }
 
-export interface OrderInterfaceStudentDay {
+interface OrderInterfaceStudentDay {
   comment?: string;
   orderMenus: OrderSubDetailNew[];
   specialFoodOrder: SpecialFoodOrderInterface[];
@@ -199,14 +198,15 @@ function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterfac
   return order;
 }
 
-export function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
+function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
   if(settings.orderSettings.showDessertIfNotSeparate && typeSpecial === 'dessert') return false
   if(settings.orderSettings.showSideIfNotSeparate && typeSpecial === 'side') return false
   return true;
 }
 
-export function getPriceOrder(): number{
-  return 5;
+//Todo:Very Strange Function
+function getPriceOrder(): number{
+  return 0;
 }
 export function getPriceOrderPlaced(orderStudent:OrderInterfaceStudent):number{
     let price = 0;
@@ -218,7 +218,7 @@ export function getPriceOrderPlaced(orderStudent:OrderInterfaceStudent):number{
     })
     return price;
 }
-export function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
+function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
                                   customer: CustomerInterface,
                                   settings: SettingInterfaceNew,
                                   selectedWeek: WeekplanDayInterface,priceStudent:number):OrderSubDetailNew {
@@ -335,7 +335,7 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
     if (specialFoodShownCustomer(specialFood, customer) && specialFoodIsInAllergies(specialFood, orderDayGroup.allergenes)) {
       arraySpecial.push({
         menuSelected: false,
-        priceOrder: getPriceOrder(),
+        priceOrder: 0,
         nameSpecialFood: specialFood.nameSpecialFood,
         idSpecialFood: specialFood._id || '',
         amountSpecialFood: 0,
@@ -344,7 +344,7 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
     } else {
       arraySpecial.push({
         menuSelected: false,
-        priceOrder: getPriceOrder(),
+        priceOrder: 0,
         nameSpecialFood: specialFood.nameSpecialFood,
         idSpecialFood: specialFood._id || '',
         amountSpecialFood: 0,
@@ -424,7 +424,7 @@ function setSpecialArrayNoWeekplanExist(setting: SettingInterfaceNew, customer: 
       idSpecialFood: specialFood._id ||'',
       amountSpecialFood: 0,
       active: false,
-      priceOrder: getPriceOrder(),
+      priceOrder: 0,
       menuSelected: false,
     }
     if (specialFoodShownCustomer(specialFood, customer) && setting.orderSettings.showMenuWithoutName) {
@@ -443,7 +443,7 @@ function getSpecialOrdersSubGroup(setting: SettingInterfaceNew,
     // if(!specialFood)return
     let obj:SpecialFoodOrderInterface = {
       menuSelected: false,
-      priceOrder: getPriceOrder(),
+      priceOrder: 0,
       nameSpecialFood: specialFood.nameSpecialFood,
       idSpecialFood: specialFood._id  || '',
       amountSpecialFood: 0,

@@ -2,7 +2,7 @@
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {getInvoiceDateOne} from "../../functions/date.functions";
 
-export const footer: {
+const footer: {
     footerLeft: {footerText:string}[],
     footerMiddle: {footerText:string}[],
     footerRight: {footerText:string}[]
@@ -108,7 +108,7 @@ export function createPDF(
 
 }
 
-export function getFooterColumns(currentPage:number, pageCount:number, footer:any) {
+function getFooterColumns(currentPage:number, pageCount:number, footer:any) {
   let arr = [];
   arr.push({text: getTextFooter('footerLeft', currentPage, pageCount, footer), style: 'documentFooterLeft'});
   arr.push({text: getTextFooter('footerMiddle', currentPage, pageCount, footer), style: 'documentFooterCenter'});
@@ -118,7 +118,7 @@ export function getFooterColumns(currentPage:number, pageCount:number, footer:an
   };
 }
 
-export function getTextFooter(text:string, currentPage:number, pageCount:number, footer:any) {
+function getTextFooter(text:string, currentPage:number, pageCount:number, footer:any) {
   let string:any = '';
   if (!footer || !footer[text]) {
     return '';

@@ -8,7 +8,7 @@ export interface PermanentOrderInterface {
   customerId: string;
   daysOrder:DaysOrderPermanentInterface[]
 }
-export interface DaysOrderPermanentInterface{
+interface DaysOrderPermanentInterface{
   selected:boolean,menuId:string,typeSpecial:string
 }
 export class PermanentOrderClass implements PermanentOrderInterface {

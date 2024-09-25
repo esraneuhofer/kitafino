@@ -58,9 +58,9 @@ export class ChargeAccountInterface implements AccountChargeInterface {
 
 }
 
-export function getApprovedAccountCharge(type: string): boolean {
+ function getApprovedAccountCharge(type: string): boolean {
   return type === 'deposit';
 }
-export function generateTransactionIdAccountCharge(tenant: TenantStudentInterface): string {
+ function generateTransactionIdAccountCharge(tenant: TenantStudentInterface): string {
   return tenant.username  + '-' + Date.now();
 }

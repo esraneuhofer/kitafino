@@ -1,4 +1,4 @@
-import {EmailOrderInterface, EmailOrderInterfaceCancel} from "./email-order.function";
+import {EmailOrderInterfaceCancel} from "./email-order.function";
 import {getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
 import {getPriceOrderPlaced} from "../../classes/order_student.class";
 import {convertNumberToCurrency} from "../../functions/generell.functions";
@@ -10,11 +10,11 @@ export function getEmailBodyCancel(objectData: EmailOrderInterfaceCancel): any {
   if (objectData.sendCopyEmail) {
     arrayEmail.push(objectData.tenantStudent.email)
   }
-  let email = getBodyEmailGenerell(
+  return getBodyEmailGenerell(
     objectData,
     arrayEmail,
     orderTime);
-  return email;
+
 }
 
 
@@ -178,7 +178,7 @@ a[x-apple-data-detectors] {
  </body>
 </html>`
 }
-export function getBodyEmailGenerell(
+function getBodyEmailGenerell(
   objectData:EmailOrderInterfaceCancel ,
   arrayEmail:string[],
   orderTime:string):any{

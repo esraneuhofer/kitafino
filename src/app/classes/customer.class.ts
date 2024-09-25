@@ -1,7 +1,7 @@
 
 
-export interface SpecialsShow {idSpecialFood:string,nameSpecialFood:string,selected:boolean}
-export interface GroupBillingInterface{
+interface SpecialsShow {idSpecialFood:string,nameSpecialFood:string,selected:boolean}
+interface GroupBillingInterface{
   groupId:string,
   idGroupType:string,
   displayNameBilling:string,
@@ -9,7 +9,7 @@ export interface GroupBillingInterface{
   individualPricing:boolean,
   prices:PricesGroupBillingInterface[]
 }
-export interface PricesGroupBillingInterface{priceSpecial:number,idSpecial:string, nameSpecial?:string,typeSpecial:string}
+interface PricesGroupBillingInterface{priceSpecial:number,idSpecial:string, nameSpecial?:string,typeSpecial:string}
 
 export interface CustomerInterface {
   username?:string;
@@ -26,7 +26,7 @@ export interface CustomerInterface {
   contact: CustomerContactInterface
 }
 
-export interface CustomerOrderInterface {
+interface CustomerOrderInterface {
   individualPricing:boolean;
   deliveryTime: Date;
   permanentOrder: boolean;
@@ -40,12 +40,12 @@ export interface CustomerOrderInterface {
   ignoreMinOrder:boolean,
   sidedish:boolean;
   showExtraOrder:boolean;  }
-export interface CustomerSettingsInterface {
+interface CustomerSettingsInterface {
   firstAccess: boolean;
   substitute: boolean;
   remarks:string;
   state:string;  }
-export interface CustomerBillingInterface {
+interface CustomerBillingInterface {
   headingInvoice: {heading:string}[],
   group: GroupBillingInterface[],
   customerNumber: string;
@@ -54,7 +54,7 @@ export interface CustomerBillingInterface {
   separatePrice?:boolean;
   iban:string;
 }
-export interface CustomerContactInterface{
+interface CustomerContactInterface{
   customer: string;
   street: string;
   zipcode: string;
@@ -65,19 +65,14 @@ export interface CustomerContactInterface{
   email: string;
 }
 
-export interface CustomerOrderSplit{
+interface CustomerOrderSplit{
   displayGroup:string;
   group:string;
   raisePortion:any,
   idGroupType:string;
 }
 
-export interface RaisePortionInterface {
-  dessert?: number;
-  sidedish?: number;
-  protein?: number;
-  carbs?: number;
-}
+
 export interface GeneralSettingsInterface {
   subGroupSettingTenant: boolean; // Decides if the tenant has the ability to set subgroups if false the subgroups are set by the Customer/Einrichtung
   allergiesSetByTenant: boolean; // Decides if the tenant has the ability to set allergies if false the allergies are set by the Customer/Einrichtung

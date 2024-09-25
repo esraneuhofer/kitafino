@@ -573,8 +573,9 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "To make a deposit, you must provide your bank details. Go to <b>[Settings] -> [Basic Data]</b> or click on ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN missing",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Deposit limit exceeded",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "The selected amount would exceed the deposit limit of 250,00€. Please choose a smaller amount.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important:</b> The regulations of the Federal Financial Supervisory Authority (BaFin) set a maximum balance of <b>300.00 €</b>. If this balance is exceeded through deposits, the entire exceeding amount will be automatically refunded.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "With the selected amount, you would exceed the deposit limit of €250.00 per meal participant. Please choose a smaller amount.",
+
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important:</b> The regulations of the Federal Financial Supervisory Authority (BaFin) set a maximum balance of <b>€250.00</b> per meal participant. If this balance is exceeded through deposits, the entire exceeding amount will be automatically refunded.",
   "DATEI_ANZEIGEN": "View file",
   "BUT_AKTIVIEREN": "Activate BuT"
 

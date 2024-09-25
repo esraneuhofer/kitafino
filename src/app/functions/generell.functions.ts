@@ -27,10 +27,8 @@ export function isValidIBANNumber(input: string): boolean {
   return mod97(rearranged);
 }
 
-// Modulo 97 Funktion zur Prüfung des IBANs
 
-
-export function mod97(string:string) {
+function mod97(string:string) {
   var checksum:any = string.slice(0, 2), fragment;
   for (var offset = 2; offset < string.length; offset += 7) {
     fragment = String(checksum) + string.substring(offset, offset + 7);

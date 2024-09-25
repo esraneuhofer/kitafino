@@ -576,8 +576,9 @@
   "ERROR_MESSAGE_NO_IBAN_DIRECT": "Pour effectuer un dépôt, vous devez saisir vos informations bancaires. Allez dans <b>[Paramètres] -> [Données de base]</b> ou cliquez sur ",
   "ERROR_HEADER_NO_IBAN_DIRECT": "IBAN manquant",
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_LIMIT": "Limite de dépôt dépassée",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Le montant sélectionné dépasserait la limite de dépôt de 250,00€. Veuillez choisir un montant inférieur.",
-  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important :</b> Les règlements de l'Autorité fédérale de surveillance financière (BaFin) fixent un solde maximum de <b>250,00 €</b>. Si ce solde est dépassé par des dépôts, l'intégralité du montant excédentaire sera automatiquement remboursée.",
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Avec le montant sélectionné, vous dépasseriez la limite de dépôt de 250,00 € par participant au repas. Veuillez choisir un montant inférieur.",
+  "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important :</b> Les réglementations de l'Autorité fédérale de supervision financière (BaFin) fixent un solde maximal de <b>250,00 €</b> par participant au repas. Si ce solde est dépassé par des dépôts, le montant excédentaire sera automatiquement remboursé.",
+
   "DATEI_ANZEIGEN": "Afficher le fichier",
   "BUT_AKTIVIEREN": "Activer BuT"
 
