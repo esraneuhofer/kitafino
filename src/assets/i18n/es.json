@@ -576,6 +576,12 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Con la cantidad seleccionada, superaría el límite de depósito de 250,00 € por participante en la comida. Por favor, elija una cantidad menor.",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Importante:</b> Las normativas de la Autoridad Federal de Supervisión Financiera (BaFin) establecen un saldo máximo de <b>250,00 €</b> por participante en la comida. Si este saldo se supera mediante depósitos, la cantidad excedente será reembolsada automáticamente.",
   "DATEI_ANZEIGEN": "Ver archivo",
-  "BUT_AKTIVIEREN": "Activar BuT"
+  "BUT_AKTIVIEREN": "Activar BuT",
+
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Eliminar pedido permanente",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "¿Está seguro de que desea desactivar el pedido permanente seleccionado?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nuestra cuenta se sincroniza cada <b>cinco minutos</b>. Su depósito se acreditará automáticamente en su cuenta tan pronto como se reciba. Así, incluso las <b>transferencias instantáneas</b> se pueden acreditar casi de inmediato. Luego recibirá una confirmación por correo electrónico a la dirección que haya proporcionado."
+
+
 
 }

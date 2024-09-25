@@ -580,6 +580,11 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Con l'importo selezionato, supereresti il limite di deposito di 250,00 € per partecipante al pasto. Si prega di scegliere un importo inferiore.",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Importante:</b> I regolamenti dell'Autorità federale di vigilanza finanziaria (BaFin) stabiliscono un saldo massimo di <b>250,00 €</b> per partecipante al pasto. Se questo saldo viene superato tramite depositi, l'intero importo eccedente sarà automaticamente rimborsato.",
   "DATEI_ANZEIGEN": "Visualizza file",
-  "BUT_AKTIVIEREN": "Attiva BuT"
+  "BUT_AKTIVIEREN": "Attiva BuT",
+
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Elimina ordine permanente",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sei sicuro di voler disattivare l'ordine permanente selezionato?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Il nostro conto viene sincronizzato ogni <b>cinque minuti</b>. Il tuo deposito verrà automaticamente accreditato sul tuo conto non appena ricevuto. Pertanto, anche i <b>bonifici istantanei</b> possono essere accreditati quasi immediatamente. Riceverai quindi una conferma via e-mail all'indirizzo che hai fornito."
+
 
 }

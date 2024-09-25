@@ -581,6 +581,5 @@
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Dauerbestellung löschen",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten?",
-
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Anschließend erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse."
 }

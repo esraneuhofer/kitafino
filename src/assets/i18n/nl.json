@@ -579,6 +579,11 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Met het geselecteerde bedrag zou u de stortingslimiet van €250,00 per maaltijddeelnemer overschrijden. Kies een lager bedrag.",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Belangrijk:</b> De voorschriften van de Duitse federale financiële toezichthouder (BaFin) stellen een maximaal saldo van <b>€250,00</b> per maaltijddeelnemer vast. Als dit saldo door stortingen wordt overschreden, wordt het volledige overschot automatisch teruggestort.",
   "DATEI_ANZEIGEN": "Bestand bekijken",
-  "BUT_AKTIVIEREN": "BuT activeren"
+  "BUT_AKTIVIEREN": "BuT activeren",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Permanente bestelling verwijderen",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Weet u zeker dat u de geselecteerde permanente bestelling wilt deactiveren?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Ons account wordt elke <b>vijf minuten</b> gesynchroniseerd. Uw storting wordt automatisch op uw account bijgeschreven zodra deze is ontvangen. Zo kunnen ook <b>onmiddellijke overboekingen</b> vrijwel direct worden bijgeschreven. U ontvangt vervolgens een bevestiging per e-mail op het door u opgegeven adres.",
+
+
 
 }

@@ -576,6 +576,10 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Seçilen tutar ile her bir yemek katılımcısı için 250,00 € olan para yatırma limitini aşarsınız. Lütfen daha küçük bir tutar seçin.",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Önemli:</b> Federal Mali Denetleme Kurumu (BaFin) düzenlemeleri, her yemek katılımcısı için maksimum <b>250,00 €</b> bakiye sınırı belirler. Bu bakiye yatırımlar yoluyla aşılırsa, aşan miktarın tamamı otomatik olarak iade edilecektir.",
   "DATEI_ANZEIGEN": "Dosyayı göster",
-  "BUT_AKTIVIEREN": "BuT'u etkinleştir"
+  "BUT_AKTIVIEREN": "BuT'u etkinleştir",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Sürekli Siparişi Sil",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Seçilen sürekli siparişi devre dışı bırakmak istediğinizden emin misiniz?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Hesabımız her <b>beş dakikada</b> bir senkronize edilir. Yatırımınız alındıktan sonra otomatik olarak hesabınıza aktarılacaktır. Böylece, <b>anlık transferler</b> de neredeyse anında kaydedilebilir. Daha sonra sağladığınız adrese bir onay e-postası alacaksınız."
+
 
 }

@@ -575,6 +575,10 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "选择此金额将超出每位膳食参与者250,00 €的存款限额。请选择较小的金额。",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要提示：</b>根据联邦金融监管局 (BaFin) 的规定，每位膳食参与者的最高余额为<b>250,00 €</b>。如果通过存款超出此余额，超出的全部金额将自动退还。",
   "DATEI_ANZEIGEN": "查看文件",
-  "BUT_AKTIVIEREN": "启用 BuT"
+  "BUT_AKTIVIEREN": "启用 BuT",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "删除永久订单",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "您确定要停用所选的永久订单吗？",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我们的账户每<b>五分钟</b>同步一次。您的存款将在收到后自动计入您的账户。因此，甚至<b>即时转账</b>也可以几乎立即记入。随后，您将收到一封发送到您提供地址的确认电子邮件。"
+
 
 }

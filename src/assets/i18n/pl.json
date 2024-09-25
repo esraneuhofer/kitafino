@@ -579,7 +579,12 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "Przy wybranej kwocie przekroczyłbyś limit wpłaty w wysokości 250,00 € na uczestnika posiłku. Proszę wybrać mniejszą kwotę.",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Ważne:</b> Przepisy Federalnego Urzędu Nadzoru Finansowego (BaFin) określają maksymalny stan konta w wysokości <b>250,00 €</b> na uczestnika posiłku. W przypadku przekroczenia tego limitu przez wpłaty, cała nadwyżka zostanie automatycznie zwrócona.",
   "DATEI_ANZEIGEN": "Pokaż plik",
-  "BUT_AKTIVIEREN": "Aktywuj BuT"
+  "BUT_AKTIVIEREN": "Aktywuj BuT",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Usuń stałe zamówienie",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Czy na pewno chcesz dezaktywować wybrane stałe zamówienie?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nasze konto jest synchronizowane co <b>pięć minut</b>. Twój depozyt zostanie automatycznie zaksięgowany na Twoim koncie, gdy tylko zostanie otrzymany. W ten sposób nawet <b>przelewy natychmiastowe</b> mogą zostać zaksięgowane niemal natychmiast. Następnie otrzymasz potwierdzenie e-mailem na podany przez Ciebie adres.",
+
+
 
 
 }

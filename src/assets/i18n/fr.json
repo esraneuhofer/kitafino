@@ -580,6 +580,11 @@
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important :</b> Les réglementations de l'Autorité fédérale de supervision financière (BaFin) fixent un solde maximal de <b>250,00 €</b> par participant au repas. Si ce solde est dépassé par des dépôts, le montant excédentaire sera automatiquement remboursé.",
 
   "DATEI_ANZEIGEN": "Afficher le fichier",
-  "BUT_AKTIVIEREN": "Activer BuT"
+  "BUT_AKTIVIEREN": "Activer BuT",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Supprimer la commande permanente",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Êtes-vous sûr de vouloir désactiver la commande permanente sélectionnée ?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Notre compte est synchronisé toutes les <b>cinq minutes</b>. Votre dépôt sera automatiquement crédité sur votre compte dès qu'il sera reçu. Ainsi, même les <b>transferts instantanés</b> peuvent être crédités presque immédiatement. Vous recevrez ensuite une confirmation par e-mail à l'adresse que vous avez fournie."
+
+
 
 }

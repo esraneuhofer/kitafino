@@ -576,6 +576,11 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_LIMIT": "如果選擇該金額，您將超過每位膳食參與者250,00 €的存款限額。請選擇較小的金額。",
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>重要：</b>根據聯邦金融監管局（BaFin）的規定，每位膳食參與者的最高餘額為<b>250,00 €</b>。如果存款超出該餘額，超出部分將自動退還。",
   "DATEI_ANZEIGEN": "查看文件",
-  "BUT_AKTIVIEREN": "啟動 BuT"
+  "BUT_AKTIVIEREN": "啟動 BuT",
+
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "刪除永久訂單",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "你確定要停用所選的永久訂單嗎？",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我哋嘅賬戶每<b>五分鐘</b>同步一次。你嘅存款一旦收到，將會自動記入你嘅賬戶。咁即使係<b>即時轉賬</b>都可以幾乎即刻入賬。之後你會收到確認電郵，發送到你提供嘅地址。"
+
 
 }

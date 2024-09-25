@@ -577,6 +577,10 @@
 
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important:</b> The regulations of the Federal Financial Supervisory Authority (BaFin) set a maximum balance of <b>€250.00</b> per meal participant. If this balance is exceeded through deposits, the entire exceeding amount will be automatically refunded.",
   "DATEI_ANZEIGEN": "View file",
-  "BUT_AKTIVIEREN": "Activate BuT"
+  "BUT_AKTIVIEREN": "Activate BuT",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Delete Permanent Order",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Are you sure you want to deactivate the selected permanent order?",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Our account is synchronized every <b>five minutes</b>. Your deposit will be automatically credited to your account as soon as it is received. Thus, even <b>instant transfers</b> can be credited almost immediately. You will then receive a confirmation by email to the address you have provided."
+
 
 }
