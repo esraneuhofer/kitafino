@@ -34,7 +34,6 @@ const rateLimitHelper = require('../config/rateLimitHelper');
 
 router.post('/resetPassword', ctrlUser.resetPassword);
 router.post('/changePassword',jwtHelper.verifyJwtToken, ctrlUser.changePassword);
-
 router.post('/deactivateAccount',jwtHelper.verifyJwtToken, ctrlUser.deactivateAccount);
 router.post('/register', ctrlUser.register);
 router.post('/authenticate',rateLimitHelper.rateLimit, ctrlUser.authenticate);
@@ -45,11 +44,10 @@ router.get('/userProfile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 
 
 router.get('/getRegisteredStudentsUser',jwtHelper.verifyJwtToken, ctrlStudents.getRegisteredStudentsUser);
-
-
 router.post('/addParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.addTenantAndAccount)
 router.post('/editParentTenant',jwtHelper.verifyJwtToken,ctrlTenant.editParentTenant)
 router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenantInformation)
+
 
 //////Student Requests////////
 router.post('/addStudent',jwtHelper.verifyJwtToken,ctrlStudents.addStudent)
@@ -112,7 +110,6 @@ router.get('/getTenantInformation',jwtHelper.verifyJwtToken,ctrlTenant.getTenant
 
 // router.post('/addTaskOrderDeadlineCustomer',jwtHelper.verifyJwtToken,ctrlDailyDeadline.addTaskOrderDeadlineCustomer)
 router.post('/create-payment-intent', jwtHelper.verifyJwtToken, crtlStripe.createPaymentIntent);
-
 router.post('/webhook',rawBodyBuffer ,ctrlWebhook.webhook_stripe)
 
 
@@ -125,7 +122,6 @@ router.post('/addMessage',jwtHelper.verifyJwtToken,ctrlMessage.addMessage)
 
 
 ////Help Requests ////
-
 router.get('/getAllHelpPdfNames',ctrlHelp.getAllHelpPdfNames)
 router.get('/getSingleHelpPdfBase',ctrlHelp.getSingleHelpPdfBase)
 router.get('/getSingleHelpPdfBaseLogin',ctrlHelp.getSingleHelpPdfBaseLogin)
