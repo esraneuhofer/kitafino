@@ -1575,6 +1575,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/network/-/network-6.0.2.tgz#f05320cc4ba9bf4030a225f6f56a7fcc2f68d006"
   integrity sha512-c0aZb0vRodvUO7ugZdQfMXr7LHUgZSKaJcOfu53gwuxGuvrIUvqPvaog+GlNLp7SB4Iw74Js7cemnIqsR5yxzw==
 
+"@capacitor/push-notifications@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/push-notifications/-/push-notifications-6.0.2.tgz#1ad4a6eddfed4615f29d4b9d877cb99d489b3b09"
+  integrity sha512-VYo8h+Dfw7B/JtsQCCnSKi34jr3oN9LacwmgCqwi3KPIE/sKID75lTEACZBQQ6c4rPct0yRQ0ihHdK/OPXl3Tw==
+
 "@capacitor/splash-screen@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@capacitor/splash-screen/-/splash-screen-6.0.1.tgz#562213f375a200a89cf8f33addf1f69ca882c1df"
@@ -4530,6 +4535,11 @@ capacitor-ios-autofill-save-password@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/capacitor-ios-autofill-save-password/-/capacitor-ios-autofill-save-password-3.0.0.tgz#a1d951a5239b349b1bdb23c075b69a2f08668906"
   integrity sha512-FGWralgZ47FtpRcIaJP+IcNDZfmoaCUmkeGBKo84V3nYMKQwQbpN9wLIzXa+TtHj8h1SenRuSR2eTsQBrRewAQ==
+
+capacitor-rate-app@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/capacitor-rate-app/-/capacitor-rate-app-4.0.3.tgz#bcd564de0eb62aac2acd4e3d8b32b96fe5ca3efa"
+  integrity sha512-HdTftIzBSfcNfbjQFCtvdvFU83MPCt11H/QXV4t7jctLelA8jXu3qee9MiZ4dqDc+kwNoufcQ95ncoCvn5viig==
 
 capacitor-secure-storage-plugin@^0.10.0:
   version "0.10.0"

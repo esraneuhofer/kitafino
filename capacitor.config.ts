@@ -16,7 +16,7 @@ const config: CapacitorConfig = {
     cleartext: true,
     // url: 'https://essen.cateringexpert.de',
     // url: 'http://localhost:4200/'
-    // "url": "http://10.0.2.2:4200"
+    "url": "http://10.0.2.2:4200"
   },
   plugins: {
     "Cordova": {},
@@ -37,8 +37,8 @@ const config: CapacitorConfig = {
       // iOS spezifische Einstellungen
       iosSplashResourceName: "LaunchScreen", // Referenziert das LaunchScreen.storyboard
       iosScaleType: "CENTER_CROP",
-      showSpinner: true,
-      backgroundColor: "#ffffff"
+      backgroundColor: "#ffffff",
+      showSpinner: false,
     }
   }
 };

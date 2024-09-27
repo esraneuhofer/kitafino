@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:drawable="@android:color/white" />
+  <!-- Setze den Hintergrund auf transparent -->
+  <item android:drawable="@android:color/transparent" />
+
   <item>
     <inset
-      android:insetLeft="30%"
-      android:insetTop="40%"
-      android:insetRight="30%"
-      android:insetBottom="40%">
+      android:insetLeft="10%"
+      android:insetTop="20%"
+      android:insetRight="10%"
+      android:insetBottom="20%">
       <bitmap
         android:gravity="center"
         android:src="@drawable/splash" />
