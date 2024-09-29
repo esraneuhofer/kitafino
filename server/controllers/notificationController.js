@@ -16,7 +16,7 @@ async function sendPushNotification() {
     }
 
     const tokens = users.map(user => user.token);
-
+    console.log(tokens, 'Geräte-Tokens gefunden');
     const message = {
       notification: {
         title: 'Bestellungs-Erinnerung',
@@ -28,7 +28,25 @@ async function sendPushNotification() {
           channel_id: 'cateringexpert_channel_id', // Stellen Sie sicher, dass dieser Channel existiert
         },
       },
+      apns: {
+        payload: {
+          aps: {
+            alert: {
+              title: 'Bestellungs-Erinnerung',
+              body: 'Bitte bestellen Sie noch Ihr Essen',
+            },
+            sound: 'default',
+            badge: 1,
+          },
+        },
+        headers: {
+          'apns-priority': '10',
+          'apns-push-type': 'alert',
+        },
+      },
     };
+
+
 
     const response = await admin.messaging().sendEachForMulticast(message);
     console.log('Push-Benachrichtigungen gesendet:', response.successCount, 'Erfolge');

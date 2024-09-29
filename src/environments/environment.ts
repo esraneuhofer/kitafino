@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: 'http://localhost:3002/api',
-  apiBaseUrl: 'http://10.0.2.2:3002/api',
+  apiBaseUrl: 'http://localhost:3002/api',
+  // apiBaseUrl: 'http://10.0.2.2:3002/api',
 
   successUrl: 'http://localhost:4200/home/account_overview?status=success',
   cancelUrl: 'http://localhost:4200/home/account_overview?status=failure'
