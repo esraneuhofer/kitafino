@@ -1,84 +1,105 @@
-import {Component, OnInit} from '@angular/core';
-import { LanguageService } from "./service/language.service";
+// src/app/app.component.ts
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@capacitor/splash-screen';
+
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ApiService } from "./service/api.service";
-import { ToastingService } from "./service/toastr.service";
-import {Platform} from "@ionic/angular";
-import {HttpClient} from "@angular/common/http";
-import {GenerellService} from "./service/generell.service";
+import { NetworkService } from "./service/network.service";
+import { NotificationService } from "./service/notification.service";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: 'app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private networkSubscription?: Subscription;
+  private previousStatus: boolean | null = null; // Variable zum Verfolgen des vorherigen Status
 
-  networkListener: any
-  isOnline: boolean = navigator.onLine;
-
-  constructor(private toastr: ToastingService,
-              private platform: Platform,
-              private http: HttpClient,
-              private generalService:GenerellService,
-              private languageService: LanguageService,
-              private apiService: ApiService) {
-
-    // console.log(`Environment API Base URL: ${environment.apiBaseUrl}`);  // Log the environment variable directly
+  constructor(
+    private platform: Platform,
+    private apiService: ApiService,
+    private networkService: NetworkService,
+    private notificationService: NotificationService,
+    private toastr: ToastrService
+  ) {
+    this.initializeApp();
   }
 
-  switchLanguage(language: string): void {
-    this.languageService.setLanguage(language);
-    console.log('Language switched to:', language);
+  async initializeApp() {
+    await this.platform.ready();
+    // Weitere Initialisierungen können hier stattfinden
   }
 
-
-  // Event Listener für Netzwerkstatus-Änderungen
-  // @HostListener('window:online', ['$event'])
-  // onOnline(event: Event) {
-  //   this.isOnline = true;
-  //   console.log('Online!');
-  //   // alert('Internetverbindung wieder hergestellt.');
-  //   // Handle going online
-  // }
-  //
-  // @HostListener('window:offline', ['$event'])
-  // onOffline(event: Event) {
-  //   this.isOnline = false;
-  //   console.log('Offline!');
-  //   alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-  //   // Handle going offline
-  // }
-  //
-  // updateNetworkStatus() {
-  //   if (this.isOnline) {
-  //     console.log('The application is online.');
-  //   } else {
-  //     console.log('The application is offline.');
-  //     alert('Keine Internetverbindung. Bitte überprüfen Sie Ihre Netzwerkeinstellungen.');
-  //   }
-  // }
-
-
-
-  ngOnInit() {
-
-    // Überprüfung der Backend-Verbindung
-
+  async ngOnInit() {
     console.log('App component initialized! INIT');
-    this.apiService.setLanguage({ lang: 'en' }).subscribe(
-      data => {
-        // console.log('Data received in component:', data);
-      },
-      error => {
-        // console.error('Error in component:', error);
+
+    try {
+      // Überprüfung der Backend-Verbindung und Setzen der Sprache
+      await this.setLanguage('de');
+
+      // Weitere Initialisierungen können hier hinzugefügt werden
+    } catch (error) {
+      console.error('Fehler bei der Initialisierung der App:', error);
+      // Optional: Zeigen Sie eine Fehlermeldung an oder führen Sie andere Fehlerbehandlungen durch
+    } finally {
+      // Verstecken Sie den Splash Screen, unabhängig vom Erfolg der Initialisierung
+      SplashScreen.hide();
+    }
+
+    // Abonnieren des Netzwerkstatus
+    this.networkSubscription = this.networkService.getNetworkStatus().subscribe(isOnline => {
+      console.log('Netzwerkstatus in der Komponente:', isOnline);
+
+      if (this.previousStatus === null) {
+        // Initialer Status beim Start der App, keine Meldung anzeigen
+        this.previousStatus = isOnline;
+        return;
       }
-    );
+
+      if (!this.previousStatus && isOnline) {
+        // Wechsel von Offline zu Online
+        this.toastr.success('Sie sind wieder online.', 'Online', {
+          timeOut: 3000,
+          closeButton: true,
+          progressBar: true,
+        });
+      } else if (this.previousStatus && !isOnline) {
+        // Wechsel von Online zu Offline
+        this.toastr.error('Sie sind offline. Einige Funktionen sind möglicherweise nicht verfügbar.', 'Offline', {
+          timeOut: 3000,
+          closeButton: true,
+          progressBar: true,
+        });
+      }
+
+      // Aktualisieren des vorherigen Status
+      this.previousStatus = isOnline;
+    });
   }
 
+  ngOnDestroy() {
+    // Sicherstellen, dass das Abonnement beendet wird, um Speicherlecks zu vermeiden
+    if (this.networkSubscription) {
+      this.networkSubscription.unsubscribe();
+    }
+  }
 
-
-
-
-
+  // Methode zum Setzen der Sprache
+  async setLanguage(lang: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.apiService.setLanguage({ lang }).subscribe(
+        data => {
+          console.log('Sprache erfolgreich gesetzt:', data);
+          resolve();
+        },
+        error => {
+          console.error('Fehler beim Setzen der Sprache:', error);
+          reject(error);
+        }
+      );
+    });
+  }
 }
-

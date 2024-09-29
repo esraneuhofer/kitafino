@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "863565463827",
+    "project_id": "cateringexpert-essen",
+    "storage_bucket": "cateringexpert-essen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863565463827:android:93657489186e931a429ae6",
+        "android_client_info": {
+          "package_name": "com.cateringexpert.appcateringexpert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaDK4Yz8tEDzXvEfa1hVGDaug0FAlkNxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

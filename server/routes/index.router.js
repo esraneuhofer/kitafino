@@ -6,6 +6,7 @@ const upload = multer({ storage: multer.memoryStorage() }); // Speicher
 // router.use('/', tenantConfig.getTenantId);
 
 
+const crtlFire = require('../controllers/notificationController');
 const ctrlBut = require('../controllers/but.controller');
 const ctrlGet = require('../controllers/get.controller');
 const ctrlHelp = require('../controllers/help.controller');
@@ -136,6 +137,8 @@ router.get('/getButDocumentTenant',jwtHelper.verifyJwtToken,ctrlBut.getButDocume
 
 router.get('/getSchoolSettings',jwtHelper.verifyJwtToken,ctrlGet.getSchoolSettings)
 
+router.post('/saveTokenFirebase',jwtHelper.verifyJwtToken,crtlFire.saveTokenFirebase)
+router.get('/sendPushNotification',crtlFire.sendPushNotification)
 
 
 

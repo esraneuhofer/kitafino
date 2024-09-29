@@ -19,6 +19,7 @@ import {createXmlFile} from "./account/account-csv.function";
 import {MatDialog} from "@angular/material/dialog";
 import {HelpDialogComponent} from "../directives/help-dialog/help-dialog.component";
 import {FirstAccessDialogComponent} from "../directives/first-access-dialog/first-access-dialog.component";
+import {NotificationService} from "../service/notification.service";
 
 @Component({
   selector: 'app-home',
@@ -116,6 +117,7 @@ export class HomeComponent implements OnInit{
               private dialog: MatDialog,
               private generalService:GenerellService,
               private activatedRoute: ActivatedRoute,
+              private notificationService: NotificationService,
               private router:Router, private tenantService:TenantServiceStudent) {
     this.router.events.pipe(
         filter((event): event is NavigationEnd => event instanceof NavigationEnd)
@@ -136,31 +138,67 @@ export class HomeComponent implements OnInit{
   onResize(): void {
     this.updateSelectLanguageWidth();
   }
+  // ngOnInit() {
+  //   this.updateSelectLanguageWidth();
+  //   forkJoin(
+  //     this.tenantService.getTenantInformation(),
+  //     this.generalService.getCustomerInfo()
+  //   ).subscribe(
+  //     (
+  //       [tenant,customer]:
+  //         [TenantStudentInterface,CustomerInterface])=>{
+  //     if (!tenant){
+  //       this.router.navigate(['/home/tenant']);
+  //     } else {
+  //       this.customerInfo = customer;
+  //       this.tenantInformation = tenant;
+  //       this.pageLoaded = true;
+  //       if(this.tenantInformation.firstAccess){
+  //         const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
+  //           width: '600px',
+  //           data: this.tenantInformation,
+  //           panelClass: 'custom-dialog-container',
+  //           position: {top: '20px'}
+  //         });
+  //       }
+  //     }
+  //   })
+  // }
   ngOnInit() {
+    setTimeout(() => {
+
+    }, 4000)
     this.updateSelectLanguageWidth();
     forkJoin(
       this.tenantService.getTenantInformation(),
       this.generalService.getCustomerInfo()
     ).subscribe(
-      (
-        [tenant,customer]:
-          [TenantStudentInterface,CustomerInterface])=>{
-      if (!tenant){
-        this.router.navigate(['/home/tenant']);
-      } else {
-        this.customerInfo = customer;
-        this.tenantInformation = tenant;
-        this.pageLoaded = true;
-        if(this.tenantInformation.firstAccess){
-          const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
-            width: '600px',
-            data: this.tenantInformation,
-            panelClass: 'custom-dialog-container',
-            position: {top: '20px'}
-          });
+      async ([tenant, customer]: [TenantStudentInterface, CustomerInterface]) => {
+        if (!tenant) {
+          this.router.navigate(['/home/tenant']);
+        } else {
+          this.customerInfo = customer;
+          this.tenantInformation = tenant;
+          this.pageLoaded = true;
+          if (this.tenantInformation.firstAccess) {
+            const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
+              width: '600px',
+              data: this.tenantInformation,
+              panelClass: 'custom-dialog-container',
+              position: { top: '20px' }
+            });
+          }
+
+          // Push-Benachrichtigungen initialisieren nach dem Einloggen
+          try {
+            await this.notificationService.initPush();
+            console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
+          } catch (error) {
+            console.error('Fehler bei der Initialisierung der Push-Benachrichtigungen:', error);
+          }
         }
       }
-    })
+    );
   }
 
   logout(){

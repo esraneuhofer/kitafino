@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+const firebaseAdmin =  require(__dirname + '/server/config/firebaseAdmin');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -30,9 +31,34 @@ const cookieParser = require('cookie-parser');
 
 const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(async () => {
+//     console.log('Connected to MongoDB');
+//   })
+//   .catch(err => {
+//     console.error('Failed to connect to MongoDB:', err);
+//   });
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
+    try {
+      //   // Fiktive req und res Objekte für den Funktionsaufruf
+      //   const req = {}; // Füge notwendige req Eigenschaften hinzu
+      //   const res = {
+      //     status: (statusCode) => ({
+      //       send: (message) => console.log(`Response: ${statusCode}, Message:`, message)
+      //     })
+      //   };
+      //
+      //   await testing(req, res);
+      //   await testingDaily(req, res);
+      //   // Rufe die Funktion auf, um den neuen Cron-Job zu planen
+
+      await sendPushNotification();
+      //   console.log('Tasks scheduled successfully.');
+    } catch (error) {
+      console.error('Failed to execute tasks:', error);
+    }
   })
   .catch(err => {
     console.error('Failed to connect to MongoDB:', err);
@@ -184,4 +210,5 @@ server.listen(port, function () {
   console.log('Express server listening on port ' + port);
 });
 
+const { sendPushNotification } = require(__dirname + '/server/controllers/notificationController');
 

@@ -24,7 +24,7 @@ var userSchema = new mongoose.Schema({
   customerId: Schema.Types.ObjectId,
   project_id: Schema.Types.ObjectId,
   tenantId: Schema.Types.ObjectId,
-  registrationDate:Date
+  registrationDate:Date,
 
 });
 
