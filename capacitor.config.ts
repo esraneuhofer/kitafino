@@ -15,7 +15,7 @@ const config: CapacitorConfig = {
     androidScheme: 'https',
     cleartext: true,
     // url: 'https://essen.cateringexpert.de',
-    // url: 'http://localhost:4200/'
+    url: 'http://localhost:4200/'
     // "url": "http://10.0.2.2:4200"
   },
   plugins: {
@@ -34,8 +34,7 @@ const config: CapacitorConfig = {
       splashFullScreen: false,
       splashImmersive: true,
       // iOS spezifische Einstellungen
-      iosSplashResourceName: "LaunchScreen", // Referenziert das LaunchScreen.storyboard
-      iosScaleType: "CENTER_CROP",
+
       backgroundColor: "#ffffff",
       showSpinner: false,
     }

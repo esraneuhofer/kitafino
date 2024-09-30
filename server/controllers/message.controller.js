@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const Message = mongoose.model('MessageSchema');
 
 // Funktion zum Abrufen von Nachrichten
-module.exports.getMessages = async (req, res, next) => {
+async function getMessages  (req, res, next)  {
   console.log('req.tenantId', req.tenantId);
     try {
-        const messages = await Message.find({ 'tenantId': req.tenantId });
+        const messages = await Message.find({ 'customerId': req.customerId });
         res.json(messages);
     } catch (err) {
         console.error('Error getting Messages', err);
@@ -14,8 +14,7 @@ module.exports.getMessages = async (req, res, next) => {
     }
 };
 
-// Funktion zum Bearbeiten einer Nachricht
-module.exports.editMessage = (req, res, next) => {
+async function editMessage  (req, res, next)  {
     Message.findOneAndUpdate(
         { '_id': req.body._id },
         req.body,
@@ -27,24 +26,6 @@ module.exports.editMessage = (req, res, next) => {
     });
 };
 
-// Funktion zum Hinzufügen einer Nachricht
-module.exports.addMessage = (req, res, next) => {
-    let newModel = new Message({
-        message: req.body.message,
-        heading: req.body.heading,
-        messageSeen: [],
-        createdAt: new Date(),
-        sentBy: req.body.sentBy,
-        customerId: req.customerId,
-        tenantId: req.tenantId,
-    });
-
-    newModel.save().then(data => {
-        res.json({ student: data, error: false });
-    }).catch(e => {
-        res.json({ student: e, error: true });
-    });
-};
 
 // Funktion zum Planen des Cron-Jobs zum Löschen alter Nachrichten
 
@@ -52,7 +33,6 @@ module.exports.addMessage = (req, res, next) => {
 
 // Exportiere alle Funktionen, einschließlich des Cron-Jobs
 module.exports = {
-    getMessages: module.exports.getMessages,
-    editMessage: module.exports.editMessage,
-    addMessage: module.exports.addMessage,
+    getMessages,
+    editMessage,
 };

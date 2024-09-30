@@ -8,7 +8,7 @@ android {
         applicationId "com.cateringexpert.appcateringexpert"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 17 // Erhöhe dies um 1 für jede neue Version
+        versionCode 19 // Erhöhe dies um 1 für jede neue Version
         versionName "1.1" // Optional: Aktualisiere die Version, wie es für dich sinnvoll ist
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

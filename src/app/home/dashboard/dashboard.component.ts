@@ -31,19 +31,13 @@ export function customerIdContainedInMessasge(customers: { nameCustomer: string,
   return customers.some((customer) => customer.customerId === tenant.customerId)
 }
 function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantStudentInterface): SchoolMessageInterface[] {
-  let messsagesForCustomer:SchoolMessageInterface[] = [];
-  messages.forEach(each =>{
-    if(each.customers.length === 0 || customerIdContainedInMessasge(each.customers,tenant)) {
-      messsagesForCustomer.push(each)
-    }
-  })
   if (!tenant.userId) {
     return [];
   }
-  let usderId = tenant.userId;
+  let userId = tenant.userId;
   let messagesArray: SchoolMessageInterface[] = []
   messages.forEach((message) => {
-    if (!message.messageSeen.includes(usderId)) {
+    if (!message.messageSeen.includes(userId)) {
       messagesArray.push(message)
     }
   })
@@ -223,7 +217,6 @@ export class DashboardComponent {
       this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students,customer);
       this.settings = setting;
       this.customer = customer
-      console.log('messages', messages)
       this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
       this.pageLoaded = true;
     })
