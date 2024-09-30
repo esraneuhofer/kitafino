@@ -10,6 +10,8 @@ import {downloadPdfWeb} from "../../home/weekplan-pdf/download-web.function";
 import {PlatformService} from "../../service/platform.service";
 import {FileOpener} from "@ionic-native/file-opener/ngx";
 import {forkJoin} from "rxjs";
+import {UserService} from "../../service/user.service";
+import {Router} from "@angular/router";
 
 function getSegmentDouble(segment: string): string {
   if(segment === 'settings_personal'
@@ -54,6 +56,8 @@ export class HelpDialogComponent {
   submittingRequest: boolean = false;
   constructor(private translate: TranslateService,
               private helpService: HelpService,
+              private userService:UserService,
+              private router:Router,
               private fileOpener: FileOpener,
               private platformService: PlatformService,
               private sanitizer: DomSanitizer,
@@ -103,5 +107,9 @@ export class HelpDialogComponent {
       });
   }
 
+  logout(){
+    this.userService.deleteToken();
+    this.router.navigate(['/login']);
+  }
 
 }

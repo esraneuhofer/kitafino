@@ -8,7 +8,7 @@ import {AccountService} from "../../service/account.serive";
 import {StudentService} from "../../service/student.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {forkJoin} from "rxjs";
+import {catchError, forkJoin, of} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {sortOrdersByDate} from "../../functions/order.functions";
@@ -131,7 +131,10 @@ export class DashboardComponent {
     };
     this.router.navigate([], navigationExtras);
   }
-
+  private handleError(error: any, message: string) {
+    console.error('Error:', error);
+    // this.dialogService.openMessageDialog(this.translate.instant(message), this.translate.instant('ERROR'), 'error');
+  }
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const status = params['status'];
@@ -147,44 +150,6 @@ export class DashboardComponent {
         this.updateUrlWithoutStatus();
       }
     })
-    // forkJoin(
-    //     [
-    //         this.messageService.addMessage({
-    //           customers:  [],
-    //             message: 'Für Freitag den 02.07.24 gibt es Lunchpakete für den Ausflug.',
-    //             heading: 'Ausflug am Freitag',
-    //             messageSeen:[],
-    //             sentBy:'school',
-    //           createdAt: new Date(),
-    //               validTill: new Date('2024-07-02')
-    //         }),
-    //         this.messageService.addMessage({
-    //           customers:  [],
-    //           message: 'Menü 1: Spaghetti Bolognese, Menü 2 wird geändert zu Nudeln mit Tomatensoße',
-    //             heading: 'Menüänderung 03.07.2024',
-    //             messageSeen:[],
-    //             sentBy:'caterer',
-    //           createdAt: new Date(),
-    //           validTill: new Date('2024-07-02')
-    //
-    //         }),
-    //         this.messageService.addMessage({
-    //           customers:  [],
-    //           message: 'Es finden Wartungsarbeiten am 05.07.2024 statt. Die Anwendung ist von 11:00 - 12:00 nicht zu erreichen. Wir danken für Ihr Verständnis.',
-    //             heading: 'Wartungsarbeiten 05.07.2024',
-    //             messageSeen:[],
-    //             sentBy:'master',
-    //           createdAt: new Date(),
-    //           validTill: new Date('2024-07-02')
-    //
-    //         })
-    //     ]
-    // ).subscribe({
-    //      next: (data) => {
-    //
-    //      }
-    //  })
-    this.pageLoaded = false
     forkJoin(
       this.tenantServiceStudent.getTenantInformation(),
       this.accountService.getAccountTenant(),
@@ -211,6 +176,7 @@ export class DashboardComponent {
         CustomerInterface,
         SchoolMessageInterface[],
       ]) => {
+      console.log('Data received in component:', tenantInformation, accountInformation, students, orderStudents, setting, customer, messages);
       this.tenant = tenantInformation;
       this.accountTenant = accountInformation;
       this.students = students;
@@ -219,7 +185,12 @@ export class DashboardComponent {
       this.customer = customer
       this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
       this.pageLoaded = true;
-    })
+      },
+      error => {
+        // Fehler-Handling für alle Fehler in der gesamten Anfrage
+      console.error('Error in component:', error);
+      }
+    )
   }
 
   initAfterCancelOrder() {
