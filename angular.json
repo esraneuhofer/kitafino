@@ -38,9 +38,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ],
-            "serviceWorker": false,
-            "ngswConfigPath": "ngsw-config.json"
+            ]
           },
           "configurations": {
             "production": {

@@ -73,7 +73,6 @@ import { BannerNoStudentOrderComponent } from './home/order-student/banner-no-st
 import { WeekplanPdfComponent } from './home/weekplan-pdf/weekplan-pdf.component';
 import { ConfirmWithdrawDialogComponent } from './home/account/account-payment/confirm-withdraw-dialog/confirm-withdraw-dialog.component';
 import { OrderAllergeneDialogComponent } from './home/order-student/order-allergene-dialog/order-allergene-dialog.component';
-import { ServiceWorkerModule, SwUpdate } from '@angular/service-worker';
 import { PermanentOrdersComponent } from './home/permanent-orders/permanent-orders.component';
 import { SuccessStripeComponent } from './home/stripe-checkout/success-stripe/success-stripe.component';
 import { NotSuccessStripeComponent } from './home/stripe-checkout/not-success-stripe/not-success-stripe.component';
@@ -240,12 +239,6 @@ function localeFactory(languageService: LanguageService) {
     FontAwesomeModule,
     MatTooltipModule,
     NgbPagination,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -274,13 +267,4 @@ function localeFactory(languageService: LanguageService) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private swUpdate: SwUpdate) {
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(() => {
-        if (confirm('Neue Version verfügbar. Seite neu laden?')) {
-          window.location.reload();
-        }
-      });
-    }
-  }
 }
