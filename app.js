@@ -51,8 +51,6 @@ const corsOptions = {
     'https://essen.cateringexpert.de', // Deine Produktionsdomain
     'https://cateringexpert.de'        // Weitere relevante Domains
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
 };
 

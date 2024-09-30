@@ -64,6 +64,7 @@ export class SignInComponent implements OnInit {
     this.submittingRequest = true;
     this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).subscribe(
       async (res: any) => {
+        console.log(res);
         this.submittingRequest = false;
         this.userService.setToken(res['token']);
         this.studentService.getRegisteredStudentsUser().subscribe(students => {

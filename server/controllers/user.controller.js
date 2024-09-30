@@ -28,6 +28,9 @@ const User = mongoose.model('User');
 module.exports.authenticate = (req, res, next) => {
   // call for passport authentication
   passport.authenticate('local', (err, user, info) => {
+    console.log('err', err);
+    console.log('user',user);
+    console.log('info', info);
     // error from passport middleware
     if (err) return res.status(400).json(err);
     // registered user
