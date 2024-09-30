@@ -165,9 +165,6 @@ export class HomeComponent implements OnInit{
   //   })
   // }
   ngOnInit() {
-    setTimeout(() => {
-
-    }, 4000)
     this.updateSelectLanguageWidth();
     forkJoin(
       this.tenantService.getTenantInformation(),
