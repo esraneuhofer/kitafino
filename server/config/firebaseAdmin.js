@@ -9,7 +9,9 @@ if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
 }
 
 // Parse the service account JSON from the environment variable
-const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+const serviceAccount = JSON.parse(
+  process.env.GOOGLE_SERVICE_ACCOUNT_KEY.replace(/\\n/g, '\n')
+);
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -19,5 +21,6 @@ admin.initializeApp({
 });
 
 console.log('Firebase Admin SDK initialized successfully.');
+
 
 module.exports = admin;
