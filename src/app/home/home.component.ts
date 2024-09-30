@@ -177,6 +177,7 @@ export class HomeComponent implements OnInit{
           this.customerInfo = customer;
           this.tenantInformation = tenant;
           this.pageLoaded = true;
+          console.log('Tenant information:', this.tenantInformation);
           if (this.tenantInformation.firstAccess) {
             const dialogRef = this.dialog.open(FirstAccessDialogComponent, {
               width: '600px',
@@ -186,7 +187,7 @@ export class HomeComponent implements OnInit{
             });
           }
 
-          // Push-Benachrichtigungen initialisieren nach dem Einloggen
+          // // Push-Benachrichtigungen initialisieren nach dem Einloggen
           // try {
           //   await this.notificationService.initPush();
           //   console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
