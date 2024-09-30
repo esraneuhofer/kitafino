@@ -25,81 +25,95 @@ export class AppComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private toastr: ToastrService
   ) {
-    this.initializeApp();
+    // this.initializeApp();
   }
-
-  async initializeApp() {
-    await this.platform.ready();
-    // Weitere Initialisierungen können hier stattfinden
-  }
-
-  async ngOnInit() {
-    console.log('App component initialized! INIT');
-
-    try {
-      // Überprüfung der Backend-Verbindung und Setzen der Sprache
-      await this.setLanguage('de');
-
-      // Weitere Initialisierungen können hier hinzugefügt werden
-    } catch (error) {
-      console.error('Fehler bei der Initialisierung der App:', error);
-      // Optional: Zeigen Sie eine Fehlermeldung an oder führen Sie andere Fehlerbehandlungen durch
-    } finally {
-      // Verstecken Sie den Splash Screen, unabhängig vom Erfolg der Initialisierung
-      SplashScreen.hide();
+ngOnInit() {
+  SplashScreen.hide();
+  // Überprüfung der Backend-Verbindung
+  console.log('App component initialized! INIT');
+  this.apiService.setLanguage({ lang: 'en' }).subscribe(
+    data => {
+      // console.log('Data received in component:', data);
+    },
+    error => {
+      // console.error('Error in component:', error);
     }
+  );
+}
+  // async initializeApp() {
+  //   SplashScreen.hide();
+  //   // await this.platform.ready();
+  //   // Weitere Initialisierungen können hier stattfinden
+  // }
 
-    // Abonnieren des Netzwerkstatus
-    this.networkSubscription = this.networkService.getNetworkStatus().subscribe(isOnline => {
-      console.log('Netzwerkstatus in der Komponente:', isOnline);
 
-      if (this.previousStatus === null) {
-        // Initialer Status beim Start der App, keine Meldung anzeigen
-        this.previousStatus = isOnline;
-        return;
-      }
-
-      if (!this.previousStatus && isOnline) {
-        // Wechsel von Offline zu Online
-        this.toastr.success('Sie sind wieder online.', 'Online', {
-          timeOut: 3000,
-          closeButton: true,
-          progressBar: true,
-        });
-      } else if (this.previousStatus && !isOnline) {
-        // Wechsel von Online zu Offline
-        this.toastr.error('Sie sind offline. Einige Funktionen sind möglicherweise nicht verfügbar.', 'Offline', {
-          timeOut: 3000,
-          closeButton: true,
-          progressBar: true,
-        });
-      }
-
-      // Aktualisieren des vorherigen Status
-      this.previousStatus = isOnline;
-    });
-  }
-
+//   async ngOnInit() {
+//     console.log('App component initialized! INIT');
+//
+//     try {
+//       // Überprüfung der Backend-Verbindung und Setzen der Sprache
+//       await this.setLanguage('de');
+//
+//       // Weitere Initialisierungen können hier hinzugefügt werden
+//     } catch (error) {
+//       console.error('Fehler bei der Initialisierung der App:', error);
+//       // Optional: Zeigen Sie eine Fehlermeldung an oder führen Sie andere Fehlerbehandlungen durch
+//     } finally {
+//       // Verstecken Sie den Splash Screen, unabhängig vom Erfolg der Initialisierung
+//       SplashScreen.hide();
+//     }
+//
+//     // Abonnieren des Netzwerkstatus
+//     this.networkSubscription = this.networkService.getNetworkStatus().subscribe(isOnline => {
+//       console.log('Netzwerkstatus in der Komponente:', isOnline);
+//
+//       if (this.previousStatus === null) {
+//         // Initialer Status beim Start der App, keine Meldung anzeigen
+//         this.previousStatus = isOnline;
+//         return;
+//       }
+//
+//       if (!this.previousStatus && isOnline) {
+//         // Wechsel von Offline zu Online
+//         this.toastr.success('Sie sind wieder online.', 'Online', {
+//           timeOut: 3000,
+//           closeButton: true,
+//           progressBar: true,
+//         });
+//       } else if (this.previousStatus && !isOnline) {
+//         // Wechsel von Online zu Offline
+//         this.toastr.error('Sie sind offline. Einige Funktionen sind möglicherweise nicht verfügbar.', 'Offline', {
+//           timeOut: 3000,
+//           closeButton: true,
+//           progressBar: true,
+//         });
+//       }
+//
+//       // Aktualisieren des vorherigen Status
+//       this.previousStatus = isOnline;
+//     });
+//   }
+//
   ngOnDestroy() {
-    // Sicherstellen, dass das Abonnement beendet wird, um Speicherlecks zu vermeiden
-    if (this.networkSubscription) {
-      this.networkSubscription.unsubscribe();
-    }
+//     // Sicherstellen, dass das Abonnement beendet wird, um Speicherlecks zu vermeiden
+//     if (this.networkSubscription) {
+//       this.networkSubscription.unsubscribe();
+//     }
   }
-
-  // Methode zum Setzen der Sprache
-  async setLanguage(lang: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.apiService.setLanguage({ lang }).subscribe(
-        data => {
-          console.log('Sprache erfolgreich gesetzt:', data);
-          resolve();
-        },
-        error => {
-          console.error('Fehler beim Setzen der Sprache:', error);
-          reject(error);
-        }
-      );
-    });
-  }
+//
+//   // Methode zum Setzen der Sprache
+//   async setLanguage(lang: string): Promise<void> {
+//     return new Promise((resolve, reject) => {
+//       this.apiService.setLanguage({ lang }).subscribe(
+//         data => {
+//           console.log('Sprache erfolgreich gesetzt:', data);
+//           resolve();
+//         },
+//         error => {
+//           console.error('Fehler beim Setzen der Sprache:', error);
+//           reject(error);
+//         }
+//       );
+//     });
+//   }
 }
