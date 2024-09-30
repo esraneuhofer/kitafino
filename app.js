@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 var app = express();
 app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
-const firebaseAdmin =  require(__dirname + '/server/config/firebaseAdmin');
 
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -52,6 +51,8 @@ const corsOptions = {
     'https://essen.cateringexpert.de', // Deine Produktionsdomain
     'https://cateringexpert.de'        // Weitere relevante Domains
   ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
 };
 
