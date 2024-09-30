@@ -1,20 +1,15 @@
 // config/firebaseAdmin.js
 const admin = require('firebase-admin');
-const path = require('path');
 require('dotenv').config(); // Ensure dotenv is installed and .env is configured
 
-// Path to your Service Account JSON file
-const serviceAccountPath = path.resolve(__dirname, '../serviceAccountKey.json');
-
-// Check if the service account file exists
-const fs = require('fs');
-if (!fs.existsSync(serviceAccountPath)) {
-  console.error(`Service account key file not found at path: ${serviceAccountPath}`);
-  process.exit(1); // Exit the application if the file is missing
+// Check if the environment variable exists
+if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+  console.error('Service account key is not defined in environment variables.');
+  process.exit(1); // Exit the application if the key is missing
 }
 
-// Load the service account key
-const serviceAccount = require(serviceAccountPath);
+// Parse the service account JSON from the environment variable
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
