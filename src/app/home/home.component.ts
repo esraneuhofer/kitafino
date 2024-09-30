@@ -187,12 +187,12 @@ export class HomeComponent implements OnInit{
           }
 
           // Push-Benachrichtigungen initialisieren nach dem Einloggen
-          try {
-            await this.notificationService.initPush();
-            console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
-          } catch (error) {
-            console.error('Fehler bei der Initialisierung der Push-Benachrichtigungen:', error);
-          }
+          // try {
+          //   await this.notificationService.initPush();
+          //   console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
+          // } catch (error) {
+          //   console.error('Fehler bei der Initialisierung der Push-Benachrichtigungen:', error);
+          // }
         }
       }
     );

@@ -22,7 +22,7 @@
     <div *ngIf='isOffCanvasMenuDialog' aria-modal="true" class="relative z-40 lg:hidden" role="dialog">
       <div *ngIf="isOffCanvasMenu"  class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
 
-      <div (click)="toggleOffCanvasMenu()" *ngIf="isOffCanvasMenu" @opacityTranslateX class="fixed inset-0 z-40 flex">
+      <div (click)="toggleOffCanvasMenu()" *ngIf="isOffCanvasMenu" @opacityTranslateX class="fixed inset-0 z-60 flex">
         <div *ngIf='isOffCanvasMenu' @opacityTranslateX class="relative flex w-full max-w-xs flex-1 flex-col bg-white focus:outline-none">
           <div *ngIf='isOffCanvasMenu' @opacityInOut class="absolute top-0 right-0 -mr-12 pt-2">
             <button (click)="toggleOffCanvasMenu()" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
