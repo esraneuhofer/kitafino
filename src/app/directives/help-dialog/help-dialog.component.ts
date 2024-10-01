@@ -1,5 +1,5 @@
 import {Component, HostListener, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {isWidthToSmall} from "../../home/order-student/order-container/order-container.component";
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../service/language.service";
@@ -61,6 +61,7 @@ export class HelpDialogComponent {
               private fileOpener: FileOpener,
               private platformService: PlatformService,
               private sanitizer: DomSanitizer,
+              private dialogRef: MatDialogRef<HelpDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { route: string }, private languageService: LanguageService) {
   }
 
@@ -110,6 +111,7 @@ export class HelpDialogComponent {
   logout(){
     this.userService.deleteToken();
     this.router.navigate(['/login']);
+    this.dialogRef.close(true);
   }
 
 }

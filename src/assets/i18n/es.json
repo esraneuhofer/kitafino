@@ -580,8 +580,13 @@
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Eliminar pedido permanente",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "¿Está seguro de que desea desactivar el pedido permanente seleccionado?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nuestra cuenta se sincroniza cada <b>cinco minutos</b>. Su depósito se acreditará automáticamente en su cuenta tan pronto como se reciba. Así, incluso las <b>transferencias instantáneas</b> se pueden acreditar casi de inmediato. Luego recibirá una confirmación por correo electrónico a la dirección que haya proporcionado."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nuestra cuenta se sincroniza cada <b>cinco minutos</b>. Su depósito se acreditará automáticamente en su cuenta tan pronto como se reciba. Así, incluso las <b>transferencias instantáneas</b> se pueden acreditar casi de inmediato. Luego recibirá una confirmación por correo electrónico a la dirección que haya proporcionado.",
 
 
-
+  "GEBUEHREN": "Tarifas",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Por el monto del depósito, recibirías la siguiente cantidad dependiendo de tu selección de pago: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Al continuar, aceptas ser redirigido a Stripe para procesar el pago. El procesamiento del pago es realizado por Stripe y no por nosotros.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lee nuestros <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Términos y Condiciones</a> para obtener más información.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "He leído los <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Términos y Condiciones</a> y acepto ser redirigido a Stripe para el procesamiento del pago.",
+  "BITTE_STIMMEN_SIE_ZU": "Por favor, acepta los Términos y Condiciones"
 }

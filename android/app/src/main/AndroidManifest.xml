@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.cateringexpert.appcateringexpert"> <!-- Ersetzen Sie com.example.app durch Ihre App-ID -->
+          package="com.cateringexpert.appcateringexpert">
 
   <!-- Benötigte Berechtigungen -->
   <uses-permission android:name="android.permission.INTERNET" />
@@ -31,6 +31,16 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
 
+      <!-- Deep Link Configuration -->
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <!-- Hier den Hostnamen und das Schema Ihrer Domain angeben -->
+        <data android:scheme="https" android:host="essen.cateringexpert.de" />
+      </intent-filter>
+
       <!-- Splash Screen configuration -->
       <meta-data
         android:name="android.app.splashscreen.SPLASH_SCREEN_STYLE"
@@ -56,4 +66,7 @@
         android:resource="@xml/file_paths" />
     </provider>
   </application>
+
+  <!-- Permissions -->
+  <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

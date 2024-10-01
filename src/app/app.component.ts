@@ -3,12 +3,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { App as CapacitorApp } from '@capacitor/app'; // Umbenennung zur Vermeidung von Namenskonflikten
+import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { ApiService } from "./service/api.service";
-import { NetworkService } from "./service/network.service";
-import { NotificationService } from "./service/notification.service";
+import { ApiService } from './service/api.service';
+import { NetworkService } from './service/network.service';
+import { NotificationService } from './service/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private networkService: NetworkService,
     private notificationService: NotificationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router // Router im Konstruktor hinzugefügt
   ) {
     this.initializeApp();
   }
@@ -50,33 +53,48 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     // Abonnieren des Netzwerkstatus
-    this.networkSubscription = this.networkService.getNetworkStatus().subscribe(isOnline => {
-      console.log('Netzwerkstatus in der Komponente:', isOnline);
+    this.networkSubscription = this.networkService.getNetworkStatus().subscribe(
+      (isOnline) => {
+        console.log('Netzwerkstatus in der Komponente:', isOnline);
 
-      if (this.previousStatus === null) {
-        // Initialer Status beim Start der App, keine Meldung anzeigen
+        if (this.previousStatus === null) {
+          // Initialer Status beim Start der App, keine Meldung anzeigen
+          this.previousStatus = isOnline;
+          return;
+        }
+
+        if (!this.previousStatus && isOnline) {
+          // Wechsel von Offline zu Online
+          this.toastr.success('Sie sind wieder online.', 'Online', {
+            timeOut: 3000,
+            closeButton: true,
+            progressBar: true,
+          });
+        } else if (this.previousStatus && !isOnline) {
+          // Wechsel von Online zu Offline
+          this.toastr.error(
+            'Sie sind offline. Einige Funktionen sind möglicherweise nicht verfügbar.',
+            'Offline',
+            {
+              timeOut: 3000,
+              closeButton: true,
+              progressBar: true,
+            }
+          );
+        }
+
+        // Aktualisieren des vorherigen Status
         this.previousStatus = isOnline;
-        return;
       }
+    );
 
-      if (!this.previousStatus && isOnline) {
-        // Wechsel von Offline zu Online
-        this.toastr.success('Sie sind wieder online.', 'Online', {
-          timeOut: 3000,
-          closeButton: true,
-          progressBar: true,
-        });
-      } else if (this.previousStatus && !isOnline) {
-        // Wechsel von Online zu Offline
-        this.toastr.error('Sie sind offline. Einige Funktionen sind möglicherweise nicht verfügbar.', 'Offline', {
-          timeOut: 3000,
-          closeButton: true,
-          progressBar: true,
-        });
+    // Listener für App-Zustandsänderungen hinzufügen
+    CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+      console.log(`App state changed. Is active: ${isActive}`);
+      if (isActive) {
+        // Die App ist in den Vordergrund gekommen
+        this.onAppResume();
       }
-
-      // Aktualisieren des vorherigen Status
-      this.previousStatus = isOnline;
     });
   }
 
@@ -91,15 +109,27 @@ export class AppComponent implements OnInit, OnDestroy {
   async setLanguage(lang: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.apiService.setLanguage({ lang }).subscribe(
-        data => {
+        (data) => {
           console.log('Sprache erfolgreich gesetzt:', data);
           resolve();
         },
-        error => {
+        (error) => {
           console.error('Fehler beim Setzen der Sprache:', error);
           reject(error);
         }
       );
     });
+  }
+
+  // Methode zum Neuladen der App hinzugefügt
+  onAppResume() {
+    console.log('App wurde wieder aufgenommen. Seite wird neu geladen.');
+    this.reloadApp();
+  }
+
+  // Methode zum Neuladen der gesamten App
+  reloadApp() {
+    // Verwenden Sie window.location.reload(), um die App neu zu laden
+    window.location.reload();
   }
 }

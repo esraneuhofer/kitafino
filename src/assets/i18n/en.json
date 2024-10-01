@@ -580,7 +580,12 @@
   "BUT_AKTIVIEREN": "Activate BuT",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Delete Permanent Order",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Are you sure you want to deactivate the selected permanent order?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Our account is synchronized every <b>five minutes</b>. Your deposit will be automatically credited to your account as soon as it is received. Thus, even <b>instant transfers</b> can be credited almost immediately. You will then receive a confirmation by email to the address you have provided."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Our account is synchronized every <b>five minutes</b>. Your deposit will be automatically credited to your account as soon as it is received. Thus, even <b>instant transfers</b> can be credited almost immediately. You will then receive a confirmation by email to the address you have provided.",
 
-
+  "GEBUEHREN": "Fees",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "For the deposit amount, you would receive the following payout amount depending on your payment selection: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "By proceeding, you agree that you will be redirected to Stripe to complete the payment processing. The payment processing is done by Stripe and not by us.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Read our <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Terms and Conditions</a> for more information.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "I have read the <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Terms and Conditions</a> and agree to the redirection to Stripe for payment processing.",
+  "BITTE_STIMMEN_SIE_ZU": "Please agree to the Terms and Conditions"
 }

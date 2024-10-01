@@ -586,5 +586,10 @@
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Наш счет синхронизируется каждые <b>пять минут</b>. Ваш депозит будет автоматически зачислен на ваш счет, как только он будет получен. Таким образом, даже <b>мгновенные переводы</b> могут быть зачислены практически сразу. Затем вы получите подтверждение по электронной почте на указанный вами адрес.",
 
 
-
+  "GEBUEHREN": "Комиссия",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "За внесённую сумму вы получите следующую сумму в зависимости от вашего выбора способа оплаты: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Продолжая, вы соглашаетесь, что будете перенаправлены на Stripe для обработки платежа. Платеж обрабатывается Stripe, а не нами.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Прочтите наши <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Общие условия</a> для получения дополнительной информации.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Я прочитал <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Общие условия</a> и согласен на перенаправление на Stripe для обработки платежа.",
+  "BITTE_STIMMEN_SIE_ZU": "Пожалуйста, примите Общие условия"
 }

@@ -584,6 +584,13 @@
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Czy na pewno chcesz dezaktywować wybrane stałe zamówienie?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nasze konto jest synchronizowane co <b>pięć minut</b>. Twój depozyt zostanie automatycznie zaksięgowany na Twoim koncie, gdy tylko zostanie otrzymany. W ten sposób nawet <b>przelewy natychmiastowe</b> mogą zostać zaksięgowane niemal natychmiast. Następnie otrzymasz potwierdzenie e-mailem na podany przez Ciebie adres.",
 
+  "GEBUEHREN": "Opłaty",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Za kwotę wpłaty otrzymasz następującą kwotę wypłaty w zależności od wybranego sposobu płatności: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Kontynuując, zgadzasz się, że zostaniesz przekierowany do Stripe w celu przetworzenia płatności. Płatność jest przetwarzana przez Stripe, a nie przez nas.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Przeczytaj nasze <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Ogólne warunki</a> aby uzyskać więcej informacji.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Przeczytałem <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Ogólne warunki</a> i zgadzam się na przekierowanie do Stripe w celu przetworzenia płatności.",
+  "BITTE_STIMMEN_SIE_ZU": "Proszę zaakceptować Ogólne warunki"
+}
 
 
 

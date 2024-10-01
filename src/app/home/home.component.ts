@@ -3,19 +3,11 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {trigger, transition, style, animate, state} from '@angular/animations';
 import {UserService} from "../service/user.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {LoadingService} from "../service/loading.service";
 import {TenantServiceStudent} from "../service/tenant.service";
 import {TenantStudentInterface} from "../classes/tenant.class";
 import {filter, forkJoin} from "rxjs";
 import {GenerellService} from "../service/generell.service";
-import {StudentInterface} from "../classes/student.class";
-import {OrdersAccountInterface} from "../classes/order_account.interface";
 import {CustomerInterface} from "../classes/customer.class";
-import {
-  ExportCsvDialogComponent,
-  ExportCsvDialogData
-} from "../directives/export-csv-dialog/export-csv-dialog.component";
-import {createXmlFile} from "./account/account-csv.function";
 import {MatDialog} from "@angular/material/dialog";
 import {HelpDialogComponent} from "../directives/help-dialog/help-dialog.component";
 import {FirstAccessDialogComponent} from "../directives/first-access-dialog/first-access-dialog.component";
@@ -203,17 +195,6 @@ export class HomeComponent implements OnInit{
     this.userService.deleteToken();
     this.router.navigate(['/login']);
   }
-  // toggleOffCanvasMenu(){
-  //   this.isOffCanvasMenu = !this.isOffCanvasMenu;
-  //
-  //   if (this.isOffCanvasMenuDialog){
-  //     setTimeout(() => {
-  //       this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
-  //     },400)
-  //   } else {
-  //     this.isOffCanvasMenuDialog = !this.isOffCanvasMenuDialog;
-  //   }
-  // }
   toggleOffCanvasMenu() {
     this.isOffCanvasMenu = !this.isOffCanvasMenu;
 
@@ -232,9 +213,3 @@ export class HomeComponent implements OnInit{
   }
 }
 
-// dashboard
-//order_student
-//but
-//help -> weg
-//feedback -> weg
-//messages -> weg

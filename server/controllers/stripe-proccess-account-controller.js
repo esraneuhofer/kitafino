@@ -37,7 +37,7 @@ async function addAccountChargesTenantStripe(data, session) {
 
   switch (paymentProvider) {
     case 'paypal':
-      feePercentage = (3.49 / 100) + buffer; // Ergibt 3,59 %
+      feePercentage = (3.49 / 100); // Ergibt 3,59 %
       fixedFee = 0.49;
       break;
     case 'card':

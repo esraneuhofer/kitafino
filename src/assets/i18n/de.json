@@ -581,5 +581,12 @@
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Dauerbestellung löschen",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Anschließend erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Anschließend erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse.",
+
+    "GEBUEHREN": "Gebühren",
+   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Für den Einzahlungsbetrag von würden Sie folgenden Auszahlungbetrag erhalten abhängig von Ihrer Zahlungsauswahl: ",
+    "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Indem Sie fortfahren, stimmen Sie zu, dass Sie zu Stripe weitergeleitet werden, um die Zahlungsabwicklung durchzuführen. Die Zahlungsabwicklung erfolgt durch Stripe und nicht durch uns.",
+    "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lesen Sie unsere  <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> für weitere Informationen.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Ich habe die <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> gelesen und stimme der Weiterleitung zu Stripe zur Zahlungsabwicklung zu.",
+  "BITTE_STIMMEN_SIE_ZU": "Bitte stimmen Sie den Allgemeinen Geschäftsbedingungen zu"
 }

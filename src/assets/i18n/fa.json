@@ -581,8 +581,13 @@
   "BUT_AKTIVIEREN": "فعال‌سازی BuT",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "حذف سفارش دائمی",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "آیا مطمئن هستید که می‌خواهید سفارش دائمی انتخاب شده را غیرفعال کنید؟",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "حساب ما هر <b>پنج دقیقه</b> یکبار همگام‌سازی می‌شود. سپرده شما به‌طور خودکار به حساب شما واریز می‌شود به محض اینکه دریافت شود. بنابراین، حتی <b>انتقالات فوری</b> نیز می‌توانند تقریباً بلافاصله واریز شوند. سپس یک تأییدیه به آدرس ایمیل ثبت شده شما ارسال خواهد شد."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "حساب ما هر <b>پنج دقیقه</b> یکبار همگام‌سازی می‌شود. سپرده شما به‌طور خودکار به حساب شما واریز می‌شود به محض اینکه دریافت شود. بنابراین، حتی <b>انتقالات فوری</b> نیز می‌توانند تقریباً بلافاصله واریز شوند. سپس یک تأییدیه به آدرس ایمیل ثبت شده شما ارسال خواهد شد.",
 
 
-
+  "GEBUEHREN": "هزینه‌ها",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "برای مبلغ واریزی، شما مبلغ زیر را دریافت خواهید کرد که به انتخاب روش پرداخت شما بستگی دارد: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "با ادامه دادن، شما موافقت می‌کنید که برای پردازش پرداخت به Stripe هدایت شوید. پردازش پرداخت توسط Stripe انجام می‌شود و نه توسط ما.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شرایط و ضوابط عمومی</a> ما را برای اطلاعات بیشتر بخوانید.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "من <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شرایط و ضوابط عمومی</a> را خوانده‌ام و موافق هدایت به Stripe برای پردازش پرداخت هستم.",
+  "BITTE_STIMMEN_SIE_ZU": "لطفاً با شرایط و ضوابط عمومی موافقت کنید"
 }

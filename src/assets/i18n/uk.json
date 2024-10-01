@@ -582,6 +582,10 @@
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Ви впевнені, що хочете деактивувати вибране постійне замовлення?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Наш рахунок синхронізується кожні <b>п’ять хвилин</b>. Ваш депозит буде автоматично зараховано на ваш рахунок, щойно його буде отримано. Таким чином, навіть <b>миттєві перекази</b> можуть бути зараховані майже миттєво. Потім ви отримаєте підтвердження електронною поштою на вказану вами адресу.",
 
-
-
+  "GEBUEHREN": "Комісії",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "За суму депозиту ви отримаєте таку суму виплати залежно від вашого вибору способу оплати: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Продовжуючи, ви погоджуєтесь на перенаправлення до Stripe для обробки платежу. Обробка платежу здійснюється Stripe, а не нами.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Читайте наші <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Загальні умови</a> для отримання додаткової інформації.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Я прочитав <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Загальні умови</a> і погоджуюсь на перенаправлення до Stripe для обробки платежу.",
+  "BITTE_STIMMEN_SIE_ZU": "Будь ласка, погодьтеся із Загальними умовами"
 }

@@ -18,7 +18,6 @@ dependencies {
     implementation project(':capacitor-push-notifications')
     implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-rate-app')
-    implementation project(':capacitor-secure-storage-plugin')
 
 }
 

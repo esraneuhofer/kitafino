@@ -584,6 +584,10 @@
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Weet u zeker dat u de geselecteerde permanente bestelling wilt deactiveren?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Ons account wordt elke <b>vijf minuten</b> gesynchroniseerd. Uw storting wordt automatisch op uw account bijgeschreven zodra deze is ontvangen. Zo kunnen ook <b>onmiddellijke overboekingen</b> vrijwel direct worden bijgeschreven. U ontvangt vervolgens een bevestiging per e-mail op het door u opgegeven adres.",
 
-
-
+  "GEBUEHREN": "Kosten",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Voor het gestorte bedrag zou u het volgende bedrag ontvangen, afhankelijk van uw betalingskeuze: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Door verder te gaan, stemt u ermee in dat u wordt doorgestuurd naar Stripe om de betaling te verwerken. De betaling wordt verwerkt door Stripe en niet door ons.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lees onze <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Algemene voorwaarden</a> voor meer informatie.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Ik heb de <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Algemene voorwaarden</a> gelezen en ga akkoord met de doorgestuurde betaling naar Stripe.",
+  "BITTE_STIMMEN_SIE_ZU": "Accepteer alstublieft de Algemene voorwaarden"
 }

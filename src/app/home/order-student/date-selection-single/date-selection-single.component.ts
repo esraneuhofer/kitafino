@@ -43,9 +43,9 @@ export class DateSelectionSingleComponent implements OnInit {
     this.selectedDate = new Date(event.target.value);
     this.getOrderDay.emit(this.selectedDate)
     const inputElement = event.target as HTMLInputElement;
-    if (inputElement) {
+    setTimeout(() => {
       inputElement.blur();
-    }
+    }, 100); // 100 ms Verzögerung
   }
 
   // Utility method to format Date to YYYY-MM-DD string

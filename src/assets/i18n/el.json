@@ -584,7 +584,12 @@
   "BUT_AKTIVIERΕΝ": "Ενεργοποίηση BuT",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Eliminar pedido permanente",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "¿Está seguro de que desea desactivar el pedido permanente seleccionado?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nuestra cuenta se sincroniza cada <b>cinco minutos</b>. Su depósito se acreditará automáticamente en su cuenta tan pronto como se reciba. Así, incluso las <b>transferencias instantáneas</b> se pueden acreditar casi de inmediato. Luego recibirá una confirmación por correo electrónico a la dirección que haya proporcionado."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Nuestra cuenta se sincroniza cada <b>cinco minutos</b>. Su depósito se acreditará automáticamente en su cuenta tan pronto como se reciba. Así, incluso las <b>transferencias instantáneas</b> se pueden acreditar casi de inmediato. Luego recibirá una confirmación por correo electrónico a la dirección que haya proporcionado.",
 
-
+  "GEBUEHREN": "Τέλη",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Για το ποσό της κατάθεσης, θα λάβετε το παρακάτω ποσό ανάλογα με την επιλογή πληρωμής σας: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Συνεχίζοντας, συμφωνείτε ότι θα μεταφερθείτε στο Stripe για την επεξεργασία της πληρωμής. Η πληρωμή διεκπεραιώνεται από το Stripe και όχι από εμάς.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Διαβάστε τους <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Γενικούς Όρους και Προϋποθέσεις</a> για περισσότερες πληροφορίες.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Διάβασα τους <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Γενικούς Όρους και Προϋποθέσεις</a> και συμφωνώ με την ανακατεύθυνση στο Stripe για την πληρωμή.",
+  "BITTE_STIMMEN_SIE_ZU": "Παρακαλώ συμφωνήστε με τους Γενικούς Όρους και Προϋποθέσεις"
 }

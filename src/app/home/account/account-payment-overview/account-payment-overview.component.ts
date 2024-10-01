@@ -49,7 +49,7 @@ function calculateFee(amount: number, paymentMethod: string): number {
   const buffer = 0.3 / 100;
 
  if (paymentMethod === 'Paypal') {
-    feePercentage = (3.49 / 100) + buffer; // Ergibt 3,59 %
+    feePercentage = (3.49 / 100) ; // Ergibt 3,59 %
     fixedFee = 0.49;
   } else if (paymentMethod === 'Kreditkarte') {
     feePercentage = (1.4 / 100) + buffer; // Ergibt 1,5 %

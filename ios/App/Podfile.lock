@@ -20,9 +20,6 @@ PODS:
     - Capacitor
   - CapacitorRateApp (4.0.3):
     - Capacitor
-  - CapacitorSecureStoragePlugin (0.10.0):
-    - Capacitor
-    - SwiftKeychainWrapper
   - CapacitorSplashScreen (6.0.1):
     - Capacitor
   - CordovaPlugins (6.1.1):
@@ -87,7 +84,6 @@ PODS:
   - nanopb/decode (2.30910.0)
   - nanopb/encode (2.30910.0)
   - PromisesObjC (2.4.0)
-  - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -101,7 +97,6 @@ DEPENDENCIES:
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - CapacitorRateApp (from `../../node_modules/capacitor-rate-app`)
-  - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - Firebase/Messaging
@@ -117,7 +112,6 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
-    - SwiftKeychainWrapper
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -142,8 +136,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/push-notifications"
   CapacitorRateApp:
     :path: "../../node_modules/capacitor-rate-app"
-  CapacitorSecureStoragePlugin:
-    :path: "../../node_modules/capacitor-secure-storage-plugin"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
   CordovaPlugins:
@@ -161,7 +153,6 @@ SPEC CHECKSUMS:
   CapacitorPreferences: e8284bf740cf8c6d3f25409af3c01df87dfeb5a1
   CapacitorPushNotifications: ccd797926c030acad3d5498ef452c735c90a2c89
   CapacitorRateApp: 896df7ec6a237fea72d1955e0cb26394654b00db
-  CapacitorSecureStoragePlugin: ced6025438fbbdbfb9fffec4398e748572fc147b
   CapacitorSplashScreen: 61645214e8f955ff2b80f16a6a3648960fe4c89f
   CordovaPlugins: b2fa38db36c7bebe6bb423d8eaf8380283ec4c07
   Firebase: 5121c624121af81cbc81df3bda414b3c28c4f3c3
@@ -173,8 +164,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: d7da84253f677a2594b91cf601e5fab9f37be24f
+PODFILE CHECKSUM: 495946c09a28a4675227fc8f0020e9f994dc52a2
 
 COCOAPODS: 1.15.2

@@ -579,7 +579,12 @@
   "BUT_AKTIVIEREN": "تفعيل BuT",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "حذف الطلب الدائم",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "هل أنت متأكد أنك تريد إلغاء تفعيل الطلب الدائم المحدد؟",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "يتم مزامنة حسابنا كل <b>خمس دقائق</b>. سيتم إضافة إيداعك تلقائيًا إلى حسابك بمجرد استلامه. وبالتالي، يمكن أيضًا إيداع <b>التحويلات الفورية</b> على الفور تقريبًا. بعد ذلك، ستتلقى تأكيدًا عبر البريد الإلكتروني إلى العنوان الذي قمت بتسجيله."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "يتم مزامنة حسابنا كل <b>خمس دقائق</b>. سيتم إضافة إيداعك تلقائيًا إلى حسابك بمجرد استلامه. وبالتالي، يمكن أيضًا إيداع <b>التحويلات الفورية</b> على الفور تقريبًا. بعد ذلك، ستتلقى تأكيدًا عبر البريد الإلكتروني إلى العنوان الذي قمت بتسجيله.",
 
-
+  "GEBUEHREN": "الرسوم",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "للمبلغ المودع، ستحصل على المبلغ التالي بناءً على اختيار طريقة الدفع الخاصة بك: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "بالمتابعة، فإنك توافق على أنه سيتم إعادة توجيهك إلى Stripe لإتمام عملية الدفع. يتم معالجة الدفع بواسطة Stripe وليس بواسطة شركتنا.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "اقرأ <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شروطنا وأحكامنا العامة</a> لمزيد من المعلومات.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "لقد قرأت <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">الشروط والأحكام العامة</a> وأوافق على إعادة توجيهي إلى Stripe لإتمام عملية الدفع.",
+  "BITTE_STIMMEN_SIE_ZU": "يرجى الموافقة على الشروط والأحكام العامة"
 }

@@ -580,7 +580,12 @@
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "刪除永久訂單",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "你確定要停用所選的永久訂單嗎？",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我哋嘅賬戶每<b>五分鐘</b>同步一次。你嘅存款一旦收到，將會自動記入你嘅賬戶。咁即使係<b>即時轉賬</b>都可以幾乎即刻入賬。之後你會收到確認電郵，發送到你提供嘅地址。"
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我哋嘅賬戶每<b>五分鐘</b>同步一次。你嘅存款一旦收到，將會自動記入你嘅賬戶。咁即使係<b>即時轉賬</b>都可以幾乎即刻入賬。之後你會收到確認電郵，發送到你提供嘅地址。",
 
-
+  "GEBUEHREN": "費用",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "就存款金額，你會根據付款選擇收到以下提款金額： ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "繼續操作即表示你同意被重定向到Stripe以完成付款處理。付款處理由Stripe執行，而不是由我們執行。",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "閱讀我們的<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般條款和條件</a>以獲取更多信息。",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "我已閱讀<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般條款和條件</a>並同意被重定向到Stripe以完成付款處理。",
+  "BITTE_STIMMEN_SIE_ZU": "請同意一般條款和條件"
 }

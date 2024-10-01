@@ -3,20 +3,25 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.cateringexpert.appcateringexpert',
   appName: 'Cateringexpert',
-  // webDir: 'dist/schulanmeldungen',
+  webDir: 'dist/schulanmeldungen',
   bundledWebRuntime: false,
 
   ios: {
     contentInset: 'always',
     scheme: 'cateringexpert'  // Hier benutzerdefiniertes URL-Schema hinzufügen
   },
+  // server: {
+  //   androidScheme: 'http',
+  //   cleartext: false,
+  //   url: 'https://essen.cateringexpert.de',
+  // },
   server: {
-    // Entferne hostname, wenn du server.url verwendest
-    // hostname: 'my-app.com',
+    hostname: 'essen.cateringexpert.de',
     androidScheme: 'https',
-    // Setze cleartext auf false, wenn du HTTPS verwendest
-    cleartext: false,
-    url: 'https://essen.cateringexpert.de',  // Ersetze dies mit der tatsächlichen URL deiner Heroku-App
+    cleartext: true,
+    url: 'https://essen.cateringexpert.de',
+    // url: 'http://localhost:4200/'
+    // "url": "http://10.0.2.2:4200"
   },
   plugins: {
     "Cordova": {},
@@ -26,11 +31,14 @@ const config: CapacitorConfig = {
       }
     },
     SplashScreen: {
-      launchAutoHide: false,
+      launchShowDuration: 3000,
+      launchAutoHide: true,
+      // launchAutoHide: false,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
       "androidScaleType": "CENTER_CROP",
       iosSpinnerStyle: "small",
       spinnerColor: "#999999",
+
       splashFullScreen: false,
       splashImmersive: true,
       // iOS spezifische Einstellungen
@@ -42,8 +50,12 @@ const config: CapacitorConfig = {
 };
 
 export default config;
-// cleartext: true,
-// // url: 'https://essen.cateringexpert.de',
-// // url: 'http://localhost:4200/'
-// // "url": "http://10.0.2.2:4200"
+
+// server: {
+//   hostname: 'my-app.com',
+//     androidScheme: 'https',
+//     cleartext: false,
+//   // url: 'https://essen.cateringexpert.de',
+//   // url: 'http://localhost:4200/'
+//   // "url": "http://10.0.2.2:4200"
 // },

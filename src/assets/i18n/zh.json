@@ -578,7 +578,12 @@
   "BUT_AKTIVIEREN": "启用 BuT",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "删除永久订单",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "您确定要停用所选的永久订单吗？",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我们的账户每<b>五分钟</b>同步一次。您的存款将在收到后自动计入您的账户。因此，甚至<b>即时转账</b>也可以几乎立即记入。随后，您将收到一封发送到您提供地址的确认电子邮件。"
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "我们的账户每<b>五分钟</b>同步一次。您的存款将在收到后自动计入您的账户。因此，甚至<b>即时转账</b>也可以几乎立即记入。随后，您将收到一封发送到您提供地址的确认电子邮件。",
 
-
+  "GEBUEHREN": "费用",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "对于存款金额，您将根据您的付款选择收到以下提款金额： ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "继续操作即表示您同意将被重定向至Stripe进行付款处理。付款处理由Stripe执行，而不是由我们执行。",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "阅读我们的<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般条款和条件</a>以了解更多信息。",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "我已阅读<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般条款和条件</a>并同意被重定向至Stripe进行付款处理。",
+  "BITTE_STIMMEN_SIE_ZU": "请同意一般条款和条件"
 }

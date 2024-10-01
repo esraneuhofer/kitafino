@@ -579,7 +579,12 @@
   "BUT_AKTIVIEREN": "BuT'u etkinleştir",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Sürekli Siparişi Sil",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Seçilen sürekli siparişi devre dışı bırakmak istediğinizden emin misiniz?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Hesabımız her <b>beş dakikada</b> bir senkronize edilir. Yatırımınız alındıktan sonra otomatik olarak hesabınıza aktarılacaktır. Böylece, <b>anlık transferler</b> de neredeyse anında kaydedilebilir. Daha sonra sağladığınız adrese bir onay e-postası alacaksınız."
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Hesabımız her <b>beş dakikada</b> bir senkronize edilir. Yatırımınız alındıktan sonra otomatik olarak hesabınıza aktarılacaktır. Böylece, <b>anlık transferler</b> de neredeyse anında kaydedilebilir. Daha sonra sağladığınız adrese bir onay e-postası alacaksınız.",
 
-
+  "GEBUEHREN": "Ücretler",
+  "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Yatırılan miktar için, ödeme seçiminize bağlı olarak aşağıdaki ödeme miktarını alırsınız: ",
+  "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Devam ederek, ödeme işlemini gerçekleştirmek için Stripe'a yönlendirileceğinizi kabul ediyorsunuz. Ödeme işlemi Stripe tarafından gerçekleştirilir ve tarafımızdan gerçekleştirilmez.",
+  "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Daha fazla bilgi için <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Genel Şartlar ve Koşullarımızı</a> okuyun.",
+  "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Genel Şartlar ve Koşulları</a> okudum ve ödeme işlemi için Stripe'a yönlendirilmek üzere kabul ediyorum.",
+  "BITTE_STIMMEN_SIE_ZU": "Lütfen Genel Şartlar ve Koşulları kabul edin"
 }
