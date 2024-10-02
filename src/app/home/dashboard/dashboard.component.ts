@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {TenantStudentInterface} from "../../classes/tenant.class";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {StudentInterface} from "../../classes/student.class";
@@ -8,7 +8,7 @@ import {AccountService} from "../../service/account.serive";
 import {StudentService} from "../../service/student.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {catchError, forkJoin, of} from "rxjs";
+import {catchError, forkJoin, of, Subscription} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {sortOrdersByDate} from "../../functions/order.functions";
@@ -26,6 +26,7 @@ import {SchoolMessageInterface} from "../../classes/school-message.interface";
 import {MessageService} from "../../service/message.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MessageDialogService} from "../../service/message-dialog.service";
+import {App as CapacitorApp} from "@capacitor/app";
 
 export function customerIdContainedInMessasge(customers: { nameCustomer: string, customerId: string }[], tenant: TenantStudentInterface): boolean {
   return customers.some((customer) => customer.customerId === tenant.customerId)
@@ -97,6 +98,10 @@ export class DashboardComponent {
   customer!: CustomerInterface;
   getTotalPriceSafe = getTotalPriceSafe;
 
+  private appStateChangeListener: any;
+  private subscriptions: Subscription = new Subscription();
+
+
   getShortName(name: string): string {
     return name.length > 6 ? name.slice(0, 6) + '...' : name;
   }
@@ -121,76 +126,78 @@ export class DashboardComponent {
               private orderService: OrderService,
               private generallService: GenerellService,
               private messageService: MessageService,
+              private ngZone: NgZone,
               private translate: TranslateService) {
 
   }
 
-  private updateUrlWithoutStatus() {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {}
-    };
-    this.router.navigate([], navigationExtras);
-  }
-  private handleError(error: any, message: string) {
-    console.error('Error:', error);
-    // this.dialogService.openMessageDialog(this.translate.instant(message), this.translate.instant('ERROR'), 'error');
-  }
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      const status = params['status'];
-      if (status === 'success') {
-        let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
-        let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
-        this.dialogService.openMessageDialog(reason, header, 'success');
-        this.updateUrlWithoutStatus();
-      } else if (status === 'failure') {
-        let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
-        let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
-        this.dialogService.openMessageDialog(reason, header, 'error');
-        this.updateUrlWithoutStatus();
+    this.loadData();
+
+    // Listener für App-Zustandsänderungen hinzufügen
+    this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+      console.log(`App state changed. Is active: ${isActive}`);
+      if (isActive) {
+        this.ngZone.run(() => {
+          this.onAppResume();
+        });
       }
-    })
-    forkJoin(
+    });
+  }
+
+  // Methode zum Neuladen der App hinzugefügt
+  ngOnDestroy() {
+    // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
+    if (this.appStateChangeListener) {
+      this.appStateChangeListener.remove();
+    }
+    // Unsubscriben Sie alle Subscriptions
+    this.subscriptions.unsubscribe();
+  }
+
+  private loadData() {
+    const dataSubscription = forkJoin([
       this.tenantServiceStudent.getTenantInformation(),
       this.accountService.getAccountTenant(),
       this.studentService.getRegisteredStudentsUser(),
-      this.orderService.getOrderStudentYear({year: new Date().getFullYear()}),
+      this.orderService.getOrderStudentYear({ year: new Date().getFullYear() }),
       this.generallService.getSettingsCaterer(),
       this.generalService.getCustomerInfo(),
       this.messageService.getMessages()
-    ).subscribe((
-      [
-        tenantInformation,
-        accountInformation,
-        students,
-        orderStudents,
-        setting,
-        customer,
-        messages
-      ]: [
-        TenantStudentInterface,
-        AccountCustomerInterface,
-        StudentInterface[],
-        OrderInterfaceStudentSave[],
-        SettingInterfaceNew,
-        CustomerInterface,
-        SchoolMessageInterface[],
-      ]) => {
-      console.log('Data received in component:', tenantInformation, accountInformation, students, orderStudents, setting, customer, messages);
-      this.tenant = tenantInformation;
-      this.accountTenant = accountInformation;
-      this.students = students;
-      this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students,customer);
-      this.settings = setting;
-      this.customer = customer
-      this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
-      this.pageLoaded = true;
+    ]).subscribe(
+      ([
+         tenantInformation,
+         accountInformation,
+         students,
+         orderStudents,
+         setting,
+         customer,
+         messages
+       ]) => {
+        console.log('Data received in component:', tenantInformation, accountInformation, students, orderStudents, setting, customer, messages);
+        this.tenant = tenantInformation;
+        this.accountTenant = accountInformation;
+        this.students = students;
+        this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, students, customer);
+        this.settings = setting;
+        this.customer = customer;
+        this.allMessages = checkMessagesIfSeen(messages, tenantInformation);
+        this.pageLoaded = true;
       },
-      error => {
+      (error) => {
         // Fehler-Handling für alle Fehler in der gesamten Anfrage
-      console.error('Error in component:', error);
+        console.error('Error in component:', error);
       }
-    )
+    );
+
+    // Fügen Sie die Subscription zur Subscription-Liste hinzu
+    this.subscriptions.add(dataSubscription);
+  }
+
+  // Methode zum Neuladen der App hinzugefügt
+  onAppResume() {
+    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
+    this.loadData();
   }
 
   initAfterCancelOrder() {
@@ -294,4 +301,6 @@ export class DashboardComponent {
       }
     })
   }
+
+
 }

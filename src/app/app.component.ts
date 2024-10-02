@@ -88,14 +88,14 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
 
-    // Listener für App-Zustandsänderungen hinzufügen
-    CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-      console.log(`App state changed. Is active: ${isActive}`);
-      if (isActive) {
-        // Die App ist in den Vordergrund gekommen
-        this.onAppResume();
-      }
-    });
+    // // Listener für App-Zustandsänderungen hinzufügen
+    // CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+    //   console.log(`App state changed. Is active: ${isActive}`);
+    //   if (isActive) {
+    //     // Die App ist in den Vordergrund gekommen
+    //     this.onAppResume();
+    //   }
+    // });
   }
 
   ngOnDestroy() {

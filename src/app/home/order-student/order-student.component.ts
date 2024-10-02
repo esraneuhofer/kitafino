@@ -1,8 +1,8 @@
-import {Component, HostListener, NgZone, OnInit} from '@angular/core';
+import {Component, HostListener, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {addDayFromDate, getDisplayOrderType, getSplit, getWeekNumber} from "./order.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
-import {combineLatest, defaultIfEmpty, forkJoin, map, timer} from "rxjs";
+import {combineLatest, defaultIfEmpty, forkJoin, map, Subscription, timer} from "rxjs";
 import {CustomerInterface} from "../../classes/customer.class";
 import {WeekplanMenuInterface} from "../../classes/weekplan.interface";
 import {MealModelInterface} from "../../classes/meal.interface";
@@ -42,6 +42,7 @@ import {
 } from "../../directives/first-access-order-dialog/first-access-order-dialog.component";
 import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 import {SchoolService} from "../../service/school.service";
+import {App as CapacitorApp} from "@capacitor/app";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -52,7 +53,7 @@ dayjs.extend(timezone);
   templateUrl: './order-student.component.html',
   styleUrls: ['./order-student.component.scss']
 })
-export class OrderStudentComponent implements OnInit {
+export class OrderStudentComponent implements OnInit, OnDestroy {
 
   textBannerWeekend:string = 'Am Wochenende kann keine Bestellung aufgegeben werden';
   isWeekend: boolean = false;
@@ -88,6 +89,9 @@ export class OrderStudentComponent implements OnInit {
   orderWeek: MealCardInterface[] = [];
   schoolSettings!: SchoolSettingsInterface;
 
+  private appStateChangeListener: any;
+  private subscriptions: Subscription = new Subscription();
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.displayMinimize = isWidthToSmall(event.target.innerWidth);
@@ -113,12 +117,40 @@ export class OrderStudentComponent implements OnInit {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
     this.textBannerWeekend = translate.instant("WEEKEND_NO_ORDER")
   }
+
+  reloadDate(){}
+  onAppResume() {
+    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
+    this.pageLoaded = false;
+    this.loadData();
+  }
+  ngOnDestroy() {
+    // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
+    if (this.appStateChangeListener) {
+      this.appStateChangeListener.remove();
+    }
+    // Unsubscriben Sie alle Subscriptions
+    this.subscriptions.unsubscribe();
+  }
+
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
     if(this.displayMinimize){
       this.displayOrderTypeWeek = false;
     }
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
+    this.loadData()
+    this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+      console.log(`App state changed. Is active: ${isActive}`);
+      if (isActive) {
+        this.ngZone.run(() => {
+          this.onAppResume();
+        });
+      }
+    });
+  }
+
+  loadData(){
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
@@ -149,7 +181,7 @@ export class OrderStudentComponent implements OnInit {
          weekplanGroups,
          accountTenant,
          vacations,
-        schoolSettings
+         schoolSettings
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
