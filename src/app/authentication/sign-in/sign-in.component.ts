@@ -9,6 +9,8 @@ import {Capacitor} from "@capacitor/core";
 import { SavePassword } from 'capacitor-ios-autofill-save-password';
 import {HelpDialogComponent} from "../../directives/help-dialog/help-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {KeychainAccess, SecureStorage} from '@aparajita/capacitor-secure-storage';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-sign-in',
@@ -33,20 +35,42 @@ export class SignInComponent implements OnInit {
               private translate: TranslateService,
               private languageService: LanguageService,
               private renderer: Renderer2,
+              private alertController: AlertController,
               private studentService: StudentService,
               private router: Router,
               private dialog: MatDialog) { }
 
   ngOnInit() {
     this.isMobileApp = Capacitor.isNativePlatform();
+    this.checkStoredCredentials();
     // console.log(this.isMobileApp);
     //
     // if (this.isMobileApp) {
     //   this.checkBiometricAuth();
     // }
   }
+
+  async checkStoredCredentials() {
+    try {
+      const email = await SecureStorage.get( 'username' );
+      const password = await SecureStorage.get('password');
+
+      if (email && password) {
+        this.signInModel.email = email as string;
+        this.signInModel.password = password as string;
+        console.log('Stored credentials found and pre-filled.');
+      } else {
+        console.log('No stored credentials found.');
+      }
+    } catch (error) {
+      console.error('Failed to retrieve stored credentials:', error);
+    }
+  }
+
   async saveCredentials() {
-    if (Capacitor.getPlatform() === 'ios' ||  Capacitor.getPlatform() === 'android') {
+    console.log('Platform:', Capacitor.getPlatform());
+
+    if (Capacitor.getPlatform() === 'ios') {
       console.log('Saving credentials');
       try {
         await SavePassword.promptDialog({
@@ -57,8 +81,79 @@ export class SignInComponent implements OnInit {
       } catch (error) {
         console.error('Failed to save credentials:', error);
       }
+    } else if (Capacitor.getPlatform() === 'android') {
+      console.log('Checking if credentials need to be saved or updated');
+
+      try {
+        const storedEmail = await SecureStorage.get('username' ) as string | null;
+        const storedPassword = await SecureStorage.get('password' ) as string | null;
+
+        if (!storedEmail || !storedPassword) {
+          // Falls keine Anmeldedaten gespeichert sind, frage, ob sie gespeichert werden sollen
+          const alert = await this.alertController.create({
+            header: 'Passwort speichern?',
+            message: 'Möchten Sie das Passwort für zukünftige Anmeldungen speichern?',
+            buttons: [
+              {
+                text: 'Nein',
+                role: 'cancel',
+                handler: () => {
+                  console.log('User declined to save credentials');
+                }
+              },
+              {
+                text: 'Ja',
+                handler: async () => {
+                  try {
+                    await SecureStorage.set('username', this.signInModel.email, false, true);
+                    await SecureStorage.set('password', this.signInModel.password, false, true);
+                    console.log('Credentials saved successfully on Android');
+                  } catch (error) {
+                    console.error('Failed to save credentials on Android:', error);
+                  }
+                }
+              }
+            ]
+          });
+          await alert.present();
+
+        } else if (storedPassword !== this.signInModel.password) {
+          // Falls das Passwort anders ist, frage, ob es aktualisiert werden soll
+          const updateAlert = await this.alertController.create({
+            header: 'Passwort aktualisieren?',
+            message: 'Das gespeicherte Passwort ist anders. Möchten Sie es aktualisieren?',
+            buttons: [
+              {
+                text: 'Nein',
+                role: 'cancel',
+                handler: () => {
+                  console.log('User declined to update credentials');
+                }
+              },
+              {
+                text: 'Ja',
+                handler: async () => {
+                  try {
+                    await SecureStorage.set('username', this.signInModel.email, false, true);
+                    await SecureStorage.set('password', this.signInModel.password, false, true);
+                    console.log('Credentials updated successfully on Android');
+                  } catch (error) {
+                    console.error('Failed to update credentials on Android:', error);
+                  }
+                }
+              }
+            ]
+          });
+          await updateAlert.present();
+        } else {
+          console.log('Credentials are already saved and unchanged.');
+        }
+      } catch (error) {
+        console.error('Failed to check or save credentials:', error);
+      }
     }
   }
+
 
 
   async onSubmit() {
