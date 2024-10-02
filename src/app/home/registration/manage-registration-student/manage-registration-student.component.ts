@@ -8,9 +8,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../../functions/special-food.functions";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {
-  ConfirmDialogPermanetOrderComponent
-} from "../../permanent-orders/confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
 import {ExportCsvDialogData} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {
@@ -18,6 +15,25 @@ import {
 } from "../../directives/confirm-delete-special-food/confirm-delete-special-food.component";
 import {PermanentOrderInterface} from "../../../classes/permanent-order.interface";
 import {PermanentOrderService} from "../../../service/permant-order.service";
+import {TranslateService} from "@ngx-translate/core";
+
+export function showAllergieSelection(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):boolean{
+  if(specialFoodSelection.length ===  0){
+    return false
+  }
+  if(customerInfo.generalSettings.allowOnlyOneMenu){
+    return true
+  }
+  if(customerInfo.generalSettings.allergiesSetByTenant){
+    return true
+  }
+  if(!customerInfo.generalSettings.allergiesSetByTenant){
+    return false
+  }
+  return false;
+}
+
+
 
 @Component({
   selector: 'app-manage-registration-student',
@@ -42,7 +58,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
   settings!: SettingInterfaceNew;
   selectedSpecialFood:string = '';
   permanentOrders: PermanentOrderInterface[] = [];
-
+  showAllergieSelection = showAllergieSelection;
   setSpecialFoodEmpty(student:StudentInterface){
     const dialogRef = this.dialog.open(ConfirmDeleteSpecialFoodComponent, {
       width: '550px',
@@ -70,6 +86,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
   }
   constructor(  private router:Router,
+                private translate: TranslateService,
                 private dialog: MatDialog,
                 private permanentOrdersService: PermanentOrderService,
                 private toaster:ToastrService,
@@ -162,4 +179,26 @@ export class ManageRegistrationStudentComponent implements OnInit{
   selectSpecialFood(event:string,selectedStudent:StudentInterface):void{
     selectedStudent.specialFood = event;
   }
+
+
+  getAllergieFoodText(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):string{
+    if(specialFoodSelection.length ===  0){
+      return ''
+    }
+    if(customerInfo.generalSettings.allowOnlyOneMenu){
+      return  this.translate.instant('MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE')
+    }
+    if(customerInfo.generalSettings.allergiesSetByTenant){
+      return this.translate.instant('MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION')
+    }
+    if(!customerInfo.generalSettings.allergiesSetByTenant){
+      return this.translate.instant('SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER')
+    }
+
+
+    return '';
+
+  }
+
+
 }

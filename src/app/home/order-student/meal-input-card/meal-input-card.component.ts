@@ -84,6 +84,14 @@ function setOrdersSide(ordersWeek: OrderSubDetailNew[], settings: SettingInterfa
   return array
 }
 
+//Falls Einrichtungen nur den Menü Namen angezeigt bekommen wollen
+function getDisplayNameOrder(order: OrderSubDetailNew, customer: CustomerInterface): string {
+
+  if (customer.generalSettings.hideMenuName) {
+    return order.nameMenu
+  }
+  return order.nameOrder
+}
 
 function toUTCDate(date: Date): Date {
   const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
@@ -103,6 +111,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   atLeastOneAllergene = atLeastOneAllergene;
   getTooltipContent = getTooltipContent;
   getAllergenes = getAllergenes;
+  getDisplayNameOrder = getDisplayNameOrder;
   @Input() lockDay: boolean = false;
   @Input() indexDay!: number;
   @Input() orderDay!: MealCardInterface
@@ -126,6 +135,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   faShoppingCart = faShoppingCart;
   faTrashCan = faTrashCan;
   selectedLanguage: string = 'de';
+
   constructor(private orderService: OrderService,
               private toastr: ToastrService,
               private dialog: MatDialog,
@@ -139,6 +149,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.customer.generalSettings.hideMenuName = true;
     const orders = customSort(JSON.parse(JSON.stringify(this.orderDay.orderStudentModel.order.orderMenus)))
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
@@ -151,6 +162,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       })
     }
   }
+
   getTooltipText(pastOrder: boolean, lockDay: boolean): string {
     if (pastOrder) {
       return this.translate.instant('BESTELLFRIST_ABGELAUFEN');
@@ -160,6 +172,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       return '';
     }
   }
+
   getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean): any {
 
     // Initialize an object with static and conditional classes
@@ -208,6 +221,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       selectedStudent: this.selectedStudent
     }
   }
+
   getEmailBodyDataCancel(orderModel: OrderInterfaceStudent, result: { sendCopyEmail: boolean }) {
     return {
       orderStudent: orderModel,
@@ -218,6 +232,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       selectedStudent: this.selectedStudent
     }
   }
+
   getMenuStyle(eachMenu: any): any {
     let minHeight = '80px'; // Default min-height for 'side', 'dessert', and 'specialFood'
     if (eachMenu.typeOrder === 'menu' && !this.displayMinimize) {
@@ -226,15 +241,28 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (eachMenu.typeOrder === 'menu' && this.displayMinimize) {
       minHeight = '80px'; // Set min-height to 140px for 'menu'
     }
-    if(eachMenu.typeOrder === 'specialFood'){
+    if (eachMenu.typeOrder === 'specialFood' || this.customer.generalSettings.hideMenuName) {
       minHeight = '50px';
     }
 
     return {'min-height': minHeight};
   }
 
+  showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
+    if(!student.specialFood && !customer.generalSettings.allowOnlyOneMenu)return true;
+    if(!customer.generalSettings.allowOnlyOneMenu)return true;
+    if(customer.generalSettings.allowOnlyOneMenu && orderModel.idType === student.specialFood || orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'){
+      return true;
+    }
+    if(!student.specialFood && customer.generalSettings.allowOnlyOneMenu && orderModel.typeOrder === 'menu'){
+      return true
+    }
+    return false;
+  }
+
   openAllergenModal(order: OrderSubDetailNew): void {
-    if(this.settings.orderSettings.hideNutritionSidebar)return;
+    console.log('order', this.customer.generalSettings.hideMenuName)
+    if (this.settings.orderSettings.hideNutritionSidebar || this.customer.generalSettings.hideMenuName) return;
 
     const dialogRef = this.dialog.open(OrderAllergeneDialogComponent, {
       width: 'auto',
@@ -250,7 +278,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
-      data: {orderStudent: orderModel, type: type, indexMenu: indexMenu,tenantStudent:this.tenantStudent},
+      data: {orderStudent: orderModel, type: type, indexMenu: indexMenu, tenantStudent: this.tenantStudent},
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
@@ -288,7 +316,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
   setOrderIcon(index: number, event: boolean) {
-    if(this.pastOrder)return;
+    if (this.pastOrder) return;
     this.setOrderDay(event, index)
   }
 
@@ -299,15 +327,18 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
         }, 400)
 
-          const dialogRef = this.dialog.open(DialogErrorComponent, {
-            width: '400px',
-            data: {header: this.translate.instant('FEHLER_BESTELLUNG'), message: this.translate.instant('NUR_EINE_BESTELLUNG_PRO_TAG')},
-            panelClass: 'custom-dialog-container',
-            position: {top: '100px'},
+        const dialogRef = this.dialog.open(DialogErrorComponent, {
+          width: '400px',
+          data: {
+            header: this.translate.instant('FEHLER_BESTELLUNG'),
+            message: this.translate.instant('NUR_EINE_BESTELLUNG_PRO_TAG')
+          },
+          panelClass: 'custom-dialog-container',
+          position: {top: '100px'},
 
-          });
+        });
         // alert('')
-          return
+        return
       }
       this.placeOrder(this.orderDay.orderStudentModel, 'order', indexMenu)
     } else {
@@ -316,7 +347,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   //Checks if Customer is Below Limit and if Email should be sent Email
-  getPromisesEmail(orderModel: OrderInterfaceStudent, type: string, result: { sendCopyEmail: boolean },accountTenant:AccountCustomerInterface) {
+  getPromisesEmail(orderModel: OrderInterfaceStudent, type: string, result: {
+    sendCopyEmail: boolean
+  }, accountTenant: AccountCustomerInterface) {
     let promisesEmail = []
     if (result.sendCopyEmail) {
       const emailObject = this.getEmailBodyData(orderModel, type, result);
@@ -334,15 +367,15 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
   cancelOrder(orderModel: OrderInterfaceStudent, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result:{sendCopyEmail:boolean}) => {
+    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result: { sendCopyEmail: boolean }) => {
       this.submittingOrder = true;
       this.orderService.cancelOrderStudent(orderModel).subscribe({
         next: (data) => {
           if (data.success) {
             this.toastr.success(this.translate.instant('BESTELLUNG_STORNIERT_ALERT'), this.translate.instant('SUCCESS'));
-            if(result.sendCopyEmail){
+            if (result.sendCopyEmail) {
               this.processEmailAfterCancellation(orderModel, result, data);
-            }else{
+            } else {
               this.orderPlaced.emit(true);
               this.submittingOrder = false;
             }
@@ -360,35 +393,35 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
-      const emailObject = this.getEmailBodyDataCancel(orderModel,  result);
-      const emailBody = getEmailBodyCancel(emailObject);
-      this.generalService.sendEmail(emailBody).subscribe({
-        next: (emailResponse) => {
-          this.orderPlaced.emit(true);
-          this.submittingOrder = false;
-        },
-        error: (emailError) => {
-          this.toastr.error('Fehler beim Senden der Bestätigungs-E-Mail.');
-          this.submittingOrder = false;
-        }
-      });
+    const emailObject = this.getEmailBodyDataCancel(orderModel, result);
+    const emailBody = getEmailBodyCancel(emailObject);
+    this.generalService.sendEmail(emailBody).subscribe({
+      next: (emailResponse) => {
+        this.orderPlaced.emit(true);
+        this.submittingOrder = false;
+      },
+      error: (emailError) => {
+        this.toastr.error('Fehler beim Senden der Bestätigungs-E-Mail.');
+        this.submittingOrder = false;
+      }
+    });
   }
 
-  private handleOrderCancellationFailure(indexMenu:number) {
+  private handleOrderCancellationFailure(indexMenu: number) {
     this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
     this.toastr.error('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport');
     this.submittingRequest = false;
     this.submittingOrder = false;
   }
 
-  checkDeadline(day:Date) {
+  checkDeadline(day: Date) {
 
-    if(this.customer.generalSettings.isDeadlineDaily){
+    if (this.customer.generalSettings.isDeadlineDaily) {
       this.checkDeadlineDay(day)
-    }else{
+    } else {
       let cw = getWeekNumber(day);
       let year = day.getFullYear();
-      this.checkDeadlineWeek(cw,year)
+      this.checkDeadlineWeek(cw, year)
     }
 
   }
@@ -406,15 +439,15 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     } else {
       clearInterval(this.timerInterval);
       this.pastOrder = false;
-      this.differenceTimeDeadline = timeDifference(distance,true);
-      this.differenceTimeDeadlineDay = timeDifference(distance,false);
+      this.differenceTimeDeadline = timeDifference(distance, true);
+      this.differenceTimeDeadlineDay = timeDifference(distance, false);
       this.timerInterval = setInterval(() => {
         this.checkDeadlineDay(day);
       }, 1000);
     }
   }
 
-  checkDeadlineWeek(cw:number, year:number) {
+  checkDeadlineWeek(cw: number, year: number) {
     if (!cw || !year) {
       return;
     }
@@ -428,8 +461,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       clearInterval(this.timerInterval);
     } else {
       this.pastOrder = false;
-      this.differenceTimeDeadline = timeDifference(distance,true);
-      this.differenceTimeDeadlineDay = timeDifference(distance,false);
+      this.differenceTimeDeadline = timeDifference(distance, true);
+      this.differenceTimeDeadlineDay = timeDifference(distance, false);
       // this.diff = showDeadline(distance);
       this.timerInterval = setInterval(() => {
         this.checkDeadlineWeek(cw, year);
@@ -445,7 +478,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   placeOrder(orderModel: OrderInterfaceStudent, type: string, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result:{sendCopyEmail:boolean}) => {
+    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result: { sendCopyEmail: boolean }) => {
       this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
@@ -454,17 +487,23 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }
-  private async saveOrder(orderModifiedForSave: any, type: string, result: {sendCopyEmail:boolean}, indexMenu: number) {
+
+  private async saveOrder(orderModifiedForSave: any, type: string, result: {
+    sendCopyEmail: boolean
+  }, indexMenu: number) {
     try {
       const data = await this.orderService.addOrderStudentDay(orderModifiedForSave).toPromise();
       this.handleOrderResponse(data, orderModifiedForSave, type, result, indexMenu);
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Error when placing order:', error);
       this.toastr.error(error.error.message, 'Fehler');
       this.resetOrderSelection(indexMenu);
     }
   }
-  private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}, indexMenu: number) {
+
+  private handleOrderResponse(data: any, orderModel: OrderInterfaceStudent, type: string, result: {
+    sendCopyEmail: boolean
+  }, indexMenu: number) {
     if (data.success) {
       this.toastr.success(this.translate.instant('BESTELLUNG_EINGETRAGEN'), this.translate.instant('SUCCESS'));
       this.fetchAccountAndHandleEmails(orderModel, type, result);
@@ -473,7 +512,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.resetOrderSelection(indexMenu);
     }
   }
-  private fetchAccountAndHandleEmails(orderModel: OrderInterfaceStudent, type: string, result: {sendCopyEmail:boolean}) {
+
+  private fetchAccountAndHandleEmails(orderModel: OrderInterfaceStudent, type: string, result: {
+    sendCopyEmail: boolean
+  }) {
     this.accountService.getAccountTenant().subscribe({
       next: (accountTenant: AccountCustomerInterface) => {
         this.handleAccountSuccess(accountTenant, orderModel, type, result);
@@ -510,11 +552,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.finalizeOrder();
     }
   }
+
   private resetOrderSelection(indexMenu: number) {
     this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false;
     this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0;
     this.submittingOrder = false;
   }
+
   private finalizeOrder() {
     this.orderPlaced.emit(true);
     this.submittingOrder = false;

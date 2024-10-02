@@ -41,7 +41,7 @@
                           </div>
                           <p *ngIf="f1.submitted && lastName.invalid" class="mt-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
                         </div>
-                        <div *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant && !customerInfo.generalSettings.showAllSpecialFood" class="sm:col-span-4">
+                        <div *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)" class="sm:col-span-4">
 <!--                          <app-label-tooltip [tooltip]="'SPECIAL_FOOD_INSTRUCTIONS'"-->
 <!--                                             [idLabel]="'selectedSpecialFoodModel'"-->
 <!--                                             [label]="'SPECIAL_FOOD_LABEL'"></app-label-tooltip>-->
@@ -145,10 +145,14 @@
                         <h2 class="hidden sm:block  text-base font-semibold leading-7 text-gray-900">{{ 'REGISTRATION_STUDENT_HEADING_SMALL' | translate }}</h2>
                         <p class="hidden sm:block  mt-1 text-sm leading-6 text-gray-600">{{ 'REGISTRATION_INSTRUCTIONS' | translate }}</p>
                         <p class="hidden sm:block  mt-3 text-sm leading-6 text-gray-600">{{ 'REGISTRATION_CONFIRMATION' | translate }}</p>
-                        <h2 *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_LABEL' | translate }}</h2>
-                        <p *ngIf="specialFoodSelection.length > 0 &&  customerInfo.generalSettings.allergiesSetByTenant"  class="text-sm leading-6 text-gray-600">{{ 'SPECIAL_FOOD_INSTRUCTIONS' | translate }}</p>
-                        <h2 *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_LABEL' | translate }}</h2>
-                        <p *ngIf="specialFoodSelection.length > 0 &&  !customerInfo.generalSettings.allergiesSetByTenant"  class="text-sm leading-6 text-gray-600">{{ 'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate }}</p>
+                        <h2 *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_LABEL' | translate }}</h2>
+                        <p *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"  class="text-sm leading-6 text-gray-600">{{getAllergieFoodText(customerInfo,specialFoodSelection)}}</p>
+
+
+<!--                        <h2 *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_LABEL' | translate }}</h2>-->
+<!--                        <p *ngIf="specialFoodSelection.length > 0 &&  customerInfo.generalSettings.allergiesSetByTenant"  class="text-sm leading-6 text-gray-600">{{ 'SPECIAL_FOOD_INSTRUCTIONS' | translate }}</p>-->
+<!--                        <h2 *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant" class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SPECIAL_FOOD_LABEL' | translate }}</h2>-->
+<!--                        <p *ngIf="specialFoodSelection.length > 0 &&  !customerInfo.generalSettings.allergiesSetByTenant"  class="text-sm leading-6 text-gray-600">{{ 'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate }}</p>-->
                         <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
                         <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>
                         <p *ngIf="customerInfo.order.split.length > 1 &&  !customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>

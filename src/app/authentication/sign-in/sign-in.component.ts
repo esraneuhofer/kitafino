@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from "@angular/router";
-import { UserService } from "../../service/user.service";
-import { StudentService } from "../../service/student.service";
-import { LanguageService } from "../../service/language.service";
-import { TranslateService } from "@ngx-translate/core";
-import { MessageDialogService } from "../../service/message-dialog.service";
+import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Router} from "@angular/router";
+import {UserService} from "../../service/user.service";
+import {StudentService} from "../../service/student.service";
+import {LanguageService} from "../../service/language.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageDialogService} from "../../service/message-dialog.service";
 import {Capacitor} from "@capacitor/core";
-import { SavePassword } from 'capacitor-ios-autofill-save-password';
+import {SavePassword} from 'capacitor-ios-autofill-save-password';
 import {HelpDialogComponent} from "../../directives/help-dialog/help-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {KeychainAccess, SecureStorage} from '@aparajita/capacitor-secure-storage';
@@ -23,9 +23,11 @@ export class SignInComponent implements OnInit {
     email: '',
     password: ''
   }
+
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
+
   passwordVisible: boolean = false;
   isMobileApp: boolean = false;
   isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -38,11 +40,12 @@ export class SignInComponent implements OnInit {
               private alertController: AlertController,
               private studentService: StudentService,
               private router: Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.isMobileApp = Capacitor.isNativePlatform();
-    if(Capacitor.getPlatform() === 'android'){
+    if (Capacitor.getPlatform() === 'android') {
       this.checkStoredCredentials();
     }
     // console.log(this.isMobileApp);
@@ -54,7 +57,7 @@ export class SignInComponent implements OnInit {
 
   async checkStoredCredentials() {
     try {
-      const email = await SecureStorage.get( 'username' );
+      const email = await SecureStorage.get('username');
       const password = await SecureStorage.get('password');
 
       if (email && password) {
@@ -83,13 +86,12 @@ export class SignInComponent implements OnInit {
       } catch (error) {
         console.error('Failed to save credentials:', error);
       }
-    }
-    else if (Capacitor.getPlatform() === 'android') {
+    } else if (Capacitor.getPlatform() === 'android') {
       console.log('Checking if credentials need to be saved or updated');
 
       try {
-        const storedEmail = await SecureStorage.get('username' ) as string | null;
-        const storedPassword = await SecureStorage.get('password' ) as string | null;
+        const storedEmail = await SecureStorage.get('username') as string | null;
+        const storedPassword = await SecureStorage.get('password') as string | null;
 
         if (!storedEmail || !storedPassword) {
           // Falls keine Anmeldedaten gespeichert sind, frage, ob sie gespeichert werden sollen
@@ -158,12 +160,9 @@ export class SignInComponent implements OnInit {
   }
 
 
-
   async onSubmit() {
     this.submittingRequest = true;
-    console.log('Saving credentials');
-    this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).subscribe(
-
+    this.userService.login({email: this.signInModel.email, password: this.signInModel.password}).subscribe(
       async (res: any) => {
         console.log(res);
         this.submittingRequest = false;
@@ -177,8 +176,11 @@ export class SignInComponent implements OnInit {
           this.submittingRequest = false;
         });
 
-        // Save credentials after successful login
-        await this.saveCredentials();
+        // Prüfen, ob die App auf einem mobilen Gerät läuft, bevor die Anmeldedaten gespeichert werden
+        if (Capacitor.isNativePlatform()) {
+          await this.saveCredentials();
+        }
+
       },
       err => {
         this.submittingRequest = false;
@@ -186,6 +188,7 @@ export class SignInComponent implements OnInit {
       }
     );
   }
+
 
   setMessage(message: string): string {
     if (message === 'Wrong password') {
@@ -197,7 +200,7 @@ export class SignInComponent implements OnInit {
     return message;
   }
 
-  openHelp(){
+  openHelp() {
     const dialogRef = this.dialog.open(HelpDialogComponent, {
       width: '600px',
       data: {route: 'login'},

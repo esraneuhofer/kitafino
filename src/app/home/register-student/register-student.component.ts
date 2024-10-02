@@ -16,6 +16,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {FirstAccessDialogComponent} from "../../directives/first-access-dialog/first-access-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MessageDialogService} from "../../service/message-dialog.service";
+import {showAllergieSelection} from "../registration/manage-registration-student/manage-registration-student.component";
 
 
 @Component({
@@ -59,6 +60,7 @@ export class RegisterStudentComponent implements OnInit{
 
 
 
+
   directToRoute(route:string){
     this.router.navigate(['../home/' +route], {relativeTo: this.r.parent});
   }
@@ -75,11 +77,14 @@ export class RegisterStudentComponent implements OnInit{
     this.studentModel.subgroup = event;
   }
   selectSpecialFood(event:string):void{
+    let textAddSpecialFood = this.translate.instant('INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT');
+    if(this.customerInfo.generalSettings.allowOnlyOneMenu){
+      textAddSpecialFood = this.translate.instant('INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE');
+    }
     if(this.isFirstChange){
       this.dialogeService.openMessageDialog(
-        this.translate.instant('INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT'),
-        this.translate.instant('SPECIAL_FOOD_LABEL'),"info"
-      )
+        textAddSpecialFood,
+        this.translate.instant('SPECIAL_FOOD_LABEL'),"info")
       this.isFirstChange = false;
     }
     this.studentModel.specialFood = event;
@@ -134,6 +139,7 @@ export class RegisterStudentComponent implements OnInit{
     this.dialogeService.openMessageDialog(reason, heading,'info');
   }
 
+
   addStudent(f:NgForm) {
     // this.submittingRequest = true;
     this.isFirstChange = false;
@@ -163,4 +169,24 @@ export class RegisterStudentComponent implements OnInit{
       })
   }
 
+  getAllergieFoodText(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):string{
+    if(specialFoodSelection.length ===  0){
+      return ''
+    }
+    if(customerInfo.generalSettings.allowOnlyOneMenu){
+      return  this.translate.instant('MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE')
+    }
+    if(customerInfo.generalSettings.allergiesSetByTenant){
+      return this.translate.instant('MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION')
+    }
+    if(!customerInfo.generalSettings.allergiesSetByTenant){
+      return this.translate.instant('SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER')
+    }
+
+
+    return '';
+
+  }
+
+  protected readonly showAllergieSelection = showAllergieSelection;
 }

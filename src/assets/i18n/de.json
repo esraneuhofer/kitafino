@@ -154,7 +154,7 @@
   "MANAGE_STUDENTS.SAVE": "Ändern",
   "MANAGE_STUDENTS.EDIT_TITLE": "Änderung",
   "MANAGE_STUDENTS.EDIT_DESCRIPTION": "Um den Vor- oder Nachnamen des Verpflegungsteilnehmers/der Verpflegungsteilnehmerin zu ändern, tragen Sie die gewünschte Änderung ein und gehen Sie anschließend auf \"Ändern\".",
-  "MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION": "Sollte der Verpflegungsteilnehmer/die Verpflegungsteilnehmerin Allergien haben, so wählen Sie bitte das entsprechende Essen aus. Die Allergiker Essen werden von dem jeweiligen Caterer eingestellt. Sollten Sie Fragen hierzu haben, wenden Sie sich bitte an den jeweiligen Caterer. Wenn ein Allergiker Essen aktiviert wird, wird dieses automatisch bei all Ihren Bestellungen dem Caterer übermittelt.<br><br><b>Bitte beachten Sie:</b> Sollte das Allergiker Essen nachträglich geändert werden, so wird diese Änderung bei bereits abgegebenen Bestellungen nicht berücksichtigt.",
+  "MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION": "Sollte der Verpflegungsteilnehmer/die Verpflegungsteilnehmerin Allergien haben, so wählen Sie bitte das entsprechende Essen aus.Wenn ein Allergiker Essen aktiviert wird, wird dieses automatisch bei all Ihren Bestellungen dem Caterer übermittelt.<br><br><b>Bitte beachten Sie:</b> Sollte das Allergiker Essen nachträglich geändert werden, so wird diese Änderung bei bereits abgegebenen Bestellungen nicht berücksichtigt.",
   "MANAGE_PERMANENT_ORDERS.HEADER": "Dauerbestellungen",
   "MANAGE_PERMANENT_ORDERS.SUBHEADER": "Eingetragene Dauerbestellungen",
   "MANAGE_PERMANENT_ORDERS.NAME": "Name",
@@ -588,5 +588,10 @@
     "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Indem Sie fortfahren, stimmen Sie zu, dass Sie zu Stripe weitergeleitet werden, um die Zahlungsabwicklung durchzuführen. Die Zahlungsabwicklung erfolgt durch Stripe und nicht durch uns.",
     "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lesen Sie unsere  <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> für weitere Informationen.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Ich habe die <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> gelesen und stimme der Weiterleitung zu Stripe zur Zahlungsabwicklung zu.",
-  "BITTE_STIMMEN_SIE_ZU": "Bitte stimmen Sie den Allgemeinen Geschäftsbedingungen zu"
+  "BITTE_STIMMEN_SIE_ZU": "Bitte stimmen Sie den Allgemeinen Geschäftsbedingungen zu",
+
+
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. <br>Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. <br> Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer oder Ihre Einrichtung.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergkier Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer."
+
 }

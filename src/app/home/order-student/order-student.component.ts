@@ -43,6 +43,7 @@ import {
 import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 import {SchoolService} from "../../service/school.service";
 import {App as CapacitorApp} from "@capacitor/app";
+import {Capacitor} from "@capacitor/core";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -118,21 +119,24 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.textBannerWeekend = translate.instant("WEEKEND_NO_ORDER")
   }
 
-  reloadDate(){}
+
   onAppResume() {
     console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.pageLoaded = false;
     this.loadData();
   }
-  ngOnDestroy() {
-    // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
-    if (this.appStateChangeListener) {
-      this.appStateChangeListener.remove();
-    }
-    // Unsubscriben Sie alle Subscriptions
-    this.subscriptions.unsubscribe();
-  }
 
+  ngOnDestroy() {
+    if(Capacitor.isNativePlatform()) {
+      if (this.appStateChangeListener && typeof this.appStateChangeListener.remove === 'function') {
+        console.log('Removing appStateChangeListener');
+        this.appStateChangeListener.removeAllListeners()
+      }
+    }
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
+  }
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
     if(this.displayMinimize){
@@ -140,14 +144,16 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     }
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     this.loadData()
-    this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-      console.log(`App state changed. Is active: ${isActive}`);
-      if (isActive) {
-        this.ngZone.run(() => {
-          this.onAppResume();
-        });
-      }
-    });
+    if(Capacitor.isNativePlatform()){
+      this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+        console.log(`App state changed. Is active: ${isActive}`);
+        if (isActive) {
+          this.ngZone.run(() => {
+            this.onAppResume();
+          });
+        }
+      });
+    }
   }
 
   loadData(){

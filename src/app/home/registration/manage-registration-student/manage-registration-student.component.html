@@ -38,7 +38,7 @@
                           <th *ngIf="specialFoodSelection.length > 0"
                               class="hidden sm:table-cell table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                               scope="col">
-                            {{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}
+                            {{'MANAGE_STUDENTS.ALLERGY_FOOD' | translate}}
                           </th>
                           <th class="relative table-cell-padding-medium text-right-align text-sm font-medium sm:pr-0"
                               scope="col">
@@ -129,14 +129,14 @@
                         <p *ngIf="f1.submitted && lastName.invalid"
                            class="mt-1 text-sm text-red-600">{{ 'MANAGE_STUDENTS.REQUIRED_FIELD' | translate }}</p>
                       </div>
-                      <div *ngIf="specialFoodSelection.length > 0" class="sm:col-span-4">
+                      <div *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)" class="sm:col-span-4">
                         <label class="block text-sm font-medium leading-6 text-gray-900"
                                for="specialFoodSelectionModel">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</label>
                         <select #specialFoodSelectionModel="ngModel"
                                 (ngModelChange)="selectSpecialFood($event, selectedStudent)"
                                 [(ngModel)]="selectedStudent.specialFood"
-                                [disabled]="!customerInfo.generalSettings.allergiesSetByTenant"
-                                [ngClass]="!customerInfo.generalSettings.allergiesSetByTenant ? 'opacity-50 cursor-not-allowed text-gray-500' : ''"
+                                [disabled]="!customerInfo.generalSettings.allergiesSetByTenant || customerInfo.generalSettings.allowOnlyOneMenu"
+                                [ngClass]="(!customerInfo.generalSettings.allergiesSetByTenant ||   customerInfo.generalSettings.allowOnlyOneMenu)  ? 'opacity-50 cursor-not-allowed text-gray-500' : ''"
                                 class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 id="specialFoodSelectionModel" name="specialFoodSelectionModel">
                           <option disabled hidden selected
@@ -145,7 +145,7 @@
                                   [value]="specialFood.idSpecialFood">{{specialFood.nameSpecialFood}}</option>
                         </select>
                         <button (click)="setSpecialFoodEmpty(selectedStudent)"
-                                *ngIf="selectedStudent.specialFood && customerInfo.generalSettings.allergiesSetByTenant"
+                                *ngIf="selectedStudent.specialFood && customerInfo.generalSettings.allergiesSetByTenant && !customerInfo.generalSettings.allowOnlyOneMenu"
                                 class="mt-1 rounded-md bg-rose-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 type="button">
                           {{ 'MANAGE_STUDENTS.UNSELECT_SPECIAL_FOOD' | translate }}
@@ -239,13 +239,10 @@
                         {{ 'MANAGE_STUDENTS.EDIT_TITLE' | translate }}</h2>
                       <p [innerHTML]="'MANAGE_STUDENTS.EDIT_DESCRIPTION' | translate"
                          class="hidden sm:flex mt-1 text-sm leading-6 text-gray-600"></p>
-                      <h2 *ngIf="specialFoodSelection.length > 0"
+                      <h2 *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"
                           class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</h2>
-                      <p *ngIf="specialFoodSelection.length > 0 && customerInfo.generalSettings.allergiesSetByTenant"
-                         [innerHTML]="'MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION' | translate"
-                         class="text-sm leading-6 text-gray-600"></p>
-                      <p *ngIf="specialFoodSelection.length > 0 && !customerInfo.generalSettings.allergiesSetByTenant"
-                         [innerHTML]="'SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER' | translate"
+                      <p *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"
+                         [innerHTML]="getAllergieFoodText(customerInfo,specialFoodSelection)"
                          class="text-sm leading-6 text-gray-600"></p>
                       <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
                       <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>

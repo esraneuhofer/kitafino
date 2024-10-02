@@ -34,6 +34,7 @@ var generalSettingsSchema = new Schema({
   cancelOrderDaily: { type: CancelOrderDailySchema, required: true },
   state: { type: String, required: true },
   showAllSpecialFood: { type: Boolean },
+  allowOnlyOneMenu: { type: Boolean },
 });
 
 var customerSchema = new Schema({

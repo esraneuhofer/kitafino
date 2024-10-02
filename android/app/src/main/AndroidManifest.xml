@@ -31,7 +31,7 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
 
-      <!-- Deep Link Configuration -->
+      <!-- App Links Intent Filter -->
       <intent-filter android:autoVerify="true">
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -39,6 +39,15 @@
 
         <!-- Hier den Hostnamen und das Schema Ihrer Domain angeben -->
         <data android:scheme="https" android:host="essen.cateringexpert.de" android:pathPattern=".*" />
+      </intent-filter>
+
+      <!-- Benutzerdefiniertes URL-Schema Intent Filter -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="essenapp" android:host="payment" />
       </intent-filter>
 
       <!-- Splash Screen configuration -->
@@ -55,6 +64,7 @@
         <action android:name="com.google.firebase.MESSAGING_EVENT" />
       </intent-filter>
     </service>
+
     <!-- Provider für File Sharing -->
     <provider
       android:name="androidx.core.content.FileProvider"
@@ -67,6 +77,4 @@
     </provider>
   </application>
 
-  <!-- Permissions -->
-  <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

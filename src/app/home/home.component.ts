@@ -1,4 +1,3 @@
-
 import {Component, HostListener, OnInit} from '@angular/core';
 import {trigger, transition, style, animate, state} from '@angular/animations';
 import {UserService} from "../service/user.service";
@@ -12,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {HelpDialogComponent} from "../directives/help-dialog/help-dialog.component";
 import {FirstAccessDialogComponent} from "../directives/first-access-dialog/first-access-dialog.component";
 import {NotificationService} from "../service/notification.service";
+import {Capacitor} from "@capacitor/core";
 
 @Component({
   selector: 'app-home',
@@ -34,33 +34,33 @@ import {NotificationService} from "../service/notification.service";
     ]),
     trigger('opacityTranslateX', [
       transition(':enter', [
-        style({ transform: 'translateX(-100%)' }),
-        animate('300ms ease-in-out', style({  transform: 'translateX(0)' }))
+        style({transform: 'translateX(-100%)'}),
+        animate('300ms ease-in-out', style({transform: 'translateX(0)'}))
       ]),
       transition(':leave', [
-        style({ transform: 'translateX(0)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(-100%)' }))
+        style({transform: 'translateX(0)'}),
+        animate('300ms ease-in-out', style({transform: 'translateX(-100%)'}))
       ])
     ]),
     trigger('opacityInOut', [
       transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in-out', style({  opacity: 1 }))
+        style({opacity: 0}),
+        animate('300ms ease-in-out', style({opacity: 1}))
       ]),
       transition(':leave', [
-        style({ opacity: 1 }),
-        animate('300ms ease-in-out', style({ opacity: 0 }))
+        style({opacity: 1}),
+        animate('300ms ease-in-out', style({opacity: 0}))
       ])
     ])
   ]
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
   isOffCanvasMenu = false;
   isOffCanvasMenuDialog = false;
   isSubmenuOpen = false;
 
-  customerInfo:CustomerInterface | undefined;
+  customerInfo: CustomerInterface | undefined;
   pageLoaded: boolean = false;
   currentRoute: string = '';
 
@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit{
 
 
   public selectLanguageWidth: string = '130px'
+
   updateSelectLanguageWidth(): void {
     const width = window.innerWidth;
     if (width <= 320) {
@@ -104,21 +105,23 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  tenantInformation!:TenantStudentInterface;
-  constructor(private userService:UserService,
+  tenantInformation!: TenantStudentInterface;
+
+  constructor(private userService: UserService,
               private dialog: MatDialog,
-              private generalService:GenerellService,
+              private generalService: GenerellService,
               private activatedRoute: ActivatedRoute,
               private notificationService: NotificationService,
-              private router:Router, private tenantService:TenantServiceStudent) {
+              private router: Router, private tenantService: TenantServiceStudent) {
     this.router.events.pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.currentRoute = event.urlAfterRedirects;
     });
 
   }
-  openHelp(){
+
+  openHelp() {
     const dialogRef = this.dialog.open(HelpDialogComponent, {
       width: '600px',
       data: {route: this.currentRoute},
@@ -126,10 +129,12 @@ export class HomeComponent implements OnInit{
       position: {top: '20px'}
     });
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.updateSelectLanguageWidth();
   }
+
   // ngOnInit() {
   //   this.updateSelectLanguageWidth();
   //   forkJoin(
@@ -175,26 +180,28 @@ export class HomeComponent implements OnInit{
               width: '600px',
               data: this.tenantInformation,
               panelClass: 'custom-dialog-container',
-              position: { top: '20px' }
+              position: {top: '20px'}
             });
           }
 
-          // Push-Benachrichtigungen initialisieren nach dem Einloggen
-          try {
-            await this.notificationService.initPush();
-            console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
-          } catch (error) {
-            console.error('Fehler bei der Initialisierung der Push-Benachrichtigungen:', error);
+          if (Capacitor.isNativePlatform()) {
+            try {
+              await this.notificationService.initPush();
+              console.log('Push-Benachrichtigungen erfolgreich initialisiert.');
+            } catch (error) {
+              console.error('Fehler bei der Initialisierung der Push-Benachrichtigungen:', error);
+            }
           }
         }
       }
     );
   }
 
-  logout(){
+  logout() {
     this.userService.deleteToken();
     this.router.navigate(['/login']);
   }
+
   toggleOffCanvasMenu() {
     this.isOffCanvasMenu = !this.isOffCanvasMenu;
 

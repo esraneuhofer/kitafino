@@ -27,6 +27,7 @@ import {MessageService} from "../../service/message.service";
 import {TranslateService} from "@ngx-translate/core";
 import {MessageDialogService} from "../../service/message-dialog.service";
 import {App as CapacitorApp} from "@capacitor/app";
+import {Capacitor} from "@capacitor/core";
 
 export function customerIdContainedInMessasge(customers: { nameCustomer: string, customerId: string }[], tenant: TenantStudentInterface): boolean {
   return customers.some((customer) => customer.customerId === tenant.customerId)
@@ -133,26 +134,29 @@ export class DashboardComponent {
 
   ngOnInit() {
     this.loadData();
-
-    // Listener für App-Zustandsänderungen hinzufügen
-    this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-      console.log(`App state changed. Is active: ${isActive}`);
-      if (isActive) {
-        this.ngZone.run(() => {
-          this.onAppResume();
-        });
-      }
-    });
+    if(Capacitor.isNativePlatform()) {
+      this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({isActive}) => {
+        console.log(`App state changed. Is active: ${isActive}`);
+        if (isActive) {
+          this.ngZone.run(() => {
+            this.onAppResume();
+          });
+        }
+      });
+    }
   }
 
   // Methode zum Neuladen der App hinzugefügt
   ngOnDestroy() {
-    // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
-    if (this.appStateChangeListener) {
-      this.appStateChangeListener.remove();
+    if(Capacitor.isNativePlatform()) {
+      // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
+      if (this.appStateChangeListener) {
+        this.appStateChangeListener.remove();
+      }
+      // Unsubscriben Sie alle Subscriptions
     }
-    // Unsubscriben Sie alle Subscriptions
     this.subscriptions.unsubscribe();
+
   }
 
   private loadData() {

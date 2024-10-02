@@ -87,7 +87,10 @@ export interface GeneralSettingsInterface {
     time: string;
   };
   deadlineDaily: DeadlineDailyInterface;
-  cancelOrderDaily:DeadlineDailyInterface
+  cancelOrderDaily:DeadlineDailyInterface;
+
+  hideMenuName: boolean;
+  allowOnlyOneMenu: boolean; // Wenn aktiviert kann man Nur ein Menü auswählen. Bei der Auswahl eines Allergiker Essens wird das normale Menü abgewählt
 }
 
 export interface DeadlineDailyInterface{

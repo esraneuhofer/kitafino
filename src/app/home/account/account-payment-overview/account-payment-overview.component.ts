@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {StudentService} from "../../../service/student.service";
 import {forkJoin, Subscription} from "rxjs";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
@@ -29,6 +29,7 @@ import { Plugins } from '@capacitor/core';
 import {
   ConfirmStripePaymentComponent
 } from "../account-payment/confirm-stripe-payment/confirm-stripe-payment.component";
+import {App as CapacitorApp} from "@capacitor/app";
 const { App } = Plugins;
 
 const  arrayPaymentMethods = ['Kreditkarte','Amex', 'Paypal'];
@@ -105,8 +106,9 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   accountTenant!: AccountCustomerInterface;
   hasHandledReturn = false;
   queryParamsSubscription: Subscription = new Subscription();
-  private appStateChangeListener: PluginListenerHandle | undefined;
 
+  private appStateChangeListener: any;
+  private subscriptions: Subscription = new Subscription();
   arrayPaymentMethodsName = arrayPaymentMethodsName;
   constructor(
     private router: Router,
@@ -124,6 +126,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     private dialogService: MessageDialogService,
     private r: ActivatedRoute,
     private platformService: PlatformService,
+    private ngZone: NgZone,
     private translate: TranslateService) {
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
@@ -181,27 +184,36 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.pageLoaded = true;
         console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
 
-        if (this.platformService.isIos || this.platformService.isAndroid) {
-          console.log('Adding appStateChange listener');
-          App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
-            this.appStateChangeListener = listener;
+        if(Capacitor.isNativePlatform()) {
+          this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({isActive}) => {
+            console.log(`App state changed. Is active: ${isActive}`);
+            if (isActive) {
+              this.ngZone.run(() => {
+                this.onAppResume();
+              });
+            }
           });
-        }else {
-          console.log('Adding focus listener');
-          // window.addEventListener('focus', this.handleWindowFocus);
         }
       })
   }
+  onAppResume() {
+    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
+    this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
+      this.accountTenant = accountTenant;
+    })
+  }
+
   ngOnDestroy(): void {
     console.log('Component is being destroyed');
     if (this.queryParamsSubscription) {
       this.queryParamsSubscription.unsubscribe();
     }
-    if (this.platformService.isIos || this.platformService.isAndroid) {
+    if(Capacitor.isNativePlatform()) {
+      // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
       if (this.appStateChangeListener) {
-        console.log('Removing appStateChange listener');
         this.appStateChangeListener.remove();
       }
+      // Unsubscriben Sie alle Subscriptions
     } else {
       console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
