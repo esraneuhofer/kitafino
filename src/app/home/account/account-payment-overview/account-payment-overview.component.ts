@@ -106,9 +106,9 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   accountTenant!: AccountCustomerInterface;
   hasHandledReturn = false;
   queryParamsSubscription: Subscription = new Subscription();
+  private appStateChangeListener: PluginListenerHandle | undefined;
 
-  private appStateChangeListener: any;
-  private subscriptions: Subscription = new Subscription();
+
   arrayPaymentMethodsName = arrayPaymentMethodsName;
   constructor(
     private router: Router,
@@ -184,14 +184,10 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.pageLoaded = true;
         console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
 
-        if(Capacitor.isNativePlatform()) {
-          this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({isActive}) => {
-            console.log(`App state changed. Is active: ${isActive}`);
-            if (isActive) {
-              this.ngZone.run(() => {
-                this.onAppResume();
-              });
-            }
+        if (this.platformService.isIos || this.platformService.isAndroid) {
+          console.log('Adding appStateChange listener');
+          App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
+            this.appStateChangeListener = listener;
           });
         }
       })
@@ -223,9 +219,9 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     if (this.queryParamsSubscription) {
       this.queryParamsSubscription.unsubscribe();
     }
-    if(Capacitor.isNativePlatform()) {
-      // Entfernen Sie den Listener, um Speicherlecks zu vermeiden
+    if (this.platformService.isIos || this.platformService.isAndroid) {
       if (this.appStateChangeListener) {
+        console.log('Removing appStateChange listener');
         this.appStateChangeListener.remove();
       }
       // Unsubscriben Sie alle Subscriptions
@@ -237,37 +233,16 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   handleAppStateChange = (state: any) => {
     console.log('App state changed', state);
     if (state.isActive) {
-      this.handleStripeReturn();
+      this.ngZone.run(() => {
+        this.onAppResume();
+      });
     }
   }
 
-  handleStripeReturn(): void {
-    console.log('Handling Stripe return');
-    window.location.reload();
-    // const params = new URLSearchParams(window.location.search);
-    // console.log('params',params);
-    // const paymentStatus = params.get('status');
-    // const paymentAmount = params.get('amount');
-    // const fullUrl = window.location.href;
-    // alert('paymentStatus: ' + paymentStatus + ' paymentAmount: ' + paymentAmount + ' fullUrl: ' + fullUrl)
-    // if (paymentStatus && paymentStatus === 'success') {
-    //   let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
-    //   let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
-    //   this.dialogService.openMessageDialog(reason,header, 'success');
-    //   this.updateUrlWithoutStatus();
-    // } else if (paymentStatus && paymentStatus === 'failure') {
-    //   let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
-    //   let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
-    //   this.dialogService.openMessageDialog(reason,header,'error');
-    //   this.updateUrlWithoutStatus();
-    // }
-    //
-
-  }
 
   handleWindowFocus = (): void => {
     console.log('Window focused');
-    this.handleStripeReturn();
+    this.onAppResume();
   }
 
   opendialog() {

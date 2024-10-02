@@ -592,6 +592,6 @@
 
 
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. <br>Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. <br> Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer oder Ihre Einrichtung.",
-  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergkier Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer."
-
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergkier Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Angemeldete Verpflegungsteilnehmer"
 }

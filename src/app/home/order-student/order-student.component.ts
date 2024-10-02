@@ -42,8 +42,8 @@ import {
 } from "../../directives/first-access-order-dialog/first-access-order-dialog.component";
 import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 import {SchoolService} from "../../service/school.service";
-import {App as CapacitorApp} from "@capacitor/app";
-import {Capacitor} from "@capacitor/core";
+import {App, App as CapacitorApp} from "@capacitor/app";
+import {Capacitor, PluginListenerHandle} from "@capacitor/core";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -90,7 +90,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   orderWeek: MealCardInterface[] = [];
   schoolSettings!: SchoolSettingsInterface;
 
-  private appStateChangeListener: any;
+  private appStateChangeListener: PluginListenerHandle | undefined;
   private subscriptions: Subscription = new Subscription();
 
   @HostListener('window:resize', ['$event'])
@@ -123,19 +123,36 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   onAppResume() {
     console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.pageLoaded = false;
+
     this.loadData();
   }
 
   ngOnDestroy() {
-    if(Capacitor.isNativePlatform()) {
-      if (this.appStateChangeListener && typeof this.appStateChangeListener.remove === 'function') {
-        console.log('Removing appStateChangeListener');
-        this.appStateChangeListener.removeAllListeners()
+    if (Capacitor.isNativePlatform()) {
+      if (this.appStateChangeListener) {
+        console.log('Removing appStateChange listener');
+        this.appStateChangeListener.remove();
       }
+      // Unsubscriben Sie alle Subscriptions
+    } else {
+      console.log('Removing focus listener');
+      window.removeEventListener('focus', this.handleWindowFocus);
     }
     if (this.subscriptions) {
       this.subscriptions.unsubscribe();
     }
+  }
+  handleAppStateChange = (state: any) => {
+    console.log('App state changed', state);
+    if (state.isActive) {
+      this.ngZone.run(() => {
+        this.onAppResume();
+      });
+    }
+  }
+  handleWindowFocus = (): void => {
+    console.log('Window focused');
+    this.onAppResume();
   }
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
@@ -145,14 +162,10 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     this.loadData()
     if(Capacitor.isNativePlatform()){
-      this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-        console.log(`App state changed. Is active: ${isActive}`);
-        if (isActive) {
-          this.ngZone.run(() => {
-            this.onAppResume();
-          });
-        }
-      });
+        console.log('Adding appStateChange listener');
+        App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
+          this.appStateChangeListener = listener;
+        });
     }
   }
 
@@ -392,39 +405,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     })
   }
 
-  // getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
-  //   this.orderWeek = [];
-  //   const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
-  //   let promiseOrderWeek = [];
-  //   for (let i = 0; i < 5; i++) {
-  //     let dateToSearch = moment.tz(addDayFromDate(dateMonday, i), 'Europe/Berlin').format();
-  //     if (!this.selectedStudent) {
-  //       return;
-  //     }
-  //     promiseOrderWeek.push(this.orderService.getOrderStudentDay({
-  //       dateOrder: dateToSearch,
-  //       studentId: this.selectedStudent._id || ''
-  //     }));
-  //   }
-  //
-  //   // Start the timer observable for 0.4 seconds
-  //   const timer$ = timer(400);
-  //
-  //   // Combine the forkJoin observable with the timer observable
-  //   combineLatest([forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])), timer$])
-  //     .pipe(
-  //       map(([order]) => order) // Extract the orders from the combined result
-  //     )
-  //     .subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
-  //
-  //       for (let i = 0; i < 5; i++) {
-  //         let date = addDayFromDate(dateMonday, i);
-  //         if (!this.selectedStudent) return;
-  //         this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays));
-  //       }
-  //       this.pageLoaded = true;
-  //     });
-  // }
 
 getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
   this.orderWeek = [];
