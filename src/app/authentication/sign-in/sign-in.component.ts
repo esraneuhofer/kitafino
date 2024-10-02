@@ -42,7 +42,9 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.isMobileApp = Capacitor.isNativePlatform();
-    this.checkStoredCredentials();
+    if(Capacitor.getPlatform() === 'android'){
+      this.checkStoredCredentials();
+    }
     // console.log(this.isMobileApp);
     //
     // if (this.isMobileApp) {
@@ -81,7 +83,8 @@ export class SignInComponent implements OnInit {
       } catch (error) {
         console.error('Failed to save credentials:', error);
       }
-    } else if (Capacitor.getPlatform() === 'android') {
+    }
+    else if (Capacitor.getPlatform() === 'android') {
       console.log('Checking if credentials need to be saved or updated');
 
       try {

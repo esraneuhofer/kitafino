@@ -3,9 +3,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { App as CapacitorApp } from '@capacitor/app'; // Umbenennung zur Vermeidung von Namenskonflikten
 import { Router } from '@angular/router';
-
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ApiService } from './service/api.service';
@@ -24,7 +22,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private networkService: NetworkService,
     private toastr: ToastrService,
-    private router: Router // Router im Konstruktor hinzugefügt
   ) {
     this.initializeApp();
   }
@@ -119,15 +116,4 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Methode zum Neuladen der App hinzugefügt
-  onAppResume() {
-    console.log('App wurde wieder aufgenommen. Seite wird neu geladen.');
-    this.reloadApp();
-  }
-
-  // Methode zum Neuladen der gesamten App
-  reloadApp() {
-    // Verwenden Sie window.location.reload(), um die App neu zu laden
-    window.location.reload();
-  }
 }
