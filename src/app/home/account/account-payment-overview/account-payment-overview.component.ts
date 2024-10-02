@@ -199,6 +199,21 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   onAppResume() {
     console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
+      this.queryParamsSubscription =  this.route.queryParams.subscribe(params => {
+        console.log('Query params', params);
+        const status = params['status'];
+        if (status === 'success') {
+          let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
+          let header = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE_HEADER')
+          this.dialogService.openMessageDialog(reason,header, 'success');
+          this.updateUrlWithoutStatus();
+        } else if (status === 'failure') {
+          let header = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE_HEADER')
+          let reason = this.translate.instant('ACCOUNT.ERROR_DEPOSIT_MESSAGE')
+          this.dialogService.openMessageDialog(reason,header,'error');
+          this.updateUrlWithoutStatus();
+        }
+      })
       this.accountTenant = accountTenant;
     })
   }
