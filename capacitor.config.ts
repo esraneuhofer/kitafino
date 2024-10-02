@@ -19,7 +19,7 @@ const config: CapacitorConfig = {
     hostname: 'essen.cateringexpert.de',
     androidScheme: 'https',
     cleartext: true,
-    // url: 'https://essen.cateringexpert.de',
+    url: 'https://essen.cateringexpert.de',
     // url: 'http://localhost:4200/'
     // "url": "http://10.0.2.2:4200"
   },
@@ -31,11 +31,9 @@ const config: CapacitorConfig = {
       }
     },
     SplashScreen: {
-      launchShowDuration: 3000,
-      launchAutoHide: true,
       // launchAutoHide: false,
       androidSplashResourceName: "splash",  // Referenziert das Splash-Bild für Android
-      "androidScaleType": "CENTER_CROP",
+      androidScaleType: "CENTER_CROP",
       iosSpinnerStyle: "small",
       spinnerColor: "#999999",
 
