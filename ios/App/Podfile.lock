@@ -22,6 +22,8 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (6.0.1):
     - Capacitor
+  - CapawesomeCapacitorBadge (6.0.0):
+    - Capacitor
   - CordovaPlugins (6.1.1):
     - CapacitorCordova
   - Firebase/CoreOnly (10.28.0):
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - "CapacitorPushNotifications (from `../../node_modules/@capacitor/push-notifications`)"
   - CapacitorRateApp (from `../../node_modules/capacitor-rate-app`)
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapawesomeCapacitorBadge (from `../../node_modules/@capawesome/capacitor-badge`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - Firebase/Messaging
 
@@ -138,6 +141,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/capacitor-rate-app"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
+  CapawesomeCapacitorBadge:
+    :path: "../../node_modules/@capawesome/capacitor-badge"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
 
@@ -154,6 +159,7 @@ SPEC CHECKSUMS:
   CapacitorPushNotifications: ccd797926c030acad3d5498ef452c735c90a2c89
   CapacitorRateApp: 896df7ec6a237fea72d1955e0cb26394654b00db
   CapacitorSplashScreen: 61645214e8f955ff2b80f16a6a3648960fe4c89f
+  CapawesomeCapacitorBadge: 3d0f281ad8e4a4f8db8c3d88b7622a7f4c413342
   CordovaPlugins: b2fa38db36c7bebe6bb423d8eaf8380283ec4c07
   Firebase: 5121c624121af81cbc81df3bda414b3c28c4f3c3
   FirebaseCore: 857dc1c6dd1255675047404d8466f7dfaac5d779
@@ -165,6 +171,6 @@ SPEC CHECKSUMS:
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
 
-PODFILE CHECKSUM: 495946c09a28a4675227fc8f0020e9f994dc52a2
+PODFILE CHECKSUM: 6513c804e59143edbdacd3bde73e709709fcd59a
 
 COCOAPODS: 1.15.2

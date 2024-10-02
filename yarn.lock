@@ -1583,6 +1583,11 @@
   resolved "https://registry.npmjs.org/@capacitor/splash-screen/-/splash-screen-6.0.1.tgz"
   integrity sha512-ndsqq335Mb6NxDrcXsT0PVwomo/UrDN4ykqpu8wY8F3HT4vbr8Hojh5PLqtlTy6TCIIIen58fkEgIoyGPsPSaw==
 
+"@capawesome/capacitor-badge@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@capawesome/capacitor-badge/-/capacitor-badge-6.0.0.tgz#8a9468862612a565f27082979d572b29420a76d5"
+  integrity sha512-HaRmS1apdlP51SKXKWr0bwhCJy9gSfP+e8UZuhrIxv6EtRujxkYPTTqDv883uwl4gidzedeUHI7YrGNJkKbdbw==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.npmjs.org/@colors/colors/-/colors-1.5.0.tgz"

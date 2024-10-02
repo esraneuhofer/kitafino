@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {PushNotifications, Token, PermissionStatus, PushNotificationSchema} from '@capacitor/push-notifications';
 import {Preferences} from '@capacitor/preferences';
-import {ButStudentInterface} from "../classes/but.class";
 import {environment} from "../../environments/environment";
 import {map} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {AlertController} from "@ionic/angular"; // Aktualisiert von Storage zu Preferences
+import {AlertController} from "@ionic/angular";
+import {Badge} from "@capawesome/capacitor-badge"; // Aktualisiert von Storage zu Preferences
 
 @Injectable({
   providedIn: 'root',
@@ -38,8 +38,17 @@ export class NotificationService {
       // Bereits abgelehnt, nichts tun
       console.log('Push-Benachrichtigungen wurden vom Benutzer abgelehnt.');
     }
+    await this.resetBadgeCount();
   }
 
+  private async resetBadgeCount() {
+    try {
+      await Badge.set({ count: 0 });
+      console.log('Badge-Zähler auf 0 zurückgesetzt.');
+    } catch (error) {
+      console.error('Fehler beim Zurücksetzen des Badge-Zählers:', error);
+    }
+  }
   private async requestPermission() {
     let permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
 

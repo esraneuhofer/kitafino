@@ -26,5 +26,8 @@ project(':capacitor-push-notifications').projectDir = new File('../node_modules/
 include ':capacitor-splash-screen'
 project(':capacitor-splash-screen').projectDir = new File('../node_modules/@capacitor/splash-screen/android')
 
+include ':capawesome-capacitor-badge'
+project(':capawesome-capacitor-badge').projectDir = new File('../node_modules/@capawesome/capacitor-badge/android')
+
 include ':capacitor-rate-app'
 project(':capacitor-rate-app').projectDir = new File('../node_modules/capacitor-rate-app/android')

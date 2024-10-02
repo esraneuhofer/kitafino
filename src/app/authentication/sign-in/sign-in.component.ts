@@ -113,5 +113,28 @@ export class SignInComponent implements OnInit {
     this.languageService.setLanguage(language);
   }
 
-
+  // async presentSavePasswordAlert() {
+  //   console.log('Presenting save password alert');
+  //   setTimeout(async () => {
+  //     const alert = await this.alertController.create({
+  //       header: 'Passwort speichern?',
+  //       message: 'Möchten Sie das Passwort für zukünftige Anmeldungen speichern?',
+  //       buttons: [
+  //         {
+  //           text: 'Nein',
+  //           role: 'cancel',
+  //           cssClass: 'secondary',
+  //         }, {
+  //           text: 'Ja',
+  //           handler: async () => {
+  //             console.log('User chose to save the password');
+  //             await SecureStoragePlugin.set({ key: 'user-password', value: this.signInModel.password });
+  //             await SecureStoragePlugin.set({ key: 'username', value: this.signInModel.email });
+  //           }
+  //         }
+  //       ]
+  //     });
+  //     await alert.present();
+  //   }, 500);  // Wartezeit von 500ms
+  // }
 }

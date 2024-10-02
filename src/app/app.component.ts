@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ApiService } from './service/api.service';
 import { NetworkService } from './service/network.service';
-import { NotificationService } from './service/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private platform: Platform,
     private apiService: ApiService,
     private networkService: NetworkService,
-    private notificationService: NotificationService,
     private toastr: ToastrService,
     private router: Router // Router im Konstruktor hinzugefügt
   ) {
