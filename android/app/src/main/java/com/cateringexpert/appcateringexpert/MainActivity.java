@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.os.Build;
 import com.getcapacitor.BridgeActivity;
 import android.os.Bundle;
+import android.net.Uri;
+import android.content.Intent;
 
 public class MainActivity extends BridgeActivity {
     @Override
@@ -38,4 +40,30 @@ public class MainActivity extends BridgeActivity {
             }
         }
     }
+     @Override
+        protected void onNewIntent(Intent intent) {
+            super.onNewIntent(intent);
+            setIntent(intent);  // Setze den neuen Intent
+            handleIntent(intent);  // Verarbeite den Intent
+        }
+
+        private void handleIntent(Intent intent) {
+            String action = intent.getAction();
+            Uri data = intent.getData();
+
+            if (Intent.ACTION_VIEW.equals(action) && data != null) {
+                if (data.getPath().equals("/login")) {
+                    // Logik zur Navigation zur Login-Seite
+                    // Beispiel: startActivity(new Intent(this, LoginActivity.class));
+                    // Hier könntest du eine Methode aufrufen, um zur Login-Seite zu navigieren.
+                    navigateToLogin();
+                }
+            }
+        }
+
+        private void navigateToLogin() {
+            // Hier wird die Logik zur Navigation zur Login-Seite implementiert.
+            // Zum Beispiel könntest du eine Methode aufrufen, um ein Fragment oder eine Aktivität anzuzeigen.
+            System.out.println("Navigiere zur Login-Seite");
+        }
 }

@@ -38,7 +38,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <!-- Hier den Hostnamen und das Schema Ihrer Domain angeben -->
-        <data android:scheme="https" android:host="essen.cateringexpert.de" android:pathPattern=".*" />
+        <data android:scheme="https" android:host="essen.cateringexpert.de" android:path="/login" />
       </intent-filter>
 
       <!-- Splash Screen configuration -->
