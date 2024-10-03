@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
           registration.unregister();
+          window.location.reload();
         }
       }).catch(function (err) {
         console.log('Service Worker deregistration failed: ', err);
