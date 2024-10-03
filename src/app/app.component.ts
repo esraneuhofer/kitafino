@@ -32,6 +32,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    if ('serviceWorker' in navigator) {
+      console.log('Service Worker deregistration started');
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      }).catch(function (err) {
+        console.log('Service Worker deregistration failed: ', err);
+      });
+    }
+
     console.log('App component initialized! INIT');
 
     try {
