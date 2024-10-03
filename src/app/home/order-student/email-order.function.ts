@@ -242,7 +242,9 @@ function getEmailBodyHtml(objectData: EmailOrderInterface, typeOrder: string): a
 
 function getMenuNameEmail(object: EmailOrderInterface): { price: string, menu: string } {
   let obj = {price: '', menu: ''};
+
   object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
+    console.log('eachOrderDay', eachOrderDay)
     if (eachOrderDay.typeOrder === 'menu' ||
       (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
       (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {
@@ -250,6 +252,9 @@ function getMenuNameEmail(object: EmailOrderInterface): { price: string, menu: s
       if (eachOrderDay.amountOrder === 0) return;
       obj.price = numberToEuroString(eachOrderDay.priceOrder);
       obj.menu = getMenuName(object, eachOrderDay);
+      if(object.customerInfo.generalSettings.hideMenuName){
+        obj.menu = eachOrderDay.nameOrder
+      }
     }
     if (eachOrderDay.typeOrder === 'specialFood') {
       if (eachOrderDay.amountOrder === 0) return;
@@ -257,6 +262,9 @@ function getMenuNameEmail(object: EmailOrderInterface): { price: string, menu: s
       obj.menu = eachOrderDay.nameOrder;
     }
   })
+
+
+
   return obj;
 }
 
