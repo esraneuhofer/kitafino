@@ -7,7 +7,7 @@ import {StudentService} from "../../service/student.service";
 import {AccountService} from "../../service/account.serive";
 import {ActivatedRoute, Router} from "@angular/router";
 import {forkJoin} from "rxjs";
-import {SettingInterfaceNew, SpecialOrderSettings} from "../../classes/setting.class";
+import {SettingInterfaceNew, SpecialFoodInterface, SpecialOrderSettings} from "../../classes/setting.class";
 import {CustomerInterface} from "../../classes/customer.class";
 import {dayArray} from "../../classes/weekplan.interface";
 import {TenantStudentInterface} from "../../classes/tenant.class";
@@ -63,16 +63,31 @@ function getFirstMenuSettings(settings: SettingInterfaceNew): string {
 
 function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface,student:StudentInterfaceId): DaysOrderPermanentInterfaceSelection[] {
   let arrayMenu: DaysOrderPermanentInterfaceSelection[] = []
-  settings.orderSettings.specials.forEach((special) => {
-    if (special.typeOrder === 'menu') {
-      arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
+  if(customer.generalSettings.allowOnlyOneMenu){
+    if(student.specialFood){
+      let specialFood: SpecialFoodInterface | undefined = settings.orderSettings.specialFoods.find((special) => special._id === student.specialFood)
+      if(!specialFood)return []
+      arrayMenu.push({selected: false, menuId: specialFood._id, typeSpecial: 'special', nameMenu: specialFood.nameSpecialFood})
+    }else{
+      settings.orderSettings.specials.forEach((special) => {
+        if (special.typeOrder === 'menu') {
+          arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
+        }
+      })
     }
-  })
-  settings.orderSettings.specialFoods.forEach((special) => {
-    if (customerHasSpecialFood(customer, special._id) && student.specialFood === special._id) {
-      arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'special', nameMenu: special.nameSpecialFood})
-    }
-  })
+  }else{
+    settings.orderSettings.specials.forEach((special) => {
+      if (special.typeOrder === 'menu') {
+        arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
+      }
+    })
+    settings.orderSettings.specialFoods.forEach((special) => {
+      if (customerHasSpecialFood(customer, special._id) && student.specialFood === special._id) {
+        arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'special', nameMenu: special.nameSpecialFood})
+      }
+    })
+  }
+
   return arrayMenu
 
 }
@@ -237,7 +252,10 @@ export class PermanentOrdersComponent implements OnInit {
     if (event) {
       let menuId = getFirstMenuSettings(this.settings)
       let typeSpecial = this.menuSelection.find((menu) => menu.menuId === menuId)
-      if(!typeSpecial)return
+      if(!typeSpecial){
+        this.selectedPermanentOrder.daysOrder[indexLine] = this.menuSelection[0]
+        return
+      }
       this.selectedPermanentOrder.daysOrder[indexLine].menuId = menuId
       this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
     }else{

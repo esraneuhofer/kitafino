@@ -110,7 +110,7 @@
   "DASHBOARD.SETTINGS.BESTELLEINSTELLUNG": "Bestelleinstellungen",
   "DASHBOARD.SETTINGS.PASSWORT.AENDERN": "Passwort ändern",
   "DASHBOARD.SETTINGS.ACCOUNT.LOESCHEN": "Account löschen",
-  "DASHBOARD.ACCOUNT_OVERVIEW": "Kontoübersicht",
+  "DASHBOARD.ACCOUNT_OVERVIEW": "Einzahlung",
   "DASHBOARD.ORDER_HISTORY": "Bestellhistorie",
   "DASHBOARD.WEEKPLAN_PDF": "Wochenplan-PDF",
   "DASHBOARD.KINDERGARTEN_SETTINGS": "Mitteilungen",
@@ -162,8 +162,8 @@
   "MANAGE_PERMANENT_ORDERS.EDIT": "Bearbeiten",
   "MANAGE_PERMANENT_ORDERS.EDIT_BUTTON": "Bearbeiten",
   "MANAGE_PERMANENT_ORDERS.EDIT_HEADER": "Dauerbestellung für:",
-  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/die Verpflegungsteilnehmerin vor. Um eine Änderung an der Dauerbestellung vorzunehmen, bestätigen Sie die Änderung mit dem Button \"Ändern\".",
-  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "Um eine Dauerbestellung anzulegen oder zu ändern, wählen Sie die gewünschten Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl mit dem Button \"Anlegen\".",
+  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "Es liegt bereits eine Dauerbestellung für den Verpflegungsteilnehmer/die Verpflegungsteilnehmerin vor. Um eine Änderung an der Dauerbestellung vorzunehmen, bestätigen Sie die Änderung indem Sie auf <b>[Ändern]</b> gehen",
+  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "Um eine Dauerbestellung anzulegen oder zu ändern, wählen Sie die gewünschten Tage aus sowie das Menü für den jeweiligen Tag und bestätigen Sie die Auswahl indem Sie auf <b>[Anlegen]</b> gehen",
   "MANAGE_PERMANENT_ORDERS.SELECT_OPTION": "Bitte auswählen",
   "MANAGE_PERMANENT_ORDERS.ADD_ORDER": "Dauerbestellung hinzufügen",
   "MANAGE_PERMANENT_ORDERS.CHANGE_ORDER": "Ändern",
@@ -356,9 +356,9 @@
     "SUCCESS_BACK_TO_APP": "Zurück zur App",
     "ERROR_DEPOSIT_MESSAGE": "Ihre Einzahlung konnte nicht ausgeführt werden.<br>Bitte überprüfen Sie Ihre Eingabe.<br><br>Sollte der Fehler bestehen bleiben, wenden Sie sich bitte an support@cateringexpert.de",
     "ERROR_DEPOSIT_MESSAGE_HEADER": "Einzahlung fehlgeschlagen",
-    "ACCOUNT.TEXT_BANNER": "Um Geld auf Ihr Konto aufzuladen, müssen Sie zuerst einen Schüler/eine Schülerin hinzufügen. Klicken Sie hier, um einen Schüler/eine Schülerin hinzuzufügen.",
+    "ACCOUNT.TEXT_BANNER": "Um Ihr Konto mit Guthaben aufzuladen, müssen Sie zuerst einen Schüler/eine Schülerin hinzufügen. Klicken Sie hier, um einen Schüler/eine Schülerin hinzuzufügen.",
     "TITLE_DEPOSIT_TRANSFER": "Einzahlung Überweisung",
-    "DEPOSIT_INSTRUCTIONS": "Um Geld auf Ihr Konto einzuzahlen, überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:",
+    "DEPOSIT_INSTRUCTIONS": "Um Ihr Konto mit Guthaben aufzuladen, überweisen Sie bitte den gewünschten Betrag auf das folgende Konto:",
     "COMPANY_NAME": "Cateringexpert Software Solutions GmbH",
     "BANK_NAME": "Deutsche Bank",
     "IBAN": "IBAN",
@@ -370,11 +370,12 @@
     "THANK_YOU": "Vielen Dank.",
     "MOVEMENT_DETAILS": "Details Kontobewegungen",
     "DIRECT_DEPOSIT": "Direkeinzahlung",
-    "DIRECT_DEPOSIT_DESCRIPTION": "Geld direkt auf Ihr Konto einzahlen mit PayPal, Apple Pay, Google Pay oder Kreditkarte. Das Geld wird sofort Ihrem Konto gutgeschrieben. <br> Tragen Sie den gewünschten Betrag ein und klicken Sie auf <b>[Direkteinzahlung]</b>. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.",
+    "DIRECT_DEPOSIT_DESCRIPTION": "Sie können Guthaben direkt auf Ihr Konto einzahlen mit PayPal, Apple Pay, Google Pay oder Kreditkarte einzahlen. Das Geld wird sofort Ihrem Konto gutgeschrieben. <br> Tragen Sie den gewünschten Betrag ein und klicken Sie auf <b>[Direkteinzahlung]</b>. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.",
     "ENTER_AMOUNT": "Betrag eingeben",
     "MIN_DEPOSIT": "Mindesteinzahlung beträgt 10€",
     "DIRECT_DEPOSIT_BUTTON": "Direkteinzahlung",
-    "FEES_NOTE": "Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben. <br> Die Einzahlung per Überweisung ist <b>kostenfrei</b>. Wir empfehlen daher die Einzahlung per Überweisung. <br> Die Gebühr für die Einzahlung wird direkt von Ihrem Einzahlungsbetrag abgezogen. Für den folgenden Einzahlungsbetrag würden Sie folgendes Guthaben gutgeschrieben bekommen: <br><br>",
+    "FEES_NOTE": "Die Gebühren für einzelne Zahlungen werden von den Zahlungsanbietern erhoben. <br> Die Einzahlung per Überweisung ist <b>kostenfrei</b>. Wir empfehlen daher die Einzahlung per Überweisung.",
+    "FEES_NOTE_DIRECT_DEPOSIT_RECIEVED": "Die Gebühr für die Einzahlung wird direkt von Ihrem Einzahlungsbetrag abgezogen. Für den folgenden Einzahlungsbetrag würden Sie folgendes Guthaben gutgeschrieben bekommen: <br><br>",
     "WITHDRAW": "Auszahlung",
     "WITHDRAW_DETAILS": "Um sich Ihr Guthaben auszahlen zu lassen, klicken Sie auf <b>[Geld abbuchen]</b> und bestätigen Sie Ihre Eingabe im Anschluss. Bitte beachten Sie, dass eine gültige IBAN hinterlegt sein muss.",
     "CURRENT_BALANCE": "Ihr derzeitiges Guthaben beträgt",
@@ -581,7 +582,7 @@
 
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Dauerbestellung löschen",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten?",
-  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Anschließend erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse.",
+  "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Bei erfolgreicher Buchung erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse.",
 
     "GEBUEHREN": "Gebühren",
    "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Für den Einzahlungsbetrag von würden Sie folgenden Auszahlungbetrag erhalten abhängig von Ihrer Zahlungsauswahl: ",
@@ -593,5 +594,6 @@
 
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. <br>Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. <br> Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer oder Ihre Einrichtung.",
   "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergkier Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer.",
-  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Angemeldete Verpflegungsteilnehmer"
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Angemeldete Verpflegungsteilnehmer",
+  "BITTE_WAEHLEN_SIE_MENU": "Bitte wählen Sie ein Menü aus"
 }

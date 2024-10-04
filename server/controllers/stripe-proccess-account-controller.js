@@ -59,11 +59,11 @@ async function addAccountChargesTenantStripe(data, session) {
     default:
       throw new Error(`Unsupported payment provider: ${paymentProvider}`);
   }
+  // Berechne die Gebühren und runde auf 2 Dezimalstellen
+  const fee = Math.round((paymentAmount * feePercentage + fixedFee + 0.02) * 100) / 100;
+  // Berechne den Nettobetrag und runde ebenfalls auf 2 Dezimalstellen
+  const netAmount = Math.round((paymentAmount - fee) * 100) / 100;
 
-  // Calculate the net amount after deducting fees
-  const feePre = paymentAmount * feePercentage + fixedFee + 0.02;
-  const netAmount = paymentAmount - feePre ;
-  const fee = paymentAmount -netAmount;
   try {
     await session.startTransaction();
     const account = await getAccountTenant(userId, session);

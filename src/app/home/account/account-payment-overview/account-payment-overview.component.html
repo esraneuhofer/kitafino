@@ -63,7 +63,9 @@
                 <h3 class="text-sm font-medium mb-2">{{ 'ACCOUNT.DIRECT_DEPOSIT' | translate }}</h3>
                 <p [innerHTML]="'ACCOUNT.DIRECT_DEPOSIT_DESCRIPTION' | translate"
                    class="text-sm text-gray-700 mb-4"></p>
-                <div class="w-full">
+                <p class="text-sm text-gray-700" [innerHTML]="'ACCOUNT.FEES_NOTE' | translate"></p>
+
+                <div class="w-full m-2">
                   <!-- Hier fügen wir die Bilder hinzu -->
                   <div class="flex space-x-2 mt-1">
                     <div class="flex items-center justify-center h-12 w-12">
@@ -115,8 +117,8 @@
                 </div>
               </div>
               <div *ngIf="amountCharge && amountCharge > 0" class="mt-2">
-                <p class="text-sm text-gray-700" [innerHTML]="'ACCOUNT.FEES_NOTE' | translate">
-                </p>
+
+                <p class="text-sm text-gray-700" [innerHTML]="'ACCOUNT.FEES_NOTE_DIRECT_DEPOSIT_RECIEVED' | translate"></p>
                 <p *ngFor="let eachPayment of paymentFeeArray" class="text-sm text-gray-700">
                   <b>{{eachPayment.namePayment}}:</b> {{ eachPayment.amountFee | currency:'EUR' }}</p>
               </div>
