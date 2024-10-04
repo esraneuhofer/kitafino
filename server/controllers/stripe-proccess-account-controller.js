@@ -61,9 +61,9 @@ async function addAccountChargesTenantStripe(data, session) {
   }
 
   // Calculate the net amount after deducting fees
-  const fee = paymentAmount * feePercentage + fixedFee + 0.02;
-  const netAmount = paymentAmount - fee ;
-
+  const feePre = paymentAmount * feePercentage + fixedFee + 0.02;
+  const netAmount = paymentAmount - feePre ;
+  const fee = paymentAmount -netAmount;
   try {
     await session.startTransaction();
     const account = await getAccountTenant(userId, session);
