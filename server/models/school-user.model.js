@@ -24,7 +24,7 @@ var schoolSchema = new mongoose.Schema({
   // project: String,
   username: {type:String,unique: true},
   tenantUrl:String,
-  token:String,
+  token: [{ type: String }],  // Ändere token zu einem Array von Strings
 
 });
 // Methods

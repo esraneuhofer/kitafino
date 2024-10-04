@@ -24,22 +24,45 @@ export class NotificationService {
       .pipe(map((response: any) => response));
   }
 
+  deleteAllTokens() {
+    return this.http.post(environment.apiBaseUrl + '/deleteAllTokensFirebase',{})
+      .pipe(map((response: any) => response));
+  }
+
+  // async initPush() {
+  //   const storedPermission = await this.getStoredPermission();
+  //
+  //   if (storedPermission === null) {
+  //     // Keine Entscheidung getroffen, Berechtigung anfragen
+  //     await this.requestPermission();
+  //   } else if (storedPermission === 'granted') {
+  //     // Bereits erlaubt, Registrierung durchführen
+  //     await this.registerPush();
+  //   } else {
+  //     // Bereits abgelehnt, nichts tun
+  //     console.log('Push-Benachrichtigungen wurden vom Benutzer abgelehnt.');
+  //   }
+  //   await this.resetBadgeCount();
+  // }
 
   async initPush() {
-    const storedPermission = await this.getStoredPermission();
+    // Überprüfung des aktuellen Berechtigungsstatus
+    const permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
 
-    if (storedPermission === null) {
-      // Keine Entscheidung getroffen, Berechtigung anfragen
-      await this.requestPermission();
-    } else if (storedPermission === 'granted') {
-      // Bereits erlaubt, Registrierung durchführen
-      await this.registerPush();
-    } else {
-      // Bereits abgelehnt, nichts tun
-      console.log('Push-Benachrichtigungen wurden vom Benutzer abgelehnt.');
+    if (permissionStatus.receive === 'granted') {
+      console.log('Push-Benachrichtigungen sind aktiviert.');
+      await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
+    } else if (permissionStatus.receive === 'denied') {
+      console.warn('Push-Benachrichtigungen wurden in den iPhone-Einstellungen deaktiviert.');
+      await this.deleteAllTokens(); // Alle gespeicherten Tokens löschen
+    } else if (permissionStatus.receive === 'prompt') {
+      // Dies tritt nur auf, wenn der Benutzer die Berechtigung noch nie gewährt oder abgelehnt hat
+      await this.requestPermission(); // Nur wenn die Berechtigung noch nie angefragt wurde
     }
-    await this.resetBadgeCount();
+
+    await this.resetBadgeCount(); // Badge-Count nach Berechtigungsprüfung zurücksetzen
   }
+
 
   private async resetBadgeCount() {
     try {
