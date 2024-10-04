@@ -65,7 +65,6 @@ exports.webhook_stripe = async (request, response) => {
         const sourceChargeable = event.data.object;
         // Handle source.chargeable event
         break;
-
       case 'charge.updated':
         const sourceUpdated = event.data.object;
         // Handle source.failed event
