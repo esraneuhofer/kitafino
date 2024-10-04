@@ -27,6 +27,7 @@ async function saveTokenFirebase(req, res, next) {
 }
 
 async function deleteAllTokensFirebase(req, res, next) {
+  console.log("sss")
   try {
     // Setze das token-Feld auf ein leeres Array
     const user = await User.findOneAndUpdate(
@@ -44,7 +45,7 @@ async function deleteAllTokensFirebase(req, res, next) {
 }
 
 
-
+// dvvbjXX7Zk2Oq1n5P0VXwz:APA91bELBzRPlX1g-HU6kddmqowocovNyRUswtVJt05_U8dJ8unv1hIZmgStEuKvaUe3Q1KjPJlLbOR4T1W1dah2t8nLNj5cKiSYJgMpgl8d_76vzeDkuEL4AfHoB3Wu2fYpqYQLJFc6
 
 module.exports = {
   deleteAllTokensFirebase,

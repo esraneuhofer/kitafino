@@ -54,7 +54,7 @@ export class NotificationService {
       await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
     } else if (permissionStatus.receive === 'denied') {
       console.warn('Push-Benachrichtigungen wurden in den iPhone-Einstellungen deaktiviert.');
-      await this.deleteAllTokens(); // Alle gespeicherten Tokens löschen
+      await this.deleteAllTokens().subscribe(); // Alle gespeicherten Tokens löschen
     } else if (permissionStatus.receive === 'prompt') {
       // Dies tritt nur auf, wenn der Benutzer die Berechtigung noch nie gewährt oder abgelehnt hat
       await this.requestPermission(); // Nur wenn die Berechtigung noch nie angefragt wurde
