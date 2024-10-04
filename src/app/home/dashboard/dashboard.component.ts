@@ -202,7 +202,6 @@ export class DashboardComponent {
          customer,
          messages
        ]) => {
-        console.log('Data received in component:', tenantInformation, accountInformation, students, orderStudents, setting, customer, messages);
         this.tenant = tenantInformation;
         this.accountTenant = accountInformation;
         this.students = students;

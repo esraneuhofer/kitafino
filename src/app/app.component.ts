@@ -32,20 +32,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    if ('serviceWorker' in navigator) {
-      console.log('Service Worker deregistration started');
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
-        for (let registration of registrations) {
-          registration.unregister();
-          window.location.reload();
-        }
-      }).catch(function (err) {
-        console.log('Service Worker deregistration failed: ', err);
-      });
-    }
-
-    console.log('App component initialized! INIT');
-
+    // if ('serviceWorker' in navigator) {
+    //   console.log('Service Worker deregistration started');
+    //   navigator.serviceWorker.getRegistrations().then(function (registrations) {
+    //     console.log('Service Worker deregistration started',registrations);
+    //     for (let registration of registrations) {
+    //       registration.unregister();
+    //       window.location.reload();
+    //     }
+    //   }).catch(function (err) {
+    //     console.log('Service Worker deregistration failed: ', err);
+    //   });
+    // }
     try {
       // Überprüfung der Backend-Verbindung und Setzen der Sprache
       await this.setLanguage('de');
@@ -126,6 +124,23 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       );
     });
+  }
+  async deregisterServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      console.log('Service Worker deregistration started');
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        console.log('Service Worker Registrations:', registrations);
+        for (let registration of registrations) {
+          await registration.unregister();
+          console.log('Service Worker unregistered');
+        }
+        // Optional: Seite neu laden
+        window.location.reload();
+      } catch (err) {
+        console.log('Service Worker deregistration failed:', err);
+      }
+    }
   }
 
 }
