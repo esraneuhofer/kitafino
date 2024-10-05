@@ -26,21 +26,27 @@ async function saveTokenFirebase(req, res, next) {
   }
 }
 
-async function deleteAllTokensFirebase(req, res, next) {
-  console.log("sss")
+async function deleteSpecificTokenFirebase(req, res, next) {
+  const { token } = req.body;
+  console.log('Token zum Löschen:', token);
+
   try {
-    // Setze das token-Feld auf ein leeres Array
+    // Finde den Benutzer und lösche den spezifischen Token
     const user = await User.findOneAndUpdate(
       { _id: req._id },
-      { $set: { token: [] } },  // Setzt das token-Feld auf ein leeres Array
+      { $pull: { token: token } },  // Entfernt den spezifischen Token aus dem Array
       { new: true }
     );
 
-    console.log('All tokens deleted successfully.');
-    res.status(200).send({ message: 'All tokens deleted successfully' });
+    if (!user) {
+      return res.status(404).send({ message: 'Benutzer nicht gefunden' });
+    }
+
+    console.log('Token erfolgreich gelöscht.');
+    res.status(200).send({ message: 'Token erfolgreich gelöscht' });
   } catch (error) {
-    console.error('Fehler beim Löschen der Tokens:', error);
-    res.status(500).send({ message: 'Internal Server Error' });
+    console.error('Fehler beim Löschen des Tokens:', error);
+    res.status(500).send({ message: 'Interner Serverfehler' });
   }
 }
 
@@ -48,6 +54,6 @@ async function deleteAllTokensFirebase(req, res, next) {
 // dvvbjXX7Zk2Oq1n5P0VXwz:APA91bELBzRPlX1g-HU6kddmqowocovNyRUswtVJt05_U8dJ8unv1hIZmgStEuKvaUe3Q1KjPJlLbOR4T1W1dah2t8nLNj5cKiSYJgMpgl8d_76vzeDkuEL4AfHoB3Wu2fYpqYQLJFc6
 
 module.exports = {
-  deleteAllTokensFirebase,
+  deleteSpecificTokenFirebase,
   saveTokenFirebase
 };

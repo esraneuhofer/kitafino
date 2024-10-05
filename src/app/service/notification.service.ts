@@ -24,11 +24,19 @@ export class NotificationService {
       .pipe(map((response: any) => response));
   }
 
-  deleteAllTokens() {
-    return this.http.post(environment.apiBaseUrl + '/deleteAllTokensFirebase',{})
-      .pipe(map((response: any) => response));
+  deleteSpecificToken(token: string) {
+    console.log('Löschen des spezifischen Tokens wird aufgerufen:', token);
+    return this.http.post(environment.apiBaseUrl + '/deleteSpecificTokenFirebase', { token })
+      .pipe(map((response: any) => response))
+      .subscribe(
+        (response) => {
+          console.log('Token erfolgreich gelöscht:', response);
+        },
+        (error) => {
+          console.error('Fehler beim Löschen des Tokens:', error);
+        }
+      );
   }
-
   // async initPush() {
   //   const storedPermission = await this.getStoredPermission();
   //
@@ -54,7 +62,12 @@ export class NotificationService {
       await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
     } else if (permissionStatus.receive === 'denied') {
       console.warn('Push-Benachrichtigungen wurden in den iPhone-Einstellungen deaktiviert.');
-      await this.deleteAllTokens().subscribe(); // Alle gespeicherten Tokens löschen
+      const tokenToDelete = await this.getStoredToken();  // Du solltest den gespeicherten Token abrufen
+      console.log('Token zum Löschen:', tokenToDelete);
+      if (tokenToDelete) {
+
+        await this.deleteSpecificToken(tokenToDelete);
+      }
     } else if (permissionStatus.receive === 'prompt') {
       // Dies tritt nur auf, wenn der Benutzer die Berechtigung noch nie gewährt oder abgelehnt hat
       await this.requestPermission(); // Nur wenn die Berechtigung noch nie angefragt wurde
@@ -126,7 +139,11 @@ export class NotificationService {
     const {value} = await Preferences.get({key: this.permissionKey});
     return value;
   }
-
+  private async getStoredToken(): Promise<string | null> {
+    const { value } = await Preferences.get({ key: 'push_token' });
+    console.log('Gespeicherter Token:', value);
+    return value;
+  }
   private async presentAlert(notification: PushNotificationSchema) {
     const alert = await this.alertController.create({
       header: notification.title || 'Benachrichtigung',
@@ -137,3 +154,4 @@ export class NotificationService {
     await alert.present();
   }
 }
+// fimh4bYRQUyqt1XokSZcre:APA91bEXmtjlg5s_DevpQqrIXnzNLDwTpaqgRIdQtSZgMk2yqzAidHy_yscf_A5eWClStnPYeSqKD8iUkbu4JUx2WF0wBh7cHckUK4EjkUdQrkQkYHflAkkwBEubRaDV_MQ7_nthNWTn

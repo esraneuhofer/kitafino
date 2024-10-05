@@ -242,7 +242,7 @@
                       <h2 *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"
                           class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'MANAGE_STUDENTS.ALLERGY_FOOD' | translate }}</h2>
                       <p *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"
-                         [innerHTML]="getAllergieFoodText(customerInfo,specialFoodSelection)"
+                         [innerHTML]="getAllergieFoodTextEdit(customerInfo,specialFoodSelection)"
                          class="text-sm leading-6 text-gray-600"></p>
                       <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
                       <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>

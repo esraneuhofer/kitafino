@@ -181,18 +181,18 @@ export class ManageRegistrationStudentComponent implements OnInit{
   }
 
 
-  getAllergieFoodText(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):string{
+  getAllergieFoodTextEdit(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):string{
     if(specialFoodSelection.length ===  0){
       return ''
     }
     if(customerInfo.generalSettings.allowOnlyOneMenu){
-      return  this.translate.instant('MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE')
+      return  this.translate.instant('EDIT_SPECIAL_FOOD_ONLY_ONE_MENU')
     }
     if(customerInfo.generalSettings.allergiesSetByTenant){
-      return this.translate.instant('MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION')
+      return this.translate.instant('EDIT_SPECIAL_FOOD_ONLY_ONE_MENU')
     }
     if(!customerInfo.generalSettings.allergiesSetByTenant){
-      return this.translate.instant('SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER')
+      return this.translate.instant('EDIT_SPECIAL_CHANGE_BY_PARENT')
     }
 
 

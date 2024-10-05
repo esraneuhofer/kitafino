@@ -137,7 +137,7 @@ router.get('/getButDocumentTenant',jwtHelper.verifyJwtToken,ctrlBut.getButDocume
 router.get('/getSchoolSettings',jwtHelper.verifyJwtToken,ctrlGet.getSchoolSettings)
 
 router.post('/saveTokenFirebase',jwtHelper.verifyJwtToken,crtlFire.saveTokenFirebase)
-router.post('/deleteAllTokensFirebase',jwtHelper.verifyJwtToken,crtlFire.deleteAllTokensFirebase)
+router.post('/deleteSpecificTokenFirebase',jwtHelper.verifyJwtToken,crtlFire.deleteSpecificTokenFirebase)
 
 // router.get('/sendPushNotification',crtlFire.sendPushNotification)
 
