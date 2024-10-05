@@ -13,10 +13,13 @@ import {LanguageService} from "../../service/language.service";
 })
 export class HelpComponent implements OnInit {
 
+  query:string = 'all'
   page = 1;
-  pageSize = 7;
+  pageSize = 12;
     pageLoaded: boolean = false;
     helpDocuments: HelpPdfInterface[] = [];
+  helpDocumentsOriginal: HelpPdfInterface[] = [];
+
     submittingRequest: boolean = false;
     lang: string = 'de'
   isApp: boolean = false;
@@ -32,11 +35,21 @@ export class HelpComponent implements OnInit {
         this.lang = this.languageService.getLanguage();
         this.helpService.getAllHelpPdfNames().subscribe((data: HelpPdfInterface[]) => {
           console.log(data);
-            this.helpDocuments = data;
+            this.helpDocuments =this.helpDocumentsOriginal = data;
         })
     }
 
+  changeSelection(event: string) {
+      let copy = JSON.parse(JSON.stringify(this.helpDocumentsOriginal));
+      if (event === 'all') {
+          this.helpDocuments = copy;
+      } else if(event === 'help') {
+        this.helpDocuments = copy.filter((doc: HelpPdfInterface) => doc.routeName !== 'login');
+      }else{
+        this.helpDocuments = copy.filter((doc: HelpPdfInterface) => doc.routeName === 'login');
 
+      }
+  }
   async openHelpPdf(helpDocument: HelpPdfInterface) {
       this.submittingRequest = true;
     this.helpService.getSingleHelpPdfBase({routeName:helpDocument.routeName}).subscribe(async (data: any) => {

@@ -443,7 +443,7 @@
   },
   "DOCUMENTS": {
     "TITLE": "Erklärungsdokumente",
-    "DESCRIPTION": "Alle Dokumente werden in der ausgewählten Sprache angezeigt. Um das Dokument in einer anderen Sprache zu betrachten, wählen Sie die gewünschte Sprache aus.",
+    "DESCRIPTION": "Dokumente zur Anmeldung sind in mehreren Sprachen verfügbar. Sie können die Auswahl sortieren indem Sie auf <b>[Auswahl]</b> gehen.",
     "NAME": "Name",
     "EDIT": "Bearbeiten",
     "EDIT_BUTTON": "Bearbeiten"
@@ -597,5 +597,9 @@
   "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Die Änderung des Allergiker Essens kann im Nachgang nur durch die Einrichtung oder Ihren Caterer erfolgen. Bitte wenden Sie sich an Ihre Einrichtung oder Ihren Caterer.",
   "EDIT_SPECIAL_CHANGE_BY_PARENT": "Um ein Allergiker Essen zu ändern, wählen Sie das entsprechende Essen aus und bestätigen Sie Ihres Auswahl anschließend indem Sie auf <b>[Ändern]</b> klicken.",
   "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Angemeldete Verpflegungsteilnehmer",
-  "BITTE_WAEHLEN_SIE_MENU": "Bitte wählen Sie ein Menü aus"
+  "BITTE_WAEHLEN_SIE_MENU": "Bitte wählen Sie ein Menü aus",
+  "AUSWAHL": "Auswahl",
+  "ALLE": "Alle",
+  "ALLGEMEIN": "Allgemein",
+  "ANMELDUNG_MULTI": "Anmeldung (Multi Lingual)"
 }

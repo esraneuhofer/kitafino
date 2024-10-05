@@ -54,6 +54,7 @@ export class HelpDialogComponent {
     isApp: boolean = false;
   lang: string = 'de';
   submittingRequest: boolean = false;
+  isShowHelp: boolean = false;
   constructor(private translate: TranslateService,
               private helpService: HelpService,
               private userService:UserService,
@@ -68,14 +69,30 @@ export class HelpDialogComponent {
   ngOnInit(): void {
     this.isApp = this.platformService.isIos || this.platformService.isAndroid;
     this.lang = this.languageService.getLanguage()
-    this.translate.get('HELP.' + getLastSegment(this.data.route) + '.HEADER').subscribe((res: string) => {
+    const segmentRoute = getLastSegment(this.data.route)
+    this.isShowHelp = this.showHelp(segmentRoute)
+    this.translate.get('HELP.' + segmentRoute + '.HEADER').subscribe((res: string) => {
       this.helpHeader = res;
     });
-    this.translate.get('HELP.' + getLastSegment(this.data.route) + '.DESCRIPTION').subscribe((res: string[]) => {
+    this.translate.get('HELP.' + segmentRoute + '.DESCRIPTION').subscribe((res: string[]) => {
       this.helpDescriptions = res.map(description => this.sanitizer.bypassSecurityTrustHtml(description));
     });
   }
 
+  showHelp(routeSegment:string):boolean{
+    if(routeSegment === 'account_overview'
+      || routeSegment === 'settings'
+      || routeSegment === 'allgemein'
+      || routeSegment === 'messages'
+      || routeSegment === 'register_tenant'
+      || routeSegment === 'register'
+      || routeSegment === 'details_account'
+      || routeSegment === 'weekplan_pdf'
+      || routeSegment === 'order_history'){
+      return true;
+    }
+    return false;
+  }
   async openHelpPdf() {
     this.submittingRequest = true;
     let lastSegment = getLastSegment(this.data.route);

@@ -15,7 +15,7 @@
     <div class="text-sm text-gray-500 mt-1" *ngFor="let text of helpDescriptions">
       <span [innerHTML]="text"></span>
     </div>
-    <p class="text-sm text-blue-500 underline mt-1">
+    <p class="text-sm text-blue-500 underline mt-1" *ngIf="isShowHelp">
       <a (click)="openHelpPdf()">
         <span *ngIf="!submittingRequest">{{"KLICK_HERE_FOR_MORE_HELP" | translate}}</span>
         <div role="status" *ngIf="submittingRequest" class="flex items-center ml-2">
@@ -39,6 +39,6 @@
 
 <!-- Fixed button -->
 <mat-dialog-actions class="mt-3" style="display: flex; justify-content: flex-end;">
-  <a (click)="logout()" style="margin-right: auto;color: #3b82f6"><u>Ausloggen</u></a>
+  <a (click)="logout()" class="ml-3" style="margin-right: auto;color: #3b82f6"><u>Ausloggen</u></a>
   <app-button [typeButton]="'primary'" mat-dialog-close cdkFocusInitial>{{"CLOSE" | translate}}</app-button>
 </mat-dialog-actions>
