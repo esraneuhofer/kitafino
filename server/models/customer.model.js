@@ -35,6 +35,7 @@ var generalSettingsSchema = new Schema({
   state: { type: String, required: true },
   showAllSpecialFood: { type: Boolean },
   allowOnlyOneMenu: { type: Boolean },
+  hideMenuName: { type: Boolean },
 });
 
 var customerSchema = new Schema({

@@ -28,22 +28,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async initializeApp() {
     await this.platform.ready();
+
+    // **Erster Start-Logik hier einfügen**
+    this.handleFirstLaunch();
+
     // Weitere Initialisierungen können hier stattfinden
   }
 
   async ngOnInit() {
-    // if ('serviceWorker' in navigator) {
-    //   console.log('Service Worker deregistration started');
-    //   navigator.serviceWorker.getRegistrations().then(function (registrations) {
-    //     console.log('Service Worker deregistration started',registrations);
-    //     for (let registration of registrations) {
-    //       registration.unregister();
-    //       window.location.reload();
-    //     }
-    //   }).catch(function (err) {
-    //     console.log('Service Worker deregistration failed: ', err);
-    //   });
-    // }
+
     try {
       // Überprüfung der Backend-Verbindung und Setzen der Sprache
       await this.setLanguage('de');
@@ -93,14 +86,6 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
 
-    // // Listener für App-Zustandsänderungen hinzufügen
-    // CapacitorApp.addListener('appStateChange', ({ isActive }) => {
-    //   console.log(`App state changed. Is active: ${isActive}`);
-    //   if (isActive) {
-    //     // Die App ist in den Vordergrund gekommen
-    //     this.onAppResume();
-    //   }
-    // });
   }
 
   ngOnDestroy() {
@@ -125,22 +110,56 @@ export class AppComponent implements OnInit, OnDestroy {
       );
     });
   }
-  async deregisterServiceWorker() {
-    if ('serviceWorker' in navigator) {
-      console.log('Service Worker deregistration started');
-      try {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        console.log('Service Worker Registrations:', registrations);
-        for (let registration of registrations) {
-          await registration.unregister();
-          console.log('Service Worker unregistered');
-        }
-        // Optional: Seite neu laden
-        window.location.reload();
-      } catch (err) {
-        console.log('Service Worker deregistration failed:', err);
+
+  // **Neue Methode zur Handhabung des ersten Starts**
+  private handleFirstLaunch() {
+    const isFirstLaunch = localStorage.getItem('isFirstLaunch');
+
+    if (!isFirstLaunch) {
+      console.log('Erster Start nach Installation. Lösche Caches und Service Worker.');
+
+      // 1. Service Worker deregistrieren
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          registrations.forEach((registration) => {
+            registration.unregister().then((boolean) => {
+              if (boolean) {
+                console.log('Service Worker erfolgreich deregistriert:', registration);
+              } else {
+                console.warn('Service Worker Deregistrierung fehlgeschlagen:', registration);
+              }
+            });
+          });
+        }).catch((error) => {
+          console.error('Fehler beim Deregistrieren der Service Worker:', error);
+        });
       }
+
+      // 2. App-spezifische Caches löschen
+      if ('caches' in window) {
+        caches.keys().then((cacheNames) => {
+          return Promise.all(
+            cacheNames.map((cacheName) => {
+              return caches.delete(cacheName).then((deleted) => {
+                if (deleted) {
+                  console.log(`Cache "${cacheName}" erfolgreich gelöscht.`);
+                } else {
+                  console.warn(`Cache "${cacheName}" konnte nicht gelöscht werden.`);
+                }
+              });
+            })
+          );
+        }).then(() => {
+          console.log('Alle App-spezifischen Caches wurden gelöscht.');
+        }).catch((error) => {
+          console.error('Fehler beim Löschen der Caches:', error);
+        });
+      }
+
+      // 4. Flag setzen, um zukünftige Ausführungen zu verhindern
+      localStorage.setItem('isFirstLaunch', 'false');
+    } else {
+      console.log('Nicht der erste Start. Keine Caches oder Service Worker werden gelöscht.');
     }
   }
-
 }
