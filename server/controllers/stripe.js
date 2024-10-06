@@ -21,30 +21,30 @@ exports.createPaymentIntent = async (req, res) => {
   try {
     const { username, userId, isIos, isAndroid, amountPayment } = req.body;
 
-    // const successUrl = process.env.NODE_ENV === 'production'
-    //   ? isIos || isAndroid
-    //     ? `https://essen.cateringexpert.de/success_stripe?status=success&amount=${amountPayment}`
-    //     : `https://essen.cateringexpert.de/home/account_overview?status=success&amount=${amountPayment}`
-    //   : isIos || isAndroid
-    //     ? `http://localhost:4200/success_stripe?status=success&amount=${amountPayment}`
-    //     : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
-    //
-    // const cancelUrl = process.env.NODE_ENV === 'production'
-    //   ? isIos || isAndroid
-    //     ? `https://essen.cateringexpert.de/error_stripe?status=failure&amount=${amountPayment}`
-    //     : `https://essen.cateringexpert.de/home/account_overview?status=failure&amount=${amountPayment}`
-    //   : isIos || isAndroid
-    //     ? `http://localhost:4200/error_stripe?status=failure&amount=${amountPayment}`
-    //     : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
-
-    // Definiere die Web-URLs, die als Universal/App Links fungieren
     const successUrl = process.env.NODE_ENV === 'production'
-      ? `https://essen.cateringexpert.de/home/account_overview?status=success&amount=${amountPayment}`
-      : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
+      ? isIos || isAndroid
+        ? `https://essen.cateringexpert.de/success_stripe?status=success&amount=${amountPayment}`
+        : `https://essen.cateringexpert.de/home/account_overview?status=success&amount=${amountPayment}`
+      : isIos || isAndroid
+        ? `http://localhost:4200/success_stripe?status=success&amount=${amountPayment}`
+        : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
 
     const cancelUrl = process.env.NODE_ENV === 'production'
-      ? `https://essen.cateringexpert.de/home/account_overview?status=failure&amount=${amountPayment}`
-      : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
+      ? isIos || isAndroid
+        ? `https://essen.cateringexpert.de/error_stripe?status=failure&amount=${amountPayment}`
+        : `https://essen.cateringexpert.de/home/account_overview?status=failure&amount=${amountPayment}`
+      : isIos || isAndroid
+        ? `http://localhost:4200/error_stripe?status=failure&amount=${amountPayment}`
+        : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
+
+    // Definiere die Web-URLs, die als Universal/App Links fungieren
+    // const successUrl = process.env.NODE_ENV === 'production'
+    //   ? `https://essen.cateringexpert.de/home/account_overview?status=success&amount=${amountPayment}`
+    //   : `http://localhost:4200/home/account_overview?status=success&amount=${amountPayment}`;
+    //
+    // const cancelUrl = process.env.NODE_ENV === 'production'
+    //   ? `https://essen.cateringexpert.de/home/account_overview?status=failure&amount=${amountPayment}`
+    //   : `http://localhost:4200/home/account_overview?status=failure&amount=${amountPayment}`;
 
 
     const session = await stripe.checkout.sessions.create({
