@@ -585,7 +585,7 @@
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Bei erfolgreicher Buchung erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse.",
 
     "GEBUEHREN": "Gebühren",
-   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Für den Einzahlungsbetrag von würden Sie folgenden Auszahlungbetrag erhalten abhängig von Ihrer Zahlungsauswahl: ",
+   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Für den Einzahlungsbetrag von würden Sie folgenden Auszahlungsbetrag erhalten abhängig von Ihrer Zahlungsauswahl: ",
     "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Indem Sie fortfahren, stimmen Sie zu, dass Sie zu Stripe weitergeleitet werden, um die Zahlungsabwicklung durchzuführen. Die Zahlungsabwicklung erfolgt durch Stripe und nicht durch uns.",
     "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lesen Sie unsere  <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> für weitere Informationen.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Ich habe die <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Allgemeinen Geschäftsbedingungen</a> gelesen und stimme der Weiterleitung zu Stripe zur Zahlungsabwicklung zu.",
@@ -593,7 +593,7 @@
 
 
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. <br>Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. <br> Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer oder Ihre Einrichtung.",
-  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergkier Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Sollte der/die Verpflegungsteilnehmer/in ein Allergiker Essen bestellen, so wählen Sie bitte das entsprechende Essen aus. Wenn Sie ein Allergiker Essen aktivieren wird das Reguläre Menü, deaktiviert. Es kann immer nur ein Menü für Ihre Bestellung aktiviert sein. Die Einstellung wurde durch Ihren Caterer oder Ihre Einrichtung eingestellt. Um das Allergiker Essen im Nachgang zu ändern, wenden Sie sich bitte an Ihren Caterer.",
   "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Die Änderung des Allergiker Essens kann im Nachgang nur durch die Einrichtung oder Ihren Caterer erfolgen. Bitte wenden Sie sich an Ihre Einrichtung oder Ihren Caterer.",
   "EDIT_SPECIAL_CHANGE_BY_PARENT": "Um ein Allergiker Essen zu ändern, wählen Sie das entsprechende Essen aus und bestätigen Sie Ihres Auswahl anschließend indem Sie auf <b>[Ändern]</b> klicken.",
   "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Angemeldete Verpflegungsteilnehmer",
