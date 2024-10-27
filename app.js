@@ -30,14 +30,31 @@ const cookieParser = require('cookie-parser');
 
 const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri)  // Mongoose 6+ hat diese Optionen standardmäßig aktiviert
   .then(async () => {
     console.log('Connected to MongoDB');
+
+    // Optional: Besseres Error Handling für die Connection
+    mongoose.connection.on('error', err => {
+      console.error('MongoDB connection error:', err);
+    });
+
+    mongoose.connection.on('disconnected', () => {
+      console.log('MongoDB disconnected');
+    });
+
+    // Graceful Shutdown
+    process.on('SIGINT', async () => {
+      await mongoose.connection.close();
+      console.log('MongoDB connection closed through app termination');
+      process.exit(0);
+    });
   })
   .catch(err => {
     console.error('Failed to connect to MongoDB:', err);
+    // Optional: Sie könnten hier auch process.exit(1) hinzufügen,
+    // wenn Sie möchten, dass die App bei Verbindungsfehlern stoppt
   });
-
 // CORS configuration
 const corsOptions = {
   origin: [
