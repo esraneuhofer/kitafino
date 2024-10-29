@@ -73,14 +73,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Log all incoming requests
-// app.use((req, res, next) => {
-//   console.log(`${req.method} ${req.url}`);
-//   console.log('Headers:', req.headers);
-//   console.log('Body:', req.body);
-//   next();
-// });
-
 require(__dirname + '/server/models/feedback.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/withdrawrequest.model');
@@ -103,7 +95,6 @@ require(__dirname + '/server/models/customer.model');
 require(__dirname + '/server/models/meal.model');
 require(__dirname + '/server/models/menu.model');
 require(__dirname + '/server/models/order.model');
-// require(__dirname + '/server/models/order.model');
 require(__dirname + '/server/models/parent-tenant.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/school-user.model');
@@ -114,30 +105,13 @@ require(__dirname + '/server/models/vacation.model');
 require(__dirname + '/server/models/weekplan_add.model');
 require(__dirname + '/server/config/config');
 require(__dirname + '/server/config/passportConfig');
-// app.use(bodyParser.urlencoded({
-//   limit: '50mb',
-//   extended: true
-// }));
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: true
 }));
 
-
-// const AccountSchema = mongoose.model('AccountSchema');
-
-
-
-// app.use((req, res, next) => {
-//   const lang = req.cookies.lang; // Sprache aus dem Cookie auslesen
-//   if (lang) {
-//     i18n.setLocale(lang); // Locale auf die gespeicherte Sprache setzen
-//   } else {
-//     i18n.setLocale(i18n.getLocale()); // Standard-Sprache setzen
-//   }co
-//   next();
-// });
 
 app.use((req, res, next) => {
   if (req.path === '/api/webhook') {

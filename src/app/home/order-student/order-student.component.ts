@@ -274,7 +274,13 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.pageLoaded = false;
 
     const dateMonday = getDateMondayFromCalenderweek({ week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() });
-    let dateToSearch = dayjs(formatDateToISO(queryDate)).tz('Europe/Berlin').format();
+    // let dateToSearch = dayjs(formatDateToISO(queryDate)).tz('Europe/Berlin').format();
+
+    const berlinDate = dayjs(queryDate).tz('Europe/Berlin');
+    let dateToSearch = berlinDate.format();
+
+    this.indexDay = getCustomDayIndex(berlinDate.toDate());
+
     this.querySelection = { week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() };
     if (!this.selectedStudent || !this.selectedStudent._id) {
       this.pageLoaded = true;

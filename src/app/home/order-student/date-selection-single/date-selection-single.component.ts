@@ -4,6 +4,8 @@ import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {QueryInterOrderInterface} from "../../../functions/weekplan.functions";
 import {addDayFromDate} from "../order.functions";
 import {formatDateInput} from "../../../functions/date.functions";
+import * as dayjs from 'dayjs';
+
 @Component({
   selector: 'app-date-selection-single',
   templateUrl: './date-selection-single.component.html',
@@ -40,7 +42,9 @@ export class DateSelectionSingleComponent implements OnInit {
 
   // Method to handle date change
   onDateChange(event: any) {
-    this.selectedDate = new Date(event.target.value);
+    // this.selectedDate = new Date(event.target.value);
+    this.selectedDate = dayjs(event.target.value).tz('Europe/Berlin').toDate();
+
     this.getOrderDay.emit(this.selectedDate)
     const inputElement = event.target as HTMLInputElement;
     setTimeout(() => {

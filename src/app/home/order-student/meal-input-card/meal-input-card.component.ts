@@ -483,7 +483,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

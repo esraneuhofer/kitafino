@@ -40,6 +40,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          query:{week:number, year:number},
                                 contractSettings:SchoolSettingsInterface):OrderInterfaceStudent{
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
+  console.log('orderStudent', orderStudent);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
