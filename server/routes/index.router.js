@@ -77,7 +77,6 @@ router.post('/sendPDFEmail',jwtHelper.verifyJwtToken,upload.single('file'),ctrlG
 
 
 /////Order Requests ////
-router.get('/getOrderStudentWeek',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentWeek)
 router.get('/getOrderStudentDay',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentDay)
 router.get('/getOrderStudentYear',jwtHelper.verifyJwtToken,crtlOrder.getOrderStudentYear)
 router.post('/addOrderStudentDay', jwtHelper.verifyJwtToken, crtlPlaceOrder.addOrderStudentDay)

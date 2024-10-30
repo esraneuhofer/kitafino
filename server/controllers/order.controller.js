@@ -38,17 +38,6 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
   }
 };
 
-module.exports.getOrderStudentWeek = async (req, res, next) => {
-  try {
-    const orderStudentWeek = await OrderStudent.find({ studentId:req.query.studentId,kw:req.query.kw, year: req.query.year})
-    // const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: req.query.dateOrder});
-    res.json(orderStudentWeek);
-  } catch (err) {
-    console.error(err); // Log the error for debugging
-    res.status(500).send({message: 'Internal Server Error'});
-  }
-};
-
 
 module.exports.getOrderStudentYear = async (req, res, next) => {
   try {

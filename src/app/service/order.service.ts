@@ -24,11 +24,6 @@ export class OrderService {
       .pipe(map((response: OrderInterfaceStudentSave) => (response)));
   }
 
-  getOrderStudentWeek(query: { monday: any, studentId: string }) {
-    return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getOrderStudentWeek', {params: query})
-      .pipe(map((response: OrderInterfaceStudentSave[]) => (response)));
-  }
-
 
   getOrderStudentYear(query: { year:number }) {
     return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getOrderStudentYear', {params: query})
