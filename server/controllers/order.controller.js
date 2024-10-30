@@ -7,6 +7,17 @@ const timezone = require('dayjs/plugin/timezone');
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+function normalizeToBerlinDate(date) {
+  try {
+    return dayjs(date)
+      .tz('Europe/Berlin')
+      .format('YYYY-MM-DD');
+  } catch (error) {
+    console.error('Fehler bei der Datums-Normalisierung:', error);
+    return date;
+  }
+}
+
 
 module.exports.getAccountOrderUserYear = async (req, res, next) => {
   try {
@@ -52,8 +63,8 @@ module.exports.getOrderStudentYear = async (req, res, next) => {
 
 module.exports.getFutureOrders = async (req, res) => {
   try {
-
-    const userId = req.userId; // Von Auth Middleware
+    // const startDate = normalizeToBerlinDate(req.query.startDate);
+    const userId = req._id; // Von Auth Middleware
 
     // Finde alle Bestellungen ab startDate für den User
     const orders = await OrderStudent.find({
