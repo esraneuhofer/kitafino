@@ -50,6 +50,27 @@ module.exports.getOrderStudentYear = async (req, res, next) => {
 };
 
 
+module.exports.getFutureOrders = async (req, res) => {
+  try {
 
+    const userId = req.userId; // Von Auth Middleware
+
+    // Finde alle Bestellungen ab startDate für den User
+    const orders = await OrderStudent.find({
+      userId: userId,
+      dateOrder: { $gte: req.query.startDate }
+    })
+      .sort({ dateOrder: 1 })
+      .lean();
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching future orders:', error);
+    res.status(500).json({
+      message: 'Fehler beim Laden zukünftiger Bestellungen',
+      error: error.message
+    });
+  }
+};
 
 

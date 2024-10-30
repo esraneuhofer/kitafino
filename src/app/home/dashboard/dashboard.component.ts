@@ -183,7 +183,7 @@ export class DashboardComponent {
       this.tenantServiceStudent.getTenantInformation(),
       this.accountService.getAccountTenant(),
       this.studentService.getRegisteredStudentsUser(),
-      this.orderService.getFutureOrders({ year: new Date().getFullYear() }),
+      this.orderService.getFutureOrders({date:new Date().toString()}),
       this.generallService.getSettingsCaterer(),
       this.generalService.getCustomerInfo(),
       this.messageService.getMessages()
