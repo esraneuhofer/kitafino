@@ -16,6 +16,7 @@ import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import {SchoolSettingsInterface} from "../classes/schoolSettings.class";
+import {normalizeToBerlinDate} from "./date.functions";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -40,7 +41,6 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          query:{week:number, year:number},
                                 contractSettings:SchoolSettingsInterface):OrderInterfaceStudent{
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
-  console.log('orderStudent', orderStudent);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
@@ -71,8 +71,8 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     studentId: copy.studentId || '',
     kw: copy.kw,
     year: copy.year,
-    dateOrder: dayjs(copy.dateOrder).tz('Europe/Berlin').utc().toDate(),
-    dateOrderPlaced: copy.dateOrderPlaced,
+    dateOrder:normalizeToBerlinDate(copy.dateOrder),
+    dateOrderPlaced: normalizeToBerlinDate(copy.dateOrderPlaced),
     customerId: copy.customerId,
     order: {
       comment: copy.order.comment,

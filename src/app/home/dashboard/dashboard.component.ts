@@ -16,7 +16,7 @@ import {getTotalPriceSafe, timeDifferenceDay} from "../order-student/order.funct
 import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
-import {setDateToCompare} from "../../functions/date.functions";
+import {normalizeToBerlinDate, setDateToCompare} from "../../functions/date.functions";
 import {MatDialog} from "@angular/material/dialog";
 import {OrderInterfaceStudent} from "../../classes/order_student.class";
 import {ConfirmOrderComponent} from "../dialogs/confirm-order/confirm-order.component";
@@ -54,7 +54,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
     let orderCopy$ = JSON.parse(JSON.stringify(order));
     if (setDateToCompare(new Date(order.dateOrder)) >= dateToday)
       arrayDisplay.push({
-        dateOrder: order.dateOrder,
+        dateOrder: normalizeToBerlinDate(order.dateOrder),
         orderedMenus: order.order.orderMenus.map((orderDetail) => {
           return orderDetail.nameOrder
         }).join(', '),
@@ -68,7 +68,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
 }
 
 export interface DisplayOrderArrayIntrface {
-  dateOrder: Date,
+  dateOrder: string,
   orderedMenus: string,
   nameStudent: string,
   price: number,
@@ -135,7 +135,6 @@ export class DashboardComponent {
   ngOnInit() {
     this.loadData();
     if(Capacitor.isNativePlatform()) {
-      console.log('Adding appStateChange listener');
       App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
         this.appStateChangeListener = listener;
       });
@@ -155,12 +154,10 @@ export class DashboardComponent {
   ngOnDestroy() {
     if(Capacitor.isNativePlatform()) {
       if (this.appStateChangeListener) {
-        console.log('Removing appStateChange listener');
         this.appStateChangeListener.remove();
       }
       // Unsubscriben Sie alle Subscriptions
     } else {
-      console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
       // Unsubscriben Sie alle Subscriptions
     }
@@ -169,7 +166,6 @@ export class DashboardComponent {
   }
 
   handleAppStateChange = (state: any) => {
-    console.log('App state changed', state);
     if (state.isActive) {
       // this.onAppResume();
       this.ngZone.run(() => {
@@ -179,7 +175,6 @@ export class DashboardComponent {
   }
 
   handleWindowFocus = (): void => {
-    console.log('Window focused');
     this.onAppResume();
   }
 
@@ -223,7 +218,6 @@ export class DashboardComponent {
 
   // Methode zum Neuladen der App hinzugefügt
   onAppResume() {
-    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.loadData();
   }
 
@@ -275,7 +269,6 @@ export class DashboardComponent {
   }
 
   cancelOrder(order: DisplayOrderArrayIntrface) {
-    console.log('cancelOrder', order);
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
@@ -284,7 +277,6 @@ export class DashboardComponent {
       position: {top: '100px'}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
       if (result) {
         this.orderService.cancelOrderStudent(order.order).subscribe({
           next: (data) => {

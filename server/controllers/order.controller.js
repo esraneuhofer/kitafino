@@ -20,11 +20,21 @@ module.exports.getAccountOrderUserYear = async (req, res, next) => {
 
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
-    const orderStudent = await OrderStudent.findOne({studentId: req.query.studentId, dateOrder: dayjs(req.query.dateOrder).tz('Europe/Berlin').format()});
+    const { studentId, dateOrder } = req.query;
+
+    // Nutze die statische Methode vom Model
+    const orderStudent = await OrderStudent.findByStudentAndDay(
+      studentId,
+      dateOrder // Bereits im YYYY-MM-DD Format
+    );
+
     res.json(orderStudent);
   } catch (err) {
-    console.error(err); // Log the error for debugging
-    res.status(500).send({message: 'Internal Server Error'});
+    console.error('Error fetching student order:', err);
+    res.status(500).json({
+      message: 'Fehler beim Abrufen der Bestellung',
+      error: err.message
+    });
   }
 };
 

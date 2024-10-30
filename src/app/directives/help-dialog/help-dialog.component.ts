@@ -97,7 +97,6 @@ export class HelpDialogComponent {
     this.submittingRequest = true;
     let lastSegment = getLastSegment(this.data.route);
     let promise = [];
-    console.log('lastSegment', lastSegment);
     if (lastSegment === 'login') {
       promise.push(this.helpService.getSingleHelpPdfBaseLogin({routeName: lastSegment, language: this.lang}).toPromise());
     } else {

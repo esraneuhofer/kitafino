@@ -261,7 +261,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   openAllergenModal(order: OrderSubDetailNew): void {
-    console.log('order', this.customer.generalSettings.hideMenuName)
     if (this.settings.orderSettings.hideNutritionSidebar || this.customer.generalSettings.hideMenuName) return;
 
     const dialogRef = this.dialog.open(OrderAllergeneDialogComponent, {
@@ -452,7 +451,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       return;
     }
     clearInterval(this.timerInterval);
-    console.log('checkDeadlineWeek', this.customer.generalSettings);
     let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
     if (distance < 0) {
       this.pastOrder = true;
@@ -483,6 +481,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+      console.log('orderModifiedForSave:', orderModifiedForSave);
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

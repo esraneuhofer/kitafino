@@ -11,6 +11,11 @@ import {TranslateService} from "@ngx-translate/core";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+export function normalizeToBerlinDate(date: Date | string): string {
+  return dayjs(date)
+    .tz('Europe/Berlin')
+    .format('YYYY-MM-DD');
+}
 export function getLockDays(date:string, allVacations:VacationsInterface[], state:any):boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
@@ -49,6 +54,7 @@ function isVacation(inputDate:Date,vacationArray:VacationsInterface[]){
   }
   return bool;
 }
+
 export function setDateToCompare(input:Date): number {
   let newDate = new Date(input);
   newDate.setHours(0, 0, 0, 0);
@@ -71,6 +77,7 @@ export function getMonday(inputDate: string): Date {
 
   return date;
 }
+
 export function checkDayWeekend(day:string):boolean{
   let indexDay = new Date(day).getDay();
   if (indexDay === 6 || indexDay === 0) {
@@ -78,18 +85,14 @@ export function checkDayWeekend(day:string):boolean{
   }
   return false;
 }
-export function getCustomDayIndex(date: Date): number {
-  // Get the standard day index (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
-  const standardDayIndex = date.getDay();
 
-  // Map standard day index to custom day index
-  // Standard: 0 (Sunday), 1 (Monday), 2 (Tuesday), 3 (Wednesday), 4 (Thursday), 5 (Friday), 6 (Saturday)
-  // Custom:   0 (Monday), 1 (Tuesday), 2 (Wednesday), 3 (Thursday), 4 (Friday), 5 (Saturday), 6 (Sunday)
-  const customDayIndex = (standardDayIndex + 6) % 7;
+export function getCustomDayIndex(date: string | Date): number {
+  // Konvertiere zu dayjs, egal ob String oder Date als Input
+  const dayJsDate = dayjs(date).tz('Europe/Berlin');
 
-  return customDayIndex;
+  const standardDayIndex = dayJsDate.day();
+  return (standardDayIndex + 6) % 7;
 }
-
 export function getFormattedDate(date:Date) {
   let result = new Date(date);
   let month:any = result.getMonth()+1;
@@ -122,12 +125,8 @@ export function getTimeToDisplay() {
 
 
 export function formatDateInput(date: Date): string {
-  const berlinDate = dayjs(date).tz('Europe/Berlin');
-  return berlinDate.format('YYYY-MM-DD');
-  // const year = date.getFullYear();
-  // const month = ('0' + (date.getMonth() + 1)).slice(-2);
-  // const day = ('0' + date.getDate()).slice(-2);
-  // return `${year}-${month}-${day}`;
+  const berlinDate = normalizeToBerlinDate(date);
+  return dayjs(berlinDate).format('YYYY-MM-DD');
 }
 
 
@@ -136,7 +135,6 @@ function generateScheduleSentence(schedule: {
   day: string;
   time: string;
 },translate:TranslateService): string {
-  console.log(schedule)
   // Definiere die Wochentage
   const daysOfWeek: { [key: string]: string } = {
     '1': 'Montag',

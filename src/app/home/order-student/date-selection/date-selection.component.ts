@@ -98,7 +98,6 @@ function getQueryCalenderWeek(): CalendarWeek[] {
 
 // Beispielhafte Nutzung der Funktion
 const kalenderWochen = getQueryCalenderWeek();
-console.log(kalenderWochen);
 
 @Component({
   selector: 'app-date-selection',

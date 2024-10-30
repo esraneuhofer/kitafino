@@ -63,9 +63,9 @@ export class SignInComponent implements OnInit {
       if (email && password) {
         this.signInModel.email = email as string;
         this.signInModel.password = password as string;
-        console.log('Stored credentials found and pre-filled.');
+        // console.log('Stored credentials found and pre-filled.');
       } else {
-        console.log('No stored credentials found.');
+        // console.log('No stored credentials found.');
       }
     } catch (error) {
       console.error('Failed to retrieve stored credentials:', error);
@@ -73,21 +73,18 @@ export class SignInComponent implements OnInit {
   }
 
   async saveCredentials() {
-    console.log('Platform:', Capacitor.getPlatform());
 
     if (Capacitor.getPlatform() === 'ios') {
-      console.log('Saving credentials');
       try {
         await SavePassword.promptDialog({
           username: this.signInModel.email,
           password: this.signInModel.password
         });
-        console.log('Credentials saved successfully');
       } catch (error) {
         console.error('Failed to save credentials:', error);
       }
     } else if (Capacitor.getPlatform() === 'android') {
-      console.log('Checking if credentials need to be saved or updated');
+      // console.log('Checking if credentials need to be saved or updated');
 
       try {
         const storedEmail = await SecureStorage.get('username') as string | null;
@@ -112,7 +109,7 @@ export class SignInComponent implements OnInit {
                   try {
                     await SecureStorage.set('username', this.signInModel.email, false, true);
                     await SecureStorage.set('password', this.signInModel.password, false, true);
-                    console.log('Credentials saved successfully on Android');
+                    // console.log('Credentials saved successfully on Android');
                   } catch (error) {
                     console.error('Failed to save credentials on Android:', error);
                   }

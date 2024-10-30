@@ -131,7 +131,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     this.textBanner = translate.instant('ACCOUNT.ACCOUNT.TEXT_BANNER')
   }
   updateUrlWithoutStatus() {
-    console.log('Updating URL without status parameter');
     const navigationExtras: NavigationExtras = {
       queryParams: {}
     };
@@ -180,12 +179,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.tenantStudent = tenantStudent
         this.registeredStudents = students;
         this.accountTenant = accountTenant;
-        console.log('accountTenant',this.accountTenant)
         this.pageLoaded = true;
-        console.log('platformService', this.platformService.isIos || this.platformService.isAndroid);
-
         if (this.platformService.isIos || this.platformService.isAndroid) {
-          console.log('Adding appStateChange listener');
           App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
             this.appStateChangeListener = listener;
           });
@@ -193,10 +188,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       })
   }
   onAppResume() {
-    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.accountService.getAccountTenant().subscribe((accountTenant: AccountCustomerInterface) => {
       this.queryParamsSubscription =  this.route.queryParams.subscribe(params => {
-        console.log('Query params', params);
         const status = params['status'];
         if (status === 'success') {
           let reason = this.translate.instant('ACCOUNT.SUCCESS_DEPOSIT_MESSAGE')
@@ -215,23 +208,19 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('Component is being destroyed');
     if (this.queryParamsSubscription) {
       this.queryParamsSubscription.unsubscribe();
     }
     if (this.platformService.isIos || this.platformService.isAndroid) {
       if (this.appStateChangeListener) {
-        console.log('Removing appStateChange listener');
         this.appStateChangeListener.remove();
       }
       // Unsubscriben Sie alle Subscriptions
     } else {
-      console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
     }
   }
   handleAppStateChange = (state: any) => {
-    console.log('App state changed', state);
     if (state.isActive) {
       this.ngZone.run(() => {
         this.onAppResume();
@@ -241,7 +230,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
 
 
   handleWindowFocus = (): void => {
-    console.log('Window focused');
     this.onAppResume();
   }
 
@@ -332,7 +320,6 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       this.submittingRequest = true;
       const isIos = this.platformService.isIos
       const isIosAndroid = this.platformService.isAndroid
-      console.log("isIos",isIos)
       this.paymentService.redirectToStripeCheckout(amount,this.tenantStudent.userId,this.tenantStudent.username,isIos,isIosAndroid);
       if(isIosAndroid || isIos){
         // this.router.navigate(['../home/dashboard'], {relativeTo: this.route.parent});

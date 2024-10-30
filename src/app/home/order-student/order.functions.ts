@@ -6,8 +6,12 @@ import {GeneralSettingsInterface} from "../../classes/customer.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
+import * as weekOfYear from 'dayjs/plugin/weekOfYear';
+import * as isoWeek from 'dayjs/plugin/isoWeek';
 import {extractTime} from "../../functions/date.functions";
 
+dayjs.extend(weekOfYear);  // Fügt week() Funktion hinzu
+dayjs.extend(isoWeek);     // Fügt isoWeek() Funktion hinzu
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -51,14 +55,13 @@ export function addDayFromDate(date:Date, daysToAdd:number) {
 }
 
 
-export function getWeekNumber(startDate:Date) {
-  let d: any = new Date(Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()));
-  let dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  let yearStart: any = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+export function getWeekNumber(date: string | Date): number {
+  if (typeof date === 'string') {
+    return dayjs(date).tz('Europe/Berlin').isoWeek();
+  } else {
+    return dayjs(date).tz('Europe/Berlin').isoWeek();
+  }
 }
-
 export function getSplit(customer:CustomerInterface):string[]{
   let array:string[] = [];
   customer.order.split.forEach(eachGroup => {
@@ -104,7 +107,6 @@ function getDeadLineEnd(object:{ weeks: string; day: string; time: string; }, we
     }
     return num;
   }
-    console.log(object.time)
   if (yearsDiff !== 0) {
     let sub = getSub();
     let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
@@ -132,6 +134,34 @@ function getDeadLineEnd(object:{ weeks: string; day: string; time: string; }, we
     return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
   }
 
+}
 
+// Neue Version der addDayFromDate Funktion für String-Daten
+export function addDayFromDateString(dateString: string, daysToAdd: number): string {
+  return dayjs(dateString)
+    .tz('Europe/Berlin')
+    .add(daysToAdd, 'day')
+    .format('YYYY-MM-DD');
+}
+
+// Hilfsfunktion um die nächsten 5 Werktage zu bekommen
+export function getNextFiveWorkdays(startDateString: string): string[] {
+  const workdays: string[] = [];
+  let currentDay = dayjs(startDateString).tz('Europe/Berlin');
+  let daysAdded = 0;
+
+  while (workdays.length < 5) {
+    const dayString = currentDay.format('YYYY-MM-DD');
+    const dayOfWeek = currentDay.day(); // 0 = Sonntag, 6 = Samstag
+
+    // Füge nur Werktage hinzu (Montag bis Freitag)
+    if (dayOfWeek > 0 && dayOfWeek < 6) {
+      workdays.push(dayString);
+    }
+
+    currentDay = currentDay.add(1, 'day');
+  }
+
+  return workdays;
 }
 

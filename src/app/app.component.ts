@@ -50,7 +50,6 @@ export class AppComponent implements OnInit, OnDestroy {
     // Abonnieren des Netzwerkstatus
     this.networkSubscription = this.networkService.getNetworkStatus().subscribe(
       (isOnline) => {
-        console.log('Netzwerkstatus in der Komponente:', isOnline);
 
         if (this.previousStatus === null) {
           // Initialer Status beim Start der App, keine Meldung anzeigen
@@ -97,7 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.apiService.setLanguage({ lang }).subscribe(
         (data) => {
-          console.log('Sprache erfolgreich gesetzt:', data);
+          // console.log('Sprache erfolgreich gesetzt:', data);
           resolve();
         },
         (error) => {

@@ -18,9 +18,7 @@ export class ConfirmStripePaymentComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log(this.data);
     this.paymentFeeArray = calculateFeeArray(this.data.amount);
-    console.log(this.paymentFeeArray);
   }
 
   closeDialog() {

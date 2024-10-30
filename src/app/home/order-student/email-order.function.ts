@@ -244,7 +244,6 @@ function getMenuNameEmail(object: EmailOrderInterface): { price: string, menu: s
   let obj = {price: '', menu: ''};
 
   object.orderStudent.order.orderMenus.forEach((eachOrderDay, indexGroup) => {
-    console.log('eachOrderDay', eachOrderDay)
     if (eachOrderDay.typeOrder === 'menu' ||
       (eachOrderDay.typeOrder === 'side' && object.settings.orderSettings.sideOrderSeparate) ||
       (eachOrderDay.typeOrder === 'dessert' && object.settings.orderSettings.dessertOrderSeparate)) {

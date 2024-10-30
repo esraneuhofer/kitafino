@@ -14,7 +14,6 @@ export class MessageInfoBoxComponent {
   @Output() closeMessage:any = new EventEmitter<SchoolMessageInterface>();
   submittingRequest: boolean = false;
     constructor(private translate: TranslateService) {
-      // console.log(this.eachMessage);
     }
 
   closeInfo(message: SchoolMessageInterface) {

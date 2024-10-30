@@ -16,13 +16,11 @@ export class PaymentService {
 
   async redirectToStripeCheckout(amount: number, userId: string, username: string, isIos: boolean,isAndroid:boolean) {
     try {
-      console.log('redirectToStripeCheckout:', amount, userId, username, isIos,isAndroid);
       // Log the input parameters
 
       // Await the creation of the payment intent from your backend
       const session: any = await this.generellService.createPaymentIntent(
         { amountPayment: amount, userId: userId, username: username, isIos: isIos,isAndroid:isAndroid }).toPromise();
-      console.log('session:', session);
       if (!session || !session.id) {
         throw new Error('Invalid session returned from backend');
       }

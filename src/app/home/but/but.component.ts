@@ -206,7 +206,6 @@ export class ButComponent implements OnInit{
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-      console.log('selectedFile', this.selectedFile.name);
       this.convertFileToBase64(this.selectedFile);
     }
   }

@@ -14,12 +14,9 @@ export class ApiService {
 
   setLanguage(body: { lang: string }): Observable<any> {
     const url = `${this.apiUrl}/setLanguage`;
-    // console.log(`API Base URL: ${this.apiUrl}`);
-    // console.log(`Sending POST request to ${url} with body:`, body);
     return this.http.post<any>(url, body, { withCredentials: true })
       .pipe(
         map(response => {
-          // console.log('Response:', response);
           return response;
         }),
         catchError(this.handleError)

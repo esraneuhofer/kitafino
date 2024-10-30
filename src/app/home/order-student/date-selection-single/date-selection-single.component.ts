@@ -3,7 +3,7 @@ import {StudentInterface} from "../../../classes/student.class";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {QueryInterOrderInterface} from "../../../functions/weekplan.functions";
 import {addDayFromDate} from "../order.functions";
-import {formatDateInput} from "../../../functions/date.functions";
+import {formatDateInput, normalizeToBerlinDate} from "../../../functions/date.functions";
 import * as dayjs from 'dayjs';
 
 @Component({
@@ -22,13 +22,16 @@ export class DateSelectionSingleComponent implements OnInit {
   @Output() editDisplaySettings:any = new EventEmitter<boolean>();
 
   selectedStudent: (StudentInterface | null) = null;
-  selectedDate: Date = new Date()
+  selectedDate: string = normalizeToBerlinDate(new Date());
 
   constructor() { }
 
 
   ngOnInit() {
-    this.selectedDate = addDayFromDate(new Date(),0); // Initialize with the current date or any other date
+
+    // Initialisierung mit normalisiertem Datum
+    const currentDate = normalizeToBerlinDate(new Date());
+
     if (this.registeredStudents.length >= 1) {
       this.selectedStudent = this.registeredStudents[0];
       // this.getOrderDay.emit(this.selectedDate)
@@ -37,19 +40,18 @@ export class DateSelectionSingleComponent implements OnInit {
 
   // Method to get date as a string in YYYY-MM-DD format
   getSelectedDateString(): string {
-    return formatDateInput(this.selectedDate);
+    return this.selectedDate;
   }
 
   // Method to handle date change
   onDateChange(event: any) {
-    // this.selectedDate = new Date(event.target.value);
-    this.selectedDate = dayjs(event.target.value).tz('Europe/Berlin').toDate();
+    this.selectedDate = normalizeToBerlinDate(event.target.value);
+    this.getOrderDay.emit(this.selectedDate);
 
-    this.getOrderDay.emit(this.selectedDate)
     const inputElement = event.target as HTMLInputElement;
     setTimeout(() => {
       inputElement.blur();
-    }, 100); // 100 ms Verzögerung
+    }, 100);
   }
 
   // Utility method to format Date to YYYY-MM-DD string

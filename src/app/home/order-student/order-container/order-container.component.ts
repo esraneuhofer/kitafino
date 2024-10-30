@@ -22,7 +22,7 @@ import {WeekplanMenuInterface} from "../../../classes/weekplan.interface";
 import {getMenusForWeekplan, QueryInterOrderInterface} from "../../../functions/weekplan.functions";
 import {MenuInterface} from "../../../classes/menu.interface";
 import {StudentInterface} from "../../../classes/student.class";
-import {getLockDays} from "../../../functions/date.functions";
+import {getLockDays, normalizeToBerlinDate} from "../../../functions/date.functions";
 import {CustomerInterface} from "../../../classes/customer.class";
 import {VacationsInterface} from "../../../classes/vacation.interface";
 import {
@@ -188,6 +188,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ).subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
+          let dateFormatted = normalizeToBerlinDate(date);
           this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays,this.schoolSettings))
         }
         this.pageLoaded = true;

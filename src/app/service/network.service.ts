@@ -39,7 +39,6 @@ export class NetworkService {
   }
 
   private updateNetworkStatus(isOnline: boolean) {
-    console.log('Netzwerkstatus geändert:', isOnline);
     this.status.next(isOnline);
   }
 

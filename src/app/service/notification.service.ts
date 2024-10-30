@@ -25,7 +25,6 @@ export class NotificationService {
   }
 
   deleteSpecificToken(token: string) {
-    console.log('Löschen des spezifischen Tokens wird aufgerufen:', token);
     return this.http.post(environment.apiBaseUrl + '/deleteSpecificTokenFirebase', { token })
       .pipe(map((response: any) => response))
       .subscribe(
@@ -58,12 +57,9 @@ export class NotificationService {
     const permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
 
     if (permissionStatus.receive === 'granted') {
-      console.log('Push-Benachrichtigungen sind aktiviert.');
       await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
     } else if (permissionStatus.receive === 'denied') {
-      console.warn('Push-Benachrichtigungen wurden in den iPhone-Einstellungen deaktiviert.');
       const tokenToDelete = await this.getStoredToken();  // Du solltest den gespeicherten Token abrufen
-      console.log('Token zum Löschen:', tokenToDelete);
       if (tokenToDelete) {
 
         await this.deleteSpecificToken(tokenToDelete);
@@ -80,7 +76,6 @@ export class NotificationService {
   private async resetBadgeCount() {
     try {
       await Badge.set({ count: 0 });
-      console.log('Badge-Zähler auf 0 zurückgesetzt.');
     } catch (error) {
       console.error('Fehler beim Zurücksetzen des Badge-Zählers:', error);
     }
@@ -98,7 +93,7 @@ export class NotificationService {
     if (permissionStatus.receive === 'granted') {
       await this.registerPush();
     } else {
-      console.log('Push-Benachrichtigungen wurden nicht erlaubt.');
+      // console.log('Push-Benachrichtigungen wurden nicht erlaubt.');
     }
   }
 
@@ -106,24 +101,24 @@ export class NotificationService {
     await PushNotifications.register();
 
     PushNotifications.addListener('registration', (token: Token) => {
-      console.log('Push registration success, token: ' + token.value);
+      // console.log('Push registration success, token: ' + token.value);
       this.saveTokenFirebase({token: token.value}).subscribe(data => {
         console.log(data);
       });
     });
 
     PushNotifications.addListener('registrationError', (error: any) => {
-      console.error('Error on registration: ' + JSON.stringify(error));
+      // console.error('Error on registration: ' + JSON.stringify(error));
     });
 
     PushNotifications.addListener('pushNotificationReceived', async(notification) => {
-      console.log('Push received: ', notification);
+      // console.log('Push received: ', notification);
       await this.presentAlert(notification);
       // Hier können Sie eine Benachrichtigung anzeigen oder verarbeiten
     });
 
     PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-      console.log('Push action performed: ', notification);
+      // console.log('Push action performed: ', notification);
       // Verarbeiten Sie die Aktion, die der Benutzer durchgeführt hat
     });
   }

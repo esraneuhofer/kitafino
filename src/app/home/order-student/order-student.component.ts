@@ -1,5 +1,5 @@
 import {Component, HostListener, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {addDayFromDate, getDisplayOrderType, getSplit, getWeekNumber} from "./order.functions";
+import {addDayFromDate, getDisplayOrderType, getNextFiveWorkdays, getSplit, getWeekNumber} from "./order.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
 import {combineLatest, defaultIfEmpty, forkJoin, map, Subscription, timer} from "rxjs";
@@ -25,7 +25,7 @@ import {
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
 import {formatDateToISO, getDateMondayFromCalenderweek} from "../../functions/order.functions";
-import {checkDayWeekend, getCustomDayIndex, getLockDays} from "../../functions/date.functions";
+import {checkDayWeekend, getCustomDayIndex, getLockDays, normalizeToBerlinDate} from "../../functions/date.functions";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {isWidthToSmall, MealCardInterface, setOrderDayStudent} from "./order-container/order-container.component";
 import {OrderService} from "../../service/order.service";
@@ -56,10 +56,10 @@ dayjs.extend(timezone);
 })
 export class OrderStudentComponent implements OnInit, OnDestroy {
 
-  textBannerWeekend:string = 'Am Wochenende kann keine Bestellung aufgegeben werden';
+  textBannerWeekend: string = 'Am Wochenende kann keine Bestellung aufgegeben werden';
   isWeekend: boolean = false;
-  displayOrderTypeWeek: boolean =true
-  indexDay:number = 0;
+  displayOrderTypeWeek: boolean = true
+  indexDay: number = 0;
   initStudent: boolean = false;
   mainDataLoaded: boolean = false;
   textBanner = '';
@@ -67,8 +67,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   studentNoSubgroup: boolean = false;
   lockDays: boolean[] = [];
   displayMinimize: boolean = false;
-  selectedDay: Date = addDayFromDate(new Date(), 3)
-
+  selectedDay: string = normalizeToBerlinDate(new Date());
   showErrorNoStudents: boolean = false; // Show if no Students is registered yet
   registeredStudents: StudentInterface[] = [];
   subGroupsCustomer: string[] = []; //Subgroup
@@ -121,7 +120,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
 
   onAppResume() {
-    console.log('App wurde wieder aufgenommen. Nachrichten, Bestellungen und Guthaben werden neu geladen.');
     this.pageLoaded = false;
 
     this.loadData();
@@ -130,20 +128,17 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (Capacitor.isNativePlatform()) {
       if (this.appStateChangeListener) {
-        console.log('Removing appStateChange listener');
         this.appStateChangeListener.remove();
       }
-      // Unsubscriben Sie alle Subscriptions
     } else {
-      console.log('Removing focus listener');
       window.removeEventListener('focus', this.handleWindowFocus);
     }
     if (this.subscriptions) {
       this.subscriptions.unsubscribe();
     }
   }
+
   handleAppStateChange = (state: any) => {
-    console.log('App state changed', state);
     if (state.isActive) {
       this.ngZone.run(() => {
         this.onAppResume();
@@ -151,25 +146,24 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     }
   }
   handleWindowFocus = (): void => {
-    console.log('Window focused');
     this.onAppResume();
   }
+
   ngOnInit() {
     this.displayMinimize = isWidthToSmall(window.innerWidth);
-    if(this.displayMinimize){
+    if (this.displayMinimize) {
       this.displayOrderTypeWeek = false;
     }
     this.querySelection = {year: new Date().getFullYear(), week: getWeekNumber(new Date())};
     this.loadData()
-    if(Capacitor.isNativePlatform()){
-        console.log('Adding appStateChange listener');
-        App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
-          this.appStateChangeListener = listener;
-        });
+    if (Capacitor.isNativePlatform()) {
+      App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
+        this.appStateChangeListener = listener;
+      });
     }
   }
 
-  loadData(){
+  loadData() {
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
@@ -217,7 +211,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         VacationsInterface[],
         SchoolSettingsInterface
       ]) => {
-        console.log(customer)
         this.settings = settings;
         this.customer = customer;
         this.customer.stateHol = 'HE' //Testing
@@ -233,16 +226,16 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
         this.schoolSettings = schoolSettings;
-        this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent,this.displayOrderTypeWeek)
+        this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent, this.displayOrderTypeWeek)
         this.mainDataLoaded = true;
-        if( !this.schoolSettings){
+        if (!this.schoolSettings) {
           this.toastr.error('Keine Schuleinstellungen gefunden')
           return
         }
-        if(this.tenantStudent.firstAccessOrder){
+        if (this.tenantStudent.firstAccessOrder) {
           const dialogRef = this.dialog.open(FirstAccessOrderDialogComponent, {
             width: '600px',
-            data: {customer:customer,tenant:tenantStudent},
+            data: {customer: customer, tenant: tenantStudent},
             panelClass: 'custom-dialog-container',
             position: {top: '20px'}
           });
@@ -256,45 +249,55 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   changeDate(queryDate: QueryInterOrderInterface): void {
     this.querySelection = {...queryDate};
     this.getDataWeek()
   }
 
-  editSettings(event:boolean):void{
+  editSettings(event: boolean): void {
     this.pageLoaded = true;
-      this.tenantStudent.orderSettings.displayTypeOrderWeek = event;
-      this.tenantService.editParentTenant(this.tenantStudent).subscribe((response)=>{
-        window.location.reload();
-      })
+    this.tenantStudent.orderSettings.displayTypeOrderWeek = event;
+    this.tenantService.editParentTenant(this.tenantStudent).subscribe((response) => {
+      window.location.reload();
+    })
   }
-  changeDateDay(queryDate: Date): void {
+
+  changeDateDay(queryDate: string): void {
+
+    // Kein normalize mehr nötig, da queryDate bereits im Format YYYY-MM-DD ist
     this.selectedDay = queryDate;
     this.orderWeek = [];
     this.pageLoaded = false;
 
-    const dateMonday = getDateMondayFromCalenderweek({ week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() });
-    // let dateToSearch = dayjs(formatDateToISO(queryDate)).tz('Europe/Berlin').format();
+    // Extrahiere Jahr und erstelle ein dayjs Objekt für weitere Berechnungen
+    const dateObj = dayjs(queryDate);
+    const year = dateObj.year();
+    const week = getWeekNumber(queryDate);
 
-    const berlinDate = dayjs(queryDate).tz('Europe/Berlin');
-    let dateToSearch = berlinDate.format();
+    const dateMonday = getDateMondayFromCalenderweek({
+      week: week,
+      year: year
+    });
 
-    this.indexDay = getCustomDayIndex(berlinDate.toDate());
 
-    this.querySelection = { week: getWeekNumber(queryDate), year: new Date(queryDate).getFullYear() };
-    if (!this.selectedStudent || !this.selectedStudent._id) {
+    this.querySelection = {
+      week: week,
+      year: year
+    };
+
+    if (!this.selectedStudent?._id) {
       this.pageLoaded = true;
       return;
     }
 
-    this.isWeekend = checkDayWeekend(dateToSearch);
+    this.isWeekend = checkDayWeekend(queryDate);
     if (this.isWeekend) {
-      // this.toastr.warning('Am Wochenende kann keine Bestellung aufgegeben werden');
       this.pageLoaded = true;
       return;
     }
 
-    this.indexDay = getCustomDayIndex(new Date(queryDate));
+    this.indexDay = getCustomDayIndex(queryDate);
 
     // Create a timer observable for 0.4 seconds
     const delay$ = timer(400);
@@ -304,23 +307,49 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       forkJoin([
         this.accountService.getAccountTenant(),
         this.generellService.getWeekplanWeek(this.querySelection),
-        this.orderService.getOrderStudentDay({ dateOrder: dateToSearch, studentId: this.selectedStudent._id })
+        this.orderService.getOrderStudentDay({
+          dateOrder: queryDate,
+          studentId: this.selectedStudent._id
+        })
       ]),
       delay$
     ]).pipe(
-      map(([results]) => results as [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)]) // Explicitly type the results
+      map(([results]) => results as [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)])
     ).subscribe(([accountTenant, weekplan, orderStudent]: [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)]) => {
       this.accountTenant = accountTenant;
 
       // Sets the Weekplan from Catering Company with Menus and Allergens
-      this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
+      this.selectedWeekplan = getMenusForWeekplan(
+        weekplan,
+        this.menus,
+        this.settings,
+        this.querySelection
+      );
 
       // Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+      this.lockDays = getLockDays(
+        dateMonday.toString(),
+        this.allVacations,
+        this.customer.stateHol
+      );
 
       if (!this.selectedStudent) return;
 
-      this.orderWeek.push(setOrderDayStudent(orderStudent, this.selectedWeekplan, this.settings, this.customer, this.selectedStudent, this.indexDay, new Date(dateToSearch), this.querySelection, this.lockDays,this.schoolSettings));
+      this.orderWeek.push(
+        setOrderDayStudent(
+          orderStudent,
+          this.selectedWeekplan,
+          this.settings,
+          this.customer,
+          this.selectedStudent,
+          this.indexDay,
+          new Date(queryDate), // Hier direkt das String-Datum verwenden
+          this.querySelection,
+          this.lockDays,
+          this.schoolSettings
+        )
+      );
+
       this.pageLoaded = true;
     });
   }
@@ -335,14 +364,14 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     if (!this.selectedWeekplan) return;
     this.getOrdersWeekStudent(this.selectedStudent, queryDate, this.selectedWeekplan)
   }
+
   selectStudentSingle(student: StudentInterface | null) {
-    console.log(student)
     this.pageLoaded = false;
-    if(!this.selectedDay) {
+    if (!this.selectedDay) {
       this.toastr.error(this.translate.instant('ORDER_STUDENT_SELECT_DAY'))
       return;
     }
-    if(this.checkForErrors(student)){
+    if (this.checkForErrors(student)) {
       return;
     }
     this.selectedStudent = student;
@@ -351,18 +380,18 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
   selectStudent(student: StudentInterface | null) {
     this.pageLoaded = false;
-    if(this.checkForErrors(student)){
+    if (this.checkForErrors(student)) {
       return;
     }
-   if(!this.initStudent){
-     this.initStudent = true;
-     return;
-   }
+    if (!this.initStudent) {
+      this.initStudent = true;
+      return;
+    }
     this.selectedStudent = student;
     this.getOrderDay(this.querySelection)
   }
 
-  checkForErrors(selectedStudent:StudentInterface | null):boolean{
+  checkForErrors(selectedStudent: StudentInterface | null): boolean {
     this.studentNoSubgroup = false;
     if (!selectedStudent) {
       this.toastr.warning(this.translate.instant('ORDER_STUDENT_PLEASE_SELECT_STUDENT'));
@@ -377,23 +406,24 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     }
     return false;
   }
-  setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface){
+
+  setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
     this.selectedStudent = this.registeredStudents[0];
-    if(!this.querySelection)return;
+    if (!this.querySelection) return;
     // if(this.checkForErrors(this.selectedStudent)){
     //   return;
     // }
-    if(this.displayOrderTypeWeek){
+    if (this.displayOrderTypeWeek) {
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
-    }else{
-      this.changeDateDay(new Date())
+    } else {
+      this.changeDateDay(normalizeToBerlinDate(new Date()))
     }
   }
 
-   getDataWeek() {
+  getDataWeek() {
     this.pageLoaded = false;
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     forkJoin([
@@ -412,43 +442,65 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   }
 
 
-getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
-  this.orderWeek = [];
-  const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
-  let promiseOrderWeek = [];
+  getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
+    this.orderWeek = [];
+    if (!selectedStudent?._id) {
+      console.log('Kein Student ausgewählt oder keine Student-ID vorhanden');
+      return;
+    }
+    let studentId = selectedStudent._id;
+    const dateMonday = normalizeToBerlinDate(
+      getDateMondayFromCalenderweek(this.querySelection)
+    );
 
-  if (!this.selectedStudent) {
-    return;
-  }
 
-  for (let i = 0; i < 5; i++) {
-    let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();
-    promiseOrderWeek.push(this.orderService.getOrderStudentDay({
-      dateOrder: dateToSearch,
-      studentId: this.selectedStudent._id || ''
-    }));
-  }
-  // this.orderService.getOrderStudentWeek({ monday: dateMonday, studentId: this.selectedStudent._id || '' }).subscribe((orderWeek: OrderInterfaceStudentSave[]) => {
-  //   console.log('orderWeek', orderWeek);
-  // })
-  // Start the timer observable for 0.4 seconds
-  const timer$ = timer(400);
+    if (!this.selectedStudent) {
+      return;
+    }
 
-  // Combine the forkJoin observable with the timer observable
-  combineLatest([forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])), timer$])
-    .pipe(
-      map(([order]) => order) // Extract the orders from the combined result
-    )
-    .subscribe((order: (OrderInterfaceStudentSave | null)[]) => {
+    // Hole die 5 Werktage
+    const workdays = getNextFiveWorkdays(dateMonday);
+
+    // Erstelle die Promises für jeden Werktag
+    const promiseOrderWeek = workdays.map(date =>
+      this.orderService.getOrderStudentDay({
+        dateOrder: date,
+        studentId: studentId || ''
+      })
+    );
+
+    // Timer für 400ms Verzögerung
+    const timer$ = timer(400);
+
+    // Combine the forkJoin observable with the timer observable
+    combineLatest([
+      forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])),
+      timer$
+    ]).pipe(
+      map(([orders]) => orders) // Extrahiere die Bestellungen
+    ).subscribe((orders: (OrderInterfaceStudentSave | null)[]) => {
       this.ngZone.run(() => {
-        for (let i = 0; i < 5; i++) {
-          let date = addDayFromDate(dateMonday, i);
+        workdays.forEach((date, index) => {
           if (!this.selectedStudent) return;
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.querySelection, this.lockDays,this.schoolSettings));
-        }
+
+          this.orderWeek.push(
+            setOrderDayStudent(
+              orders[index],
+              weekplanSelectedWeek,
+              this.settings,
+              this.customer,
+              this.selectedStudent,
+              index,
+              new Date(date), // String-Datum im YYYY-MM-DD Format
+              this.querySelection,
+              this.lockDays,
+              this.schoolSettings
+            )
+          );
+        });
         this.pageLoaded = true;
       });
     });
-}
+  }
 
 }

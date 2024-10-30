@@ -9,7 +9,6 @@ export function  downloadPdfWeb(data:WeekplanPdfInterface | ButDocumentInterface
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-    // console.log(data);
     // // Convert Base64 to a Blob
     // const byteCharacters = atob(data.base64);
     // const byteNumbers = new Array(byteCharacters.length);
