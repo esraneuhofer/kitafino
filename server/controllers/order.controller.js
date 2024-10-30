@@ -50,17 +50,6 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
 };
 
 
-module.exports.getOrderStudentYear = async (req, res, next) => {
-  try {
-    const orderStudent = await OrderStudent.find({userId: req._id, year: req.query.year});
-    res.json(orderStudent);
-  } catch (err) {
-    console.error(err); // Log the error for debugging
-    res.status(500).send({message: 'Internal Server Error'});
-  }
-};
-
-
 module.exports.getFutureOrders = async (req, res) => {
   try {
     // const startDate = normalizeToBerlinDate(req.query.startDate);

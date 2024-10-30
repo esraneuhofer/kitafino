@@ -118,7 +118,6 @@ export class ButComponent implements OnInit{
       ]) => {
         this.settings = settings;
         this.customer = customer;
-        this.customer.stateHol = 'HE' //Testing
         this.registeredStudents = students;
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;

@@ -41,10 +41,6 @@ export class OrderService {
   }
 
 
-  getOrderStudentYear(query: { year:number }) {
-    return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getOrderStudentYear', {params: query})
-      .pipe(map((response: OrderInterfaceStudentSave[]) => (response)));
-  }
   getAccountOrderUserYear(query: { year:number }) {
     return this.http.get<OrdersAccountInterface[]>(environment.apiBaseUrl + '/getAccountOrderUserYear', {params: query})
       .pipe(map((response: OrdersAccountInterface[]) => (response)));
@@ -58,14 +54,5 @@ export class OrderService {
     return this.http.post(environment.apiBaseUrl + '/cancelOrderStudent', object)
       .pipe(map((response: any) => response));
   }
-  editStudentOrder(object: OrderInterfaceStudentSave) {
-    return this.http.post(environment.apiBaseUrl + '/editStudentOrder', object)
-      .pipe(map((response: any) => response));
-  }
-
-  // getWeekplanWeek(query:{week:number, year:number}) {
-  //   return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl + '/getWeekplanWeek', {params: query})
-  //     .pipe(map((response: WeekplanMenuInterface) => (response)));
-  // }
 
 }

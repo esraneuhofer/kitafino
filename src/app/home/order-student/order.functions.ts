@@ -15,6 +15,18 @@ dayjs.extend(isoWeek);     // Fügt isoWeek() Funktion hinzu
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsInterface,orderDate:Date):number{
+  if(generalSettings.isDeadlineDaily){
+    return timeDifferenceDay(generalSettings.deadlineDaily, orderDate)
+  }else{
+    console.log('isCancelOrderPossibleDashboard',generalSettings.deadlineWeekly,orderDate)
+    let kw = getWeekNumber(orderDate);
+    let year = orderDate.getFullYear();
+    return getDeadlineWeeklyFunction(generalSettings, kw, getWeekNumber(new Date()), new Date().getFullYear(), year);
+  }
+
+
+}
 export function timeDifference(difference:number,withSeconds:boolean):string {
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   difference %= (1000 * 60 * 60 * 24);  // subtract the days

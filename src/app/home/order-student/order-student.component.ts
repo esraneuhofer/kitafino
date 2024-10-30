@@ -213,7 +213,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       ]) => {
         this.settings = settings;
         this.customer = customer;
-        this.customer.stateHol = 'HE' //Testing
+
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
         this.registeredStudents = students;
@@ -290,7 +290,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.pageLoaded = true;
       return;
     }
-
+    console.log('Selected Student:', this.selectedStudent);
     this.isWeekend = checkDayWeekend(queryDate);
     if (this.isWeekend) {
       this.pageLoaded = true;
@@ -330,7 +330,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.lockDays = getLockDays(
         dateMonday.toString(),
         this.allVacations,
-        this.customer.stateHol
+        this.customer.generalSettings.state
       );
 
       if (!this.selectedStudent) return;
@@ -410,7 +410,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
-    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
     this.selectedStudent = this.registeredStudents[0];
     if (!this.querySelection) return;
     // if(this.checkForErrors(this.selectedStudent)){
@@ -435,7 +435,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
       if (!this.selectedStudent) return;
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     })

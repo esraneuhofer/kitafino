@@ -174,7 +174,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.stateHol);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();

@@ -172,7 +172,6 @@ export class PermanentOrdersComponent implements OnInit {
       ]) => {
         this.settings = settings;
         this.customer = customer;
-        this.customer.stateHol = 'HE' //Testing
         this.registeredStudents = students;
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
         this.tenantStudent = tenantStudent;

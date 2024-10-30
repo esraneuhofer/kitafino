@@ -108,7 +108,7 @@ var customerSchema = new Schema({
       required: '{PATH} is required!'
     },
   },
-  generalSettings: generalSettingsSchema
+  generalSettings: generalSettingsSchema,
 });
 
 var Customer = mongoose.model('Customer', customerSchema);

@@ -13,7 +13,6 @@ interface PricesGroupBillingInterface{priceSpecial:number,idSpecial:string, name
 
 export interface CustomerInterface {
   username?:string;
-  stateHol:string
   generalSettings:GeneralSettingsInterface;
   customerId:string;
   _id?:string;
@@ -88,7 +87,7 @@ export interface GeneralSettingsInterface {
   };
   deadlineDaily: DeadlineDailyInterface;
   cancelOrderDaily:DeadlineDailyInterface;
-
+  state: string;
   hideMenuName: boolean;
   allowOnlyOneMenu: boolean; // Wenn aktiviert kann man Nur ein Menü auswählen. Bei der Auswahl eines Allergiker Essens wird das normale Menü abgewählt
 }

@@ -249,6 +249,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
+    console.log('customer.generalSettings.hideMenuName:', customer.generalSettings.hideMenuName);
+    if(customer.generalSettings.hideMenuName && (orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'))return false;
     if(!student.specialFood && !customer.generalSettings.allowOnlyOneMenu)return true;
     if(!customer.generalSettings.allowOnlyOneMenu)return true;
     if(customer.generalSettings.allowOnlyOneMenu && orderModel.idType === student.specialFood || orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'){

@@ -12,7 +12,7 @@ import {catchError, forkJoin, of, Subscription} from "rxjs";
 import {OrderService} from "../../service/order.service";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 import {sortOrdersByDate} from "../../functions/order.functions";
-import {getTotalPriceSafe, timeDifferenceDay} from "../order-student/order.functions";
+import {getTotalPriceSafe, isCancelOrderPossibleDashboard, timeDifferenceDay} from "../order-student/order.functions";
 import {getStudentNameById} from "../../functions/students.functions";
 import {SettingInterfaceNew} from "../../classes/setting.class";
 import {GenerellService} from "../../service/generell.service";
@@ -60,7 +60,7 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
         }).join(', '),
         nameStudent: getStudentNameById(order.studentId, registeredStudendts),
         price: getTotalPriceSafe(order),
-        cancelPossible: timeDifferenceDay(customer.generalSettings.deadlineDaily, new Date(order.dateOrder)),
+        cancelPossible: isCancelOrderPossibleDashboard(customer.generalSettings, new Date(order.dateOrder)),
         order: orderCopy$
       })
   })
@@ -224,7 +224,7 @@ export class DashboardComponent {
   initAfterCancelOrder() {
     forkJoin(
       this.accountService.getAccountTenant(),
-      this.orderService.getOrderStudentYear({year: new Date().getFullYear()}),
+      this.orderService.getFutureOrders({date:new Date().toString()}),
     ).subscribe((
       [
         accountInformation,
