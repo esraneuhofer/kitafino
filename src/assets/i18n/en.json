@@ -587,5 +587,16 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "By proceeding, you agree that you will be redirected to Stripe to complete the payment processing. The payment processing is done by Stripe and not by us.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Read our <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Terms and Conditions</a> for more information.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "I have read the <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Terms and Conditions</a> and agree to the redirection to Stripe for payment processing.",
-  "BITTE_STIMMEN_SIE_ZU": "Please agree to the Terms and Conditions"
+  "BITTE_STIMMEN_SIE_ZU": "Please agree to the Terms and Conditions",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "If you activate an allergen meal, the regular menu will be deactivated. Only one menu can be activated for your order. <br>The setting has been made by your caterer or institution. <br> To change the allergen meal afterward, please contact your caterer or institution.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "If the participant orders an allergen meal, please select the appropriate meal. If you activate an allergen meal, the regular menu will be deactivated. Only one menu can be activated for your order. The setting has been made by your caterer or institution. To change the allergen meal afterward, please contact your caterer.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Changes to the allergen meal can only be made afterward by the institution or your caterer. Please contact your institution or caterer.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "To change an allergen meal, select the appropriate meal and confirm your selection by clicking <b>[Change]</b>.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Registered participant",
+  "BITTE_WAEHLEN_SIE_MENU": "Please select a menu",
+  "AUSWAHL": "Selection",
+  "ALLE": "All",
+  "ALLGEMEIN": "General",
+  "ANMELDUNG_MULTI": "Registration (Multi Lingual)",
+  "ACCOUNT_SUPPORT_ERROR": "An error has occurred. Please try again later or contact our customer support at <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
 }

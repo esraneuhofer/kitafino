@@ -587,5 +587,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "繼續操作即表示你同意被重定向到Stripe以完成付款處理。付款處理由Stripe執行，而不是由我們執行。",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "閱讀我們的<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般條款和條件</a>以獲取更多信息。",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "我已閱讀<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般條款和條件</a>並同意被重定向到Stripe以完成付款處理。",
-  "BITTE_STIMMEN_SIE_ZU": "請同意一般條款和條件"
+  "BITTE_STIMMEN_SIE_ZU": "請同意一般條款和條件",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "如果您啟用了過敏餐，常規餐單將會停用。您的訂單只能啟用一個餐單。<br>此設置由您的餐飲供應商或機構設置。<br>如需更改過敏餐，請聯絡您的餐飲供應商或機構。",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "如果參與者選擇過敏餐，請選擇相應的餐點。啟用過敏餐後，常規餐單將會停用。您的訂單只能啟用一個餐單。此設置由您的餐飲供應商或機構設置。如需更改過敏餐，請聯絡您的餐飲供應商。",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "過敏餐的更改只能由您的機構或餐飲供應商進行。請聯絡您的機構或餐飲供應商。",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "如要更改過敏餐，請選擇相應的餐點，然後點擊<b>[更改]</b>確認您的選擇。",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "已註冊參加者",
+  "BITTE_WAEHLEN_SIE_MENU": "請選擇一個餐單",
+  "AUSWAHL": "選擇",
+  "ALLE": "全部",
+  "ALLGEMEIN": "常規",
+  "ANMELDUNG_MULTI": "註冊（多語言）",
+  "ACCOUNT_SUPPORT_ERROR": "發生錯誤。請稍後再試，或聯絡我們的客戶支持：<u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>。"
 }
+

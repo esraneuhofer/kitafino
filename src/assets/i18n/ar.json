@@ -586,5 +586,16 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "بالمتابعة، فإنك توافق على أنه سيتم إعادة توجيهك إلى Stripe لإتمام عملية الدفع. يتم معالجة الدفع بواسطة Stripe وليس بواسطة شركتنا.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "اقرأ <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شروطنا وأحكامنا العامة</a> لمزيد من المعلومات.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "لقد قرأت <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">الشروط والأحكام العامة</a> وأوافق على إعادة توجيهي إلى Stripe لإتمام عملية الدفع.",
-  "BITTE_STIMMEN_SIE_ZU": "يرجى الموافقة على الشروط والأحكام العامة"
+  "BITTE_STIMMEN_SIE_ZU": "يرجى الموافقة على الشروط والأحكام العامة",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "إذا قمت بتفعيل وجبة تحتوي على مكونات مسببة للحساسية، سيتم إلغاء تفعيل القائمة العادية. يمكن تفعيل قائمة واحدة فقط لطلبك. <br>تم تحديد هذا الإعداد من قبل مزود الطعام أو مؤسستك. <br> لتغيير الوجبة الخاصة بالمكونات المسببة للحساسية لاحقًا، يرجى التواصل مع مزود الطعام أو مؤسستك.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "إذا طلب المشارك وجبة تحتوي على مكونات مسببة للحساسية، يرجى اختيار الوجبة المناسبة. إذا قمت بتفعيل وجبة تحتوي على مكونات مسببة للحساسية، سيتم إلغاء تفعيل القائمة العادية. يمكن تفعيل قائمة واحدة فقط لطلبك. تم تحديد هذا الإعداد من قبل مزود الطعام أو مؤسستك. لتغيير الوجبة الخاصة بالمكونات المسببة للحساسية لاحقًا، يرجى التواصل مع مزود الطعام.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "يمكن فقط للمؤسسة أو مزود الطعام الخاص بك إجراء تغييرات على الوجبة الخاصة بالمكونات المسببة للحساسية. يرجى التواصل مع مؤسستك أو مزود الطعام.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "لتغيير الوجبة الخاصة بالمكونات المسببة للحساسية، اختر الوجبة المناسبة وقم بتأكيد اختيارك بالضغط على <b>[تغيير]</b>.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "المشارك المسجل",
+  "BITTE_WAEHLEN_SIE_MENU": "يرجى اختيار قائمة",
+  "AUSWAHL": "اختيار",
+  "ALLE": "الكل",
+  "ALLGEMEIN": "عام",
+  "ANMELDUNG_MULTI": "التسجيل (متعدد اللغات)",
+  "ACCOUNT_SUPPORT_ERROR": "حدث خطأ. يرجى المحاولة لاحقاً أو الاتصال بدعم العملاء لدينا على <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
 }

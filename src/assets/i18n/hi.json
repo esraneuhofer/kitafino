@@ -586,5 +586,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "आगे बढ़ने पर, आप सहमत होते हैं कि आपको भुगतान प्रक्रिया के लिए Stripe पर पुनः निर्देशित किया जाएगा। भुगतान प्रक्रिया Stripe द्वारा की जाती है, न कि हमारी द्वारा।",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "अधिक जानकारी के लिए हमारे <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">सामान्य नियम और शर्तें</a> पढ़ें।",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "मैंने <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">सामान्य नियम और शर्तें</a> पढ़ ली हैं और भुगतान प्रक्रिया के लिए Stripe पर पुनः निर्देशित होने के लिए सहमत हूं।",
-  "BITTE_STIMMEN_SIE_ZU": "कृपया सामान्य नियम और शर्तों से सहमत हों"
+  "BITTE_STIMMEN_SIE_ZU": "कृपया सामान्य नियम और शर्तों से सहमत हों",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "यदि आप एक एलर्जेन भोजन सक्रिय करते हैं, तो सामान्य मेनू निष्क्रिय हो जाएगा। आपके आदेश के लिए केवल एक मेनू सक्रिय किया जा सकता है। <br>यह सेटिंग आपके कैटरर या संस्थान द्वारा निर्धारित की गई है। <br> बाद में एलर्जेन भोजन को बदलने के लिए, कृपया अपने कैटरर या संस्थान से संपर्क करें।",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "यदि प्रतिभागी एलर्जेन भोजन का आदेश देता है, तो कृपया उपयुक्त भोजन का चयन करें। यदि आप एक एलर्जेन भोजन सक्रिय करते हैं, तो सामान्य मेनू निष्क्रिय हो जाएगा। आपके आदेश के लिए केवल एक मेनू सक्रिय किया जा सकता है। यह सेटिंग आपके कैटरर या संस्थान द्वारा निर्धारित की गई है। बाद में एलर्जेन भोजन को बदलने के लिए, कृपया अपने कैटरर से संपर्क करें।",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "एलर्जेन भोजन में बदलाव केवल आपके संस्थान या कैटरर द्वारा ही किया जा सकता है। कृपया अपने संस्थान या कैटरर से संपर्क करें।",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "एक एलर्जेन भोजन बदलने के लिए, उपयुक्त भोजन का चयन करें और <b>[बदलें]</b> पर क्लिक करके अपनी पसंद की पुष्टि करें।",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "पंजीकृत प्रतिभागी",
+  "BITTE_WAEHLEN_SIE_MENU": "कृपया एक मेनू चुनें",
+  "AUSWAHL": "चयन",
+  "ALLE": "सभी",
+  "ALLGEMEIN": "सामान्य",
+  "ANMELDUNG_MULTI": "पंजीकरण (बहुभाषी)",
+  "ACCOUNT_SUPPORT_ERROR": "एक त्रुटि हुई है। कृपया बाद में पुनः प्रयास करें या हमारे ग्राहक सहायता से संपर्क करें <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> पर।"
 }
+

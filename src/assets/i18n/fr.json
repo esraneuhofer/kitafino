@@ -590,5 +590,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "En continuant, vous acceptez d'être redirigé vers Stripe pour traiter le paiement. Le traitement du paiement est effectué par Stripe et non par nous.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lisez nos <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Conditions générales</a> pour plus d'informations.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "J'ai lu les <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Conditions générales</a> et j'accepte d'être redirigé vers Stripe pour traiter le paiement.",
-  "BITTE_STIMMEN_SIE_ZU": "Veuillez accepter les Conditions générales"
+  "BITTE_STIMMEN_SIE_ZU": "Veuillez accepter les Conditions générales",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Si vous activez un repas spécial allergie, le menu régulier sera désactivé. Seul un menu peut être activé pour votre commande. <br>Ce paramètre a été défini par votre traiteur ou votre établissement. <br> Pour modifier le repas spécial allergie par la suite, veuillez contacter votre traiteur ou votre établissement.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Si le participant commande un repas spécial allergie, veuillez sélectionner le repas approprié. Si vous activez un repas spécial allergie, le menu régulier sera désactivé. Seul un menu peut être activé pour votre commande. Ce paramètre a été défini par votre traiteur ou votre établissement. Pour modifier le repas spécial allergie par la suite, veuillez contacter votre traiteur.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Les modifications du repas spécial allergie ne peuvent être effectuées que par l'établissement ou votre traiteur. Veuillez contacter votre établissement ou votre traiteur.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "Pour modifier un repas spécial allergie, sélectionnez le repas approprié et confirmez votre choix en cliquant sur <b>[Modifier]</b>.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Participant enregistré",
+  "BITTE_WAEHLEN_SIE_MENU": "Veuillez sélectionner un menu",
+  "AUSWAHL": "Sélection",
+  "ALLE": "Tous",
+  "ALLGEMEIN": "Général",
+  "ANMELDUNG_MULTI": "Inscription (multilingue)",
+  "ACCOUNT_SUPPORT_ERROR": "Une erreur s'est produite. Veuillez réessayer plus tard ou contacter notre support client à <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
 }
+

@@ -57,7 +57,7 @@ var orderStudentSchema = new Schema({
   dateOrderPlaced: {
     type: String,
     set: function(v) {
-      return normalizeToBerlinDate(v || new Date());
+      return normalizeToBerlinDateSeconds(v || new Date());
     }
   },
   postInfo: [{
@@ -82,6 +82,18 @@ function normalizeToBerlinDate(date) {
     return date;
   }
 }
+
+function normalizeToBerlinDateSeconds(date) {
+  try {
+    return dayjs(date)
+      .tz('Europe/Berlin')
+      .format('YYYY-MM-DD HH:mm:ss');
+  } catch (error) {
+    console.error('Fehler bei der Datums-Normalisierung:', error);
+    return date;
+  }
+}
+
 
 // Pre-save Middleware
 orderStudentSchema.pre('save', async function(next) {

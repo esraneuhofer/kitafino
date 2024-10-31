@@ -589,5 +589,16 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "با ادامه دادن، شما موافقت می‌کنید که برای پردازش پرداخت به Stripe هدایت شوید. پردازش پرداخت توسط Stripe انجام می‌شود و نه توسط ما.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شرایط و ضوابط عمومی</a> ما را برای اطلاعات بیشتر بخوانید.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "من <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">شرایط و ضوابط عمومی</a> را خوانده‌ام و موافق هدایت به Stripe برای پردازش پرداخت هستم.",
-  "BITTE_STIMMEN_SIE_ZU": "لطفاً با شرایط و ضوابط عمومی موافقت کنید"
+  "BITTE_STIMMEN_SIE_ZU": "لطفاً با شرایط و ضوابط عمومی موافقت کنید",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "اگر یک غذای مخصوص آلرژی فعال کنید، منوی معمولی غیرفعال خواهد شد. فقط یک منو می‌تواند برای سفارش شما فعال باشد. <br> این تنظیم توسط تهیه‌کننده غذا یا مؤسسه شما انجام شده است. <br> برای تغییر غذای مخصوص آلرژی پس از این، لطفاً با تهیه‌کننده یا مؤسسه خود تماس بگیرید.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "اگر شرکت‌کننده‌ای غذای مخصوص آلرژی سفارش دهد، لطفاً غذای مناسب را انتخاب کنید. اگر یک غذای مخصوص آلرژی فعال کنید، منوی معمولی غیرفعال خواهد شد. فقط یک منو می‌تواند برای سفارش شما فعال باشد. این تنظیم توسط تهیه‌کننده غذا یا مؤسسه شما انجام شده است. برای تغییر غذای مخصوص آلرژی پس از این، لطفاً با تهیه‌کننده خود تماس بگیرید.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "تغییرات در غذای مخصوص آلرژی فقط توسط مؤسسه یا تهیه‌کننده غذا امکان‌پذیر است. لطفاً با مؤسسه یا تهیه‌کننده غذای خود تماس بگیرید.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "برای تغییر غذای مخصوص آلرژی، غذای مناسب را انتخاب کنید و با کلیک بر روی <b>[تغییر]</b> انتخاب خود را تأیید کنید.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "شرکت‌کننده ثبت‌شده",
+  "BITTE_WAEHLEN_SIE_MENU": "لطفاً یک منو را انتخاب کنید",
+  "AUSWAHL": "انتخاب",
+  "ALLE": "همه",
+  "ALLGEMEIN": "عمومی",
+  "ANMELDUNG_MULTI": "ثبت‌نام (چندزبانه)",
+  "ACCOUNT_SUPPORT_ERROR": "خطایی رخ داده است. لطفاً بعداً دوباره تلاش کنید یا با پشتیبانی مشتری ما در <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> تماس بگیرید."
 }

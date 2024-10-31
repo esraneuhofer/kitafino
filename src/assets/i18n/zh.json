@@ -585,5 +585,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "继续操作即表示您同意将被重定向至Stripe进行付款处理。付款处理由Stripe执行，而不是由我们执行。",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "阅读我们的<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般条款和条件</a>以了解更多信息。",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "我已阅读<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">一般条款和条件</a>并同意被重定向至Stripe进行付款处理。",
-  "BITTE_STIMMEN_SIE_ZU": "请同意一般条款和条件"
+  "BITTE_STIMMEN_SIE_ZU": "请同意一般条款和条件",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "如果您激活了过敏餐，则常规菜单将被禁用。您的订单只能激活一个菜单。<br>此设置由您的餐饮服务商或机构设定。<br>如需更改过敏餐，请联系您的餐饮服务商或机构。",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "如果用餐者选择过敏餐，请选择相应的餐食。激活过敏餐后，常规菜单将被禁用。您的订单只能激活一个菜单。此设置由您的餐饮服务商或机构设定。如需更改过敏餐，请联系您的餐饮服务商。",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "只有您的机构或餐饮服务商可以更改过敏餐。如需更改，请联系您的机构或餐饮服务商。",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "要更改过敏餐，请选择相应的餐食，然后点击<b>[更改]</b>确认您的选择。",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "已注册用餐者",
+  "BITTE_WAEHLEN_SIE_MENU": "请选择一个菜单",
+  "AUSWAHL": "选择",
+  "ALLE": "全部",
+  "ALLGEMEIN": "常规",
+  "ANMELDUNG_MULTI": "注册（多语言）",
+  "ACCOUNT_SUPPORT_ERROR": "发生错误。请稍后再试，或联系客户支持：<u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>。"
 }
+

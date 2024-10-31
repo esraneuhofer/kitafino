@@ -589,5 +589,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Door verder te gaan, stemt u ermee in dat u wordt doorgestuurd naar Stripe om de betaling te verwerken. De betaling wordt verwerkt door Stripe en niet door ons.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Lees onze <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Algemene voorwaarden</a> voor meer informatie.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Ik heb de <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Algemene voorwaarden</a> gelezen en ga akkoord met de doorgestuurde betaling naar Stripe.",
-  "BITTE_STIMMEN_SIE_ZU": "Accepteer alstublieft de Algemene voorwaarden"
+  "BITTE_STIMMEN_SIE_ZU": "Accepteer alstublieft de Algemene voorwaarden",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Als u een allergenenmaaltijd activeert, wordt het reguliere menu gedeactiveerd. Er kan slechts één menu voor uw bestelling worden geactiveerd. <br>Deze instelling is ingesteld door uw cateraar of instelling. <br> Om de allergenenmaaltijd later te wijzigen, neem contact op met uw cateraar of instelling.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Als de deelnemer een allergenenmaaltijd bestelt, selecteer dan de juiste maaltijd. Als u een allergenenmaaltijd activeert, wordt het reguliere menu gedeactiveerd. Er kan slechts één menu voor uw bestelling worden geactiveerd. Deze instelling is ingesteld door uw cateraar of instelling. Om de allergenenmaaltijd later te wijzigen, neem contact op met uw cateraar.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Wijzigingen in de allergenenmaaltijd kunnen alleen door de instelling of uw cateraar worden aangebracht. Neem contact op met uw instelling of cateraar.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "Om een allergenenmaaltijd te wijzigen, selecteer de juiste maaltijd en bevestig uw keuze door op <b>[Wijzig]</b> te klikken.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Geregistreerde deelnemer",
+  "BITTE_WAEHLEN_SIE_MENU": "Selecteer een menu",
+  "AUSWAHL": "Selectie",
+  "ALLE": "Alle",
+  "ALLGEMEIN": "Algemeen",
+  "ANMELDUNG_MULTI": "Registratie (meertalig)",
+  "ACCOUNT_SUPPORT_ERROR": "Er is een fout opgetreden. Probeer het later opnieuw of neem contact op met onze klantenservice via <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
 }
+

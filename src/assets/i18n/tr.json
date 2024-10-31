@@ -586,5 +586,17 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Devam ederek, ödeme işlemini gerçekleştirmek için Stripe'a yönlendirileceğinizi kabul ediyorsunuz. Ödeme işlemi Stripe tarafından gerçekleştirilir ve tarafımızdan gerçekleştirilmez.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Daha fazla bilgi için <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Genel Şartlar ve Koşullarımızı</a> okuyun.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "<a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Genel Şartlar ve Koşulları</a> okudum ve ödeme işlemi için Stripe'a yönlendirilmek üzere kabul ediyorum.",
-  "BITTE_STIMMEN_SIE_ZU": "Lütfen Genel Şartlar ve Koşulları kabul edin"
+  "BITTE_STIMMEN_SIE_ZU": "Lütfen Genel Şartlar ve Koşulları kabul edin",
+
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Bir alerjen yemeği etkinleştirirseniz, normal menü devre dışı bırakılacaktır. Siparişiniz için yalnızca bir menü etkinleştirilebilir. <br>Bu ayar, catering şirketiniz veya kurumunuz tarafından yapılmıştır. <br> Alerjen yemeği daha sonra değiştirmek için lütfen catering şirketinize veya kurumunuza başvurun.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Katılımcı bir alerjen yemeği sipariş ederse, lütfen uygun yemeği seçin. Bir alerjen yemeği etkinleştirirseniz, normal menü devre dışı bırakılacaktır. Siparişiniz için yalnızca bir menü etkinleştirilebilir. Bu ayar, catering şirketiniz veya kurumunuz tarafından yapılmıştır. Alerjen yemeği daha sonra değiştirmek için lütfen catering şirketinize başvurun.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Alerjen yemeğinde değişiklikler yalnızca kurumunuz veya catering şirketiniz tarafından yapılabilir. Lütfen kurumunuza veya catering şirketinize başvurun.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "Bir alerjen yemeğini değiştirmek için uygun yemeği seçin ve <b>[Değiştir]</b> tuşuna tıklayarak seçiminizi onaylayın.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Kayıtlı katılımcı",
+  "BITTE_WAEHLEN_SIE_MENU": "Lütfen bir menü seçin",
+  "AUSWAHL": "Seçim",
+  "ALLE": "Tümü",
+  "ALLGEMEIN": "Genel",
+  "ANMELDUNG_MULTI": "Kayıt (Çok Dilli)",
+  "ACCOUNT_SUPPORT_ERROR": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya müşteri destek ekibimize <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> üzerinden ulaşın."
 }

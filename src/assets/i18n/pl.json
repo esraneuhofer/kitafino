@@ -589,7 +589,18 @@
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Kontynuując, zgadzasz się, że zostaniesz przekierowany do Stripe w celu przetworzenia płatności. Płatność jest przetwarzana przez Stripe, a nie przez nas.",
   "LESEN_SIE_UNSERE_ALLGEMEINEN_GESCHÄFTSBEDINGUNG": "Przeczytaj nasze <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Ogólne warunki</a> aby uzyskać więcej informacji.",
   "ICH_HABE_GELESEN_UND_ZUGESTIMMT": "Przeczytałem <a href=\"https://cateringexpert.de/agb-schulanmeldung\" target=\"_blank\" class=\"text-blue-600 underline\">Ogólne warunki</a> i zgadzam się na przekierowanie do Stripe w celu przetworzenia płatności.",
-  "BITTE_STIMMEN_SIE_ZU": "Proszę zaakceptować Ogólne warunki"
+  "BITTE_STIMMEN_SIE_ZU": "Proszę zaakceptować Ogólne warunki",
+  "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT_ONLY_ONE": "Jeśli aktywujesz posiłek alergiczny, standardowe menu zostanie dezaktywowane. Dla Twojego zamówienia można aktywować tylko jedno menu. <br>Ustawienie zostało wprowadzone przez Twojego dostawcę cateringu lub instytucję. <br> Aby zmienić posiłek alergiczny później, skontaktuj się z dostawcą cateringu lub instytucją.",
+  "MANAGE_STUDENTS_ALLERGY_FOOD_SET_BY_CUSTOMER_ONLY_ONE": "Jeśli uczestnik zamawia posiłek alergiczny, wybierz odpowiedni posiłek. Jeśli aktywujesz posiłek alergiczny, standardowe menu zostanie dezaktywowane. Dla Twojego zamówienia można aktywować tylko jedno menu. Ustawienie zostało wprowadzone przez Twojego dostawcę cateringu lub instytucję. Aby zmienić posiłek alergiczny później, skontaktuj się z dostawcą cateringu.",
+  "EDIT_SPECIAL_FOOD_ONLY_ONE_MENU": "Zmiany w posiłku alergicznym mogą być dokonane tylko przez instytucję lub dostawcę cateringu. Skontaktuj się z instytucją lub dostawcą cateringu.",
+  "EDIT_SPECIAL_CHANGE_BY_PARENT": "Aby zmienić posiłek alergiczny, wybierz odpowiedni posiłek i potwierdź swój wybór, klikając <b>[Zmień]</b>.",
+  "ANGEMELDETER_VERPFLEGUNGSTEILNEHMER": "Zarejestrowany uczestnik",
+  "BITTE_WAEHLEN_SIE_MENU": "Proszę wybrać menu",
+  "AUSWAHL": "Wybór",
+  "ALLE": "Wszystkie",
+  "ALLGEMEIN": "Ogólne",
+  "ANMELDUNG_MULTI": "Rejestracja (wielojęzyczna)",
+  "ACCOUNT_SUPPORT_ERROR": "Wystąpił błąd. Proszę spróbować ponownie później lub skontaktować się z naszym wsparciem klienta pod <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
 }
 
 
