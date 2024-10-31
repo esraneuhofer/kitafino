@@ -83,57 +83,57 @@
                     </div>
                     <p *ngIf="f1.submitted && phone.invalid " class="mt-2 text-sm text-red-600" id="phone-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>
                   </div>
-                  <div class="col-span-full">
-                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ADDRESS' | translate }}</label>
-                    <div class="mt-2">
-                      <input type="text"
-                             #address="ngModel"
-                             [(ngModel)]="tenantModel.address"
-                             [class.text-red-900]="f1.submitted && address.invalid"
-                             [class.ring-red-300]="f1.submitted && address.invalid"
-                             [class.placeholder:text-red-300]="f1.submitted && address.invalid"
-                             [class.focus:ring-red-500]="f1.submitted && address.invalid"
-                             name="address"
-                             id="address"
-                             autocomplete="street-address"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                    <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>
-                  </div>
-                  <div class="sm:col-span-3 sm:col-start-1">
-                    <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ZIP' | translate }}</label>
-                    <div class="mt-2">
-                      <input type="text"
-                             #zip="ngModel"
-                             [(ngModel)]="tenantModel.zip"
-                             [class.text-red-900]="f1.submitted && zip.invalid"
-                             [class.ring-red-300]="f1.submitted && zip.invalid"
-                             [class.placeholder:text-red-300]="f1.submitted && zip.invalid"
-                             [class.focus:ring-red-500]="f1.submitted && zip.invalid"
-                             name="zip"
-                             id="zip"
-                             autocomplete="postal-code"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                    <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>
-                  </div>
-                  <div class="sm:col-span-3">
-                    <label for="city" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.CITY' | translate }}</label>
-                    <div class="mt-2">
-                      <input type="text"
-                             #city="ngModel"
-                             [(ngModel)]="tenantModel.city"
-                             [class.text-red-900]="f1.submitted && city.invalid"
-                             [class.ring-red-300]="f1.submitted && city.invalid"
-                             [class.placeholder:text-red-300]="f1.submitted && city.invalid"
-                             [class.focus:ring-red-500]="f1.submitted && city.invalid"
-                             name="city"
-                             id="city"
-                             autocomplete="address-level2"
-                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                    </div>
-                    <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>
-                  </div>
+<!--                  <div class="col-span-full">-->
+<!--                    <label for="address" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ADDRESS' | translate }}</label>-->
+<!--                    <div class="mt-2">-->
+<!--                      <input type="text"-->
+<!--                             #address="ngModel"-->
+<!--                             [(ngModel)]="tenantModel.address"-->
+<!--                             [class.text-red-900]="f1.submitted && address.invalid"-->
+<!--                             [class.ring-red-300]="f1.submitted && address.invalid"-->
+<!--                             [class.placeholder:text-red-300]="f1.submitted && address.invalid"-->
+<!--                             [class.focus:ring-red-500]="f1.submitted && address.invalid"-->
+<!--                             name="address"-->
+<!--                             id="address"-->
+<!--                             autocomplete="street-address"-->
+<!--                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                    </div>-->
+<!--                    <p *ngIf="f1.submitted && address.invalid " class="mt-2 text-sm text-red-600" id="address-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>-->
+<!--                  </div>-->
+<!--                  <div class="sm:col-span-3 sm:col-start-1">-->
+<!--                    <label for="zip" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.ZIP' | translate }}</label>-->
+<!--                    <div class="mt-2">-->
+<!--                      <input type="text"-->
+<!--                             #zip="ngModel"-->
+<!--                             [(ngModel)]="tenantModel.zip"-->
+<!--                             [class.text-red-900]="f1.submitted && zip.invalid"-->
+<!--                             [class.ring-red-300]="f1.submitted && zip.invalid"-->
+<!--                             [class.placeholder:text-red-300]="f1.submitted && zip.invalid"-->
+<!--                             [class.focus:ring-red-500]="f1.submitted && zip.invalid"-->
+<!--                             name="zip"-->
+<!--                             id="zip"-->
+<!--                             autocomplete="postal-code"-->
+<!--                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                    </div>-->
+<!--                    <p *ngIf="f1.submitted && zip.invalid " class="mt-2 text-sm text-red-600" id="zip-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>-->
+<!--                  </div>-->
+<!--                  <div class="sm:col-span-3">-->
+<!--                    <label for="city" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.CITY' | translate }}</label>-->
+<!--                    <div class="mt-2">-->
+<!--                      <input type="text"-->
+<!--                             #city="ngModel"-->
+<!--                             [(ngModel)]="tenantModel.city"-->
+<!--                             [class.text-red-900]="f1.submitted && city.invalid"-->
+<!--                             [class.ring-red-300]="f1.submitted && city.invalid"-->
+<!--                             [class.placeholder:text-red-300]="f1.submitted && city.invalid"-->
+<!--                             [class.focus:ring-red-500]="f1.submitted && city.invalid"-->
+<!--                             name="city"-->
+<!--                             id="city"-->
+<!--                             autocomplete="address-level2"-->
+<!--                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">-->
+<!--                    </div>-->
+<!--                    <p *ngIf="f1.submitted && city.invalid " class="mt-2 text-sm text-red-600" id="city-error">{{ 'MANAGE_TENANT_SETTINGS.REQUIRED_FIELD' | translate }}</p>-->
+<!--                  </div>-->
                   <div class="col-span-full">
                     <label for="iban" class="block text-sm font-medium leading-6 text-gray-900">{{ 'MANAGE_TENANT_SETTINGS.IBAN' | translate }}</label>
                     <div class="mt-2 relative">

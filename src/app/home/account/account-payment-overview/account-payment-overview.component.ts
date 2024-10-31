@@ -1,6 +1,6 @@
 import {AfterViewInit, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {StudentService} from "../../../service/student.service";
-import {forkJoin, Subscription} from "rxjs";
+import {catchError, forkJoin, Subscription, throwError} from "rxjs";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
 import {CustomerInterface} from "../../../classes/customer.class";
 import {StudentInterface} from "../../../classes/student.class";
@@ -238,7 +238,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    if(!this.tenantStudent.iban || !this.tenantStudent.address || !this.tenantStudent.city || !this.tenantStudent.zip){
+    // if(!this.tenantStudent.iban || !this.tenantStudent.address || !this.tenantStudent.city || !this.tenantStudent.zip){
+      if(!this.tenantStudent.iban ){
       let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
       let reason = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS_NOT_IBAN')
       this.dialogService.openMessageDialog(reason, heading,'warning');
@@ -259,31 +260,57 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result){
+      if (!result) {
         this.submittingRequest = false;
         return;
       }
+
       const accountCharge = new ChargeAccountInterface(
         this.accountTenant,
         this.tenantStudent,
         'withdraw'
       );
       accountCharge.emailTenant = this.tenantStudent.email;
-      this.chargeService.withdrawFunds(accountCharge).subscribe((response: any) => {
-        forkJoin([
-          this.chargeService.getAccountCharges(),
-          this.accountService.getAccountTenant()
-        ]).subscribe(([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
-          this.accountTenant = accountTenant;
-          this.accountCharges = sortAccountChargesByDate(accountCharges);
-          const message = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_PROCESSED');
-          const header = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_HEADER');
-          this.dialogService.openMessageDialog(message, header,'success');
-          // this.toastr.success('Abbuchung erfolgreich')
-          this.submittingRequest = false;
-        })
-      })
 
+      this.chargeService.withdrawFunds(accountCharge).pipe(
+        catchError((error) => {
+          this.submittingRequest = false;
+          const errorMessage = this.translate.instant('ACCOUNT_SUPPORT_ERROR');
+          const errorHeader = this.translate.instant('ERROR_TITLE');
+          this.dialogService.openMessageDialog(errorMessage, errorHeader, 'error');
+          return throwError(() => error);
+        })
+      ).subscribe({
+        next: (response: any) => {
+          forkJoin([
+            this.chargeService.getAccountCharges(),
+            this.accountService.getAccountTenant()
+          ]).pipe(
+            catchError((error) => {
+              this.submittingRequest = false;
+              const errorMessage = this.translate.instant('ACCOUNT.SUPPORT_ERROR');
+              const errorHeader = this.translate.instant('ACCOUNT.ERROR_HEADER');
+              this.dialogService.openMessageDialog(errorMessage, errorHeader, 'error');
+              return throwError(() => error);
+            })
+          ).subscribe({
+            next: ([accountCharges, accountTenant]: [AccountChargeInterface[], AccountCustomerInterface]) => {
+              this.accountTenant = accountTenant;
+              this.accountCharges = sortAccountChargesByDate(accountCharges);
+              const message = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_PROCESSED');
+              const header = this.translate.instant('ACCOUNT.WITHDRAW_DEPOSIT_FUNDS_HEADER');
+              this.dialogService.openMessageDialog(message, header, 'success');
+              this.submittingRequest = false;
+            },
+            error: () => {
+              this.submittingRequest = false;
+            }
+          });
+        },
+        error: () => {
+          this.submittingRequest = false;
+        }
+      });
     });
   }
 

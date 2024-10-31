@@ -20,12 +20,9 @@ var schoolSchema = new mongoose.Schema({
   project_id:Schema.Types.ObjectId,
   saltSecret: String,
   isAdminSchool:Boolean,
-  // projectId: String,
-  // project: String,
   username: {type:String,unique: true},
   tenantUrl:String,
-  token: [{ type: String }],  // Ändere token zu einem Array von Strings
-
+  token:[{ type: String }],
 });
 // Methods
 schoolSchema.methods.verifyPassword = function (password) {

@@ -36,7 +36,7 @@ export class ChargeAccountInterface implements AccountChargeInterface {
     type:string) {
     this.accountHolder = tenantStudent.firstName + ' ' + tenantStudent.lastName;
     this.typeCharge = type;
-    this.approved = getApprovedAccountCharge(type);
+    this.approved = true;
     if(tenantStudent.tenantId){
       this.tenantId = tenantStudent.tenantId;
     }
@@ -49,18 +49,13 @@ export class ChargeAccountInterface implements AccountChargeInterface {
     if(tenantStudent.iban){
       this.iban = tenantStudent.iban;
     }
-
     this.transactionId = generateTransactionIdAccountCharge(tenantStudent);
     this.date = new Date();
     this.amount = accountTenant.currentBalance;
-
   }
 
 }
 
- function getApprovedAccountCharge(type: string): boolean {
-  return type === 'deposit';
-}
  function generateTransactionIdAccountCharge(tenant: TenantStudentInterface): string {
   return tenant.username  + '-' + Date.now();
 }

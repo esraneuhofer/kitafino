@@ -7,8 +7,7 @@ var school = new Schema({
   customerId: Schema.Types.ObjectId,
   contactPerson: String,
   whoPayCharges: {
-    type: String,
-    enum: ['student', 'customer', 'tenant', ''],
+    type: String
   },
   amountPerOrder: {
     type: Number,
@@ -41,13 +40,39 @@ var school = new Schema({
   },
   projectId: {
     type: String,
+    unique: true,
+  },
+  startContract: {
+    type: Date,
   },
   essensgeldEinrichtung:Number,
+  hasEssensgeldEinrichtung:Boolean,
   paymentInformation: {
     creditorIban: String,
     creditorBic: String,
     creditorName: String,
+  },
+  paymentInformationEinrichtung :{
+    creditorIban: String,
+    creditorBic:  String,
+    creditorName:  String,
+  },
+  billingAddressEinrichtung: [ {
+    heading: {
+      type: String,
+    },
+  }],
+  emailBillingEinrichtung: String,
+  contactPersonEinrichtung: String,
+  nameCateringCompany:String,
+  nameEinrichtung:String
+});
+
+school.pre('save', function (next) {
+  if (this.startContract) {
+    this.startContract = new Date(this.startContract);
   }
+  next();
 });
 
 var SchoolNew = mongoose.model('SchoolNew', school);

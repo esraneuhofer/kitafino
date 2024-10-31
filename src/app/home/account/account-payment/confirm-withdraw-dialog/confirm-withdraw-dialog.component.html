@@ -6,7 +6,8 @@
       <p class="text-sm text-gray-500 mt-3">
         {{ 'ACCOUNT.WITHDRAW_CONFIRMATION' | translate }} {{data.accountTenant.currentBalance | currency:'€'}}
         <br><br>
-        {{ 'ACCOUNT.WITHDRAW_INSTRUCTIONS' | translate }} <b>{{data.tenantStudent.iban}}</b>.
+        {{ 'ACCOUNT.WITHDRAW_INSTRUCTIONS' | translate }} <b>{{ formatIban(data.tenantStudent.iban) }}</b>.
+
         <br><br> {{ 'ACCOUNT.PROFILE_NOTE' | translate }} <br>
         <span [innerHTML]="'ACCOUNT.BANK_DETAILS_NOTE' | translate"></span> <br><br>
         {{ 'ACCOUNT.TRANSFER_DURATION' | translate }}

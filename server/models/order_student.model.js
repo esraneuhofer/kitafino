@@ -95,17 +95,19 @@ orderStudentSchema.pre('save', async function(next) {
 
 // Hauptindex für die Eindeutigkeit von Bestellungen
 orderStudentSchema.index(
-  { studentId: 1, dateOrder: 1 },
+  {studentId: 1, dateOrder: 1},
   {
     unique: true,
-    name: 'student_date_unique'
+    name: 'student_date_unique',
+    background: true
   }
 );
 
+
 // Zusätzlicher Index für Customer-Abfragen
 orderStudentSchema.index(
-  { customerId: 1, dateOrder: 1 },
-  { name: 'customer_date_lookup' }
+  {customerId: 1, dateOrder: 1},
+  {name: 'customer_date_lookup', background: true}
 );
 
 orderStudentSchema.statics = {

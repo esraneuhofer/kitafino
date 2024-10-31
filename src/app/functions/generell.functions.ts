@@ -1,4 +1,5 @@
 export function isValidIBANNumber(input: string): boolean {
+  input = 'DE' + input;
   const DE_IBAN_LENGTH = 22; // Länge eines deutschen IBANs
   const CODE_LENGTHS = {
     DE: DE_IBAN_LENGTH

@@ -142,7 +142,7 @@ export class ButComponent implements OnInit{
 
     setTimeout(() => this.isFlipped = true, 50);
 
-    const butStudent = this.butStudents.find((permanentOrder) => permanentOrder.studentId === student._id);
+    const butStudent = this.butStudents.find((butStudent) => butStudent.studentId === student._id);
     if (!butStudent) {
       this.butExists = false
       this.selectedBut = new ButStudent(student);

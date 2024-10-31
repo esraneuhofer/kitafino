@@ -15,10 +15,7 @@ export class ChargingService {
   constructor(private http:HttpClient) {
 
   }
-  addAccountChargesTenant(object:ChargeAccountInterface){
-    return this.http.post(environment.apiBaseUrl+'/addAccountChargesTenant',object)
-      .pipe(map((response: any) => response));
-  }
+
   withdrawFunds(object:ChargeAccountInterface){
     return this.http.post(environment.apiBaseUrl+'/withdrawFunds',object)
       .pipe(map((response: any) => response));

@@ -67,7 +67,7 @@ module.exports.getAccountCharges = async (req, res, next) => {
 };
 
 
-module.exports.addAccountChargesTenant = async (req, res) => {
+async function addAccountChargesTenant  (req, res) {
   const session = await mongoose.startSession();
   await session.startTransaction();
 
@@ -119,6 +119,7 @@ async function saveAccountCharge(req, session) {
   let newAccountCharge = new ChargeAccount({
     approved: req.body.approved,
     amount: req.body.amount,
+    datePaymentReceived: new Date(),
     date: req.body.date,
     accountHolder: req.body.accountHolder,
     iban: req.body.iban,
@@ -138,14 +139,27 @@ async function handleTransactionError(session, error, res) {
   if (session.inTransaction()) {
     await session.abortTransaction();
   }
-  res.json({ success: false, message: 'Failed to place order', error: error.message });
-
+  if (!res.headersSent) {
+    if (error.name === 'ValidationError') {
+      res.status(400).json({
+        success: false,
+        message: 'Validierungsfehler',
+        error: error.message
+      });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to place order', error: error.message });
+    }
+  }
 }
 
 module.exports.withdrawFunds = async (req, res) => {
   // Schritt 1: Aufruf von addAccountChargesTenant
   try {
-    await this.addAccountChargesTenant(req, res);
+    if (!res.headersSent) {
+      await addAccountChargesTenant(req, res);
+    }
+
+    if (res.headersSent) return; // Falls addAccountChargesTenant bereits geantwortet hat
 
     // Wenn keine Fehler aufgetreten sind, erstellen wir den neuen Eintrag im RequestDesolveModel
     const charge = req.body.amount;  // Annahme: Der Betrag wird im Body der Anfrage übergeben
@@ -161,20 +175,22 @@ module.exports.withdrawFunds = async (req, res) => {
 
     await requestDesolve.save();
 
-    // Schritt 3: E-Mail senden
-    const mailOptions = {
-      to: 'auszahlung@cateringexpert.de',
-      from: 'noreply@cateringexpert.de',
-      subject: 'Auszahlungsanforderung',
-      text: `Es wurde eine Auszahlung von: ${charge} am: ${new Date().toLocaleDateString()} für: ${req.body.userId} beantragt.`
-    };
-
-    await sgMail.send(mailOptions);
-
-    res.json({ success: true, message: 'Auszahlungsanforderung erfolgreich erstellt und E-Mail gesendet.' });
+    if (!res.headersSent) {
+      res.json({ success: true, message: 'Auszahlungsanforderung erfolgreich erstellt und E-Mail gesendet.' });
+    }
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Fehler bei der Auszahlungsanforderung.' });
+    if (!res.headersSent) {
+      if (error.name === 'ValidationError') {
+        res.status(400).json({
+          success: false,
+          message: 'Validierungsfehler',
+          error: error.message
+        });
+      } else {
+        res.status(500).json({ success: false, message: 'Fehler bei der Auszahlungsanforderung.' });
+      }
+    }
   }
 };

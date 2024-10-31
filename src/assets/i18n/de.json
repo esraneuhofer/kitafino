@@ -601,5 +601,8 @@
   "AUSWAHL": "Auswahl",
   "ALLE": "Alle",
   "ALLGEMEIN": "Allgemein",
-  "ANMELDUNG_MULTI": "Anmeldung (Multi Lingual)"
+  "ANMELDUNG_MULTI": "Anmeldung (Multi Lingual)",
+
+
+  "ACCOUNT_SUPPORT_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder wenden Sie sich an unseren Kundensupport unter <u> <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> </u>."
 }
