@@ -290,7 +290,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.pageLoaded = true;
       return;
     }
-    console.log('Selected Student:', this.selectedStudent);
     this.isWeekend = checkDayWeekend(queryDate);
     if (this.isWeekend) {
       this.pageLoaded = true;
@@ -445,7 +444,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
     this.orderWeek = [];
     if (!selectedStudent?._id) {
-      console.log('Kein Student ausgewählt oder keine Student-ID vorhanden');
       return;
     }
     let studentId = selectedStudent._id;

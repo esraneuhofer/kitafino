@@ -249,7 +249,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
-    console.log('customer.generalSettings.hideMenuName:', customer.generalSettings.hideMenuName);
     if(customer.generalSettings.hideMenuName && (orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'))return false;
     if(!student.specialFood && !customer.generalSettings.allowOnlyOneMenu)return true;
     if(!customer.generalSettings.allowOnlyOneMenu)return true;
@@ -483,7 +482,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-      console.log('orderModifiedForSave:', orderModifiedForSave);
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

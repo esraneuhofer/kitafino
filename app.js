@@ -30,7 +30,7 @@ const cookieParser = require('cookie-parser');
 
 const uriTest = "mongodb+srv://esraneuhofer:4kBhUIRKG10CRdaG@cluster0.99ewn.mongodb.net/test?retryWrites=true&w=majority";
 
-mongoose.connect(uri)  // Mongoose 6+ hat diese Optionen standardmäßig aktiviert
+mongoose.connect(uriTest)  // Mongoose 6+ hat diese Optionen standardmäßig aktiviert
   .then(async () => {
     console.log('Connected to MongoDB');
 

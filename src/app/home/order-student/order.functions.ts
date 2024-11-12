@@ -19,7 +19,6 @@ export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsIn
   if(generalSettings.isDeadlineDaily){
     return timeDifferenceDay(generalSettings.deadlineDaily, orderDate)
   }else{
-    console.log('isCancelOrderPossibleDashboard',generalSettings.deadlineWeekly,orderDate)
     let kw = getWeekNumber(orderDate);
     let year = orderDate.getFullYear();
     return getDeadlineWeeklyFunction(generalSettings, kw, getWeekNumber(new Date()), new Date().getFullYear(), year);

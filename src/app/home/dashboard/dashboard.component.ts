@@ -140,7 +140,6 @@ export class DashboardComponent {
       });
       //
       // this.appStateChangeListener = CapacitorApp.addListener('appStateChange', ({isActive}) => {
-      //   console.log(`App state changed. Is active: ${isActive}`);
       //   if (isActive) {
       //     this.ngZone.run(() => {
       //       this.onAppResume();

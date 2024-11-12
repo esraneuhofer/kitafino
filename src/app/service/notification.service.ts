@@ -55,7 +55,7 @@ export class NotificationService {
   async initPush() {
     // Überprüfung des aktuellen Berechtigungsstatus
     const permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
-
+    console.log('initPush wurde aufgerufen - Zeitstempel:', new Date().toISOString());
     if (permissionStatus.receive === 'granted') {
       await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
     } else if (permissionStatus.receive === 'denied') {
@@ -80,6 +80,7 @@ export class NotificationService {
       console.error('Fehler beim Zurücksetzen des Badge-Zählers:', error);
     }
   }
+
   private async requestPermission() {
     let permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
 
@@ -98,31 +99,48 @@ export class NotificationService {
   }
   private isRegistered = false;
   private async registerPush() {
+
+    // Entferne alle bestehenden Listener, bevor neue registriert werden
+    await PushNotifications.removeAllListeners();
+    console.log('Alle Push-Benachrichtigungs-Listener entfernt');
+
+    if (this.isRegistered) {
+      console.log('Push-Benachrichtigungen sind bereits registriert.');
+      return;
+    }
+
+    // Setze das Flag direkt auf true
+    this.isRegistered = true;
+
+    console.log('registerPush aufgerufen');
+
     await PushNotifications.register();
 
-    PushNotifications.addListener('registration', (token: Token) => {
-      // console.log('Push registration success, token: ' + token.value);
-      this.saveTokenFirebase({token: token.value}).subscribe(data => {
-        console.log(data);
+    PushNotifications.addListener('registration', async (token: Token) => {
+      console.log('Registrierung erfolgreich, Token: ' + token.value);
+      await Preferences.set({ key: 'push_token', value: token.value });
+      this.saveTokenFirebase({ token: token.value }).subscribe(data => {
+        console.log('Token gespeichert:', data);
       });
     });
 
     PushNotifications.addListener('registrationError', (error: any) => {
-      // console.error('Error on registration: ' + JSON.stringify(error));
+      console.error('Fehler bei der Registrierung: ' + JSON.stringify(error));
     });
 
-    PushNotifications.addListener('pushNotificationReceived', async(notification) => {
-      // console.log('Push received: ', notification);
+    PushNotifications.addListener('pushNotificationReceived', async (notification) => {
+      console.log('Benachrichtigung erhalten - Zeitstempel:', new Date().toISOString(), ' - Notification:', notification);
       await this.presentAlert(notification);
-      // Hier können Sie eine Benachrichtigung anzeigen oder verarbeiten
     });
 
     PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-      // console.log('Push action performed: ', notification);
-      // Verarbeiten Sie die Aktion, die der Benutzer durchgeführt hat
+      console.log('Benachrichtigungsaktion ausgeführt:', notification);
     });
-    this.isRegistered = true;
+
+    console.log('registerPush abgeschlossen');
   }
+
+
 
   private async storePermission(status: string) {
     await Preferences.set({
