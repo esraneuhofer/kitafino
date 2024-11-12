@@ -59,7 +59,6 @@ mongoose.connect(uri)  // Mongoose 6+ hat diese Optionen standardmäßig aktivie
 const corsOptions = {
   origin: [
     'http://localhost:4200',           // Angular development server
-    'http://localhost:51562',           // Angular development server
     'capacitor://localhost',
     'http://10.0.2.2:4200',     // Capacitor app scheme
     'capacitor://my-app.com',

@@ -96,7 +96,7 @@ export class NotificationService {
       // console.log('Push-Benachrichtigungen wurden nicht erlaubt.');
     }
   }
-
+  private isRegistered = false;
   private async registerPush() {
     await PushNotifications.register();
 
@@ -121,6 +121,7 @@ export class NotificationService {
       // console.log('Push action performed: ', notification);
       // Verarbeiten Sie die Aktion, die der Benutzer durchgeführt hat
     });
+    this.isRegistered = true;
   }
 
   private async storePermission(status: string) {
@@ -149,4 +150,3 @@ export class NotificationService {
     await alert.present();
   }
 }
-// fimh4bYRQUyqt1XokSZcre:APA91bEXmtjlg5s_DevpQqrIXnzNLDwTpaqgRIdQtSZgMk2yqzAidHy_yscf_A5eWClStnPYeSqKD8iUkbu4JUx2WF0wBh7cHckUK4EjkUdQrkQkYHflAkkwBEubRaDV_MQ7_nthNWTn
