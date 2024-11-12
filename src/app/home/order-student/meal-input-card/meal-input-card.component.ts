@@ -86,7 +86,6 @@ function setOrdersSide(ordersWeek: OrderSubDetailNew[], settings: SettingInterfa
 
 //Falls Einrichtungen nur den Menü Namen angezeigt bekommen wollen
 function getDisplayNameOrder(order: OrderSubDetailNew, customer: CustomerInterface): string {
-
   if (customer.generalSettings.hideMenuName) {
     return order.nameMenu
   }
@@ -149,7 +148,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.customer.generalSettings.hideMenuName = true;
     const orders = customSort(JSON.parse(JSON.stringify(this.orderDay.orderStudentModel.order.orderMenus)))
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
