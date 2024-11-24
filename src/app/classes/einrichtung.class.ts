@@ -1,4 +1,3 @@
-
 export interface EinrichtungInterface {
   _id?: string;
   startContract: Date;
@@ -12,6 +11,7 @@ export interface EinrichtungInterface {
   billingAddress: { heading: string }[],
   emailBilling: string,
   kundennummer: string,
+  kundennummerCatering: string,
   tenantId: string;
   customerId: string,
   emailCatering: string,
@@ -21,6 +21,8 @@ export interface EinrichtungInterface {
     creditorIban: string,
     creditorBic: string,
     creditorName: string,
+    umsatzsteuerId?: string,
+    steuernummer?: string,
   },
   paymentInformationEinrichtung: {
     creditorIban: string,
@@ -32,7 +34,14 @@ export interface EinrichtungInterface {
   emailBillingEinrichtung: string;
   contactPersonEinrichtung: string;
   nameCateringCompany: string;
-  nameEinrichtung:string
+  nameEinrichtung: string;
+  streetCaterer: string;
+  cityCaterer: string;
+  zipcodeCaterer: string;
+  streetCustomer: string;
+  cityCustomer: string;
+  zipcodeCustomer: string;
+
 }
 
 export class SchoolClass implements EinrichtungInterface {
@@ -47,6 +56,7 @@ export class SchoolClass implements EinrichtungInterface {
   billingAddress: { heading: string }[] = [{heading: ''}];
   emailBilling: string = '';
   kundennummer: string = '';
+  kundennummerCatering = '';
   tenantId: string = '';
   customerId: string = '';
   emailCatering: string = '';
@@ -67,8 +77,15 @@ export class SchoolClass implements EinrichtungInterface {
   billingAddressEinrichtung: { heading: string }[] = [{heading: ''}];
   emailBillingEinrichtung: string = '';
   contactPersonEinrichtung: string = '';
-  nameCateringCompany:string= '';
-  nameEinrichtung:string =  '';
+  nameCateringCompany: string = '';
+  nameEinrichtung: string = '';
+
+  streetCaterer: string = '';
+  cityCaterer: string = '';
+  zipcodeCaterer: string = '';
+  streetCustomer: string = '';
+  cityCustomer: string = '';
+  zipcodeCustomer: string = '';
 
   constructor(customerId: string, tenantId: string) {
     this.customerId = customerId;

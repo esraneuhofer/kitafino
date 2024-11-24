@@ -32,6 +32,9 @@ var school = new Schema({
   kundennummer: {
     type: String,
   },
+  kundennummerCatering: {
+    type: String,
+  },
   emailCatering: {
     type: String,
   },
@@ -51,6 +54,8 @@ var school = new Schema({
     creditorIban: String,
     creditorBic: String,
     creditorName: String,
+    steuernummer: String,
+    umsatzsteuerId: String,
   },
   paymentInformationEinrichtung :{
     creditorIban: String,
@@ -65,7 +70,15 @@ var school = new Schema({
   emailBillingEinrichtung: String,
   contactPersonEinrichtung: String,
   nameCateringCompany:String,
-  nameEinrichtung:String
+  nameEinrichtung:String,
+
+  streetCaterer: String,
+  cityCaterer: String,
+  zipcodeCaterer: String,
+  streetCustomer: String,
+  cityCustomer: String,
+  zipcodeCustomer: String
+
 });
 
 school.pre('save', function (next) {

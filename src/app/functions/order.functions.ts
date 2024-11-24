@@ -56,6 +56,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
 
     })
     orderStudent.order.specialFoodOrder.forEach((eachOrder, indexMenu) => {
+      console.log(orderStudent)
       orderNew.order.specialFoodOrder[indexMenu].amountSpecialFood = eachOrder.amountSpecialFood;
       orderNew.order.orderMenus[indexMenu].menuSelected = eachOrder.menuSelected;
     })

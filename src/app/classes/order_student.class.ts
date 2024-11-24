@@ -30,6 +30,7 @@ export interface OrderInterfaceStudent {
   order: OrderInterfaceStudentDay;
   customerId: string;
   groupIdCustomer:string;
+  username?:string;
 
 }
 

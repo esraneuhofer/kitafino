@@ -44,24 +44,34 @@ export function createPDF(
       '\n\n',
       { text: 'Sehr geehrte Damen und Herren,', style: 'content' },
       '\n\n',
-      { text: `Hiermit bestätigen wir der „Cateringexpert Software Solutions GmbH“ die Anmeldung des Verpflegungsteilnehmers / der Verpflegungsteilnehmerin.
-         ${nameStudent} durch ${nameParent} am ${dateRegistration} für die Mittagsverpflegung bei dem Caterer ${nameCateringService}.`, style: 'content' },
+      {
+        text: [
+          `Hiermit bestätigen wir der „Cateringexpert Software Solutions GmbH“ die Anmeldung des Verpflegungsteilnehmers / der Verpflegungsteilnehmerin: `,
+          { text: `${nameStudent}`, bold: true },
+          ` durch `,
+          { text: `${nameParent}`, bold: true },
+          ` am `,
+          { text: `${dateRegistration}`, bold: true },
+          ` für die Mittagsverpflegung bei dem Caterer ${nameCateringService}.`
+        ],
+        style: 'content'
+      },
       '\n\n',
-      { text: `Der Essenlieferung erfolgt für die Einrichtung ${nameEinrichtung}.`, style: 'content' },
+      { text: `Die Essenslieferung erfolgt für die Einrichtung ${nameEinrichtung}.`, style: 'content' },
       '\n\n',
-      { text: 'Die Abwicklung der Zahlung der Mittagessen für den Caterer erfolgt über unsere Plattform.', style: 'content' },
+      { text: 'Die Abwicklung der Zahlungen für das Mittagessen des Caterers erfolgt über unsere Plattform.', style: 'content' },
       '\n\n',
-      { text: `Damit die Freischaltung der Bestellung für die Mittagsverpflegung erfolgen kann, müssten die Zahlungen des Essensgeldes auf unser Konto erfolgen.`, style: 'content' },
-      { text: `Für eine eindeutige Zuordnung des Essensgeldes soll folgender Benutzername im Verwendungszweck enthalten sein: ${username}.`, style: 'content' },
+      { text: `Damit die Freischaltung der Bestellung für die Mittagsverpflegung erfolgen kann, bitten wir um die Überweisung des Essensgeldes auf unser unten genanntes Konto.`, style: 'content' },
+      { text: `Bitte geben Sie im Verwendungszweck unbedingt den folgenden Benutzernamen an, damit die Zahlung korrekt zugeordnet werden kann`, style: 'content' },
       '\n',
-      { text: `Erst nach Eingang der Bestätigung kann die kostenübernahme eingestellt werden`, style: 'content' },
+      { text: `Der Benutzername für den User lautet:`, style: 'content' },
+      { text: `${username}`, style: 'content',bold: true },
+
       '\n\n',
-      { text: 'Die Zahlungen für die Essenverpflegung bitte auf das folgende Konto überweisen:', style: 'content' },
+      { text: 'Die Zahlungen für die Essensverpflegung bitte auf das folgende Konto überweisen:', style: 'content' },
       '\n\n',
-      {text:[
-          { text: `Kontoinhaber:`, bold: true },
-          { text: ` ${accountHolder}`, style: 'content' },
-        ]},
+
+      {text:[{ text: `Kontoinhaber:`, bold: true },{ text: ` ${accountHolder}`, style: 'content' }]},
       {text:[  { text: `IBAN:`, bold: true },
           { text: ` ${iban}`, style: 'content' },]},
       {text:[ { text: `BIC:`, bold: true },

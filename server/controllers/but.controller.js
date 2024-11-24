@@ -49,6 +49,8 @@ module.exports.addOrEditBut = (req, res, next) => {
 
 
 module.exports.uploadButDocument = async (req, res, next) => {
+  console.log(req.body);
+
   let newDoc = new ButDocument({
     username: req.body.username,
     name: req.body.name,
@@ -59,7 +61,7 @@ module.exports.uploadButDocument = async (req, res, next) => {
     userId: req.body.userId,
     customerId: req.body.customerId
   });
-
+  console.log(newDoc);
   try {
     await newDoc.save();
     res.status(200).json({ success: true, message: 'Dokument erfolgreich hochgeladen' });

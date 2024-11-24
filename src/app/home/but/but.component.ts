@@ -29,6 +29,8 @@ import {getInvoiceDateOne} from "../../functions/date.functions";
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {WeekplanPdfInterface} from "../weekplan-pdf/weekplan-pdf.component";
+import {EinrichtungInterface} from "../../classes/einrichtung.class";
+import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -62,7 +64,7 @@ export class ButComponent implements OnInit{
   submittingRequestDownload:boolean = false;
   base64String: string | ArrayBuffer | null = '';
   isApp:boolean = false;
-
+  schoolSetting:EinrichtungInterface | null = null;
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
               private fileOpener: FileOpener,
@@ -97,7 +99,8 @@ export class ButComponent implements OnInit{
       this.tenantService.getTenantInformation(),
       this.accountService.getAccountTenant(),
       this.butService.getButTenant(),
-      this.butService.getButDocumentTenant()
+      this.butService.getButDocumentTenant(),
+      this.generellService.getSchoolSettings()
     ]).subscribe(
       ([
          settings,
@@ -106,7 +109,8 @@ export class ButComponent implements OnInit{
          tenantStudent,
          accountTenant,
          butStudents,
-         documentsBut
+         documentsBut,
+        schoolSetting
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -114,7 +118,8 @@ export class ButComponent implements OnInit{
         TenantStudentInterface,
         AccountCustomerInterface,
         ButStudentInterface[],
-        ButDocumentInterface[]
+        ButDocumentInterface[],
+        EinrichtungInterface
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -123,7 +128,9 @@ export class ButComponent implements OnInit{
         this.accountTenant = accountTenant;
         this.butStudents = butStudents
         this.documentsTenant = documentsBut
+        this.schoolSetting = schoolSetting
         this.pageLoaded = true;
+        console.log('this.schoolSetting', this.schoolSetting)
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -226,6 +233,7 @@ export class ButComponent implements OnInit{
         this.toastr.error('Bitte wählen Sie einen Schüler aus');
         return;
       }
+
       let fileObject: ButDocumentInterface = {
         nameStudent:this.selectedStudent.firstName + ' ' + this.selectedStudent.lastName,
         username: this.tenantStudent.username,
@@ -289,7 +297,7 @@ export class ButComponent implements OnInit{
 
     let student = this.selectedStudent;
     let tenant = this.tenantStudent;
-
+    let schoolSetting = this.schoolSetting;
     getBase64ImageFromUrl('../../../assets/logo.png')
       .then(logoBase64 => {
         let docDefinition = createPDF(
@@ -297,8 +305,8 @@ export class ButComponent implements OnInit{
           tenant.firstName + ' ' + tenant.lastName,
           getInvoiceDateOne(student.registerDate),
           this.settings.tenantSettings.contact.companyName,
-          this.customer.contact.customer,
-          tenant.username,
+          schoolSetting?.nameEinrichtung + ' ' + schoolSetting?.streetCustomer + ' ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
+          student.username,
           'DE30 5107 0021 0980 5797 01',
           'DEUTDEDBXXX',
           'Cateringexpert Software Solutions GmbH',

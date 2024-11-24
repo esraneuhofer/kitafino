@@ -54,7 +54,7 @@ module.exports.getFutureOrders = async (req, res) => {
   try {
     // const startDate = normalizeToBerlinDate(req.query.startDate);
     const userId = req._id; // Von Auth Middleware
-
+    console.log('userId:', userId);
     // Finde alle Bestellungen ab startDate für den User
     const orders = await OrderStudent.find({
       userId: userId,

@@ -15,6 +15,7 @@ import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component"
 import {VacationsInterface} from "../classes/vacation.interface";
 import {PaymentIntentResponse} from "../home/account/account-payment-overview/account-payment-overview.component";
 import {OrderHistoryTableInterface} from "../home/order-history/order-history.component";
+import {EinrichtungInterface} from "../classes/einrichtung.class";
 
 
 class FeedbackInterface {
@@ -52,6 +53,12 @@ export class GenerellService {
     return this.http.get<CustomerInterface>(environment.apiBaseUrl+'/getCustomerInfo')
       .pipe(map((response: CustomerInterface) => (response)));
   }
+
+  getSchoolSettings(){
+    return this.http.get<EinrichtungInterface>(environment.apiBaseUrl+'/getSchoolSettings')
+      .pipe(map((response: EinrichtungInterface) => (response)));
+  }
+
 
   getWeekplanWeek(query:{week:number, year:number}){
     return this.http.get<WeekplanMenuInterface>(environment.apiBaseUrl+'/getWeekplanWeek',{params:query})
