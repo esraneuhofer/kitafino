@@ -64,7 +64,7 @@ export function createPDF(
       { text: `Damit die Freischaltung der Bestellung für die Mittagsverpflegung erfolgen kann, bitten wir um die Überweisung des Essensgeldes auf unser unten genanntes Konto.`, style: 'content' },
       { text: `Bitte geben Sie im Verwendungszweck unbedingt den folgenden Benutzernamen an, damit die Zahlung korrekt zugeordnet werden kann`, style: 'content' },
       '\n',
-      { text: `Der Benutzername für den User lautet:`, style: 'content' },
+      { text: `Der Benutzername für den Verpflegungsteilnehmers / der Verpflegungsteilnehmerin lautet:`, style: 'content' },
       { text: `${username}`, style: 'content',bold: true },
 
       '\n\n',

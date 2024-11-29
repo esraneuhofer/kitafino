@@ -253,6 +253,7 @@ export class ButComponent implements OnInit{
           this.butService.getButDocumentTenant().subscribe((documents: ButDocumentInterface[]) => {
             this.documentsTenant = documents;
             this.submittingRequest = false;
+            this.isFlipped = false
           })
         },
         (error: any) => {
