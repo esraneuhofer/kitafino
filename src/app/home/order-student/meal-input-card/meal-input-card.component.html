@@ -1,68 +1,65 @@
 <fieldset [disabled]="pastOrder">
 
-<div class="container-font-size" >
-  <div class="order-deadline shadow-lg rounded-lg overflow-hidden mb-2">
-    <div class="p-4">
-      <div class="flex justify-end">
-        <div class="w-full">
+  <div class="container-font-size">
+    <div class="order-deadline shadow-lg rounded-lg overflow-hidden mb-2">
+      <div class="p-4">
+        <div class="flex justify-end">
+          <div class="w-full">
 
-          <div class="flex flex-col items-end">
+            <div class="flex flex-col items-end">
 
-            <p>{{ orderDay.date | customDate:'EEEE dd.MM.yy' }}</p>
+              <p>{{ orderDay.date | customDate:'EEEE dd.MM.yy' }}</p>
 
-            <div class="text-xs text-gray-500">
-              <span *ngIf="pastOrder">{{'BESTELLFRIST_ABGELAUFEN' | translate}}</span>
-              <span *ngIf="!pastOrder">{{'BESTELLFRIST_ENDET' | translate}}
-
-                <span *ngIf="typeDisplayOrder === 'week'"> {{ differenceTimeDeadlineDay }}</span>
-              <span *ngIf="typeDisplayOrder === 'day'">
-
-                {{ differenceTimeDeadlineDay }}</span>
+              <div class="text-xs text-gray-500 whitespace-nowrap">
+                <span *ngIf="pastOrder">{{ 'BESTELLFRIST_ABGELAUFEN' | translate }}</span>
+                <span *ngIf="!pastOrder">{{ 'BESTELLFRIST_ENDET' | translate }}
+                  <span *ngIf="typeDisplayOrder === 'week'"> {{ differenceTimeDeadlineDay }}
+                </span>
+                <span *ngIf="typeDisplayOrder === 'day'">{{ differenceTimeDeadlineDay }}</span>
               </span>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ng-container>
-    <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
-      <div
-        [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
-        [ngStyle]="getMenuStyle(eachMenu)"
-        *ngIf="showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
-        class="shadow-lg rounded-lg overflow-hidden relative">
-        <div class="p-3" >
-          <!-- Top content goes here -->
-          <div class="flex">
-            <div class="w-full">
-              <div class="flex">
-                <div *ngIf="eachMenu.displayMenu" class="w-1/6">
-                  <input (ngModelChange)="setOrderDay($event,indexMenu)"
-                         [(ngModel)]="eachMenu.menuSelected"
-                         [disabled]="pastOrder || lockDay"
-                         [name]="'menuSelected' + indexMenu + '_' + indexDay"
-                         [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
-                </div>
-                <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer" >
-                  <span>{{ getDisplayNameOrder(eachMenu,customer) }}</span>
-                  <span *ngIf="atLeastOneAllergene(eachMenu) && !settings.orderSettings.hideNutritionSidebar && !customer.generalSettings.hideMenuName"
-                        [matTooltip]="getTooltipContent(eachMenu.allergenes)">
-                   <span class="allergen-ordinal">
-                    ({{getAllergenes(eachMenu.allergenes)}})
-                               </span>
-        </span>
-
-                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- This part will always stay at the bottom, using absolute positioning -->
-        <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
-          <div class="flex justify-end">
+      </div>
+    </div>
+    <ng-container>
+      <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
+        <div
+          *ngIf="showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
+          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
+          [ngStyle]="getMenuStyle(eachMenu)"
+          class="shadow-lg rounded-lg overflow-hidden relative">
+          <div class="p-3">
+            <!-- Top content goes here -->
+            <div class="flex">
+              <div class="w-full">
+                <div class="flex">
+                  <div *ngIf="eachMenu.displayMenu" class="w-1/6">
+                    <input (ngModelChange)="setOrderDay($event,indexMenu)"
+                           [(ngModel)]="eachMenu.menuSelected"
+                           [disabled]="pastOrder || lockDay"
+                           [name]="'menuSelected' + indexMenu + '_' + indexDay"
+                           [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
+                  </div>
+                  <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer">
+                    <span>{{ getDisplayNameOrder(eachMenu, customer) }}</span>
+                    <span
+                      *ngIf="atLeastOneAllergene(eachMenu) && !settings.orderSettings.hideNutritionSidebar && !customer.generalSettings.hideMenuName"
+                      [matTooltip]="getTooltipContent(eachMenu.allergenes)">
+                   <span class="allergen-ordinal">
+                    ({{ getAllergenes(eachMenu.allergenes) }})
+                               </span>
+        </span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- This part will always stay at the bottom, using absolute positioning -->
+          <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3">
+            <div class="flex justify-end">
               {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
               <fa-icon (click)="setOrderIcon(indexMenu,true)"
                        *ngIf="!eachMenu.menuSelected"
@@ -70,14 +67,14 @@
               </fa-icon>
               <fa-icon (click)="setOrderIcon(indexMenu,false)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
                        class="ml-1"></fa-icon>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </ng-container>
-</div>
-<div *ngIf="submittingOrder" class="loading-screen">
-  <div class="loading-circle"></div>
-</div>
+    </ng-container>
+  </div>
+  <div *ngIf="submittingOrder" class="loading-screen">
+    <div class="loading-circle"></div>
+  </div>
 
 </fieldset>

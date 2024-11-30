@@ -55,11 +55,6 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
       orderNew.order.orderMenus[indexMenuFound].priceOrder = eachOrder.priceOrder;
 
     })
-    orderStudent.order.specialFoodOrder.forEach((eachOrder, indexMenu) => {
-      console.log(orderStudent)
-      orderNew.order.specialFoodOrder[indexMenu].amountSpecialFood = eachOrder.amountSpecialFood;
-      orderNew.order.orderMenus[indexMenu].menuSelected = eachOrder.menuSelected;
-    })
   }
   return orderNew;
 }
@@ -96,19 +91,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
       newObject.order.orderMenus.push(newObjectPre);
     });
   }
-  if (copy.order && Array.isArray(copy.order.specialFoodOrder)) {
-    copy.order.specialFoodOrder.forEach((eachOrder) => {
-      if(eachOrder.amountSpecialFood === 0 )return;
-      let newObjectSafe: SpecialFoodOrderInterfaceSafe = {
-        idSpecialFood: eachOrder.idSpecialFood,
-        amountSpecialFood: eachOrder.amountSpecialFood,
-        priceOrder: eachOrder.priceOrder,
-        nameSpecialFood: eachOrder.nameSpecialFood,
-        menuSelected: eachOrder.menuSelected
-      }
-      newObject.order.specialFoodOrder?.push(newObjectSafe);
-    });
-  }
+
   return newObject;
 }
 
@@ -146,20 +129,12 @@ export function orderIsEmpty(order: OrderInterfaceStudent): boolean {
   order.order.orderMenus.forEach((eachOrder) => {
     if(eachOrder.amountOrder > 0)boolean = false;
   })
-  order.order.specialFoodOrder.forEach((eachOrder) => {
-    if(eachOrder.amountSpecialFood > 0)boolean = false;
-
-  })
   return boolean;
 }
 export function orderIsNegative(order: OrderInterfaceStudent): boolean {
   let boolean = false;
   order.order.orderMenus.forEach((eachOrder) => {
     if(eachOrder.amountOrder < 0)boolean = true;
-  })
-  order.order.specialFoodOrder.forEach((eachOrder) => {
-    if(eachOrder.amountSpecialFood < 0)boolean = true;
-
   })
   return boolean;
 }
@@ -179,9 +154,7 @@ export function getTotalPortion(order: OrderInterfaceStudent): number {
   order.order.orderMenus.forEach((eachOrder) => {
     number += eachOrder.amountOrder;
   })
-  order.order.specialFoodOrder.forEach((eachOrder) => {
-    number += eachOrder.amountSpecialFood;
-  })
+
   return number;
 }
 

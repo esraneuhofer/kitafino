@@ -38,7 +38,6 @@ export interface OrderInterfaceStudent {
 interface OrderInterfaceStudentDay {
   comment?: string;
   orderMenus: OrderSubDetailNew[];
-  specialFoodOrder: SpecialFoodOrderInterface[];
 }
 
 export interface OrderSubDetailNew {
@@ -135,7 +134,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
       }
     });
     if(studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood){
-      let priceSpecial = getPriceSpecialFood(studentModel.specialFood,customer,studentModel,contractSettings);
+      let priceSpecial = getPriceSpecialFood(customer,studentModel,contractSettings);
       let specialFood = getSpecialFoodById(studentModel.specialFood,settings);
       if(!specialFood)return;
       const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
@@ -145,7 +144,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
       if(customer.order.showSpecialFood && customer.order.specialShow.length > 0){
         customer.order.specialShow.forEach(eachSpecial=>{
           if(eachSpecial.selected){
-            let priceSpecial = getPriceSpecialFood(eachSpecial.idSpecialFood,customer,studentModel,contractSettings);
+            let priceSpecial = getPriceSpecialFood(customer,studentModel,contractSettings);
             let specialFood = getSpecialFoodById(eachSpecial.idSpecialFood,settings);
             if(!specialFood)return;
             const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
@@ -158,17 +157,16 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
 
   }
 }
-function getPriceSpecialFood(idSpecialFood:string,customer:CustomerInterface,studenModel:StudentInterface,contractSettings:SchoolSettingsInterface):number{
+function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInterface,contractSettings:SchoolSettingsInterface):number{
   let price = 0;
   let backupPrice:number = 0;
-  // console.log(customer.billing.group)
   if(customer.billing.separatePrice){
-    customer.billing.group.forEach(eachPrice=>{
-      if(eachPrice.groupId === studenModel.subgroup){
-        eachPrice.prices.forEach((eachPrice,index)=>{
-          let backupPrice = eachPrice.priceSpecial;
+    customer.billing.group.forEach(eachGroup=>{
+      if(eachGroup.groupId === studenModel.subgroup){
+        eachGroup.prices.forEach((eachPrice,index)=>{
           if(eachPrice.typeSpecial === 'special'){
             price = eachPrice.priceSpecial;
+            price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
           }
         })
       }
@@ -180,12 +178,9 @@ function getPriceSpecialFood(idSpecialFood:string,customer:CustomerInterface,stu
       }
     })
   }
-
-  if(price === 0){
-    price = backupPrice;
-  }
   if(contractSettings.whoPayCharges === 'parent'){
-    price += contractSettings.amountPerOrder;
+    price += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder/100*19));
+
   }
   if(contractSettings.essensgeldEinrichtung > 0){
     price += contractSettings.essensgeldEinrichtung;
@@ -219,17 +214,10 @@ function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew)
   return true;
 }
 
-//Todo:Very Strange Function
-function getPriceOrder(): number{
-  return 0;
-}
 export function getPriceOrderPlaced(orderStudent:OrderInterfaceStudent):number{
     let price = 0;
     orderStudent.order.orderMenus.forEach(eachOrder=>{
       if(eachOrder.amountOrder > 0) price += eachOrder.priceOrder * eachOrder.amountOrder;
-    })
-    orderStudent.order.specialFoodOrder.forEach(eachOrder=>{
-      if(eachOrder.amountSpecialFood > 0) price += eachOrder.priceOrder * eachOrder.amountSpecialFood;
     })
     return price;
 }

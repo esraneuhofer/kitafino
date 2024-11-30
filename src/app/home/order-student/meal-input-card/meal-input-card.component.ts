@@ -152,13 +152,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
     this.checkDeadline(this.orderDay.date);
-    if (this.selectedStudent.specialFood) {
-      this.orderDay.orderStudentModel.order.specialFoodOrder.forEach((eachSpecialFood, index) => {
-        if (eachSpecialFood.idSpecialFood === this.selectedStudent.specialFood) {
-          this.orderDay.orderStudentModel.order.specialFoodOrder[index].active = true
-        }
-      })
-    }
   }
 
   getTooltipText(pastOrder: boolean, lockDay: boolean): string {

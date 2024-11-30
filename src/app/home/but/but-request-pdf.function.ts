@@ -1,8 +1,7 @@
 
-import {SettingInterfaceNew} from "../../classes/setting.class";
 import {getInvoiceDateOne} from "../../functions/date.functions";
 
-const footer: {
+const footerCateringexpert: {
     footerLeft: {footerText:string}[],
     footerMiddle: {footerText:string}[],
     footerRight: {footerText:string}[]
@@ -12,7 +11,13 @@ const footer: {
       {footerText: 'Adelheitstrasse 74'},
       {footerText: '65185 Wiesbaden'},
     ],
-    footerMiddle: [],
+    footerMiddle: [
+      {footerText: 'Deutsche Bank'},
+      {footerText: 'IBAN:DE57 5107 0021 0980 5797 00'},
+      {footerText: 'BIC:DEUTDEFF510'},
+      {footerText: 'USt-IdNr: DE366961599'},
+    ],
+
     footerRight: [
       {footerText:'www.cateringexpert.de'},
       {footerText: 'info@cateringexpert.de'},
@@ -83,10 +88,12 @@ export function createPDF(
       '\n\n',
       { text: `Mit freundlichen Grüßen`, style: 'content' },
       '\n',
-      { text: `Esra Neuhofer`, style: 'content' },
+      { text: `Esra Neuhofer\nGeschäftsführer`, style: 'content' },
+      // '\n',
+      // { text: `Geschäftsführer`, style: 'content' },
     ],
     footer: function (currentPage:any, pageCount:any) {
-      return getFooterColumns(currentPage, pageCount, footer);
+      return getFooterColumns(currentPage, pageCount, footerCateringexpert);
     },
     styles: {
       header: {
