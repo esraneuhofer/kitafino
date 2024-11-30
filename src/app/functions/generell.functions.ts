@@ -55,3 +55,8 @@ const formatter = new Intl.NumberFormat('de-DE', {
   style: 'currency',
   currency: 'EUR',
 });
+
+
+export function roundNumberTwoDigits(input: number): number {
+  return Math.round((input + Number.EPSILON) * 100) / 100;
+}

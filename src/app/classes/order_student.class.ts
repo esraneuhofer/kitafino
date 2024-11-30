@@ -7,6 +7,7 @@ import {MenuInterface} from "./menu.interface";
 import {MealModelInterface} from "./meal.interface";
 import {getSpecialFoodById} from "../functions/special-food.functions";
 import {SchoolSettingsInterface} from "./schoolSettings.class";
+import {roundNumberTwoDigits} from "../functions/generell.functions";
 
 
 export interface SpecialFoodOrderInterface {
@@ -103,13 +104,13 @@ function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInte
     if(eachGroup.groupId === studentModel.subgroup){
       eachGroup.prices.forEach((eachPrice,index)=>{
         if(eachPrice.idSpecial === eachSpecial.idSpecial){
-          priceStudent = eachPrice.priceSpecial;
+          priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
         }
       })
     }
   })
   if(contractSettings.whoPayCharges === 'parent'){
-    priceStudent += contractSettings.amountPerOrder;
+    priceStudent += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder/100*19));
   }
   if(contractSettings.essensgeldEinrichtung > 0){
     priceStudent += contractSettings.essensgeldEinrichtung;
