@@ -119,7 +119,6 @@ function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInte
 class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
   comment = '';
   orderMenus: OrderSubDetailNew[] = [];
-  specialFoodOrder: SpecialFoodOrderInterface[] = [];
 
   constructor(customer: CustomerInterface,
               settings: SettingInterfaceNew,
@@ -153,8 +152,6 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
         })
       }
     }
-    this.specialFoodOrder = getSpecialOrdersSubGroup(settings, customer)
-
   }
 }
 function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInterface,contractSettings:SchoolSettingsInterface):number{
