@@ -95,6 +95,14 @@ export class OrderClassStudent implements OrderInterfaceStudent {
     return customer.order.split[0].group;
   }
 }
+function getPriceBasedOnSettingsBrutto(price:number,tax:number,einrichtung:SchoolSettingsInterface):number{
+  let newPrice = price;
+  if(!einrichtung.isBrutto){
+    newPrice = newPrice + (newPrice/100*tax);
+  }
+  return roundNumberTwoDigits(newPrice);
+}
+
 
 function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:SchoolSettingsInterface):number{
   let priceStudent = 0;
@@ -103,7 +111,8 @@ function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInte
     if(eachGroup.groupId === studentModel.subgroup){
       eachGroup.prices.forEach((eachPrice,index)=>{
         if(eachPrice.idSpecial === eachSpecial.idSpecial){
-          priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
+          priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,contractSettings);
+          // priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
         }
       })
     }
