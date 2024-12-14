@@ -137,7 +137,7 @@
   "FIRSTPAGE.STUDENT": "Verpflegungsteilnehmer",
   "FIRSTPAGE.COST": "Kosten",
   "FIRSTPAGE.CANCEL": "Stornieren",
-  "FIRSTPAGE.TOOLTIP_EXPIRED": "Frist abgelaufen",
+  "FIRSTPAGE.TOOLTIP_EXPIRED": "Abgelaufen",
   "MANAGE_STUDENTS.TITLE": "Verpflegungsteilnehmer",
   "MANAGE_STUDENTS.DESCRIPTION": "Alle angemeldeten Verpflegungsteilnehmer",
   "MANAGE_STUDENTS.ADD_NEW_STUDENT": "Weiteren Verpflegungsteilnehmer/in anlegen",
