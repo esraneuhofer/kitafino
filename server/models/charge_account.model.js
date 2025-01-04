@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Define the schema based on the interface
+
+// Define the main schema
 var chargeAccountSchema = new Schema({
   approved: { type: Boolean, required: true },
   dateApproved: Date,
@@ -11,12 +12,19 @@ var chargeAccountSchema = new Schema({
   iban: String,
   reference: String,
   typeCharge: { type: String, required: true },
+  typeChargeName: {
+    type: String,
+    required: true,
+    enum: ['but', 'bankeinzahlung_auto', 'bankeinzahlung_manuell', 'auszahlung_but', 'auszahlung_bank', 'stripe_einzahlung', 'sonstige'],
+  },
   tenantId: { type: Schema.Types.ObjectId, required: true },
-  transactionId: {type:String, required: true, unique: true},
+  transactionHash: {type:String},
+  apiTransactionId: {type:String},
   username: String,
   userId: { type: Schema.Types.ObjectId, required: true },
   customerId: { type: Schema.Types.ObjectId, required: true },
 });
+
 
 
 // Create the model from the schema

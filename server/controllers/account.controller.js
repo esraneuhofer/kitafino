@@ -1,40 +1,12 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail')
 const mongoose = require("mongoose");
-
-
 const Tenantparent = mongoose.model('Tenantparent');
 const WithdrawModel = mongoose.model('WithdrawRequest');
 const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
-const {getEmailChargeAccount} = require('./email-charge-account');
-const {getEmailWithdrawAccount} =  require('./email-withdraw-account');
-
-
+const {getMailOptions, getAmountAddRemove} = require('../controllers/charge-account-functions');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-function getMailOptions (amount, req,tenantAccount) {
-  return {
-    from: '"Cateringexpert" <noreply@cateringexpert.de>',
-    replyTo: 'noreply@cateringexpert.de', // This should be dynamically set based on the tenant's email
-    bcc:'eltern_bestellung@cateringexpert.de',
-    to: req.body.emailTenant, // This should be dynamically set based on the tenant's email
-    subject: 'Kontoaktivität',
-    html: getEmailTextCharge(req.body.amount, req.body.typeCharge,tenantAccount)
-  };
-}
-function getAmountAddRemove(type, amount) {
-  return type === 'charge' ? amount : -amount;
-}
-function getEmailTextCharge(amount, type, tenant) {
-  if(type === 'charge') {
-    return getEmailChargeAccount(amount, tenant.username);
-    // return `Ihrem Konto wurden ${amount}€ gutgeschrieben. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
-  }
-  return getEmailWithdrawAccount(amount,tenant);
-  // return `Ihrem Konto wurden ${amount}€ abgebucht. Ihr aktueller Kontostand beträgt ${currentBalance}€.`
-}
-
 
 module.exports.getAccountTenant = async (req, res, next) => {
   try {
@@ -51,7 +23,6 @@ module.exports.getAccountTenant = async (req, res, next) => {
   }
 };
 
-
 module.exports.getAccountCharges = async (req, res, next) => {
   try {
     // Using await to wait for the result of Tenant.find()
@@ -66,74 +37,54 @@ module.exports.getAccountCharges = async (req, res, next) => {
   }
 };
 
-
-async function addAccountChargesTenant  (req, res) {
-  const session = await mongoose.startSession();
-  await session.startTransaction();
-
-  try {
-    const accountCharge = await saveAccountCharge(req, session);
-    await accountCharge.save({ session });
-    const userId = req.body.userId;
-    const account = await AccountSchema.findOne({ userId }).session(session);
-    const tenantAccount = await Tenantparent.findOne({ userId }).session(session);
-    const amountAddRemove = getAmountAddRemove(req.body.typeCharge, req.body.amount); // Assuming this correctly computes the amount to add or remove
-    account.currentBalance += amountAddRemove;
-
-    // Check if currentBalance would be negative
-    if (account.currentBalance < 0) {
-      // Rollback the transaction
-      await session.abortTransaction();
-
-      // Return an error response
-      return res.status(400).json({ success: false, message: 'Operation abgelehnt. Kontostand würde negativ.' });
-    }
-
-    await account.save({ session });
-    await session.commitTransaction();
-
-    // Define your mailOptions based on the operation's result, customize as needed
-    const mailOptions = getMailOptions(account.currentBalance, req, tenantAccount); // Ensure this function generates the correct mail options
-
-    // Send an email notification about the account charge update
-    sgMail.send(mailOptions)
-      .then(() => {
-        console.log('Email sent successfully');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-    res.json({ success: true, message: 'Account erfolgreich geändert' });
-
-  } catch (error) {
-    console.log(error);
-    await handleTransactionError(session, error, res);
-  } finally {
-    session.endSession();
-  }
-};
-
-
-async function saveAccountCharge(req, session) {
-  let newAccountCharge = new ChargeAccount({
-    approved: req.body.approved,
-    amount: req.body.amount,
-    datePaymentReceived: new Date(),
-    date: req.body.date,
-    accountHolder: req.body.accountHolder,
-    iban: req.body.iban,
-    reference: req.body.reference,
-    typeCharge: req.body.typeCharge,
-    transactionId: req.body.transactionId,
-    userId: req._id,
-    customerId: req.customerId,
-    tenantId: req.tenantId,
-  });
-
-  await newAccountCharge.save({ session });
-  return newAccountCharge; // Return the saved object
-}
+// async function addAccountChargesTenant  (req, res) {
+//   const session = await mongoose.startSession();
+//   await session.startTransaction();
+//
+//   try {
+//     let newAccountCharge = new ChargeAccount(req.body.accountCharge);
+//     const accountCharge = await newAccountCharge.save({ session });
+//
+//     await accountCharge.save({ session });
+//     const userId = req.body.accountCharge.userId;
+//     const account = await AccountSchema.findOne({ userId }).session(session);
+//     const tenantAccount = await Tenantparent.findOne({ userId }).session(session);
+//     const amountAddRemove = getAmountAddRemove(req.body.accountCharge.typeCharge, req.body.accountCharge.amount); // Assuming this correctly computes the amount to add or remove
+//     account.currentBalance += amountAddRemove;
+//
+//     // Check if currentBalance would be negative
+//     if (account.currentBalance < 0) {
+//       // Rollback the transaction
+//       await session.abortTransaction();
+//
+//       // Return an error response
+//       return res.status(400).json({ success: false, message: 'Operation abgelehnt. Kontostand würde negativ.' });
+//     }
+//
+//     await account.save({ session });
+//     await session.commitTransaction();
+//
+//     // Define your mailOptions based on the operation's result, customize as needed
+//     const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant); // Ensure this function generates the correct mail options
+//
+//     // Send an email notification about the account charge update
+//     sgMail.send(mailOptions)
+//       .then(() => {
+//         console.log('Email sent successfully');
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//
+//     res.json({ success: true, message: 'Account erfolgreich geändert' });
+//
+//   } catch (error) {
+//     console.log(error);
+//     await handleTransactionError(session, error, res);
+//   } finally {
+//     session.endSession();
+//   }
+// };
 
 async function handleTransactionError(session, error, res) {
   if (session.inTransaction()) {
@@ -152,45 +103,5 @@ async function handleTransactionError(session, error, res) {
   }
 }
 
-module.exports.withdrawFunds = async (req, res) => {
-  // Schritt 1: Aufruf von addAccountChargesTenant
-  try {
-    if (!res.headersSent) {
-      await addAccountChargesTenant(req, res);
-    }
 
-    if (res.headersSent) return; // Falls addAccountChargesTenant bereits geantwortet hat
 
-    // Wenn keine Fehler aufgetreten sind, erstellen wir den neuen Eintrag im RequestDesolveModel
-    const charge = req.body.amount;  // Annahme: Der Betrag wird im Body der Anfrage übergeben
-
-    const requestDesolve = new WithdrawModel({
-      amount: charge,
-      tenantId: req.body.tenantId, // Annahme: tenantId ist im req.body vorhanden
-      customerId: req.body.customerId, // Annahme: customerId ist im req.body vorhanden
-      createdAt: new Date(),
-      userId: req.body.userId,
-      isPayed: false
-    });
-
-    await requestDesolve.save();
-
-    if (!res.headersSent) {
-      res.json({ success: true, message: 'Auszahlungsanforderung erfolgreich erstellt und E-Mail gesendet.' });
-    }
-
-  } catch (error) {
-    console.log(error);
-    if (!res.headersSent) {
-      if (error.name === 'ValidationError') {
-        res.status(400).json({
-          success: false,
-          message: 'Validierungsfehler',
-          error: error.message
-        });
-      } else {
-        res.status(500).json({ success: false, message: 'Fehler bei der Auszahlungsanforderung.' });
-      }
-    }
-  }
-};

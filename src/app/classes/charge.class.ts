@@ -5,41 +5,54 @@ export interface AccountChargeInterface {
   approved: boolean,
   dateApproved: Date | null;
   amount: number;
-  date: Date;
+  datePaymentReceived: Date;
   accountHolder: string;
   iban: string;
-  // reference: string;
-  typeCharge:string;
+  reference: string;
+  typeCharge:'einzahlung' | 'auszahlung';
+  typeChargeName: 'but' | 'bankeinzahlung_auto' | 'bankeinzahlung_manuell' | 'auszahlung_but' | 'auszahlung_bank'| 'stripe_einzahlung' | 'sonstige'
   tenantId: string;
   transactionId: string;
+  username:string;
   userId: string;
   customerId: string;
   emailTenant?: string;
+
 }
 export class ChargeAccountInterface implements AccountChargeInterface {
   approved: boolean = false;
-  dateApproved = null;
+  username = '';
+  reference = '';
+  dateApproved = new Date();
   amount = 0;
-  date = new Date();
+  datePaymentReceived = new Date();
   accountHolder = '';
   iban = '';
-  // reference = '';
-  typeCharge = 'deposit';
+  typeCharge:'einzahlung' | 'auszahlung' = 'einzahlung';
+  typeChargeName: 'but' | 'bankeinzahlung_auto' | 'bankeinzahlung_manuell' | 'auszahlung_but' | 'auszahlung_bank'| 'stripe_einzahlung' | 'sonstige' = 'bankeinzahlung_manuell';
   tenantId = '';
   userId = '';
   customerId = '';
   transactionId = '';
-  emailTenant = '';
   constructor(
-    accountTenant: AccountCustomerInterface,
     tenantStudent: TenantStudentInterface,
-    type:string) {
+    type:'einzahlung' | 'auszahlung',
+    approved:boolean,
+    reference:string,
+    amount:number,
+    typeChargeName: 'but' | 'bankeinzahlung_auto' | 'bankeinzahlung_manuell' | 'auszahlung_but' | 'auszahlung_bank' | 'stripe_einzahlung' | 'sonstige') {
+    this.approved = approved;
+    this.username = tenantStudent.username;
+    this.reference = reference;
+    this.amount =amount
+
     this.accountHolder = tenantStudent.firstName + ' ' + tenantStudent.lastName;
     this.typeCharge = type;
-    this.approved = true;
     if(tenantStudent.tenantId){
       this.tenantId = tenantStudent.tenantId;
     }
+    this.typeChargeName = typeChargeName;
+
     if(tenantStudent.userId){
       this.userId = tenantStudent.userId;
     }
@@ -49,12 +62,14 @@ export class ChargeAccountInterface implements AccountChargeInterface {
     if(tenantStudent.iban){
       this.iban = tenantStudent.iban;
     }
+    this.dateApproved = new Date()
     this.transactionId = generateTransactionIdAccountCharge(tenantStudent);
-    this.date = new Date();
-    this.amount = accountTenant.currentBalance;
+    this.datePaymentReceived = new Date();
+
   }
 
 }
+
 
  function generateTransactionIdAccountCharge(tenant: TenantStudentInterface): string {
   return tenant.username  + '-' + Date.now();

@@ -67,10 +67,10 @@
                   </thead>
                   <tbody class="divide-y divide-gray-200">
                   <tr *ngFor="let payment of accountCharges  |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.date | date:'dd.MM.yyyy'}}</td>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{payment.datePaymentReceived | date:'dd.MM.yyyy'}}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <span *ngIf="payment.typeCharge === 'deposit'">{{ 'ACCOUNTDETAILS.DEPOSIT' | translate}}</span>
-                      <span *ngIf="payment.typeCharge !== 'deposit'">{{ 'ACCOUNTDETAILS.WITHDRAW' | translate}}</span>
+                      <span *ngIf="payment.typeCharge === 'auszahlung'">{{ 'ACCOUNTDETAILS.DEPOSIT' | translate}}</span>
+                      <span *ngIf="payment.typeCharge !== 'auszahlung'">{{ 'ACCOUNTDETAILS.WITHDRAW' | translate}}</span>
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <span *ngIf="payment.dateApproved">{{payment.dateApproved | date:'dd.MM.yyyy'}}</span>

@@ -14,16 +14,16 @@ function filterAndSortCharges(
     const endDate = new Date(secondDate);
 
     const filteredCharges = charges.filter(charge => {
-        const chargeDate = new Date(charge.date);
+        const chargeDate = new Date(charge.datePaymentReceived);
         const isWithinDateRange = chargeDate >= startDate && chargeDate <= endDate;
 
-        const isWithdraw = withdrawOrCancel && charge.typeCharge === 'withdraw';
-        const isDeposit = depositsOrOrder && charge.typeCharge === 'deposit';
+        const isWithdraw = withdrawOrCancel && charge.typeCharge === 'einzahlung';
+        const isDeposit = depositsOrOrder && charge.typeCharge === 'auszahlung';
 
         return isWithinDateRange && (isWithdraw || isDeposit);
     });
 
-    return filteredCharges.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return filteredCharges.sort((a, b) => new Date(a.datePaymentReceived).getTime() - new Date(b.datePaymentReceived).getTime());
 }
 
 function dateToExcelDate(date: Date): string {
@@ -49,12 +49,12 @@ function generateXLS(charges: AccountChargeInterface[], dateRange: { firstDate: 
 
     charges.forEach(charge => {
         xlsContent += `<tr>
-      <td>${dateToExcelDate(new Date(charge.date))}</td>
+      <td>${dateToExcelDate(new Date(charge.datePaymentReceived))}</td>
       <td>${charge.iban ?? ''}</td>
       <td>${formatCurrency(charge.amount)}</td>
       <td>${charge.transactionId}</td>
       <td>${charge.dateApproved ? dateToExcelDate(new Date(charge.dateApproved)) : ''}</td>
-      <td>${charge.typeCharge === 'withdraw' ? 'Abbuchung' : 'Einzahlung'}</td>
+      <td>${charge.typeCharge === 'auszahlung' ? 'Abbuchung' : 'Einzahlung'}</td>
     </tr>`;
     });
 

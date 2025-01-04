@@ -2,7 +2,6 @@
 export interface SchoolSettingsInterface {
   isTest:boolean;
   _id?: string;
-  isBrutto: boolean;
   startContract: Date;
   whoPayCharges: string
   contactPerson: string;

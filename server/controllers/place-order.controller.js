@@ -14,6 +14,14 @@ const {convertToSendGridFormat} = require("./sendfrid.controller");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+
+function isWeekend(date) {
+  let d = new Date(date);
+  const dayOfWeek = d.getDay(); // 0 = Sonntag, 1 = Montag, ..., 6 = Samstag
+  return dayOfWeek === 0 || dayOfWeek === 6; // true, wenn Samstag oder Sonntag
+}
+
+
 async function addOrder(req) {
   req.body.tenantId = req.tenantId;
   req.body.customerId = req.customerId;
@@ -24,6 +32,9 @@ async function addOrder(req) {
   const session = await mongoose.startSession();
 
   try {
+    if(isWeekend(req.body.dateOrder)){
+      throw new Error(`Bestellungen sind am Wochenende nicht möglich.`);
+    }
     await session.startTransaction();
     const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
     const account = await validateCustomerAccount(req._id, totalPrice, session);

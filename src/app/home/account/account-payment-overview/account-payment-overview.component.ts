@@ -30,7 +30,53 @@ import {
   ConfirmStripePaymentComponent
 } from "../account-payment/confirm-stripe-payment/confirm-stripe-payment.component";
 import {App as CapacitorApp} from "@capacitor/app";
+import {ButService} from "../../../service/but.service";
+import {ButStudentInterface} from "../../../classes/but.class";
 const { App } = Plugins;
+
+// function hasButAmount(but: ButStudentInterface[],charges:AccountChargeInterface[]): { total: number, amountEinzahlung: number, amountAuszahlung: number } {
+//   let total = {
+//     total: 0,
+//     amountEinzahlung: 0,
+//     amountAuszahlung: 0,
+//   }
+//   if(but.length === 0)return total;
+//
+//   //Alle Einzahlungen - alle Überweisungen But und alle Rückzahlungne
+//   let amount = 0;
+//   charges.forEach(charge => {
+//     if(charge.reference === 'but_charge'){
+//       if(charge.typeCharge === 'deposit'){
+//         total.total += charge.amount;
+//       }else if(charge.typeCharge === 'withdraw'){
+//         total.amountAuszahlung -= charge.amount;
+//       }
+//     }
+//   })
+//   return total;
+// }
+
+
+export function getLastButTo(records: ButStudentInterface[]): string | null {
+  if (records.length === 0) {
+    return null;
+  }
+
+  return records
+    .map(record => record.butTo)
+    .filter(date => date !== null)
+    .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0] || null;
+}
+
+export function compareDatesWithLastButTo(records: ButStudentInterface[], currentDate: Date): boolean {
+  const lastButTo = getLastButTo(records);
+  if (!lastButTo) {
+    return false;
+  }
+
+  return new Date(lastButTo).getTime() > new Date(currentDate).getTime();
+}
+
 
 const  arrayPaymentMethods = ['Kreditkarte','Amex', 'Paypal'];
 const  arrayPaymentMethodsName = ['Kreditkarte / Apple Pay / Google Pay','American Express', 'Paypal'];
@@ -82,11 +128,15 @@ function totalAmountExceedsLimit(amount: number | string, account: AccountCustom
 export interface PaymentIntentResponse {
   clientSecret: string;
 }
-function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
+
+export function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
   return accountCharges.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+    const dateA = a.dateApproved ? new Date(a.dateApproved).getTime() : 0;
+    const dateB = b.dateApproved ? new Date(b.dateApproved).getTime() : 0;
+    return dateB - dateA;
   });
 }
+
 @Component({
   selector: 'app-account-payment-overview',
   templateUrl: './account-payment-overview.component.html',
@@ -106,6 +156,8 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   accountTenant!: AccountCustomerInterface;
   hasHandledReturn = false;
   queryParamsSubscription: Subscription = new Subscription();
+  butTenant: ButStudentInterface[] = [];
+
   private appStateChangeListener: PluginListenerHandle | undefined;
 
 
@@ -113,7 +165,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient,
+    private butService: ButService,
     private clipboardService: ClipboardService,
     private dialog: MatDialog,
     private generellService: GenerellService,
@@ -158,6 +210,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       this.tenantService.getTenantInformation(),
       this.chargeService.getAccountCharges(),
       this.accountService.getAccountTenant(),
+      this.butService.getButTenant(),
     ]).subscribe(
       ([
          settings,
@@ -165,14 +218,16 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
          students,
          tenantStudent,
          accountCharges,
-         accountTenant
+         accountTenant,
+        but
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
         StudentInterface[],
         TenantStudentInterface,
         AccountChargeInterface[],
-        AccountCustomerInterface
+        AccountCustomerInterface,
+        ButStudentInterface[]
       ]) => {
 
         this.accountCharges = sortAccountChargesByDate(accountCharges);
@@ -180,6 +235,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
         this.registeredStudents = students;
         this.accountTenant = accountTenant;
         this.pageLoaded = true;
+        this.butTenant =  but
         if (this.platformService.isIos || this.platformService.isAndroid) {
           App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
             this.appStateChangeListener = listener;
@@ -238,6 +294,13 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
+    let lastDayIsGreaterThenToday = compareDatesWithLastButTo(this.butTenant,new Date())
+    if(lastDayIsGreaterThenToday){
+      let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_BUT')
+      let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT')
+      return;
+    }
+
     // if(!this.tenantStudent.iban || !this.tenantStudent.address || !this.tenantStudent.city || !this.tenantStudent.zip){
       if(!this.tenantStudent.iban ){
       let heading = this.translate.instant('ACCOUNT.ERROR_WITHDRAW_FUNDS')
@@ -266,13 +329,15 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
       }
 
       const accountCharge = new ChargeAccountInterface(
-        this.accountTenant,
         this.tenantStudent,
-        'withdraw'
+        'auszahlung',
+        true,
+        'auszahlung_anfrage',
+        this.accountTenant.currentBalance,
+        'auszahlung_bank'
       );
-      accountCharge.emailTenant = this.tenantStudent.email;
 
-      this.chargeService.withdrawFunds(accountCharge).pipe(
+      this.chargeService.withdrawFunds({accountCharge:accountCharge, tenant:this.tenantStudent}).pipe(
         catchError((error) => {
           this.submittingRequest = false;
           const errorMessage = this.translate.instant('ACCOUNT_SUPPORT_ERROR');
@@ -320,9 +385,7 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
 
-  isPWA(): boolean {
-    return window.matchMedia('(display-mode: standalone)').matches;
-  }
+
   redirectToStripeCheckout(amount:number | null) {
     if(!amount)return
     if(totalAmountExceedsLimit(amount,this.accountTenant,this.registeredStudents.length)){

@@ -45,13 +45,21 @@ interface CustomerSettingsInterface {
   remarks:string;
   state:string;  }
 interface CustomerBillingInterface {
-  headingInvoice: {heading:string}[],
+  headingInvoice: { heading: string }[],
   group: GroupBillingInterface[],
   customerNumber: string;
   paymentMethod: boolean;
   separateBilling: boolean;
-  separatePrice?:boolean;
-  iban:string;
+  separatePrice?: boolean;
+  iban: string;
+  bic?: string;
+  addressCustomer?: string;
+  city?: string;
+  postalCode?: string;
+  isEinzug?: boolean;
+  dueDateDays?: number;
+  mandateReference?: string;
+  isBrutto: boolean;
 }
 interface CustomerContactInterface{
   customer: string;

@@ -19,13 +19,7 @@ import {TenantServiceStudent} from "../../../service/tenant.service";
 import {GenerellService} from "../../../service/generell.service";
 import {TenantStudentInterface} from "../../../classes/tenant.class";
 import {MessageDialogService} from "../../../service/message-dialog.service";
-
-function sortAccountChargesByDate(accountCharges: AccountChargeInterface[]): AccountChargeInterface[] {
-  return accountCharges.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
-}
-
+import {sortAccountChargesByDate} from "../account-payment-overview/account-payment-overview.component";
 
 
 @Component({

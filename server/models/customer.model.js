@@ -85,6 +85,7 @@ var customerSchema = new Schema({
       individualPricing: Boolean,
       prices: [PricesGroupBillingSchema]
     }],
+    isBrutto: Boolean,
     invoiceCycle: String,
     customerNumber: String,
     paymentMethod: Boolean,

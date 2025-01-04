@@ -95,9 +95,9 @@ export class OrderClassStudent implements OrderInterfaceStudent {
     return customer.order.split[0].group;
   }
 }
-function getPriceBasedOnSettingsBrutto(price:number,tax:number,einrichtung:SchoolSettingsInterface):number{
+function getPriceBasedOnSettingsBrutto(price:number,tax:number,customer:CustomerInterface):number{
   let newPrice = price;
-  if(!einrichtung.isBrutto){
+  if(!customer.billing.isBrutto){
     newPrice = newPrice + (newPrice/100*tax);
   }
   return roundNumberTwoDigits(newPrice);
@@ -111,7 +111,7 @@ function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInte
     if(eachGroup.groupId === studentModel.subgroup){
       eachGroup.prices.forEach((eachPrice,index)=>{
         if(eachPrice.idSpecial === eachSpecial.idSpecial){
-          priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,contractSettings);
+          priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,customer);
           // priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
         }
       })

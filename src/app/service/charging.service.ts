@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError, map, Observable, of} from "rxjs";
 import {AccountChargeInterface, ChargeAccountInterface} from "../classes/charge.class";
+import {TenantStudentInterface} from "../classes/tenant.class";
 
 @Injectable(
   {providedIn: 'root'}
@@ -16,7 +17,7 @@ export class ChargingService {
 
   }
 
-  withdrawFunds(object:ChargeAccountInterface){
+  withdrawFunds(object:{accountCharge:ChargeAccountInterface,tenant:TenantStudentInterface}){
     return this.http.post(environment.apiBaseUrl+'/withdrawFunds',object)
       .pipe(map((response: any) => response));
   }

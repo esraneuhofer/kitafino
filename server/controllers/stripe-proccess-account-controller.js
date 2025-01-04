@@ -77,7 +77,7 @@ async function addAccountChargesTenantStripe(data, session) {
     }
 
     await saveAccount(account, netAmount, session);
-    await addAccountCharge(account, username, netAmount, session, transactionId);
+    await addAccountChargeStripe(account, username, netAmount, session, transactionId);
 
     await session.commitTransaction();
 
@@ -141,23 +141,22 @@ async function saveAccount(account, balanceToAdd, session) {
 }
 
 
-async function addAccountCharge(account, username, balanceToAdd, session,transactionId) {
+async function addAccountChargeStripe(account, username, balanceToAdd, session,transactionId) {
   try {
     const newChargeAccount = new ChargeAccount({
       approved: true,
       username: username,
-      reference: 'username',
+      reference: 'stipe_deposit',
       dateApproved: new Date(),
       amount: balanceToAdd,
       datePaymentReceived: new Date(),
       accountHolder: account.accountHolder,
       iban: 'stripe',
-      paymentMethod: 'stripe',
       typeCharge: 'einzahlung',
       tenantId: account.tenantId,
       userId: account.userId,
-      customerId: account.customerId,
-      transactionId:transactionId
+      customerId: 'stripe_transaction',
+      transactionId:'stripe_transaction'
     });
 
     await newChargeAccount.save({ session });

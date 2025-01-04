@@ -25,6 +25,7 @@ const crtlStripe = require('../controllers/stripe');
 const jwtHelper = require('../config/jwtHelper');
 const {rawBodyBuffer} = require('../config/stripeWebhookMiddleware');
 const ctrlWebhook = require('../controllers/stripe-webhook.controller');
+const crtlWithdraw = require('../controllers/withdraw.controller');
 const rateLimitHelper = require('../config/rateLimitHelper');
 
 
@@ -92,7 +93,7 @@ router.post('/deletePermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.
 
 ///Acoount Requests ////
 router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTenant);
-router.post('/withdrawFunds',jwtHelper.verifyJwtToken,crtlAccount.withdrawFunds);
+router.post('/withdrawFunds',jwtHelper.verifyJwtToken,crtlWithdraw.withdrawFunds);
 router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountCharges);
 
 /////Transaction Requests ////
