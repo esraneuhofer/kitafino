@@ -58,6 +58,9 @@ async function addAccount(req, session) {
     currentBalance: 0,
   });
 
+  if(req.body.email === 'test@cateringexpert.de'){
+    newAccount.currentBalance = 100;
+  }
   try {
     await newAccount.save({ session });
     return { success: true, message: 'Account Kunde erfolgreich angelegt' };

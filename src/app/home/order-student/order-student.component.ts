@@ -444,6 +444,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
     this.orderWeek = [];
     if (!selectedStudent?._id) {
+      this.pageLoaded = true;
       return;
     }
     let studentId = selectedStudent._id;
@@ -453,6 +454,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
 
     if (!this.selectedStudent) {
+      this.pageLoaded = true;
       return;
     }
 

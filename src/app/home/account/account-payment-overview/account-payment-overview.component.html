@@ -141,8 +141,10 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="pageLoaded && registeredStudents.length === 0">
-  <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
+<ng-container  *ngIf="pageLoaded && registeredStudents.length === 0">
+  <div class="mt-8">
+    <app-banner-no-student-order  [text]="textBanner"></app-banner-no-student-order>
+  </div>
 </ng-container>
 <app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
 
