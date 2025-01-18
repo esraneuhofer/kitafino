@@ -562,7 +562,7 @@
   "AENDERN_BUTTON": "Change",
   "FEHLER_BESTELLUNG":"Error placing order",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "You can only order one menu per day. Please cancel the other order first.",
-  "BESTAETIGUNG_PER_EMAIL":"Receive confirmation via email",
+  "BESTAETIGUNG_PER_EMAIL":"Confirmation via email",
 
   "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Available allergen meals can only be activated by the facility. Please contact your facility. If an allergen meal is activated, it will be enabled in the order of the respective participant.",
   "FEEDBACK": "Feedback",
