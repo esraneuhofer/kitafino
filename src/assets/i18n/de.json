@@ -605,5 +605,7 @@
   "ACCOUNT_SUPPORT_ERROR": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder wenden Sie sich an unseren Kundensupport unter <u> <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> </u>.",
 
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_BUT": "Auszahlung nicht möglich",
-  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT": "Sie haben derzeit einen laufenden Antrag für Bildung und Teilhabe. Bitte warten Sie, bis der abgelaufen ist, bevor Sie eine Auszahlung veranlassen."
+  "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT": "Sie haben derzeit einen laufenden Antrag für Bildung und Teilhabe. Bitte warten Sie, bis der abgelaufen ist, bevor Sie eine Auszahlung veranlassen.",
+
+  "SPECIAL_DIET": "Sonderessen"
 }

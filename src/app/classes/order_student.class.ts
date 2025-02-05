@@ -135,6 +135,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
               studentModel: (StudentInterface | null),
               contractSettings:SchoolSettingsInterface) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
+      console.log('eachSpecial',eachSpecial);
       let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial,contractSettings)
       let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
       if (order) {
@@ -171,8 +172,9 @@ function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInter
       if(eachGroup.groupId === studenModel.subgroup){
         eachGroup.prices.forEach((eachPrice,index)=>{
           if(eachPrice.typeSpecial === 'special'){
-            price = eachPrice.priceSpecial;
-            price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
+            console.log('eachPrice',eachPrice);
+            price = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,customer); ;
+            // price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
           }
         })
       }

@@ -53,9 +53,9 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
       orderNew.order.orderMenus[indexMenuFound].amountOrder = eachOrder.amountOrder;
       orderNew.order.orderMenus[indexMenuFound].menuSelected = eachOrder.menuSelected;
       orderNew.order.orderMenus[indexMenuFound].priceOrder = eachOrder.priceOrder;
-
     })
   }
+  console.log('orderNew',orderNew);
   return orderNew;
 }
 
