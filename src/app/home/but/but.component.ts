@@ -305,8 +305,8 @@ export class ButComponent implements OnInit{
           student.firstName + ' ' + student.lastName,
           tenant.firstName + ' ' + tenant.lastName,
           getInvoiceDateOne(student.registerDate),
-          this.settings.tenantSettings.contact.companyName,
-          schoolSetting?.nameEinrichtung + ' ' + schoolSetting?.streetCustomer + ' ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
+          schoolSetting?.nameCateringCompany + ', ' + schoolSetting?.streetCaterer + ', ' + schoolSetting?.zipcodeCaterer + ' ' + schoolSetting?.cityCaterer,
+        schoolSetting?.nameEinrichtung + ', ' + schoolSetting?.streetCustomer + ', ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
           student.username,
           'DE30 5107 0021 0980 5797 01',
           'DEUTDEDBXXX',
@@ -321,7 +321,7 @@ export class ButComponent implements OnInit{
           pdfDocGenerator.getBase64(async (base64Data) => {
             const data: any = {
               base64: base64Data,
-              name: 'Bestätigungsschreiben'
+              name: 'Bestätigungsschreiben' + student.firstName + ' ' + student.lastName,
             };
             try {
               await downloadPdfIos(data, this.fileOpener);
@@ -334,7 +334,7 @@ export class ButComponent implements OnInit{
           });
         } else {
           // Web download
-          pdfDocGenerator.download('Bestätigungsschreiben.pdf');
+          pdfDocGenerator.download('Bestätigungsschreiben ' + student.firstName + '_' + student.lastName + '.pdf');
           this.submittingRequestFlip = false;
         }
       })
