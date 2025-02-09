@@ -46,6 +46,7 @@
                     <div *ngFor="let orderDay of orderWeek; let index = index" class="w-full">
                       <app-meal-input-card (orderPlaced)="getDataWeek()"
                                            [customer]="customer"
+                                           [einrichtung]="schoolSettings"
                                            [displayMinimize]="displayMinimize"
                                            [indexDay]="index"
                                            [lockDay]="lockDays[index]"
@@ -112,6 +113,7 @@
                                          [customer]="customer"
                                          [displayMinimize]="displayMinimize"
                                          [indexDay]="indexDay"
+                                         [einrichtung]="schoolSettings"
                                          [lockDay]="lockDays[indexDay]"
                                          [orderDay]="orderWeek[0]"
                                          [selectedStudent]="selectedStudent"

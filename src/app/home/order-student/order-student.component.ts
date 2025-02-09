@@ -40,10 +40,10 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   FirstAccessOrderDialogComponent
 } from "../../directives/first-access-order-dialog/first-access-order-dialog.component";
-import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 import {SchoolService} from "../../service/school.service";
 import {App, App as CapacitorApp} from "@capacitor/app";
 import {Capacitor, PluginListenerHandle} from "@capacitor/core";
+import {EinrichtungInterface} from "../../classes/einrichtung.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -87,7 +87,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   accountTenant!: AccountCustomerInterface;
   weekplanSelectedWeek: (WeekplanMenuInterface | null) = null;
   orderWeek: MealCardInterface[] = [];
-  schoolSettings!: SchoolSettingsInterface;
+  schoolSettings!: EinrichtungInterface;
 
   private appStateChangeListener: PluginListenerHandle | undefined;
   private subscriptions: Subscription = new Subscription();
@@ -209,7 +209,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         WeekplanGroupClass[],
         AccountCustomerInterface,
         VacationsInterface[],
-        SchoolSettingsInterface
+        EinrichtungInterface
       ]) => {
         this.settings = settings;
         this.customer = customer;

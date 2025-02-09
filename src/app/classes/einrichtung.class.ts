@@ -41,6 +41,7 @@ export interface EinrichtungInterface {
   streetCustomer: string;
   cityCustomer: string;
   zipcodeCustomer: string;
+  isTest?: boolean;
 
 }
 

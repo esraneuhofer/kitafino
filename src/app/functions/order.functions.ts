@@ -15,8 +15,8 @@ import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {SchoolSettingsInterface} from "../classes/schoolSettings.class";
 import {normalizeToBerlinDate} from "./date.functions";
+import {EinrichtungInterface} from "../classes/einrichtung.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -39,7 +39,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
                          indexDaySelected:number,
                          dateChange:string,
                          query:{week:number, year:number},
-                                contractSettings:SchoolSettingsInterface):OrderInterfaceStudent{
+                                contractSettings:EinrichtungInterface):OrderInterfaceStudent{
   let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
   if (orderStudent) {
     orderNew._id = orderStudent._id;

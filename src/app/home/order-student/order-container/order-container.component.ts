@@ -35,7 +35,7 @@ import {AccountCustomerInterface} from "../../../classes/account.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {SchoolSettingsInterface} from "../../../classes/schoolSettings.class";
+import {EinrichtungInterface} from "../../../classes/einrichtung.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -87,7 +87,7 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
                                    selectedStudent: any, indexDaySelected: number,
                                    selectedDate: Date, query: { week: number, year: number },
                                    lockDays: boolean[],
-                                   contractSettings: SchoolSettingsInterface): MealCardInterface {
+                                   contractSettings: EinrichtungInterface): MealCardInterface {
   const orderModelStudent = setOrderStudent(
     order,
     weekplanSelectedWeek,
@@ -122,7 +122,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() tenantStudent!: TenantStudentInterface;
   @Input() allVacations: VacationsInterface[] = [];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
-  @Input() schoolSettings!: SchoolSettingsInterface;
+  @Input() schoolSettings!: EinrichtungInterface;
   orderWeek: MealCardInterface[] = [];
   accountTenant?: AccountCustomerInterface
 

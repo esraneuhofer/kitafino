@@ -6,8 +6,8 @@ import {Allergene} from "./allergenes.interface";
 import {MenuInterface} from "./menu.interface";
 import {MealModelInterface} from "./meal.interface";
 import {getSpecialFoodById} from "../functions/special-food.functions";
-import {SchoolSettingsInterface} from "./schoolSettings.class";
 import {roundNumberTwoDigits} from "../functions/generell.functions";
+import {EinrichtungInterface} from "./einrichtung.class";
 
 
 export interface SpecialFoodOrderInterface {
@@ -77,7 +77,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
               selectedWeek: WeekplanDayInterface,
               studentModel: (StudentInterface | null)
               ,dateOrder:Date,
-              contractSettings:SchoolSettingsInterface) {
+              contractSettings:EinrichtungInterface) {
     this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,studentModel,contractSettings);
     this.customerId = customer.customerId;
     this.dateOrder = dateOrder;
@@ -104,7 +104,7 @@ function getPriceBasedOnSettingsBrutto(price:number,tax:number,customer:Customer
 }
 
 
-function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:SchoolSettingsInterface):number{
+function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:EinrichtungInterface):number{
   let priceStudent = 0;
   if(!studentModel)return priceStudent;
   customer.billing.group.forEach(eachGroup => {
@@ -133,7 +133,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
               settings: SettingInterfaceNew,
               selectedWeek: WeekplanDayInterface,
               studentModel: (StudentInterface | null),
-              contractSettings:SchoolSettingsInterface) {
+              contractSettings:EinrichtungInterface) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
       console.log('eachSpecial',eachSpecial);
       let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial,contractSettings)
@@ -164,7 +164,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
     }
   }
 }
-function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInterface,contractSettings:SchoolSettingsInterface):number{
+function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInterface,contractSettings:EinrichtungInterface):number{
   let price = 0;
   let backupPrice:number = 0;
   if(customer.billing.separatePrice){

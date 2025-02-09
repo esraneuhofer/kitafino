@@ -4,7 +4,12 @@ import {OrderInterfaceStudent, OrderSubDetailNew} from "../../../classes/order_s
 import {MealCardInterface} from "../order-container/order-container.component";
 import localeDe from '@angular/common/locales/de';
 import {registerLocaleData} from "@angular/common";
-import {modifyOrderModelForSave, orderIsEmpty, orderIsNegative} from "../../../functions/order.functions";
+import {
+  getDateMondayFromCalenderweek,
+  modifyOrderModelForSave,
+  orderIsEmpty,
+  orderIsNegative
+} from "../../../functions/order.functions";
 import {OrderService} from "../../../service/order.service";
 import {getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay} from "../order.functions";
 import {MatDialog} from "@angular/material/dialog";
@@ -29,6 +34,7 @@ import {AccountCustomerInterface} from "../../../classes/account.class";
 import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../../service/language.service";
+import {EinrichtungInterface} from "../../../classes/einrichtung.class";
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -117,6 +123,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() settings!: SettingInterfaceNew;
   @Output() orderPlaced: any = new EventEmitter<Event>;
   @Input() tenantStudent!: TenantStudentInterface;
+  @Input()einrichtung!:EinrichtungInterface;
   @Input() customer!: CustomerInterface;
   @Input() weekplanDay!: WeekplanDayInterface
   @Input() selectedStudent!: StudentInterface
@@ -421,7 +428,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
-    if (distance < 0) {
+    if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {
       // this.pastOrder = true;
       this.pastOrder = true;
       this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
@@ -444,7 +451,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
     clearInterval(this.timerInterval);
     let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
-    if (distance < 0) {
+    let monday = getDateMondayFromCalenderweek({week: cw, year: year});
+    let isPreContract = new Date(this.einrichtung.startContract).getTime() > monday.getTime()
+    if (isPreContract || distance < 0) {
       this.pastOrder = true;
       this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
       // this.differenceTimeDeadlineDay = this.translate.instant('BESTELLFRIST_ABGELAUFEN');

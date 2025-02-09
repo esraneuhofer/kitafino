@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map} from "rxjs";
-import {SchoolSettingsInterface} from "../classes/schoolSettings.class";
+import {EinrichtungInterface} from "../classes/einrichtung.class";
 
 
 @Injectable(
@@ -17,8 +17,8 @@ export class SchoolService {
 
   }
   getSchoolSettings(){
-    return this.http.get<SchoolSettingsInterface>(environment.apiBaseUrl+'/getSchoolSettings')
-      .pipe(map((response: SchoolSettingsInterface) => (response)));
+    return this.http.get<EinrichtungInterface>(environment.apiBaseUrl+'/getSchoolSettings')
+      .pipe(map((response: EinrichtungInterface) => (response)));
   }
 
 

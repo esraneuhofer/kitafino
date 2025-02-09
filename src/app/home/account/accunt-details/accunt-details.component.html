@@ -62,7 +62,7 @@
                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.TYPE' | translate }}</th>
                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.APPROVED' | translate }}</th>
                     <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.AMOUNT' | translate }}</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.TRANSACTION_ID' | translate }}</th>
+<!--                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ACCOUNTDETAILS.TRANSACTION_ID' | translate }}</th>-->
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
@@ -77,7 +77,7 @@
                       <span *ngIf="!payment.dateApproved">{{ 'NEIN' | translate}}</span>
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.amount | currency:'€'}}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.transactionId}}</td>
+<!--                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{payment.transactionId}}</td>-->
                   </tr>
                   <tr *ngIf="accountCharges.length === 0">
                     <td colspan="100%">

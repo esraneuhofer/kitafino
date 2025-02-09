@@ -28,9 +28,7 @@ import {getInvoiceDateOne} from "../../functions/date.functions";
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import {WeekplanPdfInterface} from "../weekplan-pdf/weekplan-pdf.component";
 import {EinrichtungInterface} from "../../classes/einrichtung.class";
-import {SchoolSettingsInterface} from "../../classes/schoolSettings.class";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
