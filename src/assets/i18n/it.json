@@ -602,6 +602,7 @@
   "ALLE": "Tous",
   "ALLGEMEIN": "Général",
   "ANMELDUNG_MULTI": "Inscription (multilingue)",
-  "ACCOUNT_SUPPORT_ERROR": "Une erreur s'est produite. Veuillez réessayer plus tard ou contacter notre support client à <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "Une erreur s'est produite. Veuillez réessayer plus tard ou contacter notre support client à <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Una volta assegnato il sottogruppo, può essere modificato solo dall'istituzione. Se desideri modificarlo, contatta la tua istituzione."
 }
 

@@ -597,5 +597,6 @@
   "ALLE": "الكل",
   "ALLGEMEIN": "عام",
   "ANMELDUNG_MULTI": "التسجيل (متعدد اللغات)",
-  "ACCOUNT_SUPPORT_ERROR": "حدث خطأ. يرجى المحاولة لاحقاً أو الاتصال بدعم العملاء لدينا على <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "حدث خطأ. يرجى المحاولة لاحقاً أو الاتصال بدعم العملاء لدينا على <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "بمجرد تعيين المجموعة الفرعية، يمكن تغييرها فقط عن طريق المؤسسة. يرجى الاتصال بمؤسستك إذا كنت ترغب في تغيير المجموعة الفرعية."
 }

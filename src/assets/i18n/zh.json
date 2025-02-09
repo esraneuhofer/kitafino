@@ -596,6 +596,7 @@
   "ALLE": "全部",
   "ALLGEMEIN": "常规",
   "ANMELDUNG_MULTI": "注册（多语言）",
-  "ACCOUNT_SUPPORT_ERROR": "发生错误。请稍后再试，或联系客户支持：<u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>。"
+  "ACCOUNT_SUPPORT_ERROR": "发生错误。请稍后再试，或联系客户支持：<u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>。",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "一旦子组被分配后，只能由机构进行更改。如果您想更改子组，请联系您的机构."
 }
 

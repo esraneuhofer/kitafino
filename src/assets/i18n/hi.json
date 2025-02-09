@@ -597,6 +597,7 @@
   "ALLE": "सभी",
   "ALLGEMEIN": "सामान्य",
   "ANMELDUNG_MULTI": "पंजीकरण (बहुभाषी)",
-  "ACCOUNT_SUPPORT_ERROR": "एक त्रुटि हुई है। कृपया बाद में पुनः प्रयास करें या हमारे ग्राहक सहायता से संपर्क करें <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> पर।"
+  "ACCOUNT_SUPPORT_ERROR": "एक त्रुटि हुई है। कृपया बाद में पुनः प्रयास करें या हमारे ग्राहक सहायता से संपर्क करें <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> पर।",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "एक बार उपसमूह असाइन हो जाने के बाद, इसे केवल संस्था द्वारा ही बदला जा सकता है। यदि आप उपसमूह को बदलना चाहते हैं, तो कृपया अपनी संस्था से संपर्क करें।"
 }
 

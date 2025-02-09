@@ -600,6 +600,7 @@
   "ALLE": "Alle",
   "ALLGEMEIN": "Algemeen",
   "ANMELDUNG_MULTI": "Registratie (meertalig)",
-  "ACCOUNT_SUPPORT_ERROR": "Er is een fout opgetreden. Probeer het later opnieuw of neem contact op met onze klantenservice via <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "Er is een fout opgetreden. Probeer het later opnieuw of neem contact op met onze klantenservice via <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Zodra de subgroep eenmaal is toegewezen, kan deze alleen door de instelling worden gewijzigd. Neem contact op met uw instelling als u de subgroep wilt wijzigen."
 }
 

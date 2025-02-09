@@ -603,6 +603,7 @@
   "ALLE": "Всички",
   "ALLGEMEIN": "Общо",
   "ANMELDUNG_MULTI": "Регистрация (многоезична)",
-  "ACCOUNT_SUPPORT_ERROR": "Възникна грешка. Моля, опитайте отново по-късно или се свържете с нашата поддръжка на клиенти на <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "Възникна грешка. Моля, опитайте отново по-късно или се свържете с нашата поддръжка на клиенти на <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "След като подгрупата веднъж бъде зададена, тя може да бъде променена само от институцията. Моля, свържете се с вашата институция, ако искате да промените подгрупата."
 }
 

@@ -183,7 +183,7 @@
                           <p *ngIf="f1.submitted && subgroupModel.invalid"
                              class="mt-1 text-sm text-red-600">{{ 'SUBGROUP_INSTRUCTIONS' | translate }}</p>
                         </div>
-                        <div class="sm:col-span-4">
+                        <div class="sm:col-span-4" *ngIf="!isDisabledSubgroup">
                           <div class="space-y-5">
                             <div class="relative flex items-start">
                               <div class="flex h-6 items-center">
@@ -246,9 +246,11 @@
                       <p *ngIf="showAllergieSelection(customerInfo,specialFoodSelection)"
                          [innerHTML]="getAllergieFoodTextEdit(customerInfo,specialFoodSelection)"
                          class="text-sm leading-6 text-gray-600"></p>
-                      <h2 *ngIf="customerInfo.order.split.length > 1"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
-                      <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>
-                      <p *ngIf="customerInfo.order.split.length > 1 &&  !customerInfo.generalSettings.subGroupSettingTenant" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>
+                      <h2 *ngIf="customerInfo.order.split.length > 1 && !selectedStudent.subgroup"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
+                      <p *ngIf="customerInfo.order.split.length > 1 && customerInfo.generalSettings.subGroupSettingTenant && !selectedStudent.subgroup" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS' | translate }}</p>
+                      <p *ngIf="customerInfo.order.split.length > 1 &&  !customerInfo.generalSettings.subGroupSettingTenant && !selectedStudent.subgroup" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_SCHOOL_SET' | translate }}</p>
+                      <h2 *ngIf="isDisabledSubgroup"  class="text-base font-semibold leading-7 text-gray-900 mt-3">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING' | translate }}</h2>
+                      <p *ngIf="isDisabledSubgroup" class="text-sm leading-6 text-gray-600">{{ 'SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION' | translate }}</p>
                     </div>
                   </div>
                 </div>

@@ -602,6 +602,7 @@
   "ALLE": "Όλα",
   "ALLGEMEIN": "Γενικά",
   "ANMELDUNG_MULTI": "Εγγραφή (Πολυγλωσσικό)",
-  "ACCOUNT_SUPPORT_ERROR": "Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά αργότερα ή επικοινωνήστε με την υποστήριξη πελατών στη διεύθυνση <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά αργότερα ή επικοινωνήστε με την υποστήριξη πελατών στη διεύθυνση <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Μόλις ανατεθεί η υποομάδα, μπορεί να αλλάξει μόνο από το ίδρυμα. Παρακαλώ επικοινωνήστε με το ίδρυμά σας, εάν επιθυμείτε να αλλάξετε την υποομάδα."
 
 }

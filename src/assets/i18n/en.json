@@ -598,5 +598,6 @@
   "ALLE": "All",
   "ALLGEMEIN": "General",
   "ANMELDUNG_MULTI": "Registration (Multi Lingual)",
-  "ACCOUNT_SUPPORT_ERROR": "An error has occurred. Please try again later or contact our customer support at <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "An error has occurred. Please try again later or contact our customer support at <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Once the subgroup has been assigned, it can only be changed by the institution. Please contact your institution if you wish to change the subgroup."
 }

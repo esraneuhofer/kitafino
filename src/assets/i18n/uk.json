@@ -598,5 +598,6 @@
   "ALLE": "Усі",
   "ALLGEMEIN": "Загальні",
   "ANMELDUNG_MULTI": "Реєстрація (багатомовна)",
-  "ACCOUNT_SUPPORT_ERROR": "Сталася помилка. Спробуйте ще раз пізніше або зверніться до служби підтримки клієнтів за адресою <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>."
+  "ACCOUNT_SUPPORT_ERROR": "Сталася помилка. Спробуйте ще раз пізніше або зверніться до служби підтримки клієнтів за адресою <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Після того, як підгрупу було призначено, її можна змінити лише через установу. Будь ласка, зверніться до вашої установи, якщо хочете змінити підгрупу."
 }

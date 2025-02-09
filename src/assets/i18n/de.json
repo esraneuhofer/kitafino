@@ -607,5 +607,6 @@
   "ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_BUT": "Auszahlung nicht möglich",
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT": "Sie haben derzeit einen laufenden Antrag für Bildung und Teilhabe. Bitte warten Sie, bis der abgelaufen ist, bevor Sie eine Auszahlung veranlassen.",
 
-  "SPECIAL_DIET": "Sonderessen"
+  "SPECIAL_DIET": "Sonderessen",
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Nachdem die Untergruppe einmal zugewiesen wurde, kann Sie nur noch durch die Einrichtung geändert werden. Bitte wenden Sie sich an Ihre Einrichtung, falls Sie die Untergruppe ändern möchten."
 }
