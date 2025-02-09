@@ -13,7 +13,7 @@ const footerCateringexpert: {
     ],
     footerMiddle: [
       {footerText: 'Deutsche Bank'},
-      {footerText: 'IBAN:DE57 5107 0021 0980 5797 00'},
+      {footerText: 'IBAN:DE57 5107 0021 0980 5797 01'},
       {footerText: 'BIC:DEUTDEFF510'},
       {footerText: 'USt-IdNr: DE366961599'},
     ],
@@ -21,7 +21,7 @@ const footerCateringexpert: {
     footerRight: [
       {footerText:'www.cateringexpert.de'},
       {footerText: 'info@cateringexpert.de'},
-      {footerText: 'Tel: 0800 - 5891360'}]
+      {footerText: 'Tel: 0611 - 94910991'}]
 
   }
 export function createPDF(

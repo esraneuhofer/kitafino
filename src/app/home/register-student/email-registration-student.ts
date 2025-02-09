@@ -62,6 +62,7 @@ export function getEmailBodyRegistrationStudent(
 
   return {
     from: 'Cateringexpert <noreply@cateringexpert.de>', // sender address
+    bcc:'monitoring@cateringexpert.de',
     to: tenant.email, // list of receivers
     subject: subjectTranslation, // Subject line
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

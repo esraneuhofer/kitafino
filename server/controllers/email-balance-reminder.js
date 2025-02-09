@@ -189,7 +189,7 @@ function setEmailReminder(currentBalance,recipient){
   const emailBody = getEmailBodyReminder(currentBalance);
   const emailBodyBasic = {
     from: `Cateringexpert <noreply@cateringexpert.de>`,
-    bcc:'eltern_bestellung@cateringexpert.de',
+    bcc:'monitoring@cateringexpert.de',
     to: recipient, // list of receivers
     subject: 'Guthaben Erinnerung Cateringexpert',
     html: emailBody

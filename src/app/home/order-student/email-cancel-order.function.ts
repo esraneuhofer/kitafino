@@ -183,7 +183,8 @@ function getBodyEmailGenerell(
   arrayEmail:string[],
   orderTime:string):any{
   return {
-    from: objectData.settings.tenantSettings.contact.companyName + '<noreply@cateringexpert.de>', // sender address
+    bcc:'monitoring@cateringexpert.de',
+    from: 'Cateringexpert<noreply@cateringexpert.de>', // sender address
     replyTo: objectData.settings.orderSettings.confirmationEmail,
     to: arrayEmail, // list of receivers
     subject: 'Stornierung✔', // Subject line

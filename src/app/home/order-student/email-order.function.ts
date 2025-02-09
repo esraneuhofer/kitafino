@@ -203,7 +203,8 @@ export function getEmailBody(objectData: EmailOrderInterface): any {
   // Verpflegungsteilnehmer/in :' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + '<br> Datum:' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '<br>';
   let typeOrder = 'Bestellbestätigung'
   const orderTime = getInvoiceDateOne(new Date());
-  let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
+  // let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
+  let arrayEmail = [];
   if (objectData.sendCopyEmail) {
     arrayEmail.push(objectData.tenantStudent.email)
   }

@@ -190,7 +190,7 @@ function handleDatabaseError(error, contextMessage) {
 function getMailOptions (amount,username,paymentDate,fee,emailTenant,transactionId) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>',
-    bcc:'eltern_bestellung@cateringexpert.de',
+    bcc:'monitoring@cateringexpert.de',
     to: emailTenant, // This should be dynamically set based on the tenant's email
     subject: 'Kontoaktivität',
     html: getEmailChargeAccount(amount,username,paymentDate,fee,transactionId)

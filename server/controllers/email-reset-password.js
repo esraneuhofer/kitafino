@@ -12,7 +12,7 @@ function getEmailResetPassword(emailUser,password) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>', // sender address
     to: emailUser, // list of receivers
-    bcc:'eltern_bestellung@cateringexpert.de',
+    bcc:'monitoring@cateringexpert.de',
 
     subject: 'Passwort zurücksetzten', // Subject line
     html:`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

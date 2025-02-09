@@ -5,7 +5,7 @@ function getMailOptions (chargeAccount,tenantAccount) {
   return {
     from: '"Cateringexpert" <noreply@cateringexpert.de>',
     replyTo: 'noreply@cateringexpert.de', // This should be dynamically set based on the tenant's email
-    bcc:'eltern_bestellung@cateringexpert.de',
+    bcc:'monitoring@cateringexpert.de',
     to: tenantAccount.email, // This should be dynamically set based on the tenant's email
     subject: 'Kontoaktivität',
     html: getEmailTextCharge(chargeAccount.amount, chargeAccount.typeCharge,tenantAccount)

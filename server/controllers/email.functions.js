@@ -20,7 +20,7 @@ async function sendSuccessEmail(req, response) {
     // recipient = 'test@cateringexpert.de'
     const emailBodyBasic = {
       from: `Cateringexpert <noreply@cateringexpert.de>`,
-      bcc:'eltern_bestellung@cateringexpert.de',
+      bcc:'monitoring@cateringexpert.de',
       to: recipient, // list of receivers
       subject: 'Bestellung erfolgreich',
       html: emailBody
@@ -53,7 +53,7 @@ async function sendCancellationEmail(req, errorMessage) {
     const emailBodyBasic = {
       from: `Cateringexpert <noreply@cateringexpert.de>`,
       to: recipient, // list of receivers
-      bcc:'eltern_bestellung@cateringexpert.de',
+      bcc:'monitoring@cateringexpert.de',
       subject: 'Bestellung nicht erfolgreich',
       html: emailBody
     };
