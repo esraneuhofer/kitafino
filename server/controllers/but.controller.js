@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const ButSchema = mongoose.model('ButSchema');
 const ButDocument = mongoose.model('ButDocumentSchema');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 module.exports.getButTenant = async (req, res, next) => {
   console.log(req._id);
@@ -61,15 +64,35 @@ module.exports.uploadButDocument = async (req, res, next) => {
     userId: req.body.userId,
     customerId: req.body.customerId
   });
+
   console.log(newDoc);
+
   try {
     await newDoc.save();
-    res.status(200).json({ success: true, message: 'Dokument erfolgreich hochgeladen' });
+
+    // E-Mail mit den wichtigsten Daten senden
+    const msg = {
+      from: '"Cateringexpert" <noreply@cateringexpert.de>',
+      to: 'monitoring@cateringexpert.de',
+      subject: 'Neues Dokument hochgeladen',
+      html: `
+        <h2>Neues Dokument wurde hochgeladen</h2>
+        <p><strong>Name:</strong> ${newDoc.name}</p>
+        <p><strong>Benutzername:</strong> ${newDoc.username}</p>
+        <p><strong>Hochgeladen am:</strong> ${newDoc.dateUploaded.toLocaleString()}</p>
+        <p><strong>Student ID:</strong> ${newDoc.studentId}</p>
+        <p><strong>Kunden ID:</strong> ${newDoc.customerId}</p>
+      `,
+    };
+
+    await sgMail.send(msg);
+
+    res.status(200).json({ success: true, message: 'Dokument erfolgreich hochgeladen und E-Mail gesendet' });
   } catch (error) {
-    handleOrderError(error, res);
+    console.error('Fehler beim Hochladen oder E-Mail-Versand:', error);
+    res.status(500).json({ success: false, message: 'Fehler beim Hochladen des Dokuments oder beim E-Mail-Versand' });
   }
 };
-
 module.exports.getButDocumentTenant = async (req, res, next) => {
   try {
 

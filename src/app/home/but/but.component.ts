@@ -248,6 +248,7 @@ export class ButComponent implements OnInit{
         (response: any) => {
           this.toastr.success(this.translate.instant('BUT.UPLOAD_SUCCESS'));
           this.setFileEmpty();
+          forkJoin()
           this.butService.getButDocumentTenant().subscribe((documents: ButDocumentInterface[]) => {
             this.documentsTenant = documents;
             this.submittingRequest = false;

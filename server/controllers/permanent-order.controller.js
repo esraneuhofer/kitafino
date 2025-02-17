@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports.getPermanentOrdersUser = async (req, res, next) => {
   console.log(req._id);
@@ -29,22 +31,59 @@ module.exports.editPermanentOrdersUser = (req, res, next) => {
   });
 };
 
-module.exports.setPermanentOrdersUser = (req, res, next) => {
+// module.exports.setPermanentOrdersUser = (req, res, next) => {
+//
+//   let newPermanentOrder = new PermanentOrderStudent({
+//     tenantId : req.tenantId,
+//     customerId : req.customerId,
+//     userId : req._id,
+//     isSpecial : req.body.isSpecial,
+//     daysOrder : req.body.daysOrder,
+//     studentId : req.body.studentId
+//   });
+//   newPermanentOrder.save().then(function (doc) {
+//     res.json({error: false,errorType:null,data:doc });
+//   }, function (e) {
+//     res.json({error: true,errorType:e,data:null });
+//   });
+// };
+module.exports.setPermanentOrdersUser = async (req, res, next) => {
+  try {
+    let newPermanentOrder = new PermanentOrderStudent({
+      tenantId: req.tenantId,
+      customerId: req.customerId,
+      userId: req._id,
+      isSpecial: req.body.isSpecial,
+      daysOrder: req.body.daysOrder,
+      studentId: req.body.studentId
+    });
 
-  let newPermanentOrder = new PermanentOrderStudent({
-    tenantId : req.tenantId,
-    customerId : req.customerId,
-    userId : req._id,
-    isSpecial : req.body.isSpecial,
-    daysOrder : req.body.daysOrder,
-    studentId : req.body.studentId
-  });
-  newPermanentOrder.save().then(function (doc) {
-    res.json({error: false,errorType:null,data:doc });
-  }, function (e) {
-    res.json({error: true,errorType:e,data:null });
-  });
+    let doc = await newPermanentOrder.save();
+
+    // E-Mail mit den wichtigsten Daten senden
+    const msg = {
+      from: '"Cateringexpert" <noreply@cateringexpert.de>',
+      to: 'monitoring@cateringexpert.de',
+      subject: 'Neue Dauerbestellung erstellt',
+      html: `
+        <h2>Neue Dauerbestellung wurde erstellt</h2>
+        <p><strong>Kunden-ID:</strong> ${doc.customerId}</p>
+        <p><strong>Student-ID:</strong> ${doc.studentId}</p>
+        <p><strong>Besondere Bestellung:</strong> ${doc.isSpecial ? 'Ja' : 'Nein'}</p>
+        <p><strong>Bestellte Tage:</strong> ${doc.daysOrder.join(', ')}</p>
+      `,
+    };
+
+    await sgMail.send(msg);
+
+    res.json({ error: false, errorType: null, data: doc, message: 'Dauerbestellung gespeichert und E-Mail gesendet' });
+
+  } catch (error) {
+    console.error('Fehler:', error);
+    res.json({ error: true, errorType: error, data: null });
+  }
 };
+
 
 module.exports.deletePermanentOrdersUser = async (req, res, next) => {
   try {

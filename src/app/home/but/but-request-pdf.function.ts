@@ -13,7 +13,7 @@ const footerCateringexpert: {
     ],
     footerMiddle: [
       {footerText: 'Deutsche Bank'},
-      {footerText: 'IBAN:DE57 5107 0021 0980 5797 01'},
+      {footerText: 'IBAN:DE30 5107 0021 0980 5797 01'},
       {footerText: 'BIC:DEUTDEFF510'},
       {footerText: 'USt-IdNr: DE366961599'},
     ],
