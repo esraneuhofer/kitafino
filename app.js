@@ -66,6 +66,7 @@ const corsOptions = {
     'http://localhost',                // Localhost for Capacitor on Android
     'ionic://localhost',               // Ionic scheme for iOS Capacitor apps
     'https://essen.cateringexpert.de', // Deine Produktionsdomain
+    'https://mittagessentest-19339973abd7.herokuapp.com',
     'https://cateringexpert.de'        // Weitere relevante Domains
   ],
   credentials: true,
