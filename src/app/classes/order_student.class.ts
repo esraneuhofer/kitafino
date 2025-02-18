@@ -32,6 +32,7 @@ export interface OrderInterfaceStudent {
   customerId: string;
   groupIdCustomer:string;
   username?:string;
+  isBut: boolean;
 
 }
 
@@ -71,6 +72,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   orderId?:string;
   groupIdCustomer:string;
   userId?:string;
+  isBut: boolean = false;
   constructor(customer: CustomerInterface,
               query: { week: number, year: number },
               settings: SettingInterfaceNew,
@@ -135,7 +137,6 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
               studentModel: (StudentInterface | null),
               contractSettings:EinrichtungInterface) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
-      console.log('eachSpecial',eachSpecial);
       let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial,contractSettings)
       let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
       if (order) {
@@ -172,7 +173,6 @@ function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInter
       if(eachGroup.groupId === studenModel.subgroup){
         eachGroup.prices.forEach((eachPrice,index)=>{
           if(eachPrice.typeSpecial === 'special'){
-            console.log('eachPrice',eachPrice);
             price = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,customer); ;
             // price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
           }

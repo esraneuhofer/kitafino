@@ -9,6 +9,12 @@ import {getBodyEmailGenerell} from "./email-generell.functions";
 import {StudentInterface} from "../../classes/student.class";
 import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
 
+function getStringPriceOrBuT(objectData: EmailOrderInterface): string {
+  if(objectData.orderStudent.isBut){
+    return 'Kosten werden von Bildung und Teilhabe übernommen';
+  }
+  return getMenuNameEmail(objectData).price;
+}
 
 function getHtmlOrder(objectData: EmailOrderInterface): string {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -109,7 +115,7 @@ a[x-apple-data-detectors] {
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Datum</b>: ${getInvoiceDateOne(new Date(objectData.orderStudent.dateOrder))}</p>
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Menu</b>: ${getMenuNameEmail(objectData).menu}</p>
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Anzahl:</b>1</p>
-                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Preis pro:</b> ${getMenuNameEmail(objectData).price}</p>
+                      <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><b>Preis pro:</b> ${getStringPriceOrBuT(objectData)}</p>
                       <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Mit freundlichen Grüßen,</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Cateringexpert</p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><br></p><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Aufgegeben von: | Bestellung vom Kunden aufgegeben</p></td>
                      </tr>
                    </table></td>
@@ -199,11 +205,7 @@ function numberToEuroString(number: number): string {
 
 
 export function getEmailBody(objectData: EmailOrderInterface): any {
-  let titleOrder = 'Bestellbestätigung '
-  // Verpflegungsteilnehmer/in :' + objectData.selectedStudent.firstName + ' ' + objectData.selectedStudent.lastName + '<br> Datum:' + getInvoiceDateOne(objectData.orderStudent.dateOrder) + '<br>';
-  let typeOrder = 'Bestellbestätigung'
-  const orderTime = getInvoiceDateOne(new Date());
-  // let arrayEmail = [objectData.settings.orderSettings.confirmationEmail];
+
   let arrayEmail = [];
   if (objectData.sendCopyEmail) {
     arrayEmail.push(objectData.tenantStudent.email)

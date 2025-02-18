@@ -35,6 +35,7 @@ import {getBestellfrist} from "../../functions/date.functions";
 import {
   ConfirmDeletePermanentOrderDialogComponent
 } from "../../directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
+import {ButStudentInterface} from "../../classes/but.class";
 
 interface DaysOrderPermanentInterfaceSelection {
   selected: boolean,
@@ -43,15 +44,30 @@ interface DaysOrderPermanentInterfaceSelection {
   nameMenu: string
 }
 
-function noDayIsSelected(permanentOrder: PermanentOrderInterface):boolean{
+function noDayIsSelected(permanentOrder: PermanentOrderInterface): boolean {
   let selected = true
-    permanentOrder.daysOrder.forEach((day) => {
-        if(day.selected){
-            selected = false
-        }
-    })
-    return selected
+  permanentOrder.daysOrder.forEach((day) => {
+    if (day.selected) {
+      selected = false
+    }
+  })
+  return selected
 }
+
+function moreDaysSelectedThenAllowed(permanentOrder: PermanentOrderInterface, selectedStudent: StudentInterfaceId): boolean {
+  if (!selectedStudent.butFrom || selectedStudent.butDaysPerWeek === 5) return false
+  let numberSelected = 0;
+  permanentOrder.daysOrder.forEach((day) => {
+    if (day.selected) {
+      numberSelected++
+    }
+  })
+  if (numberSelected > selectedStudent.butDaysPerWeek) {
+    return true
+  }
+  return false
+}
+
 function getFirstMenuSettings(settings: SettingInterfaceNew): string {
   for (let i = 0; i < settings.orderSettings.specials.length; i++) {
     if (settings.orderSettings.specials[i].typeOrder === 'menu') {
@@ -61,21 +77,26 @@ function getFirstMenuSettings(settings: SettingInterfaceNew): string {
   return ''
 }
 
-function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface,student:StudentInterfaceId): DaysOrderPermanentInterfaceSelection[] {
+function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface, student: StudentInterfaceId): DaysOrderPermanentInterfaceSelection[] {
   let arrayMenu: DaysOrderPermanentInterfaceSelection[] = []
-  if(customer.generalSettings.allowOnlyOneMenu){
-    if(student.specialFood){
+  if (customer.generalSettings.allowOnlyOneMenu) {
+    if (student.specialFood) {
       let specialFood: SpecialFoodInterface | undefined = settings.orderSettings.specialFoods.find((special) => special._id === student.specialFood)
-      if(!specialFood)return []
-      arrayMenu.push({selected: false, menuId: specialFood._id, typeSpecial: 'special', nameMenu: specialFood.nameSpecialFood})
-    }else{
+      if (!specialFood) return []
+      arrayMenu.push({
+        selected: false,
+        menuId: specialFood._id,
+        typeSpecial: 'special',
+        nameMenu: specialFood.nameSpecialFood
+      })
+    } else {
       settings.orderSettings.specials.forEach((special) => {
         if (special.typeOrder === 'menu') {
           arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
         }
       })
     }
-  }else{
+  } else {
     settings.orderSettings.specials.forEach((special) => {
       if (special.typeOrder === 'menu') {
         arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
@@ -83,7 +104,12 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
     })
     settings.orderSettings.specialFoods.forEach((special) => {
       if (customerHasSpecialFood(customer, special._id) && student.specialFood === special._id) {
-        arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'special', nameMenu: special.nameSpecialFood})
+        arrayMenu.push({
+          selected: false,
+          menuId: special._id,
+          typeSpecial: 'special',
+          nameMenu: special.nameSpecialFood
+        })
       }
     })
   }
@@ -100,9 +126,9 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
 export class PermanentOrdersComponent implements OnInit {
 
 
-  bestellfrist:string = '';
-  isFlipped:boolean = false;
-  textBanner:string = '';
+  bestellfrist: string = '';
+  isFlipped: boolean = false;
+  textBanner: string = '';
   dayArray = dayArray;
   submittingRequest = false;
   menuSelection: DaysOrderPermanentInterfaceSelection[] = [];
@@ -121,6 +147,7 @@ export class PermanentOrdersComponent implements OnInit {
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
               private tenantService: TenantServiceStudent,
+              private dialogeService: MessageDialogService,
               private studentService: StudentService,
               private accountService: AccountService,
               private permanentOrdersService: PermanentOrderService,
@@ -134,9 +161,9 @@ export class PermanentOrdersComponent implements OnInit {
     this.permanentOrdersService.getPermanentOrdersUser().subscribe((permanentOrders: PermanentOrderInterface[]) => {
       this.permanentOrders = permanentOrders;
       const selectedStudent = this.selectedStudent;
-      if(selectedStudent){
+      if (selectedStudent) {
         const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === selectedStudent._id);
-        if(!permanentOrder)return
+        if (!permanentOrder) return
         this.selectedPermanentOrder = permanentOrder
         this.permanentOrderExists = true
       }
@@ -177,7 +204,7 @@ export class PermanentOrdersComponent implements OnInit {
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.permanentOrders = permanentOrders;
-        this.bestellfrist = getBestellfrist(this.customer,this.translate)
+        this.bestellfrist = getBestellfrist(this.customer, this.translate)
         this.pageLoaded = true;
 
       },
@@ -189,12 +216,13 @@ export class PermanentOrdersComponent implements OnInit {
 
   selectStudent(student: StudentInterfaceId | null) {
     this.submittingRequest = true;
+    console.log(student)
     this.selectedStudent = student;
     if (!student) {
       this.selectedPermanentOrder = null;
       return
     }
-    this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer,student)
+    this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer, student)
 
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
@@ -211,18 +239,31 @@ export class PermanentOrdersComponent implements OnInit {
 
   editOrAddPermanentOrders(permanentOrder: PermanentOrderInterface) {
     this.submittingRequest = true;
-    if(noDayIsSelected(permanentOrder)){
-        this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY'))
-        this.submittingRequest = false;
-        return
+    if (!this.selectedStudent) {
+      return;
+    }
+    if (noDayIsSelected(permanentOrder)) {
+      this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY'))
+      this.submittingRequest = false;
+      return
+    }
+    if (moreDaysSelectedThenAllowed(permanentOrder, this.selectedStudent)) {
+
+      this.dialogeService.openMessageDialog(
+        this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS", {days: this.selectedStudent.butDaysPerWeek}),
+        this.translate.instant("ERROR_TITLE"),
+        'error');
+      // this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY'))
+      this.submittingRequest = false;
+      return
     }
     const dialogRef = this.dialog.open(ConfirmDialogPermanetOrderComponent, {
       width: '550px',
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
-    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
-      if (!result){
+    dialogRef.afterClosed().subscribe((result: ExportCsvDialogData) => {
+      if (!result) {
         this.submittingRequest = false;
         return;
       }
@@ -251,28 +292,30 @@ export class PermanentOrdersComponent implements OnInit {
     if (event) {
       let menuId = getFirstMenuSettings(this.settings)
       let typeSpecial = this.menuSelection.find((menu) => menu.menuId === menuId)
-      if(!typeSpecial){
+      if (!typeSpecial) {
         this.selectedPermanentOrder.daysOrder[indexLine] = this.menuSelection[0]
         return
       }
       this.selectedPermanentOrder.daysOrder[indexLine].menuId = menuId
       this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
-    }else{
+    } else {
       this.selectedPermanentOrder.daysOrder[indexLine].menuId = ''
       this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = ''
     }
   }
-  back(){
+
+  back() {
     this.isFlipped = false
   }
+
   deletePermanentOrder(permanentOrder: PermanentOrderInterface) {
     const dialogRef = this.dialog.open(ConfirmDeletePermanentOrderDialogComponent, {
       width: '550px',
       panelClass: 'custom-dialog-container',
       position: {top: '100px'}
     });
-    dialogRef.afterClosed().subscribe((result:ExportCsvDialogData) => {
-      if (!result){
+    dialogRef.afterClosed().subscribe((result: ExportCsvDialogData) => {
+      if (!result) {
         return;
       }
       this.submittingRequest = true;
@@ -295,7 +338,7 @@ export class PermanentOrdersComponent implements OnInit {
   setPermanentOrderType(event: string, indexLine: number) {
     if (!this.selectedPermanentOrder) return
     let typeSpecial = this.menuSelection.find((menu) => menu.menuId === event)
-    if(!typeSpecial)return
+    if (!typeSpecial) return
     this.selectedPermanentOrder.daysOrder[indexLine].typeSpecial = typeSpecial.typeSpecial;
   }
 

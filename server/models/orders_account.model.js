@@ -22,7 +22,8 @@ const ordersAccountSchema = new mongoose.Schema({
   dateOrderMenu: {type: Date, required: true},
   year: {type: Number, required: true},
   priceAllOrdersDate: {type: Number, required: true},
-  allOrdersDate: [allOrdersDateSchema]
+  allOrdersDate: [allOrdersDateSchema],
+  isBut:{type:Boolean,default:false},
 
   // type: { type: String, enum: ['order', 'cancellation'], required: true }
 });

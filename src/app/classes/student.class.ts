@@ -9,9 +9,9 @@ export interface StudentInterface {
   tenantId?: string;
   userId?: string;
   registerDate: Date;
-  // butFrom: string;
-  // butTo: string;
-  // butAmount: number;
+  butFrom: string | null;
+  butTo: string | null;
+  butDaysPerWeek: number;
 }
 export interface StudentInterfaceId extends StudentInterface{
   _id: string;
@@ -25,7 +25,9 @@ export function setEmptyStudentModel():StudentInterface{
     customerId:'',
     subgroup:'',
     specialFood: null,
-
+    butFrom:null,
+    butTo: null,
+    butDaysPerWeek: 0
   }
 }
 export interface StudentInterfaceSeed {

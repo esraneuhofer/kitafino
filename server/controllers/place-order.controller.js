@@ -22,6 +22,57 @@ function isWeekend(date) {
 }
 
 
+async function addOrderBut(req) {
+  req.body.tenantId = req.tenantId;
+  req.body.customerId = req.customerId;
+  req.body.userId = req._id;
+
+  const orderAccount = prepareOrderDetails(req);
+  const totalPrice = getTotalPrice(req.body);
+  const session = await mongoose.startSession();
+
+  try {
+    if(isWeekend(req.body.dateOrder)){
+      throw new Error(`Bestellungen sind am Wochenende nicht möglich.`);
+    }
+    await session.startTransaction();
+    // const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
+
+    // const account = await validateCustomerAccount(req._id, totalPrice, session);
+    const orderId = new mongoose.Types.ObjectId();
+    // account.currentBalance -= totalPrice;
+    //
+    // if (tenantAccount.orderSettings.sendReminderBalance && account.currentBalance < tenantAccount.orderSettings.amountBalance) {
+    //   let emailBody = setEmailReminder(account.currentBalance, tenantAccount.email);
+    //   try {
+    //     await sgMail.send(convertToSendGridFormat(emailBody));
+    //   } catch (emailError) {
+    //     console.log('Error sending email:', emailError);
+    //     // Optionally handle email error, e.g., log it or notify an admin
+    //   }
+    // }
+
+    // await account.save({ session });
+    await saveOrderAccount(orderAccount, orderId, session,req.body.isBut);
+
+    // Testing
+    // req.body.dateOrder = '2024-05-06T00:00:00+02:00';
+    // req.body = [];
+
+    await saveNewOrder(req.body, orderId, session);
+    await session.commitTransaction();
+
+    return { success: true, message: 'Order placed successfully' };
+  } catch (error) {
+    console.log('Error:', error);
+    await session.abortTransaction();
+    // Forward the error from saveNewOrder
+    throw new Error(error.message);
+  } finally {
+    session.endSession();
+  }
+}
+
 async function addOrder(req) {
   req.body.tenantId = req.tenantId;
   req.body.customerId = req.customerId;
@@ -37,6 +88,7 @@ async function addOrder(req) {
     }
     await session.startTransaction();
     const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
+
     const account = await validateCustomerAccount(req._id, totalPrice, session);
     const orderId = new mongoose.Types.ObjectId();
     account.currentBalance -= totalPrice;
@@ -52,7 +104,7 @@ async function addOrder(req) {
     }
 
     await account.save({ session });
-    await saveOrderAccount(orderAccount, orderId, session);
+    await saveOrderAccount(orderAccount, orderId, session,req.body.isBut);
 
     // Testing
     // req.body.dateOrder = '2024-05-06T00:00:00+02:00';
@@ -88,7 +140,7 @@ async function validateCustomerAccount(userId, totalPrice, session) {
   return account;
 }
 
-async function saveOrderAccount(orderDetails, orderId, session) {
+async function saveOrderAccount(orderDetails, orderId, session,isBut) {
   try {
     const newOrderAccount = new OrdersAccountSchema({
       tenantId: orderDetails.tenantId,
@@ -101,7 +153,8 @@ async function saveOrderAccount(orderDetails, orderId, session) {
       priceAllOrdersDate: orderDetails.totalPrice,
       allOrdersDate: [
         { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}
-      ]
+      ],
+      isBut: isBut
     });
     await newOrderAccount.save({ session });
   } catch (error) {
@@ -201,7 +254,13 @@ function setOrderAccount(order) {
 module.exports.addOrderStudentDay = async (req, res) => {
   try {
     console.log('req',req.body)
-    const result = await addOrder(req);
+    let result;
+    if(req.body.isBut) {
+      result = await addOrderBut(req);
+    }else{
+       result = await addOrder(req);
+    }
+
     res.json(result); // Successful response
   } catch (error) {
     console.error("Error placing order:", error);

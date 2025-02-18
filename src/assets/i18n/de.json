@@ -608,5 +608,6 @@
   "ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT": "Sie haben derzeit einen laufenden Antrag für Bildung und Teilhabe. Bitte warten Sie, bis der abgelaufen ist, bevor Sie eine Auszahlung veranlassen.",
 
   "SPECIAL_DIET": "Sonderessen",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Nachdem die Untergruppe einmal zugewiesen wurde, kann Sie nur noch durch die Einrichtung geändert werden. Bitte wenden Sie sich an Ihre Einrichtung, falls Sie die Untergruppe ändern möchten."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Nachdem die Untergruppe einmal zugewiesen wurde, kann Sie nur noch durch die Einrichtung geändert werden. Bitte wenden Sie sich an Ihre Einrichtung, falls Sie die Untergruppe ändern möchten.",
+  "MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS": "Ihr Kind ist für Bildung und Teilhabe freigeschaltet. Laut Ihrem Bescheid darf es nur an {{days}} Tagen pro Woche kostenfrei essen. Bitte passen Sie Ihre Bestellung entsprechend an."
 }

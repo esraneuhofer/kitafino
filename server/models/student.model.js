@@ -15,6 +15,9 @@ var studentSchema = new Schema({
     default: Date.now, // Set the default value to the current date and time
   },
   username: String, // Add the username field
+  butFrom: String,
+  butTo: String,
+  butDaysPerWeek: Number
 });
 
 // Define the middleware function before creating the model

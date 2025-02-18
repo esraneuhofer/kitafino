@@ -15,34 +15,50 @@ export interface ButDocumentInterface {
 }
 
 export interface ButStudentInterface {
-  dateConfirmed:string | null;
-  butFrom: string;
-  butTo: string;
-  butAmount: number;
+  ausgestelltAm: Date | null;
+  dateConfirmed:Date | null;
+  butFrom:  string;  // Erlaubt sowohl Date als auch string
+  butTo:  string;    // Erlaubt sowohl Date als auch string
+  butAmountTotal: number;
+  customerId: string;
   studentId: string;
   tenantId: string;
   userId: string;
+  paybackAmount: number;
+  zahlungMonatBut: number;
+  processed: boolean;
+  butDaysPerWeek: number;
 }
 
+
 export class ButStudent implements ButStudentInterface {
-  dateConfirmed:string | null;
+  ausgestelltAm: Date | null = null;
+  dateConfirmed:Date | null;
   butFrom: string;
   butTo: string;
-  butAmount: number;
+  butAmountTotal: number;
   studentId: string;
   tenantId: string;
   userId: string;
   customerId: string;
+  paybackAmount: number;
+  zahlungMonatBut: number = 0;
+  processed: boolean = false;
+  butDaysPerWeek: number =1;
+
 
   constructor(student: StudentInterface) {
     this.dateConfirmed = null;
-    this.butFrom = '';
+    this.butFrom ='';
     this.butTo = '';
-    this.butAmount = 0;
+    this.butAmountTotal = 0;
     this.studentId = student._id || '';
     this.tenantId = student.tenantId || '';
     this.userId = student.userId || ''
     this.customerId = student.customerId;
+    this.paybackAmount = 0;
+
   }
 }
+
 

@@ -47,7 +47,10 @@ module.exports.cancelOrderStudent = async (req, res, next) => {
     orderAccount.priceAllOrdersDate = 0;
     await saveOrderAccount(orderAccount, session);
 
-    account.currentBalance -= cancellationEntry.priceTotal;
+    if(!orderAccount.isBut){
+      account.currentBalance -= cancellationEntry.priceTotal;
+    }
+
     await saveAccount(account, session);
 
     // Finalize the transaction

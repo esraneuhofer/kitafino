@@ -8,6 +8,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 var orderStudentSchema = new Schema({
+  isBut:{type:Boolean},
   billed: {
     type: Boolean,
     default: false

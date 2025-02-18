@@ -49,6 +49,21 @@ function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterface
   return isDisplay
 }
 
+function studentHasButForDate(orderModel: OrderInterfaceStudent, studentModel: StudentInterface): boolean {
+  if(!studentModel.butFrom)return false;
+  if (studentModel.butFrom && studentModel.butTo) {
+
+    const dateOrder = new Date(orderModel.dateOrder);
+    const butFrom = new Date(studentModel.butFrom);
+    const butTo = new Date(studentModel.butTo);
+
+    // Wenn beide Werte existieren, prüfen, ob dateOrder innerhalb des BOT-Zeitraums liegt
+    if (dateOrder >= butFrom && dateOrder <= butTo) {
+      return true;
+    }
+  }
+  return false;
+}
 function customSort(array: OrderSubDetailNew[]) {
   // Define the sort order
   const sortOrder: any = {
@@ -354,8 +369,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       const emailBody = getEmailBody(emailObject);
       promisesEmail.push(this.generalService.sendEmail(emailBody));
     }
-    if (this.tenantStudent.orderSettings.sendReminderBalance) {
-      if (accountTenant.currentBalance < 15) {
+    if (this.tenantStudent.orderSettings.sendReminderBalance && !orderModel.isBut) {
+      if (accountTenant.currentBalance < this.tenantStudent.orderSettings.amountBalance) {
         const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
         promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
       }
@@ -391,6 +406,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
+    console.log('Email after cancellation:', orderModel);
     const emailObject = this.getEmailBodyDataCancel(orderModel, result);
     const emailBody = getEmailBodyCancel(emailObject);
     this.generalService.sendEmail(emailBody).subscribe({
@@ -481,6 +497,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
+      if(studentHasButForDate(orderModel,this.selectedStudent)){
+        console.log('Student hat Brotzeit');
+        orderModel.isBut = true;
+      }
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });

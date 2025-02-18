@@ -45,7 +45,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
     orderNew.userId = orderStudent.userId;
-
+    orderNew.isBut = orderStudent.isBut;
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
       let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
       if(indexMenuFound < 0)return;
@@ -55,7 +55,6 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
       orderNew.order.orderMenus[indexMenuFound].priceOrder = eachOrder.priceOrder;
     })
   }
-  console.log('orderNew',orderNew);
   return orderNew;
 }
 
@@ -74,7 +73,8 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
       comment: copy.order.comment,
       orderMenus: [],
       specialFoodOrder: []
-    }
+    },
+    isBut: copy.isBut
   }
   if (copy.order && Array.isArray(copy.order.orderMenus)) {
     copy.order.orderMenus.forEach((eachOrder) => {

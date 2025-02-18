@@ -10,6 +10,7 @@ export interface OrderInterfaceStudentSave {
   dateOrder: string;
   customerId: string;
   order:OrderInterfaceStudentDaySafe
+  isBut:boolean;
 }
 
 export interface OrderInterfaceStudentDaySafe {
