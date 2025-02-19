@@ -128,7 +128,6 @@ export class ButComponent implements OnInit{
         this.documentsTenant = documentsBut
         this.schoolSetting = schoolSetting
         this.pageLoaded = true;
-        console.log('this.schoolSetting', this.schoolSetting)
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -206,11 +205,33 @@ export class ButComponent implements OnInit{
     this.fileInput.nativeElement.value = '';
     this.base64String = '';
   }
+  // onFileSelected(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files.length > 0) {
+  //     this.selectedFile = input.files[0];
+  //     this.convertFileToBase64(this.selectedFile);
+  //   }
+  // }
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.convertFileToBase64(this.selectedFile);
+      const file: File = input.files[0];
+
+      // Erlaubte MIME-Typen
+      const allowedTypes: string[] = [
+        'application/pdf',
+        'image/jpeg',
+        'image/png'
+      ];
+
+      // Prüfung, ob der MIME-Typ in allowedTypes enthalten ist
+      if (!allowedTypes.includes(file.type)) {
+        this.toastr.error('Bitte nur PDF, JPG/JPEG oder PNG hochladen!', 'Falsches Format');
+        return; // Beende die Funktion, um den Upload abzubrechen
+      }
+
+      this.selectedFile = file;
+      this.convertFileToBase64(file);
     }
   }
   convertFileToBase64(file: File) {
@@ -231,7 +252,7 @@ export class ButComponent implements OnInit{
         this.toastr.error('Bitte wählen Sie einen Schüler aus');
         return;
       }
-
+      this.submittingRequest = true;
       let fileObject: ButDocumentInterface = {
         nameStudent:this.selectedStudent.firstName + ' ' + this.selectedStudent.lastName,
         username: this.tenantStudent.username,
@@ -253,6 +274,7 @@ export class ButComponent implements OnInit{
             this.documentsTenant = documents;
             this.submittingRequest = false;
             this.isFlipped = false
+
           })
         },
         (error: any) => {

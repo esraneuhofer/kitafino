@@ -117,7 +117,6 @@ export class NotificationService {
     await PushNotifications.register();
 
     PushNotifications.addListener('registration', async (token: Token) => {
-      console.log('Registrierung erfolgreich, Token: ' + token.value);
       await Preferences.set({ key: 'push_token', value: token.value });
       this.saveTokenFirebase({ token: token.value }).subscribe(data => {
         console.log('Token gespeichert:', data);
@@ -155,7 +154,6 @@ export class NotificationService {
   }
   private async getStoredToken(): Promise<string | null> {
     const { value } = await Preferences.get({ key: 'push_token' });
-    console.log('Gespeicherter Token:', value);
     return value;
   }
   private async presentAlert(notification: PushNotificationSchema) {

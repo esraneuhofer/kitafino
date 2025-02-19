@@ -158,10 +158,8 @@
                         <legend class="sr-only">Notifications</legend>
                       </fieldset>
                       <div class="col-span-full">
-                        <label class="block text-sm font-medium leading-6 text-gray-900"
-                               for="file-upload">{{ 'BUT.UPLOAD_FILE_BESCHEID' | translate }}</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">{{ 'BUT.UPLOAD_FILE_BESCHEID' | translate }}</label>
                         <div
-                          (click)="fileInput.click()"
                           class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 cursor-pointer">
                           <div class="text-center">
                             <svg aria-hidden="true" class="mx-auto h-12 w-12 text-gray-300" fill="currentColor"
@@ -171,11 +169,12 @@
                                     fill-rule="evenodd"/>
                             </svg>
                             <div class="mt-4 flex flex-col sm:flex-row text-sm leading-6 text-gray-600">
-                              <label class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                                     for="file-upload">
+                              <label class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                 <span>{{'BUT.SELECT_FILE_BUT' | translate}}</span>
-                                <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="file-upload"
-                                       name="file-upload" type="file">
+<!--                                <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="file-upload"-->
+<!--                                       name="file-upload" type="file">-->
+                                <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png"
+                                       class="sr-only" type="file">
                               </label>
                             </div>
                             <p class="text-xs leading-5 text-gray-600">{{ 'BUT.UPLOAD_FILE_TYPES' | translate }}</p>
@@ -195,7 +194,7 @@
                         </ul>
                       </div>
                       <div class="flex mt-2 space-x-2">
-                        <app-button (click)="uploadFile()" *ngIf="!butExists"
+                        <app-button (click)="uploadFile()"
                                     [submittingRequest]="submittingRequest">{{ 'BUT.UPLOAD_BUT_BUTTON' | translate }}</app-button>
                         <!--                        <app-button *ngIf="butExists" [submittingRequest]="submittingRequest" [typeButton]="'warning'">{{ 'MANAGE_PERMANENT_ORDERS.CHANGE_ORDER' | translate }}</app-button>-->
                       </div>

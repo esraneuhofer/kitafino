@@ -171,7 +171,6 @@ export class ManageRegistrationStudentComponent implements OnInit{
   isSelected(event:string){
     this.subGroupUnknownModel = false;
     if(this.selectedStudent){
-      console.log(this.selectedStudent.subgroup)
       this.selectedStudent.subgroup = event;
     }
 

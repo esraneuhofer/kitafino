@@ -406,7 +406,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
-    console.log('Email after cancellation:', orderModel);
     const emailObject = this.getEmailBodyDataCancel(orderModel, result);
     const emailBody = getEmailBodyCancel(emailObject);
     this.generalService.sendEmail(emailBody).subscribe({
@@ -498,7 +497,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
       if(studentHasButForDate(orderModel,this.selectedStudent)){
-        console.log('Student hat Brotzeit');
         orderModel.isBut = true;
       }
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);

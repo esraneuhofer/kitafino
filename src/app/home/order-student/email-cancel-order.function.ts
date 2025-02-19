@@ -18,7 +18,6 @@ export function getEmailBodyCancel(objectData: EmailOrderInterfaceCancel): any {
 }
 
 function getTextCancelBildungUndTeilhabe(objectData: EmailOrderInterfaceCancel): string {
-  console.log(objectData.orderStudent.isBut)
   if(objectData.orderStudent.isBut){
     return `Die Bestellung wurde im Rahmen des Bildungspaketes getätigt.`
   }
