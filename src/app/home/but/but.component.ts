@@ -242,7 +242,7 @@ export class ButComponent implements OnInit{
         tenantId: this.selectedStudent.tenantId,
         userId: this.selectedStudent.userId,
         customerId: this.selectedStudent.customerId,
-        processed: false
+        processed: false,
       };
       this.butService.uploadButDocument(fileObject).subscribe(
         (response: any) => {
