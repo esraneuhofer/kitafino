@@ -47,7 +47,9 @@
                           <td
                             class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
                             <div class="align-right">
-                              <app-button (click)="selectStudent(student)" [buttonType]="'button'"
+                              <app-button
+                                *ngIf="student.subgroup"
+                                (click)="selectStudent(student)" [buttonType]="'button'"
                                           [submittingRequest]="submittingRequest"
                               >{{ 'MANAGE_PERMANENT_ORDERS.EDIT_BUTTON' | translate }}
                               </app-button>

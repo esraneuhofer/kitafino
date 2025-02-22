@@ -145,6 +145,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() displayMinimize: boolean = false;
   @Input() typeDisplayOrder: string = 'week';
   submittingOrder: boolean = false;
+  pastCancelation: boolean = true;
 
   differenceTimeDeadline: string = '';
   differenceTimeDeadlineDay: string = '';
@@ -186,7 +187,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean): any {
+  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean,pastCancelation:boolean): any {
 
     // Initialize an object with static and conditional classes
     let classes: any = {
@@ -198,15 +199,18 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     };
 
     // Add dynamic class from getColor method
-    const colorClass = this.getColor(eachMenu, lockDay, pastOrder);
+    const colorClass = this.getColor(eachMenu, lockDay, pastOrder,pastCancelation);
 
     classes[colorClass] = true; // Use the color class name as key and set its value to true
 
     return classes;
   }
 
-  getColor(menuItem: OrderSubDetailNew, lockDay: boolean, pastOrder: boolean,): string {
-    if (lockDay || pastOrder) {
+  getColor(menuItem: OrderSubDetailNew, lockDay: boolean, pastOrder: boolean,pastCancelation:boolean): string {
+    if (lockDay || pastOrder && pastCancelation) {
+      return 'background_greyed_out';
+    }
+    if (lockDay || pastOrder && !pastCancelation) {
       return 'background_greyed_out';
     }
     switch (menuItem.typeOrder) {
@@ -327,11 +331,16 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   }
 
-
-  setOrderIcon(index: number, event: boolean) {
+  setOrderIconOrder(index: number) {
     if (this.pastOrder) return;
-    this.setOrderDay(event, index)
+    this.setOrderDay(true, index)
   }
+
+  setOrderIconCancel(index: number) {
+    if (this.pastOrder && this.pastCancelation) return;
+    this.setOrderDay(false, index)
+  }
+
 
   setOrderDay(event: boolean, indexMenu: number) {
     if (event) {
@@ -432,15 +441,37 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (this.customer.generalSettings.isDeadlineDaily) {
       this.checkDeadlineDay(day)
     } else {
+      console.log("this.customer.generalSettings",this.customer.generalSettings)
       let cw = getWeekNumber(day);
       let year = day.getFullYear();
       this.checkDeadlineWeek(cw, year)
     }
+    this.checkDeadlineAbbestellung(day)
 
+  }
+  checkDeadlineAbbestellung(day:Date):void{
+    let isNotFormat =  !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
+    if(!this.customer.generalSettings.cancelOrderDaily ||  isNotFormat){
+      this.pastCancelation = true;
+      return
+    }
+    const distance = timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    if (distance < 0) {
+      this.pastCancelation = true;
+      clearInterval(this.timerInterval);
+    } else {
+      clearInterval(this.timerInterval);
+      this.pastCancelation = false;
+
+      this.timerInterval = setInterval(() => {
+        this.checkDeadlineAbbestellung(day);
+      }, 1000);
+    }
   }
 
   checkDeadlineDay(day: Date): void {
     const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
+    // console.log("this.customer.generalSettings.deadlineDaily",this.customer.generalSettings.deadlineDaily)
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
     if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {
