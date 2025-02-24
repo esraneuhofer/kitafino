@@ -8,7 +8,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {getSpecialFoodSelectionCustomer, SpecialFoodSelectionStudent} from "../../../functions/special-food.functions";
 import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {ExportCsvDialogData} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
+import {
+  ExportCsvDialogComponent,
+  ExportCsvDialogData
+} from "../../../directives/export-csv-dialog/export-csv-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {
   ConfirmDeleteSpecialFoodComponent
@@ -16,6 +19,7 @@ import {
 import {PermanentOrderInterface} from "../../../classes/permanent-order.interface";
 import {PermanentOrderService} from "../../../service/permant-order.service";
 import {TranslateService} from "@ngx-translate/core";
+import {DeleteStudentDialogComponent} from "../../../directives/delete-student-dialog/delete-student-dialog.component";
 
 export function showAllergieSelection(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):boolean{
   if(specialFoodSelection.length ===  0){
@@ -197,6 +201,37 @@ export class ManageRegistrationStudentComponent implements OnInit{
 
 
     return '';
+
+  }
+
+  deleteAccount(student:StudentInterface):void{
+    const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
+      width: '550px',
+      panelClass: 'custom-dialog-container',
+      position: {top: '100px'}
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if(!result){
+        return;
+      }
+      let promises = [];
+      let permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
+      if(permanentOrder){
+        promises.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
+      }
+      student.isActive = false;
+      promises.push(this.studentService.editStudent(student));
+
+      forkJoin(promises).subscribe(()=>{
+        this.actionsAfterEditStudent();
+        this.studentService.getRegisteredStudentsUser().subscribe((students)=>{
+          this.registeredStudents = this.registeredStudents.filter((eachStudent)=>eachStudent._id !== student._id);
+          this.toaster.success('Verpflegungsteilnehmer wurde erfolgreich gelöscht','Erfolgreich');
+        })
+      })
+    })
+
 
   }
 

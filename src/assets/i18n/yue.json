@@ -599,6 +599,8 @@
   "ALLGEMEIN": "常規",
   "ANMELDUNG_MULTI": "註冊（多語言）",
   "ACCOUNT_SUPPORT_ERROR": "發生錯誤。請稍後再試，或聯絡我們的客戶支持：<u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>。",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "一旦子組被分配，就只能由機構更改。如欲更改子組，請聯絡您的機構."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "一旦子組被分配，就只能由機構更改。如欲更改子組，請聯絡您的機構.",
+  "STUDENT_LOESCHEN": "刪除用餐參與者",
+  "TEXT_STUDENT_LOESCHEN": "你確定要刪除用餐參與者嗎？所有關於該參與者的數據將被永久刪除。"
 }
 

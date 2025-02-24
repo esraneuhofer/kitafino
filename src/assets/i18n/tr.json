@@ -599,5 +599,7 @@
   "ALLGEMEIN": "Genel",
   "ANMELDUNG_MULTI": "Kayıt (Çok Dilli)",
   "ACCOUNT_SUPPORT_ERROR": "Bir hata oluştu. Lütfen daha sonra tekrar deneyin veya müşteri destek ekibimize <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> üzerinden ulaşın.",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Alt grup bir kez atandıktan sonra, sadece kurum tarafından değiştirilebilir. Alt grubu değiştirmek isterseniz lütfen kurumunuza başvurun."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Alt grup bir kez atandıktan sonra, sadece kurum tarafından değiştirilebilir. Alt grubu değiştirmek isterseniz lütfen kurumunuza başvurun.",
+  "STUDENT_LOESCHEN": "Yemek katılımcısını sil",
+  "TEXT_STUDENT_LOESCHEN": "Yemek katılımcısını gerçekten silmek istiyor musunuz? Katılımcıya ait tüm veriler kalıcı olarak silinecektir."
 }

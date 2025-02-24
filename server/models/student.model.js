@@ -17,7 +17,8 @@ var studentSchema = new Schema({
   username: String, // Add the username field
   butFrom: String,
   butTo: String,
-  butDaysPerWeek: Number
+  butDaysPerWeek: Number,
+  isActive:{type:Boolean,default:true},
 });
 
 // Define the middleware function before creating the model

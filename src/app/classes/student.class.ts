@@ -12,6 +12,7 @@ export interface StudentInterface {
   butFrom: string | null;
   butTo: string | null;
   butDaysPerWeek: number;
+  isActive: boolean;
 }
 export interface StudentInterfaceId extends StudentInterface{
   _id: string;
@@ -27,7 +28,8 @@ export function setEmptyStudentModel():StudentInterface{
     specialFood: null,
     butFrom:null,
     butTo: null,
-    butDaysPerWeek: 0
+    butDaysPerWeek: 0,
+    isActive: true
   }
 }
 export interface StudentInterfaceSeed {

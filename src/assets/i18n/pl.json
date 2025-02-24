@@ -601,7 +601,9 @@
   "ALLGEMEIN": "Ogólne",
   "ANMELDUNG_MULTI": "Rejestracja (wielojęzyczna)",
   "ACCOUNT_SUPPORT_ERROR": "Wystąpił błąd. Proszę spróbować ponownie później lub skontaktować się z naszym wsparciem klienta pod <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Gdy podgrupa zostanie raz przypisana, może być zmieniona tylko przez placówkę. Proszę skontaktować się ze swoją placówką, jeśli chcesz zmienić podgrupę."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Gdy podgrupa zostanie raz przypisana, może być zmieniona tylko przez placówkę. Proszę skontaktować się ze swoją placówką, jeśli chcesz zmienić podgrupę.",
+  "STUDENT_LOESCHEN": "Usuń uczestnika żywienia",
+  "TEXT_STUDENT_LOESCHEN": "Czy na pewno chcesz usunąć uczestnika żywienia? Wszystkie dane uczestnika zostaną trwale usunięte."
 }
 
 

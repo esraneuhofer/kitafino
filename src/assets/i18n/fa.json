@@ -601,5 +601,7 @@
   "ALLGEMEIN": "عمومی",
   "ANMELDUNG_MULTI": "ثبت‌نام (چندزبانه)",
   "ACCOUNT_SUPPORT_ERROR": "خطایی رخ داده است. لطفاً بعداً دوباره تلاش کنید یا با پشتیبانی مشتری ما در <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u> تماس بگیرید.",
-  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "پس از تخصیص یک بار به زیرگروه، تنها از طریق موسسه قابل تغییر است. در صورت تمایل به تغییر زیرگروه، لطفاً با موسسه خود تماس بگیرید."
+  "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "پس از تخصیص یک بار به زیرگروه، تنها از طریق موسسه قابل تغییر است. در صورت تمایل به تغییر زیرگروه، لطفاً با موسسه خود تماس بگیرید.",
+  "STUDENT_LOESCHEN": "حذف شرکت‌کننده تغذیه",
+  "TEXT_STUDENT_LOESCHEN": "آیا مطمئن هستید که می‌خواهید شرکت‌کننده تغذیه را حذف کنید؟ تمامی داده‌های شرکت‌کننده برای همیشه حذف خواهند شد."
 }

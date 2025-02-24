@@ -65,7 +65,13 @@
                                           [buttonType]="'button'"
                                           [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.EDIT' | translate }}
                               </app-button>
+
                             </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td *ngIf="registeredStudents.length === 0" colspan="100%">
+                            <app-general-banner></app-general-banner>
                           </td>
                         </tr>
                         </tbody>
@@ -256,12 +262,20 @@
                 </div>
 
                 <!-- Button section for larger screens -->
-                <div class="mt-6 flex items-center justify-end gap-x-6 hidden sm:flex">
+                <div class="mt-6 flex items-center justify-between hidden sm:flex">
                   <app-button (click)="isFlipped = false"
                               [buttonType]="'button'">{{ 'BACK_BUTTON' | translate }}</app-button>
-                  <app-button
-                    [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}</app-button>
+                  <div class="flex gap-x-6">
+                    <app-button
+                      (click)="deleteAccount(selectedStudent)"
+                      buttonType="button"
+                      [typeButton]="'danger'"
+                      [submittingRequest]="submittingRequest">{{ 'MANAGE_PERMANENT_ORDERS.DELETE_ORDER' | translate }}</app-button>
+                    <app-button
+                      [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}</app-button>
+                  </div>
                 </div>
+
               </form>
             </div>
           </div>

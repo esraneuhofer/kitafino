@@ -40,10 +40,11 @@ module.exports.editStudent = (req, res, next) => {
 
 
 
+
 module.exports.getRegisteredStudentsUser = async (req, res, next) => {
   try {
     // Using await to wait for the result of Tenant.find()
-    const allStudents = await Student.find({ 'userId': req._id });
+    const allStudents = await Student.find({ 'userId': req._id, isActive: true });
 
     // Sending the result back to the client
     res.json(allStudents);
