@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const dayjs = require("dayjs");
 var Schema = mongoose.Schema;
 
 const allOrdersDateSchema = new mongoose.Schema({
@@ -24,9 +25,35 @@ const ordersAccountSchema = new mongoose.Schema({
   priceAllOrdersDate: {type: Number, required: true},
   allOrdersDate: [allOrdersDateSchema],
   isBut:{type:Boolean,default:false},
-
+  dateOrder: {
+    type: String,
+    required: '{PATH} is required!',
+    validate: {
+      validator: function (v) {
+        const normalized = normalizeToBerlinDate(v);
+        return /^\d{4}-\d{2}-\d{2}$/.test(normalized);
+      },
+      message: 'Datum muss im Format YYYY-MM-DD sein'
+    },
+    set: function (v) {
+      return normalizeToBerlinDate(v);
+    }
+  },
+  idType: {type: String}
   // type: { type: String, enum: ['order', 'cancellation'], required: true }
 });
+
+function normalizeToBerlinDate(date) {
+  try {
+    return dayjs(date)
+      .tz('Europe/Berlin')
+      .format('YYYY-MM-DD');
+  } catch (error) {
+    console.error('Fehler bei der Datums-Normalisierung:', error);
+    return date;
+  }
+}
+
 
 // Unique index for studentId, userId, and dateOrderMenu
 ordersAccountSchema.index({ studentId: 1, userId: 1, dateOrderMenu: 1 }, { unique: true });

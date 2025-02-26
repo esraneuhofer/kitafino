@@ -141,6 +141,7 @@ async function validateCustomerAccount(userId, totalPrice, session) {
 }
 
 async function saveOrderAccount(orderDetails, orderId, session,isBut) {
+
   try {
     const newOrderAccount = new OrdersAccountSchema({
       tenantId: orderDetails.tenantId,
@@ -154,7 +155,10 @@ async function saveOrderAccount(orderDetails, orderId, session,isBut) {
       allOrdersDate: [
         { order: orderDetails.orderAccount, priceTotal: orderDetails.totalPrice, type: 'order', dateTimeOrder: new Date()}
       ],
-      isBut: isBut
+      isBut: isBut,
+      dateOrder:orderDetails.dateOrder,
+      idType:orderDetails.orderAccount[0].idType,
+
     });
     await newOrderAccount.save({ session });
   } catch (error) {
