@@ -33,7 +33,7 @@
       <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
         <div
           *ngIf="showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
-          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay,pastCancelation)"
+          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
           [ngStyle]="getMenuStyle(eachMenu)"
           class="shadow-lg rounded-lg overflow-hidden relative">
           <div class="p-3">
@@ -41,7 +41,7 @@
             <div class="flex">
               <div class="w-full">
                 <div class="flex">
-                  <div *ngIf="eachMenu.displayMenu" class="w-1/6" >
+                  <div  class="w-1/6" >
                     <input (ngModelChange)="setOrderDay($event,indexMenu)"
                            [(ngModel)]="eachMenu.menuSelected"
                            [disabled]="pastOrder || lockDay"

@@ -188,7 +188,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean,pastCancelation:boolean): any {
+  getClasses(indexMenu: number, eachMenu: any, pastOrder: boolean, lockDay: boolean): any {
 
     // Initialize an object with static and conditional classes
     let classes: any = {
@@ -200,20 +200,18 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     };
 
     // Add dynamic class from getColor method
-    const colorClass = this.getColor(eachMenu, lockDay, pastOrder,pastCancelation);
+    const colorClass = this.getColor(eachMenu, lockDay, pastOrder);
 
     classes[colorClass] = true; // Use the color class name as key and set its value to true
 
     return classes;
   }
 
-  getColor(menuItem: OrderSubDetailNew, lockDay: boolean, pastOrder: boolean,pastCancelation:boolean): string {
-    if (lockDay || pastOrder && pastCancelation) {
+  getColor(menuItem: OrderSubDetailNew, lockDay: boolean, pastOrder: boolean): string {
+    if (lockDay || pastOrder) {
       return 'background_greyed_out';
     }
-    if (lockDay || pastOrder && !pastCancelation) {
-      return 'background_greyed_out';
-    }
+
     switch (menuItem.typeOrder) {
       case 'menu':
         return 'background_blue';
