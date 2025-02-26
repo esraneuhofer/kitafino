@@ -494,8 +494,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineWeek(cw: number, year: number) {
-    this.pastOrder = false;
-    return
+    // this.pastOrder = false;
+    // return
     if (!cw || !year) {
       return;
     }
