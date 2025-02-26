@@ -41,7 +41,7 @@
             <div class="flex">
               <div class="w-full">
                 <div class="flex">
-                  <div *ngIf="eachMenu.displayMenu" class="w-1/6">
+                  <div *ngIf="eachMenu.displayMenu" class="w-1/6" (click)="$event.stopPropagation()">
                     <input (ngModelChange)="setOrderDay($event,indexMenu)"
                            [(ngModel)]="eachMenu.menuSelected"
                            [disabled]="pastOrder || lockDay"

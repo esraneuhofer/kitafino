@@ -175,6 +175,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
     this.checkDeadline(this.orderDay.date);
+    console.log(this.orderDay.orderStudentModel.order.orderMenus)
   }
 
   getTooltipText(pastOrder: boolean, lockDay: boolean): string {
@@ -470,6 +471,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineDay(day: Date): void {
+
     const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
     // console.log("this.customer.generalSettings.deadlineDaily",this.customer.generalSettings.deadlineDaily)
     // const convertedSeconds = timeDifference(distance,false);
@@ -492,6 +494,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineWeek(cw: number, year: number) {
+    this.pastOrder = false;
+    return
     if (!cw || !year) {
       return;
     }
