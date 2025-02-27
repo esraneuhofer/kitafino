@@ -60,6 +60,7 @@ var customerSchema = new Schema({
     hideExtra: Boolean,
     specialShow: [{ idSpecialFood: String, nameSpecialFood: String, selected: Boolean }],
     split: [{
+      displayGroupCustomer: String,
       displayGroup: String,
       group: String,
       raisePortion: {},

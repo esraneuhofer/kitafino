@@ -117,6 +117,7 @@ import {
 } from "./directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
 import { ConfirmStripePaymentComponent } from './home/account/account-payment/confirm-stripe-payment/confirm-stripe-payment.component';
 import { DeleteStudentDialogComponent } from './directives/delete-student-dialog/delete-student-dialog.component';
+import localeHr from '@angular/common/locales/hr';
 
 // AoT requires an exported function for factories
 function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -140,7 +141,7 @@ registerLocaleData(localeNl, 'nl');
 registerLocaleData(localeHi, 'hi');
 registerLocaleData(localeYue, 'yue');
 registerLocaleData(localeBg, 'bg');
-
+registerLocaleData(localeHr, 'hr');
 function localeFactory(languageService: LanguageService) {
   return languageService.getLanguage();
 }

@@ -7,6 +7,7 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
 const Tenantparent = mongoose.model('Tenantparent');
+const Student = mongoose.model('StudentNew');
 
 const {setEmailReminder} = require('./email-balance-reminder');
 const sgMail = require("@sendgrid/mail");
@@ -74,53 +75,111 @@ async function addOrderBut(req) {
 }
 
 async function addOrder(req) {
-  req.body.tenantId = req.tenantId;
-  req.body.customerId = req.customerId;
-  req.body.userId = req._id;
-
-  const orderAccount = prepareOrderDetails(req);
-  const totalPrice = getTotalPrice(req.body);
-  const session = await mongoose.startSession();
+  let session = null;
 
   try {
-    if(isWeekend(req.body.dateOrder)){
-      throw new Error(`Bestellungen sind am Wochenende nicht möglich.`);
-    }
+    // Session außerhalb der try-Block definieren, damit wir sie in finally sicher beenden können
+    session = await mongoose.startSession();
     await session.startTransaction();
-    const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
 
+    // Validierung der Eingabedaten
+    if (!req.body || !req.body.dateOrder || !req.body.studentId) {
+      throw new Error('Unvollständige Bestelldaten. Bitte alle erforderlichen Felder ausfüllen.');
+    }
+
+    // Zuweisen der IDs
+    req.body.tenantId = req.tenantId;
+    req.body.customerId = req.customerId;
+    req.body.userId = req._id;
+
+    // Berechnung des Gesamtpreises
+    const totalPrice = getTotalPrice(req.body);
+    if (totalPrice <= 0) {
+      throw new Error('Ungültiger Bestellbetrag. Der Gesamtpreis muss größer als 0 sein.');
+    }
+
+    // Prüfung, ob Bestellung am Wochenende
+    if (isWeekend(req.body.dateOrder)) {
+      throw new Error('Bestellungen sind am Wochenende nicht möglich.');
+    }
+
+    // Abrufen des Tenant-Accounts mit Error-Handling
+    const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
+    if (!tenantAccount) {
+      throw new Error('Tenant-Account nicht gefunden.');
+    }
+
+    // Abrufen des Schülers mit Error-Handling
+    const student = await Student.findOne({ _id: req.body.studentId }).session(session);
+    if (!student) {
+      throw new Error(`Schüler mit ID ${req.body.studentId} nicht gefunden.`);
+    }
+
+    // Setzen der Gruppenkennung
+    req.body.groupId = student.subgroup;
+
+    // Validierung des Kundenkontos
     const account = await validateCustomerAccount(req._id, totalPrice, session);
+
+    // Erzeugen einer eindeutigen Bestellnummer
     const orderId = new mongoose.Types.ObjectId();
+
+    // Aktualisierung des Kontostands
     account.currentBalance -= totalPrice;
 
-    if (tenantAccount.orderSettings.sendReminderBalance && account.currentBalance < tenantAccount.orderSettings.amountBalance) {
+    // E-Mail-Benachrichtigung bei niedrigem Kontostand
+    if (tenantAccount.orderSettings.sendReminderBalance &&
+      account.currentBalance < tenantAccount.orderSettings.amountBalance) {
       let emailBody = setEmailReminder(account.currentBalance, tenantAccount.email);
       try {
         await sgMail.send(convertToSendGridFormat(emailBody));
       } catch (emailError) {
-        console.log('Error sending email:', emailError);
-        // Optionally handle email error, e.g., log it or notify an admin
+        console.log('Fehler beim Senden der E-Mail:', emailError);
+        // Wir lassen die Transaktion trotz E-Mail-Fehler weiterlaufen
       }
     }
 
+    // Vorbereitung der Bestelldetails
+    const orderAccount = prepareOrderDetails(req);
+
+    // Speichern des aktualisierten Kontos
     await account.save({ session });
-    await saveOrderAccount(orderAccount, orderId, session,req.body.isBut);
 
-    // Testing
-    // req.body.dateOrder = '2024-05-06T00:00:00+02:00';
-    // req.body = [];
+    // Speichern der Bestellinformationen
+    await saveOrderAccount(orderAccount, orderId, session, req.body.isBut);
 
+    // Speichern der neuen Bestellung
     await saveNewOrder(req.body, orderId, session);
+
+    // Transaktion abschließen
     await session.commitTransaction();
 
-    return { success: true, message: 'Order placed successfully' };
+    return {
+      success: true,
+      message: 'Bestellung erfolgreich aufgegeben',
+      orderId: orderId.toString(),
+      balance: account.currentBalance
+    };
+
   } catch (error) {
-    console.log('Error:', error);
-    await session.abortTransaction();
-    // Forward the error from saveNewOrder
-    throw new Error(error.message);
+    console.error('Fehler bei der Bestellverarbeitung:', error);
+
+    // Nur Transaktion abbrechen, wenn sie gestartet wurde
+    if (session && session.inTransaction()) {
+      await session.abortTransaction();
+    }
+
+    // Benutzerfreundliche Fehlermeldung zurückgeben
+    return {
+      success: false,
+      message: error.message || 'Bei der Verarbeitung Ihrer Bestellung ist ein Fehler aufgetreten.'
+    };
+
   } finally {
-    session.endSession();
+    // Session immer beenden, wenn sie existiert
+    if (session) {
+      await session.endSession();
+    }
   }
 }
 
@@ -158,6 +217,7 @@ async function saveOrderAccount(orderDetails, orderId, session,isBut) {
       isBut: isBut,
       dateOrder:orderDetails.dateOrder,
       idType:orderDetails.orderAccount[0].idType,
+      groupId:orderDetails.groupId
 
     });
     await newOrderAccount.save({ session });
@@ -226,7 +286,8 @@ function prepareOrderDetails(req) {
     studentId: req.body.studentId,
     dateOrder: req.body.dateOrder,
     orderAccount,
-    totalPrice: getTotalPrice(req.body)
+    totalPrice: getTotalPrice(req.body),
+    groupId:req.body.groupId
   };
 }
 

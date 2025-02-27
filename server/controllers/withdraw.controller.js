@@ -112,6 +112,9 @@ module.exports.withdrawFunds = async (req, res) => {
     // 5) Speichern innerhalb der Session
     await requestDesolve.save({ session });
 
+    const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant);
+    await sgMail.send(mailOptions);
+
     // 6) Transaktion committen
     await session.commitTransaction();
     session.endSession();

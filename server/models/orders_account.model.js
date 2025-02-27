@@ -39,7 +39,8 @@ const ordersAccountSchema = new mongoose.Schema({
       return normalizeToBerlinDate(v);
     }
   },
-  idType: {type: String}
+  idType: {type: String},
+  groupId:String
   // type: { type: String, enum: ['order', 'cancellation'], required: true }
 });
 

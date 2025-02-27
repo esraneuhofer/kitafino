@@ -73,6 +73,7 @@ interface CustomerContactInterface{
 }
 
 interface CustomerOrderSplit{
+  displayGroupCustomer:string;
   displayGroup:string;
   group:string;
   raisePortion:any,

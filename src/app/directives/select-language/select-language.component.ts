@@ -10,6 +10,7 @@ const languagesConst: LanguageSelect[] = [
   { id: 4, name: 'العربية (Arabic)', avatar: '/assets/flags/sa.png', code: 'ar' },  // Saudi Arabia flag (representing Arabic countries)
   { id: 12, name: 'Українська (Ukrainian)', avatar: '/assets/flags/ua.png', code: 'uk' },  // Ukraine flag
   { id: 9, name: 'Español', avatar: '/assets/flags/es.png', code: 'es' },  // Spain flag
+  { id: 19, name: 'Hrvatski (Croatian)', avatar: '/assets/flags/hr.png', code: 'hr' },  // Croatia flag
   { id: 18, name: 'فارسی (Farsi)', avatar: '/assets/flags/ir.png', code: 'fa' },  // Iran flag (representing Farsi)
   { id: 5, name: 'Polski', avatar: '/assets/flags/pl.png', code: 'pl' },  // Poland flag
   { id: 14, name: '中文 (Chinese)', avatar: '/assets/flags/cn.png', code: 'zh' },  // China flag
