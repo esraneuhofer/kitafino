@@ -27,7 +27,6 @@ const ordersAccountSchema = new mongoose.Schema({
   isBut:{type:Boolean,default:false},
   dateOrder: {
     type: String,
-    required: '{PATH} is required!',
     validate: {
       validator: function (v) {
         const normalized = normalizeToBerlinDate(v);
