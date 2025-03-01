@@ -28,36 +28,60 @@ var tenantparent = new Schema({
   }
 });
 
+function isGermanText(str) {
+  // Erlaubt: a-z, A-Z, deutsche Umlaute, ß und Leerzeichen
+  const germanRegex = /^[a-zA-ZäöüÄÖÜß\s]+$/;
+  return germanRegex.test(str);
+}
+
+
+// Beispiel-Hilfsfunktion (inkl. deutscher Umlaute)
+function sanitizeName(str) {
+  // Erst Umlaute/ß gezielt austauschen
+  str = str
+    .replace(/ß/g, 'ss')
+    .replace(/ä/g, 'ae')
+    .replace(/Ä/g, 'Ae')
+    .replace(/ö/g, 'oe')
+    .replace(/Ö/g, 'Oe')
+    .replace(/ü/g, 'ue')
+    .replace(/Ü/g, 'Ue');
+
+  // Danach etwaige Akzente (z. B. á, é, etc.) entfernen
+  return str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+}
+
 tenantparent.pre('save', async function (next) {
   try {
-
     if (!this.firstName || !this.lastName) {
       throw new Error('Both firstName and lastName must be defined.');
     }
+
+    // VOR dem Zusammenbauen die Strings "säubern"
+    const cleanFirst = sanitizeName(this.firstName);
+    const cleanLast = sanitizeName(this.lastName);
 
     let username;
     let isUnique = false;
 
     while (!isUnique) {
-      // Generate the username based on firstName, lastName, and a random 4-digit number
-      const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
-      username = (this.firstName.slice(0, 2) + this.lastName.slice(0, 2) + randomDigits).toLowerCase();
-      console.log(username)
+      const randomDigits = Math.floor(1000 + Math.random() * 9000);
+      // Benutze die gesäuberten Namensteile
+      username = (cleanFirst.slice(0, 2) + cleanLast.slice(0, 2) + randomDigits).toLowerCase();
 
-      // Check if the generated username is unique
       const existingStudent = await this.constructor.findOne({ username });
       if (!existingStudent) {
-        // If the username is unique, break out of the loop
         isUnique = true;
       }
     }
-    // Set the unique username
+
     this.username = username;
     next();
   } catch (error) {
     next(error);
   }
 });
+
 
 var Tenantparent = mongoose.model('Tenantparent', tenantparent);
 

@@ -184,7 +184,7 @@
                                   name="subgroupModel">
                             <option disabled hidden selected value="">{{ 'PLEASE_SELECT' | translate }}</option>
                             <option *ngFor="let subgroup of customerInfo.order.split"
-                                    [value]="subgroup.group">{{subgroup.displayGroup}}</option>
+                                    [value]="subgroup.group">{{subgroup.displayGroupCustomer}}</option>
                           </select>
                           <p *ngIf="f1.submitted && subgroupModel.invalid"
                              class="mt-1 text-sm text-red-600">{{ 'SUBGROUP_INSTRUCTIONS' | translate }}</p>

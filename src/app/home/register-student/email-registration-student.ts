@@ -30,7 +30,7 @@ function getNameSubGroup(student: StudentInterface, customer: CustomerInterface,
   let subgroup = '';
   if (customer.order.split.length > 1) {
     let subGroup = customer.order.split.find(sub => sub.group === student.subgroup);
-    let nameGroup = subGroup ? subGroup.displayGroup : translate.instant('SUBGROUP_NOT_ASSIGNED');
+    let nameGroup = subGroup ? subGroup.displayGroupCustomer : translate.instant('SUBGROUP_NOT_ASSIGNED');
     subgroup = `<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
                       <b>${translate.instant('SUBGROUP_LABEL_EMAIL')}:</b> ${nameGroup}<br>
                       </p>`;

@@ -102,7 +102,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
     let groupName = 'Nicht zugeordnet';
     customerInfo.order.split.forEach((subgroup)=>{
       if(subgroup.group == groupId){
-        groupName = subgroup.displayGroup;
+        groupName = subgroup.displayGroupCustomer;
       }
     })
     return groupName;
