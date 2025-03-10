@@ -46,7 +46,7 @@ var school = new Schema({
     unique: true,
   },
   startContract: {
-    type: Date,
+    type: String,
   },
   essensgeldEinrichtung:Number,
   hasEssensgeldEinrichtung:Boolean,

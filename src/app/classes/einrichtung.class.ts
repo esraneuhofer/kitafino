@@ -1,6 +1,6 @@
 export interface EinrichtungInterface {
   _id?: string;
-  startContract: Date;
+  startContract: string;
   whoPayCharges: string
   contactPerson: string;
   amountPerOrder: number,
@@ -46,7 +46,7 @@ export interface EinrichtungInterface {
 }
 
 export class SchoolClass implements EinrichtungInterface {
-  startContract: Date = new Date();
+  startContract: string = '';
   whoPayCharges: string = '';
   contactPerson: string = '';
   amountPerOrder: number = 0;

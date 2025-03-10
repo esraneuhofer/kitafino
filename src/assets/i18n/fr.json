@@ -604,7 +604,7 @@
   "ACCOUNT_SUPPORT_ERROR": "Une erreur s'est produite. Veuillez réessayer plus tard ou contacter notre support client à <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Une fois le sous-groupe attribué, il ne peut être modifié que par l'établissement. Veuillez contacter votre établissement si vous souhaitez modifier le sous-groupe.",
   "STUDENT_LOESCHEN": "Supprimer le participant à la restauration",
-  "TEXT_STUDENT_LOESCHEN": "Êtes-vous sûr de vouloir supprimer le participant à la restauration ? Toutes les données du participant seront définitivement supprimées."
-
+  "TEXT_STUDENT_LOESCHEN": "Êtes-vous sûr de vouloir supprimer le participant à la restauration ? Toutes les données du participant seront définitivement supprimées.",
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Le solde du compte n'est pas suffisant pour cette commande."
 }
 

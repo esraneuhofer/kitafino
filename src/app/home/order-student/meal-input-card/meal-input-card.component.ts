@@ -557,7 +557,11 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.toastr.success(this.translate.instant('BESTELLUNG_EINGETRAGEN'), this.translate.instant('SUCCESS'));
       this.fetchAccountAndHandleEmails(orderModel, type, result);
     } else {
-      this.toastr.error(this.translate.instant('BESTELLUNG_NICHT_EINGETRAGEN'), this.translate.instant('ERROR_TITLE'));
+      if(data.message === 'Der Kontostand ist nicht ausreichend für diese Bestellung.'){
+        this.toastr.error(this.translate.instant('DER_KONTOSTAND_IST_NICHT_AUSREICHEND'), this.translate.instant('ERROR_TITLE'));
+      }else{
+        this.toastr.error(this.translate.instant('BESTELLUNG_NICHT_EINGETRAGEN'), this.translate.instant('ERROR_TITLE'));
+      }
       this.resetOrderSelection(indexMenu);
     }
   }

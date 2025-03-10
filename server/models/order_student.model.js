@@ -9,6 +9,7 @@ dayjs.extend(timezone);
 
 var orderStudentSchema = new Schema({
   isBut:{type:Boolean},
+  subgroup:String,
   billed: {
     type: Boolean,
     default: false
@@ -187,7 +188,6 @@ orderStudentSchema.statics = {
       .lean();
   }
 };
-
 
 
 var OrderStudent = mongoose.model('OrderStudent', orderStudentSchema);

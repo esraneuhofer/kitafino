@@ -596,5 +596,6 @@
   "ACCOUNT_SUPPORT_ERROR": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde o póngase en contacto con nuestro servicio de atención al cliente en <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Una vez asignado el subgrupo, solo puede ser cambiado por la institución. Por favor, póngase en contacto con su institución si desea cambiar el subgrupo.",
   "STUDENT_LOESCHEN": "Eliminar participante de la comida",
-  "TEXT_STUDENT_LOESCHEN": "¿Está seguro de que desea eliminar al participante de la comida? Todos los datos del participante serán eliminados permanentemente."
+  "TEXT_STUDENT_LOESCHEN": "¿Está seguro de que desea eliminar al participante de la comida? Todos los datos del participante serán eliminados permanentemente.",
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "El saldo de la cuenta no es suficiente para este pedido."
 }

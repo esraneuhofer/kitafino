@@ -116,7 +116,7 @@ async function addOrder(req) {
     }
 
     // Setzen der Gruppenkennung
-    req.body.groupId = student.subgroup;
+    req.body.subgroup = student.subgroup;
 
     // Validierung des Kundenkontos
     const account = await validateCustomerAccount(req._id, totalPrice, session);

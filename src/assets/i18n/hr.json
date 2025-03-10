@@ -608,5 +608,6 @@
   "MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS": "Vaše dijete ima odobreno pravo na Obrazovanje i sudjelovanje. Prema rješenju, dijete može imati besplatne obroke samo {{days}} dana u tjednu. Molimo prilagodite svoju narudžbu u skladu s tim.",
 
   "STUDENT_LOESCHEN": "Izbriši korisnika/icu prehrane",
-  "TEXT_STUDENT_LOESCHEN": "Želite li doista izbrisati korisnika/icu prehrane? Svi podaci za tog korisnika/icu bit će nepovratno izbrisani."
+  "TEXT_STUDENT_LOESCHEN": "Želite li doista izbrisati korisnika/icu prehrane? Svi podaci za tog korisnika/icu bit će nepovratno izbrisani.",
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Stanje računa nije dovoljno za ovu narudžbu."
 }

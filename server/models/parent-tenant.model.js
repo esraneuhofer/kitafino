@@ -65,9 +65,25 @@ tenantparent.pre('save', async function (next) {
     let isUnique = false;
 
     while (!isUnique) {
-      const randomDigits = Math.floor(1000 + Math.random() * 9000);
-      // Benutze die gesäuberten Namensteile
-      username = (cleanFirst.slice(0, 2) + cleanLast.slice(0, 2) + randomDigits).toLowerCase();
+      const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generiert 4-stellige Zahl
+
+      // Stelle sicher, dass wir exakt 4 Buchstaben haben
+      let letters = '';
+
+      // Nimm so viele Buchstaben vom Vornamen wie möglich (max. 2)
+      letters += cleanFirst.slice(0, 2);
+
+      // Fülle mit Buchstaben vom Nachnamen auf bis zu 4 Buchstaben erreicht sind
+      const remainingLettersNeeded = 4 - letters.length;
+      letters += cleanLast.slice(0, remainingLettersNeeded);
+
+      // Falls immer noch nicht 4 Buchstaben erreicht sind, fülle mit 'x' auf
+      while (letters.length < 4) {
+        letters += 'x';
+      }
+
+      // Kombination aus 4 Buchstaben und 4-stelliger Zahl
+      username = (letters + randomDigits).toLowerCase();
 
       const existingStudent = await this.constructor.findOne({ username });
       if (!existingStudent) {

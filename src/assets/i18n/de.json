@@ -608,5 +608,6 @@
   "MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS": "Ihr Kind ist für Bildung und Teilhabe freigeschaltet. Laut Ihrem Bescheid darf es nur an {{days}} Tagen pro Woche kostenfrei essen. Bitte passen Sie Ihre Bestellung entsprechend an.",
 
   "STUDENT_LOESCHEN": "Verpflegungsteilnehmer/in löschen",
-  "TEXT_STUDENT_LOESCHEN": "Möchten Sie den Verpflegungsteilnehmer/die Verpflegungsteilnehmerin wirklich löschen? Alle Daten für den Verpflegungsteilnehmer/in werden unwiderruflich gelöscht."
+  "TEXT_STUDENT_LOESCHEN": "Möchten Sie den Verpflegungsteilnehmer/die Verpflegungsteilnehmerin wirklich löschen? Alle Daten für den Verpflegungsteilnehmer/in werden unwiderruflich gelöscht.",
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Der Kontostand ist nicht ausreichend für diese Bestellung."
 }
