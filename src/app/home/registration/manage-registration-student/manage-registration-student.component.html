@@ -237,6 +237,11 @@
                         <app-button (click)="isFlipped = false" [buttonType]="'button'">
                           {{ 'BACK_BUTTON' | translate }}
                         </app-button>
+                        <app-button
+                          (click)="deleteAccount(selectedStudent)"
+                          buttonType="button"
+                          [typeButton]="'danger'"
+                          [submittingRequest]="submittingRequest">{{ 'MANAGE_PERMANENT_ORDERS.DELETE_ORDER' | translate }}</app-button>
                         <app-button [submittingRequest]="submittingRequest">{{ 'MANAGE_STUDENTS.SAVE' | translate }}
                         </app-button>
                       </div>
