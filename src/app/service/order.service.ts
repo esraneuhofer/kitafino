@@ -40,6 +40,23 @@ export class OrderService {
     );
   }
 
+  getFutureOrdersStudent(query: { studentId:string,date: string }) {
+    // Konvertiere das Datum in das richtige Format
+    const formattedDate = normalizeToBerlinDate(query.date);
+
+    return this.http.get<OrderInterfaceStudentSave[]>(
+      `${environment.apiBaseUrl}/getFutureOrdersStudent`,
+      { params: { startDate: formattedDate, studentId:query.studentId } }
+    ).pipe(
+      map(response => response),
+      catchError(error => {
+        console.error('Fehler beim Laden zukünftiger Bestellungen:', error);
+        return of([]);
+      })
+    );
+  }
+
+
 
   getAccountOrderUserYear(query: { year:number }) {
     return this.http.get<OrdersAccountInterface[]>(environment.apiBaseUrl + '/getAccountOrderUserYear', {params: query})

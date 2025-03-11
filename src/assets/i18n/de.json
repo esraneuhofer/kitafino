@@ -609,5 +609,7 @@
 
   "STUDENT_LOESCHEN": "Verpflegungsteilnehmer/in löschen",
   "TEXT_STUDENT_LOESCHEN": "Möchten Sie den Verpflegungsteilnehmer/die Verpflegungsteilnehmerin wirklich löschen? Alle Daten für den Verpflegungsteilnehmer/in werden unwiderruflich gelöscht.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Der Kontostand ist nicht ausreichend für diese Bestellung."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Der Kontostand ist nicht ausreichend für diese Bestellung.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Bestellung/en gefunden",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Es wurden bereits Bestellungen für den Verpflegungsteilnehmer/in in der Zukunft gefunden. Bitte stornieren Sie die Bestellungen zuerst, bevor Sie den Verpflegungsteilnehmer/in löschen."
 }

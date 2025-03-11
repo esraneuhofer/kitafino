@@ -73,4 +73,29 @@ module.exports.getFutureOrders = async (req, res) => {
   }
 };
 
+module.exports.getFutureOrdersStudent = async (req, res) => {
+  try {
+    // const startDate = normalizeToBerlinDate(req.query.startDate);
+    // Finde alle Bestellungen ab startDate für den User
+    console.log('req.query.studentId:', req.query.studentId);
+    console.log('req.query.stard:', req.query.startDate);
+    const orders = await OrderStudent.find({
+      studentId: req.query.studentId,
+      dateOrder: { $gte: req.query.startDate }
+    })
+      .sort({ dateOrder: 1 })
+      .lean();
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching future orders:', error);
+    res.status(500).json({
+      message: 'Fehler beim Laden zukünftiger Bestellungen',
+      error: error.message
+    });
+  }
+};
+
+
+
 

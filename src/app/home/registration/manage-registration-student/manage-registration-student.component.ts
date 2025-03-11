@@ -20,6 +20,8 @@ import {PermanentOrderInterface} from "../../../classes/permanent-order.interfac
 import {PermanentOrderService} from "../../../service/permant-order.service";
 import {TranslateService} from "@ngx-translate/core";
 import {DeleteStudentDialogComponent} from "../../../directives/delete-student-dialog/delete-student-dialog.component";
+import {OrderService} from "../../../service/order.service";
+import {MessageDialogService} from "../../../service/message-dialog.service";
 
 export function showAllergieSelection(customerInfo:CustomerInterface,specialFoodSelection:SpecialFoodSelectionStudent []):boolean{
   if(specialFoodSelection.length ===  0){
@@ -92,9 +94,11 @@ export class ManageRegistrationStudentComponent implements OnInit{
   constructor(  private router:Router,
                 private translate: TranslateService,
                 private dialog: MatDialog,
+                private dialogService: MessageDialogService,
                 private permanentOrdersService: PermanentOrderService,
                 private toaster:ToastrService,
                 private r: ActivatedRoute,
+                private orderService:OrderService,
                 private studentService: StudentService,private generellService:GenerellService) {
   }
 
@@ -205,32 +209,47 @@ export class ManageRegistrationStudentComponent implements OnInit{
   }
 
   deleteAccount(student:StudentInterface):void{
-    const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
-      width: '550px',
-      panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
-    });
-
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if(!result){
+    if(!student._id){
+      return
+    }
+    this.orderService.getFutureOrdersStudent({studentId:student._id,date:new Date().toISOString()}).subscribe((orders)=>{
+     console.log(orders)
+      if(orders.length > 0){
+        let heading = this.translate.instant('STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING')
+        let reason = this.translate.instant('STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT')
+        this.dialogService.openMessageDialog(reason, heading,'warning');
         return;
-      }
-      let promises = [];
-      let permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
-      if(permanentOrder){
-        promises.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
-      }
-      student.isActive = false;
-      promises.push(this.studentService.editStudent(student));
+      }else{
+        const dialogRef = this.dialog.open(DeleteStudentDialogComponent, {
+          width: '550px',
+          panelClass: 'custom-dialog-container',
+          position: {top: '100px'}
+        });
 
-      forkJoin(promises).subscribe(()=>{
-        this.actionsAfterEditStudent();
-        this.studentService.getRegisteredStudentsUser().subscribe((students)=>{
-          this.registeredStudents = this.registeredStudents.filter((eachStudent)=>eachStudent._id !== student._id);
-          this.toaster.success('Verpflegungsteilnehmer wurde erfolgreich gelöscht','Erfolgreich');
+        dialogRef.afterClosed().subscribe((result: boolean) => {
+          if(!result){
+            return;
+          }
+          let promises = [];
+          let permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
+          if(permanentOrder){
+            promises.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
+          }
+          student.isActive = false;
+          promises.push(this.studentService.editStudent(student));
+
+          forkJoin(promises).subscribe(()=>{
+            this.actionsAfterEditStudent();
+            this.studentService.getRegisteredStudentsUser().subscribe((students)=>{
+              this.registeredStudents = this.registeredStudents.filter((eachStudent)=>eachStudent._id !== student._id);
+              this.toaster.success('Verpflegungsteilnehmer wurde erfolgreich gelöscht','Erfolgreich');
+            })
+          })
         })
-      })
+      }
     })
+
+
 
 
   }
