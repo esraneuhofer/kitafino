@@ -609,5 +609,7 @@
 
   "STUDENT_LOESCHEN": "Izbriši korisnika/icu prehrane",
   "TEXT_STUDENT_LOESCHEN": "Želite li doista izbrisati korisnika/icu prehrane? Svi podaci za tog korisnika/icu bit će nepovratno izbrisani.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Stanje računa nije dovoljno za ovu narudžbu."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Stanje računa nije dovoljno za ovu narudžbu.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Pronađena narudžba/e",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Već su pronađene buduće narudžbe za sudionika u prehrani. Molimo vas da prvo otkažete narudžbe prije brisanja sudionika u prehrani."
 }

@@ -606,6 +606,8 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Una volta assegnato il sottogruppo, può essere modificato solo dall'istituzione. Se desideri modificarlo, contatta la tua istituzione.",
   "STUDENT_LOESCHEN": "Elimina partecipante alla mensa",
   "TEXT_STUDENT_LOESCHEN": "Sei sicuro di voler eliminare il partecipante alla mensa? Tutti i dati del partecipante verranno eliminati definitivamente.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Il saldo del conto non è sufficiente per questo ordine."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Il saldo del conto non è sufficiente per questo ordine.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Ordine/i trovato/i",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Sono stati già trovati ordini futuri per il partecipante al vitto. Si prega di annullare prima gli ordini prima di eliminare il partecipante al vitto."
 }
 

@@ -604,6 +604,8 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Zodra de subgroep eenmaal is toegewezen, kan deze alleen door de instelling worden gewijzigd. Neem contact op met uw instelling als u de subgroep wilt wijzigen.",
   "STUDENT_LOESCHEN": "Deelnemer maaltijd verwijderen",
   "TEXT_STUDENT_LOESCHEN": "Weet u zeker dat u de deelnemer aan de maaltijd wilt verwijderen? Alle gegevens van de deelnemer worden permanent verwijderd.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Het saldo is niet voldoende voor deze bestelling."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Het saldo is niet voldoende voor deze bestelling.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Bestelling(en) gevonden",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Er zijn al toekomstige bestellingen gevonden voor de maaltijddeelnemer. Annuleer eerst de bestellingen voordat u de maaltijddeelnemer verwijdert."
 }
 

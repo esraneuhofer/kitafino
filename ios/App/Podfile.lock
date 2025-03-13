@@ -155,21 +155,21 @@ EXTERNAL SOURCES:
     :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
-  AparajitaCapacitorSecureStorage: 265982fd6a2686f9a0820f55c039623b2c4a34c1
-  Capacitor: 8941aba4364ba9d1b22188569001f2ce45cc2b00
-  CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
-  CapacitorBrowser: 473c7fd70ddbe541608ff09ec1be14da0078279e
-  CapacitorCamera: 3b77b3e8311b98220de65e63445c0e4d0b30ce3a
+  AparajitaCapacitorSecureStorage: 18190f233b0531422af8c1caa51804686d940ee0
+  Capacitor: 7b38922425a542e0b5936c8f72ea89d876dd4df1
+  CapacitorApp: 30145f2ea2311e4f3744472119ec87d2ddf4c0a7
+  CapacitorBrowser: 6c0e04dc80556a966ebc2269ac72f09d83eec1ce
+  CapacitorCamera: 4792443e91e3cf83c36d72f16500f4bcd3a8e20a
   CapacitorCordova: 8f2cc8d8d3619c566e9418fe8772064a94266106
-  CapacitorFilesystem: 60e59ba274c234a979e7a3be2552feaadcee4263
-  CapacitorIosAutofillSavePassword: 1ade3f1fefa70bf2b81fa26d7e4677b2f15e50c5
-  CapacitorNetwork: 8796cf1f1104a00b289957b6150b7c60e1c2a8d3
-  CapacitorPreferences: e8284bf740cf8c6d3f25409af3c01df87dfeb5a1
-  CapacitorPushNotifications: ccd797926c030acad3d5498ef452c735c90a2c89
-  CapacitorRateApp: 896df7ec6a237fea72d1955e0cb26394654b00db
-  CapacitorSplashScreen: 61645214e8f955ff2b80f16a6a3648960fe4c89f
-  CapawesomeCapacitorBadge: 3d0f281ad8e4a4f8db8c3d88b7622a7f4c413342
-  CordovaPlugins: b2fa38db36c7bebe6bb423d8eaf8380283ec4c07
+  CapacitorFilesystem: 9c2cc1e89d3b8b91503b316e9f6c2915c9bf9419
+  CapacitorIosAutofillSavePassword: 047fc0827d8205f55a054d77cc9135ba8db419c2
+  CapacitorNetwork: 24fe1068ded5d6dae1e4af7787d4abd3c6f3adc6
+  CapacitorPreferences: 997d375b1962f98511e8b3d27a24d90cb8ca87fe
+  CapacitorPushNotifications: 88f40c5f06dfe54f2c0619173e11ecbff8661a2f
+  CapacitorRateApp: 20928fa996851647e912bbf119af59a48a171712
+  CapacitorSplashScreen: d2d8fe9541d7bebdf735839b89edf6e762cea969
+  CapawesomeCapacitorBadge: 4df4bd752f7fcf0cedfc0748bca1cbe8a0e29794
+  CordovaPlugins: 1fa8f6167b6efd8049f8ef1382545d137889d57c
   Firebase: 5121c624121af81cbc81df3bda414b3c28c4f3c3
   FirebaseCore: 857dc1c6dd1255675047404d8466f7dfaac5d779
   FirebaseCoreInternal: 58d07f1362fddeb0feb6a857d1d1d1c5e558e698
@@ -183,4 +183,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b31e4b85098f8922ec2e9df353010cc802008e30
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

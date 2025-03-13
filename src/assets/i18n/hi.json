@@ -601,6 +601,8 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "एक बार उपसमूह असाइन हो जाने के बाद, इसे केवल संस्था द्वारा ही बदला जा सकता है। यदि आप उपसमूह को बदलना चाहते हैं, तो कृपया अपनी संस्था से संपर्क करें।",
   "STUDENT_LOESCHEN": "भोजन प्रतिभागी हटाएं",
   "TEXT_STUDENT_LOESCHEN": "क्या आप वाकई भोजन प्रतिभागी को हटाना चाहते हैं? प्रतिभागी से संबंधित सभी डेटा स्थायी रूप से हटा दिए जाएंगे।",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "इस ऑर्डर के लिए खाता शेष पर्याप्त नहीं है।"
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "इस ऑर्डर के लिए खाता शेष पर्याप्त नहीं है।",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "आदेश मिला/मिले",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "भोजन प्रतिभागी के लिए भविष्य के आदेश पहले से ही मिल गए हैं। कृपया भोजन प्रतिभागी को हटाने से पहले आदेशों को रद्द करें।"
 }
 

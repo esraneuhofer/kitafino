@@ -602,6 +602,8 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "一旦子組被分配，就只能由機構更改。如欲更改子組，請聯絡您的機構.",
   "STUDENT_LOESCHEN": "刪除用餐參與者",
   "TEXT_STUDENT_LOESCHEN": "你確定要刪除用餐參與者嗎？所有關於該參與者的數據將被永久刪除。",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "戶口結餘不足以完成呢個訂單。"
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "戶口結餘不足以完成呢個訂單。",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "找到訂單",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "已經找到該供餐參與者未來的訂單。請先取消訂單，然後再刪除該供餐參與者。"
 }
 

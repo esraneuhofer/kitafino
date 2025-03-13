@@ -604,5 +604,7 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "پس از تخصیص یک بار به زیرگروه، تنها از طریق موسسه قابل تغییر است. در صورت تمایل به تغییر زیرگروه، لطفاً با موسسه خود تماس بگیرید.",
   "STUDENT_LOESCHEN": "حذف شرکت‌کننده تغذیه",
   "TEXT_STUDENT_LOESCHEN": "آیا مطمئن هستید که می‌خواهید شرکت‌کننده تغذیه را حذف کنید؟ تمامی داده‌های شرکت‌کننده برای همیشه حذف خواهند شد.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "موجودی حساب برای این سفارش کافی نیست."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "موجودی حساب برای این سفارش کافی نیست.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "سفارش(ها) یافت شد",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "سفارش‌های آینده برای شرکت‌کننده در غذا قبلاً یافت شده است. لطفاً قبل از حذف شرکت‌کننده در غذا، سفارش‌ها را لغو کنید."
 }

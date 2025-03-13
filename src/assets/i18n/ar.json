@@ -601,5 +601,7 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "بمجرد تعيين المجموعة الفرعية، يمكن تغييرها فقط عن طريق المؤسسة. يرجى الاتصال بمؤسستك إذا كنت ترغب في تغيير المجموعة الفرعية.",
   "STUDENT_LOESCHEN": "حذف المشترك في الوجبات",
   "TEXT_STUDENT_LOESCHEN": "هل أنت متأكد أنك تريد حذف المشترك في الوجبات؟ سيتم حذف جميع البيانات المتعلقة بالمشترك نهائيًا.",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "رصيد الحساب غير كاف لهذا الطلب."
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "رصيد الحساب غير كاف لهذا الطلب.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "تم العثور على طلب/طلبات",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "تم بالفعل العثور على طلبات مستقبلية للمشارك في التغذية. يرجى إلغاء الطلبات أولاً قبل حذف المشارك في التغذية."
 }

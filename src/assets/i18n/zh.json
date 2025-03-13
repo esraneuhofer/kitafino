@@ -600,6 +600,8 @@
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "一旦子组被分配后，只能由机构进行更改。如果您想更改子组，请联系您的机构.",
   "STUDENT_LOESCHEN": "删除膳食参与者",
   "TEXT_STUDENT_LOESCHEN": "您确定要删除膳食参与者吗？所有与该参与者相关的数据将被永久删除。",
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "账户余额不足，无法完成此订单。"
+  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "账户余额不足，无法完成此订单。",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "找到订单",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "已经找到该供餐参与者未来的订单。请先取消订单，然后再删除该供餐参与者。"
 }
 
