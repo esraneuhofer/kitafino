@@ -44,14 +44,20 @@
                               class="hidden xs:inline sm:inline"> {{student.lastName + ' ' + student.firstName }}</span>
                           </td>
                           <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                            {{hasBut(student) ? ('MANAGE_PERMANENT_ORDERS.YES' | translate) : ('NEIN' | translate)}}
+                            {{hasBut(student) }}
                           </td>
                           <td
                             class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
                             <div class="align-right">
                               <app-button (click)="selectStudent(student)" [buttonType]="'button'"
                                           [submittingRequest]="submittingRequestFlip">
-                                {{'BUT_AKTIVIEREN' | translate}}
+                                <span *ngIf="student.butTo && student.butFrom">
+                                  {{'MANAGE_STUDENTS.EDIT' | translate}}
+                                </span>
+                                <span *ngIf="!student.butTo || !student.butFrom">
+                                  {{'BUT_AKTIVIEREN' | translate}}
+                                </span>
+
                               </app-button>
                             </div>
                           </td>
@@ -68,68 +74,68 @@
                   </div>
                 </div>
               </div>
-              <div class="mt-8 px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-wrap">
-                  <div class="sm:flex-auto">
-                    <h1 class="text-base font-semibold leading-6 text-gray-900">
-                      {{ 'BUT.UPLOADED_DOCUMENTS' | translate }}</h1>
-                    <!--                    <p class="mt-2 text-sm text-gray-700" [innerHTML]="'BUT.BILDUNG_UND_TEILHABE_SUBHEADER' | translate"></p>-->
-                  </div>
-                </div>
-                <div class="mt-2 flow-root">
-                  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                      <table class="min-w-full divide-y divide-gray-300">
-                        <thead>
-                        <tr>
-                          <th
-                            class="hidden sm:table-cell  table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
-                            scope="col">
-                            {{ 'BUT.NAME_FILE' | translate }}
-                          </th>
-                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
-                              scope="col">
-                            {{ 'BUT.DATE_UPLOAD_FILE' | translate }}
-                          </th>
-                          <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
-                              scope="col">
-                            <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
-                          </th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                        <tr *ngFor="let file of documentsTenant">
-                          <td
-                            class="hidden sm:table-cell  table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
-                            {{file.name}}
-                          </td>
-                          <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                            {{file.dateUploaded | date: 'dd.MM.yyyy'}}
-                          </td>
-                          <td
-                            class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
-                            <div class="align-right">
-                              <app-button (click)="openFile(file)" [buttonType]="'button'"
-                                          [submittingRequest]="submittingRequestDownload">
-                                {{'DATEI_ANZEIGEN' | translate}}
-                              </app-button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td *ngIf="documentsTenant.length === 0" colspan="100%">
-                            <app-general-banner></app-general-banner>
-                          </td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<!--              <div class="mt-8 px-4 sm:px-6 lg:px-8">-->
+<!--                <div class="flex flex-wrap">-->
+<!--                  <div class="sm:flex-auto">-->
+<!--                    <h1 class="text-base font-semibold leading-6 text-gray-900">-->
+<!--                      {{ 'BUT.UPLOADED_DOCUMENTS' | translate }}</h1>-->
+<!--                    &lt;!&ndash;                    <p class="mt-2 text-sm text-gray-700" [innerHTML]="'BUT.BILDUNG_UND_TEILHABE_SUBHEADER' | translate"></p>&ndash;&gt;-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="mt-2 flow-root">-->
+<!--                  <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">-->
+<!--                    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">-->
+<!--                      <table class="min-w-full divide-y divide-gray-300">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                          <th-->
+<!--                            class="hidden sm:table-cell  table-cell-padding-medium text-left text-sm font-semibold text-gray-900"-->
+<!--                            scope="col">-->
+<!--                            {{ 'BUT.NAME_FILE' | translate }}-->
+<!--                          </th>-->
+<!--                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"-->
+<!--                              scope="col">-->
+<!--                            {{ 'BUT.DATE_UPLOAD_FILE' | translate }}-->
+<!--                          </th>-->
+<!--                          <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"-->
+<!--                              scope="col">-->
+<!--                            <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>-->
+<!--                          </th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody class="divide-y divide-gray-200">-->
+<!--                        <tr *ngFor="let file of documentsTenant">-->
+<!--                          <td-->
+<!--                            class="hidden sm:table-cell  table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">-->
+<!--                            {{file.name}}-->
+<!--                          </td>-->
+<!--                          <td class="table-cell-padding-medium relative text-sm text-gray-500">-->
+<!--                            {{file.dateUploaded | date: 'dd.MM.yyyy'}}-->
+<!--                          </td>-->
+<!--                          <td-->
+<!--                            class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">-->
+<!--                            <div class="align-right">-->
+<!--                              <app-button (click)="openFile(file)" [buttonType]="'button'"-->
+<!--                                          [submittingRequest]="submittingRequestDownload">-->
+<!--                                {{'DATEI_ANZEIGEN' | translate}}-->
+<!--                              </app-button>-->
+<!--                            </div>-->
+<!--                          </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                          <td *ngIf="documentsTenant.length === 0" colspan="100%">-->
+<!--                            <app-general-banner></app-general-banner>-->
+<!--                          </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                      </table>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
             </div>
           </div>
-          <div *ngIf="selectedBut && selectedStudent" class="card-face back">
+          <div *ngIf="selectedStudent" class="card-face back">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
               <div class="flex-1">
                 <form #f1="ngForm"
@@ -213,10 +219,11 @@
                               <tr>
                                 <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                                     scope="col">
-                                  {{ 'BUT.TABLE_VON' | translate }}
+                                 Eingetragen
                                 </th>
                                 <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                                     scope="col">
+                                  {{ 'BUT.TABLE_VON' | translate }} -
                                   {{ 'BUT.TABLE_BIS' | translate }}
                                 </th>
                               </tr>
@@ -224,10 +231,11 @@
                               <tbody class="divide-y divide-gray-200">
                               <tr *ngFor="let butConfirmed of confirmedButStudent">
                                 <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                  {{butConfirmed.butFrom | date: 'dd.MM.yy'}}
+                               {{butConfirmed.dateConfirmed | date: 'dd.MM.yy'}}
                                 </td>
                                 <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                  {{butConfirmed.butTo | date: 'dd.MM.yy'}}
+                                  {{butConfirmed.butTo | date: 'dd.MM.yy'}} -
+                                  {{butConfirmed.butFrom | date: 'dd.MM.yy'}}
                                 </td>
                               </tr>
                               <tr>

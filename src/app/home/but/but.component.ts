@@ -77,19 +77,13 @@ export class ButComponent implements OnInit{
               private translate: TranslateService) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
-  loadMockData() {
-
-    this.confirmedButStudent = [
-
-    ];
-  }
 
 
 
   ngOnInit() {
     this.isApp = this.platformService.isIos || this.platformService.isAndroid
 
-    this.loadMockData();
+
     forkJoin([
       this.generellService.getSettingsCaterer(),
       this.generellService.getCustomerInfo(),
@@ -128,6 +122,7 @@ export class ButComponent implements OnInit{
         this.documentsTenant = documentsBut
         this.schoolSetting = schoolSetting
         this.pageLoaded = true;
+        console.log(this.butStudents)
       },
       (error) => {
         console.error('An error occurred:', error);
@@ -146,20 +141,21 @@ export class ButComponent implements OnInit{
 
     setTimeout(() => this.isFlipped = true, 50);
 
-    const butStudent = this.butStudents.find((butStudent) => butStudent.studentId === student._id);
-    if (!butStudent) {
+    this.confirmedButStudent = this.butStudents.filter((butStudent) => butStudent.studentId === student._id)
+    if (this.confirmedButStudent.length === 0) {
       this.butExists = false
-      this.selectedBut = new ButStudent(student);
     } else {
       this.butExists = true
-      this.selectedBut = butStudent;
     }
     this.submittingRequestFlip = false;
 
   }
 
-  hasBut(student: StudentInterfaceId) {
-    return false;
+  hasBut(student: StudentInterfaceId):string {
+    if(student.butFrom && student.butTo){
+      return `${getInvoiceDateOne(new Date(student.butFrom))} - ${getInvoiceDateOne(new Date(student.butTo))}`
+    }
+    return 'Nein';
     // return this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
   }
 
