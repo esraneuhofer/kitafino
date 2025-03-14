@@ -69,7 +69,8 @@ var orderStudentSchema = new Schema({
   orderId: {
     type: Schema.Types.ObjectId,
     required: '{PATH} is required!'
-  }
+  },
+  orderPlacedBy:String
 }, {
   timestamps: true // Fügt automatisch createdAt und updatedAt hinzu
 });

@@ -27,7 +27,7 @@ async function addOrderBut(req) {
   req.body.tenantId = req.tenantId;
   req.body.customerId = req.customerId;
   req.body.userId = req._id;
-
+  req.body.orderPlacedBy = 'parent';
   const orderAccount = prepareOrderDetails(req);
   const totalPrice = getTotalPrice(req.body);
   const session = await mongoose.startSession();
@@ -91,6 +91,7 @@ async function addOrder(req) {
     req.body.tenantId = req.tenantId;
     req.body.customerId = req.customerId;
     req.body.userId = req._id;
+    req.body.orderPlacedBy = 'parent';
 
     // Berechnung des Gesamtpreises
     const totalPrice = getTotalPrice(req.body);
