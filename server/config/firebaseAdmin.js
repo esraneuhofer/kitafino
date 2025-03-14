@@ -1,5 +1,5 @@
-// // config/firebaseAdmin.js
-// const admin = require('firebase-admin');
+// // config/aseAdmin.js
+// const admin = require('ase-admin');
 // require('dotenv').config(); // Ensure dotenv is installed and .env is configured
 //
 // // Check if the environment variable exists
@@ -13,14 +13,14 @@
 //   process.env.GOOGLE_SERVICE_ACCOUNT_KEY.replace(/\\n/g, '\n')
 // );
 //
-// // Initialize Firebase Admin SDK
+// // Initialize ase Admin SDK
 // admin.initializeApp({
 //   credential: admin.credential.cert(serviceAccount),
 //   // Optional: If using Firestore or Realtime Database
-//   // databaseURL: 'https://<your-database-name>.firebaseio.com'
+//   // databaseURL: 'https://<your-database-name>.aseio.com'
 // });
 //
-// console.log('Firebase Admin SDK initialized successfully.');
+// console.log('ase Admin SDK initialized successfully.');
 //
 //
 // module.exports = admin;

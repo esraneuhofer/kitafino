@@ -5,27 +5,79 @@ import {environment} from "../../environments/environment";
 import {map} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {AlertController} from "@ionic/angular";
-import {Badge} from "@capawesome/capacitor-badge"; // Aktualisiert von Storage zu Preferences
+import {Badge} from "@capawesome/capacitor-badge";
+import {Capacitor} from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
   private permissionKey = 'push_permission';
+  private deviceIdKey = 'device_unique_id';
+  private deviceId: string | null = null;
+  private platform: string | null = null;
 
   constructor(private http: HttpClient,
               private alertController: AlertController) {
-
+    // Get device information as early as possible
+    this.initDeviceInfo();
   }
 
+  private async initDeviceInfo() {
+    try {
+      // Set platform based on Capacitor.getPlatform() which is already available
+      this.platform = Capacitor.getPlatform();
+      
+      // Try to get a stored device ID from preferences
+      const storedDeviceId = await Preferences.get({ key: this.deviceIdKey });
+      
+      if (storedDeviceId && storedDeviceId.value) {
+        this.deviceId = storedDeviceId.value;
+      } else {
+        // Generate a new unique device ID if none exists
+        this.deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
+        await Preferences.set({ key: this.deviceIdKey, value: this.deviceId });
+      }
+      
+      console.log('Using device ID:', this.deviceId, 'Platform:', this.platform);
+    } catch (error) {
+      console.error('Error initializing device info:', error);
+      // Fallback device ID generation
+      this.deviceId = 'fallback_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
+      this.platform = Capacitor.getPlatform();
+      try {
+        await Preferences.set({ key: this.deviceIdKey, value: this.deviceId });
+      } catch (e) {
+        console.error('Error saving fallback device ID:', e);
+      }
+    }
+  }
 
   saveTokenFirebase(object: { token: string }) {
-    return this.http.post(environment.apiBaseUrl + '/saveTokenFirebase', object)
+    // Include device info with the token if available
+    const payload = { token: object.token };
+    
+    if (this.deviceId) {
+      // New format with device info
+      Object.assign(payload, {
+        deviceId: this.deviceId,
+        platform: this.platform
+      });
+    }
+    
+    return this.http.post(environment.apiBaseUrl + '/saveTokenFirebase', payload)
       .pipe(map((response: any) => response));
   }
 
   deleteSpecificToken(token: string) {
-    return this.http.post(environment.apiBaseUrl + '/deleteSpecificTokenFirebase', { token })
+    // Include device ID when deleting token if available
+    const payload = { token };
+    console.log('deleteSpecificToken wurde aufgerufen:',token);
+    if (this.deviceId) {
+      Object.assign(payload, { deviceId: this.deviceId });
+    }
+    
+    return this.http.post(environment.apiBaseUrl + '/deleteSpecificTokenFirebase', payload)
       .pipe(map((response: any) => response))
       .subscribe(
         (response) => {
@@ -36,42 +88,30 @@ export class NotificationService {
         }
       );
   }
-  // async initPush() {
-  //   const storedPermission = await this.getStoredPermission();
-  //
-  //   if (storedPermission === null) {
-  //     // Keine Entscheidung getroffen, Berechtigung anfragen
-  //     await this.requestPermission();
-  //   } else if (storedPermission === 'granted') {
-  //     // Bereits erlaubt, Registrierung durchführen
-  //     await this.registerPush();
-  //   } else {
-  //     // Bereits abgelehnt, nichts tun
-  //     console.log('Push-Benachrichtigungen wurden vom Benutzer abgelehnt.');
-  //   }
-  //   await this.resetBadgeCount();
-  // }
 
   async initPush() {
-    // Überprüfung des aktuellen Berechtigungsstatus
+    // Make sure device info is initialized
+    if (!this.deviceId) {
+      await this.initDeviceInfo();
+    }
+    
+    // Check permission status
     const permissionStatus: PermissionStatus = await PushNotifications.checkPermissions();
     console.log('initPush wurde aufgerufen - Zeitstempel:', new Date().toISOString());
+    
     if (permissionStatus.receive === 'granted') {
-      await this.registerPush(); // Registrierung nur durchführen, wenn kein Token vorhanden ist
+      await this.registerPush();
     } else if (permissionStatus.receive === 'denied') {
-      const tokenToDelete = await this.getStoredToken();  // Du solltest den gespeicherten Token abrufen
+      const tokenToDelete = await this.getStoredToken();
       if (tokenToDelete) {
-
         await this.deleteSpecificToken(tokenToDelete);
       }
     } else if (permissionStatus.receive === 'prompt') {
-      // Dies tritt nur auf, wenn der Benutzer die Berechtigung noch nie gewährt oder abgelehnt hat
-      await this.requestPermission(); // Nur wenn die Berechtigung noch nie angefragt wurde
+      await this.requestPermission();
     }
 
-    await this.resetBadgeCount(); // Badge-Count nach Berechtigungsprüfung zurücksetzen
+    await this.resetBadgeCount();
   }
-
 
   private async resetBadgeCount() {
     try {
@@ -99,6 +139,10 @@ export class NotificationService {
   }
   private isRegistered = false;
   private async registerPush() {
+    // Ensure device info is available
+    if (!this.deviceId) {
+      await this.initDeviceInfo();
+    }
 
     // Entferne alle bestehenden Listener, bevor neue registriert werden
     await PushNotifications.removeAllListeners();
@@ -115,8 +159,9 @@ export class NotificationService {
     console.log('registerPush aufgerufen');
 
     await PushNotifications.register();
-
+   
     PushNotifications.addListener('registration', async (token: Token) => {
+      console.log(token)
       await Preferences.set({ key: 'push_token', value: token.value });
       this.saveTokenFirebase({ token: token.value }).subscribe(data => {
         console.log('Token gespeichert:', data);
@@ -138,8 +183,6 @@ export class NotificationService {
 
     console.log('registerPush abgeschlossen');
   }
-
-
 
   private async storePermission(status: string) {
     await Preferences.set({

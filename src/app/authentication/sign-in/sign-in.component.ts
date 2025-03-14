@@ -11,6 +11,7 @@ import {HelpDialogComponent} from "../../directives/help-dialog/help-dialog.comp
 import {MatDialog} from "@angular/material/dialog";
 import {KeychainAccess, SecureStorage} from '@aparajita/capacitor-secure-storage';
 import {AlertController} from "@ionic/angular";
+import {NotificationService} from "../../service/notification.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -40,7 +41,8 @@ export class SignInComponent implements OnInit {
               private alertController: AlertController,
               private studentService: StudentService,
               private router: Router,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -163,6 +165,16 @@ export class SignInComponent implements OnInit {
       async (res: any) => {
         this.submittingRequest = false;
         this.userService.setToken(res['token']);
+        
+        // Initialize push notifications after login success
+        if (Capacitor.isNativePlatform()) {
+          try {
+            await this.notificationService.initPush();
+          } catch (error) {
+            console.error('Error initializing push notifications:', error);
+          }
+        }
+        
         this.studentService.getRegisteredStudentsUser().subscribe(students => {
           if (students.length === 0) {
             this.router.navigateByUrl('home/register_student');
@@ -172,11 +184,10 @@ export class SignInComponent implements OnInit {
           this.submittingRequest = false;
         });
 
-        // Prüfen, ob die App auf einem mobilen Gerät läuft, bevor die Anmeldedaten gespeichert werden
+        // Save credentials if on native platform
         if (Capacitor.isNativePlatform()) {
           await this.saveCredentials();
         }
-
       },
       err => {
         this.submittingRequest = false;

@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -8,7 +7,6 @@ var schoolSchema = new mongoose.Schema({
   email: {
     type: String,
     required: 'Email can\'t be empty',
-
   },
   password: {
     type: String,
@@ -22,8 +20,18 @@ var schoolSchema = new mongoose.Schema({
   isAdminSchool:Boolean,
   username: {type:String,unique: true},
   tenantUrl:String,
-  token:[{ type: String }],
+  // Updated token structure to include device information
+  token:[{
+    tokenValue: String,
+    deviceId: String,
+    platform: String,
+    lastUpdated: {
+      type: Date,
+      default: Date.now
+    }
+  }],
 });
+
 // Methods
 schoolSchema.methods.verifyPassword = function (password) {
   return bcrypt.compareSync(password, this.password);

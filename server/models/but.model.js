@@ -8,7 +8,7 @@ var butmodel = new Schema({
   userId: {type: Schema.Types.ObjectId, required: true},
   customerId: {type: Schema.Types.ObjectId, required: true},
   dateConfirmed:Date,
-  ausgestelltAm:Date,
+  ausgestelltAm:String,
   butFrom:String,
   butTo:String,
   paybackAmount:Number,
