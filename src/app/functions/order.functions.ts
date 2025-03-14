@@ -47,6 +47,7 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
     orderNew.userId = orderStudent.userId;
     orderNew.isBut = orderStudent.isBut;
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
+
       let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
       if(indexMenuFound < 0)return;
       // orderNew.order.orderMenus[indexMenu].displayMenu = displayMenuForStudent(eachOrder.typeOrder, settings);

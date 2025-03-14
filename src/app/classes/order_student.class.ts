@@ -108,6 +108,8 @@ function getPriceBasedOnSettingsBrutto(price:number,tax:number,customer:Customer
 
 function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:EinrichtungInterface):number{
   let priceStudent = 0;
+  // console.log(studentModel)
+  // console.log(eachSpecial)
   if(!studentModel)return priceStudent;
   customer.billing.group.forEach(eachGroup => {
     if(eachGroup.groupId === studentModel.subgroup){
@@ -155,6 +157,7 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
         customer.order.specialShow.forEach(eachSpecial=>{
           if(eachSpecial.selected){
             let priceSpecial = getPriceSpecialFood(customer,studentModel,contractSettings);
+
             let specialFood = getSpecialFoodById(eachSpecial.idSpecialFood,settings);
             if(!specialFood)return;
             const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)

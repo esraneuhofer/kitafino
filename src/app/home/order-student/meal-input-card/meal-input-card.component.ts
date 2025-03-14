@@ -175,7 +175,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
     this.checkDeadline(this.orderDay.date);
-    console.log(this.orderDay.orderStudentModel.order.orderMenus)
   }
 
   getTooltipText(pastOrder: boolean, lockDay: boolean): string {
@@ -440,7 +439,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (this.customer.generalSettings.isDeadlineDaily) {
       this.checkDeadlineDay(day)
     } else {
-      console.log("this.customer.generalSettings",this.customer.generalSettings)
       let cw = getWeekNumber(day);
       let year = day.getFullYear();
       this.checkDeadlineWeek(cw, year)

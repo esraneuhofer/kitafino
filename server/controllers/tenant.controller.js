@@ -87,7 +87,7 @@ async function addTenantParent(req, session) {
     orderSettings: {
       orderConfirmationEmail: true,
       sendReminderBalance: true,
-      amountBalance: 0,
+      amountBalance: 15,
       permanentOrder: false,
     },
   });
