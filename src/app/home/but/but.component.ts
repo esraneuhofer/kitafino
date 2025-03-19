@@ -330,7 +330,7 @@ export class ButComponent implements OnInit{
         schoolSetting?.nameEinrichtung + ', ' + schoolSetting?.streetCustomer + ', ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
           student.username,
           'DE30 5107 0021 0980 5797 01',
-          'DEUTDEDBXXX',
+          'DEUTDEFF510',
           'Cateringexpert Software Solutions GmbH',
           logoBase64,
         );
