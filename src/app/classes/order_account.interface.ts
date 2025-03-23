@@ -19,6 +19,7 @@ export interface OrdersAccountInterface {
   customerId: string;
   orderId: string;
   dateOrderMenu: Date;
+  dateOrder: string;
   year: number;
   priceAllOrdersDate: number;
   allOrdersDate: AllOrdersDate[];

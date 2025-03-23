@@ -69,6 +69,7 @@ export class AccuntDetailsComponent {
         ]:
           [StudentInterface[],AccountChargeInterface[],TenantStudentInterface])=>{
         this.accountCharges= sortAccountChargesByDate(accountCharges);
+        console.log(this.accountCharges)
         this.registeredStudents = registeredStudents;
         this.tenantStudent = tenantStudent;
 

@@ -37,7 +37,7 @@ function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface
     orderAccountOwner.allOrdersDate.forEach((allOrdersDate) => {
       allOrdersDate.order.forEach((order) => {
         displayArrayAccountOrders.push({
-          dateOrderMenu: orderAccountOwner.dateOrderMenu,
+          dateOrderMenu: orderAccountOwner.dateOrder,
           nameStudent: getStudentNameById(orderAccountOwner.studentId, students),
           dateTimeOrder: allOrdersDate.dateTimeOrder,
           typeOrder: getTypeOrder(allOrdersDate.type, translate),
@@ -54,7 +54,7 @@ function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface
 export interface OrderHistoryTableInterface {
   dateTimeOrder: Date,
   nameStudent: string,
-  dateOrderMenu: Date,
+  dateOrderMenu: string,
   typeOrder: string,
   price: number,
   nameMenu: string,

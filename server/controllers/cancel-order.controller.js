@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const OrderStudent = mongoose.model('OrderStudent');
 const AccountSchema = mongoose.model('AccountSchema');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
+const OrderStudentCancel = mongoose.model('OrderStudentCancel');
+
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
@@ -37,8 +39,11 @@ module.exports.cancelOrderStudent = async (req, res, next) => {
   try {
     await session.startTransaction();
 
+    await OrderStudentCancel.editOrderToCancel(orderId, 'parent', session);
+
     // Delete the OrderStudent document by orderId
     await deleteOrderStudentDocument(orderId, session);
+
     const account = await findAccount(req._id, session);
     const orderAccount = await findOrderAccount(orderId, session);
 
