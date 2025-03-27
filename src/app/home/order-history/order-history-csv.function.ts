@@ -1,5 +1,5 @@
 import {ExportCsvDialogData} from "../../directives/export-csv-dialog/export-csv-dialog.component";
-import {OrderHistoryTableInterface} from "./order-history.component";
+import {OrderAndCancelInterface, OrderHistoryTableInterface} from "./order-history.component";
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {getInvoiceDateOne} from "../../functions/date.functions";
@@ -7,15 +7,15 @@ import {getInvoiceDateOne} from "../../functions/date.functions";
 
 
 function filterAndSortOrderHistoryByDateRange(
-    orders: OrderHistoryTableInterface[],
+    orders: OrderAndCancelInterface[],
     dateRange: ExportCsvDialogData
-): OrderHistoryTableInterface[] {
+): OrderAndCancelInterface[] {
     const { firstDate, secondDate, withdrawOrCancel, depositsOrOrder } = dateRange;
     const startDate = new Date(firstDate);
     const endDate = new Date(secondDate);
 
     const filteredOrders = orders.filter(order => {
-        const orderDate = new Date(order.dateOrderMenu);
+        const orderDate = new Date(order.dateOrder);
         const isWithinDateRange = orderDate >= startDate && orderDate <= endDate;
 
         const isCancel = withdrawOrCancel && order.typeOrder === 'Stornierung';
@@ -24,7 +24,7 @@ function filterAndSortOrderHistoryByDateRange(
         return isWithinDateRange && (isCancel || isOrder);
     });
 
-    return filteredOrders.sort((a, b) => new Date(a.dateOrderMenu).getTime() - new Date(b.dateOrderMenu).getTime());
+    return filteredOrders.sort((a, b) => new Date(a.dateOrder).getTime() - new Date(b.dateOrder).getTime());
 }
 
 function dateToExcelDate(date: Date): string {
@@ -69,7 +69,7 @@ function generateOrderHistoryXLS(orders: OrderHistoryTableInterface[], dateRange
     document.body.removeChild(a);
 }
 
-export function getXlsContent(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData):string {
+export function getXlsContent(orders: OrderAndCancelInterface[], dateRange: ExportCsvDialogData):string {
   const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
   let xlsContent = `<table>
     <tr>
@@ -82,10 +82,10 @@ export function getXlsContent(orders: OrderHistoryTableInterface[], dateRange: E
 
   filteredOrders.forEach(order => {
     xlsContent += `<tr>
-      <td>${dateToExcelDate(new Date(order.dateOrderMenu))}</td>
-      <td>${dateToExcelDate(new Date(order.dateOrderMenu))}</td>
-      <td>${order.nameMenu}</td>
-      <td>${formatCurrency(order.price)}</td>
+      <td>${dateToExcelDate(new Date(order.datePlaced))}</td>
+      <td>${dateToExcelDate(new Date(order.dateOrder))}</td>
+      <td>${order.nameOrder}</td>
+      <td>${formatCurrency(order.priceOrder)}</td>
       <td>${order.typeOrder}</td>
     </tr>`;
   });
@@ -95,7 +95,7 @@ export function getXlsContent(orders: OrderHistoryTableInterface[], dateRange: E
 
 }
 
-export function createPdfBuffer(orders: OrderHistoryTableInterface[], dateRange: ExportCsvDialogData): Promise<Blob> {
+export function createPdfBuffer(orders: OrderAndCancelInterface[], dateRange: ExportCsvDialogData): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const filteredOrders = filterAndSortOrderHistoryByDateRange(orders, dateRange);
 
@@ -111,10 +111,10 @@ export function createPdfBuffer(orders: OrderHistoryTableInterface[], dateRange:
 
     filteredOrders.forEach(order => {
       tableBody.push([
-        getInvoiceDateOne(new Date(order.dateOrderMenu)),
-        getInvoiceDateOne(new Date(order.dateOrderMenu)),
-        order.nameMenu,
-        formatCurrency(order.price),
+        getInvoiceDateOne(new Date(order.datePlaced)),
+        getInvoiceDateOne(new Date(order.dateOrder)),
+        order.nameOrder,
+        formatCurrency(order.priceOrder),
         order.typeOrder
       ]);
     });

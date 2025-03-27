@@ -9,6 +9,7 @@ import * as timezone from 'dayjs/plugin/timezone';
 import * as weekOfYear from 'dayjs/plugin/weekOfYear';
 import * as isoWeek from 'dayjs/plugin/isoWeek';
 import {extractTime} from "../../functions/date.functions";
+import {OrderAndCancelInterface} from "../order-history/order-history.component";
 
 dayjs.extend(weekOfYear);  // Fügt week() Funktion hinzu
 dayjs.extend(isoWeek);     // Fügt isoWeek() Funktion hinzu
@@ -188,3 +189,44 @@ export function getNextFiveWorkdays(startDateString: string): string[] {
   return workdays;
 }
 
+function getNameOrder(nameOrder:string):string {
+  if (!nameOrder) {
+    return 'Menu';
+  }
+  return nameOrder;
+}
+export function getOrderPlaced(orderStudent:OrderInterfaceStudentSave):OrderAndCancelInterface{
+
+  let orderPlaced = {
+    priceOrder:0,
+    amountOrder:0,
+    nameOrder:'',
+    dateOrder:orderStudent.dateOrder,
+    datePlaced:orderStudent.createdAt || new Date(),
+    nameStudent:'',
+    typeOrder:'',
+    isCanceled:false
+  }
+  if(orderStudent.isCanceled){
+    orderPlaced.isCanceled = true;
+  }
+  console.log(orderStudent)
+  orderStudent.order.orderMenus.forEach(eachOrder=>{
+    if(eachOrder.amountOrder > 0){
+      console.log(eachOrder)
+        orderPlaced.priceOrder = eachOrder.priceOrder;
+        orderPlaced.amountOrder = eachOrder.amountOrder;
+        orderPlaced.nameOrder = getNameOrder(eachOrder.nameOrder);
+    }
+  })
+  if(orderPlaced.amountOrder === 0){
+    orderStudent.order.specialFoodOrder.forEach(eachOrder=>{
+      if(eachOrder.amountSpecialFood > 0){
+        orderPlaced.amountOrder = eachOrder.amountSpecialFood;
+        orderPlaced.priceOrder = eachOrder.priceOrder;
+        orderPlaced.nameOrder = eachOrder.nameSpecialFood
+      }
+    })
+  }
+  return orderPlaced;
+}

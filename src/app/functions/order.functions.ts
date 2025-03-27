@@ -68,7 +68,6 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     kw: copy.kw,
     year: copy.year,
     dateOrder:normalizeToBerlinDate(copy.dateOrder),
-    dateOrderPlaced: normalizeToBerlinDate(copy.dateOrderPlaced),
     customerId: copy.customerId,
     order: {
       comment: copy.order.comment,

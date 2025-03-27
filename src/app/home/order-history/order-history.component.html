@@ -77,10 +77,10 @@
                         {{ eachAccountOwner.nameStudent }}
                       </span>
                     </td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500" [matTooltip]="eachAccountOwner.nameMenu">{{ eachAccountOwner.nameMenu | trimText:10 }}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrderMenu | date:'dd.MM.yy' }}</td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateTimeOrder | date:'dd.MM.yy | HH:mm' }} Uhr</td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.price | currency:'€' }}</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500" [matTooltip]="eachAccountOwner.nameOrder">{{ eachAccountOwner.nameOrder | trimText:10 }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrder | date:'dd.MM.yy' }}</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.datePlaced | date:'dd.MM.yy | HH:mm' }} Uhr</td>
+                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.priceOrder | currency:'€' }}</td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.typeOrder }}</td>
                   </tr>
                   <tr *ngIf="displayArrayAccountOrders.length == 0">

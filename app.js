@@ -75,6 +75,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 require(__dirname + '/server/models/feedback.model');
+require(__dirname + '/server/models/buchungskonto.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/withdrawrequest.model');
 require(__dirname + '/server/models/help.model');

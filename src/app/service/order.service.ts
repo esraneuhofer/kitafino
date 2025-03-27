@@ -63,6 +63,17 @@ export class OrderService {
       .pipe(map((response: OrdersAccountInterface[]) => (response)));
   }
 
+  getAllOrdersWithCancellations(query: { year:number }) {
+    return this.http.get<OrderInterfaceStudentSave[]>(environment.apiBaseUrl + '/getAllOrdersWithCancellations', {params: query})
+      .pipe(
+        map((response: OrderInterfaceStudentSave[]) => (response)),
+        catchError(error => {
+          console.error('Error loading combined orders:', error);
+          return of([]);
+        })
+      );
+  }
+
   addOrderStudentDay(object: OrderInterfaceStudentSave) {
     return this.http.post(environment.apiBaseUrl + '/addOrderStudentDay', object)
       .pipe(map((response: any) => response));

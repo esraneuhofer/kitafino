@@ -11,10 +11,10 @@
   </div>
   <div class="mt-2">
     <p class="text-sm text-gray-500 mt-3">
-      <b>{{'BESTELLTESTMENU' | translate}}</b> {{data.nameMenu}} <br>
-      <b>{{'DATUM_BESTELLUNG_ABBESTELLUNG' | translate}}</b> {{data.dateTimeOrder | date:'dd.MM.yyyy'}} <br>
-      <b>{{'DATUM_BESTELLUNG_ABBESTELLUNG' | translate}}:</b> {{data.dateOrderMenu | date:'dd.MM.yyyy'}} <br>
-      <b>{{'ORDER_HISTORY.PRICE' | translate}}:</b> {{data.price | currency:'€'}} € <br>
+      <b>{{'BESTELLTESTMENU' | translate}}</b> {{data.nameOrder}} <br>
+      <b>{{'DATUM_BESTELLUNG_ABBESTELLUNG' | translate}}</b> {{data.datePlaced | date:'dd.MM.yyyy'}} <br>
+      <b>{{'DATUM_BESTELLUNG_ABBESTELLUNG' | translate}}:</b> {{data.dateOrder | date:'dd.MM.yyyy'}} <br>
+      <b>{{'ORDER_HISTORY.PRICE' | translate}}:</b> {{data.priceOrder | currency:'€'}} € <br>
       <b>{{'ORDER_HISTORY.TYPE' | translate}}</b> {{data.typeOrder}}
     </p>
   </div>

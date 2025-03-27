@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {OrderHistoryTableInterface} from "../order-history.component";
+import {OrderAndCancelInterface, OrderHistoryTableInterface} from "../order-history.component";
 
 @Component({
   selector: 'app-details-order-dialog',
@@ -9,6 +9,6 @@ import {OrderHistoryTableInterface} from "../order-history.component";
 })
 export class DetailsOrderDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: OrderHistoryTableInterface) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: OrderAndCancelInterface) {
   }
 }

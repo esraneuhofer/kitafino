@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
+const Buchungskonten = mongoose.model('Buchungskonten');
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -56,21 +57,12 @@ var orderStudentSchema = new Schema({
       return normalizeToBerlinDate(v);
     }
   },
-  dateOrderPlaced: {
-    type: String,
-    set: function(v) {
-      return normalizeToBerlinDateSeconds(v || new Date());
-    }
-  },
-  postInfo: [{
-    postId: Schema.Types.ObjectId,
-    postDate: String
-  }],
   orderId: {
     type: Schema.Types.ObjectId,
     required: '{PATH} is required!'
   },
-  orderPlacedBy:String
+  orderPlacedBy:String,
+  orderProcessedBuchung:{type:Boolean, default:false},
 }, {
   timestamps: true // Fügt automatisch createdAt und updatedAt hinzu
 });
@@ -98,16 +90,51 @@ function normalizeToBerlinDateSeconds(date) {
 }
 
 
-// Pre-save Middleware
-orderStudentSchema.pre('save', async function(next) {
+
+orderStudentSchema.pre('save', async function (next) {
   try {
-    this.dateOrderPlaced = normalizeToBerlinDate(new Date());
+    // Bestehende Funktionalität beibehalten
+  
+    
+    // Neuer Code: Buchungskonto finden und aktualisieren
+    if (this.isNew) { // Nur bei neuen Bestellungen das Konto belasten
+      const orderPlaced = getOrderPlaced(this);
+      
+      if (orderPlaced && orderPlaced.priceOrder) {
+        try {
+          // Buchungskonto finden
+          const buchungskonto = await Buchungskonten.findOne({ userId: this.userId });
+          
+          if (buchungskonto) {
+            // Aktuelle Bestellung vom Kontostand abziehen
+            buchungskonto.currentBalance -= orderPlaced.priceOrder;
+            
+            // Buchungskonto speichern
+            await buchungskonto.save();
+            
+            // Erfolgreich verarbeitet
+            this.orderProcessedBuchung = true;
+            console.log(`Buchungskonto für userId ${this.userId} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
+          } else {
+            // Kein Konto gefunden, aber kein Fehler
+            this.orderProcessedBuchung = false;
+            console.log(`Kein Buchungskonto für userId ${this.userId} gefunden`);
+          }
+        } catch (buchungsError) {
+          // Fehler beim Aktualisieren des Buchungskontos
+          this.orderProcessedBuchung = false;
+          console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
+        }
+      }
+    }
+    
+    // Bestellung wird immer gespeichert, unabhängig vom Status der Buchungskonto-Aktualisierung
     next();
   } catch (error) {
+    console.error('Allgemeiner Fehler beim Speichern der Bestellung:', error);
     next(error);
   }
 });
-
 // Hauptindex für die Eindeutigkeit von Bestellungen
 orderStudentSchema.index(
   {studentId: 1, dateOrder: 1},
@@ -189,6 +216,23 @@ orderStudentSchema.statics = {
       .lean();
   }
 };
+
+function getOrderPlaced(orderStudent){
+  let orderPlaced;
+  orderStudent.order.orderMenus.forEach(eachOrder=>{
+    if(eachOrder.amountOrder > 0){
+        orderPlaced = eachOrder;
+    }
+  })
+  if(!orderPlaced){
+    orderStudent.order.specialFoodOrder.forEach(eachOrder=>{
+      if(eachOrder.amountSpecialFood > 0){
+        orderPlaced = eachOrder;
+      }
+    })
+  }
+  return orderPlaced;
+}
 
 
 var OrderStudent = mongoose.model('OrderStudent', orderStudentSchema);

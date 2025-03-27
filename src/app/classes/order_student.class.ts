@@ -25,7 +25,6 @@ export interface OrderInterfaceStudent {
   _id?: string;
   studentId: (string | undefined)
   kw: number;
-  dateOrderPlaced:Date;
   year: number;
   dateOrder: Date;
   order: OrderInterfaceStudentDay;
@@ -66,7 +65,6 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   year: number;
   order: OrderInterfaceStudentDay;
   dateOrder:Date;
-  dateOrderPlaced:Date = new Date();
   customerId: string;
   _id?: string;
   orderId?:string;

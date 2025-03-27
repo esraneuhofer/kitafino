@@ -96,6 +96,37 @@ module.exports.getFutureOrdersStudent = async (req, res) => {
   }
 };
 
+module.exports.getAllOrdersWithCancellations = async (req, res) => {
+  try {
+    const userId = req._id;
+    const year = parseInt(req.query.year) || new Date().getFullYear();
+
+    // Get the Order and OrderStudentCancel models
+    const OrderStudent = mongoose.model('OrderStudent');
+    const OrderStudentCancel = mongoose.model('OrderStudentCancel');
+
+    // Get all regular orders for the user and year
+    const regularOrders = await OrderStudent.find({
+      userId: userId,
+      year: year
+    }).lean();
+
+    // Get all cancelled orders for the user and year
+    const cancelledOrders = await OrderStudentCancel.find({
+      userId: userId,
+      year: year
+    }).lean();
+
+    // Combine both arrays
+    const combinedOrders = [...regularOrders, ...cancelledOrders];
+
+    res.status(200).send(combinedOrders);
+  } catch (error) {
+    console.error('Error getting combined orders:', error);
+    res.status(500).send({ message: 'Error retrieving orders' });
+  }
+};
+
 
 
 

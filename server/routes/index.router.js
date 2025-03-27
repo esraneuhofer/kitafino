@@ -85,6 +85,7 @@ router.post('/addOrderStudentDay', jwtHelper.verifyJwtToken, crtlPlaceOrder.addO
 router.post('/cancelOrderStudent',jwtHelper.verifyJwtToken,ctrlCancelOrder.cancelOrderStudent)
 
 router.get('/getAccountOrderUserYear',jwtHelper.verifyJwtToken,crtlOrder.getAccountOrderUserYear)
+router.get('/getAllOrdersWithCancellations',jwtHelper.verifyJwtToken,crtlOrder.getAllOrdersWithCancellations)
 
 router.get('/getPermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.getPermanentOrdersUser);
 router.post('/setPermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.setPermanentOrdersUser);

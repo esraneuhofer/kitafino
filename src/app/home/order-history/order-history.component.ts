@@ -23,33 +23,32 @@ import {GenerellService} from "../../service/generell.service";
 import {TenantStudentInterface} from "../../classes/tenant.class";
 import {MessageDialogService} from "../../service/message-dialog.service";
 import {DetailsOrderDialogComponent} from "./details-order-dialog/details-order-dialog.component";
+import { OrderInterfaceStudent } from '../../classes/order_student.class';
+import { OrderInterfaceStudentSave } from '../../classes/order_student_safe.class';
+import {getOrderPlaced} from "../order-student/order.functions";
 
-function getTypeOrder(input: string, translate: TranslateService): string {
-  if (input === 'order') {
+function getTypeOrder(isCanceled: boolean, translate: TranslateService): string {
+  if (!isCanceled) {
     return translate.instant('DASHBOARD.ORDER');
   }
   return translate.instant('ACCOUNTDETAILS.CANCELLATIONS')
 }
 
-function setDisplayArrayAccountOrders(ordersAccountOwner: OrdersAccountInterface[], students: StudentInterface[], translate: TranslateService): OrderHistoryTableInterface[] {
-  let displayArrayAccountOrders: OrderHistoryTableInterface[] = [];
-  ordersAccountOwner.forEach((orderAccountOwner: OrdersAccountInterface) => {
-    orderAccountOwner.allOrdersDate.forEach((allOrdersDate) => {
-      allOrdersDate.order.forEach((order) => {
-        displayArrayAccountOrders.push({
-          dateOrderMenu: orderAccountOwner.dateOrder,
-          nameStudent: getStudentNameById(orderAccountOwner.studentId, students),
-          dateTimeOrder: allOrdersDate.dateTimeOrder,
-          typeOrder: getTypeOrder(allOrdersDate.type, translate),
-          price: order.priceMenu,
-          year: orderAccountOwner.year,
-          nameMenu: order.nameOrder
-        })
-      })
-    })
-  })
+export interface OrderAndCancelInterface {priceOrder:number,amountOrder:number,nameOrder:string,dateOrder:string,datePlaced:Date, nameStudent:string,typeOrder:string,isCanceled:boolean}
+
+function setDisplayArrayAccountOrders(orderStudentAndCancel: OrderInterfaceStudentSave[], students: StudentInterface[],translate:TranslateService): OrderAndCancelInterface[] {
+  let displayArrayAccountOrders: OrderAndCancelInterface[] = [];
+  displayArrayAccountOrders = orderStudentAndCancel.map((order) => {
+    let studentName = getStudentNameById(order.studentId, students);
+    let orderNew: OrderAndCancelInterface = getOrderPlaced(order);
+    orderNew.nameStudent = studentName;
+    orderNew.typeOrder = getTypeOrder(orderNew.isCanceled, translate);
+    return orderNew; // Return orderNew instead of order
+  });
+
   return displayArrayAccountOrders;
 }
+
 
 export interface OrderHistoryTableInterface {
   dateTimeOrder: Date,
@@ -70,10 +69,10 @@ export class OrderHistoryComponent implements OnInit {
 
   submittingRequest = false;
   pageLoaded = false;
-  ordersAccountOwner: OrdersAccountInterface[] = [];
-  displayArrayAccountOrders: OrderHistoryTableInterface [] = [];
+  ordersAccountOwner: OrderInterfaceStudentSave[] = [];
+  displayArrayAccountOrders: OrderAndCancelInterface [] = [];
   registeredStudents: StudentInterface[] = [];
-  displayArrayAccountOrdersSearch: OrderHistoryTableInterface [] = [];
+  displayArrayAccountOrdersSearch: OrderAndCancelInterface [] = [];
   queryYear: number = new Date().getFullYear();
   searchTerm: string = '';
   tenantStudent!: TenantStudentInterface;
@@ -95,17 +94,32 @@ export class OrderHistoryComponent implements OnInit {
   ngOnInit() {
     forkJoin(
       this.studentService.getRegisteredStudentsUser(),
-      this.orderService.getAccountOrderUserYear({year: new Date().getFullYear()}),
+      this.orderService.getAllOrdersWithCancellations({year: this.queryYear}),
       this.tenantService.getTenantInformation(),
     ).subscribe(
       (
-        [registeredStudents, accountOrdersUsers,tenantStudent]:
-          [StudentInterface[], OrdersAccountInterface[],TenantStudentInterface]) => {
+        [registeredStudents, accountOrdersUsers, tenantStudent]:
+          [StudentInterface[], OrderInterfaceStudentSave[], TenantStudentInterface]) => {
         this.ordersAccountOwner = accountOrdersUsers;
         this.registeredStudents = registeredStudents
         this.tenantStudent = tenantStudent;
+        console.log('accountOrdersUsers', accountOrdersUsers);
+        // Create combined display array and sort by dateOrderMenu
+        const combinedOrders = setDisplayArrayAccountOrders(accountOrdersUsers, registeredStudents, this.translate);
 
-        this.displayArrayAccountOrders = this.displayArrayAccountOrdersSearch = setDisplayArrayAccountOrders(accountOrdersUsers, registeredStudents, this.translate);
+        // Sort orders by date descending (newest first)
+        this.displayArrayAccountOrders = this.displayArrayAccountOrdersSearch = combinedOrders.sort((a, b) => {
+          // First sort by date (newest first)
+          const dateComparison = new Date(b.dateOrder).getTime() - new Date(a.dateOrder).getTime();
+
+          if (dateComparison !== 0) {
+            return dateComparison;
+          }
+
+          // If dates are equal, sort by time of order (newest first)
+          return new Date(b.dateOrder).getTime() - new Date(a.dateOrder).getTime();
+        });
+
         this.pageLoaded = true;
       })
   }
@@ -180,7 +194,7 @@ export class OrderHistoryComponent implements OnInit {
       // downloadOrderHistoryCsv(this.displayArrayAccountOrdersSearch, result);
     });
   }
-  openDetailsOrder(order:OrderHistoryTableInterface){
+  openDetailsOrder(order:OrderAndCancelInterface){
     const dialogRef = this.dialog.open(DetailsOrderDialogComponent, {
       width: '550px',
       data: order,
