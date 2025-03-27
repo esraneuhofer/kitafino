@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const Buchungskonten = mongoose.model('Buchungskonten');
 
 
 var tenantparent = new Schema({
@@ -98,6 +99,31 @@ tenantparent.pre('save', async function (next) {
   }
 });
 
+// Post-save Hook für die Buchungskonto-Erstellung
+tenantparent.post('save', async function (doc) {
+  try {
+    const userId = doc.userId;
+
+    // Prüfen, ob bereits ein Buchungskonto für diesen Benutzer existiert
+    const existingBuchungskonto = await Buchungskonten.findOne({ userId });
+
+    if (!existingBuchungskonto) {
+      // Neues Buchungskonto erstellen mit den richtigen ObjectIds
+      const newBuchungskonto = new Buchungskonten({
+        userId,
+        customerId: doc.customerId || undefined,
+        tenantId: doc.tenantId || undefined,
+        customerNumber: doc.username || `User_${doc.userId}`,
+        currentBalance: 0
+      });
+
+      await newBuchungskonto.save();
+      console.log(`Buchungskonto für User ${userId} wurde erstellt`);
+    }
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Buchungskontos:', error);
+  }
+});
 
 var Tenantparent = mongoose.model('Tenantparent', tenantparent);
 
