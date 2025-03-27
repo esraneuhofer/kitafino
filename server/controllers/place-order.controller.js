@@ -39,6 +39,15 @@ async function addOrderBut(req) {
     await session.startTransaction();
     // const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
 
+    // Abrufen des Schülers mit Error-Handling
+    const student = await Student.findOne({ _id: req.body.studentId }).session(session);
+    if (!student) {
+      throw new Error(`Schüler mit ID ${req.body.studentId} nicht gefunden.`);
+    }
+
+    // Setzen der Gruppenkennung
+    req.body.subgroup = student.subgroup;
+
     // const account = await validateCustomerAccount(req._id, totalPrice, session);
     const orderId = new mongoose.Types.ObjectId();
     // account.currentBalance -= totalPrice;
