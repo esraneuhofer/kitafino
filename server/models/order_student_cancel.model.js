@@ -80,15 +80,7 @@ var orderStudentCancelSchema = new Schema({
 
 });
 
-// Pre-save Middleware
-orderStudentCancelSchema.pre('save', async function (next) {
-  try {
-    this.dateOrderPlaced = normalizeToBerlinDate(new Date());
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
+
 
 // Zusätzlicher Index für Customer-Abfragen
 orderStudentCancelSchema.index(
@@ -117,7 +109,6 @@ orderStudentCancelSchema.statics = {
     const cancelOrder = new this({
       ...orderData,
       dateOrderPlaced: normalizeToBerlinDateSeconds(new Date(orderData.createdAt)),
-      dateOrderCanceled: normalizeToBerlinDate(new Date()),
       orderCanceledBy: orderCanceledBy || ''
     });
 
