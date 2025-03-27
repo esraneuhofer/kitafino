@@ -606,7 +606,9 @@
   "TEXT_STUDENT_LOESCHEN": "Czy na pewno chcesz usunąć uczestnika żywienia? Wszystkie dane uczestnika zostaną trwale usunięte.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Saldo konta nie jest wystarczające dla tego zamówienia.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Znaleziono zamówienie/a",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Znaleziono już przyszłe zamówienia dla uczestnika wyżywienia. Proszę najpierw anulować zamówienia, zanim usuniesz uczestnika wyżywienia."
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Znaleziono już przyszłe zamówienia dla uczestnika wyżywienia. Proszę najpierw anulować zamówienia, zanim usuniesz uczestnika wyżywienia.",
+  "ABBESTELLUNG_MOEGLICH": "Anulowanie możliwe"
+
 }
 
 

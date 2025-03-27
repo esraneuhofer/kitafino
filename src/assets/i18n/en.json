@@ -604,5 +604,6 @@
   "TEXT_STUDENT_LOESCHEN": "Are you sure you want to delete the participant? All data for the participant will be permanently deleted.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "The account balance is not sufficient for this order.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Order(s) found",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Future orders for the meal participant have already been found. Please cancel the orders first before deleting the meal participant."
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Future orders for the meal participant have already been found. Please cancel the orders first before deleting the meal participant.",
+  "ABBESTELLUNG_MOEGLICH": "Cancellation possible"
 }

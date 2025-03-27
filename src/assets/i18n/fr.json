@@ -607,6 +607,8 @@
   "TEXT_STUDENT_LOESCHEN": "Êtes-vous sûr de vouloir supprimer le participant à la restauration ? Toutes les données du participant seront définitivement supprimées.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Le solde du compte n'est pas suffisant pour cette commande.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Commande(s) trouvée(s)",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Des commandes futures ont déjà été trouvées pour le participant au repas. Veuillez d'abord annuler les commandes avant de supprimer le participant au repas."
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Des commandes futures ont déjà été trouvées pour le participant au repas. Veuillez d'abord annuler les commandes avant de supprimer le participant au repas.",
+  "ABBESTELLUNG_MOEGLICH": "Annulation possible"
+
 }
 

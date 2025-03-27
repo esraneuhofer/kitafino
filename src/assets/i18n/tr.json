@@ -604,5 +604,7 @@
   "TEXT_STUDENT_LOESCHEN": "Yemek katılımcısını gerçekten silmek istiyor musunuz? Katılımcıya ait tüm veriler kalıcı olarak silinecektir.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Hesap bakiyesi bu sipariş için yeterli değil.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Sipariş(ler) bulundu",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Yemek katılımcısı için gelecekteki siparişler zaten bulundu. Lütfen yemek katılımcısını silmeden önce siparişleri iptal edin."
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Yemek katılımcısı için gelecekteki siparişler zaten bulundu. Lütfen yemek katılımcısını silmeden önce siparişleri iptal edin.",
+  "ABBESTELLUNG_MOEGLICH": "İptal mümkün"
+
 }

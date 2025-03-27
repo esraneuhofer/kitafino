@@ -606,6 +606,8 @@
   "TEXT_STUDENT_LOESCHEN": "Weet u zeker dat u de deelnemer aan de maaltijd wilt verwijderen? Alle gegevens van de deelnemer worden permanent verwijderd.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Het saldo is niet voldoende voor deze bestelling.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Bestelling(en) gevonden",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Er zijn al toekomstige bestellingen gevonden voor de maaltijddeelnemer. Annuleer eerst de bestellingen voordat u de maaltijddeelnemer verwijdert."
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Er zijn al toekomstige bestellingen gevonden voor de maaltijddeelnemer. Annuleer eerst de bestellingen voordat u de maaltijddeelnemer verwijdert.",
+  "ABBESTELLUNG_MOEGLICH": "Annulering mogelijk"
+
 }
 
