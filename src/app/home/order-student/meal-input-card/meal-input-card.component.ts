@@ -330,12 +330,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   setOrderIconOrder(index: number) {
-    if (this.pastOrder) return;
+    if (this.pastOrder || this.lockDay) return;
     this.setOrderDay(true, index)
   }
 
   setOrderIconCancel(index: number) {
-    if (this.pastOrder && this.pastCancelation) return;
+    if (this.pastOrder && this.pastCancelation || this.lockDay) return;
     this.setOrderDay(false, index)
   }
 
