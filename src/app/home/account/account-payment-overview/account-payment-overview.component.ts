@@ -294,12 +294,12 @@ export class AccountPaymentOverviewComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    // let lastDayIsGreaterThenToday = compareDatesWithLastButTo(this.butTenant,new Date())
-    // if(lastDayIsGreaterThenToday){
-    //   let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_BUT')
-    //   let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT')
-    //   return;
-    // }
+    let lastDayIsGreaterThenToday = compareDatesWithLastButTo(this.butTenant,new Date())
+    if(lastDayIsGreaterThenToday){
+      let heading = this.translate.instant('ACCOUNT_HEADER_ERROR_DEPOSIT_FUNDS_BUT')
+      let reason = this.translate.instant('ACCOUNT_MESSAGE_ERROR_DEPOSIT_FUNDS_BUT')
+      return;
+    }
 
     // if(!this.tenantStudent.iban || !this.tenantStudent.address || !this.tenantStudent.city || !this.tenantStudent.zip){
       if(!this.tenantStudent.iban ){
