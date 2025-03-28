@@ -113,6 +113,7 @@ module.exports.withdrawFunds = async (req, res) => {
     await requestDesolve.save({ session });
 
     const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant);
+    console.log('send email:ailOptions');
     await sgMail.send(mailOptions);
 
     // 6) Transaktion committen
