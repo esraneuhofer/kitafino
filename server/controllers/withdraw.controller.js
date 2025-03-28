@@ -55,9 +55,9 @@ async function addAccountChargesTenant(req, session) {
     // 6) Account speichern
     await account.save({ session });
 
-    // 7) E-Mail senden
-    const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant);
-    await sgMail.send(mailOptions);
+    // // 7) E-Mail senden
+    // const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant);
+    // await sgMail.send(mailOptions);
 
     // 8) Erfolgs-Info zurückgeben (aber kein res.json!)
     return {
@@ -113,13 +113,15 @@ module.exports.withdrawFunds = async (req, res) => {
     await requestDesolve.save({ session });
 
     const mailOptions = getMailOptions(req.body.accountCharge, req.body.tenant);
-    console.log('send email:ailOptions');
-    await sgMail.send(mailOptions);
+
+    await sgMail.send(mailOptions, {
+      isMultiple: false,
+      maxRetries: 0
+    });
 
     // 6) Transaktion committen
     await session.commitTransaction();
     session.endSession();
-
     // Erfolgsantwort
     return res.json({
       success: true,
