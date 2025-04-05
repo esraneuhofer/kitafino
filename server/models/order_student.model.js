@@ -94,24 +94,24 @@ function normalizeToBerlinDateSeconds(date) {
 orderStudentSchema.pre('save', async function (next) {
   try {
     // Bestehende Funktionalität beibehalten
-  
-    
+
+
     // Neuer Code: Buchungskonto finden und aktualisieren
-    if (this.isNew) { // Nur bei neuen Bestellungen das Konto belasten
+    if (this.isNew && !this.orderProcessedBuchung) { // Nur bei neuen Bestellungen das Konto belasten
       const orderPlaced = getOrderPlaced(this);
-      
+
       if (orderPlaced && orderPlaced.priceOrder) {
         try {
           // Buchungskonto finden
           const buchungskonto = await Buchungskonten.findOne({ userId: this.userId });
-          
+
           if (buchungskonto) {
             // Aktuelle Bestellung vom Kontostand abziehen
             buchungskonto.currentBalance -= orderPlaced.priceOrder;
-            
+
             // Buchungskonto speichern
             await buchungskonto.save();
-            
+
             // Erfolgreich verarbeitet
             this.orderProcessedBuchung = true;
             console.log(`Buchungskonto für userId ${this.userId} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
@@ -127,7 +127,7 @@ orderStudentSchema.pre('save', async function (next) {
         }
       }
     }
-    
+
     // Bestellung wird immer gespeichert, unabhängig vom Status der Buchungskonto-Aktualisierung
     next();
   } catch (error) {

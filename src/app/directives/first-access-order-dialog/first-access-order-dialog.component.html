@@ -1,35 +1,38 @@
-<div class="overflow-hidden x-4 text-left p-3">
-  <div class="flex items-center">
-    <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" >
-      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-    </svg>
+<div class="dialog-container flex flex-col max-h-[90vh]">
+  <div class="overflow-y-auto p-3">
+    <div class="flex items-center">
+      <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" >
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+      </svg>
 
-    <h3 class="text-base font-semibold leading-6 text-gray-900 ml-2">{{"BESTELLFRIST_INFO" | translate}}</h3>
+      <h3 class="text-base font-semibold leading-6 text-gray-900 ml-2">{{"BESTELLFRIST_INFO" | translate}}</h3>
+    </div>
+    <div class="mt-2">
+      <p class="text-sm text-gray-500 mt-3" [innerHTML]="'BESTELLUNG_FIRST_INIT_TEXT_EINS' | translate">
+
+      </p>
+      <p class="text-sm text-gray-500 mt-3">
+        <u>{{"AKTUELLE_BESTELLFRIST" | translate}}:</u> <br><br>
+        <b>{{bestellfrist}}</b>
+      </p>
+      <p class="text-sm text-gray-500 mt-3">
+        {{"WEITERE_INFORMATIONEN" | translate}}:
+        <button
+          class="bg-blue-500 text-white p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        , {{'ODER_UNTEN_AUF_DER_SEITE' | translate}} <b>[{{"DASHBOARD.HELP" | translate}}]</b>
+      </p>
+
+      <div class="mb-16"></div> <!-- Spacer to ensure content doesn't get hidden behind the button -->
+    </div>
   </div>
-  <div class="mt-2">
-    <p class="text-sm text-gray-500 mt-3" [innerHTML]="'BESTELLUNG_FIRST_INIT_TEXT_EINS' | translate">
-
-    </p>
-    <p class="text-sm text-gray-500 mt-3">
-      <u>{{"AKTUELLE_BESTELLFRIST" | translate}}:</u> <br><br>
-      <b>{{bestellfrist}}</b>
-    </p>
-    <p class="text-sm text-gray-500 mt-3">
-      {{"WEITERE_INFORMATIONEN" | translate}}:
-      <button
-        class="bg-blue-500 text-white p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      , {{'ODER_UNTEN_AUF_DER_SEITE' | translate}} <b>[{{"DASHBOARD.HELP" | translate}}]</b>
-    </p>
-
-
-    <br><br>
-
-  </div>
-  <div class="flex justify-end mt-3">
-    <app-button [typeButton]="'primary'" (click)="closeFirstAccess()" cdkFocusInitial>{{"CLOSE" | translate}}</app-button>
+  
+  <div class="sticky bottom-0 bg-white p-3 shadow-md border-t border-gray-200 mt-auto">
+    <div class="flex justify-end">
+      <app-button [typeButton]="'primary'" (click)="closeFirstAccess()" cdkFocusInitial>{{"CLOSE" | translate}}</app-button>
+    </div>
   </div>
 </div>

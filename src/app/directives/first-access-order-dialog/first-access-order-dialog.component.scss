@@ -1,0 +1,12 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 90vh;
+}
+
+:host ::ng-deep .mat-dialog-container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
