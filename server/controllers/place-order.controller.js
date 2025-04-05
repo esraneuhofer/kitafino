@@ -131,6 +131,7 @@ async function addOrder(req) {
     // Validierung des Kundenkontos
     const account = await validateCustomerAccount(req._id, totalPrice, session);
 
+    
     // Erzeugen einer eindeutigen Bestellnummer
     const orderId = new mongoose.Types.ObjectId();
 
