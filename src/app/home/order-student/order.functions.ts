@@ -39,6 +39,7 @@ export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsIn
 
 
 }
+
 export function timeDifference(difference:number,withSeconds:boolean):string {
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
   difference %= (1000 * 60 * 60 * 24);  // subtract the days
