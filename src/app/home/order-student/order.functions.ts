@@ -19,7 +19,7 @@ dayjs.extend(timezone);
 export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsInterface,orderDate:Date):number{
   if(generalSettings.isDeadlineDaily){
     let isNotFormat =  !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
-    if(!generalSettings.cancelOrderDaily ||  isNotFormat){
+    if(!generalSettings.hasCancelDaily ||  isNotFormat){
       return timeDifferenceDay(generalSettings.deadlineDaily, orderDate)
     }else{
       return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);
@@ -29,7 +29,7 @@ export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsIn
     let kw = getWeekNumber(orderDate);
     let year = orderDate.getFullYear();
     let isNotFormat =  !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
-    if(!generalSettings.cancelOrderDaily ||  isNotFormat){
+    if(!generalSettings.hasCancelDaily ||  isNotFormat){
       return getDeadlineWeeklyFunction(generalSettings, kw, getWeekNumber(new Date()), new Date().getFullYear(), year);
     }else{
       return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);

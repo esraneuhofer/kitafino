@@ -68,7 +68,7 @@
           <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3 w-full">
             <div class="flex justify-between items-center w-full">
               <!-- Links ausgerichteter Text, aber nur wenn vorhanden -->
-              <span *ngIf="pastOrder && !pastCancelation && eachMenu.typeOrder === 'menu'" class="text-left" (click)="setOrderIconCancel(indexMenu)">
+              <span *ngIf="pastOrder && !pastCancelation && eachMenu.typeOrder === 'menu' && customer.generalSettings.hasCancelDaily" class="text-left" (click)="setOrderIconCancel(indexMenu)">
                 {{ 'ABBESTELLUNG_MOEGLICH' | translate }}
               </span>
 

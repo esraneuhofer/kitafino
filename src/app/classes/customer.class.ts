@@ -82,6 +82,7 @@ interface CustomerOrderSplit{
 
 
 export interface GeneralSettingsInterface {
+  state: string
   subGroupSettingTenant: boolean; // Decides if the tenant has the ability to set subgroups if false the subgroups are set by the Customer/Einrichtung
   allergiesSetByTenant: boolean; // Decides if the tenant has the ability to set allergies if false the allergies are set by the Customer/Einrichtung
   showAllSpecialFood: boolean;
@@ -94,11 +95,19 @@ export interface GeneralSettingsInterface {
     day: string;
     time: string;
   };
-  deadlineDaily: DeadlineDailyInterface;
-  cancelOrderDaily:DeadlineDailyInterface;
-  state: string;
+  deadlineDaily: {
+    day: string;
+    time: string;
+  };
+  hasCancelDaily: boolean;
+  hasAdditionDaily:boolean;
+  cancelOrderDaily: {
+    day: string;
+    time: string;
+  };
   hideMenuName: boolean;
-  allowOnlyOneMenu: boolean; // Wenn aktiviert kann man Nur ein Menü auswählen. Bei der Auswahl eines Allergiker Essens wird das normale Menü abgewählt
+  allowOnlyOneMenu: boolean;
+  startPermanentOrders:string;
 }
 
 export interface DeadlineDailyInterface{

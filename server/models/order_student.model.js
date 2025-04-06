@@ -91,50 +91,50 @@ function normalizeToBerlinDateSeconds(date) {
 
 
 
-orderStudentSchema.pre('save', async function (next) {
-  try {
-    // Bestehende Funktionalität beibehalten
+// orderStudentSchema.pre('save', async function (next) {
+//   try {
+//     // Bestehende Funktionalität beibehalten
 
 
-    // Neuer Code: Buchungskonto finden und aktualisieren
-    if (this.isNew && !this.orderProcessedBuchung) { // Nur bei neuen Bestellungen das Konto belasten
-      const orderPlaced = getOrderPlaced(this);
+//     // Neuer Code: Buchungskonto finden und aktualisieren
+//     if (this.isNew && !this.orderProcessedBuchung) { // Nur bei neuen Bestellungen das Konto belasten
+//       const orderPlaced = getOrderPlaced(this);
 
-      if (orderPlaced && orderPlaced.priceOrder) {
-        try {
-          // Buchungskonto finden
-          const buchungskonto = await Buchungskonten.findOne({ userId: this.userId });
+//       if (orderPlaced && orderPlaced.priceOrder) {
+//         try {
+//           // Buchungskonto finden
+//           const buchungskonto = await Buchungskonten.findOne({ userId: this.userId });
 
-          if (buchungskonto) {
-            // Aktuelle Bestellung vom Kontostand abziehen
-            buchungskonto.currentBalance -= orderPlaced.priceOrder;
+//           if (buchungskonto) {
+//             // Aktuelle Bestellung vom Kontostand abziehen
+//             buchungskonto.currentBalance -= orderPlaced.priceOrder;
 
-            // Buchungskonto speichern
-            await buchungskonto.save();
+//             // Buchungskonto speichern
+//             await buchungskonto.save();
 
-            // Erfolgreich verarbeitet
-            this.orderProcessedBuchung = true;
-            console.log(`Buchungskonto für userId ${this.userId} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
-          } else {
-            // Kein Konto gefunden, aber kein Fehler
-            this.orderProcessedBuchung = false;
-            console.log(`Kein Buchungskonto für userId ${this.userId} gefunden`);
-          }
-        } catch (buchungsError) {
-          // Fehler beim Aktualisieren des Buchungskontos
-          this.orderProcessedBuchung = false;
-          console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
-        }
-      }
-    }
+//             // Erfolgreich verarbeitet
+//             this.orderProcessedBuchung = true;
+//             console.log(`Buchungskonto für userId ${this.userId} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
+//           } else {
+//             // Kein Konto gefunden, aber kein Fehler
+//             this.orderProcessedBuchung = false;
+//             console.log(`Kein Buchungskonto für userId ${this.userId} gefunden`);
+//           }
+//         } catch (buchungsError) {
+//           // Fehler beim Aktualisieren des Buchungskontos
+//           this.orderProcessedBuchung = false;
+//           console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
+//         }
+//       }
+//     }
 
-    // Bestellung wird immer gespeichert, unabhängig vom Status der Buchungskonto-Aktualisierung
-    next();
-  } catch (error) {
-    console.error('Allgemeiner Fehler beim Speichern der Bestellung:', error);
-    next(error);
-  }
-});
+//     // Bestellung wird immer gespeichert, unabhängig vom Status der Buchungskonto-Aktualisierung
+//     next();
+//   } catch (error) {
+//     console.error('Allgemeiner Fehler beim Speichern der Bestellung:', error);
+//     next(error);
+//   }
+// });
 // Hauptindex für die Eindeutigkeit von Bestellungen
 orderStudentSchema.index(
   {studentId: 1, dateOrder: 1},
