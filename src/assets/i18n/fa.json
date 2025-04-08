@@ -607,6 +607,10 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "موجودی حساب برای این سفارش کافی نیست.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "سفارش(ها) یافت شد",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT":"سفارش‌های آینده برای شرکت‌کننده در غذا قبلاً یافت شده است. لطفاً قبل از حذف شرکت‌کننده در غذا، سفارش‌ها را لغو کنید.",
-  "ABBESTELLUNG_MOEGLICH": "لغو امکان‌پذیر است"
+  "ABBESTELLUNG_MOEGLICH": "لغو امکان‌پذیر است",
+  "REPORT_ERROR_HEADER": "گزارش خطا / بهبود",
+  "REPORT_ERROR_TEXT": "لطفاً نوع گزارش را انتخاب کنید و توضیح مختصری در مورد مشکل ارائه دهید.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "نوع گزارش",
+  "SENDEN": "ارسال"
 
 }

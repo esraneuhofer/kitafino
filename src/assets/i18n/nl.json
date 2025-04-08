@@ -607,7 +607,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Het saldo is niet voldoende voor deze bestelling.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Bestelling(en) gevonden",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Er zijn al toekomstige bestellingen gevonden voor de maaltijddeelnemer. Annuleer eerst de bestellingen voordat u de maaltijddeelnemer verwijdert.",
-  "ABBESTELLUNG_MOEGLICH": "Annulering mogelijk"
+  "ABBESTELLUNG_MOEGLICH": "Annulering mogelijk",
+  "REPORT_ERROR_HEADER": "Fout / verbetering melden",
+  "REPORT_ERROR_TEXT": "Selecteer het type melding en geef een korte beschrijving van het probleem.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Type melding",
+  "SENDEN": "Verzenden"
 
 }
 

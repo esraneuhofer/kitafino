@@ -608,7 +608,10 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Le solde du compte n'est pas suffisant pour cette commande.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Commande(s) trouvée(s)",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Des commandes futures ont déjà été trouvées pour le participant au repas. Veuillez d'abord annuler les commandes avant de supprimer le participant au repas.",
-  "ABBESTELLUNG_MOEGLICH": "Annulation possible"
-
+  "ABBESTELLUNG_MOEGLICH": "Annulation possible",
+  "REPORT_ERROR_HEADER": "Signaler une erreur / suggestion d'amélioration",
+  "REPORT_ERROR_TEXT": "Veuillez sélectionner le type de signalement et nous fournir une brève description du problème.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Type de signalement",
+  "SENDEN": "Envoyer"
 }
 

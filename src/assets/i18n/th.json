@@ -607,7 +607,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "ยอดเงินในบัญชีไม่เพียงพอสำหรับคำสั่งซื้อนี้",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "พบการสั่งซื้อ",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "พบการสั่งซื้อในอนาคตสำหรับผู้เข้าร่วมการรับประทานอาหารแล้ว โปรดยกเลิกการสั่งซื้อก่อนที่จะลบผู้เข้าร่วมการรับประทานอาหาร",
-  "ABBESTELLUNG_MOEGLICH": "สามารถยกเลิกได้"
+  "ABBESTELLUNG_MOEGLICH": "สามารถยกเลิกได้",
+  "REPORT_ERROR_HEADER": "รายงานข้อผิดพลาด / การปรับปรุง",
+  "REPORT_ERROR_TEXT": "โปรดเลือกประเภทของรายงานและให้คำอธิบายสั้น ๆ เกี่ยวกับปัญหา",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "ประเภทของรายงาน",
+  "SENDEN": "ส่ง"
 
 }
 

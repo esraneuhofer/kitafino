@@ -603,7 +603,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "账户余额不足，无法完成此订单。",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "找到订单",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "已经找到该供餐参与者未来的订单。请先取消订单，然后再删除该供餐参与者。",
-  "ABBESTELLUNG_MOEGLICH": "可以取消"
+  "ABBESTELLUNG_MOEGLICH": "可以取消",
+  "REPORT_ERROR_HEADER": "报告错误 / 改进",
+  "REPORT_ERROR_TEXT": "请选择报告类型并提供问题的简短描述。",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "报告类型",
+  "SENDEN": "发送"
 
 }
 

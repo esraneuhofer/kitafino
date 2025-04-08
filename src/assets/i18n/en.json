@@ -605,5 +605,9 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "The account balance is not sufficient for this order.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Order(s) found",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Future orders for the meal participant have already been found. Please cancel the orders first before deleting the meal participant.",
-  "ABBESTELLUNG_MOEGLICH": "Cancellation possible"
+  "ABBESTELLUNG_MOEGLICH": "Cancellation possible",
+  "REPORT_ERROR_HEADER": "Report Error / Suggestion",
+  "REPORT_ERROR_TEXT": "Please select the type of report and provide us with a brief description of the issue.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Type of Report",
+  "SENDEN": "Send"
 }

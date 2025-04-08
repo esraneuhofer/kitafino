@@ -600,6 +600,9 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "El saldo de la cuenta no es suficiente para este pedido.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Pedido(s) encontrado(s)",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Ya se han encontrado pedidos futuros para el participante de alimentación. Por favor, cancele primero los pedidos antes de eliminar al participante de alimentación.",
-  "ABBESTELLUNG_MOEGLICH": "Cancelación posible"
-
+  "ABBESTELLUNG_MOEGLICH": "Cancelación posible",
+  "REPORT_ERROR_HEADER": "Reportar error / sugerencia de mejora",
+  "REPORT_ERROR_TEXT": "Por favor, seleccione el tipo de reporte y proporciónenos una breve descripción del problema.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Tipo de reporte",
+  "SENDEN": "Enviar"
 }

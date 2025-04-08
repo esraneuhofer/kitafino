@@ -9,7 +9,7 @@ const timezone = require('dayjs/plugin/timezone');
 const Tenantparent = mongoose.model('Tenantparent');
 const Student = mongoose.model('StudentNew');
 const Buchungskonten = mongoose.model('Buchungskonten');
-
+const {sendMonitoringEmail} = require('./order-functions');
 
 const {setEmailReminder} = require('./email-balance-reminder');
 const sgMail = require("@sendgrid/mail");
@@ -79,6 +79,10 @@ async function addOrderBut(req) {
     console.log('Error:', error);
     await session.abortTransaction();
     // Forward the error from saveNewOrder
+
+    // Monitoring-E-Mail bei Fehler senden
+    await sendMonitoringEmail(req, error, 'BUT');
+
     throw new Error(error.message);
   } finally {
     session.endSession();
@@ -212,6 +216,9 @@ async function addOrder(req) {
     if (session && session.inTransaction()) {
       await session.abortTransaction();
     }
+
+    // Monitoring-E-Mail bei Fehler senden
+    await sendMonitoringEmail(req, error, 'normal');
 
     // Benutzerfreundliche Fehlermeldung zurückgeben
     return {

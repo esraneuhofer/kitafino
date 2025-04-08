@@ -3,6 +3,7 @@ const OrderStudent = mongoose.model('OrderStudent');
 const AccountSchema = mongoose.model('AccountSchema');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
 const OrderStudentCancel = mongoose.model('OrderStudentCancel');
+const {sendMonitoringEmail} = require('./order-functions');
 
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
@@ -64,6 +65,10 @@ module.exports.cancelOrderStudent = async (req, res, next) => {
   } catch (error) {
     await session.abortTransaction();
     console.error('Error during order cancellation:', error);
+
+    // Monitoring-E-Mail bei Fehler senden
+    await sendMonitoringEmail(req, error, 'cancel');
+
     const status = error.statusCode || 500;
     res.status(status).json({ success: false, message: error.message || 'Bestellung konnte nicht storniert werden. Bitte versuchen Sie es erneut.' });
   } finally {

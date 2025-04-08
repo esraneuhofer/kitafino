@@ -1,5 +1,40 @@
-{
-  "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Der Kontostand ist nicht ausreichend für diese Bestellung.",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Order(s) found",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Future orders for the meal participant have already been found. Please cancel the orders first before deleting the meal participant."
+
+hr: {
+
+},
+fa: {
+
+},
+pl: {
+
+},
+zh: {
+
+},
+fr: {
+
+},
+it: {
+
+},
+ru: {
+
+},
+el: {
+
+},
+th: {
+
+},
+nl: {
+
+},
+hi: {
+
+},
+yue: {
+
+},
+bg: {
+
 }

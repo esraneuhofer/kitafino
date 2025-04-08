@@ -1,3 +1,66 @@
+const sgMail = require("@sendgrid/mail");
+
+// Wiederverwendbare Monitoring-Email-Funktion
+/**
+ * Sendet eine Monitoring-E-Mail bei Bestellfehlern
+ *
+ * @param {Object} req - Das Request-Objekt mit den Bestelldaten
+ * @param {Error} error - Das Error-Objekt, das den Fehler beschreibt
+ * @param {string} orderType - Der Typ der Bestellung (z.B. 'normal', 'BUT')
+ * @returns {Promise<void>}
+ */
+
+async function sendMonitoringEmail(req, error, operationType = 'normal') {
+  try {
+    const currentTime = new Date();
+    const formattedTime = currentTime.toISOString();
+
+    // Abhängig vom Operationstyp die richtigen Betreff- und Inhaltstexte setzen
+    let subjectPrefix = '';
+    let operationTitle = 'Bestellverarbeitung';
+    let additionalInfo = '';
+
+    switch(operationType.toLowerCase()) {
+      case 'but':
+        subjectPrefix = 'BUT-';
+        operationTitle = 'BUT-Bestellverarbeitung';
+        break;
+      case 'cancel':
+        subjectPrefix = 'Stornierungs-';
+        operationTitle = 'Stornierungsverarbeitung';
+        // Ordnungs-ID für Stornierungen hinzufügen
+        additionalInfo = `<p><strong>OrderId:</strong> ${req.body?.orderId || 'Nicht verfügbar'}</p>`;
+        break;
+      default:
+        subjectPrefix = '';
+        operationTitle = 'Bestellverarbeitung';
+    }
+
+    const monitoringEmail = {
+      to: 'monitoring@cateringexpert.de',
+      from: 'system@cateringexpert.de',
+      subject: `${subjectPrefix}Fehler aufgetreten`,
+      html: `
+      <h2>Fehler bei ${operationTitle}</h2>
+      <p><strong>UserId:</strong> ${req._id || 'Nicht verfügbar'}</p>
+      <p><strong>Datum/Uhrzeit:</strong> ${formattedTime}</p>
+      <p><strong>Grund:</strong> ${error.message || 'Unbekannter Fehler'}</p>
+
+      <h3>Zusätzliche Informationen:</h3>
+      ${additionalInfo}
+      <p><strong>tenantId:</strong> ${req.tenantId || 'Nicht verfügbar'}</p>
+      <p><strong>customerId:</strong> ${req.customerId || 'Nicht verfügbar'}</p>
+      `
+    };
+
+    await sgMail.send(monitoringEmail);
+    console.log(`Monitoring-E-Mail über fehlgeschlagene ${operationTitle} gesendet`);
+  } catch (emailError) {
+    console.error('Fehler beim Senden der Monitoring-E-Mail:', emailError);
+    // Wir lassen den Fehler trotz E-Mail-Fehler weiterlaufen
+  }
+}
+
 
 function getSpecialFoodNameById(settings, idSpecialFood) {
   let nameSpecialFood = 'Allergiker Essen';
@@ -132,5 +195,6 @@ function getTotalPrice (order) {
 module.exports = {
   getTotalPrice,
   getPriceStudent,
-  getNameMenuDay
+  getNameMenuDay,
+  sendMonitoringEmail
 };

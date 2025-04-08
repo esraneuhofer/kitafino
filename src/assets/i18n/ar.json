@@ -604,6 +604,9 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "رصيد الحساب غير كاف لهذا الطلب.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "تم العثور على طلب/طلبات",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "تم بالفعل العثور على طلبات مستقبلية للمشارك في التغذية. يرجى إلغاء الطلبات أولاً قبل حذف المشارك في التغذية.",
-  "ABBESTELLUNG_MOEGLICH": "إلغاء ممكن"
-
+  "ABBESTELLUNG_MOEGLICH": "إلغاء ممكن",
+  "REPORT_ERROR_HEADER": "الإبلاغ عن خطأ / اقتراح تحسين",
+  "REPORT_ERROR_TEXT": "يرجى اختيار نوع التقرير وتزويدنا بوصف موجز للمشكلة.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "نوع التقرير",
+  "SENDEN": "إرسال"
 }

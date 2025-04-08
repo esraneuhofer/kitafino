@@ -605,6 +605,10 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Балансу рахунку недостатньо для цього замовлення.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Знайдено замовлення",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Для учасника харчування вже знайдені майбутні замовлення. Будь ласка, спочатку скасуйте замовлення, перш ніж видалити учасника харчування.",
-  "ABBESTELLUNG_MOEGLICH": "Скасування можливе"
+  "ABBESTELLUNG_MOEGLICH": "Скасування можливе",
+  "REPORT_ERROR_HEADER": "Повідомити про помилку / покращення",
+  "REPORT_ERROR_TEXT": "Будь ласка, оберіть тип повідомлення та надайте короткий опис проблеми.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Тип повідомлення",
+  "SENDEN": "Надіслати"
 
 }

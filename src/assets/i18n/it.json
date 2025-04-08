@@ -609,7 +609,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Il saldo del conto non è sufficiente per questo ordine.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Ordine/i trovato/i",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Sono stati già trovati ordini futuri per il partecipante al vitto. Si prega di annullare prima gli ordini prima di eliminare il partecipante al vitto.",
-  "ABBESTELLUNG_MOEGLICH": "Annullamento possibile"
+  "ABBESTELLUNG_MOEGLICH": "Annullamento possibile",
+  "REPORT_ERROR_HEADER": "Segnala errore / miglioramento",
+  "REPORT_ERROR_TEXT": "Seleziona il tipo di segnalazione e fornisci una breve descrizione del problema.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Tipo di segnalazione",
+  "SENDEN": "Invia"
 
 }
 

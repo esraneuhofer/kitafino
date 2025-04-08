@@ -607,7 +607,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Saldo konta nie jest wystarczające dla tego zamówienia.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Znaleziono zamówienie/a",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Znaleziono już przyszłe zamówienia dla uczestnika wyżywienia. Proszę najpierw anulować zamówienia, zanim usuniesz uczestnika wyżywienia.",
-  "ABBESTELLUNG_MOEGLICH": "Anulowanie możliwe"
+  "ABBESTELLUNG_MOEGLICH": "Anulowanie możliwe",
+  "REPORT_ERROR_HEADER": "Zgłoś błąd / sugestię poprawy",
+  "REPORT_ERROR_TEXT": "Proszę wybrać rodzaj zgłoszenia i krótko opisać problem.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Rodzaj zgłoszenia",
+  "SENDEN": "Wyślij"
 
 }
 

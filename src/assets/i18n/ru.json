@@ -609,7 +609,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Баланс счета недостаточен для этого заказа.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Найден(ы) заказ(ы)",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Для участника питания уже найдены будущие заказы. Пожалуйста, сначала отмените заказы, прежде чем удалить участника питания.",
-  "ABBESTELLUNG_MOEGLICH": "Отмена возможна"
+  "ABBESTELLUNG_MOEGLICH": "Отмена возможна",
+  "REPORT_ERROR_HEADER": "Сообщить об ошибке / улучшении",
+  "REPORT_ERROR_TEXT": "Пожалуйста, выберите тип сообщения и кратко опишите проблему.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Тип сообщения",
+  "SENDEN": "Отправить"
 
 }
 

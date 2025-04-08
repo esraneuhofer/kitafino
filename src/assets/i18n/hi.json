@@ -604,7 +604,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "इस ऑर्डर के लिए खाता शेष पर्याप्त नहीं है।",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "आदेश मिला/मिले",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "भोजन प्रतिभागी के लिए भविष्य के आदेश पहले से ही मिल गए हैं। कृपया भोजन प्रतिभागी को हटाने से पहले आदेशों को रद्द करें।",
-  "ABBESTELLUNG_MOEGLICH": "रद्द करना संभव है"
+  "ABBESTELLUNG_MOEGLICH": "रद्द करना संभव है",
+  "REPORT_ERROR_HEADER": "त्रुटि / सुधार की सूचना दें",
+  "REPORT_ERROR_TEXT": "कृपया रिपोर्ट का प्रकार चुनें और समस्या का एक संक्षिप्त विवरण दें।",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "रिपोर्ट का प्रकार",
+  "SENDEN": "भेजें"
 
 }
 

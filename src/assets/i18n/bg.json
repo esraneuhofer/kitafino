@@ -610,7 +610,11 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Салдото на сметката не е достатъчно за тази поръчка.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Намерена/и поръчка/и",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Вече са намерени бъдещи поръчки за участника в храненето. Моля, първо отменете поръчките, преди да изтриете участника в храненето.",
-  "ABBESTELLUNG_MOEGLICH": "Анулиране възможно"
+  "ABBESTELLUNG_MOEGLICH": "Анулиране възможно",
+  "REPORT_ERROR_HEADER": "Докладване на грешка / подобрение",
+  "REPORT_ERROR_TEXT": "Моля, изберете вида на доклада и предоставете кратко описание на проблема.",
+  "REPORT_ERROR_TEXT_TYPE_LABEL": "Вид на доклада",
+  "SENDEN": "Изпращане"
 
 }
 
