@@ -54,23 +54,23 @@
             <div class="sm:flex sm:items-center">
               <div class="sm:flex-auto">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'DOCUMENTS.TITLE' | translate }}</h1>
-                <p class="mt-2 text-sm text-gray-700" [innerHTML]="'DOCUMENTS.DESCRIPTION' | translate "></p>
+<!--                <p class="mt-2 text-sm text-gray-700" [innerHTML]="'DOCUMENTS.DESCRIPTION' | translate "></p>-->
               </div>
             </div>
             <div class="mt-6 flow-root">
-              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <label for="query" class="block text-sm font-medium leading-6 text-gray-900">{{ 'AUSWAHL' | translate }}</label>
-                <select [(ngModel)]="query"
-                        id="query"
-                        (ngModelChange)="changeSelection($event)"
-                        class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
-                  <option value="all">{{ 'ALLE' | translate }}</option>
-                  <option value="help">{{ 'ALLGEMEIN' | translate }}</option>
-                  <option value="registration">{{ 'ANMELDUNG_MULTI' | translate }}</option>
-                </select>
-                </div>
-              </div>
+<!--              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">-->
+<!--                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">-->
+<!--                <label for="query" class="block text-sm font-medium leading-6 text-gray-900">{{ 'AUSWAHL' | translate }}</label>-->
+<!--                <select [(ngModel)]="query"-->
+<!--                        id="query"-->
+<!--                        (ngModelChange)="changeSelection($event)"-->
+<!--                        class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">-->
+<!--                  <option value="all">{{ 'ALLE' | translate }}</option>-->
+<!--                  <option value="help">{{ 'ALLGEMEIN' | translate }}</option>-->
+<!--                  <option value="registration">{{ 'ANMELDUNG_MULTI' | translate }}</option>-->
+<!--                </select>-->
+<!--                </div>-->
+<!--              </div>-->
               <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-6">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
 

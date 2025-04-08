@@ -14,6 +14,7 @@ const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
 const Feedback = mongoose.model('FeedbackSchema');
+const ErrorReport = mongoose.model('ErrorReport');
 
 const {convertToSendGridFormat} = require("./sendfrid.controller");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -39,6 +40,74 @@ module.exports.sendFeedback = (req, res, next) => {
     console.log('Feedback saved error:', e);
     res.json({ student: e, error: true });
   });
+};
+
+module.exports.reportError = async (req, res, next) => {
+  try {
+    const { message, typeError, route } = req.body;
+
+    // Überprüfen, ob erforderliche Felder vorhanden sind
+    if (!message || !typeError) {
+      return res.status(400).json({
+        success: false,
+        message: 'Bitte füllen Sie alle erforderlichen Felder aus.'
+      });
+    }
+
+    // Aktuelle Benutzerinformationen holen (falls authentifiziert)
+    let userId = req._id;
+
+
+    // Neuen Fehlerbericht erstellen
+    const newErrorReport = new ErrorReport({
+      message,
+      typeError,
+      route,
+      userId,
+
+    });
+
+    // Fehlerbericht in der Datenbank speichern
+    const savedReport = await newErrorReport.save();
+
+
+    // E-Mail an das Admin-Team
+    const adminMsg = {
+      to: 'error_email_notification@cateringexpert.de',
+      from: 'noreply@cateringexpert.de',
+      subject: `Neue Meldung: ${typeError.toUpperCase()}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Neue Meldung eingegangen</h2>
+          <p><strong>Typ:</strong> ${typeError}</p>
+          <p><strong>Route:</strong> ${route}</p>
+          <p><strong>Benutzer:</strong> ${userId || 'Nicht angemeldet'} </p>
+          <p><strong>Nachricht:</strong></p>
+          <p style="background-color: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
+          <p><strong>ID:</strong> ${savedReport._id}</p>
+          <p>Diese Meldung können Sie im Admin-Bereich bearbeiten.</p>
+        </div>
+      `
+    };
+
+    await sgMail.send(adminMsg);
+
+    // Erfolgreiche Antwort an das Frontend senden
+    return res.status(200).json({
+      success: true,
+      message: `Ihr ${typeError} wurde erfolgreich gemeldet. Vielen Dank für Ihre Mithilfe!`,
+      typeError: typeError,
+      reportId: savedReport._id
+    });
+
+  } catch (error) {
+    console.error('Fehler beim Speichern des Fehlerberichts:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.'
+    });
+  }
 };
 
 module.exports.getSettingsCaterer = async (req, res, next) => {

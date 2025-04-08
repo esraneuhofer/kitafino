@@ -12,6 +12,7 @@ import {HelpDialogComponent} from "../directives/help-dialog/help-dialog.compone
 import {FirstAccessDialogComponent} from "../directives/first-access-dialog/first-access-dialog.component";
 import {NotificationService} from "../service/notification.service";
 import {Capacitor} from "@capacitor/core";
+import {ReportErrorDialogComponent} from "./dialogs/report-error-dialog/report-error-dialog.component";
 
 @Component({
   selector: 'app-home',
@@ -121,6 +122,15 @@ export class HomeComponent implements OnInit {
 
   }
 
+  openErrorReportDialog() {
+    const dialogRef = this.dialog.open(ReportErrorDialogComponent, {
+      width: '600px',
+      data: {route: this.currentRoute},
+      panelClass: 'custom-dialog-container',
+      position: {top: '20px'}
+    });
+  }
+
   openHelp() {
     const dialogRef = this.dialog.open(HelpDialogComponent, {
       width: '600px',
@@ -129,7 +139,6 @@ export class HomeComponent implements OnInit {
       position: {top: '20px'}
     });
   }
-
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.updateSelectLanguageWidth();
@@ -216,5 +225,7 @@ export class HomeComponent implements OnInit {
     event.stopPropagation();
     this.isSubmenuOpen = !this.isSubmenuOpen;
   }
+
+
 }
 

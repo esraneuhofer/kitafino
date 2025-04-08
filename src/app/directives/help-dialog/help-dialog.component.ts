@@ -28,7 +28,7 @@ interface HelpText {
   contentRegular: string[];
 }
 
-function getLastSegment(route: string): string {
+export function getLastSegment(route: string): string {
   const segments = route.split('/');
   return getSegmentDouble(segments[segments.length - 1])
 }

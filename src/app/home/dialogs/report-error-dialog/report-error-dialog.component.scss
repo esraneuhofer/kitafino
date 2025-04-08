@@ -1,0 +1,57 @@
+.dialog-content {
+  padding: 16px;
+  max-height: 80vh;
+}
+
+.icon-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+// Bessere Anzeige im Fehlerzustand
+textarea.border-red-500, select.border-red-500 {
+  border: 1px solid #ef4444 !important;
+  box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+// Verbesserte Fokus-Anzeige
+textarea:focus, select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+// Konsistente Rahmen für Textarea und Select
+textarea, select {
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+// Verbesserte Abstände
+mat-dialog-actions {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+// Verbesserte Abstandsgestaltung
+form {
+  margin-bottom: 16px;
+}
+
+// Placeholder-Styling
+textarea::placeholder {
+  color: #9ca3af;
+}
+
+// Mobile Optimierungen
+@media (max-width: 640px) {
+  .dialog-content {
+    padding: 12px;
+  }
+
+  mat-dialog-actions {
+    padding: 8px 12px;
+  }
+}

@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
 import {SchoolMessageInterface} from "../classes/school-message.interface";
 import {OrderInterfaceStudentSave} from "../classes/order_student_safe.class";
+import {ErrorReportModel} from "../home/dialogs/report-error-dialog/report-error-dialog.component";
 
 export interface HelpPdfInterface {
   routeName:string;
@@ -28,6 +29,9 @@ export class HelpService {
       .pipe(map((response: any[]) => (response)));
   }
 
+  sendErrorReport(errorReport: ErrorReportModel): Observable<any> {
+    return this.http.post(environment.apiBaseUrl + '/reportError', errorReport);
+  }
 
   getSingleHelpPdfBase(object:{routeName:string}) {
     return this.http.get<HelpPdfInterface>(environment.apiBaseUrl + '/getSingleHelpPdfBase', {params: object})

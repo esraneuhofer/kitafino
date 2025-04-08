@@ -1,0 +1,68 @@
+<mat-dialog-content class="dialog-content flex flex-col h-full">
+  <div class="icon-wrapper">
+    <button
+      mat-dialog-close
+      class="p-2 rounded-full shadow-lg focus:outline-none inline-flex items-center justify-center h-8 w-8 ml-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Scrollable content -->
+  <div class="flex-grow overflow-y-auto mt-2">
+    <form #f1="ngForm" novalidate>
+      <h3 class="text-base font-semibold leading-6 text-gray-900">{{"REPORT_ERROR_HEADER" | translate}}</h3>
+      <div class="text-sm text-gray-500 mt-1">
+        <span [innerHTML]="'REPORT_ERROR_TEXT' | translate"></span>
+      </div>
+      <div class="mt-4 w-full">
+        <label class="block text-sm font-medium leading-6 text-gray-900" for="typeErrorModel">
+          {{ 'REPORT_ERROR_TEXT_TYPE_LABEL' | translate }}
+        </label>
+
+        <select #typeErrorField="ngModel"
+                (ngModelChange)="changeType($event)"
+                [(ngModel)]="model.typeError"
+                class="block w-full rounded-md border border-gray-300 py-2 px-3 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
+                [ngClass]="{'border-red-500 ring-1 ring-red-500': f1.submitted && typeErrorField.invalid}"
+                id="typeErrorModel"
+                name="typeErrorModel"
+                required>
+          <option value="" disabled
+                  hidden>{{ 'MANAGE_PERMANENT_ORDERS.SELECT_OPTION' | translate }}</option>
+          <option *ngFor="let menu of optionSelection"
+                  [ngValue]="menu.type">
+            {{ menu.value}}
+          </option>
+        </select>
+        <p *ngIf="f1.submitted && typeErrorField.invalid" class="mt-1 text-sm text-red-600" >{{ 'REQUIRED_FIELD' | translate }}</p>
+
+      </div>
+      <div class="mt-6">
+        <label for="messageModel" class="block text-sm font-medium leading-6 text-gray-900">{{ 'LABEL_FEEDBACK' | translate }}</label>
+        <div class="mt-2">
+                  <textarea type="text"
+                            required
+                            rows="5"
+                            #messageField="ngModel"
+                            [(ngModel)]="model.message"
+                            name="messageModel"
+                            id="messageModel"
+                            [ngClass]="{'border-red-500 ring-1 ring-red-500': f1.submitted && messageField.invalid}"
+                            autocomplete="off"
+                            placeholder="{{ 'Geben Sie hier Ihre Nachricht ein' | translate }}"
+                            class="block w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 shadow-sm focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm sm:leading-6">
+                  </textarea>
+        </div>
+        <p *ngIf="f1.submitted && messageField.invalid" class="mt-1 text-sm text-red-600">{{ 'REQUIRED_FIELD' | translate }}</p>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+
+<!-- Fixed button -->
+<mat-dialog-actions class="mt-3 p-4" style="display: flex; justify-content: flex-end; gap: 8px;">
+  <app-button [typeButton]="'warning'" mat-dialog-close>{{"CLOSE" | translate}}</app-button>
+  <app-button [submittingRequest]="submittingRequest" [typeButton]="'primary'" (click)="sendMessage(f1)" type="submit" cdkFocusInitial>{{"SENDEN" | translate}}</app-button>
+</mat-dialog-actions>
