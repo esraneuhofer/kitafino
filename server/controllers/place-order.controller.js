@@ -200,7 +200,6 @@ async function addOrder(req) {
       message: 'Bestellung erfolgreich aufgegeben',
       orderId: orderId.toString(),
       balance: account.currentBalance,
-      orderProcessedBuchung: orderProcessedBuchung
     };
 
   } catch (error) {
