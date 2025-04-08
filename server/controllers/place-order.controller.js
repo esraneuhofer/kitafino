@@ -130,7 +130,7 @@ async function addOrder(req) {
 
     // Validierung des Kundenkontos
     const account = await validateCustomerAccount(req._id, totalPrice, session);
-    
+
     // Erzeugen einer eindeutigen Bestellnummer
     const orderId = new mongoose.Types.ObjectId();
 
@@ -158,36 +158,36 @@ async function addOrder(req) {
     // Speichern der Bestellinformationen
     await saveOrderAccount(orderAccount, orderId, session, req.body.isBut);
 
-    // Hier: Buchungskonto-Verarbeitung hinzufügen
-    const orderPlaced = getOrderPlaced(req.body);
-    let orderProcessedBuchung = false;
-
-    if (orderPlaced && orderPlaced.priceOrder) {
-      try {
-        // Buchungskonto finden
-        const buchungskonto = await Buchungskonten.findOne({ userId: req._id }).session(session);
-
-        if (buchungskonto) {
-          // Aktuelle Bestellung vom Kontostand abziehen
-          buchungskonto.currentBalance -= orderPlaced.priceOrder;
-
-          // Buchungskonto speichern
-          await buchungskonto.save({ session });
-
-          // Erfolgreich verarbeitet
-          orderProcessedBuchung = true;
-          console.log(`Buchungskonto für userId ${req._id} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
-        } else {
-          console.log(`Kein Buchungskonto für userId ${req._id} gefunden`);
-        }
-      } catch (buchungsError) {
-        console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
-        // Wir setzen hier keinen Fehler, da die Bestellung trotzdem durchgehen soll
-      }
-    }
-
-    // Bestelldaten um orderProcessedBuchung erweitern
-    req.body.orderProcessedBuchung = orderProcessedBuchung;
+    // // Hier: Buchungskonto-Verarbeitung hinzufügen
+    // const orderPlaced = getOrderPlaced(req.body);
+    // let orderProcessedBuchung = false;
+    //
+    // if (orderPlaced && orderPlaced.priceOrder) {
+    //   try {
+    //     // Buchungskonto finden
+    //     const buchungskonto = await Buchungskonten.findOne({ userId: req._id }).session(session);
+    //
+    //     if (buchungskonto) {
+    //       // Aktuelle Bestellung vom Kontostand abziehen
+    //       buchungskonto.currentBalance -= orderPlaced.priceOrder;
+    //
+    //       // Buchungskonto speichern
+    //       await buchungskonto.save({ session });
+    //
+    //       // Erfolgreich verarbeitet
+    //       orderProcessedBuchung = true;
+    //       console.log(`Buchungskonto für userId ${req._id} aktualisiert. Neuer Kontostand: ${buchungskonto.currentBalance}`);
+    //     } else {
+    //       console.log(`Kein Buchungskonto für userId ${req._id} gefunden`);
+    //     }
+    //   } catch (buchungsError) {
+    //     console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
+    //     // Wir setzen hier keinen Fehler, da die Bestellung trotzdem durchgehen soll
+    //   }
+    // }
+    //
+    // // Bestelldaten um orderProcessedBuchung erweitern
+    // req.body.orderProcessedBuchung = orderProcessedBuchung;
 
     // Speichern der neuen Bestellung
     await saveNewOrder(req.body, orderId, session);
