@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Malheureusement, une erreur s’est produite lors de l’enregistrement de votre commande. Notre support technique a été informé et vous contactera prochainement.",
+  "ERROR_CANCEL_TOASTR": "Malheureusement, une erreur s’est produite lors de l’annulation de votre commande. Notre support technique a été informé et vous contactera prochainement.",
   "ADD_STUDENT_TEXT": "Ajouter un participant à la restauration",
   "CHANGE_DAY": "Changer le jour de commande",
   "WEEKEND_NO_ORDER": "Aucune commande ne peut être passée le week-end",

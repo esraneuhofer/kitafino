@@ -1,4 +1,8 @@
 {
+  "ERROR_ORDER_TOASTR": "Maalesef siparişiniz kaydedilirken bir hata oluştu. Teknik desteğimiz bilgilendirildi ve kısa süre içinde sizinle iletişime geçecektir.",
+  "ERROR_CANCEL_TOASTR": "Maalesef siparişiniz iptal edilirken bir hata oluştu. Teknik desteğimiz bilgilendirildi ve kısa süre içinde sizinle iletişime geçecektir.",
+  "ERROR_ORDER_TOASTR": "Siparişte hata oluştu. Teknik destek bilgilendirildi. En kısa sürede sizinle iletişime geçeceğiz",
+  "ERROR_CANCEL_TOASTR": "Siparişte hata oluştu. Teknik destek bilgilendirildi. En kısa sürede sizinle iletişime geçeceğiz",
   "ADD_STUDENT_TEXT": "Katılımcı ekle",
   "CHANGE_DAY": "Sipariş gününü değiştir",
   "WEEKEND_NO_ORDER": "Hafta sonları sipariş verilemez",

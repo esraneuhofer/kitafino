@@ -1,4 +1,7 @@
 {
+  "ERROR_ORDER_TOASTR": "Leider ist ein Fehler beim Erfassen Ihrer Bestellung aufgetreten. Unser technischer Support wurde informiert und meldet sich zeitnah bei Ihnen.",
+  "ERROR_CANCEL_TOASTR": "Leider ist ein Fehler beim Stornieren Ihrer Bestellung aufgetreten. Unser technischer Support wurde informiert und meldet sich zeitnah bei Ihnen.",
+
   "ADD_STUDENT_TEXT": "Verpflegungsteilnehmer/in hinzufügen",
   "CHANGE_DAY": "Bestelltag ändern",
   "WEEKEND_NO_ORDER": "Am Wochenende kann keine Bestellung aufgegeben werden",

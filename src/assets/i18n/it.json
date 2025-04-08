@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Sfortunatamente, si è verificato un errore durante la registrazione del tuo ordine. Il nostro supporto tecnico è stato informato e ti contatterà a breve.",
+  "ERROR_CANCEL_TOASTR": "Sfortunatamente, si è verificato un errore durante l'annullamento del tuo ordine. Il nostro supporto tecnico è stato informato e ti contatterà a breve.",
   "ADD_STUDENT_TEXT": "Aggiungi partecipante al pasto",
   "CHANGE_DAY": "Cambia giorno dell'ordine",
   "WEEKEND_NO_ORDER": "Non è possibile effettuare ordini nel fine settimana",

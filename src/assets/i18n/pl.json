@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Niestety wystąpił błąd podczas rejestrowania zamówienia. Nasze wsparcie techniczne zostało powiadomione i skontaktuje się z Tobą wkrótce.",
+  "ERROR_CANCEL_TOASTR": "Niestety wystąpił błąd podczas anulowania zamówienia. Nasze wsparcie techniczne zostało powiadomione i skontaktuje się z Tobą wkrótce.",
   "ADD_STUDENT_TEXT": "Dodaj uczestnika żywienia",
   "CHANGE_DAY": "Zmień dzień zamówienia",
   "WEEKEND_NO_ORDER": "W weekend nie można złożyć zamówienia",

@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Nažalost, došlo je do pogreške prilikom bilježenja vaše narudžbe. Naša tehnička podrška je obaviještena i uskoro će vam se javiti.",
+  "ERROR_CANCEL_TOASTR": "Nažalost, došlo je do pogreške prilikom otkazivanja vaše narudžbe. Naša tehnička podrška je obaviještena i uskoro će vam se javiti.",
   "ADD_STUDENT_TEXT": "Dodaj korisnika/icu prehrane",
   "CHANGE_DAY": "Promijeni datum narudžbe",
   "WEEKEND_NO_ORDER": "Tijekom vikenda se ne mogu predavati narudžbe",

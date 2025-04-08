@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Unfortunately, an error occurred while recording your order. Our technical support has been notified and will contact you shortly.",
+  "ERROR_CANCEL_TOASTR": "Unfortunately, an error occurred while canceling your order. Our technical support has been notified and will contact you shortly.",
   "ADD_STUDENT_TEXT": "Add participant",
   "CHANGE_DAY": "Change order day",
   "WEEKEND_NO_ORDER": "No orders can be placed on weekends",

@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Lamentablemente, se produjo un error al registrar su pedido. Nuestro soporte técnico ha sido informado y se pondrá en contacto con usted en breve.",
+  "ERROR_CANCEL_TOASTR": "Lamentablemente, se produjo un error al cancelar su pedido. Nuestro soporte técnico ha sido informado y se pondrá en contacto con usted en breve.",
   "ADD_STUDENT_TEXT": "Agregar participante de catering",
   "CHANGE_DAY": "Cambiar día de pedido",
   "WEEKEND_NO_ORDER": "No se pueden hacer pedidos el fin de semana",

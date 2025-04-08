@@ -429,7 +429,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   private handleOrderCancellationFailure(indexMenu: number) {
     this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
-    this.toastr.error('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport');
+    this.toastr.error(this.translate.instant('ERROR_CANCEL_TOASTR'), this.translate.instant('ERROR_TITLE'), {
+      timeOut: 7000,
+      closeButton: true,
+      progressBar: true,
+      disableTimeOut: false
+    });
+    // this.toastr.error('Fehler. Die Bestellung konnte nicht storniert werden. Sollte das Problem weiterhin bestehen wenden Sie sich bitte an unseren Kundensupport');
     this.submittingRequest = false;
     this.submittingOrder = false;
   }
@@ -543,7 +549,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.handleOrderResponse(data, orderModifiedForSave, type, result, indexMenu);
     } catch (error: any) {
       console.error('Error when placing order:', error);
-      this.toastr.error(error.error.message, 'Fehler');
+      this.toastr.error(this.translate.instant('ERROR_ORDER_TOASTR'), this.translate.instant('ERROR_TITLE'), {
+        timeOut: 7000,
+        closeButton: true,
+        progressBar: true,
+        disableTimeOut: false
+      });
       this.resetOrderSelection(indexMenu);
     }
   }
@@ -558,7 +569,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       if(data.message === 'Der Kontostand ist nicht ausreichend für diese Bestellung.'){
         this.toastr.error(this.translate.instant('DER_KONTOSTAND_IST_NICHT_AUSREICHEND'), this.translate.instant('ERROR_TITLE'));
       }else{
-        this.toastr.error(this.translate.instant('BESTELLUNG_NICHT_EINGETRAGEN'), this.translate.instant('ERROR_TITLE'));
+        this.toastr.error(this.translate.instant('ERROR_ORDER_TOASTR'), this.translate.instant('ERROR_TITLE'), {
+          timeOut: 7000,
+          closeButton: true,
+          progressBar: true,
+          disableTimeOut: false
+        });
+        // this.toastr.error(this.translate.instant('BESTELLUNG_NICHT_EINGETRAGEN'), this.translate.instant('ERROR_TITLE'));
       }
       this.resetOrderSelection(indexMenu);
     }

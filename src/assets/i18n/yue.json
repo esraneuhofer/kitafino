@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "很抱歉，記錄您嘅訂單時出現錯誤。我哋已經通知技術支援，佢哋會盡快同您聯絡。",
+  "ERROR_CANCEL_TOASTR": "很抱歉，取消您嘅訂單時出現錯誤。我哋已經通知技術支援，佢哋會盡快同您聯絡。",
   "ADD_STUDENT_TEXT": "添加膳食參與者",
   "CHANGE_DAY": "更改訂購日",
   "WEEKEND_NO_ORDER": "週末不能下訂單",

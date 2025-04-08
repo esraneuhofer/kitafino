@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "很抱歉，在记录您的订单时出现错误。我们的技术支持已收到通知，并会尽快与您联系。",
+  "ERROR_CANCEL_TOASTR": "很抱歉，在取消您的订单时出现错误。我们的技术支持已收到通知，并会尽快与您联系。",
   "ADD_STUDENT_TEXT": "添加用餐者",
   "CHANGE_DAY": "更改订餐日",
   "WEEKEND_NO_ORDER": "周末不能下单",

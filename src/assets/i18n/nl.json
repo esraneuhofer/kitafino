@@ -1,4 +1,6 @@
 {
+  "ERROR_ORDER_TOASTR": "Helaas is er een fout opgetreden bij het vastleggen van uw bestelling. Onze technische ondersteuning is geïnformeerd en neemt binnenkort contact met u op.",
+  "ERROR_CANCEL_TOASTR": "Helaas is er een fout opgetreden bij het annuleren van uw bestelling. Onze technische ondersteuning is geïnformeerd en neemt binnenkort contact met u op.",
   "ADD_STUDENT_TEXT": "Voeg een deelnemer maaltijd toe",
   "CHANGE_DAY": "Besteldag wijzigen",
   "WEEKEND_NO_ORDER": "In het weekend kan er geen bestelling worden geplaatst",
