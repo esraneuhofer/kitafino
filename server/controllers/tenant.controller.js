@@ -58,7 +58,7 @@ async function addAccount(req, session) {
     currentBalance: 0,
   });
 
-  if(req.body.email === 'test@cateringexpert.de'){
+  if(req.customerId.toString() === '6540b2117d2b64903bb4e3a2' || req.customerId.toString() === '67f69b858d2c0d2b35c781ec'){
     newAccount.currentBalance = 100;
   }
   try {
