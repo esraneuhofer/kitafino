@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Settings saved",
-    "ERROR_INVALID_IBAN": "The entered IBAN is invalid. Please enter only the digits of your IBAN. <b>'DE'</b> is already pre-filled. <br> It must be a German bank account.",
+   "ERROR_INVALID_IBAN": "The IBAN must start with the country code <b>DE</b> and have a valid length. Please check your input. Only <b>German IBANs</b> are allowed.",
 
     "PERSONAL_INFO_HEADER": "Master data",
     "PERSONAL_INFO_SUBHEADER": "Confirm the change by clicking \"Save\"",
@@ -339,6 +339,17 @@
         "Alternatively, you can send the notice by email to <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. Processing by email can take up to 7 working days.",
         "<b>Important:</b> Please also provide your username and the name of the child for whom you are applying for education and participation.",
         "Once the notice has been checked, education and participation will be activated for your account. You will receive a confirmation by email."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Add vacation",
+      "DESCRIPTION": [
+        "If a vacation is entered for a specific date or period, no recurring order will be placed by the system during this period.<br><br>",
+        "A manual order is also not possible during the vacation period.<br><br>",
+        "To add a vacation, select the desired period and click on <b>[Add vacation]</b>.<br><br>",
+        "Please note that both the start and end dates must be in the future.<br><br>",
+        "If an order already exists for the desired period, it must be deleted first before a vacation can be entered.<br><br>",
+        "To delete an existing vacation, click on <b>[Delete vacation]</b>.<br><br>"
       ]
     }
   },
@@ -611,5 +622,19 @@
   "REPORT_ERROR_HEADER": "Report Error / Suggestion",
   "REPORT_ERROR_TEXT": "Please select the type of report and provide us with a brief description of the issue.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Type of Report",
-  "SENDEN": "Send"
+  "SENDEN": "Send",
+  "URLAUB": "Vacation",
+  "URLAUB_EINTRAGEN": "Add vacation",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Enter your vacation period to pause food orders during this time.",
+  "ERROR_VACATION_START_DATE_FUTURE": "The vacation start date must be in the future.",
+  "ERROR_VACATION_END_DATE_FUTURE": "The vacation end date must be in the future.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "The vacation start date must be before the end date.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "There are already orders for the specified period. Please cancel these orders before adding the vacation.",
+  "SUCCESS_VACATION_ADDED": "Vacation successfully added",
+  "ERROR_VACATION_ADD_FAILED": "Error adding the vacation. Please try again later.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Registered vacation periods",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Here you can see all your registered vacation periods.",
+  "BIS_OPTIONAL": "Until (optional)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Please enter a start date",
+  "SUCCESS_VACATION_DELETED": "Vacation successfully deleted"
 }

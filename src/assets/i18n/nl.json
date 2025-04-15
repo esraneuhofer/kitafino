@@ -178,7 +178,7 @@
   "NEIN": "Nee",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Instellingen opgeslagen",
-    "ERROR_INVALID_IBAN": "De ingevoerde IBAN is ongeldig. Voer alstublieft alleen de cijfers van uw IBAN in. <b>'DE'</b> is al vooraf ingevuld. <br> Het moet een Duitse bankrekening zijn.",
+    "ERROR_INVALID_IBAN": "De IBAN moet beginnen met de landcode <b>DE</b> en een geldige lengte hebben. Controleer uw invoer. Alleen <b>Duitse IBAN's</b> zijn toegestaan.",
 
     "PERSONAL_INFO_HEADER": "Basisgegevens",
     "PERSONAL_INFO_SUBHEADER": "Bevestig de wijziging met \"Wijzigen\"",
@@ -339,6 +339,17 @@
         " U kunt de verklaring ook per e-mail naar ons sturen op <a href='mailto:but@cateringexpert.de>but@cateringexpert.de</a>. De verwerking per e-mail kan echter tot 7 werkdagen duren.",
         "<b>Belangrijk</b>: Vermeld ook uw gebruikersnaam en de naam van het kind waarvoor u Onderwijs en Deelname aanvraagt.",
         "Zodra de verklaring is gecontroleerd, wordt Onderwijs en Deelname voor uw account geactiveerd. U ontvangt een bevestiging per e-mail."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Vakantie registreren",
+      "DESCRIPTION": [
+        "Als er voor een bepaalde datum of periode een vakantie is geregistreerd, zal het systeem in die periode geen terugkerende bestelling plaatsen.<br><br>",
+        "Ook het handmatig plaatsen van een bestelling is niet mogelijk tijdens de vakantieperiode.<br><br>",
+        "Om een vakantie te registreren, selecteert u de gewenste periode en klikt u op <b>[Vakantie registreren]</b>.<br><br>",
+        "Houd er rekening mee dat zowel de start- als de einddatum in de toekomst moeten liggen.<br><br>",
+        "Als er al een bestelling bestaat voor de gewenste periode, moet u die eerst verwijderen voordat u een vakantie kunt registreren.<br><br>",
+        "Om een bestaande vakantie te verwijderen, klikt u op <b>[Vakantie verwijderen]</b>.<br><br>"
       ]
     }
   },
@@ -613,7 +624,21 @@
   "REPORT_ERROR_HEADER": "Fout / verbetering melden",
   "REPORT_ERROR_TEXT": "Selecteer het type melding en geef een korte beschrijving van het probleem.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Type melding",
-  "SENDEN": "Verzenden"
+  "SENDEN": "Verzenden",
+  "URLAUB": "Vakantie",
+  "URLAUB_EINTRAGEN": "Vakantie registreren",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Voer uw vakantieperiode in om maaltijdbestellingen in deze periode te pauzeren.",
+  "ERROR_VACATION_START_DATE_FUTURE": "De startdatum van de vakantie moet in de toekomst liggen.",
+  "ERROR_VACATION_END_DATE_FUTURE": "De einddatum van de vakantie moet in de toekomst liggen.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "De startdatum van de vakantie moet vóór de einddatum liggen.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Er zijn al bestellingen voor de opgegeven periode. Annuleer deze bestellingen voordat u de vakantie toevoegt.",
+  "SUCCESS_VACATION_ADDED": "Vakantie succesvol geregistreerd",
+  "ERROR_VACATION_ADD_FAILED": "Fout bij het registreren van de vakantie. Probeer het later opnieuw.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Geregistreerde vakantieperiodes",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Hier kunt u al uw geregistreerde vakantieperiodes bekijken.",
+  "BIS_OPTIONAL": "Tot (optioneel)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Voer alstublieft een startdatum in",
+  "SUCCESS_VACATION_DELETED": "Vakantie succesvol verwijderd"
 
 }
 

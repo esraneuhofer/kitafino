@@ -36,6 +36,7 @@ import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import {EinrichtungInterface} from "../../../classes/einrichtung.class";
+import { VacationStudent } from '../../../service/vacation.service';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -121,6 +122,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() customer!: CustomerInterface;
   @Input() tenantStudent!: TenantStudentInterface;
   @Input() allVacations: VacationsInterface[] = [];
+  @Input() allVacationsTenant: VacationStudent[] = [];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
   @Input() schoolSettings!: EinrichtungInterface;
   orderWeek: MealCardInterface[] = [];
@@ -174,7 +176,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.allVacationsTenant, this.customer.generalSettings.state);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();

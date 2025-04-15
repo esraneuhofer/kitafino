@@ -178,7 +178,7 @@
   "NEIN": "否",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "设置已保存",
-    "ERROR_INVALID_IBAN": "输入的 IBAN 无效。请只输入您的 IBAN 数字。<b>'DE'</b> 已经预填。<br> 必须是一个德国银行账户。",
+    "ERROR_INVALID_IBAN": "IBAN必须以国家代码<b>DE</b>开头并且具有有效长度。请检查您的输入。仅允许<b>德国IBAN</b>。",
     "PERSONAL_INFO_HEADER": "基本信息",
     "PERSONAL_INFO_SUBHEADER": "确认更改后点击“更改”",
     "FIRST_NAME": "名字",
@@ -338,6 +338,17 @@
         "或者，您可以通过电子邮件发送证明至<a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>。通过电子邮件处理可能需要多达7个工作日。",
         "<b>重要：</b>请同时提供您的用户名和孩子的姓名，以便申请教育与参与。",
         "证明审核后，教育与参与将激活。您将收到一封确认电子邮件。"
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "登记假期",
+      "DESCRIPTION": [
+        "如果在某个日期或时段登记了假期，则在此期间系统不会进行任何周期性订单。<br><br>",
+        "在假期期间也无法进行手动下单。<br><br>",
+        "要登记假期，请选择所需的时间段并点击 <b>[登记假期]</b>。<br><br>",
+        "请注意，开始日期和结束日期都必须在未来。<br><br>",
+        "如果在所需时段已有订单，则必须先删除该订单，然后才能登记假期。<br><br>",
+        "要删除已登记的假期，请点击 <b>[删除假期]</b>。<br><br>"
       ]
     }
   },
@@ -609,7 +620,21 @@
   "REPORT_ERROR_HEADER": "报告错误 / 改进",
   "REPORT_ERROR_TEXT": "请选择报告类型并提供问题的简短描述。",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "报告类型",
-  "SENDEN": "发送"
+  "SENDEN": "发送",
+  "URLAUB": "假期",
+  "URLAUB_EINTRAGEN": "登记假期",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "输入您的假期，以便在此期间暂停食品订单。",
+  "ERROR_VACATION_START_DATE_FUTURE": "假期开始日期必须在未来。",
+  "ERROR_VACATION_END_DATE_FUTURE": "假期结束日期必须在未来。",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "假期开始日期必须早于结束日期。",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "指定时段内已经有订单。请先取消这些订单，然后再添加假期。",
+  "SUCCESS_VACATION_ADDED": "成功添加假期",
+  "ERROR_VACATION_ADD_FAILED": "添加假期时出现错误。请稍后再试。",
+  "EINGETRAGENE_URLAUBSZEITEN": "已登记的假期时段",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "在此处查看您登记的所有假期时段。",
+  "BIS_OPTIONAL": "至（可选）",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "请输入开始日期",
+  "SUCCESS_VACATION_DELETED": "成功删除假期"
 
 }
 

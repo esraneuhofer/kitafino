@@ -178,7 +178,7 @@
   "NEIN": "Non",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Paramètres enregistrés",
-    "ERROR_INVALID_IBAN": "L'IBAN saisi est invalide. Veuillez entrer uniquement les chiffres de votre IBAN. <b>'DE'</b> est déjà pré-rempli. <br> Il doit s'agir d'un compte bancaire allemand.",
+  "ERROR_INVALID_IBAN": "L’IBAN doit commencer par le code pays <b>DE</b> et avoir une longueur valide. Veuillez vérifier votre saisie. Seuls les <b>IBAN allemands</b> sont autorisés.",
 
     "PERSONAL_INFO_HEADER": "Données de base",
     "PERSONAL_INFO_SUBHEADER": "Confirmez la modification en cliquant sur \"Modifier\"",
@@ -339,6 +339,17 @@
         " Vous pouvez également nous envoyer l'avis par e-mail à <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. Le traitement par e-mail peut cependant prendre jusqu'à 7 jours ouvrables.",
         "<b>Important:</b> Veuillez également fournir votre nom d'utilisateur ainsi que le nom de l'enfant pour lequel vous demandez une éducation et une participation.",
         "Dès que l'avis est vérifié, l'éducation et la participation sont activées pour votre compte. Vous recevrez une confirmation par e-mail."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Enregistrer des congés",
+      "DESCRIPTION": [
+        "Si des congés sont enregistrés pour une date ou une période donnée, le système n’effectuera pas de commande récurrente pendant cette période.<br><br>",
+        "Il n’est pas non plus possible de passer une commande manuelle pendant la période de congés.<br><br>",
+        "Pour enregistrer des congés, sélectionnez la période souhaitée puis cliquez sur <b>[Enregistrer des congés]</b>.<br><br>",
+        "Veuillez noter que la date de début et la date de fin doivent toutes deux être ultérieures à la date actuelle.<br><br>",
+        "Si une commande existe déjà pour la période souhaitée, celle-ci doit d’abord être supprimée avant que des congés puissent être enregistrés.<br><br>",
+        "Pour supprimer des congés existants, cliquez sur <b>[Supprimer des congés]</b>.<br><br>"
       ]
     }
   },
@@ -614,6 +625,20 @@
   "REPORT_ERROR_HEADER": "Signaler une erreur / suggestion d'amélioration",
   "REPORT_ERROR_TEXT": "Veuillez sélectionner le type de signalement et nous fournir une brève description du problème.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Type de signalement",
-  "SENDEN": "Envoyer"
+  "SENDEN": "Envoyer",
+  "URLAUB": "Vacances",
+  "URLAUB_EINTRAGEN": "Enregistrer des vacances",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Saisissez votre période de vacances pour mettre en pause les commandes de repas pendant cette période.",
+  "ERROR_VACATION_START_DATE_FUTURE": "La date de début des vacances doit être ultérieure à aujourd'hui.",
+  "ERROR_VACATION_END_DATE_FUTURE": "La date de fin des vacances doit être ultérieure à aujourd'hui.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "La date de début doit être antérieure à la date de fin.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Il existe déjà des commandes pour la période spécifiée. Veuillez les annuler avant d’ajouter les vacances.",
+  "SUCCESS_VACATION_ADDED": "Vacances enregistrées avec succès",
+  "ERROR_VACATION_ADD_FAILED": "Erreur lors de l’enregistrement des vacances. Veuillez réessayer plus tard.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Périodes de vacances enregistrées",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Vous pouvez voir ici toutes vos périodes de vacances enregistrées.",
+  "BIS_OPTIONAL": "Jusqu'à (optionnel)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Veuillez saisir une date de début",
+  "SUCCESS_VACATION_DELETED": "Vacances supprimées avec succès"
 }
 

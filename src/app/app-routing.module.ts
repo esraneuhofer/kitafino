@@ -37,6 +37,7 @@ import {
 import {ButComponent} from "./home/but/but.component";
 import {NoInternetComponent} from "./no-internet/no-internet.component";
 import {FeedbackComponent} from "./home/feedback/feedback.component";
+import { VacationParentComponent } from './home/vacation-parent/vacation-parent.component';
 
 
 export const appRoutes: Routes = [
@@ -87,6 +88,7 @@ export const appRoutes: Routes = [
       {path: 'settings_personal', component: PersonalSettingsComponent, canActivate: [AuthGuard]},
       {path: 'settings_order', component: OrderSettingsComponent, canActivate: [AuthGuard]},
       {path: 'settings_password', component: ChangePasswordSettingsComponent, canActivate: [AuthGuard]},
+      {path: 'settings_vacation', component: VacationParentComponent, canActivate: [AuthGuard]},
       {path: 'weekplan_pdf', component: WeekplanPdfComponent, canActivate: [AuthGuard]},
       {path: 'faq', component: FaqComponent},
     ]

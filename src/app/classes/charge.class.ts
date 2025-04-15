@@ -2,7 +2,7 @@ import {TenantStudentInterface} from "./tenant.class";
 import {AccountCustomerInterface} from "./account.class";
 
 export interface AccountChargeInterface {
-  approved: boolean,
+  approved: boolean;
   dateApproved: Date | null;
   amount: number;
   datePaymentReceived: Date;
@@ -10,7 +10,7 @@ export interface AccountChargeInterface {
   iban: string;
   reference: string;
   typeCharge:'einzahlung' | 'auszahlung';
-  typeChargeName: 'but' | 'bankeinzahlung_auto' | 'bankeinzahlung_manuell' | 'auszahlung_but' | 'auszahlung_bank'| 'stripe_einzahlung' | 'sonstige'
+  typeChargeName: 'but' | 'bankeinzahlung_auto' | 'bankeinzahlung_manuell' | 'auszahlung_but' | 'auszahlung_bank'| 'stripe_einzahlung' | 'sonstige';
   tenantId: string;
   transactionId: string;
   username:string;

@@ -27,6 +27,7 @@ const {rawBodyBuffer} = require('../config/stripeWebhookMiddleware');
 const ctrlWebhook = require('../controllers/stripe-webhook.controller');
 const crtlWithdraw = require('../controllers/withdraw.controller');
 const rateLimitHelper = require('../config/rateLimitHelper');
+const ctrlVacation = require('../controllers/vacation.controller');
 
 
 
@@ -143,7 +144,10 @@ router.post('/deleteSpecificTokenFirebase',jwtHelper.verifyJwtToken,crtlFire.del
 
 // router.get('/sendPushNotification',crtlFire.sendPushNotification)
 
-
+///Vacation Requests///
+router.get('/getAllVacationParentByUserId', jwtHelper.verifyJwtToken, ctrlVacation.getAllVacationParentByUserId);
+router.post('/addVacation', jwtHelper.verifyJwtToken, ctrlVacation.addVacation);
+router.post('/deleteVacation', jwtHelper.verifyJwtToken, ctrlVacation.deleteVacation);
 
 
 module.exports = router;

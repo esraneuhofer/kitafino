@@ -49,7 +49,6 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
   }
 };
 
-
 module.exports.getFutureOrders = async (req, res) => {
   try {
     // const startDate = normalizeToBerlinDate(req.query.startDate);

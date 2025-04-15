@@ -69,6 +69,11 @@ export class PersonalSettingsComponent implements OnInit{
 
 
   editPersonalInformation() {
+    if(!this.tenantModel.iban) {
+      this.toastr.error('Bitte geben Sie eine IBAN ein');
+      return
+    }
+    this.tenantModel.iban = this.tenantModel.iban.replace(/\s+/g, '');
     if (this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)) {
       let message = this.translate.instant('MANAGE_TENANT_SETTINGS.ERROR_INVALID_IBAN')
       this.messageService.openMessageDialog(message, this.translate.instant('ERROR_TITLE'), 'error')
