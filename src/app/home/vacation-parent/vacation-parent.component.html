@@ -1,0 +1,130 @@
+<ng-container *ngIf="pageLoaded">
+  <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="w-full">
+        <!-- Vacation Form Card -->
+        <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
+          <div class="px-4 sm:px-6 lg:px-8">
+          <form #vacationForm="ngForm" novalidate (ngSubmit)="vacationForm.form.valid && addVacation()">
+            <div class="space-y-12">
+              <div class="p2b-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">{{'URLAUB_EINTRAGEN' | translate}}</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN' | translate }}</p>
+                
+                <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">{{ 'BUT.TABLE_VON' | translate}}</label>
+                    <div class="mt-2">
+                      <input type="date"
+                             required
+                             #startDateInput="ngModel"
+                             [(ngModel)]="startDate"
+                             name="start-date"
+                             id="start-date"
+                             [ngClass]="{'invalid-input': vacationForm.submitted && startDateInput.invalid}"
+                            
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <p *ngIf="vacationForm.submitted && startDateInput.invalid" class="mt-2 text-sm text-red-600">{{ 'BITTE_GEBEN_SIE_STARTDATUM_EIN' | translate}}</p>
+                  </div>
+                  
+                  <div class="sm:col-span-3 text-right">
+                    <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">{{ 'BIS_OPTIONAL' | translate}}</label>
+                    <div class="mt-2">
+                      <input type="date"
+                             #endDateInput="ngModel"
+                             [(ngModel)]="endDate"
+                             name="end-date"
+                             id="end-date"
+                             class="text-right block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 flex items-center justify-end gap-x-6">
+                <app-button 
+                [submittingRequest]="submittingRequest">{{ 'URLAUB_EINTRAGEN' | translate }}</app-button>
+            </div>
+          </form>
+        </div>
+      </div>
+        
+        <!-- Vacation List Table Card -->
+        <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
+          <div class="px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap">
+              <div class="sm:flex-auto">
+                <h2 class="text-base font-semibold leading-6 text-gray-900">{{ 'EINGETRAGENE_URLAUBSZEITEN' | translate }}</h2>
+                <p class="mt-2 text-sm text-gray-700">{{ 'HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME' | translate }}</p>
+              </div>
+            </div>
+            
+            <div class="mt-8 flow-root">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900 sm:pl-0">{{ 'BUT.TABLE_VON' | translate}}</th>
+                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900">{{ 'BUT.TABLE_BIS' | translate}}</th>
+                        <th scope="col" class="relative table-cell-padding-large text-right text-sm font-medium sm:pr-0">
+                          <span class="sr-only">Aktionen</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr *ngFor="let vacation of vacations">
+                        <td class="table-cell-padding-large whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
+                          {{ vacation.vacation.vacationStart | date: 'dd.MM.yy' }}
+                        </td>
+                        <td class="table-cell-padding-large whitespace-nowrap text-sm text-gray-500">
+                          {{ vacation.vacation.vacationEnd ? (vacation.vacation.vacationEnd | date: 'dd.MM.yy') : ' - ' }}
+                        </td>
+                        <td class="relative whitespace-nowrap table-cell-padding-large text-right text-sm font-medium sm:pr-0">
+                          <div class="flex justify-end">
+                            <app-button 
+                              [typeButton]="'danger'"
+                              (click)="deleteVacation(vacation)">
+                              {{'MANAGE_PERMANENT_ORDERS.DELETE_ORDER' | translate}}
+                            </app-button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr *ngIf="vacations.length === 0">
+                        <td colspan="4" class="table-cell-padding-large text-center text-sm text-gray-500 py-4">
+                          {{ 'NO_ENTRY_FOUND' | translate }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
+                <div class="flex flex-col md:flex-row mt-3">
+                  <div class="md:w-3/3 w-full">
+                    <div class="flex justify-start md:justify-end">
+                      <ngb-pagination
+                        [(page)]="page"
+                        [boundaryLinks]="false"
+                        [collectionSize]="vacations.length"
+                        [maxSize]="3"
+                        [pageSize]="pageSize"
+                        [rotate]="true"
+                        [ellipses]="true"
+                        [directionLinks]="true"></ngb-pagination>
+
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<app-loading-page [pageLoaded]="pageLoaded"></app-loading-page>
