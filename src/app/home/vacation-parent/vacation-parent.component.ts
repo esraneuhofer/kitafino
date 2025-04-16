@@ -1,12 +1,37 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VacationService, VacationStudent } from '../../service/vacation.service';
 import { OrderService } from '../../service/order.service';
-import { finalize } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { OrderInterfaceStudentSave } from '../../classes/order_student_safe.class';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, forkJoin, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { StudentInterface } from '../../classes/student.class';
+import { StudentService } from '../../service/student.service';
+
+function setStudentNamesWithVactions(vacations:VacationStudent[],registeredStudents:StudentInterface[]):VacationStudent[]{
+  return vacations.map(vacation => {
+    const matchingStudent = registeredStudents.find(student => 
+      student._id === vacation.studentId
+    );
+    
+    if (matchingStudent) {
+      return {
+        ...vacation,
+        firstNameStudent: matchingStudent.firstName,
+        lastNameStudent: matchingStudent.lastName
+      };
+    } else {
+      return {
+        ...vacation,
+        firstNameStudent: "Nicht gefunden",
+        lastNameStudent: "Nicht gefunden"
+      };
+    }
+  });
+}
+
 
 @Component({
   selector: 'app-vacation-parent',
@@ -25,55 +50,100 @@ export class VacationParentComponent implements OnInit {
   pageLoaded: boolean = false;
   vacations: VacationStudent[] = [];
   futureOrders: OrderInterfaceStudentSave[] = [];
-
+  selectedStudentId: (string | null) = null;
+  registeredStudents: StudentInterface[] = [];
+  textBanner: string = '';
   constructor(
     private vacationService: VacationService,
     private toastr: ToastrService,
     private translate: TranslateService,
-    private orderService: OrderService
-  ) {}
+    private orderService: OrderService,
+    private studentService: StudentService
+  ) {
+    this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
+
+  }
 
   ngOnInit(): void {
     this.initializeData();
   }
 
-  async initializeData(): Promise<void> {
-    try {
-      this.pageLoaded = false;
-      await Promise.all([
-        this.loadVacations(),
-        this.loadFutureOrders()
-      ]);
-    } catch (error) {
-      console.error('Error initializing data:', error);
-    } finally {
-      this.pageLoaded = true;
+  initializeData(): void {
+    this.pageLoaded = false;
+    
+    forkJoin({
+      vacations: this.vacationService.getAllVacations().pipe(
+        catchError(error => {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          console.error('Failed to load vacations:', errorMessage);
+          return of([]);
+        })
+      ),
+      futureOrders: this.orderService.getFutureOrders({ 
+        date: new Date().toISOString().split('T')[0] 
+      }).pipe(
+        catchError(error => {
+          console.error('Failed to load future orders:', error);
+          return of([]);
+        })
+      ),
+      registeredStudents: this.studentService.getRegisteredStudentsUser().pipe(
+        catchError(error => {
+          console.error('Failed to load registered students:', error);
+          return of([]);
+        })
+      )
+    }).pipe(
+      finalize(() => {
+        this.pageLoaded = true;
+      })
+    ).subscribe({
+      next: (results) => {
+        this.registeredStudents = results.registeredStudents;
+        this.vacations = results.vacations;
+        this.futureOrders = results.futureOrders;
+        if (this.registeredStudents.length === 1) {
+          this.selectedStudentId = this.registeredStudents[0]._id || null;
+        }
+        // Add first name and last name to each vacation based on studentId
+        this.vacations = this.vacations.map(vacation => {
+          const matchingStudent = this.registeredStudents.find(student => 
+            student._id === vacation.studentId
+          );
+          
+          if (matchingStudent) {
+            return {
+              ...vacation,
+              firstNameStudent: matchingStudent.firstName,
+              lastNameStudent: matchingStudent.lastName
+            };
+          } else {
+            return {
+              ...vacation,
+              firstNameStudent: "Nicht gefunden",
+              lastNameStudent: "Nicht gefunden"
+            };
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error initializing data:', error);
+        this.pageLoaded = true;
+      }
+    });
+  }
+
+   setStudent(studentId: string | null) {
+      this.selectedStudentId = studentId;
     }
-  }
   
-async loadVacations(): Promise<void> {
-  try {
-    this.vacations = await firstValueFrom(this.vacationService.getAllVacations());
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    throw new Error('Failed to load vacations: ' + errorMessage);
-  }
-}
-
-  async loadFutureOrders(): Promise<void> {
-    const today = new Date().toISOString().split('T')[0];
-    this.futureOrders = await firstValueFrom(
-      this.orderService.getFutureOrders({ date: today })
-    );
-  }
-
 /**
  * Prüft, ob Bestellungen innerhalb eines Urlaubszeitraums liegen
  * @param startDate Anfangsdatum des Urlaubs
  * @param endDate Enddatum des Urlaubs (optional, falls nur ein Tag)
  * @returns Array von OrderInterfaceStudentSave Objekten, die im Zeitraum liegen
  */
-checkForOrderConflicts(startDate: Date, endDate: Date | null): OrderInterfaceStudentSave[] {
+checkForOrderConflicts(startDate: Date, endDate: Date | null, selectedStudentId: string): OrderInterfaceStudentSave[] {
   if (!this.futureOrders || this.futureOrders.length === 0) {
     return [];
   }
@@ -86,13 +156,20 @@ checkForOrderConflicts(startDate: Date, endDate: Date | null): OrderInterfaceStu
   const vacationEndStr = this.formatDateToString(vacationEndDate);
   
   // Finde alle Bestellungen, die im Urlaubszeitraum liegen
-  return this.futureOrders.filter(order => {
+  let filteredOrders = this.futureOrders.filter(order => {
     // Normalisiere das Bestelldatum
     const orderDateStr = this.formatDateToString(new Date(order.dateOrder));
     
     // Prüfe, ob das Bestelldatum im Urlaubszeitraum liegt
     return orderDateStr >= vacationStartStr && orderDateStr <= vacationEndStr;
   });
+
+  // Wenn ein bestimmter Student ausgewählt wurde (nicht 'all'), filtere auch nach der Studenten-ID
+  if (selectedStudentId !== 'all') {
+    filteredOrders = filteredOrders.filter(order => order.studentId === selectedStudentId);
+  }
+  
+  return filteredOrders;
 }
 
 /**
@@ -117,6 +194,14 @@ addVacation(): void {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   tomorrow.setHours(0, 0, 0, 0);
+ 
+  if(this.registeredStudents.length === 1){
+    this.selectedStudentId = this.registeredStudents[0]._id || null;
+  }
+  if(this.registeredStudents.length > 1 && !this.selectedStudentId) {
+    this.toastr.error(this.translate.instant('ORDER_STUDENT_PLEASE_SELECT_STUDENT'));
+    return;
+  }
 
   // Validiere, dass das Startdatum in der Zukunft liegt
   if (startDateObj < tomorrow) {
@@ -141,8 +226,12 @@ addVacation(): void {
     }
   }
 
+  if(!this.selectedStudentId){
+    return;
+  }
+
   // Prüfe auf Bestellkonflikte im Urlaubszeitraum
-  const conflictingOrders = this.checkForOrderConflicts(startDateObj, endDateObj);
+  const conflictingOrders = this.checkForOrderConflicts(startDateObj, endDateObj,this.selectedStudentId);
   if (conflictingOrders.length > 0) {
     this.toastr.error(this.translate.instant('ERROR_VACATION_CONFLICTING_ORDERS'));
     console.error('There are orders placed during the vacation period:', conflictingOrders);
@@ -150,29 +239,37 @@ addVacation(): void {
   }
 
   this.submittingRequest = true;
+  let promisesVacation = [];
+  if(this.registeredStudents.length > 1 && this.selectedStudentId === 'all'){
+    this.registeredStudents.forEach((student) => {
+      promisesVacation.push(this.vacationService.addVacation(this.startDate, this.endDate || null, student._id || ''))
+    });
+  }else{
+    promisesVacation.push(this.vacationService.addVacation(this.startDate, this.endDate || null, this.selectedStudentId))
+  }
+  forkJoin(promisesVacation)
+    .pipe(finalize(() => (this.submittingRequest = false)))
+    .subscribe({
+      next: (newVacation) => {
+        this.vacationService.getAllVacations().subscribe((vacations) => {
+          this.vacations = setStudentNamesWithVactions(vacations,this.registeredStudents);
+          this.toastr.success(this.translate.instant('SUCCESS_VACATION_ADDED'));
 
-  this.vacationService.addVacation(this.startDate, this.endDate || null)
-  .pipe(finalize(() => this.submittingRequest = false))
-  .subscribe({
-    next: (newVacation) => {
-      // Füge den neuen Urlaub direkt zur Urlaubsliste hinzu
-      this.vacations.unshift(newVacation);
-      this.toastr.success(this.translate.instant('SUCCESS_VACATION_ADDED'));
-      
-      // Formularfelder zurücksetzen
-      this.startDate = '';
-      this.endDate = '';
-      
-      // Formularvalidierungsstatus zurücksetzen
-      if (this.vacationForm) {
-        this.vacationForm.resetForm();
-      }
-    },
-    error: (error) => {
-      this.toastr.error(this.translate.instant('ERROR_VACATION_ADD_FAILED'));
-      console.error('Error adding vacation:', error);
-    }
-  });
+          // Formularfelder zurücksetzen
+          this.startDate = '';
+          this.endDate = '';
+
+          // Formularvalidierungsstatus zurücksetzen
+          if (this.vacationForm) {
+            this.vacationForm.resetForm();
+          }
+        });
+      },
+      error: (error) => {
+        this.toastr.error(this.translate.instant('ERROR_VACATION_ADD_FAILED'));
+        console.error('Error adding vacation:', error);
+      },
+    });
 }
 
 
@@ -186,17 +283,20 @@ deleteVacation(vacation:VacationStudent): void {
       next: (successMessage) => {
       
         this.vacationService.getAllVacations().subscribe((vacations) => {
-          this.vacations = vacations;
+          this.vacations = setStudentNamesWithVactions(vacations,this.registeredStudents);
+          
         this.toastr.success(this.translate.instant('SUCCESS_VACATION_DELETED'));
 
         });
         // Bei Erfolg den Urlaub aus der Liste entfernen
       },
       error: (error) => {
-        this.toastr.error(this.translate.instant('ERROR_VACATION_DELETE_FAILED'));
+        this.toastr.error(this.translate.instant('UNEXPECTED_ERROR'));
         console.error('Error deleting vacation:', error);
       }
     });
 }
 
 }
+
+

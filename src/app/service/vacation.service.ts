@@ -6,10 +6,13 @@ import { environment } from '../../environments/environment';
 export interface VacationStudent {
   _id?: string;
   userId: string;
+  studentId:string;
   vacation: {
     vacationStart: Date;
     vacationEnd: Date | null;
-  }
+  },
+  firstNameStudent?: string;
+  lastNameStudent?: string;
 }
 
 @Injectable({
@@ -32,8 +35,8 @@ export class VacationService {
    * @param startDate Vacation start date
    * @param endDate Vacation end date (optional)
    */
-  addVacation(startDate: string, endDate: string | null): Observable<VacationStudent> {
-    return this.http.post<VacationStudent>(`${this.apiBaseUrl}/addVacation`, { startDate, endDate });
+  addVacation(startDate: string, endDate: string | null,studentId:string): Observable<VacationStudent> {
+    return this.http.post<VacationStudent>(`${this.apiBaseUrl}/addVacation`, { startDate, endDate, studentId });
   }
 
   /**

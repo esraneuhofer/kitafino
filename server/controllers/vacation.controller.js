@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const VacationStudent = mongoose.model('VacationStudent');
+const {sendMonitoringEmail} = require('./order-functions');
 
 // Get all vacations for a user
 module.exports.getAllVacationParentByUserId = async (req, res) => {
@@ -23,11 +24,18 @@ module.exports.getAllVacationParentByUserId = async (req, res) => {
 module.exports.addVacation = async (req, res) => {
   try {
     const userId = req._id;
-    const { startDate, endDate } = req.body;
+    req.userId = userId;
+    const { startDate, endDate, studentId } = req.body;
     
-    // Validate input data - only startDate is required
+    // Validierungs-Fehler abfangen und Benachrichtigung senden
     if (!startDate) {
+      await sendMonitoringEmail(req, new Error('Start date is required'), 'addvacation_validation');
       return res.status(400).json('Start date is required');
+    }
+    
+    if(!studentId) {
+      await sendMonitoringEmail(req, new Error('Student ID is required'), 'addvacation_validation');
+      return res.status(400).json('Student ID is required');
     }
     
     // Convert string dates to Date objects
@@ -37,13 +45,14 @@ module.exports.addVacation = async (req, res) => {
     
     // Only validate date range if endDate is provided
     if (vacationEnd && vacationEnd < vacationStart) {
+      await sendMonitoringEmail(req, new Error('End date must be after start date'), 'addvacation_validation');
       return res.status(400).json('End date must be after start date');
     }
     
     // Create a new vacation entry
     const vacation = new VacationStudent({
       userId: userId,
-      tenantId: req.tenantId || null,
+      studentId: studentId,
       customerId: req.customerId || null,
       vacation: {
         vacationStart: vacationStart,
@@ -54,9 +63,12 @@ module.exports.addVacation = async (req, res) => {
     // Save to database
     await vacation.save();
     
+    // Erfolgreich gespeichert
     return res.status(201).json(vacation);
   } catch (err) {
     console.error('Error adding vacation:', err);
+    // Send monitoring email on error
+    await sendMonitoringEmail(req, err, 'addvacation_server_error'); 
     return res.status(500).json('Server error while adding vacation');
   }
 };

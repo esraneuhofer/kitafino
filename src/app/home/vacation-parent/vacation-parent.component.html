@@ -1,18 +1,23 @@
-<ng-container *ngIf="pageLoaded">
+<ng-container *ngIf="registeredStudents.length === 0">
+  <app-banner-no-student-order
+          [text]="textBanner"></app-banner-no-student-order>
+</ng-container>
+
+<ng-container *ngIf="pageLoaded && registeredStudents.length > 0">
   <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12">
     <div class="flex flex-col md:flex-row gap-4">
       <div class="w-full">
         <!-- Vacation Form Card -->
-        <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
-          <div class="px-4 sm:px-6 lg:px-8">
+        <div class="bg-white shadow-md rounded px-4 pt-8 pb-8 mb-4 sm:px-2">
+          <div class="px-2 sm:px-2 lg:px-4">
           <form #vacationForm="ngForm" novalidate (ngSubmit)="vacationForm.form.valid && addVacation()">
             <div class="space-y-12">
               <div class="p2b-12">
                 <h2 class="text-base font-semibold leading-7 text-gray-900">{{'URLAUB_EINTRAGEN' | translate}}</h2>
                 <p class="mt-1 text-sm leading-6 text-gray-600">{{ 'TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN' | translate }}</p>
                 
-                <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                  <div class="sm:col-span-3">
+                <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-6 md:grid-cols-3 lg:grid-cols-3">
+                  <div class="sm:col-span-6 md:col-span-1 lg:col-span-1">
                     <label for="start-date" class="block text-sm font-medium leading-6 text-gray-900">{{ 'BUT.TABLE_VON' | translate}}</label>
                     <div class="mt-2">
                       <input type="date"
@@ -22,13 +27,12 @@
                              name="start-date"
                              id="start-date"
                              [ngClass]="{'invalid-input': vacationForm.submitted && startDateInput.invalid}"
-                            
                              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                     <p *ngIf="vacationForm.submitted && startDateInput.invalid" class="mt-2 text-sm text-red-600">{{ 'BITTE_GEBEN_SIE_STARTDATUM_EIN' | translate}}</p>
                   </div>
                   
-                  <div class="sm:col-span-3 text-right">
+                  <div class="sm:col-span-6 md:col-span-1 lg:col-span-1">
                     <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">{{ 'BIS_OPTIONAL' | translate}}</label>
                     <div class="mt-2">
                       <input type="date"
@@ -36,8 +40,27 @@
                              [(ngModel)]="endDate"
                              name="end-date"
                              id="end-date"
-                             class="text-right block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
+                  </div>
+                
+                  <div class="sm:col-span-6 md:col-span-1 lg:col-span-1">
+                    <label  class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">
+                      {{ 'ORDER.STUDENT' | translate }}
+                    </label>
+                    <select #subgroupModel="ngModel" (ngModelChange)="setStudent($event)"
+                            [(ngModel)]="selectedStudentId"
+                            class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            [ngClass]="{'invalid-input': vacationForm.submitted && startDateInput.invalid}"
+                            id="subgroup"
+                            name="subgroupModel"
+                            [required]="registeredStudents.length > 1">
+                      <option [value]="null" disabled hidden selected>{{ 'ORDER.PLEASE_SELECT' | translate }}</option>
+                      <option *ngFor="let student of registeredStudents" [ngValue]="student._id">{{student.firstName + ' ' + student.lastName}}</option>
+                      <option [value]="'all'">{{ 'FUER_ALLE' | translate }}</option>
+                    </select>
+                    <p *ngIf="vacationForm.submitted && subgroupModel.invalid" class="mt-2 text-sm text-red-600">{{ 'ORDER_STUDENT_PLEASE_SELECT_STUDENT' | translate}}</p>
+
                   </div>
                 </div>
               </div>
@@ -52,23 +75,23 @@
       </div>
         
         <!-- Vacation List Table Card -->
-        <div class="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4 sm:px-4">
-          <div class="px-4 sm:px-6 lg:px-8">
+        <div class="bg-white shadow-md rounded px-4 pt-8 pb-8 mb-4 sm:px-2">
+          <div class="px-2 sm:px-2 lg:px-4">
             <div class="flex flex-wrap">
               <div class="sm:flex-auto">
-                <h2 class="text-base font-semibold leading-6 text-gray-900">{{ 'EINGETRAGENE_URLAUBSZEITEN' | translate }}</h2>
+                <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'EINGETRAGENE_URLAUBSZEITEN' | translate }}</h2>
                 <p class="mt-2 text-sm text-gray-700">{{ 'HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME' | translate }}</p>
               </div>
             </div>
             
             <div class="mt-8 flow-root">
-              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+              <div class="-mx-2 -my-2 overflow-x-auto sm:-mx-2 lg:-mx-4">
+                <div class="inline-block min-w-full py-2 align-middle sm:px-2 lg:px-4">
                   <table class="min-w-full divide-y divide-gray-300">
                     <thead>
                       <tr>
-                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900 sm:pl-0">{{ 'BUT.TABLE_VON' | translate}}</th>
-                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900">{{ 'BUT.TABLE_BIS' | translate}}</th>
+                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900 sm:pl-0">{{ 'BUT.TABLE_VON' | translate}} - {{ 'BUT.TABLE_BIS' | translate}}</th>
+                        <th scope="col" class="table-cell-padding-large text-left text-sm font-semibold text-gray-900">{{ 'MANAGE_STUDENTS.NAME' | translate }}</th>
                         <th scope="col" class="relative table-cell-padding-large text-right text-sm font-medium sm:pr-0">
                           <span class="sr-only">Aktionen</span>
                         </th>
@@ -77,10 +100,10 @@
                     <tbody class="divide-y divide-gray-200">
                       <tr *ngFor="let vacation of vacations">
                         <td class="table-cell-padding-large whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
-                          {{ vacation.vacation.vacationStart | date: 'dd.MM.yy' }}
+                          {{ vacation.vacation.vacationStart | date: 'dd.MM.yy' }} <span *ngIf="vacation.vacation.vacationEnd">-</span>  {{ vacation.vacation.vacationEnd ? (vacation.vacation.vacationEnd | date: 'dd.MM') : '' }}
                         </td>
                         <td class="table-cell-padding-large whitespace-nowrap text-sm text-gray-500">
-                          {{ vacation.vacation.vacationEnd ? (vacation.vacation.vacationEnd | date: 'dd.MM.yy') : ' - ' }}
+                         {{vacation.firstNameStudent}}
                         </td>
                         <td class="relative whitespace-nowrap table-cell-padding-large text-right text-sm font-medium sm:pr-0">
                           <div class="flex justify-end">

@@ -623,7 +623,7 @@
   "REPORT_ERROR_TEXT": "Please select the type of report and provide us with a brief description of the issue.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Type of Report",
   "SENDEN": "Send",
-  "URLAUB": "Vacation",
+  "URLAUB": "Vacation/Absence",
   "URLAUB_EINTRAGEN": "Add vacation",
   "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Enter your vacation period to pause food orders during this time.",
   "ERROR_VACATION_START_DATE_FUTURE": "The vacation start date must be in the future.",

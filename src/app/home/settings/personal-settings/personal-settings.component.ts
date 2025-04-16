@@ -70,8 +70,8 @@ export class PersonalSettingsComponent implements OnInit{
 
   editPersonalInformation() {
     if(!this.tenantModel.iban) {
-      this.toastr.error('Bitte geben Sie eine IBAN ein');
-      return
+      // this.toastr.error('Bitte geben Sie eine IBAN ein');
+      this.tenantModel.iban = '';
     }
     this.tenantModel.iban = this.tenantModel.iban.replace(/\s+/g, '');
     if (this.tenantModel.iban && !isValidIBANNumber(this.tenantModel.iban)) {

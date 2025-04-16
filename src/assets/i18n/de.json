@@ -632,10 +632,10 @@
   "REPORT_ERROR_TEXT": "Bitte wählen Sie die Art der Meldung aus und geben Sie uns eine kurze Beschreibung des Problems.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Art der Meldung",
   "SENDEN": "Senden",
-  "URLAUB": "Urlaub",
+  "URLAUB": "Urlaub / Abwesenheit",
   "URLAUB_EINTRAGEN": "Urlaub eintragen",
   "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN":"Tragen Sie Ihren Urlaubszeitraum ein, um Essensbestellungen während dieser Zeit zu pausieren.",
-  "ERROR_VACATION_START_DATE_FUTURE": "Das Startdatum des Urlaub4s muss in der Zukunft liegen.",
+  "ERROR_VACATION_START_DATE_FUTURE": "Das Startdatum des Urlaubs muss in der Zukunft liegen.",
   "ERROR_VACATION_END_DATE_FUTURE": "Das Enddatum des Urlaubs muss in der Zukunft liegen.",
   "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Das Startdatum des Urlaubs muss vor dem Enddatum liegen.",
   "ERROR_VACATION_CONFLICTING_ORDERS": "Es gibt bereits Bestellungen für den angegebenen Zeitraum. Bitte stornieren Sie diese Bestellungen, bevor Sie den Urlaub eintragen.",
@@ -645,5 +645,6 @@
    "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME":"Hier sehen Sie alle Ihre eingetragenen Urlaubszeiträume.",
    "BIS_OPTIONAL": "Bis (optional)",
    "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Bitte geben Sie ein Startdatum ein",
-   "SUCCESS_VACATION_DELETED": "Urlaub erfolgreich gelöscht"
+   "SUCCESS_VACATION_DELETED": "Urlaub erfolgreich gelöscht",
+   "FUER_ALLE" : "Für alle Teilnehmer"
 }

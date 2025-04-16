@@ -31,6 +31,16 @@ async function sendMonitoringEmail(req, error, operationType = 'normal') {
         // Ordnungs-ID für Stornierungen hinzufügen
         additionalInfo = `<p><strong>OrderId:</strong> ${req.body?.orderId || 'Nicht verfügbar'}</p>`;
         break;
+      case 'addvacation': // Add new case for addVacation
+        subjectPrefix = 'Urlaubs-';
+        operationTitle = 'Urlaub hinzufügen';
+        additionalInfo = `
+          <p><strong>StudentId:</strong> ${req.body?.studentId || 'Nicht verfügbar'}</p>
+          <p><strong>UserId:</strong> ${req.body?.userId || 'Nicht verfügbar'}</p>
+          <p><strong>Startdatum:</strong> ${req.body?.startDate || 'Nicht verfügbar'}</p>
+          <p><strong>Enddatum:</strong> ${req.body?.endDate || 'Nicht angegeben'}</p>
+        `;
+        break;
       default:
         subjectPrefix = '';
         operationTitle = 'Bestellverarbeitung';
