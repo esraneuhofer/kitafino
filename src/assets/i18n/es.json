@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Configuraciones guardadas",
-    "ERROR_INVALID_IBAN": "El IBAN ingresado no es válido. Por favor, ingrese solo los dígitos de su IBAN. <b>'DE'</b> ya está pre-rellenado. <br> Debe ser una cuenta bancaria alemana.",
+   "ERROR_INVALID_IBAN": "El IBAN debe comenzar con el código del país <b>DE</b> y tener una longitud válida. Por favor, revise su entrada. Solo se permiten <b>IBAN alemanes</b>.",
     "PERSONAL_INFO_HEADER": "Datos maestros",
     "PERSONAL_INFO_SUBHEADER": "Confirme el cambio haciendo clic en \"Guardar\"",
     "FIRST_NAME": "Nombre",
@@ -338,6 +338,17 @@
         "Alternativamente, puede enviar el comprobante por correo electrónico a <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. Sin embargo, el procesamiento por correo electrónico puede demorar hasta 7 días hábiles.",
         "<b>Importante</b>: Por favor, también proporcione su nombre de usuario y el nombre del niño para el que está solicitando la educación y participación.",
         "Una vez que se haya verificado el comprobante, se activará la educación y la participación en su cuenta. Recibirá una confirmación por correo electrónico."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Registrar vacaciones",
+      "DESCRIPTION": [
+        "Si se registra un período de vacaciones en una fecha o período específico, el sistema no realizará ningún pedido recurrente durante ese tiempo.<br><br>",
+        "Tampoco es posible realizar un pedido manual durante el período de vacaciones.<br><br>",
+        "Para registrar unas vacaciones, seleccione el período deseado y haga clic en <b>[Registrar vacaciones]</b>.<br><br>",
+        "Tenga en cuenta que tanto la fecha de inicio como la de finalización deben ser futuras.<br><br>",
+        "Si ya existe un pedido para el período deseado, primero debe eliminarse antes de poder registrar unas vacaciones.<br><br>",
+        "Para eliminar unas vacaciones existentes, haga clic en <b>[Eliminar vacaciones]</b>.<br><br>"
       ]
     }
   },
@@ -606,5 +617,19 @@
   "REPORT_ERROR_HEADER": "Reportar error / sugerencia de mejora",
   "REPORT_ERROR_TEXT": "Por favor, seleccione el tipo de reporte y proporciónenos una breve descripción del problema.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Tipo de reporte",
-  "SENDEN": "Enviar"
+  "SENDEN": "Enviar",
+  "URLAUB": "Vacaciones / Ausencia",
+  "URLAUB_EINTRAGEN": "Registrar vacaciones o ausencia",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Ingrese su período de vacaciones o ausencia para pausar los pedidos de comida durante este tiempo.",
+  "ERROR_VACATION_START_DATE_FUTURE": "La fecha de inicio de las vacaciones debe estar en el futuro.",
+  "ERROR_VACATION_END_DATE_FUTURE": "La fecha de fin de las vacaciones debe estar en el futuro.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "La fecha de inicio de las vacaciones debe ser anterior a la fecha de fin.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Ya existen pedidos para el período especificado. Cancele esos pedidos antes de añadir las vacaciones.",
+  "SUCCESS_VACATION_ADDED": "Vacaciones añadidas con éxito",
+  "ERROR_VACATION_ADD_FAILED": "Error al añadir las vacaciones. Por favor, inténtelo de nuevo más tarde.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Períodos de vacaciones registrados",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Aquí puede ver todos sus períodos de vacaciones registrados.",
+  "BIS_OPTIONAL": "Hasta (opcional)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Por favor, introduzca una fecha de inicio",
+  "SUCCESS_VACATION_DELETED": "Vacaciones eliminadas con éxito"
 }

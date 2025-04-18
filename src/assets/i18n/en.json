@@ -8,7 +8,7 @@
   "KONTO_AUFLADEN": "Top up account",
   "KLICK_HERE_FOR_MORE_INFORMATION": "Click here for more information",
   "CONFIRM_BUTTON": "Confirm",
-  "WARNING_PERMANENT_ORDER": "The permanent order remains active until you change or delete it. <br> This also applies in the case of illness or other absences of the participant.<br><br>Cateringexpert is not liable for orders placed that are not picked up due to illness or other absences.",
+  "WARNING_PERMANENT_ORDER": "The recurring order remains active until you change or delete it. <br> This also applies in the case of illness or other absences of the participant.<br><br>Cateringexpert is not liable for orders placed that are not picked up due to illness or other absences.",
   "NO_STUDENT_REGISTERED_BANNER_TEXT": "A participant must be registered before placing an order",
   "ERKLAERUNG": "Explanation",
   "KLICK_HERE_FOR_MORE_HELP": "Click here for more help",
@@ -64,7 +64,7 @@
   "REGISTRATION_SUCCESS_SUBGROUP_HEADING": "Subgroup assignment",
   "REGISTRATION_HEADING": "Add participant",
   "REGISTRATION_STUDENT_HEADING_SMALL": "Confirm registration",
-  "REGISTRATION_STUDENT_DELETE_SPECIAL_FOOD_DIALOG": "Deleting the allergen food will remove any existing permanent order for the participant. Do you want to proceed? <br><br>The permanent order can be re-added afterward.",
+  "REGISTRATION_STUDENT_DELETE_SPECIAL_FOOD_DIALOG": "Deleting the allergen food will remove any existing recurring order for the participant. Do you want to proceed? <br><br>The recurring order can be re-added afterward.",
   "REGISTRATION_INSTRUCTIONS": "Please enter all the data and then click \"Add\".",
   "REGISTRATION_CONFIRMATION": "You will receive a confirmation email afterward.",
   "SPECIAL_FOOD_INSTRUCTIONS": "Available allergen foods are provided by the respective caterer. If you have any questions, please contact the respective caterer. When an allergen food is activated, it will be enabled in the participant's order.",
@@ -106,7 +106,7 @@
   "DASHBOARD.OVERVIEW": "Overview",
   "DASHBOARD.ORDER": "Order",
   "DASHBOARD.REGISTER": "Participant",
-  "DASHBOARD.PERMANENT_ORDER": "Permanent order",
+  "DASHBOARD.PERMANENT_ORDER": "Recurring order",
   "DASHBOARD.SETTINGS": "Settings",
   "DASHBOARD.SETTINGS.STAMMDATEN": "Master data",
   "DASHBOARD.SETTINGS.BESTELLEINSTELLUNG": "Order settings",
@@ -157,28 +157,28 @@
   "MANAGE_STUDENTS.EDIT_TITLE": "Edit",
   "MANAGE_STUDENTS.EDIT_DESCRIPTION": "To change the first or last name of the participant, enter the desired change and then click \"Save\".",
   "MANAGE_STUDENTS.ALLERGY_FOOD_DESCRIPTION": "If the participant has allergies, please select the appropriate food. Allergen foods are set by the respective caterer. If you have any questions, please contact the respective caterer. If an allergen food is activated, it will automatically be transmitted to the caterer for all your orders.<br><br><b>Note:</b> If the allergen food is changed afterward, this change will not be considered for already placed orders.",
-  "MANAGE_PERMANENT_ORDERS.HEADER": "Permanent orders",
-  "MANAGE_PERMANENT_ORDERS.SUBHEADER": "Registered permanent orders",
+  "MANAGE_PERMANENT_ORDERS.HEADER": "Recurring orders",
+  "MANAGE_PERMANENT_ORDERS.SUBHEADER": "Registered recurring orders",
   "MANAGE_PERMANENT_ORDERS.NAME": "Name",
   "MANAGE_PERMANENT_ORDERS.ACTIVE": "Active",
   "MANAGE_PERMANENT_ORDERS.EDIT": "Edit",
   "MANAGE_PERMANENT_ORDERS.EDIT_BUTTON": "Edit",
-  "MANAGE_PERMANENT_ORDERS.EDIT_HEADER": "Permanent order for:",
-  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "A permanent order already exists for the participant. To make changes to the permanent order, confirm the changes with the \"Save\" button.",
-  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "To add or change a permanent order, select the desired days and menu for each day, then confirm the selection with the \"Add\" button.",
+  "MANAGE_PERMANENT_ORDERS.EDIT_HEADER": "Recurring order for:",
+  "MANAGE_PERMANENT_ORDERS.EXISTING_ORDER": "A recurring order already exists for the participant. To make changes to the recurring order, confirm the changes with the \"Save\" button.",
+  "MANAGE_PERMANENT_ORDERS.NEW_ORDER": "To add or change a recurring order, select the desired days and menu for each day, then confirm the selection with the \"Add\" button.",
   "MANAGE_PERMANENT_ORDERS.SELECT_OPTION": "Please select",
-  "MANAGE_PERMANENT_ORDERS.ADD_ORDER": "Add permanent order",
+  "MANAGE_PERMANENT_ORDERS.ADD_ORDER": "Add recurring order",
   "MANAGE_PERMANENT_ORDERS.CHANGE_ORDER": "Change",
   "MANAGE_PERMANENT_ORDERS.DELETE_ORDER": "Delete",
   "MANAGE_PERMANENT_ORDERS.YES": "Yes",
-  "MANAGE_PERMANENT_ORDERS_SUCCESS_EDIT": "Permanent order successfully edited",
+  "MANAGE_PERMANENT_ORDERS_SUCCESS_EDIT": "Recurring order successfully edited",
   "MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY": "Please select at least one day",
-  "MANAGE_PERMANENT_ORDERS_ERROR_SAVING": "Error saving permanent order",
-  "MANAGE_PERMANENT_ORDERS_ERROR_DELETING": "Error deleting permanent order",
+  "MANAGE_PERMANENT_ORDERS_ERROR_SAVING": "Error saving recurring order",
+  "MANAGE_PERMANENT_ORDERS_ERROR_DELETING": "Error deleting recurring order",
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Settings saved",
-    "ERROR_INVALID_IBAN": "The entered IBAN is invalid. Please enter only the digits of your IBAN. <b>'DE'</b> is already pre-filled. <br> It must be a German bank account.",
+   "ERROR_INVALID_IBAN": "The IBAN must start with the country code <b>DE</b> and have a valid length. Please check your input. Only <b>German IBANs</b> are allowed.",
 
     "PERSONAL_INFO_HEADER": "Master data",
     "PERSONAL_INFO_SUBHEADER": "Confirm the change by clicking \"Save\"",
@@ -212,7 +212,7 @@
         "To cancel a dish, click the box of the desired dish again or the trash can icon.",
         "To change a dish, you must first cancel the dish and then order the desired dish.<br>",
         "To view an entire week, click the box <b>[Show entire week]</b>.<br>",
-        "Additionally, you can place a permanent order. Go to <b>[Permanent order]</b>."
+        "Additionally, you can place a recurring order. Go to <b>[Recurring order]</b>."
       ]
     },
     "help": {
@@ -233,19 +233,19 @@
         "Messages are automatically deleted after 30 days."
       ]
     },
-    "permanent_order": {
-      "HEADER": "Permanent orders",
+    "recurring_order": {
+      "HEADER": "Recurring orders",
       "DESCRIPTION": [
-        "Permanent orders are automatically entered once the order deadline for the respective day has passed.",
-        "<b>IMPORTANT:</b> The permanent order runs until you change or delete it.",
+        "Recurring orders are automatically entered once the order deadline for the respective day has passed.",
+        "<b>IMPORTANT:</b> The recurring order runs until you change or delete it.",
         "This also applies in case of illness or other absences of the participant.",
         "If you do not have enough balance in the account, the order will not be executed.",
         "If you have enabled email notifications for orders under <b>[Settings]</b>, you will receive a confirmation or error message for each order via email.",
-        "No permanent orders are executed on closure days or holidays.",
+        "No recurring orders are executed on closure days or holidays.",
         "The entry of closure times is done by the caterer or institution.<br><br>",
-        "To place a permanent order, go to <b>[Edit]</b> for the respective participant.",
+        "To place a recurring order, go to <b>[Edit]</b> for the respective participant.",
         "Then you can select the desired days and the menu for each day.",
-        "To confirm the permanent order, click [Add permanent order]."
+        "To confirm the recurring order, click [Add recurring order]."
       ]
     },
     "register_student": {
@@ -339,6 +339,17 @@
         "Alternatively, you can send the notice by email to <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. Processing by email can take up to 7 working days.",
         "<b>Important:</b> Please also provide your username and the name of the child for whom you are applying for education and participation.",
         "Once the notice has been checked, education and participation will be activated for your account. You will receive a confirmation by email."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Add vacation",
+      "DESCRIPTION": [
+        "If a vacation is entered for a specific date or period, no recurring order will be placed by the system during this period.<br><br>",
+        "A manual order is also not possible during the vacation period.<br><br>",
+        "To add a vacation, select the desired period and click on <b>[Add vacation]</b>.<br><br>",
+        "Please note that both the start and end dates must be in the future.<br><br>",
+        "If an order already exists for the desired period, it must be deleted first before a vacation can be entered.<br><br>",
+        "To delete an existing vacation, click on <b>[Delete vacation]</b>.<br><br>"
       ]
     }
   },
@@ -484,7 +495,7 @@
   "IM_FOLGENDEN__KOENNEN_SIE_IHR_KONTO_AUFLOESEN": "<b>Please note:</b> Your account will no longer be active after closing, and you will no longer be able to place orders. All settings, orders, and account data will be deleted. This option cannot be undone.",
   "GELD_AUSZAHLEN_KONTO_SCHLIESSEN": "To close your account, you must request a payout of your balance. Go to <b>[Account overview]</b> and follow the instructions.",
   "ANZEIGEN": "View",
-  "WICHTIG_DAUERBESTELLUNG": " The permanent order is automatically triggered after the respective order deadline.",
+  "WICHTIG_DAUERBESTELLUNG": " The recurring order is automatically triggered after the respective order deadline.",
   "WICHTIG": "Important",
   "BESTELLUNG_FIRST_INIT_TEXT_EINS": " The order deadline for the respective order days is set by your catering provider. After the order deadline has passed, cancellation or modification of the order is no longer possible.<br><b>Important:</b> We (Cateringexpert) have no influence on the order deadlines and cannot change them. We also cannot make changes after the order deadlines have passed.<br> We thank you for your understanding.",
   "AKTUELLE_BESTELLFRIST": "Current order deadline",
@@ -580,8 +591,8 @@
   "MAXIMUM_AMOUNT_ACCOUNT_OVERVIEW_DESCRIPTION": "<b>Important:</b> The regulations of the Federal Financial Supervisory Authority (BaFin) set a maximum balance of <b>€250.00</b> per meal participant. If this balance is exceeded through deposits, the entire exceeding amount will be automatically refunded.",
   "DATEI_ANZEIGEN": "View file",
   "BUT_AKTIVIEREN": "Activate BuT",
-  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Delete Permanent Order",
-  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Are you sure you want to deactivate the selected permanent order?",
+  "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Deactivate Recurring Order",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Are you sure you want to deactivate the selected recurring order?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Our account is synchronized every <b>five minutes</b>. Your deposit will be automatically credited to your account as soon as it is received. Thus, even <b>instant transfers</b> can be credited almost immediately. You will then receive a confirmation by email to the address you have provided.",
 
   "GEBUEHREN": "Fees",
@@ -603,7 +614,7 @@
   "ACCOUNT_SUPPORT_ERROR": "An error has occurred. Please try again later or contact our customer support at <u><a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a></u>.",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_AFTER_SELECTION": "Once the subgroup has been assigned, it can only be changed by the institution. Please contact your institution if you wish to change the subgroup.",
   "STUDENT_LOESCHEN": "Delete participant",
-  "TEXT_STUDENT_LOESCHEN": "Are you sure you want to delete the participant? All data for the participant will be permanently deleted.",
+  "TEXT_STUDENT_LOESCHEN": "Are you sure you want to delete the participant? All data for the participant will be recurringly deleted.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "The account balance is not sufficient for this order.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Order(s) found",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Future orders for the meal participant have already been found. Please cancel the orders first before deleting the meal participant.",
@@ -611,5 +622,22 @@
   "REPORT_ERROR_HEADER": "Report Error / Suggestion",
   "REPORT_ERROR_TEXT": "Please select the type of report and provide us with a brief description of the issue.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Type of Report",
-  "SENDEN": "Send"
+  "SENDEN": "Send",
+  "URLAUB": "Vacation / Absence",
+  "URLAUB_EINTRAGEN": "Enter vacation / absence",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Enter your vacation or absence period to pause food orders during this time.",
+  "ERROR_VACATION_START_DATE_FUTURE": "The vacation start date must be in the future.",
+  "ERROR_VACATION_END_DATE_FUTURE": "The vacation end date must be in the future.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "The vacation start date must be before the end date.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "There are already orders for the specified period. Please cancel these orders before adding the vacation.",
+  "SUCCESS_VACATION_ADDED": "Vacation successfully added",
+  "ERROR_VACATION_ADD_FAILED": "Error adding the vacation. Please try again later.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Registered vacation periods",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Here you can see all your registered vacation periods.",
+  "BIS_OPTIONAL": "Until (optional)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Please enter a start date",
+  "SUCCESS_VACATION_DELETED": "Vacation successfully deleted",
+  "FUER_ALLE": "For all participants",
+  "SPEICHERN" : "Save"
+
 }

@@ -180,7 +180,7 @@
   "NEIN": "Hayır",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ayarlar kaydedildi",
-    "ERROR_INVALID_IBAN": "Girilen IBAN geçersiz. Lütfen yalnızca IBAN numaranızın rakamlarını girin. <b>'DE'</b> zaten önceden doldurulmuş. <br> Bu, bir Alman banka hesabı olmalıdır.",
+  "ERROR_INVALID_IBAN": "IBAN, ülke kodu <b>DE</b> ile başlamalı ve geçerli bir uzunluğa sahip olmalıdır. Lütfen girdiğinizi kontrol edin. Yalnızca <b>Alman IBAN’lar</b> kabul edilmektedir.",
 
     "PERSONAL_INFO_HEADER": "Temel veriler",
     "PERSONAL_INFO_SUBHEADER": "\"Değiştir\" düğmesine tıklayarak değişikliği onaylayın",
@@ -341,6 +341,17 @@
         " Alternatif olarak, belgeyi e-posta ile <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a> adresine gönderebilirsiniz. Ancak, e-posta ile işlem 7 iş gününe kadar sürebilir.",
         "<b>Önemli</b>: Lütfen kullanıcı adınızı ve eğitim ve katılım için başvurduğunuz çocuğun adını da belirtin.",
         "Belge incelendikten sonra, eğitim ve katılım hesabınız için etkinleştirilecektir. Bir onay e-postası alacaksınız."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Tatil ekle",
+      "DESCRIPTION": [
+        "Belirli bir tarih veya dönem için tatil girilmişse, bu dönemde sistem tarafından herhangi bir sürekli sipariş verilmez.<br><br>",
+        "Ayrıca tatil süresi boyunca manuel sipariş vermek de mümkün değildir.<br><br>",
+        "Tatil eklemek için istediğiniz dönemi seçin ve <b>[Tatil ekle]</b> butonuna tıklayın.<br><br>",
+        "Lütfen başlangıç ve bitiş tarihlerinin her ikisinin de gelecekte olması gerektiğini unutmayın.<br><br>",
+        "İstediğiniz dönem için zaten bir sipariş varsa, tatil eklemeden önce bu sipariş silinmelidir.<br><br>",
+        "Mevcut bir tatili silmek için <b>[Tatil sil]</b> butonuna tıklayın.<br><br>"
       ]
     }
   },
@@ -613,6 +624,20 @@
   "REPORT_ERROR_HEADER": "Hata / iyileştirme bildirimi",
   "REPORT_ERROR_TEXT": "Lütfen bildirim türünü seçin ve sorunu kısaca açıklayın.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Bildirim türü",
-  "SENDEN": "Gönder"
+  "SENDEN": "Gönder",
+  "URLAUB": "Tatil / Yokluk",
+  "URLAUB_EINTRAGEN": "Tatil veya yokluk ekle",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Tatil veya yokluk sürenizi girerek bu süre boyunca yemek siparişlerini duraklatın.",
+  "ERROR_VACATION_START_DATE_FUTURE": "Tatilin başlangıç tarihi gelecekte olmalıdır.",
+  "ERROR_VACATION_END_DATE_FUTURE": "Tatilin bitiş tarihi gelecekte olmalıdır.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Tatilin başlangıç tarihi bitiş tarihinden önce olmalıdır.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Belirtilen dönemde zaten siparişler var. Tatili eklemeden önce bu siparişleri iptal edin.",
+  "SUCCESS_VACATION_ADDED": "Tatil başarıyla eklendi",
+  "ERROR_VACATION_ADD_FAILED": "Tatil eklenirken hata oluştu. Lütfen daha sonra tekrar deneyin.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Kayıtlı tatil süreleri",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Burada kayıtlı tüm tatil sürelerinizi görebilirsiniz.",
+  "BIS_OPTIONAL": "Son (isteğe bağlı)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Lütfen bir başlangıç tarihi girin",
+  "SUCCESS_VACATION_DELETED": "Tatil başarıyla silindi"
 
 }

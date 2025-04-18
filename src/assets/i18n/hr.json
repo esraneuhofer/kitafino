@@ -178,7 +178,7 @@
   "NEIN": "Ne",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Postavke spremljene",
-    "ERROR_INVALID_IBAN": "Uneseni IBAN je nevažeći. Molimo unesite samo znamenke vašeg IBAN-a. <b>'DE'</b> je već unaprijed navedeno.<br>Mora biti riječ o njemačkom bankovnom računu.",
+    "ERROR_INVALID_IBAN": "IBAN mora započeti oznakom države <b>DE</b> i imati valjanu duljinu. Molimo provjerite svoj unos. Dozvoljeni su samo <b>njemački IBAN-ovi</b>.",
     "PERSONAL_INFO_HEADER": "Osnovni podaci",
     "PERSONAL_INFO_SUBHEADER": "Potvrdite promjenu klikom na \"Promijeni\"",
     "FIRST_NAME": "Ime",
@@ -338,6 +338,17 @@
         "Alternativno, možete poslati dokument i e-poštom na <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. Obrada putem e-pošte može potrajati do 7 radnih dana.",
         "<b>Važno:</b> Molimo navedite i svoje korisničko ime i ime djeteta za koje zatražujete Obrazovanje i sudjelovanje.",
         "Čim rješenje bude provjereno, Obrazovanje i sudjelovanje bit će aktivirano na vašem računu. Primit ćete potvrdu putem e-pošte."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Unos godišnjeg odmora",
+      "DESCRIPTION": [
+        "Ako je za određeni datum ili razdoblje unesen godišnji odmor, sustav neće izvršavati trajne narudžbe u tom razdoblju.<br><br>",
+        "Također, ručna narudžba nije moguća tijekom razdoblja godišnjeg odmora.<br><br>",
+        "Da biste unijeli godišnji odmor, odaberite željeno razdoblje i kliknite na <b>[Unesi godišnji]</b>.<br><br>",
+        "Imajte na umu da i početni i završni datum moraju biti u budućnosti.<br><br>",
+        "Ako već postoji narudžba za željeno razdoblje, potrebno ju je prvo obrisati prije unosa godišnjeg odmora.<br><br>",
+        "Da biste obrisali postojeći godišnji odmor, kliknite na <b>[Obriši godišnji]</b>.<br><br>"
       ]
     }
   },
@@ -618,6 +629,20 @@
   "REPORT_ERROR_HEADER": "Prijavi grešku / poboljšanje",
   "REPORT_ERROR_TEXT": "Molimo odaberite vrstu prijave i ukratko opišite problem.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Vrsta prijave",
-  "SENDEN": "Pošalji"
+  "SENDEN": "Pošalji",
+  "URLAUB": "Godišnji odmor / Odsutnost",
+  "URLAUB_EINTRAGEN": "Unesi godišnji odmor ili odsutnost",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Unesite razdoblje godišnjeg odmora ili odsutnosti kako biste pauzirali narudžbe hrane u tom razdoblju.",
+  "ERROR_VACATION_START_DATE_FUTURE": "Početni datum godišnjeg odmora mora biti u budućnosti.",
+  "ERROR_VACATION_END_DATE_FUTURE": "Završni datum godišnjeg odmora mora biti u budućnosti.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Početni datum godišnjeg odmora mora biti prije završnog datuma.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Već postoje narudžbe za navedeno razdoblje. Molimo otkažite te narudžbe prije unosa godišnjeg odmora.",
+  "SUCCESS_VACATION_ADDED": "Godišnji odmor uspješno unesen",
+  "ERROR_VACATION_ADD_FAILED": "Pogreška pri unosu godišnjeg odmora. Pokušajte kasnije ponovno.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Evidentirana razdoblja godišnjeg odmora",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Ovdje možete vidjeti sva svoja evidentirana razdoblja godišnjeg odmora.",
+  "BIS_OPTIONAL": "Do (opcionalno)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Molimo unesite početni datum",
+  "SUCCESS_VACATION_DELETED": "Godišnji odmor uspješno obrisan"
 
 }

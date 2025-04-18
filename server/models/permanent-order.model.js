@@ -12,6 +12,10 @@ var permanentOrderStudent = new Schema({
     typeSpecial:String,
   }],
   studentId:Schema.Types.ObjectId,
+  isActive:{
+    type:Boolean,
+    default:true
+  },
 });
 
 

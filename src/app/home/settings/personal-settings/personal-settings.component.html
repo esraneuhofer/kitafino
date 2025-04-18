@@ -139,10 +139,9 @@
                     <div class="mt-2 relative">
                       <!-- Eingabefeld zum Bearbeiten der IBAN -->
                       <div class="flex rounded-md shadow-sm" *ngIf="showFullIban">
-                        <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span>
+                        <!-- <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span> -->
                         <input type="text"
                                [(ngModel)]="tenantModel.iban"
-                               appIbanFormat
                                name="iban"
                                id="iban"
                                autocomplete="IBAN"
@@ -152,10 +151,9 @@
 
                       <!-- Eingabefeld für die maskierte Ansicht -->
                       <div class="flex rounded-md shadow-sm" *ngIf="!showFullIban">
-                        <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span>
+                        <!-- <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">DE</span> -->
                         <input type="text"
                                [value]="maskedIban"
-                               appIbanFormat
                                readonly
                                id="iban_hidden"
                                name="iban"

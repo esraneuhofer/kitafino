@@ -5,6 +5,8 @@ const AccountSchema = mongoose.model('AccountSchema');
 const ChargeAccount = mongoose.model('ChargeAccount');
 const WithdrawModel = mongoose.model('WithdrawRequest');
 const {getMailOptions, getAmountAddRemove} = require('../controllers/charge-account-functions');
+const { reference } = require("@popperjs/core");
+const Tenantparent = mongoose.model('Tenantparent');
 
 function setChargeWithdraw(charge,tenant){
 
@@ -75,8 +77,21 @@ async function addAccountChargesTenant(req, session) {
 module.exports.withdrawFunds = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
-
   try {
+
+    let tenantParent = await Tenantparent.findOne({userId: req._id}).session(session);
+    if (!tenantParent) {
+      return res.status(400).json({
+        success: false,
+        message: 'Kein gültiger Benutzer gefunden.',
+      });
+    }
+    if(!tenantParent.iban){
+      return res.status(400).json({
+        success: false,
+        message: 'Kein gültiges Bankkonto gefunden.',
+      });
+    }
     // 1) Validierung
     if (
       !req.body.accountCharge ||
@@ -101,12 +116,15 @@ module.exports.withdrawFunds = async (req, res) => {
 
     // 4) Neues Withdraw-Dokument anlegen
     const requestDesolve = new WithdrawModel({
-      amount: req.body.accountCharge.amount,
       tenantId: req.body.accountCharge.tenantId,
+      amount: req.body.accountCharge.amount,
       customerId: req.body.accountCharge.customerId,
       userId: req.body.accountCharge.userId,
-      createdAt: new Date(),
       isPayed: false,
+      iban:tenantParent.iban,
+      nameAccountHolder: tenantParent.firstName + ' ' + tenantParent.lastName,
+      reference: `Auszahlung Guthaben ${tenantParent.username}` ,
+      typeWithdrawal: 'auszahlung'
     });
 
     // 5) Speichern innerhalb der Session

@@ -76,6 +76,7 @@ app.use(cors(corsOptions));
 
 require(__dirname + '/server/models/error_report.model');
 require(__dirname + '/server/models/feedback.model');
+require(__dirname + '/server/models/vacation-student.model');
 require(__dirname + '/server/models/buchungskonto.model');
 require(__dirname + '/server/models/school.model');
 require(__dirname + '/server/models/withdrawrequest.model');

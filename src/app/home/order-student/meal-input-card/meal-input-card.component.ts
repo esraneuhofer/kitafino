@@ -262,8 +262,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
     return {'min-height': minHeight};
   }
-
+  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew): boolean {
+    if(!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu'  && !orderModel.idMenu)return false;
+    return true;
+  }
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
+
+
     if(customer.generalSettings.hideMenuName && (orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'))return false;
     if(!student.specialFood && !customer.generalSettings.allowOnlyOneMenu)return true;
     if(!customer.generalSettings.allowOnlyOneMenu)return true;

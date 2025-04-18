@@ -119,6 +119,7 @@ import { ConfirmStripePaymentComponent } from './home/account/account-payment/co
 import { DeleteStudentDialogComponent } from './directives/delete-student-dialog/delete-student-dialog.component';
 import localeHr from '@angular/common/locales/hr';
 import { ReportErrorDialogComponent } from './home/dialogs/report-error-dialog/report-error-dialog.component';
+import { VacationParentComponent } from './home/vacation-parent/vacation-parent.component';
 
 // AoT requires an exported function for factories
 function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -223,6 +224,7 @@ function localeFactory(languageService: LanguageService) {
     ConfirmStripePaymentComponent,
     DeleteStudentDialogComponent,
     ReportErrorDialogComponent,
+    VacationParentComponent,
   ],
   imports: [
     BrowserModule,

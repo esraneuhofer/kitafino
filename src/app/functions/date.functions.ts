@@ -7,6 +7,7 @@ import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
 import {CustomerInterface} from "../classes/customer.class";
 import {TranslateService} from "@ngx-translate/core";
+import { VacationStudent } from "../service/vacation.service";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -16,12 +17,12 @@ export function normalizeToBerlinDate(date: Date | string): string {
     .tz('Europe/Berlin')
     .format('YYYY-MM-DD');
 }
-export function getLockDays(date:string, allVacations:VacationsInterface[], state:any):boolean[] {
+export function getLockDays(date:string, allVacations:VacationsInterface[],allVacationsTenant:VacationStudent[], state:any):boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
   var startDay = addDayFromDate(dateMonday, 0);
   for (var i = 0; i < numberFive.length; i++) {
-    if (isHoliday(startDay, state) || isVacation(startDay, allVacations)) {
+    if (isHoliday(startDay, state) || isVacation(startDay, allVacations) || isVacation(startDay, allVacationsTenant)) {
       lockDay[i] = true;
     }
     startDay = addDayFromDate(startDay, 1);
@@ -30,18 +31,19 @@ export function getLockDays(date:string, allVacations:VacationsInterface[], stat
 }
 
 
-function isVacation(inputDate:Date,vacationArray:VacationsInterface[]){
-  if(!vacationArray)return;
+function isVacation(inputDate:Date,vacationArray:VacationsInterface[] | VacationStudent[]):boolean{
+  if (!vacationArray || vacationArray.length === 0) return false;
   let dateToCompare = setDateToCompare(inputDate);
   let bool =false;
   for(let i = 0;i<vacationArray.length; i ++){
     let start = setDateToCompare(vacationArray[i].vacation.vacationStart);
-    let end =setDateToCompare(vacationArray[i].vacation.vacationEnd);
+   
     if(!vacationArray[i].vacation.vacationEnd){
       if(start === dateToCompare){
         bool = true;
       }
     }else{
+      let end =setDateToCompare(vacationArray[i].vacation.vacationEnd!);
       if(setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)){
         bool = true;
       }

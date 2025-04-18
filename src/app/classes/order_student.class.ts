@@ -13,10 +13,10 @@ import {EinrichtungInterface} from "./einrichtung.class";
 export interface SpecialFoodOrderInterface {
   priceOrder: number;
   menuSelected: boolean;
-  nameSpecialFood: string,
-  active: boolean,
-  idSpecialFood: string,
-  amountSpecialFood: number
+  nameSpecialFood: string;
+  active: boolean;
+  idSpecialFood: string;
+  amountSpecialFood: number;
 }
 
 
@@ -27,6 +27,7 @@ export interface OrderInterfaceStudent {
   kw: number;
   year: number;
   dateOrder: Date;
+  subgroup?: string;
   order: OrderInterfaceStudentDay;
   customerId: string;
   groupIdCustomer:string;

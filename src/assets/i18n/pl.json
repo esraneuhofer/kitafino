@@ -178,7 +178,7 @@
   "NEIN": "Nie",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ustawienia zapisane",
-    "ERROR_INVALID_IBAN": "Wprowadzony IBAN jest nieprawidłowy. Proszę podać tylko cyfry swojego IBAN. <b>'DE'</b> jest już wstępnie wypełnione. <br> Musi to być niemieckie konto bankowe.",
+    "ERROR_INVALID_IBAN": "IBAN musi zaczynać się od kodu kraju <b>DE</b> i mieć prawidłową długość. Proszę sprawdzić dane. Dozwolone są wyłącznie <b>niemieckie IBAN</b>.",
 
     "PERSONAL_INFO_HEADER": "Dane podstawowe",
     "PERSONAL_INFO_SUBHEADER": "Potwierdź zmiany klikając przycisk \"Zapisz\"",
@@ -339,6 +339,17 @@
         "Alternatywnie możesz przesłać zaświadczenie e-mailem na adres <a href='mailto:but@cateringexpert.de>but@cateringexpert.de</a>. Przetwarzanie za pośrednictwem e-maila może jednak potrwać do 7 dni roboczych.",
         "<b>Ważne</b>: Proszę podać również swoją nazwę użytkownika oraz imię dziecka, dla którego ubiegasz się o edukację i uczestnictwo.",
         "Po zweryfikowaniu zaświadczenia, edukacja i uczestnictwo zostaną aktywowane dla Twojego konta. Otrzymasz potwierdzenie e-mailem."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Zgłoszenie urlopu",
+      "DESCRIPTION": [
+        "Jeśli na określony termin lub okres wprowadzono urlop, system nie będzie w tym czasie realizował żadnych stałych zamówień.<br><br>",
+        "W okresie urlopu nie można również złożyć zamówienia ręcznego.<br><br>",
+        "Aby zgłosić urlop, wybierz odpowiedni okres i kliknij <b>[Zgłoś urlop]</b>.<br><br>",
+        "Pamiętaj, że zarówno data rozpoczęcia, jak i data zakończenia muszą być w przyszłości.<br><br>",
+        "Jeśli dla wybranego okresu istnieje już zamówienie, należy je najpierw usunąć, zanim będzie można wprowadzić urlop.<br><br>",
+        "Aby usunąć istniejący urlop, kliknij <b>[Usuń urlop]</b>.<br><br>"
       ]
     }
   },
@@ -613,7 +624,21 @@
   "REPORT_ERROR_HEADER": "Zgłoś błąd / sugestię poprawy",
   "REPORT_ERROR_TEXT": "Proszę wybrać rodzaj zgłoszenia i krótko opisać problem.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Rodzaj zgłoszenia",
-  "SENDEN": "Wyślij"
+  "SENDEN": "Wyślij",
+  "URLAUB": "Urlop / Nieobecność",
+  "URLAUB_EINTRAGEN": "Zgłoś urlop lub nieobecność",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Wpisz okres urlopu lub nieobecności, aby wstrzymać zamówienia posiłków w tym czasie.",
+  "ERROR_VACATION_START_DATE_FUTURE": "Data rozpoczęcia urlopu musi być w przyszłości.",
+  "ERROR_VACATION_END_DATE_FUTURE": "Data zakończenia urlopu musi być w przyszłości.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Data rozpoczęcia urlopu musi być wcześniejsza niż data zakończenia.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Istnieją już zamówienia w podanym okresie. Proszę je najpierw anulować przed zgłoszeniem urlopu.",
+  "SUCCESS_VACATION_ADDED": "Urlop został pomyślnie zgłoszony",
+  "ERROR_VACATION_ADD_FAILED": "Wystąpił błąd podczas zgłaszania urlopu. Proszę spróbować ponownie później.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Zarejestrowane okresy urlopu",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Tutaj możesz zobaczyć wszystkie swoje zarejestrowane okresy urlopu.",
+  "BIS_OPTIONAL": "Do (opcjonalnie)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Proszę podać datę rozpoczęcia",
+  "SUCCESS_VACATION_DELETED": "Urlop został pomyślnie usunięty"
 
 }
 

@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Impostazioni salvate",
-    "ERROR_INVALID_IBAN": "L'IBAN inserito non è valido. Per favore, inserisci solo le cifre del tuo IBAN. <b>'DE'</b> è già precompilato. <br> Deve essere un conto bancario tedesco.",
+   "ERROR_INVALID_IBAN": "L’IBAN deve iniziare con il codice paese <b>DE</b> e avere una lunghezza valida. Controlla l’input. Sono consentiti solo <b>IBAN tedeschi</b>.",
 
     "PERSONAL_INFO_HEADER": "Dati principali",
     "PERSONAL_INFO_SUBHEADER": "Conferma la modifica facendo clic su \"Modifica\"",
@@ -339,6 +339,17 @@
         "In alternativa, puoi inviare il certificato via e-mail a <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a>. La lavorazione via e-mail può richiedere fino a 7 giorni lavorativi.",
         "<b>Importante</b>: Si prega di fornire anche il nome utente e il nome del bambino per il quale si richiede l'istruzione e la partecipazione.",
         "Una volta che il certificato è stato verificato, l'istruzione e la partecipazione saranno attivate per il tuo account. Riceverai una conferma via e-mail."
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "Inserisci ferie",
+      "DESCRIPTION": [
+        "Se per una determinata data o periodo sono state inserite delle ferie, il sistema non effettuerà alcun ordine ricorrente in quel periodo.<br><br>",
+        "Inoltre, non è possibile effettuare ordini manuali durante il periodo di ferie.<br><br>",
+        "Per inserire le ferie, seleziona il periodo desiderato e fai clic su <b>[Inserisci ferie]</b>.<br><br>",
+        "Tieni presente che sia la data di inizio che la data di fine devono essere future.<br><br>",
+        "Se esiste già un ordine per il periodo desiderato, è necessario eliminarlo prima di poter inserire le ferie.<br><br>",
+        "Per eliminare delle ferie esistenti, fai clic su <b>[Elimina ferie]</b>.<br><br>"
       ]
     }
   },
@@ -615,7 +626,21 @@
   "REPORT_ERROR_HEADER": "Segnala errore / miglioramento",
   "REPORT_ERROR_TEXT": "Seleziona il tipo di segnalazione e fornisci una breve descrizione del problema.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Tipo di segnalazione",
-  "SENDEN": "Invia"
+  "SENDEN": "Invia",
+  "URLAUB": "Ferie / Assenza",
+  "URLAUB_EINTRAGEN": "Inserisci ferie o assenza",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Inserisci il tuo periodo di ferie o assenza per mettere in pausa gli ordini di cibo durante questo periodo.",
+  "ERROR_VACATION_START_DATE_FUTURE": "La data di inizio delle ferie deve essere futura.",
+  "ERROR_VACATION_END_DATE_FUTURE": "La data di fine delle ferie deve essere futura.",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "La data di inizio delle ferie deve precedere la data di fine.",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "Esistono già ordini per il periodo specificato. Si prega di annullarli prima di aggiungere le ferie.",
+  "SUCCESS_VACATION_ADDED": "Ferie inserite con successo",
+  "ERROR_VACATION_ADD_FAILED": "Errore durante l'inserimento delle ferie. Per favore riprova più tardi.",
+  "EINGETRAGENE_URLAUBSZEITEN": "Periodi di ferie registrati",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Qui puoi vedere tutti i tuoi periodi di ferie registrati.",
+  "BIS_OPTIONAL": "Fino a (opzionale)",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Per favore inserisci una data di inizio",
+  "SUCCESS_VACATION_DELETED": "Ferie eliminate con successo"
 
 }
 

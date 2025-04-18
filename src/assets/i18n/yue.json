@@ -178,7 +178,7 @@
   "NEIN": "否",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "設置已保存",
-    "ERROR_INVALID_IBAN": "輸入嘅 IBAN 無效。請只輸入你嘅 IBAN 數字。<b>'DE'</b> 已經預先填好。<br> 必須係德國銀行帳戶。",
+    "ERROR_INVALID_IBAN": "IBAN必須以國家代號 <b>DE</b> 開頭並且長度正確。請檢查您嘅輸入。只允許使用 <b>德國IBAN</b>。",
 
     "PERSONAL_INFO_HEADER": "主數據",
     "PERSONAL_INFO_SUBHEADER": "確認更改後點擊“更改”",
@@ -339,6 +339,17 @@
         " 或者，您也可以通過電子郵件將證明發送至 <a href='mailto:but@cateringexpert.de>but@cateringexpert.de</a>。通過電子郵件處理可能需要最多7個工作日。",
         "<b>重要：</b>請提供您的用戶名和申請教育和參與的孩子的姓名。",
         "一旦證明通過審核，教育和參與將為您的賬戶啟用。您將收到電子郵件確認。"
+      ]
+    },
+    "settings_vacation": {
+      "HEADER": "登記假期",
+      "DESCRIPTION": [
+        "如果喺某個日子或時段登記咗假期，系統就唔會喺嗰段時間內做自動重複訂單。<br><br>",
+        "假期期間亦唔可以手動落單。<br><br>",
+        "如果要登記假期，請揀選所需時段，然後撳 <b>[登記假期]</b>。<br><br>",
+        "請注意開始日期同結束日期都要喺未來。<br><br>",
+        "如果你想要的時段已經有訂單，就要先刪除嗰個訂單，先可以登記假期。<br><br>",
+        "如果要刪除已有的假期，請撳 <b>[刪除假期]</b>。<br><br>"
       ]
     }
   },
@@ -611,7 +622,21 @@
   "REPORT_ERROR_HEADER": "報告錯誤 / 改善",
   "REPORT_ERROR_TEXT": "請選擇報告類型，並簡單描述問題。",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "報告類型",
-  "SENDEN": "提交"
+  "SENDEN": "提交",
+  "URLAUB": "假期 / 不在",
+      "URLAUB_EINTRAGEN": "登記假期或不在",
+      "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "輸入你嘅假期或不在時段，以便喺此期間暫停送餐訂單。",
+  "ERROR_VACATION_START_DATE_FUTURE": "假期開始日期必須喺未來。",
+  "ERROR_VACATION_END_DATE_FUTURE": "假期結束日期必須喺未來。",
+  "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "假期開始日期必須早於結束日期。",
+  "ERROR_VACATION_CONFLICTING_ORDERS": "喺指定時段已經有訂單。請先取消嗰啲訂單，然後先可以新增假期。",
+  "SUCCESS_VACATION_ADDED": "成功新增假期",
+  "ERROR_VACATION_ADD_FAILED": "新增假期時出現錯誤。請稍後再試。",
+  "EINGETRAGENE_URLAUBSZEITEN": "已登記嘅假期時段",
+  "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "喺呢度可以睇到你已登記嘅全部假期時段。",
+  "BIS_OPTIONAL": "至（可選）",
+  "BITTE_GEBEN_SIE_STARTDATUM_EIN": "請輸入開始日期",
+  "SUCCESS_VACATION_DELETED": "已成功刪除假期"
 
 }
 

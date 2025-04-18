@@ -44,6 +44,7 @@ import {SchoolService} from "../../service/school.service";
 import {App, App as CapacitorApp} from "@capacitor/app";
 import {Capacitor, PluginListenerHandle} from "@capacitor/core";
 import {EinrichtungInterface} from "../../classes/einrichtung.class";
+import {  VacationService, VacationStudent } from '../../service/vacation.service';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -88,7 +89,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   weekplanSelectedWeek: (WeekplanMenuInterface | null) = null;
   orderWeek: MealCardInterface[] = [];
   schoolSettings!: EinrichtungInterface;
-
+  vacationsStudent: VacationStudent[] = [];
   private appStateChangeListener: PluginListenerHandle | undefined;
   private subscriptions: Subscription = new Subscription();
 
@@ -102,6 +103,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   }
 
   constructor(private generellService: GenerellService,
+              private vacationService: VacationService,
               private toastr: ToastrService,
               private tenantService: TenantServiceStudent,
               private studentService: StudentService,
@@ -178,7 +180,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.generellService.getWeekplanGroups(),
       this.accountService.getAccountTenant(),
       this.generellService.getVacationCustomer(),
-      this.schoolService.getSchoolSettings()
+      this.schoolService.getSchoolSettings(),
     ]).subscribe(
       ([
          settings,
@@ -194,7 +196,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
          weekplanGroups,
          accountTenant,
          vacations,
-         schoolSettings
+         schoolSettings,
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -209,11 +211,10 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         WeekplanGroupClass[],
         AccountCustomerInterface,
         VacationsInterface[],
-        EinrichtungInterface
+        EinrichtungInterface,
       ]) => {
         this.settings = settings;
         this.customer = customer;
-
         this.meals = getMealsWithArticle(meals, articles, articleDeclarations);
         this.menus = getMenusWithMealsAndArticle(menus, this.meals);
         this.registeredStudents = students;
@@ -309,14 +310,15 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.orderService.getOrderStudentDay({
           dateOrder: queryDate,
           studentId: this.selectedStudent._id
-        })
+        }),
+        this.vacationService.getAllVacationStudentByStudentId(this.selectedStudent._id)
       ]),
       delay$
     ]).pipe(
-      map(([results]) => results as [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)])
-    ).subscribe(([accountTenant, weekplan, orderStudent]: [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null)]) => {
+      map(([results]) => results as [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null), VacationStudent[]])
+    ).subscribe(([accountTenant, weekplan, orderStudent, vacationsStudent]: [AccountCustomerInterface, WeekplanMenuInterface, (OrderInterfaceStudentSave | null), VacationStudent[]]) => {
       this.accountTenant = accountTenant;
-
+      this.vacationsStudent = vacationsStudent;
       // Sets the Weekplan from Catering Company with Menus and Allergens
       this.selectedWeekplan = getMenusForWeekplan(
         weekplan,
@@ -329,6 +331,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.lockDays = getLockDays(
         dateMonday.toString(),
         this.allVacations,
+        this.vacationsStudent,
         this.customer.generalSettings.state
       );
 
@@ -409,11 +412,11 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
-    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
+    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state);
     this.selectedStudent = this.registeredStudents[0];
     if (!this.querySelection) return;
     // if(this.checkForErrors(this.selectedStudent)){
-    //   return;
+    //   return
     // }
     if (this.displayOrderTypeWeek) {
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
@@ -434,7 +437,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.customer.generalSettings.state);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state);
       if (!this.selectedStudent) return;
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     })
@@ -443,6 +446,8 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
   getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
     this.orderWeek = [];
+    this.vacationsStudent = [];
+
     if (!selectedStudent?._id) {
       this.pageLoaded = true;
       return;
@@ -451,56 +456,69 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     const dateMonday = normalizeToBerlinDate(
       getDateMondayFromCalenderweek(this.querySelection)
     );
-
-
+    
     if (!this.selectedStudent) {
       this.pageLoaded = true;
       return;
     }
 
-    // Hole die 5 Werktage
-    const workdays = getNextFiveWorkdays(dateMonday);
+    // Zuerst die Urlaubsdaten des Studenten laden
+    this.vacationService.getAllVacationStudentByStudentId(studentId).subscribe((vacations:VacationStudent[]) => {
+      console.log("Urlaubsdaten des Studenten:", vacations);
+        // Urlaubsdaten speichern
+        this.vacationsStudent = vacations;
+        this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state)
+        // Dann mit dem Abrufen der Bestellungen fortfahren
+        // Hole die 5 Werktage
+        const workdays = getNextFiveWorkdays(dateMonday);
 
-    // Erstelle die Promises für jeden Werktag
-    const promiseOrderWeek = workdays.map(date =>
-      this.orderService.getOrderStudentDay({
-        dateOrder: date,
-        studentId: studentId || ''
-      })
-    );
+        // Erstelle die Promises für jeden Werktag
+        const promiseOrderWeek = workdays.map(date =>
+          this.orderService.getOrderStudentDay({
+            dateOrder: date,
+            studentId: studentId || ''
+          })
+        );
 
-    // Timer für 400ms Verzögerung
-    const timer$ = timer(400);
+        // Timer für 400ms Verzögerung
+        const timer$ = timer(400);
 
-    // Combine the forkJoin observable with the timer observable
-    combineLatest([
-      forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])),
-      timer$
-    ]).pipe(
-      map(([orders]) => orders) // Extrahiere die Bestellungen
-    ).subscribe((orders: (OrderInterfaceStudentSave | null)[]) => {
-      this.ngZone.run(() => {
-        workdays.forEach((date, index) => {
-          if (!this.selectedStudent) return;
+        // Combine the forkJoin observable with the timer observable
+        combineLatest([
+          forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])),
+          timer$
+        ]).pipe(
+          map(([orders]) => orders) // Extrahiere die Bestellungen
+        ).subscribe((orders: (OrderInterfaceStudentSave | null)[]) => {
+          this.ngZone.run(() => {
+            workdays.forEach((date, index) => {
+              if (!this.selectedStudent) return;
 
-          this.orderWeek.push(
-            setOrderDayStudent(
-              orders[index],
-              weekplanSelectedWeek,
-              this.settings,
-              this.customer,
-              this.selectedStudent,
-              index,
-              new Date(date), // String-Datum im YYYY-MM-DD Format
-              this.querySelection,
-              this.lockDays,
-              this.schoolSettings
-            )
-          );
+              this.orderWeek.push(
+                setOrderDayStudent(
+                  orders[index],
+                  weekplanSelectedWeek,
+                  this.settings,
+                  this.customer,
+                  this.selectedStudent,
+                  index,
+                  new Date(date), // String-Datum im YYYY-MM-DD Format
+                  this.querySelection,
+                  this.lockDays,
+                  this.schoolSettings,
+                
+                )
+              );
+            });
+            this.pageLoaded = true;
+          });
         });
+      },
+      (error) => {
+        console.error('Fehler beim Laden der Urlaubsdaten:', error);
         this.pageLoaded = true;
-      });
-    });
+      }
+    );
   }
-
 }
+
