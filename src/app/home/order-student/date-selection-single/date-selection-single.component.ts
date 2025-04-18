@@ -9,26 +9,24 @@ import * as dayjs from 'dayjs';
 @Component({
   selector: 'app-date-selection-single',
   templateUrl: './date-selection-single.component.html',
-  styleUrls: ['./date-selection-single.component.scss']
+  styleUrls: ['./date-selection-single.component.scss'],
 })
 export class DateSelectionSingleComponent implements OnInit {
-
   @Input() registeredStudents!: StudentInterface[];
   @Input() settings!: SettingInterfaceNew;
   @Input() minWidth: boolean = false;
-  @Output() getOrderDay:any = new EventEmitter<Date>();
-  @Output() selectStudent:any = new EventEmitter<StudentInterface | null>();
-  @Input() displaySettings:boolean = false;
-  @Output() editDisplaySettings:any = new EventEmitter<boolean>();
+  @Output() getOrderDay: any = new EventEmitter<Date>();
+  @Output() selectStudent: any = new EventEmitter<StudentInterface | null>();
+  @Input() displaySettings: boolean = false;
+  @Output() editDisplaySettings: any = new EventEmitter<boolean>();
 
-  selectedStudent: (StudentInterface | null) = null;
+  selectedStudent: StudentInterface | null = null;
   selectedDate: string = normalizeToBerlinDate(new Date());
 
-  constructor() { }
 
+  constructor() {}
 
   ngOnInit() {
-
     // Initialisierung mit normalisiertem Datum
     const currentDate = normalizeToBerlinDate(new Date());
 
@@ -55,12 +53,11 @@ export class DateSelectionSingleComponent implements OnInit {
   }
 
   // Utility method to format Date to YYYY-MM-DD string
-  setStudent(student:StudentInterface | null){
+  setStudent(student: StudentInterface | null) {
     this.selectedStudent = student;
-    this.selectStudent.emit(this.selectedStudent)
+    this.selectStudent.emit(this.selectedStudent);
   }
-  editTenantOrderSettings(event:boolean):void{
-    this.editDisplaySettings.emit(event)
+  editTenantOrderSettings(event: boolean): void {
+    this.editDisplaySettings.emit(event);
   }
-
 }

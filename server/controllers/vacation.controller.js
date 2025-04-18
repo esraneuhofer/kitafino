@@ -21,6 +21,28 @@ module.exports.getAllVacationParentByUserId = async (req, res) => {
   }
 };
 
+// Get all vacations for a user
+module.exports.getAllVacationStudentByStudentId = async (req, res) => {
+  try {
+    const studentId = req.query.studentId;
+    console.log('studentId', studentId);
+    if (!studentId) {
+      // Bei fehlendem studentId ein leeres Array zurückgeben
+      return res.status(200).json([]);
+    }
+    // Find all vacations for the user and return them directly
+    const vacations = await VacationStudent.find({ studentId: studentId }).sort({ 'vacation.vacationStart': -1 });
+    
+    // Return just the vacations array
+    return res.status(200).json(vacations);
+  } catch (err) {
+    console.error('Error fetching vacations:', err);
+    // Bei einem Fehler ein leeres Array zurückgeben
+    return res.status(200).json([]);
+  }
+};
+
+
 module.exports.addVacation = async (req, res) => {
   try {
     const userId = req._id;

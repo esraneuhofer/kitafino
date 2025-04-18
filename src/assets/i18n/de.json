@@ -595,7 +595,7 @@
   "DATEI_ANZEIGEN": "Datei anzeigen",
   "BUT_AKTIVIEREN": "BuT aktivieren",
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "Dauerbestellung löschen",
-  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung deaktivieren möchten? <br> ",
+  "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Sind Sie sicher, dass Sie die ausgewählte Dauerbestellung löschen möchten? <b>Bitte beachten Sie: <br><br> </b> Dies hat keinen Einfluss auf bereits abgegebenen Bestellungen. <br> ",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Unser Konto wird alle <b>fünf Minuten</b> synchronisiert. Ihre Einzahlung wird automatisch Ihrem Konto gutgeschrieben, sobald sie eingegangen ist. Somit können auch <b>Echtzeitüberweisungen</b> fast umgehend eingebucht werden. Bei erfolgreicher Buchung erhalten Sie eine Bestätigung per E-Mail an die von Ihnen hinterlegte Adresse.",
     "GEBUEHREN": "Gebühren",
    "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "Für den Einzahlungsbetrag von würden Sie folgenden Auszahlungsbetrag erhalten abhängig von Ihrer Zahlungsauswahl: ",
@@ -633,8 +633,8 @@
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Art der Meldung",
   "SENDEN": "Senden",
   "URLAUB": "Urlaub / Abwesenheit",
-  "URLAUB_EINTRAGEN": "Urlaub eintragen",
-  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN":"Tragen Sie Ihren Urlaubszeitraum ein, um Essensbestellungen während dieser Zeit zu pausieren.",
+      "URLAUB_EINTRAGEN": "Urlaub / Abwesenheit eintragen",
+      "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Tragen Sie Ihren Urlaubs- oder Abwesenheitszeitraum ein, um Essensbestellungen während dieser Zeit zu pausieren.",
   "ERROR_VACATION_START_DATE_FUTURE": "Das Startdatum des Urlaubs muss in der Zukunft liegen.",
   "ERROR_VACATION_END_DATE_FUTURE": "Das Enddatum des Urlaubs muss in der Zukunft liegen.",
   "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Das Startdatum des Urlaubs muss vor dem Enddatum liegen.",
@@ -646,5 +646,8 @@
    "BIS_OPTIONAL": "Bis (optional)",
    "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Bitte geben Sie ein Startdatum ein",
    "SUCCESS_VACATION_DELETED": "Urlaub erfolgreich gelöscht",
-   "FUER_ALLE" : "Für alle Teilnehmer"
+   "FUER_ALLE" : "Für alle Teilnehmer",
+   "AKTIVIEREN" : "Aktivieren",
+   "DEAKTIVIEREN" : "Deaktivieren",
+   "SPEICHERN" : "Speichern"
 }

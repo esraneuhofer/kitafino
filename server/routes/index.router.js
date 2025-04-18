@@ -146,6 +146,7 @@ router.post('/deleteSpecificTokenFirebase',jwtHelper.verifyJwtToken,crtlFire.del
 
 ///Vacation Requests///
 router.get('/getAllVacationParentByUserId', jwtHelper.verifyJwtToken, ctrlVacation.getAllVacationParentByUserId);
+router.get('/getAllVacationStudentByStudentId', jwtHelper.verifyJwtToken, ctrlVacation.getAllVacationStudentByStudentId);
 router.post('/addVacation', jwtHelper.verifyJwtToken, ctrlVacation.addVacation);
 router.post('/deleteVacation', jwtHelper.verifyJwtToken, ctrlVacation.deleteVacation);
 

@@ -1,16 +1,37 @@
 <ng-container *ngIf="pageLoaded">
-  <div class="container mx-auto px-4 mt-8">
+  <div class="container mx-auto px-4 mt-4">
     <div class="flex justify-center">
       <div class="w-full xs-full sm:w-full md:w-11/12">
         <div [class.flipped]="isFlipped" class="relative perspective">
           <div class="card-face front">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
-              <div class="px-4 sm:px-6 lg:px-8">
+              
+              <div class="px-2 sm:px-4 lg:px-6">
+                <div class="w-full sm:hidden mb-2">
+                  <button
+                  (click)="routeToAccount('settings_vacation')"
+                  style="width: 100%;"
+                  class="mb-4 sm:mb-0 sm:order-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  {{'URLAUB_EINTRAGEN'  | translate}}
+                </button>
+                
+                </div>
                 <div class="flex flex-wrap">
                   <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">
                       {{ 'MANAGE_PERMANENT_ORDERS.HEADER' | translate }}</h1>
                     <p class="mt-2 text-sm text-gray-700">{{ 'MANAGE_PERMANENT_ORDERS.SUBHEADER' | translate }}</p>
+                  </div>
+                  <!-- Button for small screens - full width at the top -->
+                 
+                  <!-- Button for medium and large screens - right aligned -->
+                  <div class="hidden sm:flex sm:items-center sm:ml-auto">
+                    <app-button
+                    (click)="routeToAccount('settings_vacation')"
+                      [buttonType]="'button'"
+                      [typeButton]="'primary'">
+                      {{'URLAUB_EINTRAGEN'  | translate}}
+                      </app-button>
                   </div>
                 </div>
                 <div class="mt-8 flow-root">

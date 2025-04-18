@@ -26,10 +26,13 @@ export class VacationService {
   /**
    * Get all vacations for the current user
    */
-  getAllVacations(): Observable<VacationStudent[]> {
+  getAllVacationsParent(): Observable<VacationStudent[]> {
     return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationParentByUserId`);
   }
-
+  getAllVacationStudentByStudentId(studentId:string): Observable<VacationStudent[]> {
+    return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationStudentByStudentId`, { params: { studentId } });
+  }
+  
   /**
    * Add a new vacation
    * @param startDate Vacation start date

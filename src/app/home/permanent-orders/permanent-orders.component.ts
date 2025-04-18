@@ -146,6 +146,8 @@ export class PermanentOrdersComponent implements OnInit {
 
   constructor(private generellService: GenerellService,
               private toastr: ToastrService,
+              private router: Router,
+              private r: ActivatedRoute,
               private tenantService: TenantServiceStudent,
               private dialogeService: MessageDialogService,
               private studentService: StudentService,
@@ -156,6 +158,12 @@ export class PermanentOrdersComponent implements OnInit {
               private translate: TranslateService) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
+
+
+  routeToAccount(route: string) {
+    this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
+  }
+
 
   initAfterEdit() {
     this.permanentOrdersService.getPermanentOrdersUser().subscribe((permanentOrders: PermanentOrderInterface[]) => {

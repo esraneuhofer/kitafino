@@ -29,6 +29,9 @@ export class ButtonComponent implements OnInit{
     if(this.typeButton === 'danger'){
       this.buttonClass = 'bg-red-600 hover:bg-rede-400 focus-visible:outline-red-600'
     }
+    if(this.typeButton === 'success'){ // Add success type
+      this.buttonClass = 'bg-green-600 hover:bg-green-500 focus-visible:outline-green-600'
+    }
     if(this.mr){
       this.buttonClass += ' mr-2'
     }

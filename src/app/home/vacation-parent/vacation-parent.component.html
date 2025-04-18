@@ -4,7 +4,7 @@
 </ng-container>
 
 <ng-container *ngIf="pageLoaded && registeredStudents.length > 0">
-  <div class="container mx-auto md:px-4 xs:px-0 mt-8 md:w-11/12">
+  <div class="container mx-auto md:px-4 xs:px-0  md:w-11/12">
     <div class="flex flex-col md:flex-row gap-4">
       <div class="w-full">
         <!-- Vacation Form Card -->
@@ -25,7 +25,7 @@
                              #startDateInput="ngModel"
                              [(ngModel)]="startDate"
                              name="start-date"
-                             id="start-date"
+                              id="start-date"
                              [ngClass]="{'invalid-input': vacationForm.submitted && startDateInput.invalid}"
                              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
@@ -36,6 +36,7 @@
                     <label for="end-date" class="block text-sm font-medium leading-6 text-gray-900">{{ 'BIS_OPTIONAL' | translate}}</label>
                     <div class="mt-2">
                       <input type="date"
+                    
                              #endDateInput="ngModel"
                              [(ngModel)]="endDate"
                              name="end-date"
@@ -44,7 +45,7 @@
                     </div>
                   </div>
                 
-                  <div class="sm:col-span-6 md:col-span-1 lg:col-span-1">
+                  <div class="sm:col-span-6 md:col-span-1 lg:col-span-1" *ngIf="registeredStudents.length > 1">
                     <label  class="block text-sm font-medium leading-6 text-gray-900" for="subgroup">
                       {{ 'ORDER.STUDENT' | translate }}
                     </label>
@@ -68,7 +69,7 @@
             
             <div class="mt-4 flex items-center justify-end gap-x-6">
                 <app-button 
-                [submittingRequest]="submittingRequest">{{ 'URLAUB_EINTRAGEN' | translate }}</app-button>
+                [submittingRequest]="submittingRequest">{{ 'SAVE' | translate }}</app-button>
             </div>
           </form>
         </div>
@@ -98,7 +99,7 @@
                       </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                      <tr *ngFor="let vacation of vacations">
+                      <tr *ngFor="let vacation of vacations |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                         <td class="table-cell-padding-large whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
                           {{ vacation.vacation.vacationStart | date: 'dd.MM.yy' }} <span *ngIf="vacation.vacation.vacationEnd">-</span>  {{ vacation.vacation.vacationEnd ? (vacation.vacation.vacationEnd | date: 'dd.MM') : '' }}
                         </td>
@@ -108,6 +109,7 @@
                         <td class="relative whitespace-nowrap table-cell-padding-large text-right text-sm font-medium sm:pr-0">
                           <div class="flex justify-end">
                             <app-button 
+                         
                               [typeButton]="'danger'"
                               (click)="deleteVacation(vacation)">
                               {{'MANAGE_PERMANENT_ORDERS.DELETE_ORDER' | translate}}
