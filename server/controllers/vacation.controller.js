@@ -39,7 +39,7 @@ module.exports.getAllVacationStudentByStudentId = async (req, res) => {
   } catch (err) {
     console.error('Error fetching vacations:', err);
     // Bei einem Fehler ein leeres Array zurückgeben
-    return res.status(200).json([]);
+    res.status(500).send({ message: 'Internal Server Error' });
   }
 };
 
