@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface VacationStudent {
@@ -27,12 +27,14 @@ export class VacationService {
    * Get all vacations for the current user
    */
   getAllVacationsParent(): Observable<VacationStudent[]> {
-    return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationParentByUserId`);
+    return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationParentByUserId`)
+      .pipe(map((response: VacationStudent[]) => response));
   }
+
   getAllVacationStudentByStudentId(studentId:string): Observable<VacationStudent[]> {
-    return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationStudentByStudentId`, { params: { studentId } });
+    return this.http.get<VacationStudent[]>(`${this.apiBaseUrl}/getAllVacationStudentByStudentId`, { params: { studentId } })
+      .pipe(map((response: VacationStudent[]) => response));
   }
-  
   /**
    * Add a new vacation
    * @param startDate Vacation start date
