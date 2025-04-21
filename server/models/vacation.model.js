@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var vacation = new Schema({
   customerId: Schema.Types.ObjectId,
-  userId: Schema.Types.ObjectId,
+  tenantId:Schema.Types.ObjectId,
+  subgroupId: {type:String, default:'all'},
   vacation: {
     vacationStart: Date,
     vacationEnd: Date

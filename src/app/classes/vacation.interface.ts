@@ -9,5 +9,6 @@ export interface VacationsSubgroupInterface {
     {
       vacationStart:Date;
       vacationEnd:Date
-    }
+    },
+    createdAt?:Date;
 }
