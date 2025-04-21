@@ -12,7 +12,7 @@ import {WeekplanMenuInterface} from "../classes/weekplan.interface";
 import {MenuInterface} from "../classes/menu.interface";
 import {AssignedWeekplanInterface, WeekplanGroupClass} from "../classes/assignedWeekplan.class";
 import {WeekplanPdfInterface} from "../home/weekplan-pdf/weekplan-pdf.component";
-import {VacationsInterface} from "../classes/vacation.interface";
+import {VacationsSubgroupInterface} from "../classes/vacation.interface";
 import {PaymentIntentResponse} from "../home/account/account-payment-overview/account-payment-overview.component";
 import {OrderHistoryTableInterface} from "../home/order-history/order-history.component";
 import {EinrichtungInterface} from "../classes/einrichtung.class";
@@ -83,8 +83,8 @@ export class GenerellService {
       .pipe(map((response: WeekplanGroupClass[]) => (response)));
   }
   getVacationCustomer(){
-    return this.http.get<VacationsInterface[]>(environment.apiBaseUrl+'/getVacationCustomer')
-      .pipe(map((response: VacationsInterface[]) => (response)));
+    return this.http.get<VacationsSubgroupInterface[]>(environment.apiBaseUrl+'/getVacationCustomer')
+      .pipe(map((response: VacationsSubgroupInterface[]) => (response)));
   }
 
   getAssignedWeekplan(query:{week:number, year:number}){

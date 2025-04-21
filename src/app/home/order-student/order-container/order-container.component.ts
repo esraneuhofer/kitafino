@@ -24,7 +24,7 @@ import {MenuInterface} from "../../../classes/menu.interface";
 import {StudentInterface} from "../../../classes/student.class";
 import {getLockDays, normalizeToBerlinDate} from "../../../functions/date.functions";
 import {CustomerInterface} from "../../../classes/customer.class";
-import {VacationsInterface} from "../../../classes/vacation.interface";
+import {VacationsSubgroupInterface} from "../../../classes/vacation.interface";
 import {
   getDateMondayFromCalenderweek,
   setOrderStudent
@@ -121,7 +121,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Input() selectedStudent!: StudentInterface;
   @Input() customer!: CustomerInterface;
   @Input() tenantStudent!: TenantStudentInterface;
-  @Input() allVacations: VacationsInterface[] = [];
+  @Input() allVacations: VacationsSubgroupInterface[] = [];
   @Input() allVacationsTenant: VacationStudent[] = [];
   @Input() selectedWeekplan!: WeekplanMenuInterface;
   @Input() schoolSettings!: EinrichtungInterface;
@@ -176,7 +176,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.allVacationsTenant, this.customer.generalSettings.state);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.allVacationsTenant, this.customer.generalSettings.state,this.selectedStudent.subgroup);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();

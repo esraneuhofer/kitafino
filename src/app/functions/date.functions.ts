@@ -1,4 +1,4 @@
-import {VacationsInterface} from "../classes/vacation.interface";
+import {VacationsSubgroupInterface} from "../classes/vacation.interface";
 import {addDayFromDate} from "../home/order-student/order.functions";
 import {numberFive} from "../classes/weekplan.interface";
 import {isHoliday} from 'feiertagejs';
@@ -17,12 +17,12 @@ export function normalizeToBerlinDate(date: Date | string): string {
     .tz('Europe/Berlin')
     .format('YYYY-MM-DD');
 }
-export function getLockDays(date:string, allVacations:VacationsInterface[],allVacationsTenant:VacationStudent[], state:any):boolean[] {
+export function getLockDays(date:string, allVacations:VacationsSubgroupInterface[],allVacationsTenant:VacationStudent[], state:any,groupIdStudent:string):boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
   var startDay = addDayFromDate(dateMonday, 0);
   for (var i = 0; i < numberFive.length; i++) {
-    if (isHoliday(startDay, state) || isVacation(startDay, allVacations) || isVacation(startDay, allVacationsTenant)) {
+    if (isHoliday(startDay, state) || isVacationSubgroup(startDay, allVacations, groupIdStudent) || isVacationStudent(startDay, allVacationsTenant)) {
       lockDay[i] = true;
     }
     startDay = addDayFromDate(startDay, 1);
@@ -30,8 +30,36 @@ export function getLockDays(date:string, allVacations:VacationsInterface[],allVa
   return lockDay;
 }
 
+function isVacationSubgroup(inputDate:Date,vacationArray:VacationsSubgroupInterface[],groupIdStudent:string):boolean{
+  if (!vacationArray || vacationArray.length === 0) return false;
+  let dateToCompare = setDateToCompare(inputDate);
+  let bool =false;
+  for(let i = 0;i<vacationArray.length; i ++){
+    if(vacationArray[i].subgroupId === groupIdStudent || vacationArray[i].subgroupId === 'all'){
+      let start = setDateToCompare(vacationArray[i].vacation.vacationStart);
+      let end =setDateToCompare(vacationArray[i].vacation.vacationEnd);
+      if(!vacationArray[i].vacation.vacationEnd){
+        if(start === dateToCompare){
+          bool = true;
+        }
+      }else{
+        if(setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)){
+          bool = true;
+        }
+        else{
+          if (end >= dateToCompare && start <= dateToCompare) {
+            bool = true;
+          }
+        }
+      }
+    }
+    
+  }
+  return bool;
+}
 
-function isVacation(inputDate:Date,vacationArray:VacationsInterface[] | VacationStudent[]):boolean{
+
+function isVacationStudent(inputDate:Date,vacationArray:VacationStudent[]):boolean{
   if (!vacationArray || vacationArray.length === 0) return false;
   let dateToCompare = setDateToCompare(inputDate);
   let bool =false;

@@ -12,7 +12,7 @@ const Weekplan = mongoose.model('Weekplan');
 const AssignedWeekplan = mongoose.model('AssignedWeekplanSchema');
 const WeekplanGroup = mongoose.model('WeekplanGroup');
 const Weekplanpdf = mongoose.model('WeekplanPdf');
-const Vacation = mongoose.model('Vacation');
+const VacationCustomerSubgroup = mongoose.model('VacationCustomerSubgroup');
 const Feedback = mongoose.model('FeedbackSchema');
 const ErrorReport = mongoose.model('ErrorReport');
 
@@ -226,7 +226,7 @@ module.exports.getAssignedWeekplan = async (req, res, next) => {
 
 module.exports.getVacationCustomer = async (req, res, next) => {
   try {
-    const vacationCustomer = await Vacation.find({ 'customerId': req.customerId });
+    const vacationCustomer = await VacationCustomerSubgroup.find({ 'customerId': req.customerId });
     res.json(vacationCustomer);
   } catch (err) {
     console.error(err); // Log the error for debugging

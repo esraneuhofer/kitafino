@@ -1,5 +1,10 @@
-export interface VacationsInterface {
+
+
+export interface VacationsSubgroupInterface {
+  _id?:string;
   customerId:string;
+  subgroupId:string;
+  tenantId:string;
   vacation:
     {
       vacationStart:Date;

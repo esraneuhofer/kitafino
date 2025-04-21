@@ -10,7 +10,7 @@ import {MenuInterface} from "../../classes/menu.interface";
 import {ArticleDeclarations} from "../../classes/allergenes.interface";
 import {ArticleInterface} from "../../classes/article.interface";
 import {getMealsWithArticle, getMenusWithMealsAndArticle} from "../../functions/meal.functions";
-import {VacationsInterface} from "../../classes/vacation.interface";
+import {VacationsSubgroupInterface} from "../../classes/vacation.interface";
 import {StudentInterface} from "../../classes/student.class";
 import {StudentService} from "../../service/student.service";
 import {ToastrService} from "ngx-toastr";
@@ -80,7 +80,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   articleDeclarations!: ArticleDeclarations;
   articles!: ArticleInterface[];
   settings!: SettingInterfaceNew;
-  allVacations: VacationsInterface[] = [];
+  allVacations: VacationsSubgroupInterface[] = [];
   selectedStudent: (StudentInterface | null) = null;
   tenantStudent!: TenantStudentInterface;
   assignedWeekplanSelected!: AssignedWeekplanInterface;
@@ -210,7 +210,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         AssignedWeekplanInterface[],
         WeekplanGroupClass[],
         AccountCustomerInterface,
-        VacationsInterface[],
+        VacationsSubgroupInterface[],
         EinrichtungInterface,
       ]) => {
         this.settings = settings;
@@ -287,7 +287,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       year: year
     };
 
-    if (!this.selectedStudent?._id) {
+    if (!this.selectedStudent || !this.selectedStudent?._id) {
       this.pageLoaded = true;
       return;
     }
@@ -326,13 +326,17 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.settings,
         this.querySelection
       );
-
+      if (!this.selectedStudent || !this.selectedStudent?._id) {
+        this.pageLoaded = true;
+        return;
+      }
       // Sets the Lockdays Array, Vacation Customer or State Holiday
       this.lockDays = getLockDays(
         dateMonday.toString(),
         this.allVacations,
         this.vacationsStudent,
-        this.customer.generalSettings.state
+        this.customer.generalSettings.state,
+        this.selectedStudent.subgroup
       );
 
       if (!this.selectedStudent) return;
@@ -412,8 +416,10 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
-    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state);
+   
     this.selectedStudent = this.registeredStudents[0];
+
+    this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent.subgroup);
     if (!this.querySelection) return;
     // if(this.checkForErrors(this.selectedStudent)){
     //   return
@@ -437,7 +443,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       this.selectedWeekplan = getMenusForWeekplan(weekplan, this.menus, this.settings, this.querySelection);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent?.subgroup || '');
       if (!this.selectedStudent) return;
       this.getOrdersWeekStudent(this.selectedStudent, this.querySelection, this.selectedWeekplan)
     })
@@ -467,7 +473,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       console.log("Urlaubsdaten des Studenten:", vacations);
         // Urlaubsdaten speichern
         this.vacationsStudent = vacations;
-        this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state)
+        this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent?.subgroup || '');
         // Dann mit dem Abrufen der Bestellungen fortfahren
         // Hole die 5 Werktage
         const workdays = getNextFiveWorkdays(dateMonday);

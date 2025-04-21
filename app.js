@@ -106,7 +106,7 @@ require(__dirname + '/server/models/school-user.model');
 require(__dirname + '/server/models/settings.model');
 require(__dirname + '/server/models/student.model');
 require(__dirname + '/server/models/user.model');
-require(__dirname + '/server/models/vacation.model');
+require(__dirname + '/server/models/vacation-customer-subgroup.model');
 require(__dirname + '/server/models/weekplan_add.model');
 require(__dirname + '/server/config/config');
 require(__dirname + '/server/config/passportConfig');
