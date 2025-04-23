@@ -43,6 +43,7 @@ export interface WeekplanModelGroupsAllowedInterfaceDay {
 }
 
 function setWeekplangroupSelection(assignedWeekplan:AssignedWeekplanInterface,weekplanGroupsSelection:WeekplanGroupSelection):AssignedWeekplanInterface{
+  if(!weekplanGroupsSelection) return assignedWeekplan;
   assignedWeekplan.weekplanGroupAllowed.forEach(weekplanGroup=>{
     weekplanGroup.selectedMealsDay.forEach(mealType=>{
       let weekplanGroupSelection = weekplanGroupsSelection.weekplanGroupAllowedSelection.find(weekplanGroupSelection=>weekplanGroupSelection.idSpecial === mealType.idSpecial);

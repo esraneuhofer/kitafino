@@ -266,15 +266,16 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   
 }
 
-showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew,assignedWeekplanSelected:WeekplanModelGroupsAllowedInterfaceDay): boolean {
-   for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
-    const mealType = assignedWeekplanSelected.selectedMealsDay[i];
-    if (mealType.idSpecial === orderModel.idType && mealType.selected) {
-      return false;
+    showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew,assignedWeekplanSelected:WeekplanModelGroupsAllowedInterfaceDay): boolean {
+      console.log('assignedWeekplanSelected',assignedWeekplanSelected)
+      for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
+        const mealType = assignedWeekplanSelected.selectedMealsDay[i];
+        if (mealType.idSpecial === orderModel.idType && !mealType.selected) {
+          return false;
+        }
+      } 
+      return true;
     }
-  } 
-  return true;
-}
   showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
     console.log(orderModel)
     if(!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu'  && !orderModel.idMenu)return false;
