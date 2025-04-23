@@ -35,6 +35,7 @@ import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-erro
 import {TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "../../../service/language.service";
 import {EinrichtungInterface} from "../../../classes/einrichtung.class";
+import { AssignedWeekplanInterface, WeekplanModelGroupsAllowedInterfaceDay } from '../../../classes/assignedWeekplan.class';
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -132,6 +133,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   getTooltipContent = getTooltipContent;
   getAllergenes = getAllergenes;
   getDisplayNameOrder = getDisplayNameOrder;
+  @Input() assignedWeekplanSelected!: WeekplanModelGroupsAllowedInterfaceDay
   @Input() lockDay: boolean = false;
   @Input() indexDay!: number;
   @Input() orderDay!: MealCardInterface
@@ -261,9 +263,23 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
 
     return {'min-height': minHeight};
-  }
-  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew): boolean {
+  
+}
+
+showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew,assignedWeekplanSelected:WeekplanModelGroupsAllowedInterfaceDay): boolean {
+   for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
+    const mealType = assignedWeekplanSelected.selectedMealsDay[i];
+    if (mealType.idSpecial === orderModel.idType && mealType.selected) {
+      return false;
+    }
+  } 
+  return true;
+}
+  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
+    console.log(orderModel)
     if(!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu'  && !orderModel.idMenu)return false;
+  
+    
     return true;
   }
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {

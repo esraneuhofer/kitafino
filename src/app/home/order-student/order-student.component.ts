@@ -20,7 +20,8 @@ import {TenantStudentInterface} from "../../classes/tenant.class";
 import {
   AssignedWeekplanInterface,
   setWeekplanModelGroups,
-  WeekplanGroupClass
+  WeekplanGroupClass,
+  WeekplanGroupSelection
 } from "../../classes/assignedWeekplan.class";
 import {AccountService} from "../../service/account.serive";
 import {AccountCustomerInterface} from "../../classes/account.class";
@@ -90,6 +91,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   orderWeek: MealCardInterface[] = [];
   schoolSettings!: EinrichtungInterface;
   vacationsStudent: VacationStudent[] = [];
+  weekplanGroupSelection: WeekplanGroupSelection | null = null;
   private appStateChangeListener: PluginListenerHandle | undefined;
   private subscriptions: Subscription = new Subscription();
 
@@ -181,6 +183,8 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.accountService.getAccountTenant(),
       this.generellService.getVacationCustomer(),
       this.schoolService.getSchoolSettings(),
+      this.generellService.getWeekplanGroupSelection(),
+      
     ]).subscribe(
       ([
          settings,
@@ -197,6 +201,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
          accountTenant,
          vacations,
          schoolSettings,
+         weekplanGroupSelection
        ]: [
         SettingInterfaceNew,
         CustomerInterface,
@@ -212,6 +217,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         AccountCustomerInterface,
         VacationsSubgroupInterface[],
         EinrichtungInterface,
+        WeekplanGroupSelection
       ]) => {
         this.settings = settings;
         this.customer = customer;
@@ -222,12 +228,15 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.articles = articles;
         this.subGroupsCustomer = getSplit(this.customer); //Gets customer splits
         this.selectedWeekplan = getMenusForWeekplan(weekplan, menus, this.settings, this.querySelection);
-        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, this.weekplanGroups, settings);
+        this.assignedWeekplanSelected = setWeekplanModelGroups(this.selectedWeekplan, this.querySelection, assignedWeekplans, customer, weekplanGroups, settings, weekplanGroupSelection);
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.allVacations = vacations;
         this.schoolSettings = schoolSettings;
         this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent, this.displayOrderTypeWeek)
+        this.weekplanGroups = weekplanGroups;
+        this.weekplanGroupSelection = weekplanGroupSelection;
+        console.log("weekplanGroupSelection", this.weekplanGroupSelection);
         this.mainDataLoaded = true;
         if (!this.schoolSettings) {
           this.toastr.error('Keine Schuleinstellungen gefunden')

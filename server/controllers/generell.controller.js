@@ -3,6 +3,8 @@ const sgMail = require('@sendgrid/mail');
 // const multer = require('multer');
 const mongoose = require("mongoose");
 const Settings = mongoose.model('Settings');
+const WeekplanGroupSelection = mongoose.model('WeekplanGroupSelection');
+
 const Customer = mongoose.model('Customer');
 const ArticleEdited = mongoose.model('ArticleEdited');
 const ArticleDeclarations = mongoose.model('ArticleDeclarations');
@@ -234,8 +236,21 @@ module.exports.getVacationCustomer = async (req, res, next) => {
   }
 };
 
-
-
+module.exports.getWeekplanGroupSelection = async (req, res, next) => {
+  try {
+    console.log("req.customerId",req.customerId)
+    // Find the WeekplanGroupSelection where customerId is contained in groupsWeekplanGroupSelection
+    const weekplanGroupSelection = await WeekplanGroupSelection.findOne({
+      'groupsWeekplanGroupSelection.customerId': req.customerId
+    });
+    
+    // Einfach das Ergebnis zurückgeben, auch wenn es null ist
+    res.json(weekplanGroupSelection);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send({ message: 'Internal Server Error' });
+  }
+};
 
 module.exports.sendEmail = async (req, res, next) => {
   const mailOptions = req.body;

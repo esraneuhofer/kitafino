@@ -32,11 +32,11 @@
     <ng-container>
       <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
         <div
-          *ngIf="showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
+          *ngIf="showMenuBasedAssignedWeekplanSelected(eachMenu,assignedWeekplanSelected) && showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
           [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
           [ngStyle]="getMenuStyle(eachMenu)"
           class="shadow-lg rounded-lg overflow-hidden relative">
-
+          
           <!-- Nur den Inhalt anzeigen, wenn isNoMenuName nicht true ist -->
           <ng-container *ngIf="showMenuBasedOnSettingsDisplay(eachMenu)">
             <div class="p-3">
