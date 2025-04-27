@@ -184,7 +184,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       this.generellService.getVacationCustomer(),
       this.schoolService.getSchoolSettings(),
       this.generellService.getWeekplanGroupSelection(),
-      
+
     ]).subscribe(
       ([
          settings,
@@ -425,7 +425,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
-   
+
     this.selectedStudent = this.registeredStudents[0];
 
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent.subgroup);
@@ -471,7 +471,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     const dateMonday = normalizeToBerlinDate(
       getDateMondayFromCalenderweek(this.querySelection)
     );
-    
+
     if (!this.selectedStudent) {
       this.pageLoaded = true;
       return;
@@ -521,7 +521,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
                   this.querySelection,
                   this.lockDays,
                   this.schoolSettings,
-                
+
                 )
               );
             });
