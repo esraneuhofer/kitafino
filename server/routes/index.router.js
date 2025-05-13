@@ -98,6 +98,7 @@ router.post('/deletePermanentOrdersUser',jwtHelper.verifyJwtToken,crtlPermanent.
 
 ///Acoount Requests ////
 router.get('/getAccountTenant',jwtHelper.verifyJwtToken,crtlAccount.getAccountTenant);
+router.post('/editAccountTenant', jwtHelper.verifyJwtToken, crtlAccount.editAccountTenant);
 router.post('/withdrawFunds',jwtHelper.verifyJwtToken,crtlWithdraw.withdrawFunds);
 router.get('/getAccountCharges',jwtHelper.verifyJwtToken,crtlAccount.getAccountCharges);
 

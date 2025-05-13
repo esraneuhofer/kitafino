@@ -23,6 +23,34 @@ module.exports.getAccountTenant = async (req, res, next) => {
   }
 };
 
+module.exports.editAccountTenant = async (req, res, next) => {
+  try {
+    if (!req.body._id) {
+      return res.status(400).json({ message: 'Keine Account-ID angegeben' });
+    }
+
+    const updatedAccount = await AccountSchema.findByIdAndUpdate(
+      req.body._id,
+      req.body,
+      { new: true }
+    );
+    
+    if (!updatedAccount) {
+      return res.status(404).json({ message: 'Account wurde nicht gefunden' });
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Account erfolgreich aktualisiert',
+      updatedAccount: updatedAccount
+    });
+    
+  } catch (err) {
+    console.error('Account konnte nicht aktualisiert werden:', err);
+    res.status(500).json({ message: 'Interner Serverfehler', error: err.message });
+  }
+};
+
 module.exports.getAccountCharges = async (req, res, next) => {
   try {
     // Using await to wait for the result of Tenant.find()

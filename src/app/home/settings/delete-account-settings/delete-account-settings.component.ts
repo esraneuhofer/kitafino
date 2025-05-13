@@ -13,6 +13,11 @@ import {MessageDialogService} from "../../../service/message-dialog.service";
 import {forkJoin, of} from "rxjs";
 import {CloseAccountDialogComponent} from "../../../directives/close-account-dialog/close-account-dialog.component";
 import {catchError} from "rxjs/operators";
+import { OrderService } from '../../../service/order.service';
+import { OrderInterfaceStudent } from '../../../classes/order_student.class';
+import { OrderInterfaceStudentSave } from '../../../classes/order_student_safe.class';
+import { StudentInterface } from '../../../classes/student.class';
+import { StudentService } from '../../../service/student.service';
 
 @Component({
   selector: 'app-delete-account-settings',
@@ -26,11 +31,14 @@ export class DeleteAccountSettingsComponent implements OnInit{
   pageLoaded = false;
   accountTenant!: AccountCustomerInterface;
   submittingRequestDeletion = false;
-
+orderStudentFuture: OrderInterfaceStudentSave[] = [];
+  students: StudentInterface[] = [];
   constructor(private tenantService: TenantServiceStudent,
-              private toastr: ToastrService,
+              private studentService: StudentService,
+              private orderService: OrderService,
               private userService: UserService,
               private dialog: MatDialog,
+              private toastr: ToastrService,
               private router: Router,
               private accountService: AccountService,
               private translate: TranslateService,
@@ -40,16 +48,24 @@ export class DeleteAccountSettingsComponent implements OnInit{
     forkJoin([
       this.tenantService.getTenantInformation(),
       this.accountService.getAccountTenant(),
+      this.orderService.getFutureOrders({ date: new Date().toString() }),
+      this.studentService.getRegisteredStudentsUser(),
     ]).subscribe(
       ([
          tenantStudent,
          accountTenant,
+         futureOrders,
+         students
        ]: [
         TenantStudentInterface,
         AccountCustomerInterface,
+        OrderInterfaceStudentSave[],
+        StudentInterface[]
       ]) => {
         this.tenantModel = tenantStudent;
+        this.orderStudentFuture = futureOrders;
         this.accountTenant = accountTenant;
+        this.students = students;
         if (!this.tenantModel.orderSettings) {
           this.tenantModel.orderSettings = {
             orderConfirmationEmail: false,
@@ -73,6 +89,14 @@ export class DeleteAccountSettingsComponent implements OnInit{
       )
       return
     }
+    if(this.orderStudentFuture.length > 0){
+      this.messageService.openMessageDialog(
+        this.translate.instant('Sie haben noch Bestellungen in der Zukunft, bitte stornieren Sie diese bevor Sie Ihr Konto schließen.'),
+        this.translate.instant('Bestellungen in der Zukunft'),
+        'error'
+      )
+      return
+    }
     this.submittingRequest = true;
 
     const dialogRef = this.dialog.open(CloseAccountDialogComponent, {
@@ -85,7 +109,22 @@ export class DeleteAccountSettingsComponent implements OnInit{
         this.submittingRequest = false;
       } else {
         this.submittingRequest = true;
-        this.userService.deactivateAccount().pipe(
+        this.tenantModel.accountDeactivated = true;
+        this.tenantModel.dateAccountDeactivated = new Date();
+        this.accountTenant.accountDeactivated = true;
+        this.accountTenant.dateAccountDeactivated = new Date();
+        let promises = [
+          this.userService.deactivateAccount(),
+          this.tenantService.editParentTenant(this.tenantModel),
+          this.accountService.editAccountTenant(this.accountTenant),
+        ];
+        this.students.forEach((student: StudentInterface) => {
+            student.isActive = false;
+            student.dateAccountDeactivated = new Date();
+            promises.push(this.studentService.editStudent(student));
+          })
+        forkJoin(promises).pipe(
+      
           catchError(err => {
             console.error('Error deactivating account:', err);
             // Display an error message to the user
@@ -94,11 +133,13 @@ export class DeleteAccountSettingsComponent implements OnInit{
             return of(null); // Return a safe fallback value or an empty observable
           })
         ).subscribe((response) => {
-          if (response && !response.error) {
+          if (response && !response[0].error) {
             this.userService.deleteToken();
+            this.toastr.success('Konto wurde erfolgreich geschlossen', 'Erfolg');
             this.router.navigate(['/login']);
           } else {
             // Handle failure response
+            console.error('Failed to deactivate account:', response);
           }
           this.submittingRequest = false;
         });

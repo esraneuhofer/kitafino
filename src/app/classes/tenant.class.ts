@@ -21,5 +21,7 @@ export interface TenantStudentInterface {
     sendReminderBalance:boolean;
     amountBalance:number;
     permanentOrder:boolean;
-  }
+  },
+  accountDeactivated?:boolean;  
+  dateAccountDeactivated?:Date;
 }

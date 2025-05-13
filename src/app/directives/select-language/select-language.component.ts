@@ -22,7 +22,8 @@ const languagesConst: LanguageSelect[] = [
   { id: 11, name: 'Nederlands', avatar: '/assets/flags/nl.png', code: 'nl' },  // Netherlands flag
   { id: 15, name: 'हिंदी (Hindi)', avatar: '/assets/flags/in.png', code: 'hi' },  // India flag
   { id: 16, name: '廣東話 (Cantonese)', avatar: '/assets/flags/hk.png', code: 'yue' },  // Hong Kong flag (Cantonese)
-  { id: 17, name: 'Български (Bulgarian)', avatar: '/assets/flags/bg.png', code: 'bg' }  // Bulgaria flag
+  { id: 17, name: 'Български (Bulgarian)', avatar: '/assets/flags/bg.png', code: 'bg' },  // Bulgaria flag
+  { id: 20, name: 'Česky (Tschechisch)', avatar: '/assets/flags/cz.png', code: 'cs' },
 ];
 
 interface LanguageSelect{id:number,name:string,avatar:string,code:string}
@@ -32,7 +33,7 @@ interface LanguageSelect{id:number,name:string,avatar:string,code:string}
   styleUrls: ['./select-language.component.scss']
 })
 export class SelectLanguageComponent {
-  currentLanguage: string = 'de'
+  currentLanguage: string = 'de';
   languages:LanguageSelect[] = languagesConst;
   selectedLanguage:LanguageSelect = this.languages[0];
   isOpen = false;

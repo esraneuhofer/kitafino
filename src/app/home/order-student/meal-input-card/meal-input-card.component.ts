@@ -267,7 +267,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 }
 
     showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew,assignedWeekplanSelected:WeekplanModelGroupsAllowedInterfaceDay): boolean {
-      console.log('assignedWeekplanSelected',assignedWeekplanSelected)
       for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
         const mealType = assignedWeekplanSelected.selectedMealsDay[i];
         if (mealType.idSpecial === orderModel.idType && !mealType.selected) {
@@ -277,10 +276,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       return true;
     }
   showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
-    console.log(orderModel)
     if(!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu'  && !orderModel.idMenu)return false;
-  
-    
     return true;
   }
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
@@ -497,7 +493,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   checkDeadlineDay(day: Date): void {
 
     const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
-    // console.log("this.customer.generalSettings.deadlineDaily",this.customer.generalSettings.deadlineDaily)
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
     if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {

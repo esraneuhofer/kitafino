@@ -18,7 +18,6 @@ export class SuccessStripeComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.amountCharged = +params['amount'];  // Das "+" konvertiert den Parameter in eine Zahl
     });
-    // console.log('SuccessStripeComponent');
     // document.addEventListener("DOMContentLoaded", () => {
     //   if (this.platformService.isAndroid) {
     //     window.location.href = "your-android-app://home/account_overview?status=success";

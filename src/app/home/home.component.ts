@@ -84,7 +84,6 @@ export class HomeComponent implements OnInit {
   }
 
   // handleRefresh(event:any) {
-  //   console.log('Begin async operation');
   //   setTimeout(() => {
   //     // Any calls to load data go here
   //     event.target.complete();

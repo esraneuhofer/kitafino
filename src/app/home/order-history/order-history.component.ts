@@ -103,7 +103,6 @@ export class OrderHistoryComponent implements OnInit {
         this.ordersAccountOwner = accountOrdersUsers;
         this.registeredStudents = registeredStudents
         this.tenantStudent = tenantStudent;
-        console.log('accountOrdersUsers', accountOrdersUsers);
         // Create combined display array and sort by dateOrderMenu
         const combinedOrders = setDisplayArrayAccountOrders(accountOrdersUsers, registeredStudents, this.translate);
 

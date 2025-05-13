@@ -168,6 +168,17 @@ module.exports.deactivateAccount = async (req, res, next) => {
   try {
     const password = makePassword();
 
+    // Benutzer aus der Datenbank holen
+    const user = await Schooluser.findById(req._id);
+    
+    if (!user) {
+      return res.status(404).send({ message: `Benutzer wurde nicht gefunden.`, error: true });
+    }
+    
+    // Benutzernamen und E-Mail mit "_deactivated" versehen
+    const deactivatedUsername = `${user.username}_deactivated`;
+    const deactivatedEmail = `${user.email}_deactivated`;
+
     // Generieren eines Salzes und Hashen des Passworts
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
@@ -177,6 +188,8 @@ module.exports.deactivateAccount = async (req, res, next) => {
       { _id: req._id },
       {
         $set: {
+          username: deactivatedUsername,
+          email: deactivatedEmail,
           saltSecret: salt,
           password: hash
         }
@@ -184,19 +197,18 @@ module.exports.deactivateAccount = async (req, res, next) => {
       { new: true }
     );
 
-    // Überprüfen, ob der Benutzername gefunden und aktualisiert wurde
+    // Überprüfen, ob der Benutzer aktualisiert wurde
     if (!updatedUser) {
-      return res.status(404).send({ message: `Benutzername ${username} wurde nicht gefunden.`, error: true });
+      return res.status(500).send({ message: `Fehler beim Deaktivieren des Accounts.`, error: true });
     }
 
-    // Senden der Zurücksetz-E-Mail
-    res.status(200).send({ message: `Account wurde deaktiviert.`, error: false });
+    // Erfolgsmeldung senden
+    res.status(200).send({ message: `Account wurde erfolgreich deaktiviert.`, error: false });
   } catch (err) {
     console.error(err); // Es ist gut, den Fehler für das Debuggen zu protokollieren.
-    res.status(500).send({ message: 'Es gab ein Fehler beim Zurücksetzen des Passworts.', error: true });
+    res.status(500).send({ message: 'Es gab einen Fehler beim Deaktivieren des Accounts.', error: true });
   }
 }
-
 
 module.exports.changePassword = async (req, res, next) => {
   try {

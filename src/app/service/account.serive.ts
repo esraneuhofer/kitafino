@@ -22,4 +22,9 @@ export class AccountService {
       .pipe(map((response: AccountCustomerInterface) => (response)));
   }
 
+  
+   editAccountTenant(object:AccountCustomerInterface){
+    return this.http.post(environment.apiBaseUrl+'/editAccountTenant',object)
+      .pipe(map((response: any) => response));
+  }
 }

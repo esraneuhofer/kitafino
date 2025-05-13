@@ -13,6 +13,7 @@ export interface StudentInterface {
   butTo: string | null;
   butDaysPerWeek: number;
   isActive: boolean;
+  dateAccountDeactivated?: Date;
 }
 export interface StudentInterfaceId extends StudentInterface{
   _id: string;

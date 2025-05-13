@@ -26,7 +26,9 @@ var tenantparent = new Schema({
     sendReminderBalance:Boolean,
     amountBalance:Number,
     permanentOrder:Boolean,
-  }
+  },
+  accountDeactivated:Boolean,
+  dateAccountDeactivated:Date,
 });
 
 function isGermanText(str) {

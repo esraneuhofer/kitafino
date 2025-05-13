@@ -211,10 +211,8 @@ export function getOrderPlaced(orderStudent:OrderInterfaceStudentSave):OrderAndC
   if(orderStudent.isCanceled){
     orderPlaced.isCanceled = true;
   }
-  console.log(orderStudent)
   orderStudent.order.orderMenus.forEach(eachOrder=>{
     if(eachOrder.amountOrder > 0){
-      console.log(eachOrder)
         orderPlaced.priceOrder = eachOrder.priceOrder;
         orderPlaced.amountOrder = eachOrder.amountOrder;
         orderPlaced.nameOrder = getNameOrder(eachOrder.nameOrder);

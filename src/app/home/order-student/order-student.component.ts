@@ -236,7 +236,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.displayOrderTypeWeek = getDisplayOrderType(tenantStudent, this.displayOrderTypeWeek)
         this.weekplanGroups = weekplanGroups;
         this.weekplanGroupSelection = weekplanGroupSelection;
-        console.log("weekplanGroupSelection", this.weekplanGroupSelection);
         this.mainDataLoaded = true;
         if (!this.schoolSettings) {
           this.toastr.error('Keine Schuleinstellungen gefunden')
@@ -425,9 +424,12 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
-
+    if(!this.registeredStudents || this.registeredStudents.length === 0) {
+      this.showErrorNoStudents = true;
+      this.pageLoaded = true;
+      return;
+    }
     this.selectedStudent = this.registeredStudents[0];
-
     this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent.subgroup);
     if (!this.querySelection) return;
     // if(this.checkForErrors(this.selectedStudent)){
@@ -479,7 +481,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
     // Zuerst die Urlaubsdaten des Studenten laden
     this.vacationService.getAllVacationStudentByStudentId(studentId).subscribe((vacations:VacationStudent[]) => {
-      console.log("Urlaubsdaten des Studenten:", vacations);
         // Urlaubsdaten speichern
         this.vacationsStudent = vacations;
         this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.vacationsStudent, this.customer.generalSettings.state,this.selectedStudent?.subgroup || '');
@@ -535,5 +536,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  
 }
 

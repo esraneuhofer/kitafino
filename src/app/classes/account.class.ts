@@ -22,5 +22,7 @@ export interface AccountCustomerInterface {
   transactions: TransactionInterface[];
   orders:OrdersSingleInterface[];
   currentBalance: number;
+  accountDeactivated?: boolean;
+  dateAccountDeactivated?: Date;
 }
 

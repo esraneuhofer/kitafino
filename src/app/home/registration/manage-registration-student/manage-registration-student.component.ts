@@ -213,7 +213,6 @@ export class ManageRegistrationStudentComponent implements OnInit{
       return
     }
     this.orderService.getFutureOrdersStudent({studentId:student._id,date:new Date().toISOString()}).subscribe((orders)=>{
-     console.log(orders)
       if(orders.length > 0){
         let heading = this.translate.instant('STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING')
         let reason = this.translate.instant('STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT')
@@ -236,6 +235,7 @@ export class ManageRegistrationStudentComponent implements OnInit{
             promises.push(this.permanentOrdersService.deletePermanentOrdersUser(permanentOrder));
           }
           student.isActive = false;
+          student.dateAccountDeactivated = new Date();
           promises.push(this.studentService.editStudent(student));
 
           forkJoin(promises).subscribe(()=>{

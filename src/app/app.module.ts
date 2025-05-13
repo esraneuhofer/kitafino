@@ -60,6 +60,8 @@ import localeNl from '@angular/common/locales/nl';
 import localeHi from '@angular/common/locales/hi';
 import localeYue from '@angular/common/locales/yue';
 import localeBg from '@angular/common/locales/bg';
+import localeCs from '@angular/common/locales/cs';
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SchoolOverviewComponent } from './home/school-overview/school-overview.component';
@@ -144,6 +146,7 @@ registerLocaleData(localeHi, 'hi');
 registerLocaleData(localeYue, 'yue');
 registerLocaleData(localeBg, 'bg');
 registerLocaleData(localeHr, 'hr');
+registerLocaleData(localeCs, 'cs');
 function localeFactory(languageService: LanguageService) {
   return languageService.getLanguage();
 }
