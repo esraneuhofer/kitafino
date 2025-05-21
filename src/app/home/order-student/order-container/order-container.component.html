@@ -3,17 +3,10 @@
   <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-2 w-full">
     <!-- Your div element will be repeated 5 times in these grid items -->
     <div class="w-full" *ngFor="let orderDay of orderWeek let index = index">
-            <app-meal-input-card (orderPlaced)="getDataWeek()"
-                           [lockDay]="lockDays[index]"
-                           [displayMinimize]="displayMinimize"
-                           [customer]="customer"
-                           [einrichtung]="schoolSettings"
-                           [orderDay]="orderDay"
-                           [selectedStudent]="selectedStudent"
-                           [settings]="settings"
-                            [indexDay]="index"
-                           [tenantStudent]="tenantStudent"
-                           [weekplanDay]="selectedWeekplan.weekplan[index]">
+      <app-meal-input-card (orderPlaced)="getDataWeek()" [lockDay]="lockDays[index]" [displayMinimize]="displayMinimize"
+        [customer]="customer" [einrichtung]="schoolSettings" [orderDay]="orderDay" [selectedStudent]="selectedStudent"
+        [settings]="settings" [indexDay]="index" [tenantStudent]="tenantStudent"
+        [weekplanDay]="selectedWeekplan.weekplan[index]">
       </app-meal-input-card>
     </div>
   </div>
