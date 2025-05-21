@@ -11,31 +11,25 @@ module.exports.getTenantInformation = async (req, res, next) => {
     res.json(tenantModel);
   } catch (err) {
     console.error("Vertragspartner Informationen:", err); // Log the error for debugging
-    res
-      .status(500)
-      .json({
-        message: "Vertragspartner Informationen konnte nicht geladen werden",
-        error: err.message,
-      });
+    res.status(500).json({
+      message: "Vertragspartner Informationen konnte nicht geladen werden",
+      error: err.message,
+    });
   }
 };
 
 module.exports.editParentTenant = (req, res, next) => {
-  TenantParent.findOneAndUpdate(
-    { _id: req.body._id }, 
-    req.body, 
-    {
-      upsert: true,
-      new: true,
-    }
-  )
+  TenantParent.findOneAndUpdate({ _id: req.body._id }, req.body, {
+    upsert: true,
+    new: true,
+  })
     .then((doc) => {
       res.send(doc);
       logUserAction(
-        req._id,                   // userId
-        req.tenantId,              // tenantId
-        "TENANT_AENDERN",          // actionType
-        getChangeTenant(doc)
+        req._id, // userId
+        req.tenantId, // tenantId
+        "TENANT_AENDERN", // actionType
+        getChangeTenant(req.body)
       ).catch((err) => {
         // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
         console.error("Fehler beim Logging der Tenant-Änderung:", err); // Kleine Korrektur in der Fehlermeldung
@@ -58,44 +52,46 @@ module.exports.addTenantAndAccount = async (req, res, next) => {
   const session = await mongoose.startSession();
   try {
     await session.startTransaction();
-    
+
     // Diese beiden Variablen fangen die Rückgabewerte auf
     const tenantParent = await addTenantParent(req, session);
     const account = await addAccount(req, session);
 
     // Commit the transaction before sending response or doing additional operations
     await session.commitTransaction();
-    
+
     // Move the logging outside of the transaction's critical path
     try {
       await logUserAction(
-        req._id,                    // userId
-        req.tenantId,               // tenantId
-        "TENANT_ANLEGEN",           // Bessere Beschreibung als "ANMELDEN"
+        req._id, // userId
+        req.tenantId, // tenantId
+        "TENANT_ANLEGEN", // Bessere Beschreibung als "ANMELDEN"
         {
           idObject: tenantParent.tenant._id,
           tenant: getChangeTenant(tenantParent.tenant),
           account: {
             accountId: account.account._id,
-            email: account.account.email
+            email: account.account.email,
             // weitere wichtige Account-Informationen
-          }
+          },
         }
       );
     } catch (loggingError) {
       // Just log the error but don't affect the response
-      console.error("Fehler beim Logging der Erstellung des Kundenkontos:", loggingError);
+      console.error(
+        "Fehler beim Logging der Erstellung des Kundenkontos:",
+        loggingError
+      );
     }
-    
+
     // Send response after transaction is committed
     res.json({ success: true, message: "Kundenkonto erfolgreich angelegt" });
-    
   } catch (error) {
     // Only abort if the transaction hasn't been committed yet
-    if (session.transaction.state !== 'TRANSACTION_COMMITTED') {
+    if (session.transaction.state !== "TRANSACTION_COMMITTED") {
       await session.abortTransaction();
     }
-    console.error("Error during transaction:", error); 
+    console.error("Error during transaction:", error);
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
@@ -122,7 +118,11 @@ async function addAccount(req, session) {
   }
   try {
     await newAccount.save({ session });
-    return { success: true, message: "Account Kunde erfolgreich angelegt",account: newAccount };
+    return {
+      success: true,
+      message: "Account Kunde erfolgreich angelegt",
+      account: newAccount,
+    };
   } catch (error) {
     handleOrderError(error);
   }
@@ -153,7 +153,11 @@ async function addTenantParent(req, session) {
 
   try {
     await newTenant.save({ session });
-    return { success: true, message: "Kundenkonto erfolgreich angelegt", tenant: newTenant };
+    return {
+      success: true,
+      message: "Kundenkonto erfolgreich angelegt",
+      tenant: newTenant,
+    };
   } catch (error) {
     handleOrderError(error);
   }
