@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const { logUserAction, getChangePermanentOrder } = require('./action_log.controller');
 
 module.exports.getPermanentOrdersUser = async (req, res, next) => {
   console.log(req._id);
@@ -26,27 +27,25 @@ module.exports.editPermanentOrdersUser = (req, res, next) => {
     { upsert: true, new: true }
   ).then(doc => {
     res.json({error: false,errorType:null,data:doc });
+
+     // Logging NACH dem Senden der Antwort
+    logUserAction(
+      req._id,                          // userId
+      req.tenantId,                     // tenantId
+      'DAUERBESTELLUNG_AENDERN',
+      getChangePermanentOrder(doc)         // actionType
+    
+    ).catch(err => {
+      // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
+      console.error('Fehler beim Logging der Dauerbestellungsänderung:', err);
+    });
+
+
   }).catch(err => {
     res.json({error: true,errorType:err,data:null });
   });
 };
 
-// module.exports.setPermanentOrdersUser = (req, res, next) => {
-//
-//   let newPermanentOrder = new PermanentOrderStudent({
-//     tenantId : req.tenantId,
-//     customerId : req.customerId,
-//     userId : req._id,
-//     isSpecial : req.body.isSpecial,
-//     daysOrder : req.body.daysOrder,
-//     studentId : req.body.studentId
-//   });
-//   newPermanentOrder.save().then(function (doc) {
-//     res.json({error: false,errorType:null,data:doc });
-//   }, function (e) {
-//     res.json({error: true,errorType:e,data:null });
-//   });
-// };
 module.exports.setPermanentOrdersUser = async (req, res, next) => {
   try {
     let newPermanentOrder = new PermanentOrderStudent({
@@ -60,23 +59,36 @@ module.exports.setPermanentOrdersUser = async (req, res, next) => {
 
     let doc = await newPermanentOrder.save();
 
-    // E-Mail mit den wichtigsten Daten senden
-    const msg = {
-      from: '"Cateringexpert" <noreply@cateringexpert.de>',
-      to: 'monitoring@cateringexpert.de',
-      subject: 'Neue Dauerbestellung erstellt',
-      html: `
-        <h2>Neue Dauerbestellung wurde erstellt</h2>
-        <p><strong>Kunden-ID:</strong> ${doc.customerId}</p>
-        <p><strong>Student-ID:</strong> ${doc.studentId}</p>
-        <p><strong>Besondere Bestellung:</strong> ${doc.isSpecial ? 'Ja' : 'Nein'}</p>
-        <p><strong>Bestellte Tage:</strong> ${doc.daysOrder.join(', ')}</p>
-      `,
-    };
+    // // E-Mail mit den wichtigsten Daten senden
+    // const msg = {
+    //   from: '"Cateringexpert" <noreply@cateringexpert.de>',
+    //   to: 'monitoring@cateringexpert.de',
+    //   subject: 'Neue Dauerbestellung erstellt',
+    //   html: `
+    //     <h2>Neue Dauerbestellung wurde erstellt</h2>
+    //     <p><strong>Kunden-ID:</strong> ${doc.customerId}</p>
+    //     <p><strong>Student-ID:</strong> ${doc.studentId}</p>
+    //     <p><strong>Besondere Bestellung:</strong> ${doc.isSpecial ? 'Ja' : 'Nein'}</p>
+    //     <p><strong>Bestellte Tage:</strong> ${doc.daysOrder.join(', ')}</p>
+    //   `,
+    // };
 
-    await sgMail.send(msg);
+    // await sgMail.send(msg);
 
-    res.json({ error: false, errorType: null, data: doc, message: 'Dauerbestellung gespeichert und E-Mail gesendet' });
+    res.json({ error: false, errorType: null, data: doc, message: 'Dauerbestellung gespeichert' });
+    
+
+    console.log("Permanent order created:", doc._id);
+    // Logging NACH dem Senden der Antwort, damit es den Hauptprozess nicht blockiert
+    logUserAction(
+      req._id,
+      req.tenantId,
+      "DAUERBESTELLUNG_ERSTELLEN",
+      getChangePermanentOrder(doc) // actionType
+    ).catch((err) => {
+      // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
+      console.error("Fehler beim Logging der Dauerbestellung:", err);
+    });
 
   } catch (error) {
     console.error('Fehler:', error);
@@ -96,3 +108,4 @@ module.exports.deletePermanentOrdersUser = async (req, res, next) => {
     res.status(500).json({ error: true, errorType: err.message });
   }
 };
+

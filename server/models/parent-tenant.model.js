@@ -21,10 +21,10 @@ var tenantparent = new Schema({
   iban:String,
   username:String,
   orderSettings:{
-    orderConfirmationEmail:Boolean,
+    orderConfirmationEmail:{type: Boolean, default: true},
     displayTypeOrderWeek:Boolean,
-    sendReminderBalance:Boolean,
-    amountBalance:Number,
+    sendReminderBalance:{type:Boolean, default: true},
+    amountBalance:{type:Number,default: 15},
     permanentOrder:Boolean,
   },
   accountDeactivated:Boolean,

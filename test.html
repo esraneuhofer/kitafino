@@ -1,6 +1,420 @@
-<!--<p>-->
-<!--  Frau Gahr anrufen-->
-<!--  Frau Brunner anrufen-->
-<!--  -Fragen klären - Preise Abbestellfrsiten-->
-<!--  Termin Jungs-->
-<!--</p>-->
+<section id="home">
+  <div class="relative py-16 ">
+    <div class="container mx-auto px-6 sm:px-12 lg:px-24 py-24">
+      <div class="flex flex-wrap items-center justify-between">
+        <div class="w-full lg:w-1/2 px-4 lg:px-12 mb-8 lg:mb-0 order-2 lg:order-1" data-aos="fade-right" data-aos-delay="300" data-aos-duration="1000">
+          <div class="content text-center lg:text-left">
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-800">
+              {{mainHeader}}
+            </h1>
+            <p class="mt-4 text-lg text-gray-600" [innerHTML]="headerOne">
+            </p>
+            <a [routerLink]="[]"
+               href="javascript:void(0)"
+               (click)="scrollTo('contact')" class="inline-block mt-4 bg-blue-600 text-white font-bold py-2 px-8 sm:px-12 rounded hover:bg-blue-700">
+              Anfrage
+            </a>
+<!--            <a href="#contact" class="inline-block mt-4 bg-blue-500 text-white font-bold py-2 px-8 sm:px-12 rounded hover:bg-blue-600">-->
+<!--              Neuregistrierung-->
+<!--            </a>-->
+          </div>
+          <app-navigation-appstore></app-navigation-appstore>
+        </div>
+<!--        <div class="w-full lg:w-1/2 px-4 lg:px-4 order-1 lg:order-2 mb-8 lg:mb-0" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">-->
+<!--          <div class="relative group">-->
+<!--            <img class="mx-auto w-full object-cover container-demo rounded-t-lg transition duration-300 ease-in-out group-hover:opacity-30" src="../../../assets/dashboard.png" alt="Hero" />-->
+<!--            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>-->
+<!--            <button class="absolute inset-0 flex items-center justify-center transition-opacity duration-300" aria-label="Play video" (click)="openVideoDialog()">-->
+<!--              <svg class="w-16 h-16 fill-current text-blue-600" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <circle class="text-white" cx="44" cy="44" r="41" stroke="#3B82F6" stroke-width="6" fill="white"/>-->
+<!--                <path class="text-blue-600" d="M36 29l26 15-26 15V29z" />-->
+<!--              </svg>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="w-full lg:w-1/2 px-4 lg:px-4 order-1 lg:order-2 mb-8 lg:mb-0" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">-->
+<!--          <div class="relative group">-->
+<!--            <video class="mx-auto w-full object-cover container-demo rounded-t-lg" src="../../../assets/movie_2.mp4" alt="Hero" autoplay loop muted>-->
+<!--              Your browser does not support the video tag.-->
+<!--            </video>-->
+<!--          </div>-->
+<!--        </div>-->
+                <div class="w-full lg:w-1/2 px-4 lg:px-4 order-1 lg:order-2 mb-8 lg:mb-0" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">
+                  <div class="relative group cursor-pointer">
+                    <img class="mx-auto w-full object-cover container-demo rounded-lg transition duration-300 ease-in-out group-hover:opacity-75" 
+                         src="https://img.youtube.com/vi/DEkEVoNTOrI/maxresdefault.jpg" 
+                         alt="Video Thumbnail" />
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300 rounded-lg"></div>
+                    <button class="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transform group-hover:scale-110 transition-all duration-300" 
+                            aria-label="Play video" 
+                            (click)="openVideoDialog()">
+                      <svg class="w-20 h-20 fill-current text-blue-600" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="text-white" cx="44" cy="44" r="41" stroke="#3B82F6" stroke-width="6" fill="white"/>
+                        <path class="text-blue-600" d="M36 29l26 15-26 15V29z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+//.group:hover img {
+//  opacity: 0.25;
+//}
+button svg {
+  transition: opacity 0.15s ease-in-out;
+}
+button:hover svg {
+  opacity: 1;
+}
+
+.container-demo {
+
+  box-shadow:
+    2em 4em 6em -2em rgba(0,0,0,.5),
+    1em 2em 3.5em -2.5em rgba(0,0,0,.5);
+  transition:
+    transform .4s ease,
+    box-shadow .4s ease;
+  border-radius: .5em;
+
+  &:hover {
+    transform:
+      rotate3d(0,0,0,0deg)
+      rotate(0deg);
+  }
+}
+
+
+<div class="background_one" id="about" data-aos="fade-up">
+  <div class="">
+    <img src="../../../assets/dreieck_eins.svg" alt="Background Shape" class="w-full" data-aos="fade-down">
+  </div>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 py-24">
+    <div class="mx-auto max-w-2xl lg:text-center" data-aos="fade-up">
+      <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">{{howCateringexpertWorksHeader}}</p>
+      <p class="mt-6 text-lg leading-8 text-white" [innerHTML]="howCateringexpertWorksSubHeader">
+      </p>
+    </div>
+    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+        <div class="flex flex-col" data-aos="fade-in">
+          <dt class="flex flex-col items-center text-base font-semibold leading-7 text-white">
+            <div class="relative mb-2">
+              <div class="w-20 h-20 flex items-center justify-center bg-white rounded-full border-4 border-[#0C7C59] p-2">
+                <i class="fas fa-users text-4xl text-[#0C7C59]"></i> <!-- Logo oben -->
+              </div>
+            </div>
+            Eltern und Kinder
+          </dt>
+          <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-white">
+            <p class="flex-auto">
+              {{howCateringexpertParents}}
+            </p>
+            <p class="mt-6">
+              <a  [routerLink]="[]"
+                  href="javascript:void(0)"
+                 (click)="goToPage(2,'advantage')" class="text-sm font-semibold leading-6 text-blue-800 cursor-pointer"><u>Mehr erfahren</u> <span aria-hidden="true">→</span></a>
+            </p>
+          </dd>
+        </div>
+
+        <div class="flex flex-col" data-aos="fade-in" data-aos-delay="200">
+          <dt class="flex flex-col items-center text-base font-semibold leading-7 text-white">
+            <div class="relative mb-2">
+              <div class="w-20 h-20 flex items-center justify-center bg-white rounded-full border-4 border-blue-600 p-2">
+                <i class="fas fa-school text-4xl text-blue-600"></i> <!-- Logo oben -->
+              </div>
+            </div>
+            Einrichtungen
+          </dt>
+          <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-white">
+            <p class="flex-auto">
+              {{howCateringexpertEinrichtung}}
+            </p>
+            <p class="mt-6">
+              <a [routerLink]="[]"
+                 href="javascript:void(0)"
+                 (click)="goToPage(1,'advantage')" class="text-sm font-semibold leading-6 text-blue-800 cursor-pointer"><u>Mehr erfahren </u><span aria-hidden="true">→</span></a>
+            </p>
+          </dd>
+        </div>
+
+        <div class="flex flex-col" data-aos="fade-in" data-aos-delay="400">
+          <dt class="flex flex-col items-center text-base font-semibold leading-7 text-white">
+            <div class="relative mb-2">
+              <div class="w-20 h-20 flex items-center justify-center bg-white rounded-full border-4 border-orange-600 p-2">
+                <i class="fas fa-truck text-4xl text-orange-600"></i> <!-- Logo oben -->
+              </div>
+            </div>
+            Caterer
+          </dt>
+          <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-white">
+            <p class="flex-auto">
+              {{howCateringexpertCaterer}}
+            </p>
+            <p class="mt-6">
+              <a [routerLink]="[]"
+                 href="javascript:void(0)"
+                 (click)="goToPage(3,'advantage')" class="text-sm font-semibold leading-6 text-blue-800 cursor-pointer"><u>Mehr erfahren</u> <span aria-hidden="true">→</span></a>
+            </p>
+          </dd>
+        </div>
+
+      </dl>
+    </div>
+  </div>
+</div>
+
+
+  howCateringexpertWorksSubHeader = howCateringexpertWorksSubHeader;
+  howCateringexpertWorksHeader = howCateringexpertWorksHeader;
+  howCateringexpertEinrichtung = howCateringexpertEinrichtung;
+  howCateringexpertParents = howCateringexpertParents;
+  howCateringexpertCaterer = howCateringexpertCaterer;
+
+  reundlich';
+export const contentOneTextApp = 'Unsere App wurde so einfach wie möglich zum Bedienen entwickelt und ist dabei sehr funktionell.';
+
+export const contentOneHeaderMessage = 'Kommunikation';
+export const contentOneTextMessage = 'Informieren Sie Eltern über wichtige Ereignisse. Caterer als auch Einrichtungen können Nachrichten erstellen, die den Eltern in der App angezeigt werden.';
+
+export const contentOneHeaderPrice = 'Kosten';
+export const contentOneTextPrice = 'Cateringexpert liegt mit seinen Kosten deutlich unter den Mitbewerbern. Kontaktieren Sie uns für Ihr persönliches Angebot.';
+
+export const contentOneHeaderInterface = 'Interface';
+export const contentOneTextInterface = 'Einrichtungen und Caterer haben jeweils ihr eigenes Webinterface zur Verwaltung aller Anmeldungen und Bestellungen. Als Caterer können Sie auch unsere etablierte Verwaltungsapp nutzen. ' +
+  'Erfahren Sie mehr <a target="_blank" href="https://cateringexpert.de/" class="anchor-tag"><u>hier</u></a>.';
+
+export const contentOneHeaderSecurity = 'Sicherheit';
+export const contentOneTextSecurity = 'Unsere Webseite nutzt SSL-Verschlüsselung und Server in Deutschland, um Ihre Daten zu schützen. Ihre privaten Daten werden nicht an Dritte weitergegeben und stets vertraulich behandelt.';
+
+export const einrichtungen = [
+  { header: 'Direkte Abrechnung', text: 'Wir kümmern uns um die Abrechnung mit Eltern und Caterer.' },
+  { header: 'Zahlungsmanagement', text: 'Keine Sorgen über Zahlungserinnerungen oder fehlerhafte Abrechnungen.' },
+  { header: 'Fokus auf Pädagogik', text: 'Das pädagogische Team kann sich auf die Kinderbetreuung konzentrieren.' },
+  { header: 'Benutzerfreundlichkeit', text: 'Intuitives Design für einfache Handhabung.' },
+  { header: 'Zentraler Ansprechpartner', text: 'Wir stehen Ihnen für Anliegen und Fragen schnell zur Verfügung.' },
+  { header: 'Bildung und Teilhabe', text: 'Wir übernehmen die Verwaltung von Bildung und Teilhabe.' },
+  { header: 'Webinterface', text: 'Ein benutzerfreundliches Webinterface für die Verwaltung und Erstellung von täglichen Listen.' },
+  { header: 'Elternkommunikation', text: 'Updates und Informationen direkt an Eltern in der App versenden.' },
+  { header: 'Bestellverwaltung', text: 'Klare Übersicht über alle Bestellungen.' }
+];
+
+export const caterer = [
+  { header: 'Schnelle Zahlungsabwicklung', text: 'Erhalten Sie Ihre Zahlungen wöchentlich oder monatlich wenige Tage nach Rechnungserhalt.' },
+  { header: 'Bildung und Teilhabe', text: 'Kein Ärger mit der Abrechnung. Cateringexpert übernimmt und reduziert Ihre Außenstände.' },
+  { header: 'Direkter Zugriff', text: 'Verwalten und überwachen Sie Bestellungen direkt über unser Interface.' },
+  { header: 'Erfahrung und Expertise', text: 'Profitieren Sie von unserer langjährigen Erfahrung und nutzen Sie unsere Verwaltungsapplikation bei Bedarf.' },
+  { header: 'Speiseplanverwaltung', text: 'Stellen Sie Ihren Speiseplan selbst ein (optional mit Allergenen und Rezepten) oder lassen Sie uns Ihren wöchentlichen Speiseplan hochladen.' },
+  { header: 'Bestellbestätigungen', text: 'Automatische Bestellbestätigungen per E-Mail und Einsicht in alle Bestellungen über unsere Bestellübersicht.' },
+  { header: 'Direkte Bestellabwicklung', text: 'Eltern können An- und Abbestellungen direkt in der App vornehmen – kein Ärger mehr mit Eltern.' },
+  { header: 'Mit Cateringexpert erhalten Sie eine maßgeschneiderte Lösung', text: 'die Ihnen eine effiziente Verwaltung und Kommunikation ermöglicht.' }
+];
+
+export const eltern = [
+  { header: 'App', text: 'Sie haben jederzeit Zugriff auf unsere App mit Ihrem Smartphone, Tablet oder Webbrowser.' },
+  { header: 'Einzahlung', text: 'Laden Sie Ihr Konto per Überweisung oder Dauerauftrag auf oder per Direkteinzahlung, sollten Sie eine Überweisung versäumt haben.' },
+  { header: 'Mehrsprachigkeit', text: 'Unsere App ist in 17 Sprachen verfügbar.' },
+  { header: 'Dauerbestellungen', text: 'Stellen Sie Dauerbestellungen ein, um sich die wöchentliche Bestellung zu ersparen.' },
+  { header: 'Erinnerungen', text: 'Erhalten Sie Erinnerungen per E-Mail, sollte Ihr Kontostand einen vorgegebenen Betrag unterschreiten.' },
+  { header: 'Support', text: 'Cateringexpert steht Ihnen bei Fragen jederzeit per Telefon, E-Mail oder WhatsApp zur Verfügung.' },
+  { header: 'Informationen', text: 'Sie erhalten wichtige Infos von Ihrer Einrichtung oder Ihrem Caterer direkt in die App.' },
+  { header: 'Kostenübersicht', text: 'Erhalten Sie Übersichten aller Bestellungen sowie Ein- und Auszahlungen als PDF oder CSV-Datei per E-Mail.' },
+  { header: 'Wochenpläne', text: 'Die Wochenpläne Ihres Caterers können Sie als PDF einsehen, zudem werden die täglichen Menüs bei der Bestellung angezeigt.' }
+];
+
+export const textSubHeaderCaterer = 'Als Caterer ist es einfacher und bequemer, Bestellungen direkt von der Einrichtung zu erhalten. Doch immer mehr Einrichtungen und Gemeinden outsourcen diese Prozesse.' +
+  'Daher ist es wichtig, sich diesem Trend anzupassen und die bestmögliche Lösung für Sie, Ihre Kunden und die Eltern – die letztlich Ihre Endkunden sind – zu wählen.';
+
+export const textSubHeaderEinrichtung = 'Die tägliche Organisation von Bestellungen, Stornierungen und Änderungen des Mittagessens kann eine erhebliche Belastung darstellen. Hinzu kommen die Abrechnungen der bestellten Portionen mit dem Caterer. ' +
+  'Pädagogisches Personal sollte sich auf die Kinderbetreuung konzentrieren können, anstatt Zeit mit Verwaltungsaufgaben zu verlieren. Unsere Lösung entlastet Sie und ermöglicht es Ihnen, sich auf das Wesentliche zu fokussieren.';
+
+export const textSubHeaderEltern = 'Als Elternteil haben Sie mit unserer App immer die volle Kontrolle über die Mittagsverpflegung für Ihr Kind. ' +
+  'Die täglichen Menüs werden im System angezeigt, ebenso die Auswahl von Allergiker-Essen.';
+
+export const arraySwitcher = {
+  caterer: {
+    header: 'Caterer',
+    text: 'Als Caterer ist es einfacher und bequemer, Bestellungen direkt von der Einrichtung zu erhalten. Doch immer mehr Einrichtungen und Gemeinden outsourcen diese Prozesse.' +
+      'Daher ist es wichtig, sich diesem Trend anzupassen und die bestmögliche Lösung für Sie, Ihre Kunden und die Eltern – die letztlich Ihre Endkunden sind – zu wählen.'
+  },
+  einrichtung: {
+    header: 'Einrichtung',
+    text: 'Die tägliche Organisation von Bestellungen, Stornierungen und Änderungen des Mittagessens kann eine erhebliche Belastung darstellen. Hinzu kommen die Abrechnungen der bestellten Portionen mit dem Caterer. ' +
+      'Pädagogisches Personal sollte sich auf die Kinderbetreuung konzentrieren können, anstatt Zeit mit Verwaltungsaufgaben zu verlieren. Unsere Lösung entlastet Sie und ermöglicht es Ihnen, sich auf das Wesentliche zu fokussieren.'
+  },
+  eltern: {
+    header: 'Eltern',
+    text: 'Als Elternteil haben Sie mit unserer App immer die volle Kontrolle über die Mittagsverpflegung für Ihr Kind. ' +
+      'Die täglichen Menüs werden im System angezeigt, ebenso die Auswahl von Allergiker-Essen. Mit der Einstellung von Dauerbestellungen kann der Bestellvorgang auch automatisiert werden.' +
+      'Mit dem automatischen Versenden von E-Mails bei allen Vorgängen sind Sie immer informiert.'
+  }
+};
+
+export const howCateringexpertWorksHeader = 'Wie funktioniert Cateringexpert?';
+export const howCateringexpertWorksSubHeader = 'Cateringexpert stellt eine App zur Verfügung, mit der <b>Eltern</b> das Mittagessen für ihre Kinder direkt bei ihrem <b>Caterer</b> bestellen können.' +
+  ' <b>Einrichtungen</b> haben dadurch wesentlich weniger Verwaltungsaufwand und können sich auf ihre eigentlichen Aufgaben konzentrieren.';
+
+export const howCateringexpertParents = 'Als Elternteil registrieren Sie sich in unserer App und laden anschließend Ihr Essensgeldkonto per Überweisung oder Direkteinzahlung auf. Danach können Sie direkt Essen für Ihr Kind bestellen.' +
+  ' Mit weiteren nützlichen Funktionen in der App können Sie die Bestellvorgänge noch einfacher gestalten.';
+export const howCateringexpertCaterer = 'Die Auszahlung der bestellten Essen erfolgt automatisch jede Woche, 3 Tage nach Ablauf der Bestellung. Zusätzlich haben Sie Zugang zu Ihrem Webinterface, in dem Sie Bestellungen einsehen und verwalten können.';
+export const howCateringexpertEinrichtung = 'Als Einrichtung müssen Sie theoretisch nichts tun. Sie haben jedoch die Möglichkeit, mit Ihrem eigenen Webinterface Bestellungen und Anmeldungen einzusehen und zu verwalten. Erstellen Sie Listen für die tägliche Ausgabe und freuen sich über Ihre gewonnene Zeit.';
+
+export const faq = [
+  {
+    question: 'Essensgeld vergessen aufzuladen',
+    questionSub: 'Was mache ich, wenn ich es versäumt habe, rechtzeitig Guthaben auf mein Essenskonto aufzuladen?',
+    answer: 'Sollten Sie es versäumt haben, Ihr Konto mit Guthaben per Überweisung aufzuladen, haben Sie die Möglichkeit, eine Direkteinzahlung mit Apple Pay, Google Pay, GiroPay, Paypal oder per Kreditkarte vorzunehmen.' +
+      ' Gehen Sie hierfür auf „Kontoübersicht“ und gehen Sie zum Bereich "Direkteinzahlung".' +
+      ' Tragen Sie den gewünschten Betrag ein und klicken Sie auf [Direkteinzahlung]. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.' +
+      ' Bei einer Direkteinzahlung werden Gebühren je nach Bezahlmethode durch den Zahlungsanbieter erhoben. Für eine kostenlose Einzahlung nutzen Sie bitte die Überweisung.',
+    open: false
+  },
+  {
+    "question": "Wie beantrage ich Bildung und Teilhabe?",
+    "questionSub": "Können Eltern, die Bildung und Teilhabe beziehen, auch Essen bestellen?",
+    "answer": "Um Bildung und Teilhabe in der App zu aktivieren, müssen Sie uns Ihren aktuellen Bescheid in der App hochladen. Loggen Sie sich in der App ein und gehen Sie in der Seitennavigation auf <b>[Bildung und Teilhabe]</b>. " +
+      "Wählen Sie den Verpflegungsteilnehmer (Kind) aus, für das Sie Bildung und Teilhabe beantragen möchten. " +
+      "Indem Sie auf <b>[Schreiben erstellen]</b> gehen, können Sie ein Schreiben durch uns generieren lassen, das die Teilnahme am Mittagessen bestätigt und das Sie beim Jobcenter einreichen können. Um Bildung und Teilhabe zu aktivieren, laden Sie den genehmigten Bescheid hoch. Nach erfolgreicher Prüfung wird Bildung und Teilhabe aktiviert und die Kosten für die Mittagsverpflegung werden übernommen.",
+    "open": false
+  },
+  {
+    "question": "Änderung und Stornierung",
+    "questionSub": "Wie kann ich meine Bestellung ändern oder stornieren?",
+    "answer": "Solange die Abbestellfrist noch nicht abgelaufen ist, können Sie Ihre Bestellung jederzeit ändern oder stornieren. Um eine Bestellung zu ändern, muss die Bestellung zuerst storniert werden. " +
+      "Gehen Sie hierfür auf die gewünschte Bestellung und klicken Sie auf das <b>Auswahlkästchen</b> oder auf das <b>Mülleimer-Symbol</b>. Bestätigen Sie anschließend Ihre Stornierung. Das Geld für die bestellte Mahlzeit wird Ihnen automatisch gutgeschrieben. " +
+      "Sofern E-Mail-Benachrichtigungen aktiviert sind, erhalten Sie eine Bestätigung per E-Mail. Anschließend können Sie eine neue Bestellung aufgeben.",
+    "open": false
+  },
+  {
+    "question": "Bestell- oder Abbestellfrist abgelaufen",
+    "questionSub": "Was kann ich machen, wenn die Bestell- oder Abbestellfrist abgelaufen ist?",
+    "answer": "Leider können wir keine Bestellungen oder Abbestellungen annehmen, wenn die Frist abgelaufen ist. Die Bestell- und Abbestellfristen sowie -richtlinien werden direkt von Ihrem Caterer oder der jeweiligen Einrichtung festgelegt und nicht von uns beeinflusst. " +
+      "Diese Regelungen werden Ihnen zu Beginn der Zusammenarbeit in unserem Willkommensschreiben mitgeteilt. " +
+      "Wir bitten um Ihr Verständnis, dass wir an diese Richtlinien gebunden sind und keinen Einfluss darauf haben. Dies gilt auch im Falle von Krankheit oder ungeplantem Ausfall, da wir auch in diesen Fällen die Fristen nicht ändern können. " +
+      "Bitte wenden Sie sich bei Fragen zu den Fristen direkt an Ihren Caterer oder die Einrichtung.",
+    "open": false
+  }
+];
+
+export const appCateringexpert = {
+  title: 'Unsere App',
+  description: 'Mit den neuesten Technologien gestaltet, bietet unsere App eine schnelle und intuitive Bedienung. Durch unseren Fokus auf Benutzerfreundlichkeit ist sichergestellt, dass die App von jedem mühelos und zügig bedient werden kann.',
+  buttons: [
+    {
+      tab: 1,
+      title: 'Multilingual',
+      description: 'Unsere App deckt 17 Sprachen ab, um der kulturellen Vielfalt und den unterschiedlichen sprachlichen Bedürfnissen der Eltern gerecht zu werden.'
+    },
+    {
+      tab: 2,
+      title: 'Bestellungen',
+      description: 'Ganz einfach Bestellungen für den gewünschten Tag mit einem Klick aufgeben oder stellen Sie sich Bestellungen für festgelegte Tage ein und sparen Sie sich die Arbeit für eine tägliche Bestellung. Die Bestellungen werden automatisch ausgeführt. Bei Schließtagen oder unzureichendem Guthaben erhalten Sie immer eine E-Mail.'
+    },
+    {
+      tab: 3,
+      title: 'Konto aufladen',
+      description: 'Sie können Geld bequem per Überweisung auf unser Konto überweisen. Die Geldeingänge werden mehrfach am Tag überprüft. Sollten Sie es versäumt haben, rechtzeitig Ihr Konto aufzuladen, können Sie eine Direkteinzahlung vornehmen (PayPal, Apple Pay, Google Pay und Kreditkarte).'
+    },
+    {
+      tab: 4,
+      title: 'Nützliche Features',
+      description: 'Sie können sich Erinnerungen per E-Mail einstellen, die Sie bei zu geringem Guthaben informieren. Ihre Einrichtung und Ihr Caterer können Ihnen Mitteilungen direkt in die App einstellen, um wichtige Informationen zu übermitteln.'
+    }
+  ]
+};
+
+<section id="advantage" class="bg-[#F4F4F9]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:min-h-[1200px]">
+
+  <div class="py-12 md:py-30 border-t border-slate-200">
+
+      <!-- Section header -->
+      <div class="max-w-3xl mx-auto text-center p-20">
+<!--        <h3 class="h3 text-slate-800 font-playfair-display mb-3">Vorteile Cateringexpert? </h3>-->
+        <h2 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Vorteile Cateringexpert</h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">
+          Ob Einrichtung, Elternteil oder Caterer - Cateringexpert bietet für jeden die passende Lösung. Erfahren Sie mehr über die Vorteile von Cateringexpert.
+        </p>
+      </div>
+
+      <!-- Section content -->
+      <div class="max-w-xl mx-auto md:max-w-none flex flex-col md:flex-row md:items-start md:space-x-8 lg:space-x-16 xl:space-x-18 space-y-8 space-y-reverse md:space-y-0">
+
+        <!-- Tabs items (images) -->
+        <div class="relative md:w-5/12 lg:w-1/2 order-1 md:order-none" data-aos="fade-down" data-aos-delay="300" data-aos-duration="1000">
+          <div class="relative w-full h-full">
+            <!-- Item 1 -->
+            <div *ngIf="tab === 1" [@fadeInOut] class="md:absolute md:inset-0">
+
+            <app-switcher-card [iconClass]="'fas fa-school'" [accentColor]="'#2563eb'" [header]="'Einrichtung'" [backgroundClass]="'bg-blue-200 border-blue-500'" [listArray]="einrichtungen"></app-switcher-card>
+            </div>
+            <!-- Item 2 -->
+            <div *ngIf="tab === 2" [@fadeInOut] class="absolute inset-0">
+              <app-switcher-card [iconClass]="'fas fa-users'" [accentColor]="'#0C7C59'" [header]="'Eltern'" [backgroundClass]="'bg-[#EBF5EE] border-green-500'" [listArray]="eltern"></app-switcher-card>
+            </div>
+            <!-- Item 3 -->
+            <div *ngIf="tab === 3" [@fadeInOut] class="absolute inset-0">
+              <app-switcher-card [iconClass]="'fas fa-truck '" [accentColor]="'#D64933'" [header]="'Caterer'" [backgroundClass]="'bg-orange-200 border-orange-500'" [listArray]="caterer"></app-switcher-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="md:w-7/12 lg:w-1/2" data-aos="fade-up" [@fadeInOut] data-aos-delay="300" data-aos-duration="1000">
+          <div class="mb-8 md:mb-0">
+            <button
+              [ngClass]="tab !== 1 ? 'border-transparent opacity-50 hover:opacity-75' : 'border-2 border-blue-500 opacity-100'"
+              class="flex items-start text-left bg-white border-2 px-5 py-3 rounded shadow-md transition duration-300 ease-in-out mb-3"
+              (click)="switchTab(1)">
+              <i class="fas fa-school text-3xl text-blue-600 shrink-0 mt-1 mr-4"></i>
+              <div>
+                <div class="text-slate-800 font-medium mb-1">Einrichtung</div>
+                <div class=" leading-6 text-gray-600">
+                  {{ tab !== 1 ? (textSubHeaderEinrichtung | slice:0:60) + '...' : arraySwitcher.einrichtung.text }}
+                </div>
+              </div>
+            </button>
+
+            <button
+              [ngClass]="tab !== 2 ? 'border-transparent opacity-50 hover:opacity-75' : 'border-2 border-green-500 opacity-100'"
+              class="flex items-start text-left bg-white border-2 px-5 py-3 rounded shadow-md transition duration-300 ease-in-out mb-3"
+              (click)="switchTab(2)">
+              <i class="fas fa-users text-3xl text-[#0C7C59] shrink-0 mt-1 mr-4"></i>
+              <div>
+                <div class="text-slate-800 font-medium mb-1">Eltern</div>
+                <div class="leading-6 text-gray-600">
+                  {{ tab !== 2 ? (textSubHeaderEltern | slice:0:60) + '...' : arraySwitcher.eltern.text }}
+                </div>
+              </div>
+            </button>
+
+            <button
+              [ngClass]="tab !== 3 ? 'border-transparent opacity-50 hover:opacity-75' : 'border-2 border-orange-500 opacity-100'"
+              class="flex items-start text-left bg-white border-2 px-5 py-3 rounded shadow-md transition duration-300 ease-in-out"
+              (click)="switchTab(3)">
+              <i class="fas fa-truck text-3xl text-orange-600 shrink-0 mt-1 mr-4"></i>
+              <div>
+                <div class="text-slate-800 font-medium mb-1">Caterer</div>
+                <div class="leading-6 text-gray-600">
+                  {{ tab !== 3 ? (textSubHeaderCaterer | slice:0:60) + '...' : arraySwitcher.caterer.text }}
+                </div>
+              </div>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+

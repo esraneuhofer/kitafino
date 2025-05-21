@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const VacationStudent = mongoose.model('VacationStudent');
 const {sendMonitoringEmail} = require('./order-functions');
+const { logUserAction, getChangeVacation } = require('./action_log.controller');
 
 // Get all vacations for a user
 module.exports.getAllVacationParentByUserId = async (req, res) => {
@@ -118,7 +119,19 @@ module.exports.deleteVacation = async (req, res) => {
       return res.status(404).json('Vacation not found or you do not have permission to delete it');
     }
 
-    return res.status(200).json('Vacation deleted successfully');
+    // Erfolgsmeldung senden - entferne das "return" hier
+    res.status(200).json('Vacation deleted successfully');
+    
+    // Logging nach dem Senden der Antwort
+    logUserAction(
+      userId,
+      req.tenantId,
+      'FERIEN_LOESCHEN',
+      getChangeVacation(result) // Hilfsfunktion, die Änderungen ermittelt
+    ).catch(err => {
+      console.error('Fehler beim Logging der Ferienlöschung:', err);
+    });
+    
   } catch (err) {
     console.error('Error deleting vacation:', err);
     return res.status(500).json('Server error while deleting vacation');
