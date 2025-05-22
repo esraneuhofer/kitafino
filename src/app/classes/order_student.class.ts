@@ -142,7 +142,8 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
       let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek, priceStudent);
       if (order) {
         this.orderMenus.push(order);
-        //Todo: Edit New
+
+        //Todo: Edit New Wenn Sonderessen pro Menü wird die SpcailId an das Sonderessen angehängt
         if (order.typeOrder === 'menu' && settings.orderSettings.specialShowPerMeal) {
           if (studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood) {
             console.log(order)
@@ -150,12 +151,13 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
             let specialFood = getSpecialFoodById(studentModel.specialFood, settings);
             if (!specialFood) return;
             const orderSpecial: OrderSubDetailNew = setOrderSpecialFood(priceSpecial, specialFood,
-              order.nameMenu + ':', order.idMenu)
+              order.nameMenu + ':', order.idType)
             this.orderMenus.push(orderSpecial);
           }
         }
       }
     });
+
     //Todo: Edit New
     if (studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood && !settings.orderSettings.specialShowPerMeal) {
       let priceSpecial = getPriceSpecialFood(customer, studentModel, contractSettings);

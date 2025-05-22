@@ -2,27 +2,27 @@ import {
   OrderInterfaceStudentSave,
   SpecialFoodOrderInterfaceSafe
 } from "../classes/order_student_safe.class";
-import {WeekplanMenuInterface} from "../classes/weekplan.interface";
-import {SettingInterfaceNew} from "../classes/setting.class";
-import {CustomerInterface} from "../classes/customer.class";
-import {StudentInterface} from "../classes/student.class";
+import { WeekplanMenuInterface } from "../classes/weekplan.interface";
+import { SettingInterfaceNew } from "../classes/setting.class";
+import { CustomerInterface } from "../classes/customer.class";
+import { StudentInterface } from "../classes/student.class";
 import {
   OrderClassStudent,
   OrderInterfaceStudent,
   OrderSubDetailNew, SpecialFoodOrderInterface
 } from "../classes/order_student.class";
-import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
+import { DisplayOrderArrayIntrface } from "../home/dashboard/dashboard.component";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {normalizeToBerlinDate} from "./date.functions";
-import {EinrichtungInterface} from "../classes/einrichtung.class";
+import { normalizeToBerlinDate } from "./date.functions";
+import { EinrichtungInterface } from "../classes/einrichtung.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 
-function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
+function getIndexMenu(orderMenus: OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
     if (orderMenus[i].idType === idType) {
       return i;
@@ -31,16 +31,16 @@ function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   return -1;
 }
 
-export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
-                         weekplanSelectedWeek:WeekplanMenuInterface,
-                         settings:SettingInterfaceNew,
-                         customer:CustomerInterface,
-                         selectedStudent:StudentInterface | null,
-                         indexDaySelected:number,
-                         dateChange:string,
-                         query:{week:number, year:number},
-                                contractSettings:EinrichtungInterface):OrderInterfaceStudent{
-  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
+export function setOrderStudent(orderStudent: (OrderInterfaceStudentSave | null),
+  weekplanSelectedWeek: WeekplanMenuInterface,
+  settings: SettingInterfaceNew,
+  customer: CustomerInterface,
+  selectedStudent: StudentInterface | null,
+  indexDaySelected: number,
+  dateChange: string,
+  query: { week: number, year: number },
+  contractSettings: EinrichtungInterface): OrderInterfaceStudent {
+  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange), contractSettings);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
@@ -48,8 +48,8 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
     orderNew.isBut = orderStudent.isBut;
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
 
-      let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
-      if(indexMenuFound < 0)return;
+      let indexMenuFound = getIndexMenu(orderNew.order.orderMenus, eachOrder.idType);
+      if (indexMenuFound < 0) return;
       // orderNew.order.orderMenus[indexMenu].displayMenu = displayMenuForStudent(eachOrder.typeOrder, settings);
       orderNew.order.orderMenus[indexMenuFound].amountOrder = eachOrder.amountOrder;
       orderNew.order.orderMenus[indexMenuFound].menuSelected = eachOrder.menuSelected;
@@ -68,7 +68,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     kw: copy.kw,
     year: copy.year,
     subgroup: '',
-    dateOrder:normalizeToBerlinDate(copy.dateOrder),
+    dateOrder: normalizeToBerlinDate(copy.dateOrder),
     customerId: copy.customerId,
     order: {
       comment: copy.order.comment,
@@ -79,7 +79,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
   }
   if (copy.order && Array.isArray(copy.order.orderMenus)) {
     copy.order.orderMenus.forEach((eachOrder) => {
-      if(eachOrder.amountOrder === 0 )return;
+      if (eachOrder.amountOrder === 0) return;
       let newObjectPre = {
         typeOrder: eachOrder.typeOrder,
         nameOrder: eachOrder.nameOrder,
@@ -87,7 +87,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
         amountOrder: eachOrder.amountOrder,
         idMenu: eachOrder.idMenu,
         priceOrder: eachOrder.priceOrder,
-        menuSelected: eachOrder.menuSelected
+        menuSelected: eachOrder.menuSelected,
       }
       newObject.order.orderMenus.push(newObjectPre);
     });
@@ -128,14 +128,14 @@ export function formatDateToISO(date: Date): string {
 export function orderIsEmpty(order: OrderInterfaceStudent): boolean {
   let boolean = true;
   order.order.orderMenus.forEach((eachOrder) => {
-    if(eachOrder.amountOrder > 0)boolean = false;
+    if (eachOrder.amountOrder > 0) boolean = false;
   })
   return boolean;
 }
 export function orderIsNegative(order: OrderInterfaceStudent): boolean {
   let boolean = false;
   order.order.orderMenus.forEach((eachOrder) => {
-    if(eachOrder.amountOrder < 0)boolean = true;
+    if (eachOrder.amountOrder < 0) boolean = true;
   })
   return boolean;
 }
@@ -159,7 +159,7 @@ export function getTotalPortion(order: OrderInterfaceStudent): number {
   return number;
 }
 
-export function sortOrdersByDate(orders:DisplayOrderArrayIntrface[]) {
+export function sortOrdersByDate(orders: DisplayOrderArrayIntrface[]) {
   return orders.sort((a, b) => {
     const dateA = new Date(a.dateOrder).getTime();
     const dateB = new Date(b.dateOrder).getTime();
