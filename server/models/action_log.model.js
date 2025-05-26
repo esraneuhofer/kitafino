@@ -16,6 +16,7 @@ const actionLogSchema = new mongoose.Schema({
     type: String,
     enum: [
       "DAUERBESTELLUNG_ERSTELLEN",
+      "DAUERBESTELLUNG_LOESCHEN",
       "DAUERBESTELLUNG_AENDERN",
       "KIND_ANMELDEN",
       "KIND_ABMELDEN",

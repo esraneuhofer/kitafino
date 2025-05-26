@@ -1,49 +1,51 @@
 const mongoose = require("mongoose");
-const PermanentOrderStudent = mongoose.model('PermanentOrderStudent');
-const sgMail = require('@sendgrid/mail');
+const PermanentOrderStudent = mongoose.model("PermanentOrderStudent");
+const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const { logUserAction, getChangePermanentOrder } = require('./action_log.controller');
+const {
+  logUserAction,
+  getChangePermanentOrder,
+} = require("./action_log.controller");
 
 module.exports.getPermanentOrdersUser = async (req, res, next) => {
   console.log(req._id);
   try {
-
     // Using await to wait for the result of Tenant.find()
-    const allPermanentOrders = await PermanentOrderStudent.find({ 'userId': req._id });
+    const allPermanentOrders = await PermanentOrderStudent.find({
+      userId: req._id,
+    });
 
     // Sending the result back to the client
     res.json(allPermanentOrders);
   } catch (err) {
     // If an error occurs, log it and send an error response
-    console.error('Error getTenant',err); // Log the error for debugging
-    res.status(500).send({ message: 'Internal Server Error' });
+    console.error("Error getTenant", err); // Log the error for debugging
+    res.status(500).send({ message: "Internal Server Error" });
   }
 };
 
 module.exports.editPermanentOrdersUser = (req, res, next) => {
-  PermanentOrderStudent.findOneAndUpdate(
-    { '_id': req.body._id },
-    req.body,
-    { upsert: true, new: true }
-  ).then(doc => {
-    res.json({error: false,errorType:null,data:doc });
+  PermanentOrderStudent.findOneAndUpdate({ _id: req.body._id }, req.body, {
+    upsert: true,
+    new: true,
+  })
+    .then((doc) => {
+      res.json({ error: false, errorType: null, data: doc });
 
-     // Logging NACH dem Senden der Antwort
-    logUserAction(
-      req._id,                          // userId
-      req.tenantId,                     // tenantId
-      'DAUERBESTELLUNG_AENDERN',
-      getChangePermanentOrder(doc)         // actionType
-    
-    ).catch(err => {
-      // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
-      console.error('Fehler beim Logging der Dauerbestellungsänderung:', err);
+      // Logging NACH dem Senden der Antwort
+      logUserAction(
+        req._id, // userId
+        req.tenantId, // tenantId
+        "DAUERBESTELLUNG_AENDERN",
+        getChangePermanentOrder(doc) // actionType
+      ).catch((err) => {
+        // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
+        console.error("Fehler beim Logging der Dauerbestellungsänderung:", err);
+      });
+    })
+    .catch((err) => {
+      res.json({ error: true, errorType: err, data: null });
     });
-
-
-  }).catch(err => {
-    res.json({error: true,errorType:err,data:null });
-  });
 };
 
 module.exports.setPermanentOrdersUser = async (req, res, next) => {
@@ -54,7 +56,7 @@ module.exports.setPermanentOrdersUser = async (req, res, next) => {
       userId: req._id,
       isSpecial: req.body.isSpecial,
       daysOrder: req.body.daysOrder,
-      studentId: req.body.studentId
+      studentId: req.body.studentId,
     });
 
     let doc = await newPermanentOrder.save();
@@ -75,8 +77,12 @@ module.exports.setPermanentOrdersUser = async (req, res, next) => {
 
     // await sgMail.send(msg);
 
-    res.json({ error: false, errorType: null, data: doc, message: 'Dauerbestellung gespeichert' });
-    
+    res.json({
+      error: false,
+      errorType: null,
+      data: doc,
+      message: "Dauerbestellung gespeichert",
+    });
 
     console.log("Permanent order created:", doc._id);
     // Logging NACH dem Senden der Antwort, damit es den Hauptprozess nicht blockiert
@@ -89,23 +95,46 @@ module.exports.setPermanentOrdersUser = async (req, res, next) => {
       // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
       console.error("Fehler beim Logging der Dauerbestellung:", err);
     });
-
   } catch (error) {
-    console.error('Fehler:', error);
+    console.error("Fehler:", error);
     res.json({ error: true, errorType: error, data: null });
   }
 };
 
-
 module.exports.deletePermanentOrdersUser = async (req, res, next) => {
   try {
-    const result = await PermanentOrderStudent.deleteOne({ '_id': req.body._id });
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ error: true, errorType: 'No document found with that id' });
+    // Erst die Dauerbestellung finden, um die Daten für das Logging zu erfassen
+    const permanentOrderToDelete = await PermanentOrderStudent.findById(
+      req.body._id
+    );
+
+    if (!permanentOrderToDelete) {
+      return res
+        .status(404)
+        .json({ error: true, errorType: "No document found with that id" });
     }
-    res.json({ error: false, message: 'Deletion successful', result: result });
+
+    const result = await PermanentOrderStudent.deleteOne({ _id: req.body._id });
+
+    if (result.deletedCount === 0) {
+      return res
+        .status(404)
+        .json({ error: true, errorType: "No document found with that id" });
+    }
+
+    res.json({ error: false, message: "Deletion successful", result: result });
+
+    // Logging NACH dem Senden der Antwort, damit es den Hauptprozess nicht blockiert
+    logUserAction(
+      req._id, // userId
+      req.tenantId, // tenantId
+      "DAUERBESTELLUNG_LOESCHEN", // actionType
+      getChangePermanentOrder(permanentOrderToDelete) // details der gelöschten Bestellung
+    ).catch((err) => {
+      // Stille Fehlerbehandlung - beeinflusst den Hauptprozess nicht
+      console.error("Fehler beim Logging der Dauerbestellungslöschung:", err);
+    });
   } catch (err) {
     res.status(500).json({ error: true, errorType: err.message });
   }
 };
-
