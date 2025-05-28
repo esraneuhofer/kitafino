@@ -149,12 +149,13 @@ async function addOrder(req) {
     const orderId = new mongoose.Types.ObjectId();
 
     // Aktualisierung des Kontostands
+    const oldBalance = account.currentBalance;
     account.currentBalance -= totalPrice;
 
-    // E-Mail-Benachrichtigung bei niedrigem Kontostand
     if (
       tenantAccount.orderSettings.sendReminderBalance &&
-      account.currentBalance < tenantAccount.orderSettings.amountBalance
+      oldBalance >= tenantAccount.orderSettings.amountBalance && // War vorher über Schwellenwert
+      account.currentBalance < tenantAccount.orderSettings.amountBalance // Ist jetzt darunter
     ) {
       let emailBody = setEmailReminder(
         account.currentBalance,
@@ -164,9 +165,24 @@ async function addOrder(req) {
         await sgMail.send(convertToSendGridFormat(emailBody));
       } catch (emailError) {
         console.log("Fehler beim Senden der E-Mail:", emailError);
-        // Wir lassen die Transaktion trotz E-Mail-Fehler weiterlaufen
       }
     }
+    // E-Mail-Benachrichtigung bei niedrigem Kontostand
+    // if (
+    //   tenantAccount.orderSettings.sendReminderBalance &&
+    //   account.currentBalance < tenantAccount.orderSettings.amountBalance
+    // ) {
+    //   let emailBody = setEmailReminder(
+    //     account.currentBalance,
+    //     tenantAccount.email
+    //   );
+    //   try {
+    //     await sgMail.send(convertToSendGridFormat(emailBody));
+    //   } catch (emailError) {
+    //     console.log("Fehler beim Senden der E-Mail:", emailError);
+    //     // Wir lassen die Transaktion trotz E-Mail-Fehler weiterlaufen
+    //   }
+    // }
 
     // Vorbereitung der Bestelldetails
     const orderAccount = prepareOrderDetails(req);

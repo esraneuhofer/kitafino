@@ -1,40 +1,40 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {OrderInterfaceStudent, OrderSubDetailNew} from "../../../classes/order_student.class";
-import {MealCardInterface} from "../order-container/order-container.component";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { SettingInterfaceNew } from "../../../classes/setting.class";
+import { OrderInterfaceStudent, OrderSubDetailNew } from "../../../classes/order_student.class";
+import { MealCardInterface } from "../order-container/order-container.component";
 import localeDe from '@angular/common/locales/de';
-import {registerLocaleData} from "@angular/common";
+import { registerLocaleData } from "@angular/common";
 import {
   getDateMondayFromCalenderweek,
   modifyOrderModelForSave,
   orderIsEmpty,
   orderIsNegative
 } from "../../../functions/order.functions";
-import {OrderService} from "../../../service/order.service";
-import {getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay} from "../order.functions";
-import {MatDialog} from "@angular/material/dialog";
-import {ConfirmOrderComponent} from "../../dialogs/confirm-order/confirm-order.component";
-import {getEmailBody} from "../email-order.function";
-import {TenantStudentInterface} from "../../../classes/tenant.class";
-import {CustomerInterface} from "../../../classes/customer.class";
-import {GenerellService} from "../../../service/generell.service";
-import {WeekplanDayInterface} from "../../../classes/weekplan.interface";
-import {ToastrService} from "ngx-toastr";
-import {getEmailBodyCancel} from "../email-cancel-order.function";
-import {faShoppingCart, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {forkJoin, of, timeout} from "rxjs";
-import {StudentInterface} from "../../../classes/student.class";
-import {atLeastOneAllergene, getAllergenes, getTooltipContent} from "../../../functions/allergenes.functions";
-import {OrderAllergeneDialogComponent} from "../order-allergene-dialog/order-allergene-dialog.component";
-import {getEmailBodyAccountBalance} from "../email-account-balance.function";
-import {EXPANSION_PANEL_ANIMATION_TIMING} from "@angular/material/expansion";
-import {OrderInterfaceStudentSave} from "../../../classes/order_student_safe.class";
-import {AccountService} from "../../../service/account.serive";
-import {AccountCustomerInterface} from "../../../classes/account.class";
-import {DialogErrorComponent} from "../../../directives/dialog-error/dialog-error.component";
-import {TranslateService} from "@ngx-translate/core";
-import {LanguageService} from "../../../service/language.service";
-import {EinrichtungInterface} from "../../../classes/einrichtung.class";
+import { OrderService } from "../../../service/order.service";
+import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay } from "../order.functions";
+import { MatDialog } from "@angular/material/dialog";
+import { ConfirmOrderComponent } from "../../dialogs/confirm-order/confirm-order.component";
+import { getEmailBody } from "../email-order.function";
+import { TenantStudentInterface } from "../../../classes/tenant.class";
+import { CustomerInterface } from "../../../classes/customer.class";
+import { GenerellService } from "../../../service/generell.service";
+import { WeekplanDayInterface } from "../../../classes/weekplan.interface";
+import { ToastrService } from "ngx-toastr";
+import { getEmailBodyCancel } from "../email-cancel-order.function";
+import { faShoppingCart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { forkJoin, of, timeout } from "rxjs";
+import { StudentInterface } from "../../../classes/student.class";
+import { atLeastOneAllergene, getAllergenes, getTooltipContent } from "../../../functions/allergenes.functions";
+import { OrderAllergeneDialogComponent } from "../order-allergene-dialog/order-allergene-dialog.component";
+import { getEmailBodyAccountBalance } from "../email-account-balance.function";
+import { EXPANSION_PANEL_ANIMATION_TIMING } from "@angular/material/expansion";
+import { OrderInterfaceStudentSave } from "../../../classes/order_student_safe.class";
+import { AccountService } from "../../../service/account.serive";
+import { AccountCustomerInterface } from "../../../classes/account.class";
+import { DialogErrorComponent } from "../../../directives/dialog-error/dialog-error.component";
+import { TranslateService } from "@ngx-translate/core";
+import { LanguageService } from "../../../service/language.service";
+import { EinrichtungInterface } from "../../../classes/einrichtung.class";
 import { AssignedWeekplanInterface, WeekplanModelGroupsAllowedInterfaceDay } from '../../../classes/assignedWeekplan.class';
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
@@ -51,7 +51,7 @@ function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterface
 }
 
 function studentHasButForDate(orderModel: OrderInterfaceStudent, studentModel: StudentInterface): boolean {
-  if(!studentModel.butFrom)return false;
+  if (!studentModel.butFrom) return false;
   if (studentModel.butFrom && studentModel.butTo) {
 
     const dateOrder = new Date(orderModel.dateOrder);
@@ -140,7 +140,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() settings!: SettingInterfaceNew;
   @Output() orderPlaced: any = new EventEmitter<Event>;
   @Input() tenantStudent!: TenantStudentInterface;
-  @Input()einrichtung!:EinrichtungInterface;
+  @Input() einrichtung!: EinrichtungInterface;
   @Input() customer!: CustomerInterface;
   @Input() weekplanDay!: WeekplanDayInterface
   @Input() selectedStudent!: StudentInterface
@@ -161,12 +161,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   selectedLanguage: string = 'de';
 
   constructor(private orderService: OrderService,
-              private toastr: ToastrService,
-              private dialog: MatDialog,
-              private generalService: GenerellService,
-              private accountService: AccountService,
-              private languageService: LanguageService,
-              private translate: TranslateService) {
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private generalService: GenerellService,
+    private accountService: AccountService,
+    private languageService: LanguageService,
+    private translate: TranslateService) {
     this.languageService.currentLanguage$.subscribe((language: string) => {
       this.selectedLanguage = language;
     });
@@ -262,33 +262,33 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       minHeight = '50px';
     }
 
-    return {'min-height': minHeight};
-  
-}
+    return { 'min-height': minHeight };
 
-    showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew,assignedWeekplanSelected:WeekplanModelGroupsAllowedInterfaceDay): boolean {
-      for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
-        const mealType = assignedWeekplanSelected.selectedMealsDay[i];
-        if (mealType.idSpecial === orderModel.idType && !mealType.selected) {
-          return false;
-        }
-      } 
-      return true;
+  }
+
+  showMenuBasedAssignedWeekplanSelected(orderModel: OrderSubDetailNew, assignedWeekplanSelected: WeekplanModelGroupsAllowedInterfaceDay): boolean {
+    for (let i = 0; i < assignedWeekplanSelected.selectedMealsDay.length; i++) {
+      const mealType = assignedWeekplanSelected.selectedMealsDay[i];
+      if (mealType.idSpecial === orderModel.idType && !mealType.selected) {
+        return false;
+      }
     }
-  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
-    if(!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu'  && !orderModel.idMenu)return false;
     return true;
   }
-  showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer:CustomerInterface, student:StudentInterface): boolean {
+  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
+    if (!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu' && !orderModel.idMenu) return false;
+    return true;
+  }
+  showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer: CustomerInterface, student: StudentInterface): boolean {
 
 
-    if(customer.generalSettings.hideMenuName && (orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'))return false;
-    if(!student.specialFood && !customer.generalSettings.allowOnlyOneMenu)return true;
-    if(!customer.generalSettings.allowOnlyOneMenu)return true;
-    if(customer.generalSettings.allowOnlyOneMenu && orderModel.idType === student.specialFood || orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert'){
+    if (customer.generalSettings.hideMenuName && (orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert')) return false;
+    if (!student.specialFood && !customer.generalSettings.allowOnlyOneMenu) return true;
+    if (!customer.generalSettings.allowOnlyOneMenu) return true;
+    if (customer.generalSettings.allowOnlyOneMenu && orderModel.idType === student.specialFood || orderModel.typeOrder === 'side' || orderModel.typeOrder === 'dessert') {
       return true;
     }
-    if(!student.specialFood && customer.generalSettings.allowOnlyOneMenu && orderModel.typeOrder === 'menu'){
+    if (!student.specialFood && customer.generalSettings.allowOnlyOneMenu && orderModel.typeOrder === 'menu') {
       return true
     }
     return false;
@@ -299,9 +299,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.dialog.open(OrderAllergeneDialogComponent, {
       width: 'auto',
-      data: {settings: this.settings, menu: order},
+      data: { settings: this.settings, menu: order },
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: { top: '100px' }
     });
   }
 
@@ -311,9 +311,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
-      data: {orderStudent: orderModel, type: type, indexMenu: indexMenu, tenantStudent: this.tenantStudent},
+      data: { orderStudent: orderModel, type: type, indexMenu: indexMenu, tenantStudent: this.tenantStudent },
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: { top: '100px' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -372,7 +372,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
             message: this.translate.instant('NUR_EINE_BESTELLUNG_PRO_TAG')
           },
           panelClass: 'custom-dialog-container',
-          position: {top: '100px'},
+          position: { top: '100px' },
 
         });
         // alert('')
@@ -394,12 +394,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       const emailBody = getEmailBody(emailObject);
       promisesEmail.push(this.generalService.sendEmail(emailBody));
     }
-    if (this.tenantStudent.orderSettings.sendReminderBalance && !orderModel.isBut) {
-      if (accountTenant.currentBalance < this.tenantStudent.orderSettings.amountBalance) {
-        const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
-        promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
-      }
-    }
+    // if (this.tenantStudent.orderSettings.sendReminderBalance && !orderModel.isBut) {
+    //   if (accountTenant.currentBalance < this.tenantStudent.orderSettings.amountBalance) {
+    //     console.log('Account Balance is below Limit, sending Email');
+    //     const emailReminderAccountBalance = getEmailBodyAccountBalance(this.tenantStudent, accountTenant.currentBalance)
+    //     promisesEmail.push(this.generalService.sendEmail(emailReminderAccountBalance));
+    //   }
+    // }
     return promisesEmail
   }
 
@@ -470,9 +471,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.checkDeadlineAbbestellung(day)
 
   }
-  checkDeadlineAbbestellung(day:Date):void{
-    let isNotFormat =  !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
-    if(!this.customer.generalSettings.cancelOrderDaily ||  isNotFormat){
+  checkDeadlineAbbestellung(day: Date): void {
+    let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
+    if (!this.customer.generalSettings.cancelOrderDaily || isNotFormat) {
       this.pastCancelation = true;
       return
     }
@@ -520,7 +521,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
     clearInterval(this.timerInterval);
     let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
-    let monday = getDateMondayFromCalenderweek({week: cw, year: year});
+    let monday = getDateMondayFromCalenderweek({ week: cw, year: year });
     let isPreContract = new Date(this.einrichtung.startContract).getTime() > monday.getTime()
     if (isPreContract || distance < 0) {
       this.pastOrder = true;
@@ -550,7 +551,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
-      if(studentHasButForDate(orderModel,this.selectedStudent)){
+      if (studentHasButForDate(orderModel, this.selectedStudent)) {
         orderModel.isBut = true;
       }
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
@@ -583,9 +584,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.toastr.success(this.translate.instant('BESTELLUNG_EINGETRAGEN'), this.translate.instant('SUCCESS'));
       this.fetchAccountAndHandleEmails(orderModel, type, result);
     } else {
-      if(data.message === 'Der Kontostand ist nicht ausreichend für diese Bestellung.'){
+      if (data.message === 'Der Kontostand ist nicht ausreichend für diese Bestellung.') {
         this.toastr.error(this.translate.instant('DER_KONTOSTAND_IST_NICHT_AUSREICHEND'), this.translate.instant('ERROR_TITLE'));
-      }else{
+      } else {
         this.toastr.error(this.translate.instant('ERROR_ORDER_TOASTR'), this.translate.instant('ERROR_TITLE'), {
           timeOut: 7000,
           closeButton: true,
