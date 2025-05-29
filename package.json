@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node app.js",
-    "heroku-prebuild": "yarn global add @angular/cli@latest && yarn install --force",
+    "heroku-prebuild": "yarn global add @angular/cli@16 && yarn install --force",
     "heroku-postbuild": "ng build --configuration production",
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
