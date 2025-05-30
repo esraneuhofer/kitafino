@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {TenantStudentInterface} from "../../classes/tenant.class";
-import {TenantServiceStudent} from "../../service/tenant.service";
-import {Router} from "@angular/router";
-import {UserService} from "../../service/user.service";
-import {ToastrService} from "ngx-toastr";
-import {forkJoin} from "rxjs";
-import {GenerellService} from "../../service/generell.service";
-import {CustomerInterface} from "../../classes/customer.class";
-import {emailNotValid} from "../../functions/generell.functions";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit } from '@angular/core';
+import { TenantStudentInterface } from "../../classes/tenant.class";
+import { TenantServiceStudent } from "../../service/tenant.service";
+import { Router } from "@angular/router";
+import { UserService } from "../../service/user.service";
+import { ToastrService } from "ngx-toastr";
+import { forkJoin } from "rxjs";
+import { GenerellService } from "../../service/generell.service";
+import { CustomerInterface } from "../../classes/customer.class";
+import { emailNotValid } from "../../functions/generell.functions";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register-tenant',
@@ -17,10 +17,10 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class RegisterTenantComponent implements OnInit {
 
-  selectedLanguage:string = 'de'
+  selectedLanguage: string = 'de'
 
-  successFullSave:boolean = false;
-  submittingRequest:boolean = false;
+  successFullSave: boolean = false;
+  submittingRequest: boolean = false;
   customerModel: CustomerInterface | null = null;
   pageLoaded: boolean = false;  //Set true when all data is fetched
 
@@ -35,21 +35,21 @@ export class RegisterTenantComponent implements OnInit {
     address: '',
     city: '',
     zip: '',
-    orderSettings:{
-      orderConfirmationEmail:true,
-      sendReminderBalance:true,
-      amountBalance:15,
-      permanentOrder:false,
-      displayTypeOrderWeek:false
+    orderSettings: {
+      orderConfirmationEmail: true,
+      sendReminderBalance: true,
+      amountBalance: 15,
+      permanentOrder: false,
+      displayTypeOrderWeek: false
     }
   }
 
   constructor(private tenantServiceStudent: TenantServiceStudent,
-              private generellService: GenerellService,
-              private router:Router,
-              private toastr: ToastrService,
-              private userService: UserService,
-              private translate: TranslateService) {
+    private generellService: GenerellService,
+    private router: Router,
+    private toastr: ToastrService,
+    private userService: UserService,
+    private translate: TranslateService) {
 
   }
 
@@ -82,10 +82,10 @@ export class RegisterTenantComponent implements OnInit {
       }
     });
   }
-  setPersonalInformation():void {
+  setPersonalInformation(): void {
     this.submittingRequest = true;
-    if(emailNotValid(this.tenantModel.email)){
-      this.toastr.error('Bitte geben Sie eine gültige E-Mail-Adresse ein','Fehler')
+    if (emailNotValid(this.tenantModel.email)) {
+      this.toastr.error('Bitte geben Sie eine gültige E-Mail-Adresse ein', 'Fehler')
       this.submittingRequest = false
       return
     }
@@ -95,12 +95,16 @@ export class RegisterTenantComponent implements OnInit {
         this.submittingRequest = false
         // this.translate.get('REGISTRATION_TENANT_SUCCESS').subscribe((res: string) => {
         //   this.toastr.success(res);
-          this.router.navigateByUrl('/home/register_student');
+        this.router.navigateByUrl('/home/register_student');
         // });
-      }else{
+      } else {
         this.submittingRequest = false
       }
     })
+  }
+  logout() {
+    this.userService.deleteToken();
+    this.router.navigate(['/login']);
   }
 
 }

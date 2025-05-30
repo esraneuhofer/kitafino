@@ -20,9 +20,19 @@ export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsIn
   if(generalSettings.isDeadlineDaily){
     let isNotFormat =  !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
     if(!generalSettings.hasCancelDaily ||  isNotFormat){
-      return timeDifferenceDay(generalSettings.deadlineDaily, orderDate)
+      // Verwende Weekend-Skip Funktion wenn die Option aktiviert ist
+      if(generalSettings.deadlineSkipWeekend) {
+        return timeDifferenceDaySkipWeekend(generalSettings.deadlineDaily, orderDate);
+      } else {
+        return timeDifferenceDay(generalSettings.deadlineDaily, orderDate);
+      }
     }else{
-      return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);
+      // Verwende Weekend-Skip Funktion für cancel deadline wenn die Option aktiviert ist
+      if(generalSettings.deadlineSkipWeekend) {
+        return timeDifferenceDaySkipWeekend(generalSettings.cancelOrderDaily, orderDate);
+      } else {
+        return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);
+      }
     }
 
   }else{
@@ -32,7 +42,12 @@ export function isCancelOrderPossibleDashboard(generalSettings:GeneralSettingsIn
     if(!generalSettings.hasCancelDaily ||  isNotFormat){
       return getDeadlineWeeklyFunction(generalSettings, kw, getWeekNumber(new Date()), new Date().getFullYear(), year);
     }else{
-      return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);
+      // Verwende Weekend-Skip Funktion für cancel deadline wenn die Option aktiviert ist
+      if(generalSettings.deadlineSkipWeekend) {
+        return timeDifferenceDaySkipWeekend(generalSettings.cancelOrderDaily, orderDate);
+      } else {
+        return timeDifferenceDay(generalSettings.cancelOrderDaily, orderDate);
+      }
     }
 
   }
@@ -69,6 +84,31 @@ export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInp
   daysSub.setSeconds(0);
 
   let difference = daysSub.getTime() - new Date().getTime();  // to ensure we get a positive difference
+  return difference;
+}
+
+export function timeDifferenceDaySkipWeekend(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
+  let dayOrder = new Date(dateInputCompare);
+  let daysToSubtract = parseInt(deadLineDaily.day);
+  
+  // Gehe vom Essenstag rückwärts und überspringe Wochenenden
+  for (let i = 0; i < daysToSubtract; i++) {
+    dayOrder = addDayFromDate(dayOrder, -1);
+    
+    // Wenn wir auf ein Wochenende treffen, überspringe es
+    while (dayOrder.getDay() === 0 || dayOrder.getDay() === 6) { // 0 = Sonntag, 6 = Samstag
+      dayOrder = addDayFromDate(dayOrder, -1);
+    }
+  }
+
+  // Split the time string into hours and minutes
+  const [hours_, minutes_] = deadLineDaily.time.split(':').map(Number);
+
+  dayOrder.setHours(hours_);
+  dayOrder.setMinutes(minutes_);
+  dayOrder.setSeconds(0);
+
+  let difference = dayOrder.getTime() - new Date().getTime();
   return difference;
 }
 

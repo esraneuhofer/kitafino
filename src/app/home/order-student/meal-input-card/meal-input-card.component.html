@@ -10,14 +10,14 @@
 
               <p>{{ orderDay.date | customDate:'EEEE dd.MM.yy' }}</p>
 
-              <div  *ngIf="!lockDay" class="text-xs text-gray-500 whitespace-nowrap">
+              <div *ngIf="!lockDay" class="text-xs text-gray-500 whitespace-nowrap">
                 <span *ngIf="pastOrder">{{ 'BESTELLFRIST_ABGELAUFEN' | translate }}</span>
 
                 <span *ngIf="!pastOrder">{{ 'BESTELLFRIST_ENDET' | translate }}
                   <span *ngIf="typeDisplayOrder === 'week'"> {{ differenceTimeDeadlineDay }}
+                  </span>
+                  <span *ngIf="typeDisplayOrder === 'day'">{{ differenceTimeDeadlineDay }}</span>
                 </span>
-                <span *ngIf="typeDisplayOrder === 'day'">{{ differenceTimeDeadlineDay }}</span>
-              </span>
               </div>
               <div *ngIf="lockDay" class="text-xs text-gray-500 whitespace-nowrap">
                 <span>{{ 'SCHLLIESSTAG' | translate }}</span>
@@ -33,10 +33,9 @@
       <div *ngFor="let eachMenu of orderDay.orderStudentModel.order.orderMenus; let indexMenu = index">
         <div
           *ngIf="showMenuBasedAssignedWeekplanSelected(eachMenu,assignedWeekplanSelected) && showMenuBasedOnSettings(eachMenu, customer,selectedStudent)"
-          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)"
-          [ngStyle]="getMenuStyle(eachMenu)"
+          [ngClass]="getClasses(indexMenu, eachMenu, pastOrder,lockDay)" [ngStyle]="getMenuStyle(eachMenu)"
           class="shadow-lg rounded-lg overflow-hidden relative">
-          
+
           <!-- Nur den Inhalt anzeigen, wenn isNoMenuName nicht true ist -->
           <ng-container *ngIf="showMenuBasedOnSettingsDisplay(eachMenu)">
             <div class="p-3">
@@ -44,23 +43,21 @@
               <div class="flex">
                 <div class="w-full">
                   <div class="flex">
-                    <div *ngIf="eachMenu.displayMenu" class="w-1/6"  (click)="$event.stopPropagation()"
-                         style="z-index: 9999; position: relative;">
-                      <input (ngModelChange)="setOrderDay($event,indexMenu)"
-                             [(ngModel)]="eachMenu.menuSelected"
-                             [disabled]="pastOrder || lockDay"
-                             [name]="'menuSelected' + indexMenu + '_' + indexDay"
-                             [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
+                    <div *ngIf="eachMenu.displayMenu" class="w-1/6" (click)="$event.stopPropagation()"
+                      style="z-index: 9999; position: relative;">
+                      <input (ngModelChange)="setOrderDay($event,indexMenu)" [(ngModel)]="eachMenu.menuSelected"
+                        [disabled]="pastOrder || lockDay" [name]="'menuSelected' + indexMenu + '_' + indexDay"
+                        [ngClass]="{'cursor-not-allowed': pastOrder}" type="checkbox">
                     </div>
                     <div (click)="openAllergenModal(eachMenu)" class="w-5/6 cursor-pointer">
                       <span>{{ getDisplayNameOrder(eachMenu, customer) }}</span>
                       <span
                         *ngIf="atLeastOneAllergene(eachMenu) && !settings.orderSettings.hideNutritionSidebar && !customer.generalSettings.hideMenuName"
                         [matTooltip]="getTooltipContent(eachMenu.allergenes)">
-                 <span class="allergen-ordinal">
-                  ({{ getAllergenes(eachMenu.allergenes) }})
-                             </span>
-                  </span>
+                        <span class="allergen-ordinal">
+                          ({{ getAllergenes(eachMenu.allergenes) }})
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -70,19 +67,20 @@
             <div *ngIf="eachMenu.displayMenu" class="absolute bottom-0 right-0 p-3 w-full">
               <div class="flex justify-between items-center w-full">
                 <!-- Links ausgerichteter Text, aber nur wenn vorhanden -->
-                <span *ngIf="pastOrder && !pastCancelation && eachMenu.typeOrder === 'menu' && customer.generalSettings.hasCancelDaily" class="text-left" (click)="setOrderIconCancel(indexMenu)">
-              {{ 'ABBESTELLUNG_MOEGLICH' | translate }}
-            </span>
+                <span
+                  *ngIf="pastOrder && !pastCancelation && eachMenu.typeOrder === 'menu' && customer.generalSettings.hasCancelDaily && eachMenu.menuSelected"
+                  class="text-left" (click)="setOrderIconCancel(indexMenu)">
+                  {{ 'ABBESTELLUNG_MOEGLICH' | translate }}
+                </span>
 
                 <!-- Rechts ausgerichteter Inhalt bleibt immer rechts -->
                 <div class="flex items-center ml-auto">
                   {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}
-                  <fa-icon (click)="setOrderIconOrder(indexMenu)"
-                           *ngIf="!eachMenu.menuSelected"
-                           [icon]="faShoppingCart">
+                  <fa-icon (click)="setOrderIconOrder(indexMenu)" *ngIf="!eachMenu.menuSelected"
+                    [icon]="faShoppingCart">
                   </fa-icon>
                   <fa-icon (click)="setOrderIconCancel(indexMenu)" *ngIf="eachMenu.menuSelected" [icon]="faTrashCan"
-                           class="ml-1"></fa-icon>
+                    class="ml-1"></fa-icon>
                 </div>
               </div>
             </div>

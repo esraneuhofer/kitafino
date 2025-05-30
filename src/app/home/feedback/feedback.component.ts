@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {GenerellService} from "../../service/generell.service";
-import {MessageService} from "../../service/message.service";
-import {MessageDialogService} from "../../service/message-dialog.service";
-import {NgForm} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
+import { Component, OnInit } from '@angular/core';
+import { GenerellService } from "../../service/generell.service";
+import { MessageService } from "../../service/message.service";
+import { MessageDialogService } from "../../service/message-dialog.service";
+import { NgForm } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-feedback',
@@ -19,8 +19,8 @@ export class FeedbackComponent implements OnInit {
   }
 
   constructor(private generalService: GenerellService,
-              private translate: TranslateService,
-              private messageService: MessageDialogService) {
+    private translate: TranslateService,
+    private messageService: MessageDialogService) {
 
   }
 
@@ -37,7 +37,7 @@ export class FeedbackComponent implements OnInit {
         this.feedbackModel.message = '';
         this.messageService.openMessageDialog(
           this.translate.instant("DIALOG_FEEDBACK_MESSAGE"),
-          this.translate.instant("THANK_YOU"), 'success');
+          this.translate.instant("ACCOUNT.THANK_YOU"), 'success');
       },
       () => {
         this.submittingRequest = false;

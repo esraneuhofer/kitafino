@@ -11,7 +11,7 @@ import {
   orderIsNegative
 } from "../../../functions/order.functions";
 import { OrderService } from "../../../service/order.service";
-import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay } from "../order.functions";
+import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend } from "../order.functions";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmOrderComponent } from "../../dialogs/confirm-order/confirm-order.component";
 import { getEmailBody } from "../email-order.function";
@@ -256,7 +256,11 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       minHeight = '140px'; // Set min-height to 140px for 'menu'
     }
     if (eachMenu.typeOrder === 'menu' && this.displayMinimize) {
-      minHeight = '80px'; // Set min-height to 140px for 'menu'
+      if (this.customer.generalSettings.hasCancelDaily) {
+        minHeight = '100px';
+      } else {
+        minHeight = '80px';
+      }
     }
     if (eachMenu.typeOrder === 'specialFood' || this.customer.generalSettings.hideMenuName) {
       minHeight = '50px';
@@ -477,7 +481,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.pastCancelation = true;
       return
     }
-    const distance = timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    
+    // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
+    const distance = this.customer.generalSettings.deadlineSkipWeekend 
+      ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
+      : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+      
     if (distance < 0) {
       this.pastCancelation = true;
       clearInterval(this.timerInterval);
@@ -493,7 +502,11 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   checkDeadlineDay(day: Date): void {
 
-    const distance = timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
+    // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
+    const distance = this.customer.generalSettings.deadlineSkipWeekend 
+      ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.deadlineDaily, day)
+      : timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
+      
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
     if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {

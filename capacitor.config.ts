@@ -15,14 +15,19 @@ const config: CapacitorConfig = {
   //   cleartext: false,
   //   url: 'https://essen.cateringexpert.de',
   // },
-  server: {
-    // hostname: 'essen.cateringexpert.de',
-    androidScheme: 'https',
-    cleartext: true,
-    // url: 'https://essen.cateringexpert.de',
-    // url: 'http://localhost:4200/'
-    // "url": "http://10.0.2.2:4200"
-  },
+  // server: {
+  //   androidScheme: 'https',
+  //   cleartext: true,
+  // },
+  // server: {
+  //   url: 'http://192.168.2.34:4200', // ERSETZEN Sie diese IP mit Ihrer echten IP!
+  //   cleartext: true,
+  //   allowNavigation: ['*']
+  // "url": "http://10.0.2.2:4200"
+  // url: 'http://localhost:4200/'
+
+  // },
+
   plugins: {
     "Cordova": {},
     "FileOpener": {

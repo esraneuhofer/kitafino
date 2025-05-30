@@ -105,6 +105,7 @@ export interface GeneralSettingsInterface {
     day: string;
     time: string;
   };
+  deadlineSkipWeekend: boolean; // Wenn true, werden Wochenenden bei der Deadline-Berechnung übersprungen
   hideMenuName: boolean;
   allowOnlyOneMenu: boolean;
   startPermanentOrders:string;
