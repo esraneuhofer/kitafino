@@ -481,12 +481,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.pastCancelation = true;
       return
     }
-    
+
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
-    const distance = this.customer.generalSettings.deadlineSkipWeekend 
+    const distance = this.customer.generalSettings.deadlineSkipWeekend
       ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
       : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
-      
+
     if (distance < 0) {
       this.pastCancelation = true;
       clearInterval(this.timerInterval);
@@ -501,12 +501,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineDay(day: Date): void {
-
+    // this.customer.generalSettings.deadlineSkipWeekend = true;
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
-    const distance = this.customer.generalSettings.deadlineSkipWeekend 
+    const distance = this.customer.generalSettings.deadlineSkipWeekend
       ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.deadlineDaily, day)
       : timeDifferenceDay(this.customer.generalSettings.deadlineDaily, day);
-      
+
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
     if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {

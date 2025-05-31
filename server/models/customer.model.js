@@ -4,32 +4,32 @@ var Schema = mongoose.Schema;
 var PricesGroupBillingSchema = new Schema({
   priceSpecial: Number,
   idSpecial: String,
-  typeSpecial: String,
+  typeSpecial: String
 });
 
 var DeadlineWeeklySchema = new Schema({
   weeks: { type: Number, required: true },
   day: { type: Number, required: true },
-  time: { type: String, required: true },
+  time: { type: String, required: true }
 });
 
 var DeadlineDailySchema = new Schema({
   day: { type: Number, required: true },
-  time: { type: String, required: true },
+  time: { type: String, required: true }
 });
 
 var CancelOrderDailySchema = new Schema({
   day: { type: Number, required: true },
-  time: { type: String, required: true },
+  time: { type: String, required: true }
 });
 
 var generalSettingsSchema = new Schema({
-  subGroupSettingTenant: { type: Boolean},
-  allergiesSetByTenant: { type: Boolean},
-  showOrderDaily: { type: Boolean},
-  sendEmailOrderAfterDeadline: { type: Boolean},
-  hasAdditionDaily:{ type: Boolean},
-  hasCancelDaily: { type: Boolean},
+  subGroupSettingTenant: { type: Boolean },
+  allergiesSetByTenant: { type: Boolean },
+  showOrderDaily: { type: Boolean },
+  sendEmailOrderAfterDeadline: { type: Boolean },
+  hasAdditionDaily: { type: Boolean },
+  hasCancelDaily: { type: Boolean },
   isDeadlineDaily: { type: Boolean },
   deadlineWeekly: { type: DeadlineWeeklySchema },
   deadlineDaily: { type: DeadlineDailySchema },
@@ -38,6 +38,7 @@ var generalSettingsSchema = new Schema({
   showAllSpecialFood: { type: Boolean },
   allowOnlyOneMenu: { type: Boolean },
   hideMenuName: { type: Boolean },
+  deadlineSkipWeekend: { type: Boolean }
 });
 
 var customerSchema = new Schema({
@@ -48,7 +49,7 @@ var customerSchema = new Schema({
     lastActionWeek: Number,
     deadLineDaily: {
       day: Number,
-      time: String,
+      time: String
     },
     individualPricing: Boolean,
     addSubgroupsOrder: Boolean,
@@ -59,13 +60,15 @@ var customerSchema = new Schema({
     hideSpecialFood: Boolean,
     hideExtra: Boolean,
     specialShow: [{ idSpecialFood: String, nameSpecialFood: String, selected: Boolean }],
-    split: [{
-      displayGroupCustomer: String,
-      displayGroup: String,
-      group: String,
-      raisePortion: {},
-      idGroupType: Schema.Types.ObjectId
-    }],
+    split: [
+      {
+        displayGroupCustomer: String,
+        displayGroup: String,
+        group: String,
+        raisePortion: {},
+        idGroupType: Schema.Types.ObjectId
+      }
+    ],
     dessert: Boolean,
     sidedish: Boolean,
     showExtraOrder: Boolean
@@ -78,14 +81,16 @@ var customerSchema = new Schema({
   },
   billing: {
     headingInvoice: Array,
-    group: [{
-      groupId: String,
-      idGroupType: Schema.Types.ObjectId,
-      displayNameBilling: String,
-      tax: String,
-      individualPricing: Boolean,
-      prices: [PricesGroupBillingSchema]
-    }],
+    group: [
+      {
+        groupId: String,
+        idGroupType: Schema.Types.ObjectId,
+        displayNameBilling: String,
+        tax: String,
+        individualPricing: Boolean,
+        prices: [PricesGroupBillingSchema]
+      }
+    ],
     isBrutto: Boolean,
     invoiceCycle: String,
     customerNumber: String,
@@ -93,7 +98,7 @@ var customerSchema = new Schema({
     separatePrice: Boolean,
     separateBilling: Boolean,
     grossPrice: Boolean,
-    iban: String,
+    iban: String
   },
   contact: {
     customer: {
@@ -110,9 +115,9 @@ var customerSchema = new Schema({
       type: String,
       lowercase: true,
       required: '{PATH} is required!'
-    },
+    }
   },
-  generalSettings: generalSettingsSchema,
+  generalSettings: generalSettingsSchema
 });
 
 var Customer = mongoose.model('Customer', customerSchema);
