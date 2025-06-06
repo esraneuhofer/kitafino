@@ -15,10 +15,10 @@ const config: CapacitorConfig = {
   //   cleartext: false,
   //   url: 'https://essen.cateringexpert.de',
   // },
-  // server: {
-  //   androidScheme: 'https',
-  //   cleartext: true,
-  // },
+  server: {
+    androidScheme: 'https',
+    cleartext: true,
+  },
   // server: {
   //   url: 'http://192.168.2.34:4200', // ERSETZEN Sie diese IP mit Ihrer echten IP!
   //   cleartext: true,
