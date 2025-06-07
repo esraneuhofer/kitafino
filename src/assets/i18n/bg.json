@@ -178,7 +178,7 @@
   "NEIN": "Не",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Настройките са запазени",
-   "ERROR_INVALID_IBAN": "IBAN трябва да започва с кода на държавата <b>DE</b> и да има валидна дължина. Моля, проверете въведеното. Разрешени са само <b>немски IBAN</b>.",
+    "ERROR_INVALID_IBAN": "IBAN трябва да започва с кода на държавата <b>DE</b> и да има валидна дължина. Моля, проверете въведеното. Разрешени са само <b>немски IBAN</b>.",
 
     "PERSONAL_INFO_HEADER": "Основни данни",
     "PERSONAL_INFO_SUBHEADER": "Потвърдете промените с „Промени“",
@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Обяснителни документи",
-      "DESCRIPTION": [
-        "Тук ще намерите помощ за отделните функции на приложението."
-      ]
+      "DESCRIPTION": ["Тук ще намерите помощ за отделните функции на приложението."]
     },
     "dashboard": {
       "HEADER": "Общ преглед",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Поръчката е отменена",
   "BESTELLUNG_EINGETRAGEN": "Поръчката е въведена",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Поръчката не може да бъде въведена",
-  "VORTAG":"Предишен ден",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Дни преди съответния ден за хранене",
-  "BESTELLFRIST_ENDET_IMMER":"Срокът за поръчка винаги изтича",
-  "ABBESTELLFRIST_ENDET_IMMER":"Срокът за отмяна на поръчка винаги изтича",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"Срокът за поръчка винаги изтича преди",
-  "UHR":"часа",
-  "Montag":"Понеделник",
-  "Dienstag":"Вторник",
-  "Mittwoch":"Сряда",
-  "Donnerstag":"Четвъртък",
-  "Freitag":"Петък",
-  "AM":"в",
-  "UM":"в",
-  "IN_DER_VORWOCHE":"в предходната седмица",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"седмици преди съответната седмица за поръчка",
+  "VORTAG": "Предишен ден",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Дни преди съответния ден за хранене",
+  "BESTELLFRIST_ENDET_IMMER": "Срокът за поръчка винаги изтича",
+  "ABBESTELLFRIST_ENDET_IMMER": "Срокът за отмяна на поръчка винаги изтича",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "Срокът за поръчка винаги изтича преди",
+  "UHR": "часа",
+  "Montag": "Понеделник",
+  "Dienstag": "Вторник",
+  "Mittwoch": "Сряда",
+  "Donnerstag": "Четвъртък",
+  "Freitag": "Петък",
+  "AM": "в",
+  "UM": "в",
+  "IN_DER_VORWOCHE": "в предходната седмица",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "седмици преди съответната седмица за поръчка",
   "UM_FORTZUFAHREN": "За да продължите, върнете се в приложението",
   "MEHR_INFO": "Информация - кликнете",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Файлът е успешно изпратен по имейл",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Дата на поръчка/ анулиране",
   "DATUM_MENU": "Дата на меню",
   "ART_DOWNLOAD": "Тип изтегляне",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "Сумата за напомняне за салдо трябва да е поне 10 евро.",
-  "this.":"Минимална сума",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Сумата за напомняне за салдо трябва да е поне 10 евро.",
+  "this.": "Минимална сума",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Ако активирате храна за алергии, тя ще се показва ежедневно в прегледа на поръчките. Все пак трябва да поръчате храната. Имате възможност да изберете между редовната храна и храната за алергии.",
   "AGB_ZUSTIMMEN_EINS": "Прочетох и приемам",
   "AGB_ZUSTIMMEN_ZWEI": "Общите условия",
@@ -599,7 +597,6 @@
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Сигурни ли сте, че искате да деактивирате избраната постоянна поръчка?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Нашата сметка се синхронизира на всеки <b>пет минути</b>. Вашият депозит ще бъде автоматично добавен към вашата сметка веднага след като бъде получен. Това означава, че <b>незабавните преводи</b> също могат да бъдат почти незабавно зачислени. След това ще получите потвърждение по имейл на адреса, който сте предоставили.",
 
-
   "GEBUEHREN": "Такси",
   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "За сумата на депозита ще получите следната сума за изплащане в зависимост от избора на плащане: ",
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Продължавайки, вие се съгласявате, че ще бъдете пренасочени към Stripe за извършване на плащането. Плащането се обработва от Stripe, а не от нас.",
@@ -641,7 +638,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Тук можете да видите всички записани периоди на отпуск.",
   "BIS_OPTIONAL": "До (по избор)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Моля, въведете начална дата",
-  "SUCCESS_VACATION_DELETED": "Отпускът беше успешно изтрит"
-
+  "SUCCESS_VACATION_DELETED": "Отпускът беше успешно изтрит",
+  "ZUBESTELLUNG_MOEGLICH": "Повторна поръчка"
 }
-

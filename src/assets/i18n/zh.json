@@ -216,9 +216,7 @@
     },
     "help": {
       "HEADER": "说明文档",
-      "DESCRIPTION": [
-        "这里提供了应用程序各功能的帮助。"
-      ]
+      "DESCRIPTION": ["这里提供了应用程序各功能的帮助。"]
     },
     "dashboard": {
       "HEADER": "概览",
@@ -278,10 +276,7 @@
     },
     "messages": {
       "HEADER": "幼儿园设置",
-      "DESCRIPTION": [
-        "这里显示了所有来自学校、餐饮公司或Cateringexpert的通知。",
-        "通知将在30天后自动删除。"
-      ]
+      "DESCRIPTION": ["这里显示了所有来自学校、餐饮公司或Cateringexpert的通知。", "通知将在30天后自动删除。"]
     },
     "order_history": {
       "HEADER": "订单历史",
@@ -634,7 +629,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "在此处查看您登记的所有假期时段。",
   "BIS_OPTIONAL": "至（可选）",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "请输入开始日期",
-  "SUCCESS_VACATION_DELETED": "成功删除假期"
-
+  "SUCCESS_VACATION_DELETED": "成功删除假期",
+  "ZUBESTELLUNG_MOEGLICH": "重新订购"
 }
-

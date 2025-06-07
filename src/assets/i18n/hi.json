@@ -178,7 +178,7 @@
   "NEIN": "नहीं",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "सेटिंग्स सहेजी गई",
-   "ERROR_INVALID_IBAN": "IBAN को <b>DE</b> देश कोड से शुरू होना चाहिए और इसकी लंबाई मान्य होनी चाहिए। कृपया अपनी इनपुट की जाँच करें। केवल <b>जर्मन IBAN</b> स्वीकार्य हैं।",
+    "ERROR_INVALID_IBAN": "IBAN को <b>DE</b> देश कोड से शुरू होना चाहिए और इसकी लंबाई मान्य होनी चाहिए। कृपया अपनी इनपुट की जाँच करें। केवल <b>जर्मन IBAN</b> स्वीकार्य हैं।",
 
     "PERSONAL_INFO_HEADER": "मुख्य डेटा",
     "PERSONAL_INFO_SUBHEADER": "'बदलें' पर क्लिक करके बदलाव की पुष्टि करें",
@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "व्याख्या दस्तावेज़",
-      "DESCRIPTION": [
-        "यहां आपको आवेदन की प्रत्येक कार्यक्षमता की सहायता मिलेगी।"
-      ]
+      "DESCRIPTION": ["यहां आपको आवेदन की प्रत्येक कार्यक्षमता की सहायता मिलेगी।"]
     },
     "dashboard": {
       "HEADER": "अवलोकन",
@@ -635,7 +633,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "यहाँ आप अपने सभी दर्ज किए गए अवकाश काल देख सकते हैं।",
   "BIS_OPTIONAL": "तक (वैकल्पिक)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "कृपया एक प्रारंभ तिथि दर्ज करें",
-  "SUCCESS_VACATION_DELETED": "अवकाश सफलतापूर्वक हटाया गया"
-
+  "SUCCESS_VACATION_DELETED": "अवकाश सफलतापूर्वक हटाया गया",
+  "ZUBESTELLUNG_MOEGLICH": "पुनः ऑर्डर करें"
 }
-

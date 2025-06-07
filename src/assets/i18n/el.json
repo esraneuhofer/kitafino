@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Έγγραφα βοήθειας",
-      "DESCRIPTION": [
-        "Εδώ θα βρείτε βοήθεια για τις διάφορες λειτουργίες της εφαρμογής."
-      ]
+      "DESCRIPTION": ["Εδώ θα βρείτε βοήθεια για τις διάφορες λειτουργίες της εφαρμογής."]
     },
     "dashboard": {
       "HEADER": "Επισκόπηση",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Η παραγγελία ακυρώθηκε",
   "BESTELLUNG_EINGETRAGEN": "Η παραγγελία καταχωρήθηκε",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Η παραγγελία δεν καταχωρήθηκε",
-  "VORTAG":"Προηγούμενη ημέρα",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Ημέρες πριν από την αντίστοιχη",
-  "BESTELLFRIST_ENDET_IMMER":"Η προθεσμία παραγγελίας λήγει πάντα",
-  "ABBESTELLFRIST_ENDET_IMMER":"Η προθεσμία ακύρωσης λήγει πάντα",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"Η προθεσμία παραγγελίας λήγει πάντα πριν",
-  "UHR":"ώρα",
-  "Montag":"Δευτέρα",
-  "Dienstag":"Τρίτη",
-  "Mittwoch":"Τετάρτη",
-  "Donnerstag":"Πέμπτη",
-  "Freitag":"Παρασκευή",
-  "AM":"στις",
-  "UM":"στις",
-  "IN_DER_VORWOCHE":"την προηγούμενη εβδομάδα",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"εβδομάδες πριν από την αντίστοιχη εβδομάδα παραγγελίας",
+  "VORTAG": "Προηγούμενη ημέρα",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Ημέρες πριν από την αντίστοιχη",
+  "BESTELLFRIST_ENDET_IMMER": "Η προθεσμία παραγγελίας λήγει πάντα",
+  "ABBESTELLFRIST_ENDET_IMMER": "Η προθεσμία ακύρωσης λήγει πάντα",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "Η προθεσμία παραγγελίας λήγει πάντα πριν",
+  "UHR": "ώρα",
+  "Montag": "Δευτέρα",
+  "Dienstag": "Τρίτη",
+  "Mittwoch": "Τετάρτη",
+  "Donnerstag": "Πέμπτη",
+  "Freitag": "Παρασκευή",
+  "AM": "στις",
+  "UM": "στις",
+  "IN_DER_VORWOCHE": "την προηγούμενη εβδομάδα",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "εβδομάδες πριν από την αντίστοιχη εβδομάδα παραγγελίας",
   "UM_FORTZUFAHREN": "Για να συνεχίσετε, επιστρέψτε στην εφαρμογή",
   "MEHR_INFO": "Περισσότερες πληροφορίες - κάντε κλικ",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Το αρχείο στάλθηκε επιτυχώς μέσω E-Mail",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Ημερομηνία παραγγελίας/ακύρωσης",
   "DATUM_MENU": "Ημερομηνία μενού",
   "ART_DOWNLOAD": "Τύπος λήψης",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "Το ποσό υπενθύμισης υπολοίπου πρέπει να είναι τουλάχιστον 10 ευρώ.",
-  "this.":"Ελάχιστο ποσό",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Το ποσό υπενθύμισης υπολοίπου πρέπει να είναι τουλάχιστον 10 ευρώ.",
+  "this.": "Ελάχιστο ποσό",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Αν ενεργοποιήσετε το αλλεργικό φαγητό, θα εμφανίζεται καθημερινά στην επισκόπηση παραγγελίας. Πρέπει να παραγγείλετε το φαγητό. Έχετε την επιλογή μεταξύ του κανονικού και του αλλεργικού φαγητού.",
   "AGB_ZUSTIMMEN_EINS": "Έχω διαβάσει και αποδεχτεί τους",
   "AGB_ZUSTIMMEN_ZWEI": "Όρους και Προϋποθέσεις",
@@ -626,8 +624,8 @@
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Τύπος αναφοράς",
   "SENDEN": "Αποστολή",
   "URLAUB": "Άδεια / Απουσία",
-      "URLAUB_EINTRAGEN": "Καταχώριση άδειας ή απουσίας",
-      "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Καταχωρίστε τη διάρκεια άδειας ή απουσίας για να διακόψετε τις παραγγελίες φαγητού κατά τη διάρκειά της.",
+  "URLAUB_EINTRAGEN": "Καταχώριση άδειας ή απουσίας",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Καταχωρίστε τη διάρκεια άδειας ή απουσίας για να διακόψετε τις παραγγελίες φαγητού κατά τη διάρκειά της.",
   "ERROR_VACATION_START_DATE_FUTURE": "Η ημερομηνία έναρξης της άδειας πρέπει να είναι μεταγενέστερη από σήμερα.",
   "ERROR_VACATION_END_DATE_FUTURE": "Η ημερομηνία λήξης της άδειας πρέπει να είναι μεταγενέστερη από σήμερα.",
   "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Η ημερομηνία έναρξης της άδειας πρέπει να προηγείται της ημερομηνίας λήξης.",
@@ -638,6 +636,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Εδώ μπορείτε να δείτε όλες τις καταχωρημένες περιόδους άδειας σας.",
   "BIS_OPTIONAL": "Έως (προαιρετικό)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Παρακαλώ εισάγετε ημερομηνία έναρξης",
-  "SUCCESS_VACATION_DELETED": "Η άδεια διαγράφηκε με επιτυχία"
-
+  "SUCCESS_VACATION_DELETED": "Η άδεια διαγράφηκε με επιτυχία",
+  "ZUBESTELLUNG_MOEGLICH": "Επαναπαραγγελία"
 }

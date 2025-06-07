@@ -178,7 +178,7 @@
   "NEIN": "Non",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Paramètres enregistrés",
-  "ERROR_INVALID_IBAN": "L’IBAN doit commencer par le code pays <b>DE</b> et avoir une longueur valide. Veuillez vérifier votre saisie. Seuls les <b>IBAN allemands</b> sont autorisés.",
+    "ERROR_INVALID_IBAN": "L’IBAN doit commencer par le code pays <b>DE</b> et avoir une longueur valide. Veuillez vérifier votre saisie. Seuls les <b>IBAN allemands</b> sont autorisés.",
 
     "PERSONAL_INFO_HEADER": "Données de base",
     "PERSONAL_INFO_SUBHEADER": "Confirmez la modification en cliquant sur \"Modifier\"",
@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Documents explicatifs",
-      "DESCRIPTION": [
-        "Vous trouverez ici de l'aide sur les différentes fonctions de l'application."
-      ]
+      "DESCRIPTION": ["Vous trouverez ici de l'aide sur les différentes fonctions de l'application."]
     },
     "dashboard": {
       "HEADER": "Aperçu",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "La commande a été annulée",
   "BESTELLUNG_EINGETRAGEN": "La commande a été enregistrée",
   "BESTELLUNG_NICHT_EINGETRAGEN": "La commande n'a pas pu être enregistrée",
-  "VORTAG":"La veille",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Jours avant le jour de commande concerné",
-  "BESTELLFRIST_ENDET_IMMER":"La période de commande se termine toujours",
-  "ABBESTELLFRIST_ENDET_IMMER":"La période d'annulation se termine toujours",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"La période de commande se termine toujours avant",
-  "UHR":"Heure",
-  "Montag":"Lundi",
-  "Dienstag":"Mardi",
-  "Mittwoch":"Mercredi",
-  "Donnerstag":"Jeudi",
-  "Freitag":"Vendredi",
-  "AM":"le",
-  "UM":"à",
-  "IN_DER_VORWOCHE":"la semaine précédente",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Semaines avant la semaine de commande concernée",
+  "VORTAG": "La veille",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Jours avant le jour de commande concerné",
+  "BESTELLFRIST_ENDET_IMMER": "La période de commande se termine toujours",
+  "ABBESTELLFRIST_ENDET_IMMER": "La période d'annulation se termine toujours",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "La période de commande se termine toujours avant",
+  "UHR": "Heure",
+  "Montag": "Lundi",
+  "Dienstag": "Mardi",
+  "Mittwoch": "Mercredi",
+  "Donnerstag": "Jeudi",
+  "Freitag": "Vendredi",
+  "AM": "le",
+  "UM": "à",
+  "IN_DER_VORWOCHE": "la semaine précédente",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "Semaines avant la semaine de commande concernée",
   "UM_FORTZUFAHREN": "Pour continuer, retournez à l'application",
   "MEHR_INFO": "Infos - cliquez",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Le fichier a été envoyé avec succès par e-mail",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Date de commande/ annulation",
   "DATUM_MENU": "Date du menu",
   "ART_DOWNLOAD": "Type de téléchargement",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "Le montant de rappel de solde doit être d'au moins 10 euros.",
-  "this.":"Montant minimum",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Le montant de rappel de solde doit être d'au moins 10 euros.",
+  "this.": "Montant minimum",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Si vous activez une nourriture pour allergiques, celle-ci sera affichée quotidiennement dans l'aperçu des commandes. Vous devez néanmoins commander la nourriture. Vous avez toujours le choix entre la nourriture normale et la nourriture pour allergiques.",
   "AGB_ZUSTIMMEN_EINS": "J'ai lu et j'accepte les ",
   "AGB_ZUSTIMMEN_ZWEI": "Conditions Générales",
@@ -639,6 +637,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Vous pouvez voir ici toutes vos périodes de vacances enregistrées.",
   "BIS_OPTIONAL": "Jusqu'à (optionnel)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Veuillez saisir une date de début",
-  "SUCCESS_VACATION_DELETED": "Vacances supprimées avec succès"
+  "SUCCESS_VACATION_DELETED": "Vacances supprimées avec succès",
+  "ZUBESTELLUNG_MOEGLICH": "Recommander"
 }
-

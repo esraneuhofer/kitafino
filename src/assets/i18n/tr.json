@@ -180,7 +180,7 @@
   "NEIN": "Hayır",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Ayarlar kaydedildi",
-  "ERROR_INVALID_IBAN": "IBAN, ülke kodu <b>DE</b> ile başlamalı ve geçerli bir uzunluğa sahip olmalıdır. Lütfen girdiğinizi kontrol edin. Yalnızca <b>Alman IBAN’lar</b> kabul edilmektedir.",
+    "ERROR_INVALID_IBAN": "IBAN, ülke kodu <b>DE</b> ile başlamalı ve geçerli bir uzunluğa sahip olmalıdır. Lütfen girdiğinizi kontrol edin. Yalnızca <b>Alman IBAN’lar</b> kabul edilmektedir.",
 
     "PERSONAL_INFO_HEADER": "Temel veriler",
     "PERSONAL_INFO_SUBHEADER": "\"Değiştir\" düğmesine tıklayarak değişikliği onaylayın",
@@ -219,9 +219,7 @@
     },
     "help": {
       "HEADER": "Açıklayıcı belgeler",
-      "DESCRIPTION": [
-        "Uygulamanın bireysel işlevleri hakkında yardım burada bulunur."
-      ]
+      "DESCRIPTION": ["Uygulamanın bireysel işlevleri hakkında yardım burada bulunur."]
     },
     "dashboard": {
       "HEADER": "Genel bakış",
@@ -638,6 +636,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Burada kayıtlı tüm tatil sürelerinizi görebilirsiniz.",
   "BIS_OPTIONAL": "Son (isteğe bağlı)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Lütfen bir başlangıç tarihi girin",
-  "SUCCESS_VACATION_DELETED": "Tatil başarıyla silindi"
-
+  "SUCCESS_VACATION_DELETED": "Tatil başarıyla silindi",
+  "ZUBESTELLUNG_MOEGLICH": "Yeniden sipariş"
 }

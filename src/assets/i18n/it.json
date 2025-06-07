@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Impostazioni salvate",
-   "ERROR_INVALID_IBAN": "L’IBAN deve iniziare con il codice paese <b>DE</b> e avere una lunghezza valida. Controlla l’input. Sono consentiti solo <b>IBAN tedeschi</b>.",
+    "ERROR_INVALID_IBAN": "L’IBAN deve iniziare con il codice paese <b>DE</b> e avere una lunghezza valida. Controlla l’input. Sono consentiti solo <b>IBAN tedeschi</b>.",
 
     "PERSONAL_INFO_HEADER": "Dati principali",
     "PERSONAL_INFO_SUBHEADER": "Conferma la modifica facendo clic su \"Modifica\"",
@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Documenti di spiegazione",
-      "DESCRIPTION": [
-        "Qui troverai aiuto per le singole funzioni dell'applicazione."
-      ]
+      "DESCRIPTION": ["Qui troverai aiuto per le singole funzioni dell'applicazione."]
     },
     "dashboard": {
       "HEADER": "Panoramica",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Data dell'ordine/cancellazione",
   "DATUM_MENU": "Data del menu",
   "ART_DOWNLOAD": "Tipo di download",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "L'importo per il promemoria del saldo deve essere di almeno 10 euro.",
-  "this.":"Importo minimo",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "L'importo per il promemoria del saldo deve essere di almeno 10 euro.",
+  "this.": "Importo minimo",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Se attivi un pasto allergenico, ti verrà mostrato quotidianamente nella panoramica dell'ordine. Tuttavia, devi comunque ordinare il pasto. Puoi ancora scegliere tra il pasto normale e il pasto allergenico.",
   "AGB_ZUSTIMMEN_EINS": "Ho letto e accetto i ",
   "AGB_ZUSTIMMEN_ZWEI": "Termini e condizioni generali",
@@ -580,7 +578,6 @@
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Puoi ordinare solo un menù al giorno. Si prega di annullare prima l'altro ordine.",
   "BESTAETIGUNG_PER_EMAIL": "Ricevi conferma via email",
 
-
   "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "I pasti per allergici disponibili possono essere attivati solo dalla struttura. Si prega di contattare la propria struttura. Se un pasto per allergici viene attivato, sarà abilitato nell'ordine del partecipante interessato.",
   "FEEDBACK": "Feedback",
   "LABEL_FEEDBACK": "Feedback / Suggerimento",
@@ -640,7 +637,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Qui puoi vedere tutti i tuoi periodi di ferie registrati.",
   "BIS_OPTIONAL": "Fino a (opzionale)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Per favore inserisci una data di inizio",
-  "SUCCESS_VACATION_DELETED": "Ferie eliminate con successo"
-
+  "SUCCESS_VACATION_DELETED": "Ferie eliminate con successo",
+  "ZUBESTELLUNG_MOEGLICH": "Riordinare"
 }
-

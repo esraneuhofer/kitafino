@@ -216,9 +216,7 @@
     },
     "help": {
       "HEADER": "Erklärungsdokumente",
-      "DESCRIPTION": [
-        "Hier finden Sie Hilfe zu den einzelnen Funktionen der Anwendung."
-      ]
+      "DESCRIPTION": ["Hier finden Sie Hilfe zu den einzelnen Funktionen der Anwendung."]
     },
     "dashboard": {
       "HEADER": "Übersicht",
@@ -618,7 +616,7 @@
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "Der Kontostand ist nicht ausreichend für diese Bestellung.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "Bestellung/en gefunden",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "Es wurden bereits Bestellungen für den Verpflegungsteilnehmer/in in der Zukunft gefunden. Bitte stornieren Sie die Bestellungen zuerst, bevor Sie den Verpflegungsteilnehmer/in löschen.",
-  "ABBESTELLUNG_MOEGLICH": "Abbestellung möglich",
+  "ABBESTELLUNG_MOEGLICH": "Abbestellen",
   "REPORT_ERROR_HEADER": "Fehler / Verbesserung melden",
   "REPORT_ERROR_TEXT": "Bitte wählen Sie die Art der Meldung aus und geben Sie uns eine kurze Beschreibung des Problems.",
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Art der Meldung",
@@ -640,5 +638,6 @@
   "FUER_ALLE": "Für alle Teilnehmer",
   "AKTIVIEREN": "Aktivieren",
   "DEAKTIVIEREN": "Deaktivieren",
-  "SPEICHERN": "Speichern"
+  "SPEICHERN": "Speichern",
+  "ZUBESTELLUNG_MOEGLICH": "Nachbestellung"
 }

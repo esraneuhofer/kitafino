@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "وثائق الشرح",
-      "DESCRIPTION": [
-        "هنا تجد المساعدة حول كل وظيفة من وظائف التطبيق."
-      ]
+      "DESCRIPTION": ["هنا تجد المساعدة حول كل وظيفة من وظائف التطبيق."]
     },
     "dashboard": {
       "HEADER": "نظرة عامة",
@@ -635,5 +633,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "هنا يمكنك رؤية جميع فترات الإجازة المسجلة الخاصة بك.",
   "BIS_OPTIONAL": "إلى (اختياري)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "يرجى إدخال تاريخ البدء",
-  "SUCCESS_VACATION_DELETED": "تم حذف الإجازة بنجاح"
+  "SUCCESS_VACATION_DELETED": "تم حذف الإجازة بنجاح",
+  "ZUBESTELLUNG_MOEGLICH": "إعادة الطلب"
 }

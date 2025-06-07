@@ -216,9 +216,7 @@
     },
     "help": {
       "HEADER": "Dokumenti za objašnjenja",
-      "DESCRIPTION": [
-        "Ovdje ćete pronaći pomoć za pojedine funkcije aplikacije."
-      ]
+      "DESCRIPTION": ["Ovdje ćete pronaći pomoć za pojedine funkcije aplikacije."]
     },
     "dashboard": {
       "HEADER": "Pregled",
@@ -643,6 +641,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Ovdje možete vidjeti sva svoja evidentirana razdoblja godišnjeg odmora.",
   "BIS_OPTIONAL": "Do (opcionalno)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Molimo unesite početni datum",
-  "SUCCESS_VACATION_DELETED": "Godišnji odmor uspješno obrisan"
-
+  "SUCCESS_VACATION_DELETED": "Godišnji odmor uspješno obrisan",
+  "ZUBESTELLUNG_MOEGLICH": "Ponovna narudžba"
 }

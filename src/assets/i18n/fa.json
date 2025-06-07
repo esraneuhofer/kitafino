@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "اسناد توضیحی",
-      "DESCRIPTION": [
-        "اینجا می‌توانید به کمک برای هر یک از عملکردهای برنامه دسترسی داشته باشید."
-      ]
+      "DESCRIPTION": ["اینجا می‌توانید به کمک برای هر یک از عملکردهای برنامه دسترسی داشته باشید."]
     },
     "dashboard": {
       "HEADER": "نمای کلی",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "سفارش لغو شد",
   "BESTELLUNG_EINGETRAGEN": "سفارش ثبت شد",
   "BESTELLUNG_NICHT_EINGETRAGEN": "سفارش ثبت نشد",
-  "VORTAG":"روز قبل",
-  "TAGE_VOR_DEM_JEWEILIGEM":"روز قبل از روز غذای مربوطه",
-  "BESTELLFRIST_ENDET_IMMER":"مهلت سفارش همیشه پایان می‌یابد",
-  "ABBESTELLFRIST_ENDET_IMMER":"مهلت لغو همیشه پایان می‌یابد",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"مهلت سفارش همیشه قبل از",
-  "UHR":"ساعت",
-  "Montag":"دوشنبه",
-  "Dienstag":"سه‌شنبه",
-  "Mittwoch":"چهارشنبه",
-  "Donnerstag":"پنج‌شنبه",
-  "Freitag":"جمعه",
-  "AM":"در",
-  "UM":"در",
-  "IN_DER_VORWOCHE":"در هفته قبل",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"هفته‌ها قبل از هفته سفارش مربوطه",
+  "VORTAG": "روز قبل",
+  "TAGE_VOR_DEM_JEWEILIGEM": "روز قبل از روز غذای مربوطه",
+  "BESTELLFRIST_ENDET_IMMER": "مهلت سفارش همیشه پایان می‌یابد",
+  "ABBESTELLFRIST_ENDET_IMMER": "مهلت لغو همیشه پایان می‌یابد",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "مهلت سفارش همیشه قبل از",
+  "UHR": "ساعت",
+  "Montag": "دوشنبه",
+  "Dienstag": "سه‌شنبه",
+  "Mittwoch": "چهارشنبه",
+  "Donnerstag": "پنج‌شنبه",
+  "Freitag": "جمعه",
+  "AM": "در",
+  "UM": "در",
+  "IN_DER_VORWOCHE": "در هفته قبل",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "هفته‌ها قبل از هفته سفارش مربوطه",
   "UM_FORTZUFAHREN": "برای ادامه به برنامه برگردید",
   "MEHR_INFO": "اطلاعات بیشتر - کلیک کنید",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "فایل با موفقیت از طریق ایمیل ارسال شد",
@@ -574,9 +572,9 @@
   "BESTELLEN_BUTTON": "سفارش",
   "STORNIEREN_BUTTON": "لغو",
   "AENDERN_BUTTON": "تغییر",
-  "FEHLER_BESTELLUNG":"خطا در ثبت سفارش",
+  "FEHLER_BESTELLUNG": "خطا در ثبت سفارش",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "شما می‌توانید تنها یک منو در هر روز سفارش دهید. لطفاً ابتدا سفارش دیگر را لغو کنید.",
-  "BESTAETIGUNG_PER_EMAIL":"تأیید از طریق ایمیل دریافت کنید",
+  "BESTAETIGUNG_PER_EMAIL": "تأیید از طریق ایمیل دریافت کنید",
 
   "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "وعده‌های غذایی آلرژیک موجود فقط توسط مؤسسه فعال می‌شوند. لطفاً با مؤسسه خود تماس بگیرید. اگر یک وعده غذایی آلرژیک فعال شود، در سفارش شرکت‌کننده مربوطه فعال خواهد شد.",
   "FEEDBACK": "بازخورد",
@@ -595,7 +593,6 @@
   "DELETE_PERMANENT_ORDER_DIALOG_HEADER": "حذف سفارش دائمی",
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "آیا مطمئن هستید که می‌خواهید سفارش دائمی انتخاب شده را غیرفعال کنید؟",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "حساب ما هر <b>پنج دقیقه</b> یکبار همگام‌سازی می‌شود. سپرده شما به‌طور خودکار به حساب شما واریز می‌شود به محض اینکه دریافت شود. بنابراین، حتی <b>انتقالات فوری</b> نیز می‌توانند تقریباً بلافاصله واریز شوند. سپس یک تأییدیه به آدرس ایمیل ثبت شده شما ارسال خواهد شد.",
-
 
   "GEBUEHREN": "هزینه‌ها",
   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "برای مبلغ واریزی، شما مبلغ زیر را دریافت خواهید کرد که به انتخاب روش پرداخت شما بستگی دارد: ",
@@ -619,7 +616,7 @@
   "TEXT_STUDENT_LOESCHEN": "آیا مطمئن هستید که می‌خواهید شرکت‌کننده تغذیه را حذف کنید؟ تمامی داده‌های شرکت‌کننده برای همیشه حذف خواهند شد.",
   "DER_KONTOSTAND_IST_NICHT_AUSREICHEND": "موجودی حساب برای این سفارش کافی نیست.",
   "STUDENT_DELETE_ORDER_PLACED_ERROR_HEADING": "سفارش(ها) یافت شد",
-  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT":"سفارش‌های آینده برای شرکت‌کننده در غذا قبلاً یافت شده است. لطفاً قبل از حذف شرکت‌کننده در غذا، سفارش‌ها را لغو کنید.",
+  "STUDENT_DELETE_ORDER_PLACED_ERROR_TEXT": "سفارش‌های آینده برای شرکت‌کننده در غذا قبلاً یافت شده است. لطفاً قبل از حذف شرکت‌کننده در غذا، سفارش‌ها را لغو کنید.",
   "ABBESTELLUNG_MOEGLICH": "لغو امکان‌پذیر است",
   "REPORT_ERROR_HEADER": "گزارش خطا / بهبود",
   "REPORT_ERROR_TEXT": "لطفاً نوع گزارش را انتخاب کنید و توضیح مختصری در مورد مشکل ارائه دهید.",
@@ -638,6 +635,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "اینجا می‌توانید تمام بازه‌های مرخصی ثبت‌شده خود را ببینید.",
   "BIS_OPTIONAL": "تا (اختیاری)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "لطفاً تاریخ شروع را وارد کنید",
-  "SUCCESS_VACATION_DELETED": "مرخصی با موفقیت حذف شد"
-
+  "SUCCESS_VACATION_DELETED": "مرخصی با موفقیت حذف شد",
+  "ZUBESTELLUNG_MOEGLICH": "سفارش مجدد"
 }

@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "เอกสารคำอธิบาย",
-      "DESCRIPTION": [
-        "ที่นี่คุณจะพบความช่วยเหลือเกี่ยวกับฟังก์ชั่นต่างๆ ของแอปพลิเคชัน"
-      ]
+      "DESCRIPTION": ["ที่นี่คุณจะพบความช่วยเหลือเกี่ยวกับฟังก์ชั่นต่างๆ ของแอปพลิเคชัน"]
     },
     "dashboard": {
       "HEADER": "ภาพรวม",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "การสั่งซื้อถูกยกเลิก",
   "BESTELLUNG_EINGETRAGEN": "การสั่งซื้อถูกบันทึก",
   "BESTELLUNG_NICHT_EINGETRAGEN": "ไม่สามารถบันทึกการสั่งซื้อได้",
-  "VORTAG":"วันก่อนหน้า",
-  "TAGE_VOR_DEM_JEWEILIGEM":"วันก่อนวันที่สั่งซื้อ",
-  "BESTELLFRIST_ENDET_IMMER":"ระยะเวลาสั่งซื้อสิ้นสุดเสมอ",
-  "ABBESTELLFRIST_ENDET_IMMER":"ระยะเวลาในการยกเลิกสิ้นสุดเสมอ",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"ระยะเวลาสั่งซื้อสิ้นสุดเสมอก่อน",
-  "UHR":"นาฬิกา",
-  "Montag":"วันจันทร์",
-  "Dienstag":"วันอังคาร",
-  "Mittwoch":"วันพุธ",
-  "Donnerstag":"วันพฤหัสบดี",
-  "Freitag":"วันศุกร์",
-  "AM":"ที่",
-  "UM":"ที่",
-  "IN_DER_VORWOCHE":"ในสัปดาห์ก่อนหน้า",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"สัปดาห์ก่อนสัปดาห์ที่สั่งซื้อ",
+  "VORTAG": "วันก่อนหน้า",
+  "TAGE_VOR_DEM_JEWEILIGEM": "วันก่อนวันที่สั่งซื้อ",
+  "BESTELLFRIST_ENDET_IMMER": "ระยะเวลาสั่งซื้อสิ้นสุดเสมอ",
+  "ABBESTELLFRIST_ENDET_IMMER": "ระยะเวลาในการยกเลิกสิ้นสุดเสมอ",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "ระยะเวลาสั่งซื้อสิ้นสุดเสมอก่อน",
+  "UHR": "นาฬิกา",
+  "Montag": "วันจันทร์",
+  "Dienstag": "วันอังคาร",
+  "Mittwoch": "วันพุธ",
+  "Donnerstag": "วันพฤหัสบดี",
+  "Freitag": "วันศุกร์",
+  "AM": "ที่",
+  "UM": "ที่",
+  "IN_DER_VORWOCHE": "ในสัปดาห์ก่อนหน้า",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "สัปดาห์ก่อนสัปดาห์ที่สั่งซื้อ",
   "UM_FORTZUFAHREN": "เพื่อดำเนินการต่อ โปรดกลับไปที่แอป",
   "MEHR_INFO": "ข้อมูลเพิ่มเติม - คลิก",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "ไฟล์ถูกส่งออกทางอีเมลเรียบร้อยแล้ว",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "วันที่สั่งซื้อ/ยกเลิก",
   "DATUM_MENU": "วันที่เมนู",
   "ART_DOWNLOAD": "ประเภทการดาวน์โหลด",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "จำนวนเงินขั้นต่ำสำหรับการเตือนยอดเงินคงเหลือต้องไม่น้อยกว่า 10 ยูโร",
-  "this.":"จำนวนเงินขั้นต่ำ",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "จำนวนเงินขั้นต่ำสำหรับการเตือนยอดเงินคงเหลือต้องไม่น้อยกว่า 10 ยูโร",
+  "this.": "จำนวนเงินขั้นต่ำ",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "หากคุณเปิดใช้งานอาหารสำหรับผู้ที่มีอาการแพ้ อาหารนั้นจะถูกแสดงในรายการสั่งซื้อทุกวัน คุณยังคงต้องสั่งซื้ออาหารนั้น คุณยังมีตัวเลือกในการเลือกอาหารปกติหรืออาหารสำหรับผู้ที่มีอาการแพ้",
   "AGB_ZUSTIMMEN_EINS": "ฉันได้อ่านและยอมรับ ",
   "AGB_ZUSTIMMEN_ZWEI": "ข้อกำหนดและเงื่อนไขทั่วไป",
@@ -638,7 +636,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "คุณสามารถดูช่วงวันหยุดที่ลงทะเบียนไว้ทั้งหมดได้ที่นี่",
   "BIS_OPTIONAL": "ถึง (ไม่บังคับ)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "กรุณากรอกวันที่เริ่มต้น",
-  "SUCCESS_VACATION_DELETED": "ลบวันหยุดสำเร็จ"
-
+  "SUCCESS_VACATION_DELETED": "ลบวันหยุดสำเร็จ",
+  "ZUBESTELLUNG_MOEGLICH": "สั่งซ้ำ"
 }
-

@@ -36,6 +36,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { LanguageService } from "../../../service/language.service";
 import { EinrichtungInterface } from "../../../classes/einrichtung.class";
 import { AssignedWeekplanInterface, WeekplanModelGroupsAllowedInterfaceDay } from '../../../classes/assignedWeekplan.class';
+import { isHoliday } from 'feiertagejs';
+import { isVacationSubgroup, isVacationStudent } from '../../../functions/date.functions';
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -148,7 +150,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   @Input() typeDisplayOrder: string = 'week';
   submittingOrder: boolean = false;
   pastCancelation: boolean = true;
-
+  pastZubestellung: boolean = true;
   differenceTimeDeadline: string = '';
   differenceTimeDeadlineDay: string = '';
   timerInterval: any;
@@ -473,13 +475,25 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       this.checkDeadlineWeek(cw, year)
     }
     this.checkDeadlineAbbestellung(day)
+    this.checkDeadlineZubestellung(day)
 
   }
   checkDeadlineAbbestellung(day: Date): void {
-    let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
-    if (!this.customer.generalSettings.cancelOrderDaily || isNotFormat) {
+    if (!this.customer.generalSettings.hasCancelDaily) {
       this.pastCancelation = true;
-      return
+      return;
+    }
+    // Erst prüfen ob das Objekt existiert, bevor wir auf .time zugreifen
+    if (!this.customer.generalSettings.cancelOrderDaily) {
+      this.pastCancelation = true;
+      return;
+    }
+
+    // Dann erst das Format prüfen
+    let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
+    if (isNotFormat) {
+      this.pastCancelation = true;
+      return;
     }
 
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
@@ -496,6 +510,48 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
       this.timerInterval = setInterval(() => {
         this.checkDeadlineAbbestellung(day);
+      }, 1000);
+    }
+  }
+
+  checkDeadlineZubestellung(day: Date): void {
+    if (!this.customer.generalSettings.hasAdditionDaily) {
+      this.pastZubestellung = true;
+      return;
+    }
+
+    // Wenn der Tag ein Feiertag ist, dann keine Zubestellung möglich
+    if (this.lockDay) {
+      this.pastZubestellung = true;
+      return;
+    }
+
+    // Erst prüfen ob das Objekt existiert, bevor wir auf .time zugreifen
+    if (!this.customer.generalSettings.cancelOrderDaily) {
+      this.pastZubestellung = true;
+      return;
+    }
+
+    // Dann erst das Format prüfen
+    let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.customer.generalSettings.cancelOrderDaily.time);
+    if (isNotFormat) {
+      this.pastZubestellung = true;
+      return;
+    }
+
+    // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
+    const distance = this.customer.generalSettings.deadlineSkipWeekend
+      ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
+      : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    if (distance < 0) {
+      this.pastZubestellung = true;
+      clearInterval(this.timerInterval);
+    } else {
+      clearInterval(this.timerInterval);
+      this.pastZubestellung = false;
+
+      this.timerInterval = setInterval(() => {
+        this.checkDeadlineZubestellung(day);
       }, 1000);
     }
   }

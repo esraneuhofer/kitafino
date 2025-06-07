@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Объяснительные документы",
-      "DESCRIPTION": [
-        "Здесь вы найдете помощь по функциям приложения."
-      ]
+      "DESCRIPTION": ["Здесь вы найдете помощь по функциям приложения."]
     },
     "dashboard": {
       "HEADER": "Обзор",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Заказ был отменен",
   "BESTELLUNG_EINGETRAGEN": "Заказ был зарегистрирован",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Заказ не может быть зарегистрирован",
-  "VORTAG":"Накануне",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Дней до соответствующего дня",
-  "BESTELLFRIST_ENDET_IMMER":"Срок заказа всегда истекает",
-  "ABBESTELLFRIST_ENDET_IMMER":"Срок отмены заказа всегда истекает",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"Срок заказа всегда истекает за",
-  "UHR":"часов",
-  "Montag":"Понедельник",
-  "Dienstag":"Вторник",
-  "Mittwoch":"Среда",
-  "Donnerstag":"Четверг",
-  "Freitag":"Пятница",
-  "AM":"в",
-  "UM":"в",
-  "IN_DER_VORWOCHE":"на предыдущей неделе",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"недели до соответствующей недели заказа",
+  "VORTAG": "Накануне",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Дней до соответствующего дня",
+  "BESTELLFRIST_ENDET_IMMER": "Срок заказа всегда истекает",
+  "ABBESTELLFRIST_ENDET_IMMER": "Срок отмены заказа всегда истекает",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "Срок заказа всегда истекает за",
+  "UHR": "часов",
+  "Montag": "Понедельник",
+  "Dienstag": "Вторник",
+  "Mittwoch": "Среда",
+  "Donnerstag": "Четверг",
+  "Freitag": "Пятница",
+  "AM": "в",
+  "UM": "в",
+  "IN_DER_VORWOCHE": "на предыдущей неделе",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "недели до соответствующей недели заказа",
   "UM_FORTZUFAHREN": "Чтобы продолжить, вернитесь в приложение",
   "MEHR_INFO": "Информация - нажмите",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Файл успешно отправлен по электронной почте",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Дата заказа/отмены заказа",
   "DATUM_MENU": "Дата меню",
   "ART_DOWNLOAD": "Тип загрузки",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "Сумма для напоминания о балансе должна быть не менее 10 евро.",
-  "this.":"Минимальная сумма",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Сумма для напоминания о балансе должна быть не менее 10 евро.",
+  "this.": "Минимальная сумма",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Если вы активируете аллергическую пищу, она будет ежедневно отображаться в обзоре заказа. Тем не менее, вам все равно нужно будет заказать пищу. У вас останется выбор между обычной и аллергической пищей.",
   "AGB_ZUSTIMMEN_EINS": "Я прочитал",
   "AGB_ZUSTIMMEN_ZWEI": "Общие условия",
@@ -598,7 +596,6 @@
   "DELETE_PERMANENT_ORDER_DIALOG_TEXT": "Вы уверены, что хотите отключить выбранный постоянный заказ?",
   "DEPOSIT_INSTRUCTIONS_NACHTRAG": "Наш счет синхронизируется каждые <b>пять минут</b>. Ваш депозит будет автоматически зачислен на ваш счет, как только он будет получен. Таким образом, даже <b>мгновенные переводы</b> могут быть зачислены практически сразу. Затем вы получите подтверждение по электронной почте на указанный вами адрес.",
 
-
   "GEBUEHREN": "Комиссия",
   "FUER_EINZAHLUNGSBETRAG_ERHALTEN": "За внесённую сумму вы получите следующую сумму в зависимости от вашего выбора способа оплаты: ",
   "ZUSTIMMUG_INDEM_SIE_FORTFAHREN": "Продолжая, вы соглашаетесь, что будете перенаправлены на Stripe для обработки платежа. Платеж обрабатывается Stripe, а не нами.",
@@ -628,8 +625,8 @@
   "REPORT_ERROR_TEXT_TYPE_LABEL": "Тип сообщения",
   "SENDEN": "Отправить",
   "URLAUB": "Отпуск / Отсутствие",
-      "URLAUB_EINTRAGEN": "Добавить отпуск или отсутствие",
-      "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Укажите период отпуска или отсутствия, чтобы приостановить заказы на еду на это время.",
+  "URLAUB_EINTRAGEN": "Добавить отпуск или отсутствие",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "Укажите период отпуска или отсутствия, чтобы приостановить заказы на еду на это время.",
   "ERROR_VACATION_START_DATE_FUTURE": "Дата начала отпуска должна быть в будущем.",
   "ERROR_VACATION_END_DATE_FUTURE": "Дата окончания отпуска должна быть в будущем.",
   "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "Дата начала отпуска должна предшествовать дате окончания.",
@@ -640,7 +637,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Здесь вы можете увидеть все ваши зарегистрированные периоды отпуска.",
   "BIS_OPTIONAL": "До (необязательно)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Пожалуйста, введите дату начала",
-  "SUCCESS_VACATION_DELETED": "Отпуск успешно удалён"
-
+  "SUCCESS_VACATION_DELETED": "Отпуск успешно удалён",
+  "ZUBESTELLUNG_MOEGLICH": "Повторный заказ"
 }
-

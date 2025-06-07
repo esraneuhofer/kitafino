@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Dokumenty wyjaśniające",
-      "DESCRIPTION": [
-        "Tutaj znajdziesz pomoc dotyczącą poszczególnych funkcji aplikacji."
-      ]
+      "DESCRIPTION": ["Tutaj znajdziesz pomoc dotyczącą poszczególnych funkcji aplikacji."]
     },
     "dashboard": {
       "HEADER": "Przegląd",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Zamówienie zostało anulowane",
   "BESTELLUNG_EINGETRAGEN": "Zamówienie zostało złożone",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Nie udało się złożyć zamówienia",
-  "VORTAG":"Dzień przed",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Dni przed danym dniem zamówienia",
-  "BESTELLFRIST_ENDET_IMMER":"Termin zamówienia zawsze kończy się",
-  "ABBESTELLFRIST_ENDET_IMMER":"Termin anulowania zamówienia zawsze kończy się",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"Termin zamówienia zawsze kończy się przed",
-  "UHR":"Godzina",
-  "Montag":"Poniedziałek",
-  "Dienstag":"Wtorek",
-  "Mittwoch":"Środa",
-  "Donnerstag":"Czwartek",
-  "Freitag":"Piątek",
-  "AM":"na",
-  "UM":"o",
-  "IN_DER_VORWOCHE":"w poprzednim tygodniu",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Tygodnie przed danym tygodniem zamówienia",
+  "VORTAG": "Dzień przed",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Dni przed danym dniem zamówienia",
+  "BESTELLFRIST_ENDET_IMMER": "Termin zamówienia zawsze kończy się",
+  "ABBESTELLFRIST_ENDET_IMMER": "Termin anulowania zamówienia zawsze kończy się",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "Termin zamówienia zawsze kończy się przed",
+  "UHR": "Godzina",
+  "Montag": "Poniedziałek",
+  "Dienstag": "Wtorek",
+  "Mittwoch": "Środa",
+  "Donnerstag": "Czwartek",
+  "Freitag": "Piątek",
+  "AM": "na",
+  "UM": "o",
+  "IN_DER_VORWOCHE": "w poprzednim tygodniu",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "Tygodnie przed danym tygodniem zamówienia",
   "UM_FORTZUFAHREN": "Aby kontynuować, wróć do aplikacji",
   "MEHR_INFO": "Informacje - kliknij",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Plik został pomyślnie wysłany e-mailem",
@@ -509,7 +507,7 @@
   "DATUM_MENU": "Data menu",
   "ART_DOWNLOAD": "Rodzaj pobierania",
   "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Kwota do przypomnienia o saldzie musi wynosić co najmniej 10 euro.",
-  "this.":"Minimalna kwota",
+  "this.": "Minimalna kwota",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Jeśli aktywujesz jedzenie dla alergików, codziennie będzie ono widoczne w przeglądzie zamówień. Musisz jednak nadal zamawiać jedzenie. Nadal masz możliwość wyboru między jedzeniem regularnym a jedzeniem dla alergików.",
   "AGB_ZUSTIMMEN_EINS": "Przeczytałem",
   "AGB_ZUSTIMMEN_ZWEI": "Ogólne warunki",
@@ -638,8 +636,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Tutaj możesz zobaczyć wszystkie swoje zarejestrowane okresy urlopu.",
   "BIS_OPTIONAL": "Do (opcjonalnie)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Proszę podać datę rozpoczęcia",
-  "SUCCESS_VACATION_DELETED": "Urlop został pomyślnie usunięty"
-
+  "SUCCESS_VACATION_DELETED": "Urlop został pomyślnie usunięty",
+  "ZUBESTELLUNG_MOEGLICH": "Ponowne zamówienie"
 }
-
-

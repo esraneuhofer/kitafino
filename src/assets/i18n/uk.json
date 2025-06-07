@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Пояснювальні документи",
-      "DESCRIPTION": [
-        "Тут ви знайдете допомогу з окремими функціями додатку."
-      ]
+      "DESCRIPTION": ["Тут ви знайдете допомогу з окремими функціями додатку."]
     },
     "dashboard": {
       "HEADER": "Огляд",
@@ -636,6 +634,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Тут ви можете переглянути всі ваші зареєстровані періоди відпустки.",
   "BIS_OPTIONAL": "До (необов'язково)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Будь ласка, введіть початкову дату",
-  "SUCCESS_VACATION_DELETED": "Відпустку успішно видалено"
-
+  "SUCCESS_VACATION_DELETED": "Відпустку успішно видалено",
+  "ZUBESTELLUNG_MOEGLICH": "Повторне замовлення"
 }

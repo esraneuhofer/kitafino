@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Settings saved",
-   "ERROR_INVALID_IBAN": "The IBAN must start with the country code <b>DE</b> and have a valid length. Please check your input. Only <b>German IBANs</b> are allowed.",
+    "ERROR_INVALID_IBAN": "The IBAN must start with the country code <b>DE</b> and have a valid length. Please check your input. Only <b>German IBANs</b> are allowed.",
 
     "PERSONAL_INFO_HEADER": "Master data",
     "PERSONAL_INFO_SUBHEADER": "Confirm the change by clicking \"Save\"",
@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Explanation documents",
-      "DESCRIPTION": [
-        "Here you will find help for the individual functions of the application."
-      ]
+      "DESCRIPTION": ["Here you will find help for the individual functions of the application."]
     },
     "dashboard": {
       "HEADER": "Overview",
@@ -471,21 +469,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Order canceled",
   "BESTELLUNG_EINGETRAGEN": "Order placed",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Order could not be placed",
-  "VORTAG":"Previous day",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Days before the respective food day",
-  "BESTELLFRIST_ENDET_IMMER":"The order deadline always ends",
-  "ABBESTELLFRIST_ENDET_IMMER":"The cancellation deadline always ends",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"The order deadline always ends before",
-  "UHR":"O'clock",
-  "Montag":"Monday",
-  "Dienstag":"Tuesday",
-  "Mittwoch":"Wednesday",
-  "Donnerstag":"Thursday",
-  "Freitag":"Friday",
-  "AM":"on",
-  "UM":"at",
-  "IN_DER_VORWOCHE":"in the previous week",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Weeks before the respective order week",
+  "VORTAG": "Previous day",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Days before the respective food day",
+  "BESTELLFRIST_ENDET_IMMER": "The order deadline always ends",
+  "ABBESTELLFRIST_ENDET_IMMER": "The cancellation deadline always ends",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "The order deadline always ends before",
+  "UHR": "O'clock",
+  "Montag": "Monday",
+  "Dienstag": "Tuesday",
+  "Mittwoch": "Wednesday",
+  "Donnerstag": "Thursday",
+  "Freitag": "Friday",
+  "AM": "on",
+  "UM": "at",
+  "IN_DER_VORWOCHE": "in the previous week",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "Weeks before the respective order week",
   "UM_FORTZUFAHREN": "To continue, return to the app",
   "MEHR_INFO": "Info - click",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "File successfully sent via email",
@@ -573,9 +571,9 @@
   "BESTELLEN_BUTTON": "Order",
   "STORNIEREN_BUTTON": "Cancel",
   "AENDERN_BUTTON": "Change",
-  "FEHLER_BESTELLUNG":"Error placing order",
+  "FEHLER_BESTELLUNG": "Error placing order",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "You can only order one menu per day. Please cancel the other order first.",
-  "BESTAETIGUNG_PER_EMAIL":"Confirmation via email",
+  "BESTAETIGUNG_PER_EMAIL": "Confirmation via email",
 
   "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Available allergen meals can only be activated by the facility. Please contact your facility. If an allergen meal is activated, it will be enabled in the order of the respective participant.",
   "FEEDBACK": "Feedback",
@@ -638,6 +636,6 @@
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Please enter a start date",
   "SUCCESS_VACATION_DELETED": "Vacation successfully deleted",
   "FUER_ALLE": "For all participants",
-  "SPEICHERN" : "Save"
-
+  "SPEICHERN": "Save",
+  "ZUBESTELLUNG_MOEGLICH": "Reorder"
 }

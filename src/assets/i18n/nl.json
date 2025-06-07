@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "Verklaringsdocumenten",
-      "DESCRIPTION": [
-        "Hier vindt u hulp voor de verschillende functies van de applicatie."
-      ]
+      "DESCRIPTION": ["Hier vindt u hulp voor de verschillende functies van de applicatie."]
     },
     "dashboard": {
       "HEADER": "Overzicht",
@@ -472,21 +470,21 @@
   "BESTELLUNG_STORNIERT_ALERT": "Bestelling is geannuleerd",
   "BESTELLUNG_EINGETRAGEN": "Bestelling is geplaatst",
   "BESTELLUNG_NICHT_EINGETRAGEN": "Bestelling kon niet worden geplaatst",
-  "VORTAG":"Vorige dag",
-  "TAGE_VOR_DEM_JEWEILIGEM":"Dagen voor de betreffende",
-  "BESTELLFRIST_ENDET_IMMER":"De besteltermijn eindigt altijd",
-  "ABBESTELLFRIST_ENDET_IMMER":"De annuleringsperiode eindigt altijd",
-  "BESTELLFRIST_ENDET_IMMER_VOR":"De besteltermijn eindigt altijd voor",
-  "UHR":"Uur",
-  "Montag":"Maandag",
-  "Dienstag":"Dinsdag",
-  "Mittwoch":"Woensdag",
-  "Donnerstag":"Donderdag",
-  "Freitag":"Vrijdag",
-  "AM":"op",
-  "UM":"om",
-  "IN_DER_VORWOCHE":"in de week ervoor",
-  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE":"Weken voor de betreffende bestelweek",
+  "VORTAG": "Vorige dag",
+  "TAGE_VOR_DEM_JEWEILIGEM": "Dagen voor de betreffende",
+  "BESTELLFRIST_ENDET_IMMER": "De besteltermijn eindigt altijd",
+  "ABBESTELLFRIST_ENDET_IMMER": "De annuleringsperiode eindigt altijd",
+  "BESTELLFRIST_ENDET_IMMER_VOR": "De besteltermijn eindigt altijd voor",
+  "UHR": "Uur",
+  "Montag": "Maandag",
+  "Dienstag": "Dinsdag",
+  "Mittwoch": "Woensdag",
+  "Donnerstag": "Donderdag",
+  "Freitag": "Vrijdag",
+  "AM": "op",
+  "UM": "om",
+  "IN_DER_VORWOCHE": "in de week ervoor",
+  "WOCHEN_VOR_DER_JEWEILIGEN_BESTELLWOCHE": "Weken voor de betreffende bestelweek",
   "UM_FORTZUFAHREN": "Ga terug naar de app om verder te gaan",
   "MEHR_INFO": "Info - klik",
   "CSV_WURDE_ERFOLGREICH_VERSENDET": "Bestand succesvol verzonden per e-mail",
@@ -508,8 +506,8 @@
   "DATUM_BESTELLUNG_ABBESTELLUNG": "Datum van bestelling/annulering",
   "DATUM_MENU": "Datum menu",
   "ART_DOWNLOAD": "Type download",
-  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN" : "Het bedrag voor de saldoherinnering moet minstens 10 euro zijn.",
-  "this.":"Minimumbedrag",
+  "ERROR_EINSTELLUNG_MINDESTBETRAG_GUTHABEN": "Het bedrag voor de saldoherinnering moet minstens 10 euro zijn.",
+  "this.": "Minimumbedrag",
   "INFO_ADD_SPECIALFOOD_REGISTRATION_STUDENT": "Als u een allergie maaltijd activeert, wordt deze maaltijd dagelijks weergegeven in het besteloverzicht. U moet de maaltijd echter nog steeds bestellen. U heeft nog steeds de keuze tussen de reguliere maaltijd en de allergie maaltijd.",
   "AGB_ZUSTIMMEN_EINS": "Ik heb de ",
   "AGB_ZUSTIMMEN_ZWEI": "Algemene Voorwaarden",
@@ -638,7 +636,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Hier kunt u al uw geregistreerde vakantieperiodes bekijken.",
   "BIS_OPTIONAL": "Tot (optioneel)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Voer alstublieft een startdatum in",
-  "SUCCESS_VACATION_DELETED": "Vakantie succesvol verwijderd"
-
+  "SUCCESS_VACATION_DELETED": "Vakantie succesvol verwijderd",
+  "ZUBESTELLUNG_MOEGLICH": "Herbestellen"
 }
-

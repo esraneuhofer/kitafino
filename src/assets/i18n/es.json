@@ -178,7 +178,7 @@
   "NEIN": "No",
   "MANAGE_TENANT_SETTINGS": {
     "SUCCESS_SETTINGS_SAVED": "Configuraciones guardadas",
-   "ERROR_INVALID_IBAN": "El IBAN debe comenzar con el código del país <b>DE</b> y tener una longitud válida. Por favor, revise su entrada. Solo se permiten <b>IBAN alemanes</b>.",
+    "ERROR_INVALID_IBAN": "El IBAN debe comenzar con el código del país <b>DE</b> y tener una longitud válida. Por favor, revise su entrada. Solo se permiten <b>IBAN alemanes</b>.",
     "PERSONAL_INFO_HEADER": "Datos maestros",
     "PERSONAL_INFO_SUBHEADER": "Confirme el cambio haciendo clic en \"Guardar\"",
     "FIRST_NAME": "Nombre",
@@ -216,9 +216,7 @@
     },
     "help": {
       "HEADER": "Documentos explicativos",
-      "DESCRIPTION": [
-        "Aquí encontrará ayuda para las funciones individuales de la aplicación."
-      ]
+      "DESCRIPTION": ["Aquí encontrará ayuda para las funciones individuales de la aplicación."]
     },
     "dashboard": {
       "HEADER": "Resumen",
@@ -631,5 +629,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "Aquí puede ver todos sus períodos de vacaciones registrados.",
   "BIS_OPTIONAL": "Hasta (opcional)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Por favor, introduzca una fecha de inicio",
-  "SUCCESS_VACATION_DELETED": "Vacaciones eliminadas con éxito"
+  "SUCCESS_VACATION_DELETED": "Vacaciones eliminadas con éxito",
+  "ZUBESTELLUNG_MOEGLICH": "Reordenar"
 }

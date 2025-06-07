@@ -70,7 +70,12 @@
                 <span
                   *ngIf="pastOrder && !pastCancelation && eachMenu.typeOrder === 'menu' && customer.generalSettings.hasCancelDaily && eachMenu.menuSelected"
                   class="text-left" (click)="setOrderIconCancel(indexMenu)">
-                  {{ 'ABBESTELLUNG_MOEGLICH' | translate }}
+                  <u>{{ 'ABBESTELLUNG_MOEGLICH' | translate }}</u>
+                </span>
+                <span
+                  *ngIf="pastOrder && !pastZubestellung && eachMenu.typeOrder === 'menu' && customer.generalSettings.hasAdditionDaily && !eachMenu.menuSelected"
+                  class="text-left" (click)="setOrderDay(true,indexMenu)">
+                  <u> {{ 'ZUBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>
 
                 <!-- Rechts ausgerichteter Inhalt bleibt immer rechts -->

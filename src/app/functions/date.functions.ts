@@ -1,12 +1,12 @@
-import {VacationsSubgroupInterface} from "../classes/vacation.interface";
-import {addDayFromDate} from "../home/order-student/order.functions";
-import {numberFive} from "../classes/weekplan.interface";
-import {isHoliday} from 'feiertagejs';
+import { VacationsSubgroupInterface } from "../classes/vacation.interface";
+import { addDayFromDate } from "../home/order-student/order.functions";
+import { numberFive } from "../classes/weekplan.interface";
+import { isHoliday } from 'feiertagejs';
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {CustomerInterface} from "../classes/customer.class";
-import {TranslateService} from "@ngx-translate/core";
+import { CustomerInterface } from "../classes/customer.class";
+import { TranslateService } from "@ngx-translate/core";
 import { VacationStudent } from "../service/vacation.service";
 
 dayjs.extend(utc);
@@ -17,7 +17,7 @@ export function normalizeToBerlinDate(date: Date | string): string {
     .tz('Europe/Berlin')
     .format('YYYY-MM-DD');
 }
-export function getLockDays(date:string, allVacations:VacationsSubgroupInterface[],allVacationsTenant:VacationStudent[], state:any,groupIdStudent:string):boolean[] {
+export function getLockDays(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
   var startDay = addDayFromDate(dateMonday, 0);
@@ -30,52 +30,62 @@ export function getLockDays(date:string, allVacations:VacationsSubgroupInterface
   return lockDay;
 }
 
-function isVacationSubgroup(inputDate:Date,vacationArray:VacationsSubgroupInterface[],groupIdStudent:string):boolean{
+export function isSingleLockDay(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean {
+  let lockDay = false;
+  let dateMonday = getMonday(date);
+  var startDay = addDayFromDate(dateMonday, 0);
+  if (isHoliday(startDay, state) || isVacationSubgroup(startDay, allVacations, groupIdStudent) || isVacationStudent(startDay, allVacationsTenant)) {
+    lockDay = true;
+  }
+  return lockDay;
+}
+
+export function isVacationSubgroup(inputDate: Date, vacationArray: VacationsSubgroupInterface[], groupIdStudent: string): boolean {
   if (!vacationArray || vacationArray.length === 0) return false;
   let dateToCompare = setDateToCompare(inputDate);
-  let bool =false;
-  for(let i = 0;i<vacationArray.length; i ++){
-    if(vacationArray[i].subgroupId === groupIdStudent || vacationArray[i].subgroupId === 'all'){
+  let bool = false;
+  for (let i = 0; i < vacationArray.length; i++) {
+    if (vacationArray[i].subgroupId === groupIdStudent || vacationArray[i].subgroupId === 'all') {
       let start = setDateToCompare(vacationArray[i].vacation.vacationStart);
-      let end =setDateToCompare(vacationArray[i].vacation.vacationEnd);
-      if(!vacationArray[i].vacation.vacationEnd){
-        if(start === dateToCompare){
+      let end = setDateToCompare(vacationArray[i].vacation.vacationEnd);
+      if (!vacationArray[i].vacation.vacationEnd) {
+        if (start === dateToCompare) {
           bool = true;
         }
-      }else{
-        if(setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)){
+      } else {
+        if (setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)) {
           bool = true;
         }
-        else{
+        else {
           if (end >= dateToCompare && start <= dateToCompare) {
             bool = true;
           }
         }
       }
     }
-    
+
   }
   return bool;
 }
 
 
-function isVacationStudent(inputDate:Date,vacationArray:VacationStudent[]):boolean{
+export function isVacationStudent(inputDate: Date, vacationArray: VacationStudent[]): boolean {
   if (!vacationArray || vacationArray.length === 0) return false;
   let dateToCompare = setDateToCompare(inputDate);
-  let bool =false;
-  for(let i = 0;i<vacationArray.length; i ++){
+  let bool = false;
+  for (let i = 0; i < vacationArray.length; i++) {
     let start = setDateToCompare(vacationArray[i].vacation.vacationStart);
-   
-    if(!vacationArray[i].vacation.vacationEnd){
-      if(start === dateToCompare){
+
+    if (!vacationArray[i].vacation.vacationEnd) {
+      if (start === dateToCompare) {
         bool = true;
       }
-    }else{
-      let end =setDateToCompare(vacationArray[i].vacation.vacationEnd!);
-      if(setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)){
+    } else {
+      let end = setDateToCompare(vacationArray[i].vacation.vacationEnd!);
+      if (setDateToCompare(vacationArray[i].vacation.vacationStart) === setDateToCompare(inputDate)) {
         bool = true;
       }
-      else{
+      else {
         if (end >= dateToCompare && start <= dateToCompare) {
           bool = true;
         }
@@ -85,7 +95,7 @@ function isVacationStudent(inputDate:Date,vacationArray:VacationStudent[]):boole
   return bool;
 }
 
-export function setDateToCompare(input:Date): number {
+export function setDateToCompare(input: Date): number {
   let newDate = new Date(input);
   newDate.setHours(0, 0, 0, 0);
   let d = newDate.getTime();
@@ -108,7 +118,7 @@ export function getMonday(inputDate: string): Date {
   return date;
 }
 
-export function checkDayWeekend(day:string):boolean{
+export function checkDayWeekend(day: string): boolean {
   let indexDay = new Date(day).getDay();
   if (indexDay === 6 || indexDay === 0) {
     return true;
@@ -123,28 +133,28 @@ export function getCustomDayIndex(date: string | Date): number {
   const standardDayIndex = dayJsDate.day();
   return (standardDayIndex + 6) % 7;
 }
-export function getFormattedDate(date:Date) {
+export function getFormattedDate(date: Date) {
   let result = new Date(date);
-  let month:any = result.getMonth()+1;
+  let month: any = result.getMonth() + 1;
   let num = result.getDate();
 
   if (month.toString().length == 1) {
     month = "0" + month;
   }
-  let sliced =  ('0' + num).slice(-2);
-  return (sliced + '.' +month);
+  let sliced = ('0' + num).slice(-2);
+  return (sliced + '.' + month);
 }
 
-export function getInvoiceDateOne(date:Date) {
+export function getInvoiceDateOne(date: Date) {
   let result = new Date(date);
-  let month:any = result.getMonth()+1;
-  let year  = result.getFullYear();
+  let month: any = result.getMonth() + 1;
+  let year = result.getFullYear();
   let num = result.getDate();
   if (month.toString().length == 1) {
     month = "0" + month;
   }
-  let sliced =  ('0' + num).slice(-2);
-  return (sliced + '.' +month  + '.' + year);
+  let sliced = ('0' + num).slice(-2);
+  return (sliced + '.' + month + '.' + year);
 }
 
 
@@ -164,7 +174,7 @@ function generateScheduleSentence(schedule: {
   weeks: string;
   day: string;
   time: string;
-},translate:TranslateService): string {
+}, translate: TranslateService): string {
   // Definiere die Wochentage
   const daysOfWeek: { [key: string]: string } = {
     '1': 'Montag',
@@ -188,7 +198,7 @@ function generateScheduleSentence(schedule: {
 function generateDailyDeadlineSentence(deadline: {
   day: string;
   time: Date;
-},type:string): string {
+}, type: string): string {
   const daysOfWeek: { [key: number]: string } = {
     1: 'Montag',
     2: 'Dienstag',
@@ -201,8 +211,8 @@ function generateDailyDeadlineSentence(deadline: {
   let day = daysOfWeek[parseInt(deadline.day)] || 'unbekannter Tag';
   const time = new Date(deadline.time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
 
-  if(type === 'deadline'){
-    return  `Die Bestellfrist endet immer am ${day} um ${time} Uhr.`;
+  if (type === 'deadline') {
+    return `Die Bestellfrist endet immer am ${day} um ${time} Uhr.`;
   }
   return `Die Abbestellfrist endet immer am ${day} um ${time} Uhr.`;
 
@@ -228,31 +238,31 @@ function generateDailyDeadlineSentence(deadline: {
 function generateDailyDeadlineFixSentence(deadline: {
   day: string;
   time: string;
-},type:string,translate:TranslateService): string {
+}, type: string, translate: TranslateService): string {
 
   let daysString = translate.instant("VORTAG")
-  if(deadline.day !== "1"){
+  if (deadline.day !== "1") {
     daysString = deadline.day + ' ' + translate.instant("TAGE_VOR_DEM_JEWEILIGEM")
   }
   const time = deadline.time
 
-  if(type === 'deadline'){
-    return  `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${daysString} ${translate.instant("UM")}  ${time} Uhr.`;
+  if (type === 'deadline') {
+    return `${translate.instant("BESTELLFRIST_ENDET_IMMER")} ${daysString} ${translate.instant("UM")}  ${time} Uhr.`;
   }
   return `${translate.instant("ABBESTELLFRIST_ENDET_IMMER")} ${daysString} ${time} Uhr.`;
 
 }
-export function getBestellfrist(customer:CustomerInterface,translate:TranslateService):string{
+export function getBestellfrist(customer: CustomerInterface, translate: TranslateService): string {
   let string = '';
-  if(customer.generalSettings.isDeadlineDaily){
-      return generateDailyDeadlineFixSentence(customer.generalSettings.deadlineDaily,'deadline',translate)
-  }else{
-    return generateScheduleSentence(customer.generalSettings.deadlineWeekly,translate)
+  if (customer.generalSettings.isDeadlineDaily) {
+    return generateDailyDeadlineFixSentence(customer.generalSettings.deadlineDaily, 'deadline', translate)
+  } else {
+    return generateScheduleSentence(customer.generalSettings.deadlineWeekly, translate)
   }
 }
 
 
-export function  extractTime(time: string): { hours: number, minutes: number } {
+export function extractTime(time: string): { hours: number, minutes: number } {
 
   // Split the time string into hours and minutes
   const [hours, minutes] = time.split(':').map(Number);

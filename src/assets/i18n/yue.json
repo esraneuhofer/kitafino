@@ -217,9 +217,7 @@
     },
     "help": {
       "HEADER": "說明文件",
-      "DESCRIPTION": [
-        "在此處查找應用程式各功能的幫助。"
-      ]
+      "DESCRIPTION": ["在此處查找應用程式各功能的幫助。"]
     },
     "dashboard": {
       "HEADER": "概覽",
@@ -279,10 +277,7 @@
     },
     "messages": {
       "HEADER": "幼稚園設置",
-      "DESCRIPTION": [
-        "在此處查找所有來自設施、餐飲提供商或 Cateringexpert 的消息。",
-        "消息將在30天後自動刪除。"
-      ]
+      "DESCRIPTION": ["在此處查找所有來自設施、餐飲提供商或 Cateringexpert 的消息。", "消息將在30天後自動刪除。"]
     },
     "order_history": {
       "HEADER": "訂單歷史",
@@ -624,8 +619,8 @@
   "REPORT_ERROR_TEXT_TYPE_LABEL": "報告類型",
   "SENDEN": "提交",
   "URLAUB": "假期 / 不在",
-      "URLAUB_EINTRAGEN": "登記假期或不在",
-      "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "輸入你嘅假期或不在時段，以便喺此期間暫停送餐訂單。",
+  "URLAUB_EINTRAGEN": "登記假期或不在",
+  "TRAGEN_SIE_IHREN_URLAUBSZEITRAUM_EIN": "輸入你嘅假期或不在時段，以便喺此期間暫停送餐訂單。",
   "ERROR_VACATION_START_DATE_FUTURE": "假期開始日期必須喺未來。",
   "ERROR_VACATION_END_DATE_FUTURE": "假期結束日期必須喺未來。",
   "ERROR_VACATION_START_DATE_BEFORE_END_DATE": "假期開始日期必須早於結束日期。",
@@ -636,7 +631,6 @@
   "HIER_SEHEN_SIE_IHRE_EINGETRAGENEN_URLAUBSZEITRAEUME": "喺呢度可以睇到你已登記嘅全部假期時段。",
   "BIS_OPTIONAL": "至（可選）",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "請輸入開始日期",
-  "SUCCESS_VACATION_DELETED": "已成功刪除假期"
-
+  "SUCCESS_VACATION_DELETED": "已成功刪除假期",
+  "ZUBESTELLUNG_MOEGLICH": "再次訂購"
 }
-
