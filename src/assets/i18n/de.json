@@ -332,7 +332,7 @@
     "but": {
       "HEADER": "Bildung und Teilhabe beantragen",
       "DESCRIPTION": [
-        "Um Bildung und Teilhabe zu für Ihren Account zu aktivieren, müssen Sie uns einen aktuellen Bescheid hochladen. Gehen Sie hierfür auf <b>[BuT aktivieren]</b> und laden Sie die Datei hoch.",
+        "Um Bildung und Teilhabe für Ihren Account zu aktivieren, müssen Sie uns einen aktuellen Bescheid hochladen. Gehen Sie hierfür auf <b>[BuT aktivieren]</b> und laden Sie die Datei hoch.",
         "Alternativ können Sie uns den Bescheid auch per E-Mail an <a href='mailto:but@cateringexpert.de'>but@cateringexpert.de</a> senden. Die Bearbeitung per E-Mail kann jedoch bis zu 7 Werktage dauern.",
         "<b>Wichtig:</b> Bitte geben Sie auch Ihren Benutzernamen sowie den Namen des Kindes an, für das Sie Bildung und Teilhabe beantragen.",
         "Sobald der Bescheid geprüft wurde, wird Bildung und Teilhabe für Ihren Account aktiviert. Sie erhalten eine Bestätigung per E-Mail."
@@ -379,7 +379,7 @@
     "PURPOSE_INSTRUCTIONS": "im Verwendungszweck an. Achten Sie darauf, dass Sie den Benutzernamen exakt so in den Verwendungszweck eintragen, wie angegeben. Andernfalls kann Ihre Einzahlung nicht Ihrem Konto zugeordnet werden. Eine manuelle Überprüfung wäre in diesem Fall nur schriftlich möglich und könnte mehrere Werktage in Anspruch nehmen.",
     "THANK_YOU": "Vielen Dank.",
     "MOVEMENT_DETAILS": "Details Kontobewegungen",
-    "DIRECT_DEPOSIT": "Direkeinzahlung",
+    "DIRECT_DEPOSIT": "Direkteinzahlung",
     "DIRECT_DEPOSIT_DESCRIPTION": "Sie können Guthaben direkt auf Ihr Konto einzahlen mit PayPal, Apple Pay, Google Pay oder Kreditkarte einzahlen. Das Geld wird sofort Ihrem Konto gutgeschrieben. <br> Tragen Sie den gewünschten Betrag ein und klicken Sie auf <b>[Direkteinzahlung]</b>. Sie werden anschließend auf unseren Zahlungsanbieter weitergeleitet.",
     "ENTER_AMOUNT": "Betrag eingeben",
     "MIN_DEPOSIT": "Mindesteinzahlung beträgt 10€",
@@ -572,7 +572,7 @@
   "AENDERN_BUTTON": "Ändern",
   "FEHLER_BESTELLUNG": "Fehler bei der Bestellung",
   "NUR_EINE_BESTELLUNG_PRO_TAG": "Sie können nur ein Menü pro Tag bestellen. Bitte stornieren Sie die andere Bestellung zuerst.",
-  "BESTAETIGUNG_PER_EMAIL": "Bestätigung per Email",
+  "BESTAETIGUNG_PER_EMAIL": "Bestätigung per E-Mail",
   "SPECIAL_FOOD_INSTRUCTIONS_SET_BY_CUSTOMER": "Verfügbare Allergiker-Essen können nur durch die Einrichtung freigeschaltet werden. Bitte wenden Sie sich an Ihre Einrichtung. Wenn ein Allergiker-Essen aktiviert wird, wird dieses in der Bestellung des jeweiligen Verpflegungsteilnehmers freigeschaltet.",
   "FEEDBACK": "Feedback",
   "LABEL_FEEDBACK": "Feedback / Anregung",

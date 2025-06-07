@@ -1,7 +1,7 @@
-import {EmailOrderInterfaceCancel} from "./email-order.function";
-import {getInvoiceDateOne, getTimeToDisplay} from "../../functions/date.functions";
-import {getPriceOrderPlaced} from "../../classes/order_student.class";
-import {convertNumberToCurrency} from "../../functions/generell.functions";
+import { EmailOrderInterfaceCancel } from "./email-order.function";
+import { getInvoiceDateOne, getTimeToDisplay } from "../../functions/date.functions";
+import { getPriceOrderPlaced } from "../../classes/order_student.class";
+import { convertNumberToCurrency } from "../../functions/generell.functions";
 
 
 export function getEmailBodyCancel(objectData: EmailOrderInterfaceCancel): any {
@@ -18,13 +18,13 @@ export function getEmailBodyCancel(objectData: EmailOrderInterfaceCancel): any {
 }
 
 function getTextCancelBildungUndTeilhabe(objectData: EmailOrderInterfaceCancel): string {
-  if(objectData.orderStudent.isBut){
-    return `Die Bestellung wurde im Rahmen des Bildungspaketes getätigt.`
+  if (objectData.orderStudent.isBut) {
+    return `Die Bestellung wurde im Rahmen des Bildungspakets getätigt.`
   }
   return `Der Betrag in Höhe von ${convertNumberToCurrency(getPriceOrderPlaced(objectData.orderStudent))} für die Bestellung wird Ihrem Konto gutgeschrieben.`
 }
 
-function getHtmlCancel(objectData: EmailOrderInterfaceCancel,orderTime:string): string {
+function getHtmlCancel(objectData: EmailOrderInterfaceCancel, orderTime: string): string {
   let priceOrder = getTextCancelBildungUndTeilhabe(objectData);
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="de">
@@ -184,15 +184,15 @@ a[x-apple-data-detectors] {
 </html>`
 }
 function getBodyEmailGenerell(
-  objectData:EmailOrderInterfaceCancel ,
-  arrayEmail:string[],
-  orderTime:string):any{
+  objectData: EmailOrderInterfaceCancel,
+  arrayEmail: string[],
+  orderTime: string): any {
   return {
-    bcc:'monitoring@cateringexpert.de',
+    bcc: 'monitoring@cateringexpert.de',
     from: 'Cateringexpert<noreply@cateringexpert.de>', // sender address
     replyTo: objectData.settings.orderSettings.confirmationEmail,
     to: arrayEmail, // list of receivers
     subject: 'Stornierung✔', // Subject line
-    html:getHtmlCancel(objectData,orderTime)
+    html: getHtmlCancel(objectData, orderTime)
   };
 }
