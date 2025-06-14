@@ -1,16 +1,16 @@
-import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
-import {Router} from "@angular/router";
-import {UserService} from "../../service/user.service";
-import {StudentService} from "../../service/student.service";
-import {LanguageService} from "../../service/language.service";
-import {TranslateService} from "@ngx-translate/core";
-import {MessageDialogService} from "../../service/message-dialog.service";
-import {Capacitor} from "@capacitor/core";
-import {SavePassword} from 'capacitor-ios-autofill-save-password';
-import {HelpDialogComponent} from "../../directives/help-dialog/help-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {KeychainAccess, SecureStorage} from '@aparajita/capacitor-secure-storage';
-import {AlertController} from "@ionic/angular";
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Router } from "@angular/router";
+import { UserService } from "../../service/user.service";
+import { StudentService } from "../../service/student.service";
+import { LanguageService } from "../../service/language.service";
+import { TranslateService } from "@ngx-translate/core";
+import { MessageDialogService } from "../../service/message-dialog.service";
+import { Capacitor } from "@capacitor/core";
+import { SavePassword } from 'capacitor-ios-autofill-save-password';
+import { HelpDialogComponent } from "../../directives/help-dialog/help-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { KeychainAccess, SecureStorage } from '@aparajita/capacitor-secure-storage';
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: 'app-sign-in',
@@ -34,13 +34,13 @@ export class SignInComponent implements OnInit {
   submittingRequest: boolean = false;
 
   constructor(private userService: UserService,
-              private translate: TranslateService,
-              private languageService: LanguageService,
-              private renderer: Renderer2,
-              private alertController: AlertController,
-              private studentService: StudentService,
-              private router: Router,
-              private dialog: MatDialog) {
+    private translate: TranslateService,
+    private languageService: LanguageService,
+    private renderer: Renderer2,
+    private alertController: AlertController,
+    private studentService: StudentService,
+    private router: Router,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -48,11 +48,7 @@ export class SignInComponent implements OnInit {
     if (Capacitor.getPlatform() === 'android') {
       this.checkStoredCredentials();
     }
-    // console.log(this.isMobileApp);
-    //
-    // if (this.isMobileApp) {
-    //   this.checkBiometricAuth();
-    // }
+
   }
 
   async checkStoredCredentials() {
@@ -63,9 +59,7 @@ export class SignInComponent implements OnInit {
       if (email && password) {
         this.signInModel.email = email as string;
         this.signInModel.password = password as string;
-        // console.log('Stored credentials found and pre-filled.');
       } else {
-        // console.log('No stored credentials found.');
       }
     } catch (error) {
       console.error('Failed to retrieve stored credentials:', error);
@@ -84,7 +78,6 @@ export class SignInComponent implements OnInit {
         console.error('Failed to save credentials:', error);
       }
     } else if (Capacitor.getPlatform() === 'android') {
-      // console.log('Checking if credentials need to be saved or updated');
 
       try {
         const storedEmail = await SecureStorage.get('username') as string | null;
@@ -109,7 +102,6 @@ export class SignInComponent implements OnInit {
                   try {
                     await SecureStorage.set('username', this.signInModel.email, false, true);
                     await SecureStorage.set('password', this.signInModel.password, false, true);
-                    // console.log('Credentials saved successfully on Android');
                   } catch (error) {
                     console.error('Failed to save credentials on Android:', error);
                   }
@@ -159,7 +151,7 @@ export class SignInComponent implements OnInit {
 
   async onSubmit() {
     this.submittingRequest = true;
-    this.userService.login({email: this.signInModel.email, password: this.signInModel.password}).subscribe(
+    this.userService.login({ email: this.signInModel.email, password: this.signInModel.password }).subscribe(
       async (res: any) => {
         this.submittingRequest = false;
         this.userService.setToken(res['token']);
@@ -199,19 +191,17 @@ export class SignInComponent implements OnInit {
   openHelp() {
     const dialogRef = this.dialog.open(HelpDialogComponent, {
       width: '600px',
-      data: {route: 'login'},
+      data: { route: 'login' },
       panelClass: 'custom-dialog-container',
-      position: {top: '20px'}
+      position: { top: '20px' }
     });
   }
 
   switchLanguage(language: string): void {
-    // console.log(language);
     this.languageService.setLanguage(language);
   }
 
   // async presentSavePasswordAlert() {
-  //   console.log('Presenting save password alert');
   //   setTimeout(async () => {
   //     const alert = await this.alertController.create({
   //       header: 'Passwort speichern?',
@@ -224,7 +214,6 @@ export class SignInComponent implements OnInit {
   //         }, {
   //           text: 'Ja',
   //           handler: async () => {
-  //             console.log('User chose to save the password');
   //             await SecureStoragePlugin.set({ key: 'user-password', value: this.signInModel.password });
   //             await SecureStoragePlugin.set({ key: 'username', value: this.signInModel.email });
   //           }

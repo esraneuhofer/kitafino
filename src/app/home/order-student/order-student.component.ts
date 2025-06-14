@@ -288,10 +288,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
       year: year
     });
 
-    // Debug: Zeige sowohl lokale als auch Berliner Zeit
-    console.log('dateMonday (lokale Anzeige):', dateMonday);
-    console.log('dateMonday (Berliner Zeit):', dayjs.tz(dateMonday, 'Europe/Berlin').format('YYYY-MM-DD HH:mm:ss z'));
-
     this.querySelection = {
       week: week,
       year: year
@@ -339,7 +335,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.pageLoaded = true;
         return;
       }
-      console.log('dateMonday', dateMonday);
       // Sets the Lockdays Array, Vacation Customer or State Holiday
       this.lockDays = getLockDays(
         dayjs.tz(dateMonday, 'Europe/Berlin').format('YYYY-MM-DD'),
@@ -348,9 +343,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.customer.generalSettings.state,
         this.selectedStudent.subgroup
       );
-      console.log('lockDays', this.lockDays);
       if (!this.selectedStudent) return;
-      console.log(this.indexDay)
       this.orderWeek.push(
         setOrderDayStudent(
           orderStudent,
@@ -425,7 +418,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
   setFirstInit(weekplanSelectedWeek: WeekplanMenuInterface) {
     const dateMonday = getDateMondayFromCalenderweek(this.querySelection);
-    console.log('dateMonday', dateMonday);
     this.selectedWeekplan = getMenusForWeekplan(weekplanSelectedWeek, this.menus, this.settings, this.querySelection);
     if (!this.registeredStudents || this.registeredStudents.length === 0) {
       this.showErrorNoStudents = true;
@@ -465,7 +457,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
 
   getOrdersWeekStudent(selectedStudent: StudentInterface, queryDate: QueryInterOrderInterface, weekplanSelectedWeek: WeekplanMenuInterface) {
-    console.log(queryDate)
     this.orderWeek = [];
     this.vacationsStudent = [];
 
@@ -477,7 +468,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     const dateMonday = normalizeToBerlinDate(
       getDateMondayFromCalenderweek(this.querySelection)
     );
-    console.log('dateMonday', dateMonday);
     if (!this.selectedStudent) {
       this.pageLoaded = true;
       return;

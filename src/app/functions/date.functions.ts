@@ -20,7 +20,6 @@ export function normalizeToBerlinDate(date: Date | string): string {
 export function getLockDays(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
-  console.log('dateMonday', dateMonday);
   var startDay = addDayFromDate(dateMonday, 0);
   for (var i = 0; i < numberFive.length; i++) {
     if (isHoliday(startDay, state) || isVacationSubgroup(startDay, allVacations, groupIdStudent) || isVacationStudent(startDay, allVacationsTenant)) {

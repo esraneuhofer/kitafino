@@ -99,7 +99,6 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
     selectedDate.toString(),
     query,
     contractSettings);
-  console.log('orderModelStudent', orderModelStudent);
   return {
     orderStudentModel: orderModelStudent,
     lockDay: lockDays[indexDaySelected],

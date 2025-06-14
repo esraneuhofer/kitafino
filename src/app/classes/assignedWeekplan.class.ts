@@ -1,10 +1,10 @@
-import {WeekplanMenuInterface} from "./weekplan.interface";
-import {CustomerInterface} from "./customer.class";
-import {SettingInterfaceNew} from "./setting.class";
-export interface WeekplanGroupClass{
-  _id?:string,
-  groups:{nameCustomer:string,customerId:string}[]
-  nameWeekplanGroup:string
+import { WeekplanMenuInterface } from "./weekplan.interface";
+import { CustomerInterface } from "./customer.class";
+import { SettingInterfaceNew } from "./setting.class";
+export interface WeekplanGroupClass {
+  _id?: string,
+  groups: { nameCustomer: string, customerId: string }[]
+  nameWeekplanGroup: string
 }
 
 // Interface für die Customer-Gruppe
@@ -42,12 +42,12 @@ export interface WeekplanModelGroupsAllowedInterfaceDay {
   selectedMealsDay: { idSpecial: string, selected: boolean }[];
 }
 
-function setWeekplangroupSelection(assignedWeekplan:AssignedWeekplanInterface,weekplanGroupsSelection:WeekplanGroupSelection):AssignedWeekplanInterface{
-  if(!weekplanGroupsSelection) return assignedWeekplan;
-  assignedWeekplan.weekplanGroupAllowed.forEach(weekplanGroup=>{
-    weekplanGroup.selectedMealsDay.forEach(mealType=>{
-      let weekplanGroupSelection = weekplanGroupsSelection.weekplanGroupAllowedSelection.find(weekplanGroupSelection=>weekplanGroupSelection.idSpecial === mealType.idSpecial);
-      if(weekplanGroupSelection){
+function setWeekplangroupSelection(assignedWeekplan: AssignedWeekplanInterface, weekplanGroupsSelection: WeekplanGroupSelection): AssignedWeekplanInterface {
+  if (!weekplanGroupsSelection) return assignedWeekplan;
+  assignedWeekplan.weekplanGroupAllowed.forEach(weekplanGroup => {
+    weekplanGroup.selectedMealsDay.forEach(mealType => {
+      let weekplanGroupSelection = weekplanGroupsSelection.weekplanGroupAllowedSelection.find(weekplanGroupSelection => weekplanGroupSelection.idSpecial === mealType.idSpecial);
+      if (weekplanGroupSelection) {
         mealType.selected = weekplanGroupSelection.selected;
       }
     });
@@ -56,37 +56,36 @@ function setWeekplangroupSelection(assignedWeekplan:AssignedWeekplanInterface,we
 }
 
 export function setWeekplanModelGroups(weekplan: WeekplanMenuInterface,
-                                       dateQuery: { week: number, year: number },
-                                       assignedWeekplans: AssignedWeekplanInterface[],
-                                       customerInfo: CustomerInterface,
-                                       weekplanGroups:WeekplanGroupClass[],
-                                       settings:SettingInterfaceNew,
-                                      weekplanGroupsSelection:WeekplanGroupSelection): AssignedWeekplanInterface {
-                                        console.log('weekplanGroupsSelection', JSON.parse(JSON.stringify(weekplanGroupsSelection)));
+  dateQuery: { week: number, year: number },
+  assignedWeekplans: AssignedWeekplanInterface[],
+  customerInfo: CustomerInterface,
+  weekplanGroups: WeekplanGroupClass[],
+  settings: SettingInterfaceNew,
+  weekplanGroupsSelection: WeekplanGroupSelection): AssignedWeekplanInterface {
+
   let weekplanModelGroups: AssignedWeekplanInterface = setNewAssignedWeekplan(weekplan, dateQuery);
   if (!weekplan) {
     return weekplanModelGroups;
   }
-  weekplanModelGroups = setEmptyAsignedWeekplan(weekplan, weekplanModelGroups,settings);
+  weekplanModelGroups = setEmptyAsignedWeekplan(weekplan, weekplanModelGroups, settings);
 
   assignedWeekplans.forEach(assignedWeekplan => {
     let weekplanGroup = weekplanGroups.find(weekplanGroup => weekplanGroup._id === assignedWeekplan.weekplanGroupId);
-    if(!weekplanGroup)return;
-    if (assignedWeekplan.weekplanId === weekplan._id && groupIsInWeekplanGroup(weekplanGroup,customerInfo)){
+    if (!weekplanGroup) return;
+    if (assignedWeekplan.weekplanId === weekplan._id && groupIsInWeekplanGroup(weekplanGroup, customerInfo)) {
 
       weekplanModelGroups = assignedWeekplan;
     }
   });
-  weekplanModelGroups = setWeekplangroupSelection(weekplanModelGroups,weekplanGroupsSelection);
-  console.log('weekplanModelGroups', JSON.parse(JSON.stringify(weekplanModelGroups)));
+  weekplanModelGroups = setWeekplangroupSelection(weekplanModelGroups, weekplanGroupsSelection);
   return weekplanModelGroups;
 
 }
 
-function groupIsInWeekplanGroup(weekplanGroup:WeekplanGroupClass,customerInfo:CustomerInterface):boolean{
+function groupIsInWeekplanGroup(weekplanGroup: WeekplanGroupClass, customerInfo: CustomerInterface): boolean {
   let isInGroup = false;
-  weekplanGroup.groups.forEach(group=>{
-    if(group.customerId === customerInfo.customerId){
+  weekplanGroup.groups.forEach(group => {
+    if (group.customerId === customerInfo.customerId) {
       isInGroup = true;
     }
   });
@@ -94,10 +93,10 @@ function groupIsInWeekplanGroup(weekplanGroup:WeekplanGroupClass,customerInfo:Cu
 }
 
 function setNewAssignedWeekplan(weekplan: WeekplanMenuInterface,
-                                       dateQuery: { week: number, year: number }):AssignedWeekplanInterface {
+  dateQuery: { week: number, year: number }): AssignedWeekplanInterface {
   return {
     tenantId: '',
-    weekplanId: weekplan._id || '' ,
+    weekplanId: weekplan._id || '',
     weekplanGroupId: '',
     week: dateQuery.week,
     year: dateQuery.year,
@@ -105,7 +104,7 @@ function setNewAssignedWeekplan(weekplan: WeekplanMenuInterface,
   };
 }
 
-function setEmptyAsignedWeekplan(weekplan: WeekplanMenuInterface, weekplanModelGroups: AssignedWeekplanInterface,settings:SettingInterfaceNew): AssignedWeekplanInterface {
+function setEmptyAsignedWeekplan(weekplan: WeekplanMenuInterface, weekplanModelGroups: AssignedWeekplanInterface, settings: SettingInterfaceNew): AssignedWeekplanInterface {
   let weekplanModelGroups$ = weekplanModelGroups;
 
   weekplan.weekplan.forEach((day, indexDay) => {

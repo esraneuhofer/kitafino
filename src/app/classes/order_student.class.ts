@@ -107,8 +107,6 @@ function getPriceBasedOnSettingsBrutto(price: number, tax: number, customer: Cus
 
 function getPriceStudentMenu(customer: CustomerInterface, studentModel: StudentInterface | null, eachSpecial: MealtypesWeekplan, contractSettings: EinrichtungInterface): number {
   let priceStudent = 0;
-  // console.log(studentModel)
-  // console.log(eachSpecial)
   if (!studentModel) return priceStudent;
   customer.billing.group.forEach(eachGroup => {
     if (eachGroup.groupId === studentModel.subgroup) {

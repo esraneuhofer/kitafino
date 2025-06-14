@@ -7,7 +7,7 @@
           <div class="w-full">
 
             <div class="flex flex-col items-end">
-              {{now | date:'dd.MM.yy HH:mm' }}
+              <!-- {{now | date:'dd.MM.yy HH:mm' }} -->
               <p>{{ orderDay.date | customDate:'EEEE dd.MM.yy' }}</p>
 
               <div *ngIf="!lockDay" class="text-xs text-gray-500 whitespace-nowrap">

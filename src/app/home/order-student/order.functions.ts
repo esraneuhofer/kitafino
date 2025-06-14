@@ -101,7 +101,6 @@ export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInp
 // Optimierte Version mit besserer Lesbarkeit
 export function timeDifferenceDaySkipWeekend(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
   // Alle Berechnungen in Berliner Zeit
-  console.log(dateInputCompare)
   let currentDay = dayjs.tz(dateInputCompare, 'Europe/Berlin');
   let businessDaysSubtracted = 0;
   const targetBusinessDays = Number(deadLineDaily.day);
@@ -139,7 +138,6 @@ export function addDayFromDate(date: Date, daysToAdd: number) {
 
 
 export function getWeekNumber(date: string | Date): number {
-  console.log('getWeekNumber', date);
   return dayjs.tz(date, 'Europe/Berlin').isoWeek();
 }
 

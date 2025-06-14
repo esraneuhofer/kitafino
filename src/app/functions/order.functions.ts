@@ -101,7 +101,6 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
 
 // Backend: Berechnung des Montags in deutscher Zeit
 export function getDateMondayFromCalenderweek(dateQuery: { week: number, year: number }): Date {
-  console.log('getDateMondayFromCalenderweek', dateQuery);
 
   const jan4 = dayjs.tz(`${dateQuery.year}-01-04`, 'Europe/Berlin');
   const firstMondayOfYear = jan4.startOf('isoWeek');
