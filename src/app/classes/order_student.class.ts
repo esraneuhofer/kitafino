@@ -1,13 +1,13 @@
-import {CustomerInterface} from "./customer.class";
-import {SettingInterfaceNew, SpecialFoodInterface} from "./setting.class";
-import {MealtypesWeekplan, WeekplanDayInterface} from "./weekplan.interface";
-import {StudentInterface} from "./student.class";
-import {Allergene} from "./allergenes.interface";
-import {MenuInterface} from "./menu.interface";
-import {MealModelInterface} from "./meal.interface";
-import {getSpecialFoodById} from "../functions/special-food.functions";
-import {roundNumberTwoDigits} from "../functions/generell.functions";
-import {EinrichtungInterface} from "./einrichtung.class";
+import { CustomerInterface } from "./customer.class";
+import { SettingInterfaceNew, SpecialFoodInterface } from "./setting.class";
+import { MealtypesWeekplan, WeekplanDayInterface } from "./weekplan.interface";
+import { StudentInterface } from "./student.class";
+import { Allergene } from "./allergenes.interface";
+import { MenuInterface } from "./menu.interface";
+import { MealModelInterface } from "./meal.interface";
+import { getSpecialFoodById } from "../functions/special-food.functions";
+import { roundNumberTwoDigits } from "../functions/generell.functions";
+import { EinrichtungInterface } from "./einrichtung.class";
 
 
 export interface SpecialFoodOrderInterface {
@@ -21,7 +21,7 @@ export interface SpecialFoodOrderInterface {
 
 
 export interface OrderInterfaceStudent {
-  orderId?:string;
+  orderId?: string;
   _id?: string;
   studentId: (string | undefined)
   kw: number;
@@ -30,8 +30,8 @@ export interface OrderInterfaceStudent {
   subgroup?: string;
   order: OrderInterfaceStudentDay;
   customerId: string;
-  groupIdCustomer:string;
-  username?:string;
+  groupIdCustomer: string;
+  username?: string;
   isBut: boolean;
 
 }
@@ -42,10 +42,10 @@ interface OrderInterfaceStudentDay {
 }
 
 export interface OrderSubDetailNew {
-  menuSelected:boolean;
+  menuSelected: boolean;
   priceOrder: number;
-  nameMenu:string;
-  displayMenu:boolean
+  nameMenu: string;
+  displayMenu: boolean
   typeOrder: string;//Special Dessert or Side
   nameOrder: string; //Special === pre ? Menu => Either One
   idType: string;
@@ -57,29 +57,29 @@ export interface OrderSubDetailNew {
   specialOrdersPossibleMenu?: SpecialFoodOrderInterface[];
   specialFoodOrder?: SpecialFoodOrderInterface[];
   nameLabelExist?: boolean;
-  idMenu: (string |null);
-  allergensPerMeal?:{nameMeal:string,allergenes:Allergene[]}[];
+  idMenu: (string | null);
+  allergensPerMeal?: { nameMeal: string, allergenes: Allergene[] }[];
 }
 export class OrderClassStudent implements OrderInterfaceStudent {
   studentId: (string | undefined);
   kw: number;
   year: number;
   order: OrderInterfaceStudentDay;
-  dateOrder:Date;
+  dateOrder: Date;
   customerId: string;
   _id?: string;
-  orderId?:string;
-  groupIdCustomer:string;
-  userId?:string;
+  orderId?: string;
+  groupIdCustomer: string;
+  userId?: string;
   isBut: boolean = false;
   constructor(customer: CustomerInterface,
-              query: { week: number, year: number },
-              settings: SettingInterfaceNew,
-              selectedWeek: WeekplanDayInterface,
-              studentModel: (StudentInterface | null)
-              ,dateOrder:Date,
-              contractSettings:EinrichtungInterface) {
-    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek,studentModel,contractSettings);
+    query: { week: number, year: number },
+    settings: SettingInterfaceNew,
+    selectedWeek: WeekplanDayInterface,
+    studentModel: (StudentInterface | null)
+    , dateOrder: Date,
+    contractSettings: EinrichtungInterface) {
+    this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek, studentModel, contractSettings);
     this.customerId = customer.customerId;
     this.dateOrder = dateOrder;
     this.kw = query.week;
@@ -87,43 +87,43 @@ export class OrderClassStudent implements OrderInterfaceStudent {
     if (studentModel) {
       this.studentId = studentModel._id;
     }
-    this.groupIdCustomer = this.getSubgroupStudent(studentModel,customer);
+    this.groupIdCustomer = this.getSubgroupStudent(studentModel, customer);
 
   }
-  getSubgroupStudent(studentModel:StudentInterface | null,customer:CustomerInterface):string{
-    if(!studentModel) return '';
-    if(studentModel && studentModel.subgroup &&  studentModel.subgroup.length > 0) return studentModel.subgroup;
+  getSubgroupStudent(studentModel: StudentInterface | null, customer: CustomerInterface): string {
+    if (!studentModel) return '';
+    if (studentModel && studentModel.subgroup && studentModel.subgroup.length > 0) return studentModel.subgroup;
     return customer.order.split[0].group;
   }
 }
-function getPriceBasedOnSettingsBrutto(price:number,tax:number,customer:CustomerInterface):number{
+function getPriceBasedOnSettingsBrutto(price: number, tax: number, customer: CustomerInterface): number {
   let newPrice = price;
-  if(!customer.billing.isBrutto){
-    newPrice = newPrice + (newPrice/100*tax);
+  if (!customer.billing.isBrutto) {
+    newPrice = newPrice + (newPrice / 100 * tax);
   }
   return roundNumberTwoDigits(newPrice);
 }
 
 
-function getPriceStudentMenu(customer:CustomerInterface,studentModel:StudentInterface | null,eachSpecial:MealtypesWeekplan,contractSettings:EinrichtungInterface):number{
+function getPriceStudentMenu(customer: CustomerInterface, studentModel: StudentInterface | null, eachSpecial: MealtypesWeekplan, contractSettings: EinrichtungInterface): number {
   let priceStudent = 0;
   // console.log(studentModel)
   // console.log(eachSpecial)
-  if(!studentModel)return priceStudent;
+  if (!studentModel) return priceStudent;
   customer.billing.group.forEach(eachGroup => {
-    if(eachGroup.groupId === studentModel.subgroup){
-      eachGroup.prices.forEach((eachPrice,index)=>{
-        if(eachPrice.idSpecial === eachSpecial.idSpecial){
-          priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,customer);
+    if (eachGroup.groupId === studentModel.subgroup) {
+      eachGroup.prices.forEach((eachPrice, index) => {
+        if (eachPrice.idSpecial === eachSpecial.idSpecial) {
+          priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial, eachGroup.tax, customer);
           // priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
         }
       })
     }
   })
-  if(contractSettings.whoPayCharges === 'parent'){
-    priceStudent += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder/100*19));
+  if (contractSettings.whoPayCharges === 'parent') {
+    priceStudent += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder / 100 * 19));
   }
-  if(contractSettings.essensgeldEinrichtung > 0){
+  if (contractSettings.essensgeldEinrichtung > 0) {
     priceStudent += contractSettings.essensgeldEinrichtung;
   }
   return priceStudent;
@@ -133,33 +133,34 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
   orderMenus: OrderSubDetailNew[] = [];
 
   constructor(customer: CustomerInterface,
-              settings: SettingInterfaceNew,
-              selectedWeek: WeekplanDayInterface,
-              studentModel: (StudentInterface | null),
-              contractSettings:EinrichtungInterface) {
+    settings: SettingInterfaceNew,
+    selectedWeek: WeekplanDayInterface,
+    studentModel: (StudentInterface | null),
+    contractSettings: EinrichtungInterface) {
     selectedWeek.mealTypesDay.forEach(eachSpecial => {
-      let priceStudent = getPriceStudentMenu(customer,studentModel,eachSpecial,contractSettings)
-      let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek,priceStudent);
+
+      let priceStudent = getPriceStudentMenu(customer, studentModel, eachSpecial, contractSettings)
+      let order: OrderSubDetailNew = setOrderSplitEach(eachSpecial, customer, settings, selectedWeek, priceStudent);
       if (order) {
         this.orderMenus.push(order);
       }
     });
-    if(studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood){
-      let priceSpecial = getPriceSpecialFood(customer,studentModel,contractSettings);
-      let specialFood = getSpecialFoodById(studentModel.specialFood,settings);
-      if(!specialFood)return;
-      const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
+    if (studentModel && studentModel.specialFood && !customer.generalSettings.showAllSpecialFood) {
+      let priceSpecial = getPriceSpecialFood(customer, studentModel, contractSettings);
+      let specialFood = getSpecialFoodById(studentModel.specialFood, settings);
+      if (!specialFood) return;
+      const orderSpecial: OrderSubDetailNew = setOrderSpecialFood(priceSpecial, specialFood)
       this.orderMenus.push(orderSpecial);
     }
-    if(studentModel && customer.generalSettings.showAllSpecialFood){
-      if(customer.order.showSpecialFood && customer.order.specialShow.length > 0){
-        customer.order.specialShow.forEach(eachSpecial=>{
-          if(eachSpecial.selected){
-            let priceSpecial = getPriceSpecialFood(customer,studentModel,contractSettings);
+    if (studentModel && customer.generalSettings.showAllSpecialFood) {
+      if (customer.order.showSpecialFood && customer.order.specialShow.length > 0) {
+        customer.order.specialShow.forEach(eachSpecial => {
+          if (eachSpecial.selected) {
+            let priceSpecial = getPriceSpecialFood(customer, studentModel, contractSettings);
 
-            let specialFood = getSpecialFoodById(eachSpecial.idSpecialFood,settings);
-            if(!specialFood)return;
-            const orderSpecial:OrderSubDetailNew = setOrderSpecialFood(priceSpecial,specialFood)
+            let specialFood = getSpecialFoodById(eachSpecial.idSpecialFood, settings);
+            if (!specialFood) return;
+            const orderSpecial: OrderSubDetailNew = setOrderSpecialFood(priceSpecial, specialFood)
             this.orderMenus.push(orderSpecial);
           }
         })
@@ -167,40 +168,42 @@ class OrderModelSingleDayStudent implements OrderInterfaceStudentDay {
     }
   }
 }
-function getPriceSpecialFood(customer:CustomerInterface,studenModel:StudentInterface,contractSettings:EinrichtungInterface):number{
+function getPriceSpecialFood(customer: CustomerInterface, studenModel: StudentInterface, contractSettings: EinrichtungInterface): number {
   let price = 0;
-  let backupPrice:number = 0;
-  if(customer.billing.separatePrice){
-    customer.billing.group.forEach(eachGroup=>{
-      if(eachGroup.groupId === studenModel.subgroup){
-        eachGroup.prices.forEach((eachPrice,index)=>{
-          if(eachPrice.typeSpecial === 'special'){
-            price = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial,eachGroup.tax,customer); ;
-            // price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
-          }
-        })
-      }
-    })
-  }else{
-    customer.billing.group.forEach(eachPrice=>{
-      if(eachPrice.groupId === studenModel.subgroup) {
-        price =  eachPrice.prices[0].priceSpecial
-      }
-    })
-  }
-  if(contractSettings.whoPayCharges === 'parent'){
-    price += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder/100*19));
+  let backupPrice: number = 0;
+  // if (customer.billing.separatePrice) {
+  customer.billing.group.forEach(eachGroup => {
+    if (eachGroup.groupId === studenModel.subgroup) {
+      eachGroup.prices.forEach((eachPrice, index) => {
+        if (eachPrice.typeSpecial === 'special') {
+          price = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial, eachGroup.tax, customer);
+          // price = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));
+        }
+      })
+    }
+  })
+  // } else {
+  //   customer.billing.group.forEach(eachPrice => {
+  //     console.log('eachPrice', eachPrice);
+  //     if (eachPrice.groupId === studenModel.subgroup) {
+  //       price = getPriceBasedOnSettingsBrutto(eachPrice.prices[0].priceSpecial, eachPrice.tax, customer);
+  //       price = eachPrice.prices[0].priceSpecial
+  //     }
+  //   })
+  // }
+  if (contractSettings.whoPayCharges === 'parent') {
+    price += roundNumberTwoDigits(contractSettings.amountPerOrder + (contractSettings.amountPerOrder / 100 * 19));
 
   }
-  if(contractSettings.essensgeldEinrichtung > 0){
+  if (contractSettings.essensgeldEinrichtung > 0) {
     price += contractSettings.essensgeldEinrichtung;
   }
   return price;
 }
-function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterface): OrderSubDetailNew {
+function setOrderSpecialFood(priceStudent: number, specialFood: SpecialFoodInterface): OrderSubDetailNew {
   let order: OrderSubDetailNew = {
     menuSelected: false,
-    priceOrder:priceStudent,
+    priceOrder: priceStudent,
     nameMenu: specialFood.nameSpecialFood,
     displayMenu: true,
     isDge: false,
@@ -208,8 +211,8 @@ function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterfac
     nameOrder: specialFood.nameSpecialFood,
     idType: specialFood._id,
     amountOrder: 0,
-    idMenu:null,
-    nameLabelExist:false,
+    idMenu: null,
+    nameLabelExist: false,
     specialFoodOrder: [],
     isDisabled: false,
   };
@@ -218,23 +221,23 @@ function setOrderSpecialFood(priceStudent:number,specialFood:SpecialFoodInterfac
   return order;
 }
 
-function displayMenuForStudent(typeSpecial:string,settings: SettingInterfaceNew):boolean{
-  if(settings.orderSettings.showDessertIfNotSeparate && typeSpecial === 'dessert') return false
-  if(settings.orderSettings.showSideIfNotSeparate && typeSpecial === 'side') return false
+function displayMenuForStudent(typeSpecial: string, settings: SettingInterfaceNew): boolean {
+  if (settings.orderSettings.showDessertIfNotSeparate && typeSpecial === 'dessert') return false
+  if (settings.orderSettings.showSideIfNotSeparate && typeSpecial === 'side') return false
   return true;
 }
 
-export function getPriceOrderPlaced(orderStudent:OrderInterfaceStudent):number{
-    let price = 0;
-    orderStudent.order.orderMenus.forEach(eachOrder=>{
-      if(eachOrder.amountOrder > 0) price += eachOrder.priceOrder * eachOrder.amountOrder;
-    })
-    return price;
+export function getPriceOrderPlaced(orderStudent: OrderInterfaceStudent): number {
+  let price = 0;
+  orderStudent.order.orderMenus.forEach(eachOrder => {
+    if (eachOrder.amountOrder > 0) price += eachOrder.priceOrder * eachOrder.amountOrder;
+  })
+  return price;
 }
-function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
-                                  customer: CustomerInterface,
-                                  settings: SettingInterfaceNew,
-                                  selectedWeek: WeekplanDayInterface,priceStudent:number):OrderSubDetailNew {
+function setOrderSplitEach(eachSpecial: MealtypesWeekplan,
+  customer: CustomerInterface,
+  settings: SettingInterfaceNew,
+  selectedWeek: WeekplanDayInterface, priceStudent: number): OrderSubDetailNew {
   // if (eachSpecial.typeSpecial === 'side' && !settings.orderSettings.sideOrderSeparate) {
   //   return null;
   // }
@@ -243,7 +246,7 @@ function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
   // }
   let order: OrderSubDetailNew = {
     menuSelected: false,
-    priceOrder:priceStudent,
+    priceOrder: priceStudent,
     nameMenu: eachSpecial.nameSpecial,
     displayMenu: displayMenuForStudent(eachSpecial.typeSpecial, settings), //Shows Menu (Side,Dessert) Depending on Settings
     isDge: eachSpecial.isDge,
@@ -251,8 +254,8 @@ function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
     nameOrder: getNameLabelOrderOverview0(eachSpecial, selectedWeek),
     idType: eachSpecial.idSpecial,
     amountOrder: 0,
-    idMenu:getMenuIdOrderOverview(eachSpecial, selectedWeek),
-    nameLabelExist:doesNameLabelExist(eachSpecial, selectedWeek),
+    idMenu: getMenuIdOrderOverview(eachSpecial, selectedWeek),
+    nameLabelExist: doesNameLabelExist(eachSpecial, selectedWeek),
     specialFoodOrder: getSpecialOrdersPossibleMenu(eachSpecial, settings, customer),
     isDisabled: getLockInputOrderOverview(selectedWeek, eachSpecial),
   };
@@ -264,8 +267,8 @@ function setOrderSplitEach(eachSpecial:MealtypesWeekplan,
 
 
 function getAllergensPerMealOrderOverviewMenuO(special: OrderSubDetailNew,
-                                               weekplan: WeekplanDayInterface):{nameMeal:string,allergenes:Allergene[]}[] {
-  let arrayOfAllergenes:{nameMeal:string,allergenes:Allergene[]}[] = [];
+  weekplan: WeekplanDayInterface): { nameMeal: string, allergenes: Allergene[] }[] {
+  let arrayOfAllergenes: { nameMeal: string, allergenes: Allergene[] }[] = [];
   // if (!weekplan || indexDay === -1 || indexDay === 5) {
   //   return [];
   // }
@@ -277,8 +280,8 @@ function getAllergensPerMealOrderOverviewMenuO(special: OrderSubDetailNew,
       eachMealType.menu.recipe.forEach(eachRecipe => {
         if (!eachRecipe) return;
         arrayOfAllergenes.push({
-          nameMeal:eachRecipe.nameMeal,
-          allergenes:getAllergenesPerRecipe(eachRecipe)
+          nameMeal: eachRecipe.nameMeal,
+          allergenes: getAllergenesPerRecipe(eachRecipe)
         });
       })
     }
@@ -338,9 +341,9 @@ function getLockInputOrderOverview(weekplan: WeekplanDayInterface, special: Meal
 
 
 function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting: SettingInterfaceNew, customer: CustomerInterface): SpecialFoodOrderInterface[] {
-  let arraySpecial:SpecialFoodOrderInterface[] = [];
-  if(orderDayGroup.typeSpecial === 'side' && !setting.orderSettings.specialShowSideIfShowMenu) return arraySpecial
-  if(orderDayGroup.typeSpecial === 'dessert' && !setting.orderSettings.specialShowDessertIfShowMenu) return arraySpecial
+  let arraySpecial: SpecialFoodOrderInterface[] = [];
+  if (orderDayGroup.typeSpecial === 'side' && !setting.orderSettings.specialShowSideIfShowMenu) return arraySpecial
+  if (orderDayGroup.typeSpecial === 'dessert' && !setting.orderSettings.specialShowDessertIfShowMenu) return arraySpecial
   if (!orderDayGroup.menu) {
     return setSpecialArrayNoWeekplanExist(setting, customer, orderDayGroup);
   }
@@ -369,7 +372,7 @@ function getSpecialOrdersPossibleMenu(orderDayGroup: MealtypesWeekplan, setting:
 }
 
 function getAllergensOrderOverviewMenuO(special: OrderSubDetailNew, weekplan: WeekplanDayInterface): Allergene[] {
-  let allergenen:Allergene[] = [];
+  let allergenen: Allergene[] = [];
   // if (!weekplan || indexDay === -1 || indexDay === 5) {
   //   return allergenen;
   // }
@@ -417,7 +420,7 @@ function specialFoodShownCustomer(specialFood: SpecialFoodInterface, customer: C
 }
 
 function specialFoodIsInAllergies(specialFood: SpecialFoodInterface, allergenes: Allergene[]): boolean {
-  if(!allergenes)return false;
+  if (!allergenes) return false;
   for (let i = 0; i < specialFood.allergenes.length; i++) {
     for (let i2 = 0; i2 < allergenes.length; i2++) {
       if (specialFood.allergenes[i] === allergenes[i2]._id) {
@@ -429,12 +432,12 @@ function specialFoodIsInAllergies(specialFood: SpecialFoodInterface, allergenes:
 }
 
 function setSpecialArrayNoWeekplanExist(setting: SettingInterfaceNew, customer: CustomerInterface, orderDayGroup: MealtypesWeekplan): SpecialFoodOrderInterface[] {
-  let arraySpecial:SpecialFoodOrderInterface[] = [];
+  let arraySpecial: SpecialFoodOrderInterface[] = [];
   setting.orderSettings.specialFoods.forEach((specialFood) => {
     let specialFoodOrder = {
       isShownCustomer: specialFoodShownCustomer(specialFood, customer),
       nameSpecialFood: specialFood.nameSpecialFood,
-      idSpecialFood: specialFood._id ||'',
+      idSpecialFood: specialFood._id || '',
       amountSpecialFood: 0,
       active: false,
       priceOrder: 0,
@@ -450,15 +453,15 @@ function setSpecialArrayNoWeekplanExist(setting: SettingInterfaceNew, customer: 
 
 
 function getSpecialOrdersSubGroup(setting: SettingInterfaceNew,
-                                  customer: CustomerInterface): SpecialFoodOrderInterface[] {
-  let arraySpecial:SpecialFoodOrderInterface[] = [];
+  customer: CustomerInterface): SpecialFoodOrderInterface[] {
+  let arraySpecial: SpecialFoodOrderInterface[] = [];
   setting.orderSettings.specialFoods.forEach(specialFood => {
     // if(!specialFood)return
-    let obj:SpecialFoodOrderInterface = {
+    let obj: SpecialFoodOrderInterface = {
       menuSelected: false,
       priceOrder: 0,
       nameSpecialFood: specialFood.nameSpecialFood,
-      idSpecialFood: specialFood._id  || '',
+      idSpecialFood: specialFood._id || '',
       amountSpecialFood: 0,
       active: false,
     }
@@ -470,8 +473,8 @@ function getSpecialOrdersSubGroup(setting: SettingInterfaceNew,
   return arraySpecial
 }
 
-function calculateAllergenesMenu(menu: MenuInterface):Allergene[] {
-  let allergens:Allergene[] = [];
+function calculateAllergenesMenu(menu: MenuInterface): Allergene[] {
+  let allergens: Allergene[] = [];
   if (!menu) {
     return [];
   }
@@ -500,7 +503,7 @@ function removeDuplicatesMenuAllergene(allergens: Allergene[]): Allergene[] {
 
 
 export function getAllergenesPerRecipe(recipe: MealModelInterface): Allergene[] {
-  let allergenes:Allergene[] = [];
+  let allergenes: Allergene[] = [];
   if (!recipe || typeof recipe !== 'object') {
     return [];
   }

@@ -73,43 +73,61 @@ export function timeDifference(difference: number, withSeconds: boolean): string
 }
 
 export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
-  let dayOrder = new Date(dateInputCompare);
-  const daysSub = addDayFromDate(dayOrder, -deadLineDaily.day);
+  // Konvertiere das Eingabedatum zu Berliner Zeit
+  const dayOrderBerlin = dayjs.tz(dateInputCompare, 'Europe/Berlin');
+
+  // Subtrahiere die Tage in Berliner Zeit
+  const daysSub = dayOrderBerlin.subtract(Number(deadLineDaily.day), 'day');
 
   // Split the time string into hours and minutes
   const [hours_, minutes_] = deadLineDaily.time.split(':').map(Number);
 
-  daysSub.setHours(hours_);
-  daysSub.setMinutes(minutes_);
-  daysSub.setSeconds(0);
+  // Setze die Deadline-Zeit in Berliner Zeit
+  const deadlineBerlin = daysSub
+    .hour(hours_)
+    .minute(minutes_)
+    .second(0)
+    .millisecond(0);
 
-  let difference = daysSub.getTime() - new Date().getTime();  // to ensure we get a positive difference
+  // Aktuelle Zeit in Berliner Zeit für konsistente Berechnung
+  const nowBerlin = dayjs.tz(new Date(), 'Europe/Berlin');
+
+  // Verwende dayjs.diff() statt .toDate().getTime() für bessere Performance
+  const difference = deadlineBerlin.diff(nowBerlin);
+
   return difference;
 }
 
+// Optimierte Version mit besserer Lesbarkeit
 export function timeDifferenceDaySkipWeekend(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
-  let dayOrder = new Date(dateInputCompare);
-  let daysToSubtract = parseInt(deadLineDaily.day);
+  // Alle Berechnungen in Berliner Zeit
+  console.log(dateInputCompare)
+  let currentDay = dayjs.tz(dateInputCompare, 'Europe/Berlin');
+  let businessDaysSubtracted = 0;
+  const targetBusinessDays = Number(deadLineDaily.day);
 
-  // Gehe vom Essenstag rückwärts und überspringe Wochenenden
-  for (let i = 0; i < daysToSubtract; i++) {
-    dayOrder = addDayFromDate(dayOrder, -1);
+  // Subtrahiere nur Werktage (Mo-Fr)
+  while (businessDaysSubtracted < targetBusinessDays) {
+    currentDay = currentDay.subtract(1, 'day');
 
-    // Wenn wir auf ein Wochenende treffen, überspringe es
-    while (dayOrder.getDay() === 0 || dayOrder.getDay() === 6) { // 0 = Sonntag, 6 = Samstag
-      dayOrder = addDayFromDate(dayOrder, -1);
+    // Nur Werktage zählen (Mo=1, Di=2, Mi=3, Do=4, Fr=5)
+    if (currentDay.day() >= 1 && currentDay.day() <= 5) {
+      businessDaysSubtracted++;
     }
   }
 
-  // Split the time string into hours and minutes
+  // Zeit setzen
   const [hours_, minutes_] = deadLineDaily.time.split(':').map(Number);
+  const deadlineBerlin = currentDay
+    .hour(hours_)
+    .minute(minutes_)
+    .second(0)
+    .millisecond(0);
 
-  dayOrder.setHours(hours_);
-  dayOrder.setMinutes(minutes_);
-  dayOrder.setSeconds(0);
+  // Aktuelle Zeit in Berliner Zeit
+  const nowBerlin = dayjs.tz(new Date(), 'Europe/Berlin');
 
-  let difference = dayOrder.getTime() - new Date().getTime();
-  return difference;
+  return deadlineBerlin.diff(nowBerlin);
 }
 
 export function addDayFromDate(date: Date, daysToAdd: number) {
@@ -121,12 +139,10 @@ export function addDayFromDate(date: Date, daysToAdd: number) {
 
 
 export function getWeekNumber(date: string | Date): number {
-  if (typeof date === 'string') {
-    return dayjs(date).tz('Europe/Berlin').isoWeek();
-  } else {
-    return dayjs(date).tz('Europe/Berlin').isoWeek();
-  }
+  console.log('getWeekNumber', date);
+  return dayjs.tz(date, 'Europe/Berlin').isoWeek();
 }
+
 export function getSplit(customer: CustomerInterface): string[] {
   let array: string[] = [];
   customer.order.split.forEach(eachGroup => {
@@ -160,14 +176,17 @@ export function getDeadlineWeeklyFunction(customerGeneralSettings: GeneralSettin
   }
   let yearsDiff = endYear - startYear;
   let end: any = getDeadLineEnd(customerGeneralSettings.deadlineWeekly, weekNumber, startWeekNumber, yearsDiff, startYear);
-  let now: any = new Date();
-  return end - now;
+
+  // Aktuelle Zeit in Berliner Zeit für konsistente Berechnung
+  let nowBerlin: any = dayjs.tz(new Date(), 'Europe/Berlin').toDate();
+  return end - nowBerlin;
 }
 
 function getDeadLineEnd(object: { weeks: string; day: string; time: string; }, weeknumber: number, startWeek: number, yearsDiff: number, startYear: number) {
   function getSub() {
     let num = 0;
-    if (new Date().getDay() === 0) {
+    // Sonntag-Check in Berliner Zeit
+    if (dayjs.tz(new Date(), 'Europe/Berlin').day() === 0) {
       num = -1;
     }
     return num;
@@ -175,28 +194,22 @@ function getDeadLineEnd(object: { weeks: string; day: string; time: string; }, w
   if (yearsDiff !== 0) {
     let sub = getSub();
     let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
-    let days = parseInt(object.day) - (new Date()).getDay() + (7 * diff) + (365 * yearsDiff);
+    let days = parseInt(object.day) - dayjs.tz(new Date(), 'Europe/Berlin').day() + (7 * diff) + (365 * yearsDiff);
     if (startYear === 2020) {
       days += 6;
     }
-    let deadLine = addDayFromDate(new Date, days);
-    let dayDeadLine = deadLine.getDate();
-    let yearDeadLine = deadLine.getFullYear();
-    let monthDeadLine = deadLine.getMonth();
+    let deadLine = dayjs.tz(new Date(), 'Europe/Berlin').add(days, 'day');
     let hours = extractTime(object.time).hours;
     let min = extractTime(object.time).minutes;
-    return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
+    return deadLine.hour(hours).minute(min).second(0).millisecond(0).toDate();
   } else {
     let sub = getSub();
     let diff = weeknumber + sub - startWeek - (parseFloat(object.weeks));
-    let days = parseInt(object.day) - (new Date()).getDay() + (7 * diff);
-    let deadLine = addDayFromDate(new Date, days);
-    let dayDeadLine = deadLine.getDate();
-    let yearDeadLine = deadLine.getFullYear();
-    let monthDeadLine = deadLine.getMonth();
+    let days = parseInt(object.day) - dayjs.tz(new Date(), 'Europe/Berlin').day() + (7 * diff);
+    let deadLine = dayjs.tz(new Date(), 'Europe/Berlin').add(days, 'day');
     let hours = extractTime(object.time).hours;
     let min = extractTime(object.time).minutes;
-    return new Date(yearDeadLine, monthDeadLine, dayDeadLine, hours, min, 0, 0);
+    return deadLine.hour(hours).minute(min).second(0).millisecond(0).toDate();
   }
 
 }

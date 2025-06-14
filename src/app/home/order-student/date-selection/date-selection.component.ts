@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {getWeekNumber, timeDifference} from "../order.functions";
-import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {getCalenderQuery, getYearsQuery} from "./date-selection.functions";
-import {QueryInterOrderInterface} from "../../../functions/weekplan.functions";
-import {StudentInterface} from "../../../classes/student.class";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { getWeekNumber, timeDifference } from "../order.functions";
+import { SettingInterfaceNew } from "../../../classes/setting.class";
+import { getCalenderQuery, getYearsQuery } from "./date-selection.functions";
+import { QueryInterOrderInterface } from "../../../functions/weekplan.functions";
+import { StudentInterface } from "../../../classes/student.class";
 
 interface CalendarWeek {
   value: string;
   week: number;
-  year:number
+  year: number
 }
 
 /**
@@ -90,7 +90,7 @@ function getQueryCalenderWeek(): CalendarWeek[] {
     const value = `KW:${weekNumber} | ${formatDate(weekMonday)} - ${formatDate(weekSunday)}.${year}`;
 
     // Füge das Objekt zum Array hinzu
-    queryCalenderWeek.push({ value, week: weekNumber,year:year });
+    queryCalenderWeek.push({ value, week: weekNumber, year: year });
   }
 
   return queryCalenderWeek;
@@ -118,8 +118,8 @@ export class DateSelectionComponent implements OnInit {
 
 
   selectedStudent: (StudentInterface | null) = null;
-  queryCalenderWeek: { value: string; week: number,year:number }[] = [];
-  query: QueryInterOrderInterface = {week: getWeekNumber(new Date()), year: new Date().getFullYear()};
+  queryCalenderWeek: { value: string; week: number, year: number }[] = [];
+  query: QueryInterOrderInterface = { week: getWeekNumber(new Date()), year: new Date().getFullYear() };
   generatedKWArray: { value: string; week: number }[][] = [];
 
   constructor() {

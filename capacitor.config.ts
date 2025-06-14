@@ -4,7 +4,6 @@ const config: CapacitorConfig = {
   appId: 'com.cateringexpert.appcateringexpert',
   appName: 'Cateringexpert',
   webDir: 'dist/schulanmeldungen',
-  bundledWebRuntime: false,
 
   ios: {
     contentInset: 'always',
@@ -34,6 +33,9 @@ const config: CapacitorConfig = {
       "ios": {
         "usesFileOpener": true
       }
+    },
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"]
     },
     SplashScreen: {
       // launchAutoHide: false,

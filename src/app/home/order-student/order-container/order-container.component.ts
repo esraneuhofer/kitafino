@@ -9,33 +9,33 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {OrderInterfaceStudent} from "../../../classes/order_student.class";
-import {SettingInterfaceNew} from "../../../classes/setting.class";
-import {OrderService} from "../../../service/order.service";
+import { OrderInterfaceStudent } from "../../../classes/order_student.class";
+import { SettingInterfaceNew } from "../../../classes/setting.class";
+import { OrderService } from "../../../service/order.service";
 import {
   OrderInterfaceStudentSave,
 } from "../../../classes/order_student_safe.class";
-import {GenerellService} from "../../../service/generell.service";
-import {addDayFromDate, getWeekNumber} from "../order.functions";
-import {defaultIfEmpty, forkJoin, Observable} from "rxjs";
-import {WeekplanMenuInterface} from "../../../classes/weekplan.interface";
-import {getMenusForWeekplan, QueryInterOrderInterface} from "../../../functions/weekplan.functions";
-import {MenuInterface} from "../../../classes/menu.interface";
-import {StudentInterface} from "../../../classes/student.class";
-import {getLockDays, normalizeToBerlinDate} from "../../../functions/date.functions";
-import {CustomerInterface} from "../../../classes/customer.class";
-import {VacationsSubgroupInterface} from "../../../classes/vacation.interface";
+import { GenerellService } from "../../../service/generell.service";
+import { addDayFromDate, getWeekNumber } from "../order.functions";
+import { defaultIfEmpty, forkJoin, Observable } from "rxjs";
+import { WeekplanMenuInterface } from "../../../classes/weekplan.interface";
+import { getMenusForWeekplan, QueryInterOrderInterface } from "../../../functions/weekplan.functions";
+import { MenuInterface } from "../../../classes/menu.interface";
+import { StudentInterface } from "../../../classes/student.class";
+import { getLockDays, normalizeToBerlinDate } from "../../../functions/date.functions";
+import { CustomerInterface } from "../../../classes/customer.class";
+import { VacationsSubgroupInterface } from "../../../classes/vacation.interface";
 import {
   getDateMondayFromCalenderweek,
   setOrderStudent
 } from "../../../functions/order.functions";
-import {TenantStudentInterface} from "../../../classes/tenant.class";
-import {AccountService} from "../../../service/account.serive";
-import {AccountCustomerInterface} from "../../../classes/account.class";
+import { TenantStudentInterface } from "../../../classes/tenant.class";
+import { AccountService } from "../../../service/account.serive";
+import { AccountCustomerInterface } from "../../../classes/account.class";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {EinrichtungInterface} from "../../../classes/einrichtung.class";
+import { EinrichtungInterface } from "../../../classes/einrichtung.class";
 import { VacationStudent } from '../../../service/vacation.service';
 
 dayjs.extend(utc);
@@ -82,13 +82,13 @@ function getPriceStudentDependingOnSettings(settings: SettingInterfaceNew, eachP
 
 
 export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
-                                   weekplanSelectedWeek: WeekplanMenuInterface,
-                                   settings: SettingInterfaceNew,
-                                   customer: CustomerInterface,
-                                   selectedStudent: any, indexDaySelected: number,
-                                   selectedDate: Date, query: { week: number, year: number },
-                                   lockDays: boolean[],
-                                   contractSettings: EinrichtungInterface): MealCardInterface {
+  weekplanSelectedWeek: WeekplanMenuInterface,
+  settings: SettingInterfaceNew,
+  customer: CustomerInterface,
+  selectedStudent: any, indexDaySelected: number,
+  selectedDate: Date, query: { week: number, year: number },
+  lockDays: boolean[],
+  contractSettings: EinrichtungInterface): MealCardInterface {
   const orderModelStudent = setOrderStudent(
     order,
     weekplanSelectedWeek,
@@ -99,6 +99,7 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
     selectedDate.toString(),
     query,
     contractSettings);
+  console.log('orderModelStudent', orderModelStudent);
   return {
     orderStudentModel: orderModelStudent,
     lockDay: lockDays[indexDaySelected],
@@ -134,16 +135,16 @@ export class OrderContainerComponent implements OnInit, OnChanges {
   @Output() orderPlacedNew: any = new EventEmitter<Event>();
   isLocked: boolean = false;
   pageLoaded: boolean = false;
-  query: { week: number; year: number } = {week: 0, year: 0};
+  query: { week: number; year: number } = { week: 0, year: 0 };
 
   constructor(private orderService: OrderService,
-              private accountService: AccountService,
-              private generellService: GenerellService) {
+    private accountService: AccountService,
+    private generellService: GenerellService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['querySelection']) {
-      this.querySelection = {...changes['querySelection'].currentValue}
+      this.querySelection = { ...changes['querySelection'].currentValue }
       this.query = this.querySelection
       this.getDataWeek();
     }
@@ -176,7 +177,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
       ///Sets the Weekplan from Catering Company with Menus and Allergenes
       const weekplanSelectedWeek = getMenusForWeekplan(weekplan, this.menus, this.settings, this.query);
       ///Sets the Lockdays Array, Vacation Customer or State Holiday
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations,this.allVacationsTenant, this.customer.generalSettings.state,this.selectedStudent.subgroup);
+      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.allVacationsTenant, this.customer.generalSettings.state, this.selectedStudent.subgroup);
       let promiseOrderWeek = [];
       for (let i = 0; i < 5; i++) {
         let dateToSearch = dayjs(addDayFromDate(dateMonday, i)).tz('Europe/Berlin').format();
@@ -191,7 +192,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
           let dateFormatted = normalizeToBerlinDate(date);
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays,this.schoolSettings))
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays, this.schoolSettings))
         }
         this.pageLoaded = true;
 

@@ -20,6 +20,7 @@ export function normalizeToBerlinDate(date: Date | string): string {
 export function getLockDays(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean[] {
   let lockDay = [false, false, false, false, false];
   let dateMonday = getMonday(date);
+  console.log('dateMonday', dateMonday);
   var startDay = addDayFromDate(dateMonday, 0);
   for (var i = 0; i < numberFive.length; i++) {
     if (isHoliday(startDay, state) || isVacationSubgroup(startDay, allVacations, groupIdStudent) || isVacationStudent(startDay, allVacationsTenant)) {
@@ -103,36 +104,52 @@ export function setDateToCompare(input: Date): number {
 }
 
 export function getMonday(inputDate: string): Date {
-  // Create a new Date object to avoid modifying the input date
-  const date = new Date(inputDate);
+  // Parse Input-Datum in Berlin-Zeit
+  const berlinDate = dayjs.tz(inputDate, 'Europe/Berlin');
 
-  // The getDay() method returns the day of the week: 0 for Sunday, 1 for Monday, ... 6 for Saturday
-  const dayOfWeek = date.getDay();
+  if (!berlinDate.isValid()) {
+    throw new Error(`Invalid date: ${inputDate}`);
+  }
 
-  // Calculate the number of days to subtract from the given date to get to the previous Monday
-  const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1;  // If it's Sunday, subtract 6 days. Otherwise, subtract (dayOfWeek - 1) days.
+  // Finde Montag der Woche in Berlin-Zeit
+  const monday = berlinDate.startOf('isoWeek'); // ISO-Woche beginnt montags
 
-  // Subtract the necessary days
-  date.setDate(date.getDate() - daysToSubtract);
-
-  return date;
+  return monday.toDate();
 }
 
 export function checkDayWeekend(day: string): boolean {
-  let indexDay = new Date(day).getDay();
-  if (indexDay === 6 || indexDay === 0) {
-    return true;
+  // Parse Input-Datum in Berlin-Zeit für konsistente Wochenend-Erkennung
+  const berlinDate = dayjs.tz(day, 'Europe/Berlin');
+
+  if (!berlinDate.isValid()) {
+    throw new Error(`Invalid date: ${day}`);
   }
-  return false;
+
+  const dayOfWeek = berlinDate.day(); // 0=Sonntag, 6=Samstag
+  return dayOfWeek === 0 || dayOfWeek === 6;
 }
 
+// export function getCustomDayIndex(date: string | Date): number {
+//   // Konvertiere zu dayjs, egal ob String oder Date als Input
+//   const dayJsDate = dayjs(date).tz('Europe/Berlin');
+
+//   const standardDayIndex = dayJsDate.day();
+//   return (standardDayIndex + 6) % 7;
+// }// Get the standard day index (0 for Sunday, 1 for Monday, ..., 6 for Saturday)
+
+// export function getCustomDayIndex(date: string | Date): number {
+//   // Konvertiere zu dayjs, egal ob String oder Date als Input
+//   const dayJsDate = dayjs(date).tz('Europe/Berlin');
+
+//   // Gib direkt den Standard dayjs Index zurück
+//   return dayJsDate.day(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+// }
 export function getCustomDayIndex(date: string | Date): number {
-  // Konvertiere zu dayjs, egal ob String oder Date als Input
-  const dayJsDate = dayjs(date).tz('Europe/Berlin');
-
+  const dayJsDate = dayjs.tz(date, 'Europe/Berlin');
   const standardDayIndex = dayJsDate.day();
-  return (standardDayIndex + 6) % 7;
+  return (standardDayIndex + 6) % 7; // 0=Monday, 1=Tuesday, ..., 6=Sunday
 }
+
 export function getFormattedDate(date: Date) {
   let result = new Date(date);
   let month: any = result.getMonth() + 1;

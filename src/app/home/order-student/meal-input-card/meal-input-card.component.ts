@@ -23,6 +23,12 @@ import { ToastrService } from "ngx-toastr";
 import { getEmailBodyCancel } from "../email-cancel-order.function";
 import { faShoppingCart, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { forkJoin, of, timeout } from "rxjs";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 import { StudentInterface } from "../../../classes/student.class";
 import { atLeastOneAllergene, getAllergenes, getTooltipContent } from "../../../functions/allergenes.functions";
 import { OrderAllergeneDialogComponent } from "../order-allergene-dialog/order-allergene-dialog.component";
@@ -589,9 +595,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       return;
     }
     clearInterval(this.timerInterval);
-    let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, getWeekNumber(new Date()), new Date().getFullYear(), year);
+
+    // Aktuelle Woche und Jahr in Berliner Zeit berechnen
+    const nowBerlin = dayjs.tz(new Date(), 'Europe/Berlin');
+    const currentWeekBerlin = getWeekNumber(nowBerlin.toDate());
+    const currentYearBerlin = nowBerlin.year();
+
+    let distance = getDeadlineWeeklyFunction(this.customer.generalSettings, cw, currentWeekBerlin, currentYearBerlin, year);
     let monday = getDateMondayFromCalenderweek({ week: cw, year: year });
-    let isPreContract = new Date(this.einrichtung.startContract).getTime() > monday.getTime()
+
+    // Konsistente Zeitzone-Vergleiche in Berliner Zeit
+    let contractStartBerlin = dayjs.tz(this.einrichtung.startContract, 'Europe/Berlin');
+    let mondayBerlin = dayjs.tz(monday, 'Europe/Berlin');
+    let isPreContract = contractStartBerlin.isAfter(mondayBerlin);
     if (isPreContract || distance < 0) {
       this.pastOrder = true;
       this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');
@@ -682,7 +698,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  now = new Date();
   private handleAccountSuccess(
     accountTenant: AccountCustomerInterface,
     orderModel: OrderInterfaceStudent,

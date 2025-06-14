@@ -2,27 +2,29 @@ import {
   OrderInterfaceStudentSave,
   SpecialFoodOrderInterfaceSafe
 } from "../classes/order_student_safe.class";
-import {WeekplanMenuInterface} from "../classes/weekplan.interface";
-import {SettingInterfaceNew} from "../classes/setting.class";
-import {CustomerInterface} from "../classes/customer.class";
-import {StudentInterface} from "../classes/student.class";
+import { WeekplanMenuInterface } from "../classes/weekplan.interface";
+import { SettingInterfaceNew } from "../classes/setting.class";
+import { CustomerInterface } from "../classes/customer.class";
+import { StudentInterface } from "../classes/student.class";
 import {
   OrderClassStudent,
   OrderInterfaceStudent,
   OrderSubDetailNew, SpecialFoodOrderInterface
 } from "../classes/order_student.class";
-import {DisplayOrderArrayIntrface} from "../home/dashboard/dashboard.component";
+import { DisplayOrderArrayIntrface } from "../home/dashboard/dashboard.component";
 import * as dayjs from 'dayjs';
 import * as utc from 'dayjs/plugin/utc';
 import * as timezone from 'dayjs/plugin/timezone';
-import {normalizeToBerlinDate} from "./date.functions";
-import {EinrichtungInterface} from "../classes/einrichtung.class";
+import * as isoWeek from 'dayjs/plugin/isoWeek';
+import { normalizeToBerlinDate } from "./date.functions";
+import { EinrichtungInterface } from "../classes/einrichtung.class";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(isoWeek);
 
 
-function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
+function getIndexMenu(orderMenus: OrderSubDetailNew[], idType: string): number {
   for (let i = 0; i < orderMenus.length; i++) {
     if (orderMenus[i].idType === idType) {
       return i;
@@ -31,16 +33,16 @@ function getIndexMenu(orderMenus:OrderSubDetailNew[], idType: string): number {
   return -1;
 }
 
-export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
-                         weekplanSelectedWeek:WeekplanMenuInterface,
-                         settings:SettingInterfaceNew,
-                         customer:CustomerInterface,
-                         selectedStudent:StudentInterface | null,
-                         indexDaySelected:number,
-                         dateChange:string,
-                         query:{week:number, year:number},
-                                contractSettings:EinrichtungInterface):OrderInterfaceStudent{
-  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, new Date(dateChange),contractSettings);
+export function setOrderStudent(orderStudent: (OrderInterfaceStudentSave | null),
+  weekplanSelectedWeek: WeekplanMenuInterface,
+  settings: SettingInterfaceNew,
+  customer: CustomerInterface,
+  selectedStudent: StudentInterface | null,
+  indexDaySelected: number,
+  dateChange: string,
+  query: { week: number, year: number },
+  contractSettings: EinrichtungInterface): OrderInterfaceStudent {
+  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, dayjs.tz(dateChange, 'Europe/Berlin').toDate(), contractSettings);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;
@@ -48,8 +50,8 @@ export function setOrderStudent(orderStudent:(OrderInterfaceStudentSave | null),
     orderNew.isBut = orderStudent.isBut;
     orderStudent.order.orderMenus.forEach((eachOrder, indexMenu) => {
 
-      let indexMenuFound = getIndexMenu(orderNew.order.orderMenus,eachOrder.idType);
-      if(indexMenuFound < 0)return;
+      let indexMenuFound = getIndexMenu(orderNew.order.orderMenus, eachOrder.idType);
+      if (indexMenuFound < 0) return;
       // orderNew.order.orderMenus[indexMenu].displayMenu = displayMenuForStudent(eachOrder.typeOrder, settings);
       orderNew.order.orderMenus[indexMenuFound].amountOrder = eachOrder.amountOrder;
       orderNew.order.orderMenus[indexMenuFound].menuSelected = eachOrder.menuSelected;
@@ -68,7 +70,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
     kw: copy.kw,
     year: copy.year,
     subgroup: '',
-    dateOrder:normalizeToBerlinDate(copy.dateOrder),
+    dateOrder: normalizeToBerlinDate(copy.dateOrder),
     customerId: copy.customerId,
     order: {
       comment: copy.order.comment,
@@ -79,7 +81,7 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
   }
   if (copy.order && Array.isArray(copy.order.orderMenus)) {
     copy.order.orderMenus.forEach((eachOrder) => {
-      if(eachOrder.amountOrder === 0 )return;
+      if (eachOrder.amountOrder === 0) return;
       let newObjectPre = {
         typeOrder: eachOrder.typeOrder,
         nameOrder: eachOrder.nameOrder,
@@ -97,45 +99,38 @@ export function modifyOrderModelForSave(copy: OrderInterfaceStudent): OrderInter
 }
 
 
+// Backend: Berechnung des Montags in deutscher Zeit
 export function getDateMondayFromCalenderweek(dateQuery: { week: number, year: number }): Date {
-  let simple = new Date(dateQuery.year, 0, 1 + (dateQuery.week - 1) * 7);
-  let dow = simple.getDay();
-  let ISOweekStart = simple;
-  if (dow <= 4)
-    ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-  else
-    ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-  return ISOweekStart;
+  console.log('getDateMondayFromCalenderweek', dateQuery);
+
+  const jan4 = dayjs.tz(`${dateQuery.year}-01-04`, 'Europe/Berlin');
+  const firstMondayOfYear = jan4.startOf('isoWeek');
+  const targetMonday = firstMondayOfYear.add(dateQuery.week - 1, 'week');
+
+  // Setze die Zeit auf den Anfang des Tages (00:00 Berliner Zeit)
+  return targetMonday.startOf('day').toDate();
 }
 
 export function formatDateToISO(date: Date): string {
-  const pad = (num: number) => num < 10 ? '0' + num : num;
+  // Konvertiere zu Berliner Zeit für konsistente ISO-Formatierung
+  const berlinDate = dayjs.tz(date, 'Europe/Berlin');
 
-  const year = date.getFullYear();
-  const month = pad(date.getMonth() + 1); // Months are 0-based in JavaScript
-  const day = pad(date.getDate());
-  const hours = pad(0); // Always set to 00
-  const minutes = pad(0); // Always set to 00
-  const seconds = pad(0); // Always set to 00
-
-  // Create the formatted date string in ISO format with timezone offset +02:00
-  const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+02:00`;
-
-  return formattedDate;
+  // Format: YYYY-MM-DDTHH:mm:ss+02:00 (oder +01:00 je nach Sommerzeit)
+  return berlinDate.format();
 }
 
 
 export function orderIsEmpty(order: OrderInterfaceStudent): boolean {
   let boolean = true;
   order.order.orderMenus.forEach((eachOrder) => {
-    if(eachOrder.amountOrder > 0)boolean = false;
+    if (eachOrder.amountOrder > 0) boolean = false;
   })
   return boolean;
 }
 export function orderIsNegative(order: OrderInterfaceStudent): boolean {
   let boolean = false;
   order.order.orderMenus.forEach((eachOrder) => {
-    if(eachOrder.amountOrder < 0)boolean = true;
+    if (eachOrder.amountOrder < 0) boolean = true;
   })
   return boolean;
 }
@@ -159,10 +154,11 @@ export function getTotalPortion(order: OrderInterfaceStudent): number {
   return number;
 }
 
-export function sortOrdersByDate(orders:DisplayOrderArrayIntrface[]) {
+export function sortOrdersByDate(orders: DisplayOrderArrayIntrface[]) {
   return orders.sort((a, b) => {
-    const dateA = new Date(a.dateOrder).getTime();
-    const dateB = new Date(b.dateOrder).getTime();
+    // Konsistente Datums-Interpretation in Berliner Zeit
+    const dateA = dayjs.tz(a.dateOrder, 'Europe/Berlin').valueOf();
+    const dateB = dayjs.tz(b.dateOrder, 'Europe/Berlin').valueOf();
     return dateA - dateB;
   });
 }
