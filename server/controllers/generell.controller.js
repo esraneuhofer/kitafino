@@ -228,7 +228,6 @@ module.exports.getVacationCustomer = async (req, res, next) => {
 
 module.exports.getWeekplanGroupSelection = async (req, res, next) => {
   try {
-    console.log('req.customerId', req.customerId);
     // Find the WeekplanGroupSelection where customerId is contained in groupsWeekplanGroupSelection
     const weekplanGroupSelection = await WeekplanGroupSelection.findOne({
       'groupsWeekplanGroupSelection.customerId': req.customerId

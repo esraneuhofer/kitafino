@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const VacationStudent = mongoose.model('VacationStudent');
-const {sendMonitoringEmail} = require('./order-functions');
+const { sendMonitoringEmail } = require('./order-functions');
 const { logUserAction, getChangeVacation } = require('./action_log.controller');
 
 // Get all vacations for a user
@@ -27,7 +27,7 @@ module.exports.getAllVacationParentByUserId = async (req, res) => {
 module.exports.getAllVacationStudentByStudentId = async (req, res) => {
   try {
     const studentId = req.query.studentId;
-    console.log('studentId', studentId);
+
     if (!studentId) {
       // Bei fehlendem studentId ein leeres Array zurückgeben
       return res.json([]);
@@ -44,7 +44,6 @@ module.exports.getAllVacationStudentByStudentId = async (req, res) => {
   }
 };
 
-
 module.exports.addVacation = async (req, res) => {
   try {
     const userId = req._id;
@@ -57,7 +56,7 @@ module.exports.addVacation = async (req, res) => {
       return res.status(400).json('Start date is required');
     }
 
-    if(!studentId) {
+    if (!studentId) {
       await sendMonitoringEmail(req, new Error('Student ID is required'), 'addvacation_validation');
       return res.status(400).json('Student ID is required');
     }
@@ -121,17 +120,16 @@ module.exports.deleteVacation = async (req, res) => {
 
     // Erfolgsmeldung senden - entferne das "return" hier
     res.status(200).json('Vacation deleted successfully');
-    
+
     // Logging nach dem Senden der Antwort
     logUserAction(
       userId,
       req.tenantId,
       'FERIEN_LOESCHEN',
       getChangeVacation(result) // Hilfsfunktion, die Änderungen ermittelt
-    ).catch(err => {
+    ).catch((err) => {
       console.error('Fehler beim Logging der Ferienlöschung:', err);
     });
-    
   } catch (err) {
     console.error('Error deleting vacation:', err);
     return res.status(500).json('Server error while deleting vacation');
