@@ -20,18 +20,18 @@ export function normalizeToBerlinDate(date: Date | string): string {
 export function getLockDays(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean[] {
   console.log('getLockDays - Checking lock days for date:', date);
   let lockDay = [false, false, false, false, false];
-  
+
   // Verwende string-basierte Datumsberechnung für Timezone-Konsistenz
   let mondayString = getMondayString(date);
-  
+
   for (var i = 0; i < numberFive.length; i++) {
     // Berechne den Tag als string (YYYY-MM-DD)
     let dayString = addDayFromDateString(mondayString, i);
     console.log('getLockDays - Checking day:', dayString);
-    
+
     // Konvertiere zu Date nur für isHoliday (falls erforderlich)
     let dayForHoliday = dayjs.tz(dayString, 'Europe/Berlin').toDate();
-    
+
     if (isHoliday(dayForHoliday, state) || isVacationSubgroupString(dayString, allVacations, groupIdStudent) || isVacationStudentString(dayString, allVacationsTenant)) {
       lockDay[i] = true;
     }
@@ -321,13 +321,13 @@ export function addDayFromDateString(dateString: string, daysToAdd: number): str
 // String-basierte Version von isVacationSubgroup
 export function isVacationSubgroupString(inputDateString: string, vacationArray: VacationsSubgroupInterface[], groupIdStudent: string): boolean {
   if (!vacationArray || vacationArray.length === 0) return false;
-  
+
   for (let i = 0; i < vacationArray.length; i++) {
     if (vacationArray[i].subgroupId === groupIdStudent || vacationArray[i].subgroupId === 'all') {
       const startString = normalizeToBerlinDate(vacationArray[i].vacation.vacationStart);
-      const endString = vacationArray[i].vacation.vacationEnd ? 
+      const endString = vacationArray[i].vacation.vacationEnd ?
         normalizeToBerlinDate(vacationArray[i].vacation.vacationEnd!) : null;
-      
+
       if (!endString) {
         // Einzeltag
         if (startString === inputDateString) {
@@ -347,12 +347,12 @@ export function isVacationSubgroupString(inputDateString: string, vacationArray:
 // String-basierte Version von isVacationStudent
 export function isVacationStudentString(inputDateString: string, vacationArray: VacationStudent[]): boolean {
   if (!vacationArray || vacationArray.length === 0) return false;
-  
+
   for (let i = 0; i < vacationArray.length; i++) {
     const startString = normalizeToBerlinDate(vacationArray[i].vacation.vacationStart);
-    const endString = vacationArray[i].vacation.vacationEnd ? 
+    const endString = vacationArray[i].vacation.vacationEnd ?
       normalizeToBerlinDate(vacationArray[i].vacation.vacationEnd!) : null;
-    
+
     if (!endString) {
       // Einzeltag
       if (startString === inputDateString) {
