@@ -23,17 +23,14 @@ export function getLockDays(date: string, allVacations: VacationsSubgroupInterfa
 
   // Verwende string-basierte Datumsberechnung für Timezone-Konsistenz
   let mondayString = getMondayString(date);
-  console.log('getLockDays - Monday string:', mondayString);
   for (var i = 0; i < numberFive.length; i++) {
     // Berechne den Tag als string (YYYY-MM-DD)
     let dayString = addDayFromDateString(mondayString, i);
-    console.log('getLockDays - Checking day:', dayString);
 
     // Erstelle Date-Objekt direkt aus String-Komponenten (UTC-basiert)
     const [year, month, day] = dayString.split('-').map(Number);
     let dayForHoliday = new Date(year, month - 1, day); // Lokale Mitternacht
 
-    console.log('getLockDays - Day for holiday check:', dayForHoliday);
     if (isHoliday(dayForHoliday, state) || isVacationSubgroupString(dayString, allVacations, groupIdStudent) || isVacationStudentString(dayString, allVacationsTenant)) {
       lockDay[i] = true;
     }
