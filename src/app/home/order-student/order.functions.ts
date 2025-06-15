@@ -16,7 +16,7 @@ dayjs.extend(isoWeek);     // Fügt isoWeek() Funktion hinzu
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export function isCancelOrderPossibleDashboard(generalSettings: GeneralSettingsInterface, orderDate: Date): number {
+export function isCancelOrderPossibleDashboard(generalSettings: GeneralSettingsInterface, orderDate: string): number {
   if (generalSettings.isDeadlineDaily) {
     let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
     if (!generalSettings.hasCancelDaily || isNotFormat) {
@@ -36,8 +36,8 @@ export function isCancelOrderPossibleDashboard(generalSettings: GeneralSettingsI
     }
 
   } else {
-    let kw = getWeekNumber(orderDate);
-    let year = orderDate.getFullYear();
+    let kw = getWeekNumber(orderDate); // getWeekNumber akzeptiert bereits string | Date
+    let year = dayjs.tz(orderDate, 'Europe/Berlin').year(); // Konsistent nur string
     let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
     if (!generalSettings.hasCancelDaily || isNotFormat) {
       const nowBerlin = dayjs.tz(dayjs(), 'Europe/Berlin');

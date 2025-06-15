@@ -10,6 +10,7 @@ import {
   orderIsEmpty,
   orderIsNegative
 } from "../../../functions/order.functions";
+import { normalizeToBerlinDate } from "../../../functions/date.functions";
 import { OrderService } from "../../../service/order.service";
 import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend } from "../order.functions";
 import { MatDialog } from "@angular/material/dialog";
@@ -62,12 +63,12 @@ function studentHasButForDate(orderModel: OrderInterfaceStudent, studentModel: S
   if (!studentModel.butFrom) return false;
   if (studentModel.butFrom && studentModel.butTo) {
 
-    const dateOrder = new Date(orderModel.dateOrder);
-    const butFrom = new Date(studentModel.butFrom);
-    const butTo = new Date(studentModel.butTo);
+    const dateOrderString = orderModel.dateOrder;
+    const butFromString = normalizeToBerlinDate(studentModel.butFrom);
+    const butToString = normalizeToBerlinDate(studentModel.butTo);
 
     // Wenn beide Werte existieren, prüfen, ob dateOrder innerhalb des BOT-Zeitraums liegt
-    if (dateOrder >= butFrom && dateOrder <= butTo) {
+    if (dateOrderString >= butFromString && dateOrderString <= butToString) {
       return true;
     }
   }
@@ -182,7 +183,6 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const orders = customSort(JSON.parse(JSON.stringify(this.orderDay.orderStudentModel.order.orderMenus)))
-    console.log('this.orderDay.date', this.orderDay.date);
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
     this.checkDeadline(this.orderDay.date);
@@ -653,10 +653,8 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       if (studentHasButForDate(orderModel, this.selectedStudent)) {
         orderModel.isBut = true;
       }
-      console.log('orderModel', orderModel)
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
 
-      console.log('orderModifiedForSave', orderModifiedForSave);
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

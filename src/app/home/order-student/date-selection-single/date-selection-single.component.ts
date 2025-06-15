@@ -15,7 +15,7 @@ export class DateSelectionSingleComponent implements OnInit {
   @Input() registeredStudents!: StudentInterface[];
   @Input() settings!: SettingInterfaceNew;
   @Input() minWidth: boolean = false;
-  @Output() getOrderDay: any = new EventEmitter<Date>();
+  @Output() getOrderDay: any = new EventEmitter<string>(); // Emittiert string (YYYY-MM-DD)
   @Output() selectStudent: any = new EventEmitter<StudentInterface | null>();
   @Input() displaySettings: boolean = false;
   @Output() editDisplaySettings: any = new EventEmitter<boolean>();

@@ -17,46 +17,26 @@ export function getCalenderQuery(year: number) {
 }
 
 function getCalenderQuerySingleYear(year: number): { value: string, week: number }[] {
-
-  function getFirstMonday(year: number) {
-    let diff = 0;
-    let firstDay = (new Date(year, 0, 0)).getDay();
-    if (firstDay === 1) {
-      diff = 0;
-    }
-    if (firstDay === 6) {
-      diff = 2;
-    }
-    if (firstDay === 0) {
-      diff = 1;
-    }
-    if (firstDay === 2) {
-      diff = -1;
-    }
-    if (firstDay === 4) {
-      diff = +4;
-    }
-    if (firstDay === 5) {
-      diff = +3;
-    }
-    return diff;
-  }
-
-  let firstDay = getFirstMonday(year);
   let arr = [];
-  let number = 52;
-  if (year === 2020) {
-    number = 53;
-  }
-  for (let i = 0; i < number; i++) {
-    let d = (i) * 7; // 1st of January + 7 days for each week
-    let startDay = getFormattedDate(new Date(year, 0, d + firstDay));
-    let endDay = getInvoiceDateOne(new Date(year, 0, d + firstDay + 4));
+
+  // Verwende dayjs für bessere Datumsberechnung
+  const startOfYear = dayjs.tz(`${year}-01-01`, 'Europe/Berlin');
+  const firstMonday = startOfYear.startOf('isoWeek');
+
+  // Bestimme Anzahl der Wochen im Jahr (52 oder 53)
+  const lastDayOfYear = dayjs.tz(`${year}-12-31`, 'Europe/Berlin');
+  const weeksInYear = lastDayOfYear.isoWeek() === 1 ? 52 : lastDayOfYear.isoWeek();
+
+  for (let i = 0; i < weeksInYear; i++) {
+    const weekStart = firstMonday.add(i, 'week');
+    const weekEnd = weekStart.add(4, 'day'); // Freitag
+
+    // Direkte dayjs Formatierung statt getFormattedDate
+    const startDay = weekStart.format('DD.MM');
+    const endDay = getInvoiceDateOne(weekEnd.format('YYYY-MM-DD'));
+
     arr[i] = {
-      // value:'KW:'+ (i+1) + ' | ' +startDay+' - '+ endDay + '  ' + checkIfWeekIsHoliday(new Date(year, 0, d+firstDay),array),
       value: 'KW:' + (i + 1) + ' | ' + startDay + ' - ' + endDay + '  ',
-      // startDay: new Date(year, 0, d + 1),
-      // endDay: new Date(year, 0, d + 5),
       week: i + 1
     };
   }

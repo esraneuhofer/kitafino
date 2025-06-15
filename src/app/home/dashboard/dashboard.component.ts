@@ -1,33 +1,39 @@
-import {Component, NgZone} from '@angular/core';
-import {TenantStudentInterface} from "../../classes/tenant.class";
-import {AccountCustomerInterface} from "../../classes/account.class";
-import {StudentInterface} from "../../classes/student.class";
-import {DateOrderSingleInterface, orderCustomerSeed} from "../../seed.data";
-import {TenantServiceStudent} from "../../service/tenant.service";
-import {AccountService} from "../../service/account.serive";
-import {StudentService} from "../../service/student.service";
-import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {catchError, forkJoin, of, Subscription} from "rxjs";
-import {OrderService} from "../../service/order.service";
-import {OrderInterfaceStudentSave} from "../../classes/order_student_safe.class";
-import {sortOrdersByDate} from "../../functions/order.functions";
-import {getTotalPriceSafe, isCancelOrderPossibleDashboard, timeDifferenceDay} from "../order-student/order.functions";
-import {getStudentNameById} from "../../functions/students.functions";
-import {SettingInterfaceNew} from "../../classes/setting.class";
-import {GenerellService} from "../../service/generell.service";
-import {normalizeToBerlinDate, setDateToCompare} from "../../functions/date.functions";
-import {MatDialog} from "@angular/material/dialog";
-import {OrderInterfaceStudent} from "../../classes/order_student.class";
-import {ConfirmOrderComponent} from "../dialogs/confirm-order/confirm-order.component";
-import {getEmailBodyCancel} from "../order-student/email-cancel-order.function";
-import {CustomerInterface} from "../../classes/customer.class";
-import {SchoolMessageInterface} from "../../classes/school-message.interface";
-import {MessageService} from "../../service/message.service";
-import {TranslateService} from "@ngx-translate/core";
-import {MessageDialogService} from "../../service/message-dialog.service";
-import {App, App as CapacitorApp} from "@capacitor/app";
-import {Capacitor, PluginListenerHandle} from "@capacitor/core";
+import { Component, NgZone } from '@angular/core';
+import { TenantStudentInterface } from "../../classes/tenant.class";
+import { AccountCustomerInterface } from "../../classes/account.class";
+import { StudentInterface } from "../../classes/student.class";
+import { DateOrderSingleInterface, orderCustomerSeed } from "../../seed.data";
+import { TenantServiceStudent } from "../../service/tenant.service";
+import { AccountService } from "../../service/account.serive";
+import { StudentService } from "../../service/student.service";
+import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { catchError, forkJoin, of, Subscription } from "rxjs";
+import { OrderService } from "../../service/order.service";
+import { OrderInterfaceStudentSave } from "../../classes/order_student_safe.class";
+import { sortOrdersByDate } from "../../functions/order.functions";
+import { getTotalPriceSafe, isCancelOrderPossibleDashboard, timeDifferenceDay } from "../order-student/order.functions";
+import { getStudentNameById } from "../../functions/students.functions";
+import { SettingInterfaceNew } from "../../classes/setting.class";
+import { GenerellService } from "../../service/generell.service";
+import { normalizeToBerlinDate, setDateToCompare } from "../../functions/date.functions";
+import { MatDialog } from "@angular/material/dialog";
+import { OrderInterfaceStudent } from "../../classes/order_student.class";
+import { ConfirmOrderComponent } from "../dialogs/confirm-order/confirm-order.component";
+import { getEmailBodyCancel } from "../order-student/email-cancel-order.function";
+import { CustomerInterface } from "../../classes/customer.class";
+import { SchoolMessageInterface } from "../../classes/school-message.interface";
+import { MessageService } from "../../service/message.service";
+import { TranslateService } from "@ngx-translate/core";
+import { MessageDialogService } from "../../service/message-dialog.service";
+import { App, App as CapacitorApp } from "@capacitor/app";
+import { Capacitor, PluginListenerHandle } from "@capacitor/core";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function customerIdContainedInMessasge(customers: { nameCustomer: string, customerId: string }[], tenant: TenantStudentInterface): boolean {
   return customers.some((customer) => customer.customerId === tenant.customerId)
@@ -47,12 +53,17 @@ function checkMessagesIfSeen(messages: SchoolMessageInterface[], tenant: TenantS
 }
 
 function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStudendts: StudentInterface[], customer: CustomerInterface): DisplayOrderArrayIntrface[] {
-  let dateToday = setDateToCompare(new Date())
+  // Aktuelles Datum in Berlin-Zeit als String (YYYY-MM-DD)
+  const todayString = dayjs.tz(new Date(), 'Europe/Berlin').format('YYYY-MM-DD');
+
   let arrayDisplay: DisplayOrderArrayIntrface[] = [];
   if (!orders || !orders.length) return arrayDisplay;
+
   orders.forEach((order) => {
     let orderCopy$ = JSON.parse(JSON.stringify(order));
-    if (setDateToCompare(new Date(order.dateOrder)) >= dateToday)
+
+    // Einfacher String-Vergleich: 'YYYY-MM-DD' >= 'YYYY-MM-DD'
+    if (order.dateOrder >= todayString) {
       arrayDisplay.push({
         dateOrder: normalizeToBerlinDate(order.dateOrder),
         orderedMenus: order.order.orderMenus.map((orderDetail) => {
@@ -60,10 +71,12 @@ function setOrdersDashboard(orders: OrderInterfaceStudentSave[], registeredStude
         }).join(', '),
         nameStudent: getStudentNameById(order.studentId, registeredStudendts),
         price: getTotalPriceSafe(order),
-        cancelPossible: isCancelOrderPossibleDashboard(customer.generalSettings, new Date(order.dateOrder)),
+        cancelPossible: isCancelOrderPossibleDashboard(customer.generalSettings, order.dateOrder),
         order: orderCopy$
-      })
-  })
+      });
+    }
+  });
+
   return sortOrdersByDate(arrayDisplay);
 }
 
@@ -107,7 +120,7 @@ export class DashboardComponent {
     return name.length > 6 ? name.slice(0, 6) + '...' : name;
   }
 
-  handleRefresh(event:any) {
+  handleRefresh(event: any) {
     setTimeout(() => {
       // Any calls to load data go here
       event.target.complete();
@@ -115,26 +128,26 @@ export class DashboardComponent {
   }
 
   constructor(private tenantServiceStudent: TenantServiceStudent,
-              private accountService: AccountService,
-              private studentService: StudentService,
-              private r: ActivatedRoute,
-              private router: Router,
-              private dialog: MatDialog,
-              private route: ActivatedRoute,
-              private generalService: GenerellService,
-              private dialogService: MessageDialogService,
-              private toastr: ToastrService,
-              private orderService: OrderService,
-              private generallService: GenerellService,
-              private messageService: MessageService,
-              private ngZone: NgZone,
-              private translate: TranslateService) {
+    private accountService: AccountService,
+    private studentService: StudentService,
+    private r: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private generalService: GenerellService,
+    private dialogService: MessageDialogService,
+    private toastr: ToastrService,
+    private orderService: OrderService,
+    private generallService: GenerellService,
+    private messageService: MessageService,
+    private ngZone: NgZone,
+    private translate: TranslateService) {
 
   }
 
   ngOnInit() {
     this.loadData();
-    if(Capacitor.isNativePlatform()) {
+    if (Capacitor.isNativePlatform()) {
       App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
         this.appStateChangeListener = listener;
       });
@@ -151,7 +164,7 @@ export class DashboardComponent {
 
   // Methode zum Neuladen der App hinzugefügt
   ngOnDestroy() {
-    if(Capacitor.isNativePlatform()) {
+    if (Capacitor.isNativePlatform()) {
       if (this.appStateChangeListener) {
         this.appStateChangeListener.remove();
       }
@@ -182,20 +195,20 @@ export class DashboardComponent {
       this.tenantServiceStudent.getTenantInformation(),
       this.accountService.getAccountTenant(),
       this.studentService.getRegisteredStudentsUser(),
-      this.orderService.getFutureOrders({date:new Date().toString()}),
+      this.orderService.getFutureOrders(),
       this.generallService.getSettingsCaterer(),
       this.generalService.getCustomerInfo(),
       this.messageService.getMessages()
     ]).subscribe(
       ([
-         tenantInformation,
-         accountInformation,
-         students,
-         orderStudents,
-         setting,
-         customer,
-         messages
-       ]) => {
+        tenantInformation,
+        accountInformation,
+        students,
+        orderStudents,
+        setting,
+        customer,
+        messages
+      ]) => {
         this.tenant = tenantInformation;
         this.accountTenant = accountInformation;
         this.students = students;
@@ -223,15 +236,15 @@ export class DashboardComponent {
   initAfterCancelOrder() {
     forkJoin(
       this.accountService.getAccountTenant(),
-      this.orderService.getFutureOrders({date:new Date().toString()}),
+      this.orderService.getFutureOrders(),
     ).subscribe((
       [
         accountInformation,
         orderStudents,
       ]: [
-        AccountCustomerInterface,
-        OrderInterfaceStudentSave[],
-      ]) => {
+          AccountCustomerInterface,
+          OrderInterfaceStudentSave[],
+        ]) => {
       this.accountTenant = accountInformation;
       this.ordersStudentsDisplay = setOrdersDashboard(orderStudents, this.students, this.customer);
       this.submittingRequest = false;
@@ -239,7 +252,7 @@ export class DashboardComponent {
   }
 
   routeToAccount(route: string) {
-    this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
+    this.router.navigate(['../home/' + route], { relativeTo: this.r.parent });
   }
 
   private processEmailAfterCancellation(orderModel: OrderInterfaceStudent, result: any, data: any) {
@@ -271,9 +284,9 @@ export class DashboardComponent {
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
-      data: {orderStudent: order.order, type: 'cancel', indexMenu: 0, tenantStudent: this.tenant},
+      data: { orderStudent: order.order, type: 'cancel', indexMenu: 0, tenantStudent: this.tenant },
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: { top: '100px' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

@@ -18,7 +18,6 @@ export class CustomDatePipe implements PipeTransform {
   }
 
   transform(value: any, format: string): any {
-    console.log('CustomDatePipe transform called with value:', value, 'and format:', format);
     const datePipe = new DatePipe(this.currentLanguage);
     return datePipe.transform(value, format, 'Europe/Berlin', this.currentLanguage);
     //                                      ↑

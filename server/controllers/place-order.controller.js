@@ -1,19 +1,19 @@
-const mongoose = require("mongoose");
-const OrderStudent = mongoose.model("OrderStudent");
-const OrdersAccountSchema = mongoose.model("OrdersAccountSchema");
-const { getTotalPrice } = require("./order-functions");
-const AccountSchema = mongoose.model("AccountSchema");
-const dayjs = require("dayjs");
-const utc = require("dayjs/plugin/utc");
-const timezone = require("dayjs/plugin/timezone");
-const Tenantparent = mongoose.model("Tenantparent");
-const Student = mongoose.model("StudentNew");
-const Buchungskonten = mongoose.model("Buchungskonten");
-const { sendMonitoringEmail } = require("./order-functions");
+const mongoose = require('mongoose');
+const OrderStudent = mongoose.model('OrderStudent');
+const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
+const { getTotalPrice } = require('./order-functions');
+const AccountSchema = mongoose.model('AccountSchema');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+const Tenantparent = mongoose.model('Tenantparent');
+const Student = mongoose.model('StudentNew');
+const Buchungskonten = mongoose.model('Buchungskonten');
+const { sendMonitoringEmail } = require('./order-functions');
 
-const { setEmailReminder } = require("./email-balance-reminder");
-const sgMail = require("@sendgrid/mail");
-const { convertToSendGridFormat } = require("./sendfrid.controller");
+const { setEmailReminder } = require('./email-balance-reminder');
+const sgMail = require('@sendgrid/mail');
+const { convertToSendGridFormat } = require('./sendfrid.controller');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -27,7 +27,7 @@ async function addOrderBut(req) {
   req.body.tenantId = req.tenantId;
   req.body.customerId = req.customerId;
   req.body.userId = req._id;
-  req.body.orderPlacedBy = "parent";
+  req.body.orderPlacedBy = 'parent';
   const orderAccount = prepareOrderDetails(req);
   const totalPrice = getTotalPrice(req.body);
   const session = await mongoose.startSession();
@@ -40,9 +40,7 @@ async function addOrderBut(req) {
     // const tenantAccount = await Tenantparent.findOne({ userId: req._id }).session(session);
 
     // Abrufen des Schülers mit Error-Handling
-    const student = await Student.findOne({ _id: req.body.studentId }).session(
-      session
-    );
+    const student = await Student.findOne({ _id: req.body.studentId }).session(session);
     if (!student) {
       throw new Error(`Schüler mit ID ${req.body.studentId} nicht gefunden.`);
     }
@@ -74,14 +72,14 @@ async function addOrderBut(req) {
     await saveNewOrder(req.body, orderId, session);
     await session.commitTransaction();
 
-    return { success: true, message: "Order placed successfully" };
+    return { success: true, message: 'Order placed successfully' };
   } catch (error) {
-    console.log("Error:", error);
+    console.log('Error:', error);
     await session.abortTransaction();
     // Forward the error from saveNewOrder
 
     // Monitoring-E-Mail bei Fehler senden
-    await sendMonitoringEmail(req, error, "BUT");
+    await sendMonitoringEmail(req, error, 'BUT');
 
     throw new Error(error.message);
   } finally {
@@ -99,42 +97,37 @@ async function addOrder(req) {
 
     // Validierung der Eingabedaten
     if (!req.body || !req.body.dateOrder || !req.body.studentId) {
-      throw new Error(
-        "Unvollständige Bestelldaten. Bitte alle erforderlichen Felder ausfüllen."
-      );
+      throw new Error('Unvollständige Bestelldaten. Bitte alle erforderlichen Felder ausfüllen.');
     }
 
     // Zuweisen der IDs
     req.body.tenantId = req.tenantId;
     req.body.customerId = req.customerId;
     req.body.userId = req._id;
-    req.body.orderPlacedBy = "parent";
+    req.body.orderPlacedBy = 'parent';
 
     // Berechnung des Gesamtpreises
     const totalPrice = getTotalPrice(req.body);
     if (totalPrice <= 0) {
-      throw new Error(
-        "Ungültiger Bestellbetrag. Der Gesamtpreis muss größer als 0 sein."
-      );
+      throw new Error('Ungültiger Bestellbetrag. Der Gesamtpreis muss größer als 0 sein.');
     }
 
     // Prüfung, ob Bestellung am Wochenende
+    console.log(req.body.dateOrder);
     if (isWeekend(req.body.dateOrder)) {
-      throw new Error("Bestellungen sind am Wochenende nicht möglich.");
+      throw new Error('Bestellungen sind am Wochenende nicht möglich.');
     }
 
     // Abrufen des Tenant-Accounts mit Error-Handling
     const tenantAccount = await Tenantparent.findOne({
-      userId: req._id,
+      userId: req._id
     }).session(session);
     if (!tenantAccount) {
-      throw new Error("Tenant-Account nicht gefunden.");
+      throw new Error('Tenant-Account nicht gefunden.');
     }
 
     // Abrufen des Schülers mit Error-Handling
-    const student = await Student.findOne({ _id: req.body.studentId }).session(
-      session
-    );
+    const student = await Student.findOne({ _id: req.body.studentId }).session(session);
     if (!student) {
       throw new Error(`Schüler mit ID ${req.body.studentId} nicht gefunden.`);
     }
@@ -157,14 +150,11 @@ async function addOrder(req) {
       oldBalance >= tenantAccount.orderSettings.amountBalance && // War vorher über Schwellenwert
       account.currentBalance < tenantAccount.orderSettings.amountBalance // Ist jetzt darunter
     ) {
-      let emailBody = setEmailReminder(
-        account.currentBalance,
-        tenantAccount.email
-      );
+      let emailBody = setEmailReminder(account.currentBalance, tenantAccount.email);
       try {
         await sgMail.send(convertToSendGridFormat(emailBody));
       } catch (emailError) {
-        console.log("Fehler beim Senden der E-Mail:", emailError);
+        console.log('Fehler beim Senden der E-Mail:', emailError);
       }
     }
     // E-Mail-Benachrichtigung bei niedrigem Kontostand
@@ -201,7 +191,7 @@ async function addOrder(req) {
       try {
         // Buchungskonto finden
         const buchungskonto = await Buchungskonten.findOne({
-          userId: req._id,
+          userId: req._id
         }).session(session);
 
         if (buchungskonto) {
@@ -220,10 +210,7 @@ async function addOrder(req) {
           console.log(`Kein Buchungskonto für userId ${req._id} gefunden`);
         }
       } catch (buchungsError) {
-        console.error(
-          "Fehler beim Aktualisieren des Buchungskontos:",
-          buchungsError
-        );
+        console.error('Fehler beim Aktualisieren des Buchungskontos:', buchungsError);
         // Wir setzen hier keinen Fehler, da die Bestellung trotzdem durchgehen soll
       }
     }
@@ -239,13 +226,13 @@ async function addOrder(req) {
 
     return {
       success: true,
-      message: "Bestellung erfolgreich aufgegeben",
+      message: 'Bestellung erfolgreich aufgegeben',
       orderId: orderId.toString(),
       balance: account.currentBalance,
-      orderProcessedBuchung: orderProcessedBuchung,
+      orderProcessedBuchung: orderProcessedBuchung
     };
   } catch (error) {
-    console.error("Fehler bei der Bestellverarbeitung:", error);
+    console.error('Fehler bei der Bestellverarbeitung:', error);
 
     // Nur Transaktion abbrechen, wenn sie gestartet wurde
     if (session && session.inTransaction()) {
@@ -253,19 +240,14 @@ async function addOrder(req) {
     }
 
     // Monitoring-E-Mail bei Fehler senden
-    if (
-      error.message !==
-      "Der Kontostand ist nicht ausreichend für diese Bestellung."
-    ) {
-      await sendMonitoringEmail(req, error, "normal");
+    if (error.message !== 'Der Kontostand ist nicht ausreichend für diese Bestellung.') {
+      await sendMonitoringEmail(req, error, 'normal');
     }
 
     // Benutzerfreundliche Fehlermeldung zurückgeben
     return {
       success: false,
-      message:
-        error.message ||
-        "Bei der Verarbeitung Ihrer Bestellung ist ein Fehler aufgetreten.",
+      message: error.message || 'Bei der Verarbeitung Ihrer Bestellung ist ein Fehler aufgetreten.'
     };
   } finally {
     // Session immer beenden, wenn sie existiert
@@ -278,13 +260,11 @@ async function addOrder(req) {
 async function validateCustomerAccount(userId, totalPrice, session) {
   const account = await AccountSchema.findOne({ userId }).session(session);
   if (!account) {
-    const error = new Error("Das Kundenkonto konnte nicht gefunden werden.");
+    const error = new Error('Das Kundenkonto konnte nicht gefunden werden.');
     error.status = 404; // Not Found
     throw error;
   } else if (account.currentBalance < totalPrice) {
-    const error = new Error(
-      "Der Kontostand ist nicht ausreichend für diese Bestellung."
-    );
+    const error = new Error('Der Kontostand ist nicht ausreichend für diese Bestellung.');
     error.status = 402; // Payment Required
     throw error;
   }
@@ -300,43 +280,40 @@ async function saveOrderAccount(orderDetails, orderId, session, isBut) {
       studentId: orderDetails.studentId,
       orderId: orderId,
       dateOrderMenu: new Date(),
-      year: dayjs.tz(orderDetails.dateOrder, "Europe/Berlin").year(),
+      year: dayjs.tz(orderDetails.dateOrder, 'Europe/Berlin').year(),
       priceAllOrdersDate: orderDetails.totalPrice,
       allOrdersDate: [
         {
           order: orderDetails.orderAccount,
           priceTotal: orderDetails.totalPrice,
-          type: "order",
-          dateTimeOrder: new Date(),
-        },
+          type: 'order',
+          dateTimeOrder: new Date()
+        }
       ],
       isBut: isBut,
       dateOrder: orderDetails.dateOrder,
       idType: orderDetails.orderAccount[0].idType,
-      groupId: orderDetails.groupId,
+      groupId: orderDetails.groupId
     });
     await newOrderAccount.save({ session });
   } catch (error) {
     // Handle different types of errors that could occur during database operations
-    handleDatabaseError(error, "Error saving the order account");
+    handleDatabaseError(error, 'Error saving the order account');
   }
 }
 
 function handleDatabaseError(error, contextMessage) {
   console.error(contextMessage, error); // Log the error internally for debugging
   let httpStatusCode = 500; // Default to Internal Server Error
-  let userMessage =
-    "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+  let userMessage = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
 
   // Check if the error is a validation error (common with Mongoose operations)
-  if (error.name === "ValidationError") {
+  if (error.name === 'ValidationError') {
     httpStatusCode = 400; // Bad Request
-    userMessage =
-      "Validierungsfehler bei der Bestellung. Bitte überprüfen Sie die eingegebenen Daten.";
+    userMessage = 'Validierungsfehler bei der Bestellung. Bitte überprüfen Sie die eingegebenen Daten.';
   } else if (error.code === 11000) {
     httpStatusCode = 409; // Conflict
-    userMessage =
-      "Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.";
+    userMessage = 'Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.';
   }
 
   const customError = new Error(userMessage);
@@ -356,21 +333,18 @@ async function saveNewOrder(orderDetails, orderId, session) {
 
 function handleOrderError(error) {
   let httpStatusCode = 500; // Default to Internal Server Error
-  let userMessage =
-    "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
+  let userMessage = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
 
-  console.error("Error during order saving:", error); // Detailed logging for internal use
+  console.error('Error during order saving:', error); // Detailed logging for internal use
   if (error.code === 11000) {
     httpStatusCode = 409; // Conflict
-    userMessage =
-      "Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.";
-  } else if (error.name && error.name === "ValidationError") {
+    userMessage = 'Ein doppelter Eintrag wurde erkannt. Bitte überprüfen Sie Ihre Bestellung.';
+  } else if (error.name && error.name === 'ValidationError') {
     httpStatusCode = 400; // Bad Request
-    userMessage =
-      "Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten.";
-  } else if (error.name && error.name === "AuthError") {
+    userMessage = 'Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten.';
+  } else if (error.name && error.name === 'AuthError') {
     httpStatusCode = 401; // Unauthorized
-    userMessage = "Authentifizierungsfehler. Bitte erneut anmelden.";
+    userMessage = 'Authentifizierungsfehler. Bitte erneut anmelden.';
   }
 
   const customError = new Error(userMessage);
@@ -388,7 +362,7 @@ function prepareOrderDetails(req) {
     dateOrder: req.body.dateOrder,
     orderAccount,
     totalPrice: getTotalPrice(req.body),
-    groupId: req.body.groupId,
+    groupId: req.body.groupId
   };
 }
 
@@ -400,7 +374,7 @@ function setOrderAccount(order) {
         amount: menu.amountOrder,
         priceMenu: menu.priceOrder,
         nameOrder: menu.nameOrder,
-        idType: menu.idType,
+        idType: menu.idType
       });
     }
   });
@@ -409,8 +383,8 @@ function setOrderAccount(order) {
       array.push({
         amount: menu.amountSpecialFood,
         priceMenu: menu.priceOrder,
-        nameOrder: "Sonderessen",
-        idType: menu.idSpecialFood,
+        nameOrder: 'Sonderessen',
+        idType: menu.idSpecialFood
       });
     }
   });
@@ -419,7 +393,7 @@ function setOrderAccount(order) {
 
 module.exports.addOrderStudentDay = async (req, res) => {
   try {
-    console.log("req", req.body);
+    console.log('req', req.body);
     let result;
     if (req.body.isBut) {
       result = await addOrderBut(req);
@@ -429,7 +403,7 @@ module.exports.addOrderStudentDay = async (req, res) => {
 
     res.json(result); // Successful response
   } catch (error) {
-    console.error("Error placing order:", error);
+    console.error('Error placing order:', error);
     const statusCode = error.status || 500; // Use the status from the error, default to 500
     res.status(statusCode).json({ success: false, message: error.message });
   }

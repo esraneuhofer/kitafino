@@ -1,7 +1,7 @@
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
 // const multer = require('multer');
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Settings = mongoose.model('Settings');
 const WeekplanGroupSelection = mongoose.model('WeekplanGroupSelection');
 
@@ -18,30 +18,29 @@ const Vacation = mongoose.model('Vacation');
 const Feedback = mongoose.model('FeedbackSchema');
 const ErrorReport = mongoose.model('ErrorReport');
 
-const {convertToSendGridFormat} = require("./sendfrid.controller");
+const { convertToSendGridFormat } = require('./sendfrid.controller');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const upload = multer();
 
-
-
-
 module.exports.sendFeedback = (req, res, next) => {
-  console.log(req.userId)
   let newModel = new Feedback({
     message: req.body.message,
     createdAt: new Date(),
     customerId: req.customerId,
     tenantId: req.tenantId,
-    userId: req._id,
+    userId: req._id
   });
 
-  newModel.save().then(data => {
-    console.log('Feedback saved successfully:', data);
-    res.json({ student: data, error: false });
-  }).catch(e => {
-    console.log('Feedback saved error:', e);
-    res.json({ student: e, error: true });
-  });
+  newModel
+    .save()
+    .then((data) => {
+      console.log('Feedback saved successfully:', data);
+      res.json({ student: data, error: false });
+    })
+    .catch((e) => {
+      console.log('Feedback saved error:', e);
+      res.json({ student: e, error: true });
+    });
 };
 
 module.exports.reportError = async (req, res, next) => {
@@ -59,19 +58,16 @@ module.exports.reportError = async (req, res, next) => {
     // Aktuelle Benutzerinformationen holen (falls authentifiziert)
     let userId = req._id;
 
-
     // Neuen Fehlerbericht erstellen
     const newErrorReport = new ErrorReport({
       message,
       typeError,
       route,
-      userId,
-
+      userId
     });
 
     // Fehlerbericht in der Datenbank speichern
     const savedReport = await newErrorReport.save();
-
 
     // E-Mail an das Admin-Team
     const adminMsg = {
@@ -101,7 +97,6 @@ module.exports.reportError = async (req, res, next) => {
       typeError: typeError,
       reportId: savedReport._id
     });
-
   } catch (error) {
     console.error('Fehler beim Speichern des Fehlerberichts:', error);
 
@@ -114,7 +109,7 @@ module.exports.reportError = async (req, res, next) => {
 
 module.exports.getSettingsCaterer = async (req, res, next) => {
   try {
-    const setting = await Settings.findOne({ 'tenantId': req.tenantId });
+    const setting = await Settings.findOne({ tenantId: req.tenantId });
     res.json(setting);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -132,11 +127,9 @@ module.exports.healthcheck = (req, res) => {
   }
 };
 
-
-
 module.exports.getCustomerInfo = async (req, res, next) => {
   try {
-    const customer = await Customer.findOne({ 'customerId': req.customerId });
+    const customer = await Customer.findOne({ customerId: req.customerId });
     res.json(customer);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -144,10 +137,9 @@ module.exports.getCustomerInfo = async (req, res, next) => {
   }
 };
 
-
 module.exports.getWeekplanWeek = async (req, res, next) => {
   try {
-    const weekplan = await Weekplan.findOne({tenantId:req.tenantId,year: req.query.year, week: req.query.week});
+    const weekplan = await Weekplan.findOne({ tenantId: req.tenantId, year: req.query.year, week: req.query.week });
     res.json(weekplan);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -156,7 +148,7 @@ module.exports.getWeekplanWeek = async (req, res, next) => {
 };
 module.exports.getAssignedWeekplan = async (req, res, next) => {
   try {
-    const assignedWeekplan = await AssignedWeekplan.find({year: req.query.year, week: req.query.week});
+    const assignedWeekplan = await AssignedWeekplan.find({ year: req.query.year, week: req.query.week });
     res.json(assignedWeekplan);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -166,7 +158,7 @@ module.exports.getAssignedWeekplan = async (req, res, next) => {
 
 module.exports.getMeals = async (req, res, next) => {
   try {
-    const meal = await Meal.find({ 'tenantId': req.tenantId });
+    const meal = await Meal.find({ tenantId: req.tenantId });
     res.json(meal);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -174,10 +166,9 @@ module.exports.getMeals = async (req, res, next) => {
   }
 };
 
-
 module.exports.getMenus = async (req, res, next) => {
   try {
-    const menu = await Menu.find({ 'tenantId': req.tenantId });
+    const menu = await Menu.find({ tenantId: req.tenantId });
     res.json(menu);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -185,10 +176,9 @@ module.exports.getMenus = async (req, res, next) => {
   }
 };
 
-
 module.exports.getArticleDeclaration = async (req, res, next) => {
   try {
-    const articleDeclarations = await ArticleDeclarations.findOne({ 'tenantId': req.tenantId });
+    const articleDeclarations = await ArticleDeclarations.findOne({ tenantId: req.tenantId });
     res.json(articleDeclarations);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -198,7 +188,7 @@ module.exports.getArticleDeclaration = async (req, res, next) => {
 
 module.exports.getArticle = async (req, res, next) => {
   try {
-    const article = await ArticleEdited.find({ 'tenantId': req.tenantId });
+    const article = await ArticleEdited.find({ tenantId: req.tenantId });
     res.json(article);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -208,7 +198,7 @@ module.exports.getArticle = async (req, res, next) => {
 
 module.exports.getWeekplanGroups = async (req, res, next) => {
   try {
-    const weekplanGroups = await WeekplanGroup.find({ 'tenantId': req.tenantId });
+    const weekplanGroups = await WeekplanGroup.find({ tenantId: req.tenantId });
     res.json(weekplanGroups);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -218,7 +208,7 @@ module.exports.getWeekplanGroups = async (req, res, next) => {
 
 module.exports.getAssignedWeekplan = async (req, res, next) => {
   try {
-    const assignedWeekplan = await AssignedWeekplan.find({ 'tenantId': req.tenantId });
+    const assignedWeekplan = await AssignedWeekplan.find({ tenantId: req.tenantId });
     res.json(assignedWeekplan);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -228,7 +218,7 @@ module.exports.getAssignedWeekplan = async (req, res, next) => {
 
 module.exports.getVacationCustomer = async (req, res, next) => {
   try {
-    const vacationCustomer = await Vacation.find({ 'customerId': req.customerId });
+    const vacationCustomer = await Vacation.find({ customerId: req.customerId });
     res.json(vacationCustomer);
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -238,12 +228,12 @@ module.exports.getVacationCustomer = async (req, res, next) => {
 
 module.exports.getWeekplanGroupSelection = async (req, res, next) => {
   try {
-    console.log("req.customerId",req.customerId)
+    console.log('req.customerId', req.customerId);
     // Find the WeekplanGroupSelection where customerId is contained in groupsWeekplanGroupSelection
     const weekplanGroupSelection = await WeekplanGroupSelection.findOne({
       'groupsWeekplanGroupSelection.customerId': req.customerId
     });
-    
+
     // Einfach das Ergebnis zurückgeben, auch wenn es null ist
     res.json(weekplanGroupSelection);
   } catch (err) {
@@ -270,7 +260,7 @@ module.exports.sendEmail = async (req, res, next) => {
 
 module.exports.getSingelWeekplanPdf = async (req, res, next) => {
   try {
-    const pdf = await Weekplanpdf.findOne({ _id: req.query._id});
+    const pdf = await Weekplanpdf.findOne({ _id: req.query._id });
     res.json(pdf);
   } catch (err) {
     res.send(err);
@@ -278,7 +268,10 @@ module.exports.getSingelWeekplanPdf = async (req, res, next) => {
 };
 module.exports.getWeekplanPdfWeek = async (req, res, next) => {
   try {
-    const pdf = await Weekplanpdf.find({ tenantId: req.tenantId, year:req.query.year, calenderWeek:req.query.week }, 'name year calenderWeek groups');
+    const pdf = await Weekplanpdf.find(
+      { tenantId: req.tenantId, year: req.query.year, calenderWeek: req.query.week },
+      'name year calenderWeek groups'
+    );
     res.json(pdf);
   } catch (err) {
     res.send(err);
@@ -287,7 +280,7 @@ module.exports.getWeekplanPdfWeek = async (req, res, next) => {
 
 module.exports.getAllWeekplanPdf = async (req, res, next) => {
   try {
-    const pdf = await Weekplanpdf.find({ tenantId: req.tenantId, year:req.query.year }, 'name calenderWeek groups');
+    const pdf = await Weekplanpdf.find({ tenantId: req.tenantId, year: req.query.year }, 'name calenderWeek groups');
     res.json(pdf);
   } catch (err) {
     res.send(err);
@@ -327,7 +320,7 @@ module.exports.sendCSVEmail = async (req, res, next) => {
     };
     await sgMail.send(msg);
 
-    console.log('E-Mail erfolgreich gesendet')
+    console.log('E-Mail erfolgreich gesendet');
     res.status(200).json({ message: 'E-Mail erfolgreich gesendet' });
   } catch (error) {
     console.error('Fehler beim Senden der E-Mail:', error);
@@ -361,11 +354,10 @@ module.exports.sendPDFEmail = async (req, res, next) => {
     };
 
     await sgMail.send(msg);
-    console.log('E-Mail erfolgreich gesendet',msg);
+    console.log('E-Mail erfolgreich gesendet', msg);
     res.status(200).json({ message: 'E-Mail erfolgreich gesendet' });
   } catch (error) {
     console.error('Fehler beim Senden der E-Mail:', error);
     res.status(500).json({ error: 'Interner Serverfehler' });
   }
 };
-

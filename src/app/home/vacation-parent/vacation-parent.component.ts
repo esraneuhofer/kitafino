@@ -93,9 +93,7 @@ export class VacationParentComponent implements OnInit {
         })
       ),
       futureOrders: this.orderService
-        .getFutureOrders({
-          date: new Date().toISOString().split('T')[0],
-        })
+        .getFutureOrders()
         .pipe(
           catchError((error) => {
             console.error('Failed to load future orders:', error);
@@ -303,7 +301,7 @@ export class VacationParentComponent implements OnInit {
               );
 
               // Formularfelder zurücksetzen
-             
+
 
               // Formularvalidierungsstatus zurücksetzen
               if (this.vacationForm) {

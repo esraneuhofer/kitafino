@@ -53,10 +53,10 @@ var orderStudentSchema = new Schema(
           return /^\d{4}-\d{2}-\d{2}$/.test(normalized);
         },
         message: 'Datum muss im Format YYYY-MM-DD sein'
-      },
-      set: function (v) {
-        return normalizeToBerlinDate(v);
       }
+      // set: function (v) {
+      //   return normalizeToBerlinDate(v);
+      // }
     },
     orderId: {
       type: Schema.Types.ObjectId,
@@ -198,7 +198,7 @@ orderStudentSchema.statics = {
       throw new Error('StudentId und Datum sind erforderlich');
     }
 
-    console.log('findByStudentAndDay - Direct collection query for:', { studentId, dateOrder: date });
+    // console.log('findByStudentAndDay - Direct collection query for:', { studentId, dateOrder: date });
 
     // Direkter MongoDB-Query ohne Schema-Hooks um Zeitzonenproblem zu vermeiden
     const result = await this.collection.findOne({
@@ -206,10 +206,10 @@ orderStudentSchema.statics = {
       dateOrder: date
     });
 
-    console.log(
-      'findByStudentAndDay - Found result:',
-      result ? `Order for date ${result.dateOrder}` : 'No result found'
-    );
+    // console.log(
+    //   'findByStudentAndDay - Found result:',
+    //   result ? `Order for date ${result.dateOrder}` : 'No result found'
+    // );
     return result;
   }
 };

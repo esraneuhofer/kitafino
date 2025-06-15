@@ -30,7 +30,7 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
     const { studentId, dateOrder } = req.query;
 
-    console.log('getOrderStudentDay - Received params:', { studentId, dateOrder });
+    // console.log('getOrderStudentDay - Received params:', { studentId, dateOrder });
 
     // Nutze die statische Methode vom Model
     const orderStudent = await OrderStudent.findByStudentAndDay(
@@ -38,10 +38,10 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
       dateOrder // Bereits im YYYY-MM-DD Format
     );
 
-    console.log(
-      'getOrderStudentDay - Returning result:',
-      orderStudent ? `Order for ${orderStudent.dateOrder}` : 'null'
-    );
+    // console.log(
+    //   'getOrderStudentDay - Returning result:',
+    //   orderStudent ? `Order for ${orderStudent.dateOrder}` : 'null'
+    // );
 
     res.json(orderStudent);
   } catch (err) {
@@ -55,13 +55,15 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
 
 module.exports.getFutureOrders = async (req, res) => {
   try {
-    // const startDate = normalizeToBerlinDate(req.query.startDate);
     const userId = req._id; // Von Auth Middleware
-    console.log('userId:', userId);
-    // Finde alle Bestellungen ab startDate für den User
+
+    // Aktuelles Datum in Berlin-Zeit bestimmen (YYYY-MM-DD Format)
+    const today = dayjs().tz('Europe/Berlin').format('YYYY-MM-DD');
+
+    // Finde alle Bestellungen ab heute für den User
     const orders = await OrderStudent.find({
       userId: userId,
-      dateOrder: { $gte: req.query.startDate }
+      dateOrder: { $gte: today }
     })
       .sort({ dateOrder: 1 })
       .lean();
@@ -78,13 +80,12 @@ module.exports.getFutureOrders = async (req, res) => {
 
 module.exports.getFutureOrdersStudent = async (req, res) => {
   try {
-    // const startDate = normalizeToBerlinDate(req.query.startDate);
-    // Finde alle Bestellungen ab startDate für den User
-    console.log('req.query.studentId:', req.query.studentId);
-    console.log('req.query.stard:', req.query.startDate);
+    // Aktuelles Datum in Berlin-Zeit bestimmen (YYYY-MM-DD Format)
+    const today = dayjs().tz('Europe/Berlin').format('YYYY-MM-DD');
+
     const orders = await OrderStudent.find({
       studentId: req.query.studentId,
-      dateOrder: { $gte: req.query.startDate }
+      dateOrder: { $gte: today }
     })
       .sort({ dateOrder: 1 })
       .lean();

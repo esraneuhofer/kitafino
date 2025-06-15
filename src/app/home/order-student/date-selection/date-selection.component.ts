@@ -18,24 +18,6 @@ interface CalendarWeek {
 }
 
 /**
- * Berechnet die ISO-Wochennummer für ein gegebenes Datum.
- * @param date Datum, für das die Wochennummer berechnet werden soll
- * @returns ISO-Wochennummer
- */
-function getISOWeekNumber(date: Date): number {
-  const tmpDate = new Date(date.valueOf());
-  tmpDate.setHours(0, 0, 0, 0);
-  // Donnerstag der aktuellen Woche bestimmen
-  tmpDate.setDate(tmpDate.getDate() + 3 - ((tmpDate.getDay() + 6) % 7));
-  const firstThursday = new Date(tmpDate.getFullYear(), 0, 4);
-  // Erster Donnerstag des Jahres
-  firstThursday.setDate(firstThursday.getDate() + 3 - ((firstThursday.getDay() + 6) % 7));
-  // Berechnung der Wochenanzahl
-  const weekNumber = 1 + Math.round(((tmpDate.getTime() - firstThursday.getTime()) / 86400000 - 3) / 7);
-  return weekNumber;
-}
-
-/**
  * Generiert ein Array von Kalenderwochen von -5 bis +35 Wochen relativ zur aktuellen Woche.
  * Die Berechnung erfolgt nach der deutschen (ISO) Wochenberechnung, inklusive korrekter Jahresübergänge.
  *
@@ -44,56 +26,38 @@ function getISOWeekNumber(date: Date): number {
 function getQueryCalenderWeek(): CalendarWeek[] {
   const queryCalenderWeek: CalendarWeek[] = []; // Lokales Array
 
-  const currentDate = dayjs.tz(dayjs(), 'Europe/Berlin').toDate(); // Aktuelle Zeit in Berlin
-
-  /**
-   * Bestimmt den Montag der aktuellen Woche.
-   * @param date Aktuelles Datum
-   * @returns Datum des Montags der aktuellen Woche
-   */
-  function getMonday(date: Date): Date {
-    const day = date.getDay(); // Sonntag = 0, Montag = 1, ..., Samstag = 6
-    const diff = (day === 0 ? -6 : 1) - day; // Berechnung der Differenz zum Montag
-    const monday = new Date(date);
-    monday.setDate(date.getDate() + diff);
-    monday.setHours(0, 0, 0, 0); // Zeit auf Mitternacht setzen
-    return monday;
-  }
-
-
+  // Aktuelle Zeit in Berlin als string
+  const currentDateString = dayjs.tz(dayjs(), 'Europe/Berlin').format('YYYY-MM-DD');
 
   /**
    * Formatiert ein Datum im Format DD.MM.
-   * @param date Zu formatierendes Datum
+   * @param dateString Zu formatierendes Datum (YYYY-MM-DD)
    * @returns Formatierter Datumsstring
    */
-  function formatDate(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    return `${day}.${month}`;
+  function formatDate(dateString: string): string {
+    const date = dayjs.tz(dateString, 'Europe/Berlin');
+    return date.format('DD.MM');
   }
 
-  // Bestimme den Montag der aktuellen Woche
-  const currentMonday = getMonday(currentDate);
+  // Bestimme den Montag der aktuellen Woche in Berlin-Zeit
+  const currentMonday = dayjs.tz(currentDateString, 'Europe/Berlin').startOf('isoWeek');
 
   // Schleife von -5 bis +35 Wochen
   for (let offset = -5; offset <= 35; offset++) {
     // Berechne das Datum des Montags für die aktuelle Offset-Woche
-    const weekMonday = new Date(currentMonday);
-    weekMonday.setDate(currentMonday.getDate() + offset * 7);
+    const weekMonday = currentMonday.add(offset, 'week');
 
     // Berechne das Datum des Sonntags für die aktuelle Offset-Woche
-    const weekSunday = new Date(weekMonday);
-    weekSunday.setDate(weekMonday.getDate() + 6);
+    const weekSunday = weekMonday.add(6, 'day');
 
     // Erhalte die ISO-Wochennummer
-    const weekNumber = getISOWeekNumber(weekMonday);
+    const weekNumber = weekMonday.isoWeek();
 
     // Bestimme das Jahr für die Darstellung (Jahr des Sonntags)
-    const year = weekSunday.getFullYear();
+    const year = weekSunday.year();
 
     // Erstelle den formatierten Wertstring
-    const value = `KW:${weekNumber} | ${formatDate(weekMonday)} - ${formatDate(weekSunday)}.${year}`;
+    const value = `KW:${weekNumber} | ${formatDate(weekMonday.format('YYYY-MM-DD'))} - ${formatDate(weekSunday.format('YYYY-MM-DD'))}.${year}`;
 
     // Füge das Objekt zum Array hinzu
     queryCalenderWeek.push({ value, week: weekNumber, year: year });
@@ -138,6 +102,7 @@ export class DateSelectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('query', this.query);
     const berlinNow = dayjs.tz(dayjs(), 'Europe/Berlin');
     this.generatedKWArray = getCalenderQuery(berlinNow.year());
     this.queryCalenderWeek = getQueryCalenderWeek();
@@ -150,8 +115,9 @@ export class DateSelectionComponent implements OnInit {
   }
 
   setCurrentWeek(): void {
-    const today = dayjs.tz(dayjs(), 'Europe/Berlin').toDate(); // Aktuelle Zeit in Berlin
-    this.query.week = getISOWeekNumber(today);
+    // Verwende getWeekNumber für Konsistenz mit dem Rest der App
+    const todayString = dayjs.tz(dayjs(), 'Europe/Berlin').format('YYYY-MM-DD');
+    this.query.week = getWeekNumber(todayString);
   }
 
   initOrderForWeek(event: number, selectedStudent: StudentInterface | null) {

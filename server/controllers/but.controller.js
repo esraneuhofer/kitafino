@@ -1,39 +1,33 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const ButSchema = mongoose.model('ButSchema');
 const ButDocument = mongoose.model('ButDocumentSchema');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-
 module.exports.getButTenant = async (req, res, next) => {
-  console.log(req._id);
   try {
-
     // Using await to wait for the result of Tenant.find()
-    const allButCustomer = await ButSchema.find({ 'customerId': req.customerId });
+    const allButCustomer = await ButSchema.find({ customerId: req.customerId });
 
     // Sending the result back to the client
     res.json(allButCustomer);
   } catch (err) {
     // If an error occurs, log it and send an error response
-    console.error('Error getTenant',err); // Log the error for debugging
+    console.error('Error getTenant', err); // Log the error for debugging
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
 
 module.exports.getSingleButDocument = async (req, res, next) => {
-  console.log(req.query)
-  console.log("req.query")
   try {
-
     // Using await to wait for the result of Tenant.find()
-    const butStudent = await ButDocument.findOne({ '_id': req.query._id });
+    const butStudent = await ButDocument.findOne({ _id: req.query._id });
 
     // Sending the result back to the client
     res.json(butStudent);
   } catch (err) {
     // If an error occurs, log it and send an error response
-    console.error('Error getTenant',err); // Log the error for debugging
+    console.error('Error getTenant', err); // Log the error for debugging
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
@@ -50,10 +44,7 @@ module.exports.addOrEditBut = (req, res, next) => {
   // });
 };
 
-
 module.exports.uploadButDocument = async (req, res, next) => {
-  console.log(req.body);
-
   let newDoc = new ButDocument({
     username: req.body.username,
     name: req.body.name,
@@ -64,8 +55,6 @@ module.exports.uploadButDocument = async (req, res, next) => {
     userId: req.body.userId,
     customerId: req.body.customerId
   });
-
-  console.log(newDoc);
 
   try {
     await newDoc.save();
@@ -82,7 +71,7 @@ module.exports.uploadButDocument = async (req, res, next) => {
         <p><strong>Hochgeladen am:</strong> ${newDoc.dateUploaded.toLocaleString()}</p>
         <p><strong>Student ID:</strong> ${newDoc.studentId}</p>
         <p><strong>Kunden ID:</strong> ${newDoc.customerId}</p>
-      `,
+      `
     };
 
     await sgMail.send(msg);
@@ -95,15 +84,14 @@ module.exports.uploadButDocument = async (req, res, next) => {
 };
 module.exports.getButDocumentTenant = async (req, res, next) => {
   try {
-
     // Using await to wait for the result of Tenant.find()
-    const allButCustomer = await ButDocument.find({ 'userId': req._id }, '-base64');
+    const allButCustomer = await ButDocument.find({ userId: req._id }, '-base64');
 
     // Sending the result back to the client
     res.json(allButCustomer);
   } catch (err) {
     // If an error occurs, log it and send an error response
-    console.error('Error getTenant',err); // Log the error for debugging
+    console.error('Error getTenant', err); // Log the error for debugging
     res.status(500).send({ message: 'Internal Server Error' });
   }
 };
@@ -111,14 +99,12 @@ function handleOrderError(error, res) {
   let httpStatusCode = 500; // Default to Internal Server Error
   let userMessage = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
 
-  console.error("Error during document saving:", error); // Detailed logging for internal use
+  console.error('Error during document saving:', error); // Detailed logging for internal use
   if (error.name && error.name === 'ValidationError') {
     httpStatusCode = 400; // Bad Request
-    userMessage = 'Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten oder wenden Sie sich an unseren Kundenservice';
+    userMessage =
+      'Validierungsfehler. Bitte überprüfen Sie die eingegebenen Daten oder wenden Sie sich an unseren Kundenservice';
   }
 
   res.status(httpStatusCode).json({ success: false, message: userMessage });
 }
-
-
-

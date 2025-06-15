@@ -310,7 +310,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.indexDay = getCustomDayIndex(queryDate);
     // Create a timer observable for 0.4 seconds
     const delay$ = timer(400);
-    console.log('Selected Day:', queryDate, 'Index Day:', this.indexDay);
     // Combine the delay observable with the forkJoin observable
     combineLatest([
       forkJoin([
@@ -362,7 +361,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
           this.schoolSettings
         )
       );
-      console.log('Order for day:', this.orderWeek);
       this.pageLoaded = true;
     });
   }
@@ -502,7 +500,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
       // Timer für 400ms Verzögerung
       const timer$ = timer(400);
-      console.log()
       // Combine the forkJoin observable with the timer observable
       combineLatest([
         forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])),
@@ -530,6 +527,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
               )
             );
           });
+          console.log('Bestellungen für die Woche geladen:', this.orderWeek);
           this.pageLoaded = true;
         });
       });
