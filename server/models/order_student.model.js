@@ -199,14 +199,17 @@ orderStudentSchema.statics = {
     }
 
     console.log('findByStudentAndDay - Direct collection query for:', { studentId, dateOrder: date });
-    
+
     // Direkter MongoDB-Query ohne Schema-Hooks um Zeitzonenproblem zu vermeiden
     const result = await this.collection.findOne({
       studentId: new mongoose.Types.ObjectId(studentId),
       dateOrder: date
     });
-    
-    console.log('findByStudentAndDay - Found result:', result ? `Order for date ${result.dateOrder}` : 'No result found');
+
+    console.log(
+      'findByStudentAndDay - Found result:',
+      result ? `Order for date ${result.dateOrder}` : 'No result found'
+    );
     return result;
   }
 };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const OrderStudent = mongoose.model('OrderStudent');
 const OrdersAccountSchema = mongoose.model('OrdersAccountSchema');
 const dayjs = require('dayjs');
@@ -9,30 +9,27 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 function normalizeToBerlinDate(date) {
   try {
-    return dayjs(date)
-      .tz('Europe/Berlin')
-      .format('YYYY-MM-DD');
+    return dayjs(date).tz('Europe/Berlin').format('YYYY-MM-DD');
   } catch (error) {
     console.error('Fehler bei der Datums-Normalisierung:', error);
     return date;
   }
 }
 
-
 module.exports.getAccountOrderUserYear = async (req, res, next) => {
   try {
-    const ordersAccountUser = await OrdersAccountSchema.find({userId:req._id,year: req.query.year});
+    const ordersAccountUser = await OrdersAccountSchema.find({ userId: req._id, year: req.query.year });
     res.json(ordersAccountUser);
   } catch (err) {
     console.error(err); // Log the error for debugging
-    res.status(500).send({message: 'Internal Server Error'});
+    res.status(500).send({ message: 'Internal Server Error' });
   }
 };
 
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
     const { studentId, dateOrder } = req.query;
-    
+
     console.log('getOrderStudentDay - Received params:', { studentId, dateOrder });
 
     // Nutze die statische Methode vom Model
@@ -40,8 +37,11 @@ module.exports.getOrderStudentDay = async (req, res, next) => {
       studentId,
       dateOrder // Bereits im YYYY-MM-DD Format
     );
-    
-    console.log('getOrderStudentDay - Returning result:', orderStudent ? `Order for ${orderStudent.dateOrder}` : 'null');
+
+    console.log(
+      'getOrderStudentDay - Returning result:',
+      orderStudent ? `Order for ${orderStudent.dateOrder}` : 'null'
+    );
 
     res.json(orderStudent);
   } catch (err) {
@@ -129,7 +129,3 @@ module.exports.getAllOrdersWithCancellations = async (req, res) => {
     res.status(500).send({ message: 'Error retrieving orders' });
   }
 };
-
-
-
-
