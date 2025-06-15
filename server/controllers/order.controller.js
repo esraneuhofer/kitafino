@@ -32,12 +32,16 @@ module.exports.getAccountOrderUserYear = async (req, res, next) => {
 module.exports.getOrderStudentDay = async (req, res, next) => {
   try {
     const { studentId, dateOrder } = req.query;
+    
+    console.log('getOrderStudentDay - Received params:', { studentId, dateOrder });
 
     // Nutze die statische Methode vom Model
     const orderStudent = await OrderStudent.findByStudentAndDay(
       studentId,
       dateOrder // Bereits im YYYY-MM-DD Format
     );
+    
+    console.log('getOrderStudentDay - Returning result:', orderStudent ? `Order for ${orderStudent.dateOrder}` : 'null');
 
     res.json(orderStudent);
   } catch (err) {

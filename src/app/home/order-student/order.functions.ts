@@ -40,7 +40,14 @@ export function isCancelOrderPossibleDashboard(generalSettings: GeneralSettingsI
     let year = orderDate.getFullYear();
     let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
     if (!generalSettings.hasCancelDaily || isNotFormat) {
-      return getDeadlineWeeklyFunction(generalSettings, kw, getWeekNumber(new Date()), new Date().getFullYear(), year);
+      const nowBerlin = dayjs.tz(dayjs(), 'Europe/Berlin');
+      return getDeadlineWeeklyFunction(
+        generalSettings,
+        kw,
+        getWeekNumber(nowBerlin.format('YYYY-MM-DD')),
+        nowBerlin.year(),
+        year
+      );
     } else {
       // Verwende Weekend-Skip Funktion für cancel deadline wenn die Option aktiviert ist
       if (generalSettings.deadlineSkipWeekend) {
@@ -254,7 +261,7 @@ export function getOrderPlaced(orderStudent: OrderInterfaceStudentSave): OrderAn
     amountOrder: 0,
     nameOrder: '',
     dateOrder: orderStudent.dateOrder,
-    datePlaced: orderStudent.createdAt || new Date(),
+    datePlaced: orderStudent.createdAt || dayjs.tz(dayjs(), 'Europe/Berlin').toDate(),
     nameStudent: '',
     typeOrder: '',
     isCanceled: false

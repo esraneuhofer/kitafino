@@ -158,7 +158,11 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     if (this.displayMinimize) {
       this.displayOrderTypeWeek = false;
     }
-    this.querySelection = { year: new Date().getFullYear(), week: getWeekNumber(new Date()) };
+    const berlinToday = dayjs.tz(dayjs(), 'Europe/Berlin');
+    this.querySelection = {
+      year: berlinToday.year(),
+      week: getWeekNumber(berlinToday.format('YYYY-MM-DD'))
+    };
     this.loadData()
     if (Capacitor.isNativePlatform()) {
       App['addListener']('appStateChange', this.handleAppStateChange).then((listener: PluginListenerHandle) => {
@@ -306,7 +310,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.indexDay = getCustomDayIndex(queryDate);
     // Create a timer observable for 0.4 seconds
     const delay$ = timer(400);
-
+    console.log('Selected Day:', queryDate, 'Index Day:', this.indexDay);
     // Combine the delay observable with the forkJoin observable
     combineLatest([
       forkJoin([
@@ -352,13 +356,13 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
           this.customer,
           this.selectedStudent,
           this.indexDay,
-          dayjs.tz(queryDate, 'Europe/Berlin').toDate(), // Konsistente Berliner Zeit
+          new Date(queryDate),
           this.querySelection,
           this.lockDays,
           this.schoolSettings
         )
       );
-
+      console.log('Order for day:', this.orderWeek);
       this.pageLoaded = true;
     });
   }
@@ -477,7 +481,13 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
     this.vacationService.getAllVacationStudentByStudentId(studentId).subscribe((vacations: VacationStudent[]) => {
       // Urlaubsdaten speichern
       this.vacationsStudent = vacations;
-      this.lockDays = getLockDays(dateMonday.toString(), this.allVacations, this.vacationsStudent, this.customer.generalSettings.state, this.selectedStudent?.subgroup || '');
+      this.lockDays = getLockDays(
+        dayjs.tz(dateMonday, 'Europe/Berlin').format('YYYY-MM-DD'),
+        this.allVacations,
+        this.vacationsStudent,
+        this.customer.generalSettings.state,
+        this.selectedStudent?.subgroup || ''
+      );
       // Dann mit dem Abrufen der Bestellungen fortfahren
       // Hole die 5 Werktage
       const workdays = getNextFiveWorkdays(dateMonday);
@@ -512,7 +522,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
                 this.customer,
                 this.selectedStudent,
                 index,
-                new Date(date), // String-Datum im YYYY-MM-DD Format
+                dayjs.tz(date, 'Europe/Berlin').toDate(), // Konsistente Berliner Zeit
                 this.querySelection,
                 this.lockDays,
                 this.schoolSettings,

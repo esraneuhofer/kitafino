@@ -287,8 +287,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
     return true;
   }
-  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew,): boolean {
+  showMenuBasedOnSettingsDisplay(orderModel: OrderSubDetailNew): boolean {
     if (!this.settings.orderSettings.showMenuWithoutName && orderModel.typeOrder === 'menu' && !orderModel.idMenu) return false;
+    if (this.lockDay) return false;
     return true;
   }
   showMenuBasedOnSettings(orderModel: OrderSubDetailNew, customer: CustomerInterface, student: StudentInterface): boolean {
@@ -368,9 +369,21 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     if (this.pastOrder && this.pastCancelation || this.lockDay || !this.customer.generalSettings.hasCancelDaily) return;
     this.setOrderDay(false, index)
   }
+  isCheckboxDisabled(eachMenu: any): boolean {
+    const normallyDisabled = this.pastOrder || this.lockDay;
+    const specialCondition = this.pastOrder &&
+      !this.pastZubestellung &&
+      (eachMenu.typeOrder === 'menu' || eachMenu.typeOrder === 'specialFood') &&
+      this.customer.generalSettings.hasAdditionDaily &&
+      !eachMenu.menuSelected;
+
+    return normallyDisabled && !specialCondition;
+  }
+
 
 
   setOrderDay(event: boolean, indexMenu: number) {
+
     if (event) {
       if (this.checkOrderForOnlyOneMenu(this.orderDay.orderStudentModel, indexMenu)) {
         setTimeout(() => {
@@ -639,7 +652,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       if (studentHasButForDate(orderModel, this.selectedStudent)) {
         orderModel.isBut = true;
       }
+      console.log('orderModel', orderModel)
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
+
+      console.log('orderModifiedForSave', orderModifiedForSave);
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

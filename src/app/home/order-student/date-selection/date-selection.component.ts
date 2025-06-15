@@ -4,6 +4,12 @@ import { SettingInterfaceNew } from "../../../classes/setting.class";
 import { getCalenderQuery, getYearsQuery } from "./date-selection.functions";
 import { QueryInterOrderInterface } from "../../../functions/weekplan.functions";
 import { StudentInterface } from "../../../classes/student.class";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface CalendarWeek {
   value: string;
@@ -38,7 +44,7 @@ function getISOWeekNumber(date: Date): number {
 function getQueryCalenderWeek(): CalendarWeek[] {
   const queryCalenderWeek: CalendarWeek[] = []; // Lokales Array
 
-  const currentDate = new Date();
+  const currentDate = dayjs.tz(dayjs(), 'Europe/Berlin').toDate(); // Aktuelle Zeit in Berlin
 
   /**
    * Bestimmt den Montag der aktuellen Woche.
@@ -119,15 +125,21 @@ export class DateSelectionComponent implements OnInit {
 
   selectedStudent: (StudentInterface | null) = null;
   queryCalenderWeek: { value: string; week: number, year: number }[] = [];
-  query: QueryInterOrderInterface = { week: getWeekNumber(new Date()), year: new Date().getFullYear() };
+  query: QueryInterOrderInterface = (() => {
+    const berlinNow = dayjs.tz(dayjs(), 'Europe/Berlin');
+    return {
+      week: getWeekNumber(berlinNow.format('YYYY-MM-DD')),
+      year: berlinNow.year()
+    };
+  })();
   generatedKWArray: { value: string; week: number }[][] = [];
 
   constructor() {
   }
 
   ngOnInit() {
-
-    this.generatedKWArray = getCalenderQuery(new Date().getFullYear());
+    const berlinNow = dayjs.tz(dayjs(), 'Europe/Berlin');
+    this.generatedKWArray = getCalenderQuery(berlinNow.year());
     this.queryCalenderWeek = getQueryCalenderWeek();
     this.setCurrentWeek();
 
@@ -138,7 +150,7 @@ export class DateSelectionComponent implements OnInit {
   }
 
   setCurrentWeek(): void {
-    const today = new Date();
+    const today = dayjs.tz(dayjs(), 'Europe/Berlin').toDate(); // Aktuelle Zeit in Berlin
     this.query.week = getISOWeekNumber(today);
   }
 

@@ -8,70 +8,71 @@ const Buchungskonten = mongoose.model('Buchungskonten');
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-var orderStudentSchema = new Schema({
-  isBut:{type:Boolean},
-  subgroup:String,
-  billed: {
-    type: Boolean,
-    default: false
-  },
-  tenantId: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  customerId: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  kw: {
-    type: Number,
-    required: '{PATH} is required!'
-  },
-  year: {
-    type: Number,
-    required: '{PATH} is required!'
-  },
-  order: {
-    type: Schema.Types.Mixed,
-    required: true
-  },
-  studentId: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
-  dateOrder: {
-    type: String,
-    required: '{PATH} is required!',
-    validate: {
-      validator: function(v) {
-        const normalized = normalizeToBerlinDate(v);
-        return /^\d{4}-\d{2}-\d{2}$/.test(normalized);
-      },
-      message: 'Datum muss im Format YYYY-MM-DD sein'
+var orderStudentSchema = new Schema(
+  {
+    isBut: { type: Boolean },
+    subgroup: String,
+    billed: {
+      type: Boolean,
+      default: false
     },
-    set: function(v) {
-      return normalizeToBerlinDate(v);
-    }
+    tenantId: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    customerId: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    kw: {
+      type: Number,
+      required: '{PATH} is required!'
+    },
+    year: {
+      type: Number,
+      required: '{PATH} is required!'
+    },
+    order: {
+      type: Schema.Types.Mixed,
+      required: true
+    },
+    studentId: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    dateOrder: {
+      type: String,
+      required: '{PATH} is required!',
+      validate: {
+        validator: function (v) {
+          const normalized = normalizeToBerlinDate(v);
+          return /^\d{4}-\d{2}-\d{2}$/.test(normalized);
+        },
+        message: 'Datum muss im Format YYYY-MM-DD sein'
+      },
+      set: function (v) {
+        return normalizeToBerlinDate(v);
+      }
+    },
+    orderId: {
+      type: Schema.Types.ObjectId,
+      required: '{PATH} is required!'
+    },
+    orderPlacedBy: String,
+    orderProcessedBuchung: { type: Boolean, default: false }
   },
-  orderId: {
-    type: Schema.Types.ObjectId,
-    required: '{PATH} is required!'
-  },
-  orderPlacedBy:String,
-  orderProcessedBuchung:{type:Boolean, default:false},
-}, {
-  timestamps: true // Fügt automatisch createdAt und updatedAt hinzu
-});
+  {
+    timestamps: true // Fügt automatisch createdAt und updatedAt hinzu
+  }
+);
 
 function normalizeToBerlinDate(date) {
   try {
-    return dayjs(date)
-      .tz('Europe/Berlin')
-      .format('YYYY-MM-DD');
+    return dayjs(date).tz('Europe/Berlin').format('YYYY-MM-DD');
   } catch (error) {
     console.error('Fehler bei der Datums-Normalisierung:', error);
     return date;
@@ -80,21 +81,16 @@ function normalizeToBerlinDate(date) {
 
 function normalizeToBerlinDateSeconds(date) {
   try {
-    return dayjs(date)
-      .tz('Europe/Berlin')
-      .format('YYYY-MM-DD HH:mm:ss');
+    return dayjs(date).tz('Europe/Berlin').format('YYYY-MM-DD HH:mm:ss');
   } catch (error) {
     console.error('Fehler bei der Datums-Normalisierung:', error);
     return date;
   }
 }
 
-
-
 // orderStudentSchema.pre('save', async function (next) {
 //   try {
 //     // Bestehende Funktionalität beibehalten
-
 
 //     // Neuer Code: Buchungskonto finden und aktualisieren
 //     if (this.isNew && !this.orderProcessedBuchung) { // Nur bei neuen Bestellungen das Konto belasten
@@ -137,7 +133,7 @@ function normalizeToBerlinDateSeconds(date) {
 // });
 // Hauptindex für die Eindeutigkeit von Bestellungen
 orderStudentSchema.index(
-  {studentId: 1, dateOrder: 1},
+  { studentId: 1, dateOrder: 1 },
   {
     unique: true,
     name: 'student_date_unique',
@@ -145,16 +141,12 @@ orderStudentSchema.index(
   }
 );
 
-
 // Zusätzlicher Index für Customer-Abfragen
-orderStudentSchema.index(
-  {customerId: 1, dateOrder: 1},
-  {name: 'customer_date_lookup', background: true}
-);
+orderStudentSchema.index({ customerId: 1, dateOrder: 1 }, { name: 'customer_date_lookup', background: true });
 
 orderStudentSchema.statics = {
   // 1. Bestellungen eines Customers in einem Datumsbereich
-  findByCustomerAndDateRange: async function(customerId, startDate, endDate) {
+  findByCustomerAndDateRange: async function (customerId, startDate, endDate) {
     if (!customerId || !startDate || !endDate) {
       throw new Error('CustomerId und Datumsbereich (Start und Ende) sind erforderlich');
     }
@@ -171,7 +163,7 @@ orderStudentSchema.statics = {
   },
 
   // 2. Bestellungen eines Customers an einem spezifischen Tag
-  findByCustomerAndDay: async function(customerId, date) {
+  findByCustomerAndDay: async function (customerId, date) {
     if (!customerId || !date) {
       throw new Error('CustomerId und Datum sind erforderlich');
     }
@@ -181,12 +173,11 @@ orderStudentSchema.statics = {
     return this.find({
       customerId: customerId,
       dateOrder: normalizedDate
-    })
-      .lean();
+    }).lean();
   },
 
   // 3. Bereits existierende Student-Methoden
-  findByStudentAndDateRange: async function(studentId, startDate, endDate) {
+  findByStudentAndDateRange: async function (studentId, startDate, endDate) {
     if (!studentId || !startDate || !endDate) {
       throw new Error('StudentId und Datumsbereich (Start und Ende) sind erforderlich');
     }
@@ -202,38 +193,40 @@ orderStudentSchema.statics = {
       .lean();
   },
 
-  findByStudentAndDay: async function(studentId, date) {
+  findByStudentAndDay: async function (studentId, date) {
     if (!studentId || !date) {
       throw new Error('StudentId und Datum sind erforderlich');
     }
 
-    const normalizedDate = normalizeToBerlinDate(date);
-
-    return this.findOne({
-      studentId: studentId,
-      dateOrder: normalizedDate
-    })
-      .lean();
+    console.log('findByStudentAndDay - Direct collection query for:', { studentId, dateOrder: date });
+    
+    // Direkter MongoDB-Query ohne Schema-Hooks um Zeitzonenproblem zu vermeiden
+    const result = await this.collection.findOne({
+      studentId: new mongoose.Types.ObjectId(studentId),
+      dateOrder: date
+    });
+    
+    console.log('findByStudentAndDay - Found result:', result ? `Order for date ${result.dateOrder}` : 'No result found');
+    return result;
   }
 };
 
-function getOrderPlaced(orderStudent){
+function getOrderPlaced(orderStudent) {
   let orderPlaced;
-  orderStudent.order.orderMenus.forEach(eachOrder=>{
-    if(eachOrder.amountOrder > 0){
-        orderPlaced = eachOrder;
+  orderStudent.order.orderMenus.forEach((eachOrder) => {
+    if (eachOrder.amountOrder > 0) {
+      orderPlaced = eachOrder;
     }
-  })
-  if(!orderPlaced){
-    orderStudent.order.specialFoodOrder.forEach(eachOrder=>{
-      if(eachOrder.amountSpecialFood > 0){
+  });
+  if (!orderPlaced) {
+    orderStudent.order.specialFoodOrder.forEach((eachOrder) => {
+      if (eachOrder.amountSpecialFood > 0) {
         orderPlaced = eachOrder;
       }
-    })
+    });
   }
   return orderPlaced;
 }
-
 
 var OrderStudent = mongoose.model('OrderStudent', orderStudentSchema);
 

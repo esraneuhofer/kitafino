@@ -162,10 +162,10 @@ export function getFormattedDate(date: Date) {
 }
 
 export function getInvoiceDateOne(date: Date) {
-  let result = new Date(date);
-  let month: any = result.getMonth() + 1;
-  let year = result.getFullYear();
-  let num = result.getDate();
+  // let result = new Date(date);
+  let month: any = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let num = date.getDate();
   if (month.toString().length == 1) {
     month = "0" + month;
   }

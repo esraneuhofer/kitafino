@@ -39,10 +39,12 @@ export function setOrderStudent(orderStudent: (OrderInterfaceStudentSave | null)
   customer: CustomerInterface,
   selectedStudent: StudentInterface | null,
   indexDaySelected: number,
-  dateChange: string,
+  dateChange: Date,
   query: { week: number, year: number },
   contractSettings: EinrichtungInterface): OrderInterfaceStudent {
-  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, dayjs.tz(dateChange, 'Europe/Berlin').toDate(), contractSettings);
+  console.log(dateChange)
+  let orderNew = new OrderClassStudent(customer, query, settings, weekplanSelectedWeek.weekplan[indexDaySelected], selectedStudent, dateChange, contractSettings);
+  console.log(orderNew.dateOrder);
   if (orderStudent) {
     orderNew._id = orderStudent._id;
     orderNew.orderId = orderStudent.orderId;

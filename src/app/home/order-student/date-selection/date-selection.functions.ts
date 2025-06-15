@@ -1,18 +1,24 @@
-import {getFormattedDate, getInvoiceDateOne} from "../../../functions/date.functions";
+import { getFormattedDate, getInvoiceDateOne } from "../../../functions/date.functions";
+import * as dayjs from 'dayjs';
+import * as utc from 'dayjs/plugin/utc';
+import * as timezone from 'dayjs/plugin/timezone';
 
-export function getYearsQuery():{year:number,index:number}[] {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+export function getYearsQuery(): { year: number, index: number }[] {
   let arr = [];
-  let year = new Date().getFullYear();
-  arr.push({year: year - 1, index: 0}, {year: year, index: 1}, {year: year + 1, index: 2});
+  let year = dayjs.tz(dayjs(), 'Europe/Berlin').year();
+  arr.push({ year: year - 1, index: 0 }, { year: year, index: 1 }, { year: year + 1, index: 2 });
   return arr;
 }
-export function getCalenderQuery(year:number) {
+export function getCalenderQuery(year: number) {
   return [getCalenderQuerySingleYear(year - 1), getCalenderQuerySingleYear(year), getCalenderQuerySingleYear(year + 1)];
 }
 
-function getCalenderQuerySingleYear(year:number):{value:string,week:number}[] {
+function getCalenderQuerySingleYear(year: number): { value: string, week: number }[] {
 
-  function getFirstMonday(year:number) {
+  function getFirstMonday(year: number) {
     let diff = 0;
     let firstDay = (new Date(year, 0, 0)).getDay();
     if (firstDay === 1) {

@@ -89,6 +89,7 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
   selectedDate: Date, query: { week: number, year: number },
   lockDays: boolean[],
   contractSettings: EinrichtungInterface): MealCardInterface {
+  console.log(order)
   const orderModelStudent = setOrderStudent(
     order,
     weekplanSelectedWeek,
@@ -96,7 +97,7 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
     customer,
     selectedStudent,
     indexDaySelected,
-    selectedDate.toString(),
+    selectedDate,
     query,
     contractSettings);
   return {
