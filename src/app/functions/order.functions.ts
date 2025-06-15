@@ -39,7 +39,7 @@ export function setOrderStudent(orderStudent: (OrderInterfaceStudentSave | null)
   customer: CustomerInterface,
   selectedStudent: StudentInterface | null,
   indexDaySelected: number,
-  dateChange: Date,
+  dateChange: string, // Format: 'YYYY-MM-DD'
   query: { week: number, year: number },
   contractSettings: EinrichtungInterface): OrderInterfaceStudent {
   console.log(dateChange)

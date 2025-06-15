@@ -79,7 +79,7 @@ export function timeDifference(difference: number, withSeconds: boolean): string
   return `${days > 0 ? days + ' Tag' + (days === 1 ? '' : 'e') + ', ' : ''}${hours} Std, ${minutes} min`;
 }
 
-export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
+export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date | string): number {
   // Konvertiere das Eingabedatum zu Berliner Zeit
   const dayOrderBerlin = dayjs.tz(dateInputCompare, 'Europe/Berlin');
 
@@ -106,7 +106,7 @@ export function timeDifferenceDay(deadLineDaily: DeadlineDailyInterface, dateInp
 }
 
 // Optimierte Version mit besserer Lesbarkeit
-export function timeDifferenceDaySkipWeekend(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date): number {
+export function timeDifferenceDaySkipWeekend(deadLineDaily: DeadlineDailyInterface, dateInputCompare: Date | string): number {
   // Alle Berechnungen in Berliner Zeit
   let currentDay = dayjs.tz(dateInputCompare, 'Europe/Berlin');
   let businessDaysSubtracted = 0;

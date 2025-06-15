@@ -22,11 +22,13 @@ export function getLockDays(date: string, allVacations: VacationsSubgroupInterfa
   let dateMonday = getMonday(date);
   var startDay = addDayFromDate(dateMonday, 0);
   for (var i = 0; i < numberFive.length; i++) {
+    console.log('isHoliday(startDay, state)', isHoliday(startDay, state));
     if (isHoliday(startDay, state) || isVacationSubgroup(startDay, allVacations, groupIdStudent) || isVacationStudent(startDay, allVacationsTenant)) {
       lockDay[i] = true;
     }
     startDay = addDayFromDate(startDay, 1);
   }
+  console.log('lockDay', lockDay);
   return lockDay;
 }
 
@@ -96,23 +98,26 @@ export function isVacationStudent(inputDate: Date, vacationArray: VacationStuden
 }
 
 export function setDateToCompare(input: Date): number {
-  let newDate = new Date(input);
-  newDate.setHours(0, 0, 0, 0);
-  let d = newDate.getTime();
-  return d;
+  // Konvertiere zu Berlin-Zeit und setze auf Mitternacht
+  const berlinMidnight = dayjs.tz(input, 'Europe/Berlin').startOf('day');
+  return berlinMidnight.valueOf(); // Millisekunden seit 1970
 }
 
+// export function setDateToCompare(input: Date): number {
+//   let newDate = new Date(input);
+//   newDate.setHours(0, 0, 0, 0);
+//   let d = newDate.getTime();
+//   return d;
+// }
+
 export function getMonday(inputDate: string): Date {
-  // Parse Input-Datum in Berlin-Zeit
   const berlinDate = dayjs.tz(inputDate, 'Europe/Berlin');
 
   if (!berlinDate.isValid()) {
     throw new Error(`Invalid date: ${inputDate}`);
   }
 
-  // Finde Montag der Woche in Berlin-Zeit
-  const monday = berlinDate.startOf('isoWeek'); // ISO-Woche beginnt montags
-
+  const monday = berlinDate.startOf('isoWeek').hour(12); // 12:00 Mittags
   return monday.toDate();
 }
 
@@ -161,16 +166,12 @@ export function getFormattedDate(date: Date) {
   return (sliced + '.' + month);
 }
 
-export function getInvoiceDateOne(date: Date) {
-  // let result = new Date(date);
-  let month: any = date.getMonth() + 1;
-  let year = date.getFullYear();
-  let num = date.getDate();
-  if (month.toString().length == 1) {
-    month = "0" + month;
-  }
-  let sliced = ('0' + num).slice(-2);
-  return (sliced + '.' + month + '.' + year);
+export function getInvoiceDateOne(date: Date | string): string {
+  // Verwende dayjs mit Berlin-Timezone für konsistente Datumsbehandlung
+  const dateInBerlin = dayjs.tz(date, 'Europe/Berlin');
+  
+  // Formatiere zu DD.MM.YYYY
+  return dateInBerlin.format('DD.MM.YYYY');
 }
 
 

@@ -356,7 +356,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
           this.customer,
           this.selectedStudent,
           this.indexDay,
-          new Date(queryDate),
+          dayjs.tz(queryDate, 'Europe/Berlin').format('YYYY-MM-DD'),
           this.querySelection,
           this.lockDays,
           this.schoolSettings
@@ -502,7 +502,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
 
       // Timer für 400ms Verzögerung
       const timer$ = timer(400);
-
+      console.log()
       // Combine the forkJoin observable with the timer observable
       combineLatest([
         forkJoin(promiseOrderWeek).pipe(defaultIfEmpty([null])),
@@ -522,7 +522,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
                 this.customer,
                 this.selectedStudent,
                 index,
-                dayjs.tz(date, 'Europe/Berlin').toDate(), // Konsistente Berliner Zeit
+                dayjs.tz(date, 'Europe/Berlin').format('YYYY-MM-DD'), // String-Format
                 this.querySelection,
                 this.lockDays,
                 this.schoolSettings,

@@ -182,6 +182,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const orders = customSort(JSON.parse(JSON.stringify(this.orderDay.orderStudentModel.order.orderMenus)))
+    console.log('this.orderDay.date', this.orderDay.date);
     const ordersSetSides = setOrdersSide(orders, this.settings)
     this.orderDay.orderStudentModel.order.orderMenus = orders;
     this.checkDeadline(this.orderDay.date);
@@ -484,20 +485,20 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.submittingOrder = false;
   }
 
-  checkDeadline(day: Date) {
+  checkDeadline(day: string) {
 
     if (this.customer.generalSettings.isDeadlineDaily) {
       this.checkDeadlineDay(day)
     } else {
-      let cw = getWeekNumber(day);
-      let year = day.getFullYear();
+      let cw = getWeekNumber(day); // getWeekNumber akzeptiert bereits Strings
+      let year = dayjs.tz(day, 'Europe/Berlin').year();
       this.checkDeadlineWeek(cw, year)
     }
     this.checkDeadlineAbbestellung(day)
     this.checkDeadlineZubestellung(day)
 
   }
-  checkDeadlineAbbestellung(day: Date): void {
+  checkDeadlineAbbestellung(day: string): void {
     if (!this.customer.generalSettings.hasCancelDaily) {
       this.pastCancelation = true;
       return;
@@ -533,7 +534,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkDeadlineZubestellung(day: Date): void {
+  checkDeadlineZubestellung(day: string): void {
     if (!this.customer.generalSettings.hasAdditionDaily) {
       this.pastZubestellung = true;
       return;
@@ -575,7 +576,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkDeadlineDay(day: Date): void {
+  checkDeadlineDay(day: string): void {
     // this.customer.generalSettings.deadlineSkipWeekend = true;
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
     const distance = this.customer.generalSettings.deadlineSkipWeekend
@@ -584,7 +585,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
     // const convertedSeconds = timeDifference(distance,false);
     // const convertedMinutes = timeDifference(distance,true);
-    if (new Date(this.einrichtung.startContract).getTime() > day.getTime() || distance < 0) {
+    if (new Date(this.einrichtung.startContract).getTime() > dayjs.tz(day, 'Europe/Berlin').valueOf() || distance < 0) {
       // this.pastOrder = true;
       this.pastOrder = true;
       this.differenceTimeDeadline = this.translate.instant('BESTELLFRIST_ABGELAUFEN');

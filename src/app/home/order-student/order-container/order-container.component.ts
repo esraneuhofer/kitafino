@@ -45,7 +45,7 @@ dayjs.extend(timezone);
 export interface MealCardInterface {
   orderStudentModel: OrderInterfaceStudent,
   lockDay: boolean,
-  date: Date
+  date: string // Format: 'YYYY-MM-DD'
 }
 
 export function isWidthToSmall(input: number): boolean {
@@ -86,7 +86,8 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
   settings: SettingInterfaceNew,
   customer: CustomerInterface,
   selectedStudent: any, indexDaySelected: number,
-  selectedDate: Date, query: { week: number, year: number },
+  selectedDate: string, // Format: 'YYYY-MM-DD'
+  query: { week: number, year: number },
   lockDays: boolean[],
   contractSettings: EinrichtungInterface): MealCardInterface {
   console.log(order)
@@ -97,13 +98,13 @@ export function setOrderDayStudent(order: (OrderInterfaceStudentSave | null),
     customer,
     selectedStudent,
     indexDaySelected,
-    selectedDate,
+    selectedDate, // selectedDate ist bereits ein string
     query,
     contractSettings);
   return {
     orderStudentModel: orderModelStudent,
     lockDay: lockDays[indexDaySelected],
-    date: selectedDate
+    date: selectedDate // selectedDate ist bereits ein string
   }
 }
 
@@ -192,7 +193,7 @@ export class OrderContainerComponent implements OnInit, OnChanges {
         for (let i = 0; i < 5; i++) {
           let date = addDayFromDate(dateMonday, i)
           let dateFormatted = normalizeToBerlinDate(date);
-          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, date, this.query, this.lockDays, this.schoolSettings))
+          this.orderWeek.push(setOrderDayStudent(order[i], weekplanSelectedWeek, this.settings, this.customer, this.selectedStudent, i, dayjs.tz(date, 'Europe/Berlin').format('YYYY-MM-DD'), this.query, this.lockDays, this.schoolSettings))
         }
         this.pageLoaded = true;
 

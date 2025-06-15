@@ -26,7 +26,7 @@ export interface OrderInterfaceStudent {
   studentId: (string | undefined)
   kw: number;
   year: number;
-  dateOrder: Date;
+  dateOrder: string; // Format: 'YYYY-MM-DD'
   subgroup?: string;
   order: OrderInterfaceStudentDay;
   customerId: string;
@@ -65,7 +65,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
   kw: number;
   year: number;
   order: OrderInterfaceStudentDay;
-  dateOrder: Date;
+  dateOrder: string; // Format: 'YYYY-MM-DD'
   customerId: string;
   _id?: string;
   orderId?: string;
@@ -77,7 +77,7 @@ export class OrderClassStudent implements OrderInterfaceStudent {
     settings: SettingInterfaceNew,
     selectedWeek: WeekplanDayInterface,
     studentModel: (StudentInterface | null)
-    , dateOrder: Date,
+    , dateOrder: string, // Format: 'YYYY-MM-DD'
     contractSettings: EinrichtungInterface) {
     this.order = new OrderModelSingleDayStudent(customer, settings, selectedWeek, studentModel, contractSettings);
     this.customerId = customer.customerId;
