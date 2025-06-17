@@ -38,9 +38,9 @@
                     <option *ngFor="let year of availableYears" [ngValue]="year">{{ year }}</option>
                   </select>
                   <!-- Text input field -->
-                  <input (input)="search($event)" [(ngModel)]="searchTerm"
+                  <!-- <input (input)="search($event)" [(ngModel)]="searchTerm"
                     class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full"
-                    placeholder="{{ 'ORDER_HISTORY.SEARCH_PLACEHOLDER' | translate }}" type="text">
+                    placeholder="{{ 'ORDER_HISTORY.SEARCH_PLACEHOLDER' | translate }}" type="text"> -->
                   <!-- Button for sm and smaller screens -->
                   <div class="block md:hidden mt-1 sm:mt-0">
                     <button (click)="openDialogExport()"
