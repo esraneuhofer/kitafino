@@ -11,8 +11,7 @@
               </div>
               <!-- Button for md and larger screens -->
               <div class="hidden md:block md:ml-auto">
-                <button
-                  (click)="openDialogExport()"
+                <button (click)="openDialogExport()"
                   class="mt-1 block px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                   {{ 'ORDER_HISTORY.CSV_EXPORT' | translate }}
                 </button>
@@ -22,20 +21,29 @@
               <div class="flow-root">
                 <!-- Container for input fields with half width -->
                 <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mb-4">
-                  <!-- Select input field -->
-                  <select [(ngModel)]="queryYear"
-                          class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
-                    <option [ngValue]="2024">2024</option>
+                  <!-- Student select field -->
+                  <select [(ngModel)]="selectedStudent" (ngModelChange)="onStudentChange()"
+                    [disabled]="registeredStudents.length === 0"
+                    class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full"
+                    [class.bg-gray-100]="registeredStudents.length === 0">
+                    <option [ngValue]="null" disabled>{{ registeredStudents.length > 0 ? 'Auswählen'
+                      : 'Kein Verpflegungsteilnehmer' }}</option>
+                    <option *ngFor="let student of registeredStudents" [ngValue]="student">
+                      {{ student.firstName }} {{ student.lastName }}
+                    </option>
+                  </select>
+                  <!-- Year select field -->
+                  <select [(ngModel)]="queryYear" (ngModelChange)="onYearChange()"
+                    class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full">
+                    <option *ngFor="let year of availableYears" [ngValue]="year">{{ year }}</option>
                   </select>
                   <!-- Text input field -->
-                  <input (input)="search($event)"
-                         [(ngModel)]="searchTerm"
-                         class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full" placeholder="{{ 'ORDER_HISTORY.SEARCH_PLACEHOLDER' | translate }}"
-                         type="text">
+                  <input (input)="search($event)" [(ngModel)]="searchTerm"
+                    class="mt-1 block px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full"
+                    placeholder="{{ 'ORDER_HISTORY.SEARCH_PLACEHOLDER' | translate }}" type="text">
                   <!-- Button for sm and smaller screens -->
                   <div class="block md:hidden mt-1 sm:mt-0">
-                    <button
-                      (click)="openDialogExport()"
+                    <button (click)="openDialogExport()"
                       class="block w-full px-3 py-2 bg-blue-600 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                       {{ 'ORDER_HISTORY.CSV_EXPORT' | translate }}
                     </button>
@@ -47,62 +55,64 @@
               <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <table class="min-w-full divide-y divide-gray-300">
                   <thead>
-                  <tr>
-                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
-                      <span class="hidden sm:inline">{{ 'ORDER_HISTORY.STUDENT' | translate }}</span>
-                      <span class="inline sm:hidden">{{ 'ORDER_HISTORY.NAME' | translate }}</span>
-                    </th>
-                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.MENU' | translate }}</th>
-                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
-                      <span class="hidden sm:inline">{{ 'ORDER_HISTORY.ORDER_DATE_MENU' | translate }}</span>
-                      <span class="inline sm:hidden">{{ 'ORDER_HISTORY.DATE' | translate }}</span>
-                    </th>
-                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.EXECUTED' | translate }}</th>
-                    <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.PRICE' | translate }}</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{ 'ORDER_HISTORY.TYPE' | translate }}</th>
-                  </tr>
+                    <tr>
+                      <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                        <span class="hidden sm:inline">{{ 'ORDER_HISTORY.STUDENT' | translate }}</span>
+                        <span class="inline sm:hidden">{{ 'ORDER_HISTORY.NAME' | translate }}</span>
+                      </th>
+                      <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">{{ 'ORDER_HISTORY.MENU' | translate }}</th>
+                      <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" scope="col">
+                        <span class="hidden sm:inline">{{ 'ORDER_HISTORY.ORDER_DATE_MENU' | translate }}</span>
+                        <span class="inline sm:hidden">{{ 'ORDER_HISTORY.DATE' | translate }}</span>
+                      </th>
+                      <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">{{ 'ORDER_HISTORY.EXECUTED' | translate }}</th>
+                      <th class="hidden sm:table-cell px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                        scope="col">{{ 'ORDER_HISTORY.PRICE' | translate }}</th>
+                      <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" scope="col">{{
+                        'ORDER_HISTORY.TYPE' | translate }}</th>
+                    </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200">
-                  <tr class="cursor-pointer hover:bg-gray-50"
-                      style="cursor: pointer"
+                    <tr class="cursor-pointer hover:bg-gray-50" style="cursor: pointer"
                       (click)="openDetailsOrder(eachAccountOwner)"
-                    *ngFor="let eachAccountOwner of displayArrayAccountOrders |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <!-- Visible on small screens, shows truncated text -->
-                      <span class="block sm:hidden">
-                        {{ eachAccountOwner.nameStudent | slice:0:5 }}
-                      </span>
-                      <!-- Hidden on small screens, shows full text -->
-                      <span class="hidden sm:block">
-                        {{ eachAccountOwner.nameStudent }}
-                      </span>
-                    </td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500" [matTooltip]="eachAccountOwner.nameOrder">{{ eachAccountOwner.nameOrder | trimText:10 }}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrder | date:'dd.MM.yy' }}</td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.datePlaced | date:'dd.MM.yy | HH:mm' }} Uhr</td>
-                    <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.priceOrder | currency:'€' }}</td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.typeOrder }}</td>
-                  </tr>
-                  <tr *ngIf="displayArrayAccountOrders.length == 0">
-                    <td colspan="100%">
-                      <app-general-banner></app-general-banner>
-                    </td>
-                  </tr>
+                      *ngFor="let eachAccountOwner of displayArrayAccountOrders |  slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <!-- Visible on small screens, shows truncated text -->
+                        <span class="block sm:hidden">
+                          {{ eachAccountOwner.nameStudent | slice:0:5 }}
+                        </span>
+                        <!-- Hidden on small screens, shows full text -->
+                        <span class="hidden sm:block">
+                          {{ eachAccountOwner.nameStudent }}
+                        </span>
+                      </td>
+                      <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        [matTooltip]="eachAccountOwner.nameOrder">{{ eachAccountOwner.nameOrder | trimText:10 }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.dateOrder |
+                        date:'dd.MM.yy' }}</td>
+                      <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{
+                        eachAccountOwner.datePlaced | date:'dd.MM.yy | HH:mm' }} Uhr</td>
+                      <td class="hidden sm:table-cell whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{
+                        eachAccountOwner.priceOrder | currency:'€' }}</td>
+                      <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ eachAccountOwner.typeOrder }}
+                      </td>
+                    </tr>
+                    <tr *ngIf="displayArrayAccountOrders.length == 0">
+                      <td colspan="100%">
+                        <app-general-banner></app-general-banner>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <div class="flex flex-col md:flex-row" style="border-top: 1px solid lightgray"></div>
                 <div class="flex flex-col md:flex-row mt-3">
                   <div class="md:w-3/3 w-full">
                     <div class="flex justify-start md:justify-end">
-                      <ngb-pagination
-                        [(page)]="page"
-                        [boundaryLinks]="false"
-                        [collectionSize]="displayArrayAccountOrders.length"
-                        [maxSize]="3"
-                        [pageSize]="pageSize"
-                        [rotate]="true"
-                        [ellipses]="true"
-                        [directionLinks]="true"></ngb-pagination>
+                      <ngb-pagination [(page)]="page" [boundaryLinks]="false"
+                        [collectionSize]="displayArrayAccountOrders.length" [maxSize]="3" [pageSize]="pageSize"
+                        [rotate]="true" [ellipses]="true" [directionLinks]="true"></ngb-pagination>
                     </div>
                   </div>
                 </div>

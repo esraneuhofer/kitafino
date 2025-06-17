@@ -287,3 +287,60 @@ export function getOrderPlaced(orderStudent: OrderInterfaceStudentSave): OrderAn
   }
   return orderPlaced;
 }
+
+export function timeDifferenceDayWeek(dateInputCompare: string, weekDay: number, deadlineTime: string): number {
+  console.log('timeDifferenceDayWeek', dateInputCompare, weekDay, deadlineTime);
+  // Konvertiere das Eingabedatum zu Berliner Zeit
+  const targetDateBerlin = dayjs.tz(dateInputCompare, 'Europe/Berlin');
+  const nowBerlin = dayjs.tz(new Date(), 'Europe/Berlin');
+
+  // Parse the deadline time (HH:mm format)
+  const [hours, minutes] = deadlineTime.split(':').map(Number);
+
+  // Aktuelle Woche
+  const startOfCurrentWeek = nowBerlin.startOf('isoWeek');
+  const currentWeekNumber = nowBerlin.isoWeek();
+  const targetWeekNumber = targetDateBerlin.isoWeek();
+  const currentYear = nowBerlin.year();
+  const targetYear = targetDateBerlin.year();
+
+  // Prüfe, ob das Zieldatum in der aktuellen oder kommenden Woche liegt
+  const weekDifference = (targetYear - currentYear) * 53 + (targetWeekNumber - currentWeekNumber);
+
+  if (weekDifference === 0) {
+    // Zieldatum ist in der aktuellen Woche
+    // Für die aktuelle Woche kann man NIE nachbestellen
+    return -1; // Immer negativ, da nicht möglich
+
+  } else if (weekDifference === 1) {
+    // Zieldatum ist in der kommenden Woche
+    // Man kann nur bis zum Deadline-Tag + Uhrzeit der aktuellen Woche bestellen
+    const deadlineForNextWeek = startOfCurrentWeek
+      .add(weekDay - 1, 'days')
+      .hour(hours)
+      .minute(minutes)
+      .second(0)
+      .millisecond(0);
+
+    // Zeitdifferenz bis zur Deadline
+    return deadlineForNextWeek.diff(nowBerlin);
+
+  } else if (weekDifference > 1) {
+    // Zieldatum ist in einer späteren Woche (mehr als 1 Woche in der Zukunft)
+    // Man kann nur bis zum entsprechenden Deadline-Tag der Vorwoche bestellen
+    const startOfWeekBeforeTarget = targetDateBerlin.startOf('isoWeek').subtract(1, 'week');
+    const deadlineForFutureWeek = startOfWeekBeforeTarget
+      .add(weekDay - 1, 'days')
+      .hour(hours)
+      .minute(minutes)
+      .second(0)
+      .millisecond(0);
+
+    return deadlineForFutureWeek.diff(nowBerlin);
+
+  } else {
+    // Zieldatum liegt in der Vergangenheit
+    // Kann nicht bestellt werden
+    return -1;
+  }
+}

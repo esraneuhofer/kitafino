@@ -12,7 +12,7 @@ import {
 } from "../../../functions/order.functions";
 import { normalizeToBerlinDate } from "../../../functions/date.functions";
 import { OrderService } from "../../../service/order.service";
-import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend } from "../order.functions";
+import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend, timeDifferenceDayWeek } from "../order.functions";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmOrderComponent } from "../../dialogs/confirm-order/confirm-order.component";
 import { getEmailBody } from "../email-order.function";
@@ -218,10 +218,24 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   getColor(menuItem: OrderSubDetailNew, lockDay: boolean, pastOrder: boolean): string {
+
+    // if (pastOrder && !this.pastZubestellung && this.customer.generalSettings.hasAdditionDaily && !menuItem.menuSelected) {
+    //   switch (menuItem.typeOrder) {
+    //     case 'menu':
+    //       return 'background_blue';
+    //     case 'side':
+    //       return 'background_lighter_green';
+    //     case 'dessert':
+    //       return 'background_yellow';
+    //     case 'specialFood':
+    //       return 'background_lightgreen';
+    //     default:
+    //       return 'transparent';  // Default color if value is 0 or not in range
+    //   }
+    // }
     if (lockDay || pastOrder) {
       return 'background_greyed_out';
     }
-
     switch (menuItem.typeOrder) {
       case 'menu':
         return 'background_blue';

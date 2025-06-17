@@ -1,42 +1,43 @@
-import {Component, OnInit} from '@angular/core';
-import {StudentInterface, StudentInterfaceId} from "../../classes/student.class";
-import {GenerellService} from "../../service/generell.service";
-import {ToastrService} from "ngx-toastr";
-import {TenantServiceStudent} from "../../service/tenant.service";
-import {StudentService} from "../../service/student.service";
-import {AccountService} from "../../service/account.serive";
-import {ActivatedRoute, Router} from "@angular/router";
-import {forkJoin} from "rxjs";
-import {SettingInterfaceNew, SpecialFoodInterface, SpecialOrderSettings} from "../../classes/setting.class";
-import {CustomerInterface} from "../../classes/customer.class";
-import {dayArray} from "../../classes/weekplan.interface";
-import {TenantStudentInterface} from "../../classes/tenant.class";
-import {AccountCustomerInterface} from "../../classes/account.class";
-import {getSplit} from "../order-student/order.functions";
-import {PermanentOrderService} from "../../service/permant-order.service";
+import { Component, OnInit } from '@angular/core';
+import { StudentInterface, StudentInterfaceId } from "../../classes/student.class";
+import { GenerellService } from "../../service/generell.service";
+import { ToastrService } from "ngx-toastr";
+import { TenantServiceStudent } from "../../service/tenant.service";
+import { StudentService } from "../../service/student.service";
+import { AccountService } from "../../service/account.serive";
+import { ActivatedRoute, Router } from "@angular/router";
+import { forkJoin } from "rxjs";
+import { SettingInterfaceNew, SpecialFoodInterface, SpecialOrderSettings } from "../../classes/setting.class";
+import { CustomerInterface } from "../../classes/customer.class";
+import { dayArray } from "../../classes/weekplan.interface";
+import { TenantStudentInterface } from "../../classes/tenant.class";
+import { AccountCustomerInterface } from "../../classes/account.class";
+import { getSplit } from "../order-student/order.functions";
+import { PermanentOrderService } from "../../service/permant-order.service";
 import {
   PermanentOrderClass,
   PermanentOrderInterface
 } from "../../classes/permanent-order.interface";
-import {customerHasSpecialFood} from "../../functions/special-food.functions";
-import {TranslateService} from "@ngx-translate/core";
-import {MessageService} from "../../service/message.service";
-import {MessageDialogService} from "../../service/message-dialog.service";
-import {MatDialog} from "@angular/material/dialog";
+import { customerHasSpecialFood } from "../../functions/special-food.functions";
+import { TranslateService } from "@ngx-translate/core";
+import { MessageService } from "../../service/message.service";
+import { MessageDialogService } from "../../service/message-dialog.service";
+import { MatDialog } from "@angular/material/dialog";
 import {
   ExportCsvDialogComponent,
   ExportCsvDialogData
 } from "../../directives/export-csv-dialog/export-csv-dialog.component";
-import {createXmlFile} from "../account/account-csv.function";
+import { createXmlFile } from "../account/account-csv.function";
 import {
   ConfirmDialogPermanetOrderComponent
 } from "./confirm-dialog-permanet-order/confirm-dialog-permanet-order.component";
-import {getBestellfrist} from "../../functions/date.functions";
+import { getBestellfrist } from "../../functions/date.functions";
 import {
   ConfirmDeletePermanentOrderDialogComponent
 } from "../../directives/confirm-delete-permanent-order-dialog/confirm-delete-permanent-order-dialog.component";
-import {ButStudentInterface} from "../../classes/but.class";
+import { ButStudentInterface } from "../../classes/but.class";
 import { WeekplanGroupAllowedSelection, WeekplanGroupSelection } from '../../classes/assignedWeekplan.class';
+import { J } from '@angular/cdk/keycodes';
 
 interface DaysOrderPermanentInterfaceSelection {
   selected: boolean,
@@ -79,6 +80,7 @@ function getFirstMenuSettings(settings: SettingInterfaceNew): string {
 }
 
 function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer: CustomerInterface, student: StudentInterfaceId, weekplanGroupSelection: WeekplanGroupSelection | null): DaysOrderPermanentInterfaceSelection[] {
+  console.log('customer.generalSettings.allowOnlyOneMenu', customer.generalSettings.allowOnlyOneMenu)
   let arrayMenu: DaysOrderPermanentInterfaceSelection[] = []
   if (customer.generalSettings.allowOnlyOneMenu) {
     if (student.specialFood) {
@@ -93,17 +95,18 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
     } else {
       settings.orderSettings.specials.forEach((special) => {
         if (special.typeOrder === 'menu') {
-          arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
+          arrayMenu.push({ selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial })
         }
       })
     }
   } else {
     settings.orderSettings.specials.forEach((special) => {
       if (special.typeOrder === 'menu') {
-        arrayMenu.push({selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial})
+        arrayMenu.push({ selected: false, menuId: special._id, typeSpecial: 'menu', nameMenu: special.nameSpecial })
       }
     })
     settings.orderSettings.specialFoods.forEach((special) => {
+
       if (customerHasSpecialFood(customer, special._id) && student.specialFood === special._id) {
         arrayMenu.push({
           selected: false,
@@ -114,8 +117,9 @@ function getMenuSelectionPermanentOrder(settings: SettingInterfaceNew, customer:
       }
     })
   }
-  if(!weekplanGroupSelection) return arrayMenu;
-  arrayMenu.forEach((menu,index) => {
+  if (!weekplanGroupSelection) return arrayMenu;
+  arrayMenu.forEach((menu, index) => {
+    if (menu.typeSpecial === 'special') return; // Skip special foods, as they are not part of weekplan groups
     let weekplanGroupAllowed = weekplanGroupSelection.weekplanGroupAllowedSelection.find((weekplanGroup) => weekplanGroup.idSpecial === menu.menuId && weekplanGroup.selected);
     if (!weekplanGroupAllowed) {
       arrayMenu.splice(index, 1);
@@ -151,26 +155,26 @@ export class PermanentOrdersComponent implements OnInit {
   settings!: SettingInterfaceNew;
   tenantStudent!: TenantStudentInterface;
   selectedPermanentOrder: PermanentOrderInterface | null = null;
-  weekplanGroupSelection:WeekplanGroupSelection | null = null;
+  weekplanGroupSelection: WeekplanGroupSelection | null = null;
 
   constructor(private generellService: GenerellService,
-              private toastr: ToastrService,
-              private router: Router,
-              private r: ActivatedRoute,
-              private tenantService: TenantServiceStudent,
-              private dialogeService: MessageDialogService,
-              private studentService: StudentService,
-              private accountService: AccountService,
-              private permanentOrdersService: PermanentOrderService,
-              private messageService: MessageDialogService,
-              private dialog: MatDialog,
-              private translate: TranslateService) {
+    private toastr: ToastrService,
+    private router: Router,
+    private r: ActivatedRoute,
+    private tenantService: TenantServiceStudent,
+    private dialogeService: MessageDialogService,
+    private studentService: StudentService,
+    private accountService: AccountService,
+    private permanentOrdersService: PermanentOrderService,
+    private messageService: MessageDialogService,
+    private dialog: MatDialog,
+    private translate: TranslateService) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
 
 
   routeToAccount(route: string) {
-    this.router.navigate(['../home/' + route], {relativeTo: this.r.parent});
+    this.router.navigate(['../home/' + route], { relativeTo: this.r.parent });
   }
 
 
@@ -202,22 +206,22 @@ export class PermanentOrdersComponent implements OnInit {
 
     ]).subscribe(
       ([
-         settings,
-         customer,
-         students,
-         tenantStudent,
-         accountTenant,
-         permanentOrders,
-          weekplanGroupSelection
-       ]: [
-        SettingInterfaceNew,
-        CustomerInterface,
-        StudentInterfaceId[],
-        TenantStudentInterface,
-        AccountCustomerInterface,
-        PermanentOrderInterface[],
-        WeekplanGroupSelection
-      ]) => {
+        settings,
+        customer,
+        students,
+        tenantStudent,
+        accountTenant,
+        permanentOrders,
+        weekplanGroupSelection
+      ]: [
+          SettingInterfaceNew,
+          CustomerInterface,
+          StudentInterfaceId[],
+          TenantStudentInterface,
+          AccountCustomerInterface,
+          PermanentOrderInterface[],
+          WeekplanGroupSelection
+        ]) => {
         this.settings = settings;
         this.customer = customer;
         this.registeredStudents = students;
@@ -226,7 +230,7 @@ export class PermanentOrdersComponent implements OnInit {
         this.accountTenant = accountTenant;
         this.permanentOrders = permanentOrders;
         this.bestellfrist = getBestellfrist(this.customer, this.translate),
-        this.weekplanGroupSelection = weekplanGroupSelection;
+          this.weekplanGroupSelection = weekplanGroupSelection;
         this.pageLoaded = true;
 
       },
@@ -243,8 +247,8 @@ export class PermanentOrdersComponent implements OnInit {
       this.selectedPermanentOrder = null;
       return
     }
-    this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer, student,this.weekplanGroupSelection)
-
+    this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer, student, this.weekplanGroupSelection)
+    console.log('menuSelection', JSON.parse(JSON.stringify(this.menuSelection)))
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
     if (!permanentOrder) {
@@ -271,7 +275,7 @@ export class PermanentOrdersComponent implements OnInit {
     if (moreDaysSelectedThenAllowed(permanentOrder, this.selectedStudent)) {
 
       this.dialogeService.openMessageDialog(
-        this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS", {days: this.selectedStudent.butDaysPerWeek}),
+        this.translate.instant("MANAGE_PERMANENT_ORDERS_ERROR_TOO_MANY_DAYS", { days: this.selectedStudent.butDaysPerWeek }),
         this.translate.instant("ERROR_TITLE"),
         'error');
       // this.toastr.error(this.translate.instant('MANAGE_PERMANENT_ORDERS_ERROR_NO_DAY'))
@@ -281,7 +285,7 @@ export class PermanentOrdersComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogPermanetOrderComponent, {
       width: '550px',
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: { top: '100px' }
     });
     dialogRef.afterClosed().subscribe((result: ExportCsvDialogData) => {
       if (!result) {
@@ -333,7 +337,7 @@ export class PermanentOrdersComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDeletePermanentOrderDialogComponent, {
       width: '550px',
       panelClass: 'custom-dialog-container',
-      position: {top: '100px'}
+      position: { top: '100px' }
     });
     dialogRef.afterClosed().subscribe((result: ExportCsvDialogData) => {
       if (!result) {

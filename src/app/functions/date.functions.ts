@@ -18,7 +18,6 @@ export function normalizeToBerlinDate(date: Date | string): string {
     .format('YYYY-MM-DD');
 }
 export function getLockDays(date: string, allVacations: VacationsSubgroupInterface[], allVacationsTenant: VacationStudent[], state: any, groupIdStudent: string): boolean[] {
-  console.log('getLockDays - Checking lock days for date:', date);
   let lockDay = [false, false, false, false, false];
 
   // Verwende string-basierte Datumsberechnung für Timezone-Konsistenz

@@ -527,7 +527,6 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
               )
             );
           });
-          console.log('Bestellungen für die Woche geladen:', this.orderWeek);
           this.pageLoaded = true;
         });
       });
