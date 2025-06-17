@@ -147,8 +147,8 @@ export class GenerellService {
   }): Observable<any> {
     const formData = new FormData();
     formData.append('file', object.file, `Bestellverlauf${getInvoiceDateOne(object.firstDate)}_to_${getInvoiceDateOne(object.secondDate)}.pdf`);
-    formData.append('firstDate', object.firstDate);
-    formData.append('secondDate', object.secondDate);
+    formData.append('firstDate', getInvoiceDateOne(object.firstDate));
+    formData.append('secondDate', getInvoiceDateOne(object.secondDate));
     formData.append('type', object.type);
     formData.append('email', object.email);
 

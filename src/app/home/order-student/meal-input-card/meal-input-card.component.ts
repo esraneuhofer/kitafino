@@ -389,7 +389,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const specialCondition = this.pastOrder &&
       !this.pastZubestellung &&
       (eachMenu.typeOrder === 'menu' || eachMenu.typeOrder === 'specialFood') &&
-      this.customer.generalSettings.hasAdditionDaily &&
+      (this.customer.generalSettings.hasAdditionDaily || this.customer.generalSettings.hasAdditionWeekly) &&
       !eachMenu.menuSelected;
 
     return normallyDisabled && !specialCondition;
@@ -508,8 +508,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       let year = dayjs.tz(day, 'Europe/Berlin').year();
       this.checkDeadlineWeek(cw, year)
     }
-    this.checkDeadlineAbbestellung(day)
-    this.checkDeadlineZubestellung(day)
+    if (this.customer.generalSettings.hasCancelDaily || this.customer.generalSettings.hasCancelWeekly) {
+      this.checkDeadlineAbbestellung(day)
+    }
+    if (this.customer.generalSettings.hasAdditionDaily || this.customer.generalSettings.hasAdditionWeekly) {
+      this.checkDeadlineZubestellung(day)
+    }
+
 
   }
   checkDeadlineAbbestellung(day: string): void {
@@ -577,13 +582,12 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     // const distance = this.customer.generalSettings.deadlineSkipWeekend
     //   ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
     //   : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
-    this.customer.generalSettings.hasAdditionDaily = false;
-    this.customer.generalSettings.hasAdditionWeekly = true;
-    this.customer.generalSettings.cancelOrderWeekly = {
-      day: "5", // Setze den Tag auf Freitag
-      time: this.customer.generalSettings.cancelOrderDaily.time
-    };
-
+    // this.customer.generalSettings.hasAdditionDaily = false;
+    // this.customer.generalSettings.hasAdditionWeekly = true;
+    // this.customer.generalSettings.cancelOrderWeekly = {
+    //   day: "5", // Setze den Tag auf Freitag
+    //   time: this.customer.generalSettings.cancelOrderDaily.time
+    // };
     const distance = getDifferenceZuUndAbestellen(this.customer, day)
     if (distance < 0) {
       this.pastZubestellung = true;

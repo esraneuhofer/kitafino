@@ -28,12 +28,17 @@ var generalSettingsSchema = new Schema({
   allergiesSetByTenant: { type: Boolean },
   showOrderDaily: { type: Boolean },
   sendEmailOrderAfterDeadline: { type: Boolean },
+
   hasAdditionDaily: { type: Boolean },
   hasCancelDaily: { type: Boolean },
+  hasAdditionWeekly: { type: Boolean },
+  hasCancelWeekly: { type: Boolean },
   isDeadlineDaily: { type: Boolean },
+
   deadlineWeekly: { type: DeadlineWeeklySchema },
   deadlineDaily: { type: DeadlineDailySchema },
   cancelOrderDaily: { type: CancelOrderDailySchema },
+  cancelOrderWeekly: { type: CancelOrderDailySchema },
   state: { type: String },
   showAllSpecialFood: { type: Boolean },
   allowOnlyOneMenu: { type: Boolean },

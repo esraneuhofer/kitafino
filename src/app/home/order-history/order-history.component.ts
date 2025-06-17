@@ -239,6 +239,16 @@ export class OrderHistoryComponent implements OnInit {
         this.submittingRequest = false;
         return;
       }
+
+      // Check if secondDate is greater than yesterday and adjust if needed
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      yesterday.setHours(23, 59, 59, 999); // Set to end of yesterday
+
+      if (result.secondDate && new Date(result.secondDate) > yesterday) {
+        result.secondDate = yesterday.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      }
+
       // Use the filtered orders (displayArrayAccountOrdersSearch) instead of all orders
       if (result.typeDownload === 'csv') {
         let xlsContent = getXlsContent(this.displayArrayAccountOrdersSearch, result);
@@ -262,7 +272,7 @@ export class OrderHistoryComponent implements OnInit {
         });
       } else {
         if (!this.selectedStudent) {
-          this.toastr.error(this.translate.instant('ORDER_HISTORY.SELECT_STUDENT'), this.translate.instant('ERROR_TITLE'));
+          this.toastr.error(this.translate.instant('Bitte wenden Sie sich an den Support'), this.translate.instant('Fehler'));
           return;
         }
         createPdfBufferBuT(this.displayArrayAccountOrdersSearch, result, this.selectedStudent, this.school).then(pdfBlob => {

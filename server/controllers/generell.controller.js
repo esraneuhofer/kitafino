@@ -17,7 +17,7 @@ const Weekplanpdf = mongoose.model('WeekplanPdf');
 const Vacation = mongoose.model('Vacation');
 const Feedback = mongoose.model('FeedbackSchema');
 const ErrorReport = mongoose.model('ErrorReport');
-
+const { getEmailBodyOrderHistory } = require('./email-order-history');
 const { convertToSendGridFormat } = require('./sendfrid.controller');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // const upload = multer();
@@ -340,8 +340,9 @@ module.exports.sendPDFEmail = async (req, res, next) => {
     const msg = {
       to: email,
       from: '"Cateringexpert" <noreply@cateringexpert.de>',
+      bcc: 'monitoring@cateringexpert.de',
       subject: `${type} vom ${firstDate} bis ${secondDate}`,
-      text: 'Anbei finden Sie die angeforderte PDF-Datei.',
+      html: getEmailBodyOrderHistory(),
       attachments: [
         {
           content: file.buffer.toString('base64'),
