@@ -12,7 +12,7 @@ import {
 } from "../../../functions/order.functions";
 import { normalizeToBerlinDate } from "../../../functions/date.functions";
 import { OrderService } from "../../../service/order.service";
-import { getDeadlineWeeklyFunction, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend, timeDifferenceDayWeek } from "../order.functions";
+import { getDeadlineWeeklyFunction, getDifferenceZuUndAbestellen, getWeekNumber, timeDifference, timeDifferenceDay, timeDifferenceDaySkipWeekend, timeDifferenceDayWeek } from "../order.functions";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmOrderComponent } from "../../dialogs/confirm-order/confirm-order.component";
 import { getEmailBody } from "../email-order.function";
@@ -531,10 +531,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
 
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
-    const distance = this.customer.generalSettings.deadlineSkipWeekend
-      ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
-      : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
-
+    // const distance = this.customer.generalSettings.deadlineSkipWeekend
+    //   ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
+    //   : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    const distance = getDifferenceZuUndAbestellen(this.customer, day)
     if (distance < 0) {
       this.pastCancelation = true;
       clearInterval(this.timerInterval);
@@ -549,7 +549,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineZubestellung(day: string): void {
-    if (!this.customer.generalSettings.hasAdditionDaily) {
+    if (!this.customer.generalSettings.hasAdditionDaily && !this.customer.generalSettings.hasAdditionWeekly) {
       this.pastZubestellung = true;
       return;
     }
@@ -574,9 +574,17 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     }
 
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
-    const distance = this.customer.generalSettings.deadlineSkipWeekend
-      ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
-      : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    // const distance = this.customer.generalSettings.deadlineSkipWeekend
+    //   ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.cancelOrderDaily, day)
+    //   : timeDifferenceDay(this.customer.generalSettings.cancelOrderDaily, day);
+    this.customer.generalSettings.hasAdditionDaily = false;
+    this.customer.generalSettings.hasAdditionWeekly = true;
+    this.customer.generalSettings.cancelOrderWeekly = {
+      day: "5", // Setze den Tag auf Freitag
+      time: this.customer.generalSettings.cancelOrderDaily.time
+    };
+
+    const distance = getDifferenceZuUndAbestellen(this.customer, day)
     if (distance < 0) {
       this.pastZubestellung = true;
       clearInterval(this.timerInterval);

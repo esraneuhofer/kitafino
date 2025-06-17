@@ -68,12 +68,12 @@
               <div class="flex justify-between items-center w-full">
                 <!-- Links ausgerichteter Text, aber nur wenn vorhanden -->
                 <span
-                  *ngIf="pastOrder && !pastCancelation &&  (eachMenu.typeOrder === 'menu') && customer.generalSettings.hasCancelDaily && eachMenu.menuSelected"
+                  *ngIf="pastOrder && !pastCancelation &&  (eachMenu.typeOrder === 'menu') && (customer.generalSettings.hasCancelDaily || customer.generalSettings.hasCancelWeekly) && eachMenu.menuSelected"
                   class="text-left" (click)="setOrderIconCancel(indexMenu)">
                   <u>{{ 'ABBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>
                 <span
-                  *ngIf="pastOrder && !pastZubestellung && (eachMenu.typeOrder === 'menu') && customer.generalSettings.hasAdditionDaily && !eachMenu.menuSelected"
+                  *ngIf="pastOrder && !pastZubestellung && (eachMenu.typeOrder === 'menu') && (customer.generalSettings.hasAdditionDaily || customer.generalSettings.hasAdditionWeekly) && !eachMenu.menuSelected"
                   class="text-left" (click)="setOrderDay(true,indexMenu)">
                   <u> {{ 'ZUBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>

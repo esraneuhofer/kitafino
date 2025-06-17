@@ -16,6 +16,25 @@ dayjs.extend(isoWeek);     // Fügt isoWeek() Funktion hinzu
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+
+export function getDifferenceZuUndAbestellen(customer: CustomerInterface, dateInputCompare: string): number {
+
+  if (customer.generalSettings.hasCancelDaily || customer.generalSettings.hasAdditionDaily) {
+    if (customer.generalSettings.deadlineSkipWeekend) {
+      return timeDifferenceDaySkipWeekend(customer.generalSettings.cancelOrderDaily, dateInputCompare)
+    } else {
+      return timeDifferenceDay(customer.generalSettings.cancelOrderDaily, dateInputCompare)
+    }
+  } else {
+    if (customer.generalSettings.hasCancelWeekly || customer.generalSettings.hasAdditionWeekly) {
+
+      return timeDifferenceDayWeek(dateInputCompare, customer.generalSettings.cancelOrderWeekly.day, customer.generalSettings.cancelOrderWeekly.time);
+    }
+  }
+  return -1
+}
+
+
 export function isCancelOrderPossibleDashboard(generalSettings: GeneralSettingsInterface, orderDate: string): number {
   if (generalSettings.isDeadlineDaily) {
     let isNotFormat = !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(generalSettings.cancelOrderDaily.time);
@@ -288,8 +307,8 @@ export function getOrderPlaced(orderStudent: OrderInterfaceStudentSave): OrderAn
   return orderPlaced;
 }
 
-export function timeDifferenceDayWeek(dateInputCompare: string, weekDay: number, deadlineTime: string): number {
-  console.log('timeDifferenceDayWeek', dateInputCompare, weekDay, deadlineTime);
+export function timeDifferenceDayWeek(dateInputCompare: string, weekDay$: string, deadlineTime: string): number {
+  const weekDay = parseInt(weekDay$); // Konvertiere den Wochentag in eine Zahl (1-7, wobei 1 = Montag und 7 = Sonntag)
   // Konvertiere das Eingabedatum zu Berliner Zeit
   const targetDateBerlin = dayjs.tz(dateInputCompare, 'Europe/Berlin');
   const nowBerlin = dayjs.tz(new Date(), 'Europe/Berlin');

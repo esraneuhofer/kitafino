@@ -107,7 +107,12 @@ export interface GeneralSettingsInterface {
     day: string;
     time: string;
   };
-
+  cancelOrderWeekly: {
+    day: string;
+    time: string;
+  };
+  hasCancelWeekly: boolean;
+  hasAdditionWeekly: boolean;
   deadlineSkipWeekend: boolean; // Wenn true, werden Wochenenden bei der Deadline-Berechnung übersprungen
   hideMenuName: boolean;
   allowOnlyOneMenu: boolean;
