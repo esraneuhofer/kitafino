@@ -124,7 +124,7 @@ a[x-apple-data-detectors] {
                   <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
                    <table cellpadding="0" cellspacing="0" class="es-left" align="left" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
                      <tr class="es-mobile-hidden">
-                      <td align="left" style="padding:0;Margin:0;width:146px">
+                      <td align="left" style="padding:0;Margin:0;width:110px">
                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                          <tr>
                           <td align="center" height="40" style="padding:0;Margin:0"></td>
@@ -135,13 +135,13 @@ a[x-apple-data-detectors] {
                   <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
                    <table cellpadding="0" cellspacing="0" class="es-left" align="left" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
                      <tr>
-                      <td align="left" style="padding:0;Margin:0;width:121px">
+                      <td align="left" style="padding:0;Margin:0;width:140px">
                        <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#e8eafb" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#e8eafb;border-radius:10px 0 0 10px" role="presentation">
                          <tr>
-                          <td align="right" style="padding:0;Margin:0;padding-top:10px;padding-left: 30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Username:</p></td>
+                          <td align="right" style="padding:0;Margin:0;padding-top:10px;padding-left: 20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Username:</p></td>
                          </tr>
                          <tr>
-                          <td align="right" style="padding:0;Margin:0;padding-bottom:10px;padding-left: 30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Password:</p></td>
+                          <td align="right" style="padding:0;Margin:0;padding-bottom:10px;padding-left: 20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">Password:</p></td>
                          </tr>
                        </table></td>
                      </tr>
@@ -149,13 +149,13 @@ a[x-apple-data-detectors] {
                   <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
                    <table cellpadding="0" cellspacing="0" class="es-left" align="left" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
                      <tr>
-                      <td align="left" style="padding:0;Margin:0;width:155px">
+                      <td align="left" style="padding:0;Margin:0;width:200px">
                        <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#e8eafb" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#e8eafb;border-radius:0 10px 10px 0" role="presentation">
                          <tr>
-                          <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-left:10px;padding-right: 30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><strong>${username}</strong></p></td>
+                          <td align="left" style="padding:0;Margin:0;padding-top:10px;padding-left:10px;padding-right: 20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><strong>${username}</strong></p></td>
                          </tr>
                          <tr>
-                          <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:10px;padding-right: 30px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><strong>${password}</strong></p></td>
+                          <td align="left" style="padding:0;Margin:0;padding-bottom:10px;padding-left:10px;padding-right: 20px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px"><strong>${password}</strong></p></td>
                          </tr>
                        </table></td>
                      </tr>
@@ -163,7 +163,7 @@ a[x-apple-data-detectors] {
                   <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
                    <table cellpadding="0" cellspacing="0" class="es-right" align="right" role="none" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
                      <tr class="es-mobile-hidden">
-                      <td align="left" style="padding:0;Margin:0;width:138px">
+                      <td align="left" style="padding:0;Margin:0;width:110px">
                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                          <tr>
                           <td align="center" height="40" style="padding:0;Margin:0"></td>
