@@ -637,5 +637,11 @@
   "BIS_OPTIONAL": "ถึง (ไม่บังคับ)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "กรุณากรอกวันที่เริ่มต้น",
   "SUCCESS_VACATION_DELETED": "ลบวันหยุดสำเร็จ",
-  "ZUBESTELLUNG_MOEGLICH": "สั่งซ้ำ"
+  "ZUBESTELLUNG_MOEGLICH": "สั่งซ้ำ",
+  "INFORMATION_CATERER": "ข้อมูลบริษัทจัดเลี้ยง",
+  "INFORMATION_CATERER_DESCRIPTION": "ที่นี่คุณจะพบข้อมูลการติดต่อของบริษัทจัดเลี้ยงปัจจุบันของคุณ\nสำหรับคำถามเกี่ยวกับอาหาร การจัดส่ง หรือการยกเลิกและการสั่งซื้อ โปรดติดต่อผู้จัดหาโดยตรง",
+  "CONTACT_CATERER": "ผู้จัดหา",
+  "CATERER_NAME": "ชื่อผู้จัดหา",
+  "BITTE_BEACHTEN_SIE": "โปรดทราบ",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert ดำเนินการ<b>เฉพาะในฐานะผู้ให้บริการชำระเงินเท่านั้น</b>และไม่รับผิดชอบต่อกำหนดเวลา คุณภาพอาหาร หรือเวลาในการจัดส่ง สำหรับคำถามเกี่ยวกับเรื่องนี้ โปรดติดต่อผู้จัดหาของคุณโดยตรง<br><b>ขอบคุณสำหรับความเข้าใจ!</b><br><br>หากคุณมีคำถามเพิ่มเติม คุณสามารถติดต่อเราได้ตลอดเวลาที่ <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> หรือทางโทรศัพท์ที่ <a href='tel:+4961194910992'>+49 611 94910992</a>"
 }

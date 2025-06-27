@@ -91,7 +91,7 @@
   "EMAIL_REGISTRATION_CONFIRMATION": "ما تأیید ثبت نام شما را می‌پذیریم",
   "EMAIL_SUPPORT_MESSAGE": "برای هر گونه سؤال، ما خوشحال می‌شویم که به شما کمک کنیم. <br>به وب سایت ما به نشانی <a href='https://cateringexpert.de/hilfecenter'>https://cateringexpert.de/hilfecenter</a> مراجعه کنید<br>یا ایمیل بفرستید به <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a>.",
   "SPECIAL_DIET_LABEL": "رژیم خاص",
-  "SUBGROUP_LABEL_EMAIL": "زیرگروه",
+  "SUBGROUP_LABEL_EMAIL": "زیرgروه",
   "SUBGROUP_NOT_ASSIGNED": "زیرگروه انتساب داده نشده",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_TOOLTIP": "شرکت کننده باید به یک زیرگروه انتساب داده شود. اگر زیرگروه را نمی‌دانید، لطفاً [ناشناخته] را انتخاب کنید. مؤسسه انتساب را انجام خواهد داد",
   "SUBGROUP_REGISTER_STUDENT_INSTRUCTIONS_HEADING": "زیرگروه",
@@ -636,5 +636,12 @@
   "BIS_OPTIONAL": "تا (اختیاری)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "لطفاً تاریخ شروع را وارد کنید",
   "SUCCESS_VACATION_DELETED": "مرخصی با موفقیت حذف شد",
-  "ZUBESTELLUNG_MOEGLICH": "سفارش مجدد"
+  "ZUBESTELLUNG_MOEGLICH": "سفارش مجدد",
+
+  "INFORMATION_CATERER": "اطلاعات شرکت تامین غذا",
+  "INFORMATION_CATERER_DESCRIPTION": "در اینجا اطلاعات تماس شرکت تامین غذای فعلی خود را خواهید یافت.\nبرای سوالات در مورد غذا، تحویل یا لغو و سفارشات، لطفاً مستقیماً با تامین کننده تماس بگیرید.",
+  "CONTACT_CATERER": "تامین کننده",
+  "CATERER_NAME": "نام تامین کننده",
+  "BITTE_BEACHTEN_SIE": "لطفاً توجه کنید",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert <b>منحصراً به عنوان ارائه دهنده خدمات پرداخت</b> عمل می‌کند و مسئول ضرب‌الاجل‌ها، کیفیت غذا یا زمان‌های تحویل نیست. برای سوالات در این مورد، لطفاً مستقیماً با تامین کننده خود تماس بگیرید.<br><b>از درک شما متشکریم!</b><br><br>اگر سوالات بیشتری دارید، می‌توانید در هر زمان از طریق <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> یا تلفنی از طریق <a href='tel:+4961194910992'>+49 611 94910992</a> با ما تماس بگیرید."
 }

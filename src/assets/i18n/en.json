@@ -637,5 +637,11 @@
   "SUCCESS_VACATION_DELETED": "Vacation successfully deleted",
   "FUER_ALLE": "For all participants",
   "SPEICHERN": "Save",
-  "ZUBESTELLUNG_MOEGLICH": "Reorder"
+  "ZUBESTELLUNG_MOEGLICH": "Reorder",
+  "INFORMATION_CATERER": "Catering company information",
+  "INFORMATION_CATERER_DESCRIPTION": "Here you will find the contact details of your current catering company.\nFor questions about food, delivery or cancellations and orders, please contact the caterer directly.",
+  "CONTACT_CATERER": "Caterer",
+  "CATERER_NAME": "Caterer name",
+  "BITTE_BEACHTEN_SIE": "Please note",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert operates <b>exclusively as a payment service provider</b> and is not responsible for deadlines, food quality, or delivery times. For questions about this, please contact your caterer directly.<br><b>Thank you for your understanding!</b><br><br>If you have further questions, you can reach us at any time at <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> or by phone at <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

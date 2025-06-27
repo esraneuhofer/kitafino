@@ -1,4 +1,5 @@
 export interface EinrichtungInterface {
+  isTest: boolean;
   _id?: string;
   startContract: string;
   whoPayCharges: string
@@ -9,6 +10,8 @@ export interface EinrichtungInterface {
   billingCycle: string,
   tax: number,
   billingAddress: { heading: string }[],
+  vertragspartnerTraeger?: string,
+  isVertragspartnerTraeger?: boolean,
   emailBilling: string,
   kundennummer: string,
   kundennummerCatering: string,
@@ -17,12 +20,16 @@ export interface EinrichtungInterface {
   emailCatering: string,
   emailSchool: string,
   projectId: string,
+  emailBillingBut: string,
   paymentInformation: {
+    isEinzug: boolean,
+
     creditorIban: string,
     creditorBic: string,
     creditorName: string,
     umsatzsteuerId?: string,
-    steuernummer?: string,
+    dateEinzugSigned?: string,
+    mandateReference?: string,
   },
   paymentInformationEinrichtung: {
     creditorIban: string,
@@ -35,62 +42,18 @@ export interface EinrichtungInterface {
   contactPersonEinrichtung: string;
   nameCateringCompany: string;
   nameEinrichtung: string;
+  phoneCaterer: string;
   streetCaterer: string;
   cityCaterer: string;
   zipcodeCaterer: string;
   streetCustomer: string;
   cityCustomer: string;
   zipcodeCustomer: string;
-  isTest?: boolean;
+  nameBillingBut: string;
+  addressBillingBut: string;
+  zipBillingBut: string;
+  cityBillingBut: string;
 
 }
 
-export class SchoolClass implements EinrichtungInterface {
-  startContract: string = '';
-  whoPayCharges: string = '';
-  contactPerson: string = '';
-  amountPerOrder: number = 0;
 
-  billingCycle: string = '';
-  tax: number = 0;
-  hasEssensgeldEinrichtung: boolean = false;
-  billingAddress: { heading: string }[] = [{heading: ''}];
-  emailBilling: string = '';
-  kundennummer: string = '';
-  kundennummerCatering = '';
-  tenantId: string = '';
-  customerId: string = '';
-  emailCatering: string = '';
-  emailSchool: string = '';
-  projectId: string = '';
-  paymentInformation = {
-    creditorIban: '',
-    creditorBic: '',
-    creditorName: '',
-  }
-
-  essensgeldEinrichtung: number = 0;
-  paymentInformationEinrichtung = {
-    creditorIban: '',
-    creditorBic: '',
-    creditorName: '',
-  };
-  billingAddressEinrichtung: { heading: string }[] = [{heading: ''}];
-  emailBillingEinrichtung: string = '';
-  contactPersonEinrichtung: string = '';
-  nameCateringCompany: string = '';
-  nameEinrichtung: string = '';
-
-  streetCaterer: string = '';
-  cityCaterer: string = '';
-  zipcodeCaterer: string = '';
-  streetCustomer: string = '';
-  cityCustomer: string = '';
-  zipcodeCustomer: string = '';
-
-  constructor(customerId: string, tenantId: string) {
-    this.customerId = customerId;
-    this.tenantId = tenantId;
-    // Sie können hier weitere Initialisierungen hinzufügen, falls erforderlich.
-  }
-}

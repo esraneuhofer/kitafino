@@ -634,5 +634,11 @@
   "BIS_OPTIONAL": "तक (वैकल्पिक)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "कृपया एक प्रारंभ तिथि दर्ज करें",
   "SUCCESS_VACATION_DELETED": "अवकाश सफलतापूर्वक हटाया गया",
-  "ZUBESTELLUNG_MOEGLICH": "पुनः ऑर्डर करें"
+  "ZUBESTELLUNG_MOEGLICH": "पुनः ऑर्डर करें",
+  "INFORMATION_CATERER": "खानपान कंपनी की जानकारी",
+  "INFORMATION_CATERER_DESCRIPTION": "यहाँ आपको अपनी वर्तमान खानपान कंपनी की संपर्क जानकारी मिलेगी।\nभोजन, डिलीवरी या रद्दीकरण और ऑर्डर के बारे में प्रश्नों के लिए, कृपया सीधे कैटरर से संपर्क करें।",
+  "CONTACT_CATERER": "कैटरर",
+  "CATERER_NAME": "कैटरर का नाम",
+  "BITTE_BEACHTEN_SIE": "कृपया ध्यान दें",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert <b>विशेष रूप से भुगतान सेवा प्रदाता के रूप में</b> काम करता है और समय सीमा, भोजन की गुणवत्ता या डिलीवरी के समय के लिए जिम्मेदार नहीं है। इस बारे में प्रश्नों के लिए, कृपया सीधे अपने कैटरर से संपर्क करें।<br><b>आपकी समझ के लिए धन्यवाद!</b><br><br>यदि आपके पास और प्रश्न हैं, तो आप किसी भी समय <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> पर या <a href='tel:+4961194910992'>+49 611 94910992</a> पर फोन द्वारा हमसे संपर्क कर सकते हैं।"
 }

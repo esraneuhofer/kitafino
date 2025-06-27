@@ -630,5 +630,11 @@
   "BIS_OPTIONAL": "至（可选）",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "请输入开始日期",
   "SUCCESS_VACATION_DELETED": "成功删除假期",
-  "ZUBESTELLUNG_MOEGLICH": "重新订购"
+  "ZUBESTELLUNG_MOEGLICH": "重新订购",
+  "INFORMATION_CATERER": "餐饮公司信息",
+  "INFORMATION_CATERER_DESCRIPTION": "在这里您可以找到您当前餐饮公司的联系信息。\n如有关于食物、配送或取消和订单的问题，请直接联系供应商。",
+  "CONTACT_CATERER": "供应商",
+  "CATERER_NAME": "供应商名称",
+  "BITTE_BEACHTEN_SIE": "请注意",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert <b>专门作为支付服务提供商</b>运营，不对截止日期、食物质量或配送时间负责。如有此类问题，请直接联系您的供应商。<br><b>感谢您的理解！</b><br><br>如果您有其他问题，可以随时通过 <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> 或电话 <a href='tel:+4961194910992'>+49 611 94910992</a> 联系我们。"
 }

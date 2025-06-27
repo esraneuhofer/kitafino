@@ -122,6 +122,7 @@ import { DeleteStudentDialogComponent } from './directives/delete-student-dialog
 import localeHr from '@angular/common/locales/hr';
 import { ReportErrorDialogComponent } from './home/dialogs/report-error-dialog/report-error-dialog.component';
 import { VacationParentComponent } from './home/vacation-parent/vacation-parent.component';
+import { ContactCatererComponent } from './home/contact-caterer/contact-caterer.component';
 
 // AoT requires an exported function for factories
 function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -228,6 +229,7 @@ function localeFactory(languageService: LanguageService) {
     DeleteStudentDialogComponent,
     ReportErrorDialogComponent,
     VacationParentComponent,
+    ContactCatererComponent,
   ],
   imports: [
     BrowserModule,

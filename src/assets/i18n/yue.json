@@ -632,5 +632,11 @@
   "BIS_OPTIONAL": "至（可選）",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "請輸入開始日期",
   "SUCCESS_VACATION_DELETED": "已成功刪除假期",
-  "ZUBESTELLUNG_MOEGLICH": "再次訂購"
+  "ZUBESTELLUNG_MOEGLICH": "再次訂購",
+  "INFORMATION_CATERER": "餐飲公司資訊",
+  "INFORMATION_CATERER_DESCRIPTION": "喺呢度你會搵到你現時餐飲公司嘅聯絡資料。\n如果對食物、送貨或取消同訂購有任何問題，請直接聯絡供應商。",
+  "CONTACT_CATERER": "供應商",
+  "CATERER_NAME": "供應商名稱",
+  "BITTE_BEACHTEN_SIE": "請注意",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert <b>純粹作為付款服務提供商</b>運作，唔負責截止時間、食物質量或送貨時間。如果對呢啲有問題，請直接聯絡你嘅供應商。<br><b>多謝你嘅理解！</b><br><br>如果你有其他問題，隨時可以喺 <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> 聯絡我哋，或者打電話去 <a href='tel:+4961194910992'>+49 611 94910992</a>。"
 }

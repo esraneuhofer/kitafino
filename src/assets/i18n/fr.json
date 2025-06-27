@@ -638,5 +638,11 @@
   "BIS_OPTIONAL": "Jusqu'à (optionnel)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Veuillez saisir une date de début",
   "SUCCESS_VACATION_DELETED": "Vacances supprimées avec succès",
-  "ZUBESTELLUNG_MOEGLICH": "Recommander"
+  "ZUBESTELLUNG_MOEGLICH": "Recommander",
+  "INFORMATION_CATERER": "Informations sur l'entreprise de restauration",
+  "INFORMATION_CATERER_DESCRIPTION": "Vous trouverez ici les coordonnées de votre entreprise de restauration actuelle.\nPour des questions concernant la nourriture, la livraison ou les annulations et commandes, veuillez contacter directement le traiteur.",
+  "CONTACT_CATERER": "Traiteur",
+  "CATERER_NAME": "Nom du traiteur",
+  "BITTE_BEACHTEN_SIE": "Veuillez noter",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert fonctionne <b>exclusivement en tant que fournisseur de services de paiement</b> et n'est pas responsable des délais, de la qualité de la nourriture ou des délais de livraison. Pour des questions à ce sujet, veuillez contacter directement votre traiteur.<br><b>Merci de votre compréhension !</b><br><br>Si vous avez d'autres questions, vous pouvez nous joindre à tout moment à <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> ou par téléphone au <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

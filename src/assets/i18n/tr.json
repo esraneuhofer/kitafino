@@ -69,7 +69,7 @@
   "REGISTRATION_STUDENT_DELETE_SPECIAL_FOOD_DIALOG": "Alerjen yiyeceklerin silinmesi, katılımcının mevcut sürekli siparişini silecektir. Devam etmek istiyor musunuz? <br><br>Sürekli sipariş daha sonra yeniden oluşturulabilir.",
   "REGISTRATION_INSTRUCTIONS": "Lütfen tüm bilgileri girin ve ardından \"oluştur\"a tıklayın.",
   "REGISTRATION_CONFIRMATION": "Kayıtlı e-posta adresinize bir onay e-postası alacaksınız.",
-  "SPECIAL_FOOD_INSTRUCTIONS": "Mevcut alerjen yiyecekler, ilgili tedarikçi tarafından sağlanır. Bu konuda herhangi bir sorunuz varsa, lütfen ilgili tedarikçiyle iletişime geçin. Bir alerjen yiyecek etkinleştirilirse, ilgili katılımcının siparişinde etkinleştirilir.",
+  "SPECIAL_FOOD_INSTRUCTIONS": "Mevcut alerjen yiyecekler, ilgili tedarikçi tarafından sağlanır. Bu konuda herhangi bir sorunuz varsa, lütfen ilgili tedarikçiyle iletişime geçin. Bir alerjen yiyecek etkinleştirildiğinde, ilgili katılımcının siparişinde etkinleştirilir.",
   "SPECIAL_FOOD_LABEL": "Alerjen yiyecek",
   "SUBGROUP_LABEL": "Grubu ata",
   "SUBGROUP_INSTRUCTIONS": "Lütfen seçin veya \"bilinmiyor\"u işaretleyin",
@@ -637,5 +637,11 @@
   "BIS_OPTIONAL": "Son (isteğe bağlı)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Lütfen bir başlangıç tarihi girin",
   "SUCCESS_VACATION_DELETED": "Tatil başarıyla silindi",
-  "ZUBESTELLUNG_MOEGLICH": "Yeniden sipariş"
+  "ZUBESTELLUNG_MOEGLICH": "Yeniden sipariş",
+  "INFORMATION_CATERER": "Catering şirketi bilgileri",
+  "INFORMATION_CATERER_DESCRIPTION": "Burada mevcut catering şirketinizin iletişim bilgilerini bulacaksınız.\nYemek, teslimat veya iptal ve siparişler hakkında sorularınız için lütfen doğrudan tedarikçi ile iletişime geçin.",
+  "CONTACT_CATERER": "Tedarikçi",
+  "CATERER_NAME": "Tedarikçi adı",
+  "BITTE_BEACHTEN_SIE": "Lütfen dikkat edin",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert <b>sadece ödeme hizmeti sağlayıcısı olarak</b> faaliyet gösterir ve son tarihler, yemek kalitesi veya teslimat süreleri için sorumlu değildir. Bu konularda sorularınız için lütfen doğrudan tedarikçiniz ile iletişime geçin.<br><b>Anlayışınız için teşekkürler!</b><br><br>Başka sorularınız varsa, her zaman <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> adresinden veya <a href='tel:+4961194910992'>+49 611 94910992</a> telefon numarasından bize ulaşabilirsiniz."
 }

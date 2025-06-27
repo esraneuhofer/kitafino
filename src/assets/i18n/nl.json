@@ -637,5 +637,12 @@
   "BIS_OPTIONAL": "Tot (optioneel)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Voer alstublieft een startdatum in",
   "SUCCESS_VACATION_DELETED": "Vakantie succesvol verwijderd",
-  "ZUBESTELLUNG_MOEGLICH": "Herbestellen"
+  "ZUBESTELLUNG_MOEGLICH": "Herbestellen",
+
+  "INFORMATION_CATERER": "Informatie cateringbedrijf",
+  "INFORMATION_CATERER_DESCRIPTION": "Hier vindt u de contactgegevens van uw huidige cateringbedrijf.\nVoor vragen over eten, levering of annuleringen en bestellingen, neem direct contact op met de leverancier.",
+  "CONTACT_CATERER": "Leverancier",
+  "CATERER_NAME": "Naam leverancier",
+  "BITTE_BEACHTEN_SIE": "Let op",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert werkt <b>uitsluitend als betalingsdienstleverancier</b> en is niet verantwoordelijk voor deadlines, voedselkwaliteit of levertijden. Voor vragen hierover, neem direct contact op met uw leverancier.<br><b>Dank voor uw begrip!</b><br><br>Als u verdere vragen heeft, kunt u ons altijd bereiken op <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> of telefonisch op <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

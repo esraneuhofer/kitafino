@@ -630,5 +630,11 @@
   "BIS_OPTIONAL": "Hasta (opcional)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Por favor, introduzca una fecha de inicio",
   "SUCCESS_VACATION_DELETED": "Vacaciones eliminadas con éxito",
-  "ZUBESTELLUNG_MOEGLICH": "Reordenar"
+  "ZUBESTELLUNG_MOEGLICH": "Reordenar",
+  "INFORMATION_CATERER": "Información de la empresa de catering",
+  "INFORMATION_CATERER_DESCRIPTION": "Aquí encontrará los datos de contacto de su empresa de catering actual.\nPara preguntas sobre comida, entrega o cancelaciones y pedidos, póngase en contacto directamente con el proveedor.",
+  "CONTACT_CATERER": "Proveedor",
+  "CATERER_NAME": "Nombre del proveedor",
+  "BITTE_BEACHTEN_SIE": "Por favor note",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert opera <b>exclusivamente como proveedor de servicios de pago</b> y no es responsable de plazos, calidad de la comida o tiempos de entrega. Para preguntas sobre esto, póngase en contacto directamente con su proveedor.<br><b>¡Gracias por su comprensión!</b><br><br>Si tiene más preguntas, puede contactarnos en cualquier momento en <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> o por teléfono en <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

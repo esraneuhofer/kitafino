@@ -550,6 +550,13 @@
     "NO_FILE_SELECTED": "Keine Datei ausgewählt",
     "FILE_WRONG": "Das Dokument ist fehlerhaft",
 
-    "SCHREIBEN_ERSTELLEN": "Schreiben erstellen"
+    "SCHREIBEN_ERSTELLEN": "Schreiben erstellen",
+
+    "INFORMATION_CATERER": "Informationen Cateringunternehmen",
+    "INFORMATION_CATERER_DESCRIPTION": "Hier finden Sie die Kontaktdaten Ihres aktuellen Catering-Unternehmens.\nBei Fragen zum Essen, zur Lieferung oder zu Ab- und Zubestellungen wenden Sie sich bitte direkt an den Caterer.",
+    "CONTACT_CATERER": "Caterer",
+    "CATERER_NAME": "Name Caterer",
+    "BITTE_BEACHTEN_SIE": "Bitte beachten Sie",
+    "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert ist <b>ausschließlich als Zahlungsdienstleister</b> tätig und nicht verantwortlich für Fristen, die Qualität des Essens oder Lieferzeiten. Bei Fragen hierzu wenden Sie sich bitte direkt an Ihren Caterer.<br><b>Vielen Dank für Ihr Verständnis!</b><br><br>Falls Sie weitere Fragen haben, erreichen Sie uns jederzeit unter <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> oder telefonisch unter <a href='tel:+4961194910992'>+49 611 94910992</a>."
   }
 }

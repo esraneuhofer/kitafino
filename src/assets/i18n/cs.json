@@ -639,5 +639,11 @@
   "AKTIVIEREN": "Aktivovat",
   "DEAKTIVIEREN": "Deaktivovat",
   "SPEICHERN": "Uložit",
-  "ZUBESTELLUNG_MOEGLICH": "Objednat znovu"
+  "ZUBESTELLUNG_MOEGLICH": "Objednat znovu",
+  "INFORMATION_CATERER": "Informace o cateringové společnosti",
+  "INFORMATION_CATERER_DESCRIPTION": "Zde najdete kontaktní údaje vaší současné cateringové společnosti.\nV případě dotazů ohledně jídla, dodávky nebo zrušení a objednávek se prosím obraťte přímo na dodavatele.",
+  "CONTACT_CATERER": "Dodavatel",
+  "CATERER_NAME": "Jméno dodavatele",
+  "BITTE_BEACHTEN_SIE": "Prosím, pamatujte",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert působí <b>výhradně jako poskytovatel platebních služeb</b> a není odpovědný za termíny, kvalitu jídla nebo dodací lhůty. V případě dotazů se prosím obraťte přímo na vašeho dodavatele.<br><b>Děkujeme za pochopení!</b><br><br>Pokud máte další dotazy, můžete nás kdykoli kontaktovat na <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> nebo telefonicky na <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

@@ -642,5 +642,11 @@
   "BIS_OPTIONAL": "Do (opcionalno)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "Molimo unesite početni datum",
   "SUCCESS_VACATION_DELETED": "Godišnji odmor uspješno obrisan",
-  "ZUBESTELLUNG_MOEGLICH": "Ponovna narudžba"
+  "ZUBESTELLUNG_MOEGLICH": "Ponovna narudžba",
+  "INFORMATION_CATERER": "Informacije o caterinškoj tvrtki",
+  "INFORMATION_CATERER_DESCRIPTION": "Ovdje ćete pronaći kontaktne podatke vaše trenutne caterinške tvrtke.\nZa pitanja o hrani, dostavi ili otkazivanju i narudžbama, molimo kontaktirajte izravno dobavljača.",
+  "CONTACT_CATERER": "Dobavljač",
+  "CATERER_NAME": "Ime dobavljača",
+  "BITTE_BEACHTEN_SIE": "Molimo imajte na umu",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert djeluje <b>isključivo kao pružatelj platnih usluga</b> i nije odgovoran za rokove, kvalitetu hrane ili vrijeme dostave. Za pitanja o tome, molimo kontaktirajte izravno vašeg dobavljača.<br><b>Hvala na razumijevanju!</b><br><br>Ako imate dodatna pitanja, možete nas kontaktirati u bilo koje vrijeme na <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> ili telefonski na <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }

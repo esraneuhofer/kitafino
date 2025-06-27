@@ -634,5 +634,11 @@
   "BIS_OPTIONAL": "إلى (اختياري)",
   "BITTE_GEBEN_SIE_STARTDATUM_EIN": "يرجى إدخال تاريخ البدء",
   "SUCCESS_VACATION_DELETED": "تم حذف الإجازة بنجاح",
-  "ZUBESTELLUNG_MOEGLICH": "إعادة الطلب"
+  "ZUBESTELLUNG_MOEGLICH": "إعادة الطلب",
+  "INFORMATION_CATERER": "معلومات شركة التموين",
+  "INFORMATION_CATERER_DESCRIPTION": "هنا تجد بيانات الاتصال لشركة التموين الحالية.\nفي حالة وجود أسئلة حول الطعام أو التسليم أو الإلغاء والطلبات، يرجى التواصل مباشرة مع المورد.",
+  "CONTACT_CATERER": "المورد",
+  "CATERER_NAME": "اسم المورد",
+  "BITTE_BEACHTEN_SIE": "يرجى ملاحظة",
+  "RESPONSIBLITY_CATERINGEXPERT": "CateringExpert يعمل <b>حصريًا كمقدم خدمات دفع</b> وليس مسؤولاً عن المواعيد النهائية أو جودة الطعام أو أوقات التسليم. في حالة وجود أسئلة حول هذا الموضوع، يرجى التواصل مباشرة مع المورد الخاص بك.<br><b>شكرًا لتفهمكم!</b><br><br>إذا كانت لديكم أسئلة أخرى، يمكنكم الوصول إلينا في أي وقت على <a href='mailto:support@cateringexpert.de'>support@cateringexpert.de</a> أو هاتفيًا على <a href='tel:+4961194910992'>+49 611 94910992</a>."
 }
