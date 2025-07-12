@@ -168,6 +168,7 @@ export class ManageRegistrationStudentComponent implements OnInit {
       .subscribe(([customer, students, settings, permanentOrders]: [CustomerInterface, StudentInterface[], SettingInterfaceNew, PermanentOrderInterface[]]) => {
         this.customerInfo = customer;
         this.registeredStudents = students;
+        console.log(this.registeredStudents);
         this.settings = settings;
         this.permanentOrders = permanentOrders;
         this.specialFoodSelection = getSpecialFoodSelectionCustomer(this.customerInfo, this.settings);

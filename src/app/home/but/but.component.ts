@@ -1,34 +1,34 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {StudentInterfaceId} from "../../classes/student.class";
-import {AccountCustomerInterface} from "../../classes/account.class";
-import {PermanentOrderInterface} from "../../classes/permanent-order.interface";
-import {CustomerInterface} from "../../classes/customer.class";
-import {SettingInterfaceNew} from "../../classes/setting.class";
-import {TenantStudentInterface} from "../../classes/tenant.class";
-import {GenerellService} from "../../service/generell.service";
-import {ToastrService} from "ngx-toastr";
-import {TenantServiceStudent} from "../../service/tenant.service";
-import {StudentService} from "../../service/student.service";
-import {AccountService} from "../../service/account.serive";
-import {PermanentOrderService} from "../../service/permant-order.service";
-import {MessageDialogService} from "../../service/message-dialog.service";
-import {TranslateService} from "@ngx-translate/core";
-import {MatDialog} from "@angular/material/dialog";
-import {dayArray} from "../../classes/weekplan.interface";
-import {forkJoin} from "rxjs";
-import {ButDocumentInterface, ButStudent, ButStudentInterface} from "../../classes/but.class";
-import {ButService} from "../../service/but.service";
-import {downloadPdfIos} from "../weekplan-pdf/download-ios.function";
-import {downloadPdfWeb} from "../weekplan-pdf/download-web.function";
-import {PlatformService} from "../../service/platform.service";
-import {FileOpener} from "@ionic-native/file-opener/ngx";
-import {displayWebFunction} from "../weekplan-pdf/display-web.function";
-import {createPDF, getBase64ImageFromUrl} from "./but-request-pdf.function";
-import {getInvoiceDateOne} from "../../functions/date.functions";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { StudentInterfaceId } from "../../classes/student.class";
+import { AccountCustomerInterface } from "../../classes/account.class";
+import { PermanentOrderInterface } from "../../classes/permanent-order.interface";
+import { CustomerInterface } from "../../classes/customer.class";
+import { SettingInterfaceNew } from "../../classes/setting.class";
+import { TenantStudentInterface } from "../../classes/tenant.class";
+import { GenerellService } from "../../service/generell.service";
+import { ToastrService } from "ngx-toastr";
+import { TenantServiceStudent } from "../../service/tenant.service";
+import { StudentService } from "../../service/student.service";
+import { AccountService } from "../../service/account.serive";
+import { PermanentOrderService } from "../../service/permant-order.service";
+import { MessageDialogService } from "../../service/message-dialog.service";
+import { TranslateService } from "@ngx-translate/core";
+import { MatDialog } from "@angular/material/dialog";
+import { dayArray } from "../../classes/weekplan.interface";
+import { forkJoin } from "rxjs";
+import { ButDocumentInterface, ButStudent, ButStudentInterface } from "../../classes/but.class";
+import { ButService } from "../../service/but.service";
+import { downloadPdfIos } from "../weekplan-pdf/download-ios.function";
+import { downloadPdfWeb } from "../weekplan-pdf/download-web.function";
+import { PlatformService } from "../../service/platform.service";
+import { FileOpener } from "@ionic-native/file-opener/ngx";
+import { displayWebFunction } from "../weekplan-pdf/display-web.function";
+import { createPDF, getBase64ImageFromUrl } from "./but-request-pdf.function";
+import { getInvoiceDateOne } from "../../functions/date.functions";
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import {EinrichtungInterface} from "../../classes/einrichtung.class";
+import { EinrichtungInterface } from "../../classes/einrichtung.class";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -36,12 +36,12 @@ import {EinrichtungInterface} from "../../classes/einrichtung.class";
   templateUrl: './but.component.html',
   styleUrls: ['./but.component.scss']
 })
-export class ButComponent implements OnInit{
+export class ButComponent implements OnInit {
 
 
-  submittingRequestFlip:boolean = false;
-  isFlipped:boolean = false;
-  textBanner:string = '';
+  submittingRequestFlip: boolean = false;
+  isFlipped: boolean = false;
+  textBanner: string = '';
   dayArray = dayArray;
   submittingRequest = false;
   butExists = false
@@ -57,24 +57,24 @@ export class ButComponent implements OnInit{
   selectedBut: ButStudentInterface | null = null;
   butStudents: ButStudentInterface[] = [];
   selectedFile: File | null = null;
-  documentsTenant:ButDocumentInterface[] = []
-  confirmedButStudent:ButStudentInterface[] = []
-  submittingRequestDownload:boolean = false;
+  documentsTenant: ButDocumentInterface[] = []
+  confirmedButStudent: ButStudentInterface[] = []
+  submittingRequestDownload: boolean = false;
   base64String: string | ArrayBuffer | null = '';
-  isApp:boolean = false;
-  schoolSetting:EinrichtungInterface | null = null;
+  isApp: boolean = false;
+  schoolSetting: EinrichtungInterface | null = null;
   constructor(private generellService: GenerellService,
-              private toastr: ToastrService,
-              private fileOpener: FileOpener,
-              private tenantService: TenantServiceStudent,
-              private studentService: StudentService,
-              private accountService: AccountService,
-              private platformService: PlatformService,
-              private permanentOrdersService: PermanentOrderService,
-              private messageService: MessageDialogService,
-              private dialog: MatDialog,
-              private butService: ButService,
-              private translate: TranslateService) {
+    private toastr: ToastrService,
+    private fileOpener: FileOpener,
+    private tenantService: TenantServiceStudent,
+    private studentService: StudentService,
+    private accountService: AccountService,
+    private platformService: PlatformService,
+    private permanentOrdersService: PermanentOrderService,
+    private messageService: MessageDialogService,
+    private dialog: MatDialog,
+    private butService: ButService,
+    private translate: TranslateService) {
     this.textBanner = translate.instant("NO_STUDENT_REGISTERED_BANNER_TEXT")
   }
   loadMockData() {
@@ -101,24 +101,24 @@ export class ButComponent implements OnInit{
       this.generellService.getSchoolSettings()
     ]).subscribe(
       ([
-         settings,
-         customer,
-         students,
-         tenantStudent,
-         accountTenant,
-         butStudents,
-         documentsBut,
+        settings,
+        customer,
+        students,
+        tenantStudent,
+        accountTenant,
+        butStudents,
+        documentsBut,
         schoolSetting
-       ]: [
-        SettingInterfaceNew,
-        CustomerInterface,
-        StudentInterfaceId[],
-        TenantStudentInterface,
-        AccountCustomerInterface,
-        ButStudentInterface[],
-        ButDocumentInterface[],
-        EinrichtungInterface
-      ]) => {
+      ]: [
+          SettingInterfaceNew,
+          CustomerInterface,
+          StudentInterfaceId[],
+          TenantStudentInterface,
+          AccountCustomerInterface,
+          ButStudentInterface[],
+          ButDocumentInterface[],
+          EinrichtungInterface
+        ]) => {
         this.settings = settings;
         this.customer = customer;
         this.registeredStudents = students;
@@ -159,7 +159,10 @@ export class ButComponent implements OnInit{
   }
 
   hasBut(student: StudentInterfaceId) {
-    return false;
+    if (!student.butFrom) {
+      return false;
+    }
+    return true;
     // return this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
   }
 
@@ -194,7 +197,7 @@ export class ButComponent implements OnInit{
     // });
   }
 
-  back(){
+  back() {
     this.isFlipped = false
   }
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -254,7 +257,7 @@ export class ButComponent implements OnInit{
       }
       this.submittingRequest = true;
       let fileObject: ButDocumentInterface = {
-        nameStudent:this.selectedStudent.firstName + ' ' + this.selectedStudent.lastName,
+        nameStudent: this.selectedStudent.firstName + ' ' + this.selectedStudent.lastName,
         username: this.tenantStudent.username,
         name: this.selectedFile.name,
         base64: base64,
@@ -294,7 +297,7 @@ export class ButComponent implements OnInit{
 
   async openFile(model: ButDocumentInterface) {
     this.submittingRequest = true;
-    if(!model._id){
+    if (!model._id) {
       this.toastr.error(this.translate.instant('BUT.FILE_WRONG'));
       return
     }
@@ -327,7 +330,7 @@ export class ButComponent implements OnInit{
           tenant.firstName + ' ' + tenant.lastName,
           getInvoiceDateOne(student.registerDate),
           schoolSetting?.nameCateringCompany + ', ' + schoolSetting?.streetCaterer + ', ' + schoolSetting?.zipcodeCaterer + ' ' + schoolSetting?.cityCaterer,
-        schoolSetting?.nameEinrichtung + ', ' + schoolSetting?.streetCustomer + ', ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
+          schoolSetting?.nameEinrichtung + ', ' + schoolSetting?.streetCustomer + ', ' + schoolSetting?.zipcodeCustomer + ' ' + schoolSetting?.cityCustomer,
           student.username,
           'DE30 5107 0021 0980 5797 01',
           'DEUTDEFF510',

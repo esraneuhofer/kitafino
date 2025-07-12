@@ -11,7 +11,7 @@
                     <h1 class="text-base font-semibold leading-6 text-gray-900">
                       {{ 'BUT.BILDUNG_UND_TEILHABE_HEADER' | translate }}</h1>
                     <p [innerHTML]="'BUT.BILDUNG_UND_TEILHABE_SUBHEADER' | translate"
-                       class="mt-2 text-sm text-gray-700"></p>
+                      class="mt-2 text-sm text-gray-700"></p>
 
                   </div>
                 </div>
@@ -20,48 +20,48 @@
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                       <table class="min-w-full divide-y divide-gray-300">
                         <thead>
-                        <tr>
-                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                          <tr>
+                            <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900 sm:pl-0"
                               scope="col">
-                            {{ 'MANAGE_PERMANENT_ORDERS.NAME' | translate }}
-                          </th>
-                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                              {{ 'MANAGE_PERMANENT_ORDERS.NAME' | translate }}
+                            </th>
+                            <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                               scope="col">
-                            {{ 'MANAGE_PERMANENT_ORDERS.ACTIVE' | translate }}
-                          </th>
-                          <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
+                              {{ 'MANAGE_PERMANENT_ORDERS.ACTIVE' | translate }}
+                            </th>
+                            <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
                               scope="col">
-                            <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
-                          </th>
-                        </tr>
+                              <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
+                            </th>
+                          </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                        <tr *ngFor="let student of registeredStudents">
-                          <td
-                            class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
-                            <span class="xs:hidden sm:hidden"> {{student.firstName}}</span>
-                            <span
-                              class="hidden xs:inline sm:inline"> {{student.lastName + ' ' + student.firstName }}</span>
-                          </td>
-                          <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                            {{hasBut(student) ? ('MANAGE_PERMANENT_ORDERS.YES' | translate) : ('NEIN' | translate)}}
-                          </td>
-                          <td
-                            class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
-                            <div class="align-right">
-                              <app-button (click)="selectStudent(student)" [buttonType]="'button'"
-                                          [submittingRequest]="submittingRequestFlip">
-                                {{'BUT_AKTIVIEREN' | translate}}
-                              </app-button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td *ngIf="registeredStudents.length === 0" colspan="100%">
-                            <app-banner-no-student-order
-                              [text]="textBanner"></app-banner-no-student-order>
-                          </td>
-                        </tr>
+                          <tr *ngFor="let student of registeredStudents">
+                            <td
+                              class="table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
+                              <span class="xs:hidden sm:hidden"> {{student.firstName}}</span>
+                              <span class="hidden xs:inline sm:inline"> {{student.lastName + ' ' + student.firstName
+                                }}</span>
+                            </td>
+                            <td class="table-cell-padding-medium relative text-sm text-gray-500">
+                              {{hasBut(student) ? (student.butFrom | date:'shortDate') + ' - ' + (student.butTo |
+                              date:'shortDate') : ('NEIN' | translate)}}
+                            </td>
+                            <td
+                              class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
+                              <div class="align-right">
+                                <app-button (click)="selectStudent(student)" [buttonType]="'button'"
+                                  [submittingRequest]="submittingRequestFlip">
+                                  {{'BUT_AKTIVIEREN' | translate}}
+                                </app-button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td *ngIf="registeredStudents.length === 0" colspan="100%">
+                              <app-banner-no-student-order [text]="textBanner"></app-banner-no-student-order>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -81,46 +81,46 @@
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                       <table class="min-w-full divide-y divide-gray-300">
                         <thead>
-                        <tr>
-                          <th
-                            class="hidden sm:table-cell  table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
-                            scope="col">
-                            {{ 'BUT.NAME_FILE' | translate }}
-                          </th>
-                          <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                          <tr>
+                            <th
+                              class="hidden sm:table-cell  table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                               scope="col">
-                            {{ 'BUT.DATE_UPLOAD_FILE' | translate }}
-                          </th>
-                          <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
+                              {{ 'BUT.NAME_FILE' | translate }}
+                            </th>
+                            <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                               scope="col">
-                            <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
-                          </th>
-                        </tr>
+                              {{ 'BUT.DATE_UPLOAD_FILE' | translate }}
+                            </th>
+                            <th class="relative table-cell-padding-medium text-right text-sm font-medium sm:pr-0"
+                              scope="col">
+                              <span class="sr-only">{{ 'MANAGE_PERMANENT_ORDERS.EDIT' | translate }}</span>
+                            </th>
+                          </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                        <tr *ngFor="let file of documentsTenant">
-                          <td
-                            class="hidden sm:table-cell  table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
-                            {{file.name}}
-                          </td>
-                          <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                            {{file.dateUploaded | date: 'dd.MM.yyyy'}}
-                          </td>
-                          <td
-                            class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
-                            <div class="align-right">
-                              <app-button (click)="openFile(file)" [buttonType]="'button'"
-                                          [submittingRequest]="submittingRequestDownload">
-                                {{'DATEI_ANZEIGEN' | translate}}
-                              </app-button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td *ngIf="documentsTenant.length === 0" colspan="100%">
-                            <app-general-banner></app-general-banner>
-                          </td>
-                        </tr>
+                          <tr *ngFor="let file of documentsTenant">
+                            <td
+                              class="hidden sm:table-cell  table-cell-padding-medium whitespace-nowrap text-sm font-medium text-gray-900 sm:pl-0">
+                              {{file.name}}
+                            </td>
+                            <td class="table-cell-padding-medium relative text-sm text-gray-500">
+                              {{file.dateUploaded | date: 'dd.MM.yyyy'}}
+                            </td>
+                            <td
+                              class="relative whitespace-nowrap table-cell-padding-medium text-right text-sm font-medium sm:pr-0">
+                              <div class="align-right">
+                                <app-button (click)="openFile(file)" [buttonType]="'button'"
+                                  [submittingRequest]="submittingRequestDownload">
+                                  {{'DATEI_ANZEIGEN' | translate}}
+                                </app-button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td *ngIf="documentsTenant.length === 0" colspan="100%">
+                              <app-general-banner></app-general-banner>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -132,13 +132,11 @@
           <div *ngIf="selectedBut && selectedStudent" class="card-face back">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 remove-class-xs-sm">
               <div class="flex-1">
-                <form #f1="ngForm"
-                      (ngSubmit)="f1.form.valid"
-                      novalidate>
+                <form #f1="ngForm" (ngSubmit)="f1.form.valid" novalidate>
                   <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
-                      <h2
-                        class="text-base font-semibold leading-7 text-gray-900">{{ 'BUT.EDIT_BUT_HEADER' | translate }} {{selectedStudent.firstName}} {{selectedStudent.lastName}}</h2>
+                      <h2 class="text-base font-semibold leading-7 text-gray-900">{{ 'BUT.EDIT_BUT_HEADER' | translate
+                        }} {{selectedStudent.firstName}} {{selectedStudent.lastName}}</h2>
                       <p class="mt-1 text-sm leading-6 text-gray-600">
                         <span *ngIf="butExists" [innerHTML]=" 'BUT.EXISTING_BUT' | translate "></span>
                         <span *ngIf="!butExists" [innerHTML]=" 'BUT.NEW_BUT' | translate "></span>
@@ -151,30 +149,32 @@
                         <span [innerHTML]="'BUT.ADRESSE_CATERINGEXPERT' | translate"></span>
                       </p>
                       <app-button (click)="createWriting()" [buttonType]="'button'"
-                                  [submittingRequest]="submittingRequestFlip">
+                        [submittingRequest]="submittingRequestFlip">
                         {{'SCHREIBEN_ERSTELLEN' | translate}}
                       </app-button>
                       <fieldset class="mt-4">
                         <legend class="sr-only">Notifications</legend>
                       </fieldset>
                       <div class="col-span-full">
-                        <label class="block text-sm font-medium leading-6 text-gray-900">{{ 'BUT.UPLOAD_FILE_BESCHEID' | translate }}</label>
+                        <label class="block text-sm font-medium leading-6 text-gray-900">{{ 'BUT.UPLOAD_FILE_BESCHEID' |
+                          translate }}</label>
                         <div
                           class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 cursor-pointer">
                           <div class="text-center">
                             <svg aria-hidden="true" class="mx-auto h-12 w-12 text-gray-300" fill="currentColor"
-                                 viewBox="0 0 24 24">
+                              viewBox="0 0 24 24">
                               <path clip-rule="evenodd"
-                                    d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                                    fill-rule="evenodd"/>
+                                d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                                fill-rule="evenodd" />
                             </svg>
                             <div class="mt-4 flex flex-col sm:flex-row text-sm leading-6 text-gray-600">
-                              <label class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                              <label
+                                class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                 <span>{{'BUT.SELECT_FILE_BUT' | translate}}</span>
-<!--                                <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="file-upload"-->
-<!--                                       name="file-upload" type="file">-->
+                                <!--                                <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" class="sr-only" id="file-upload"-->
+                                <!--                                       name="file-upload" type="file">-->
                                 <input #fileInput (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png"
-                                       class="sr-only" type="file">
+                                  class="sr-only" type="file">
                               </label>
                             </div>
                             <p class="text-xs leading-5 text-gray-600">{{ 'BUT.UPLOAD_FILE_TYPES' | translate }}</p>
@@ -184,8 +184,8 @@
 
 
                       <div *ngIf="selectedFile" class="mt-4">
-                        <h3
-                          class="text-sm font-medium leading-6 text-gray-900">{{ 'BUT.UPLOADED_FILE' | translate }}</h3>
+                        <h3 class="text-sm font-medium leading-6 text-gray-900">{{ 'BUT.UPLOADED_FILE' | translate }}
+                        </h3>
                         <ul class="mt-2 border-t border-gray-200 pt-2 text-sm leading-6 text-gray-700">
                           <li class="flex items-center justify-between py-2">
                             <span>{{ selectedFile.name }}</span>
@@ -194,15 +194,15 @@
                         </ul>
                       </div>
                       <div class="flex mt-2 space-x-2">
-                        <app-button (click)="uploadFile()"
-                                    [submittingRequest]="submittingRequest">{{ 'BUT.UPLOAD_BUT_BUTTON' | translate }}</app-button>
+                        <app-button (click)="uploadFile()" [submittingRequest]="submittingRequest">{{
+                          'BUT.UPLOAD_BUT_BUTTON' | translate }}</app-button>
                         <!--                        <app-button *ngIf="butExists" [submittingRequest]="submittingRequest" [typeButton]="'warning'">{{ 'MANAGE_PERMANENT_ORDERS.CHANGE_ORDER' | translate }}</app-button>-->
                       </div>
                       <div class="space-y-6 mt-4">
                         <div class="sm:flex sm:items-center">
                           <div class="sm:flex-auto">
-                            <h1
-                              class="text-base font-semibold leading-6 text-gray-900">{{ 'BUT.VERLAUF_GENEHMIGT' | translate }}</h1>
+                            <h1 class="text-base font-semibold leading-6 text-gray-900">{{ 'BUT.VERLAUF_GENEHMIGT' |
+                              translate }}</h1>
                             <p class="mt-2 text-sm text-gray-700">{{ 'BUT.DESCRIPTION_TABLE' | translate }}</p>
                           </div>
                         </div>
@@ -210,40 +210,40 @@
                           <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                             <table class="min-w-full divide-y divide-gray-300">
                               <thead>
-                              <tr>
-                                <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                                <tr>
+                                  <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                                     scope="col">
-                                  {{ 'BUT.TABLE_VON' | translate }}
-                                </th>
-                                <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
+                                    {{ 'BUT.TABLE_VON' | translate }}
+                                  </th>
+                                  <th class="table-cell-padding-medium text-left text-sm font-semibold text-gray-900"
                                     scope="col">
-                                  {{ 'BUT.TABLE_BIS' | translate }}
-                                </th>
-                              </tr>
+                                    {{ 'BUT.TABLE_BIS' | translate }}
+                                  </th>
+                                </tr>
                               </thead>
                               <tbody class="divide-y divide-gray-200">
-                              <tr *ngFor="let butConfirmed of confirmedButStudent">
-                                <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                  {{butConfirmed.butFrom | date: 'dd.MM.yy'}}
-                                </td>
-                                <td class="table-cell-padding-medium relative text-sm text-gray-500">
-                                  {{butConfirmed.butTo | date: 'dd.MM.yy'}}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td *ngIf="confirmedButStudent.length === 0" colspan="100%">
-                                  <app-general-banner></app-general-banner>
+                                <tr *ngFor="let butConfirmed of confirmedButStudent">
+                                  <td class="table-cell-padding-medium relative text-sm text-gray-500">
+                                    {{butConfirmed.butFrom | date: 'dd.MM.yy'}}
+                                  </td>
+                                  <td class="table-cell-padding-medium relative text-sm text-gray-500">
+                                    {{butConfirmed.butTo | date: 'dd.MM.yy'}}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td *ngIf="confirmedButStudent.length === 0" colspan="100%">
+                                    <app-general-banner></app-general-banner>
 
-                                </td>
-                              </tr>
+                                  </td>
+                                </tr>
                               </tbody>
                             </table>
                           </div>
                         </div>
                       </div>
                       <div class="flex mt-2 space-x-2">
-                        <app-button (click)="back()" [buttonType]="'button'"
-                                    class="ml-auto">{{ 'BACK_BUTTON' | translate }}</app-button>
+                        <app-button (click)="back()" [buttonType]="'button'" class="ml-auto">{{ 'BACK_BUTTON' |
+                          translate }}</app-button>
                       </div>
                     </div>
                   </div>
