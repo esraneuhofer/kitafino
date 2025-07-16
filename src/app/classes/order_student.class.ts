@@ -109,11 +109,8 @@ function getPriceStudentMenu(customer: CustomerInterface, studentModel: StudentI
   let priceStudent = 0;
   if (!studentModel) return priceStudent;
   customer.billing.group.forEach(eachGroup => {
-    console.log(eachGroup.groupId);
-    console.log(studentModel.subgroup);
     if (eachGroup.groupId === studentModel.subgroup) {
       eachGroup.prices.forEach((eachPrice, index) => {
-        console.log('eachPrice', eachPrice.idSpecial, eachSpecial.idSpecial);
         if (eachPrice.idSpecial === eachSpecial.idSpecial) {
           priceStudent = getPriceBasedOnSettingsBrutto(eachPrice.priceSpecial, eachGroup.tax, customer);
           // priceStudent = roundNumberTwoDigits(eachPrice.priceSpecial + (eachPrice.priceSpecial/100* eachGroup.tax));

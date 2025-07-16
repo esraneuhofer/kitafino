@@ -73,7 +73,7 @@
                   <u>{{ 'ABBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>
                 <span
-                  *ngIf="pastOrder && !pastZubestellung && (eachMenu.typeOrder === 'menu') && (customer.generalSettings.hasAdditionDaily || customer.generalSettings.hasAdditionWeekly) && !eachMenu.menuSelected"
+                  *ngIf="pastOrder && !pastZubestellung && (eachMenu.typeOrder === 'menu') && (customer.generalSettings.hasAdditionDaily || customer.generalSettings.hasAdditionWeekly) && !eachMenu.menuSelected && contractStarted()"
                   class="text-left" (click)="setOrderDay(true,indexMenu)">
                   <u> {{ 'ZUBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>

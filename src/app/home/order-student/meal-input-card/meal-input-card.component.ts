@@ -380,6 +380,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     this.setOrderDay(true, index)
   }
 
+  contractStarted(): boolean {
+    if (!this.einrichtung || !this.einrichtung.startContract) return false;
+    const startContractDate = dayjs.tz(this.einrichtung.startContract, 'Europe/Berlin');
+    const currentDate = dayjs.tz(new Date(), 'Europe/Berlin');
+    return startContractDate <= currentDate;
+  }
+
   setOrderIconCancel(index: number) {
     if (this.pastOrder && this.pastCancelation || this.lockDay || !this.customer.generalSettings.hasCancelDaily) return;
     this.setOrderDay(false, index)

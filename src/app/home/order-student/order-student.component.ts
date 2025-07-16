@@ -486,6 +486,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
         this.customer.generalSettings.state,
         this.selectedStudent?.subgroup || ''
       );
+      console.log('Lockdays für den Schüler:', this.lockDays);
       // Dann mit dem Abrufen der Bestellungen fortfahren
       // Hole die 5 Werktage
       const workdays = getNextFiveWorkdays(dateMonday);
@@ -527,6 +528,7 @@ export class OrderStudentComponent implements OnInit, OnDestroy {
               )
             );
           });
+          console.log('Bestellungen für die Woche geladen:', this.orderWeek);
           this.pageLoaded = true;
         });
       });
