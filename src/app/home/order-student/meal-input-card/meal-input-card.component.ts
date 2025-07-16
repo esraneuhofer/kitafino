@@ -396,10 +396,10 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     const specialCondition = this.pastOrder &&
       !this.pastZubestellung &&
       (eachMenu.typeOrder === 'menu' || eachMenu.typeOrder === 'specialFood') &&
-      (this.customer.generalSettings.hasAdditionDaily || this.customer.generalSettings.hasAdditionWeekly) &&
+      (this.customer.generalSettings.hasAdditionDaily || this.customer.generalSettings.hasAdditionWeekly && this.contractStarted()) &&
       !eachMenu.menuSelected;
 
-    return normallyDisabled && !specialCondition;
+    return normallyDisabled && !specialCondition
   }
 
 
