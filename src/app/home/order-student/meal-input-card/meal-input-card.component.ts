@@ -610,7 +610,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   checkDeadlineDay(day: string): void {
-    // this.customer.generalSettings.deadlineSkipWeekend = true;
+    // this.customer.generalSettings.deadlineSkipWeekend = true;  
     // Verwende die neue Funktion, wenn deadlineSkipWeekend aktiviert ist
     const distance = this.customer.generalSettings.deadlineSkipWeekend
       ? timeDifferenceDaySkipWeekend(this.customer.generalSettings.deadlineDaily, day)

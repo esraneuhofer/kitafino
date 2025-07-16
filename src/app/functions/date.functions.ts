@@ -29,9 +29,6 @@ export function getLockDays(date: string, allVacations: VacationsSubgroupInterfa
     // Erstelle Date-Objekt direkt aus String-Komponenten (UTC-basiert)
     const [year, month, day] = dayString.split('-').map(Number);
     let dayForHoliday = new Date(year, month - 1, day); // Lokale Mitternacht
-    console.log("isVacationSubgroupString(dayString, allVacations, groupIdStudent)", isVacationSubgroupString(dayString, allVacations, groupIdStudent));
-    console.log("isHoliday(dayForHoliday, state)", isHoliday(dayForHoliday, state));
-    console.log("isVacationStudentString(dayString, allVacationsTenant)", isVacationStudentString(dayString, allVacationsTenant));
     if (isHoliday(dayForHoliday, state) || isVacationSubgroupString(dayString, allVacations, groupIdStudent) || isVacationStudentString(dayString, allVacationsTenant)) {
       lockDay[i] = true;
     }
