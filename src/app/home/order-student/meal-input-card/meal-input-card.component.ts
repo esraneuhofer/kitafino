@@ -323,7 +323,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   }
 
   openAllergenModal(order: OrderSubDetailNew): void {
-    if (this.settings.orderSettings.hideNutritionSidebar || this.customer.generalSettings.hideMenuName) return;
+    if (this.settings.orderSettings.hideAllergene || this.customer.generalSettings.hideMenuName) return;
 
     const dialogRef = this.dialog.open(OrderAllergeneDialogComponent, {
       width: 'auto',

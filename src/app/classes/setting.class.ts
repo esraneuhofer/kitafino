@@ -19,25 +19,26 @@ export interface SettingInterfaceNew {
   tenantSettings: TenantSettingsInterface;
 }
 
-interface OrderSettingsDeadLineDailyInterface{
+interface OrderSettingsDeadLineDailyInterface {
   day: number;
   time: Date;
-  timeBeginn:Date;
-  dayBeginn:Date;
+  timeBeginn: Date;
+  dayBeginn: Date;
   maxAmountRemove: number;
   maxAmountAdd: number;
 }
 interface OrderSettingsInterfaceNew {
+  hideAllergene?: boolean;
   heightCard: number;
   hideNutritionSidebar: boolean;
   onlyShowEasyView: boolean;
-  sideOrDessertChoose:boolean;
+  sideOrDessertChoose: boolean;
   displayTypeEmailOrder: string,
-  hideEmptyOrderEmail:boolean;
-  showDessertIfNotSeparate:boolean;
-  showSideIfNotSeparate:boolean;
+  hideEmptyOrderEmail: boolean;
+  showDessertIfNotSeparate: boolean;
+  showSideIfNotSeparate: boolean;
   isDeadlineDaily: boolean;
-  deadLineDaily:OrderSettingsDeadLineDailyInterface
+  deadLineDaily: OrderSettingsDeadLineDailyInterface
   onlyOneMenuSelectable: boolean;
   showMenuWithoutName: boolean;
   specialShowDessertIfShowMenu: boolean;
@@ -54,7 +55,7 @@ interface OrderSettingsInterfaceNew {
   }];
   groupTypes: GroupTypesSettingsIdInterface[],
   specials: SpecialOrderSettings[],
-  surchargeSpecialFood:boolean;
+  surchargeSpecialFood: boolean;
   specialFoods: SpecialFoodInterface[];
   sideOrderSeparate: boolean, // If true, sideDishes are declared in Ordersettings, if false, sideDishes are declared in CustomerModel
   dessertOrderSeparate: boolean, // If true, dessert are declared in Ordersettings, if false, dessert are declared in CustomerModel
@@ -91,10 +92,10 @@ interface InvoiceSettingsInterface {
     footerMiddle: [],
     footerRight: []
   },
-  isEditInvoiceNumber:boolean,
-  typeEdit:string // Can be either invoiceDate or customerNumber
+  isEditInvoiceNumber: boolean,
+  typeEdit: string // Can be either invoiceDate or customerNumber
   headingLine: string;
-  header: any [],
+  header: any[],
   ccEmailAddressInvoice: string,
   emailTextPaymentReminder: string
   invoiceTextSecond: [{ invoiceText: string }],
