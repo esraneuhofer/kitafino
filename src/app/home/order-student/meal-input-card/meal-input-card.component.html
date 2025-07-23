@@ -75,9 +75,11 @@
                 <span
                   *ngIf="pastOrder && !pastZubestellung && (eachMenu.typeOrder === 'menu') && (customer.generalSettings.hasAdditionDaily || customer.generalSettings.hasAdditionWeekly) && !eachMenu.menuSelected && contractStarted()"
                   class="text-left" (click)="setOrderDay(true,indexMenu)">
+
                   <u> {{ 'ZUBESTELLUNG_MOEGLICH' | translate }}</u>
                 </span>
-
+                <pre>{{contractStarted()}}</pre>
+                <pre>{{!pastZubestellung}}</pre>
                 <!-- Rechts ausgerichteter Inhalt bleibt immer rechts -->
                 <div class="flex items-center ml-auto">
                   {{ eachMenu.priceOrder | currency:'EUR':true:'1.2-2' }}

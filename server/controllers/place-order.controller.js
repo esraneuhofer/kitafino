@@ -108,8 +108,8 @@ async function addOrder(req) {
 
     // Berechnung des Gesamtpreises
     const totalPrice = getTotalPrice(req.body);
-    if (totalPrice <= 0) {
-      throw new Error('Ungültiger Bestellbetrag. Der Gesamtpreis muss größer als 0 sein.');
+    if (totalPrice <= 0.4) {
+      throw new Error('Ungültiger Bestellbetrag. Der Gesamtpreis muss größer als 0.4 sein.');
     }
 
     // Prüfung, ob Bestellung am Wochenende

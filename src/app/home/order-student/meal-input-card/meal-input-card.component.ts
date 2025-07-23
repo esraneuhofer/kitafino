@@ -383,7 +383,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
   contractStarted(): boolean {
     if (!this.einrichtung || !this.einrichtung.startContract) return false;
     const startContractDate = dayjs.tz(this.einrichtung.startContract, 'Europe/Berlin');
-    const currentDate = dayjs.tz(new Date(), 'Europe/Berlin');
+    const currentDate = dayjs.tz(new Date(this.orderDay.date), 'Europe/Berlin');
     return startContractDate <= currentDate;
   }
 
