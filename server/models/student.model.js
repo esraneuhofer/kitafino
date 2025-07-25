@@ -13,13 +13,13 @@ var studentSchema = new Schema({
   userId: Schema.Types.ObjectId,
   registerDate: {
     type: Date,
-    default: Date.now, // Set the default value to the current date and time
+    default: Date.now // Set the default value to the current date and time
   },
   username: String, // Add the username field
   butFrom: String,
   butTo: String,
   butDaysPerWeek: Number,
-  isActive:{type:Boolean,default:true},
+  isActive: { type: Boolean, default: true },
   dateAccountDeactivated: Date
 });
 
@@ -37,10 +37,10 @@ studentSchema.pre('save', async function (next) {
 
     while (!isUnique && attempts < maxAttempts) {
       attempts++;
-      
+
       // Generate the username based on firstName, lastName, and a random 4-digit number
       const randomDigits = Math.floor(1000 + Math.random() * 9000);
-      
+
       // Generate letter combination using utility function
       const letters = generateLetterCombination(this.firstName, this.lastName, attempts);
 
@@ -71,9 +71,6 @@ studentSchema.pre('save', async function (next) {
   }
 });
 
-
 var StudentNew = mongoose.model('StudentNew', studentSchema);
 
 module.exports = StudentNew;
-
-

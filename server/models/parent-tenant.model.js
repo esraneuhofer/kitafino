@@ -4,31 +4,31 @@ const Buchungskonten = mongoose.model('Buchungskonten');
 const { isOffensive, generateLetterCombination } = require('../utils/username-filter');
 
 var tenantparent = new Schema({
-  firstAccess:Boolean,
-  firstAccessOrder:Boolean,
-  registerDate:Date,
-  tenantId:Schema.Types.ObjectId,
-  customerId:Schema.Types.ObjectId,
-  schoolId:Schema.Types.ObjectId,
-  userId:Schema.Types.ObjectId,
-  firstName:String,
-  lastName:String,
-  email: {type: String, required: true},
-  phone: {type: String, required: true},
-  address:String,
-  city:String,
-  zip:String,
-  iban:String,
-  username:String,
-  orderSettings:{
-    orderConfirmationEmail:{type: Boolean, default: true},
-    displayTypeOrderWeek:Boolean,
-    sendReminderBalance:{type:Boolean, default: true},
-    amountBalance:{type:Number,default: 15},
-    permanentOrder:Boolean,
+  firstAccess: Boolean,
+  firstAccessOrder: Boolean,
+  registerDate: Date,
+  tenantId: Schema.Types.ObjectId,
+  customerId: Schema.Types.ObjectId,
+  schoolId: Schema.Types.ObjectId,
+  userId: Schema.Types.ObjectId,
+  firstName: String,
+  lastName: String,
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  address: String,
+  city: String,
+  zip: String,
+  iban: String,
+  username: String,
+  orderSettings: {
+    orderConfirmationEmail: { type: Boolean, default: true },
+    displayTypeOrderWeek: Boolean,
+    sendReminderBalance: { type: Boolean, default: true },
+    amountBalance: { type: Number, default: 15 },
+    permanentOrder: Boolean
   },
-  accountDeactivated:Boolean,
-  dateAccountDeactivated:Date,
+  accountDeactivated: Boolean,
+  dateAccountDeactivated: Date
 });
 
 function isGermanText(str) {
@@ -109,4 +109,3 @@ tenantparent.post('save', async function (doc) {
 var Tenantparent = mongoose.model('Tenantparent', tenantparent);
 
 module.exports = Tenantparent;
-
