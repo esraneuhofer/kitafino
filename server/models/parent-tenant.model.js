@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const Buchungskonten = mongoose.model('Buchungskonten');
-
+const { isOffensive, generateLetterCombination } = require('../utils/username-filter');
 
 var tenantparent = new Schema({
   firstAccess:Boolean,
@@ -37,52 +37,27 @@ function isGermanText(str) {
   return germanRegex.test(str);
 }
 
-
-// Beispiel-Hilfsfunktion (inkl. deutscher Umlaute)
-function sanitizeName(str) {
-  // Erst Umlaute/ß gezielt austauschen
-  str = str
-    .replace(/ß/g, 'ss')
-    .replace(/ä/g, 'ae')
-    .replace(/Ä/g, 'Ae')
-    .replace(/ö/g, 'oe')
-    .replace(/Ö/g, 'Oe')
-    .replace(/ü/g, 'ue')
-    .replace(/Ü/g, 'Ue');
-
-  // Danach etwaige Akzente (z. B. á, é, etc.) entfernen
-  return str.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-}
-
 tenantparent.pre('save', async function (next) {
   try {
     if (!this.firstName || !this.lastName) {
       throw new Error('Both firstName and lastName must be defined.');
     }
 
-    // VOR dem Zusammenbauen die Strings "säubern"
-    const cleanFirst = sanitizeName(this.firstName);
-    const cleanLast = sanitizeName(this.lastName);
-
     let username;
     let isUnique = false;
+    let attempts = 0;
+    const maxAttempts = 100; // Prevent infinite loops
 
-    while (!isUnique) {
+    while (!isUnique && attempts < maxAttempts) {
+      attempts++;
       const randomDigits = Math.floor(1000 + Math.random() * 9000); // Generiert 4-stellige Zahl
 
-      // Stelle sicher, dass wir exakt 4 Buchstaben haben
-      let letters = '';
+      // Generate letter combination using utility function
+      const letters = generateLetterCombination(this.firstName, this.lastName, attempts);
 
-      // Nimm so viele Buchstaben vom Vornamen wie möglich (max. 2)
-      letters += cleanFirst.slice(0, 2);
-
-      // Fülle mit Buchstaben vom Nachnamen auf bis zu 4 Buchstaben erreicht sind
-      const remainingLettersNeeded = 4 - letters.length;
-      letters += cleanLast.slice(0, remainingLettersNeeded);
-
-      // Falls immer noch nicht 4 Buchstaben erreicht sind, fülle mit 'x' auf
-      while (letters.length < 4) {
-        letters += 'x';
+      // Check if the letter combination is offensive
+      if (isOffensive(letters)) {
+        continue; // Try again with different combination
       }
 
       // Kombination aus 4 Buchstaben und 4-stelliger Zahl
@@ -92,6 +67,10 @@ tenantparent.pre('save', async function (next) {
       if (!existingStudent) {
         isUnique = true;
       }
+    }
+
+    if (!isUnique) {
+      throw new Error('Unable to generate a unique and appropriate username after maximum attempts');
     }
 
     this.username = username;
