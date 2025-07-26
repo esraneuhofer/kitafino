@@ -12,6 +12,7 @@ const Buchungskonten = mongoose.model('Buchungskonten');
 const { sendMonitoringEmail } = require('./order-functions');
 
 const { setEmailReminder } = require('./email-balance-reminder');
+const { processTraegerNachbestellungComplete } = require('../functions/email-traeger-55');
 const sgMail = require('@sendgrid/mail');
 const { convertToSendGridFormat } = require('./sendfrid.controller');
 dayjs.extend(utc);
@@ -219,7 +220,15 @@ async function addOrder(req) {
     req.body.orderProcessedBuchung = orderProcessedBuchung;
 
     // Speichern der neuen Bestellung
-    await saveNewOrder(req.body, orderId, session);
+    const savedOrder = await saveNewOrder(req.body, orderId, session);
+
+    // Träger-Nachbestellungslogik (nur bei Nachbestellungen und nicht BUT)
+    if (
+      (req.body.isNachbestellung === true && savedOrder.tenantId.toString() === '5a03657bf36d28193a5dc387') ||
+      savedOrder.tenantId.toString() === '651c635eca2c3d25809ce4f5'
+    ) {
+      await processTraegerNachbestellungComplete(req._id, session, req.body.isBut, savedOrder);
+    }
 
     // Transaktion abschließen
     await session.commitTransaction();
@@ -325,7 +334,8 @@ async function saveNewOrder(orderDetails, orderId, session) {
   const newOrder = new OrderStudent(orderDetails);
   newOrder.orderId = orderId;
   try {
-    await newOrder.save({ session });
+    const savedOrder = await newOrder.save({ session });
+    return savedOrder;
   } catch (error) {
     handleOrderError(error);
   }

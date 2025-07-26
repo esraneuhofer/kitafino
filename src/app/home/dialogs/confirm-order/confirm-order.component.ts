@@ -17,16 +17,18 @@ export class ConfirmOrderComponent {
   text: string;
   btnText: string;
   buttonType: string = 'primary';
-
+  isNachbestellung: boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: {
       tenantStudent: TenantStudentInterface,
       orderStudent: OrderInterfaceStudent,
       type: string,
-      indexMenu: number
+      indexMenu: number,
+      isNachbestellung?: boolean;
     },
     private translate: TranslateService
   ) {
+    this.isNachbestellung = data.isNachbestellung || false;
     this.sendCopyEmail = this.data.tenantStudent.orderSettings.orderConfirmationEmail;
     this.total = data.orderStudent.order.orderMenus[data.indexMenu].priceOrder;
 

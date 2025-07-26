@@ -229,8 +229,8 @@ export class PermanentOrdersComponent implements OnInit {
         this.tenantStudent = tenantStudent;
         this.accountTenant = accountTenant;
         this.permanentOrders = permanentOrders;
-        this.bestellfrist = getBestellfrist(this.customer, this.translate),
-          this.weekplanGroupSelection = weekplanGroupSelection;
+        this.bestellfrist = getBestellfrist(this.customer, this.translate);
+        this.weekplanGroupSelection = weekplanGroupSelection;
         this.pageLoaded = true;
 
       },
@@ -248,7 +248,6 @@ export class PermanentOrdersComponent implements OnInit {
       return
     }
     this.menuSelection = getMenuSelectionPermanentOrder(this.settings, this.customer, student, this.weekplanGroupSelection)
-    console.log('menuSelection', JSON.parse(JSON.stringify(this.menuSelection)))
     setTimeout(() => this.isFlipped = true, 50);
     const permanentOrder = this.permanentOrders.find((permanentOrder) => permanentOrder.studentId === student._id);
     if (!permanentOrder) {

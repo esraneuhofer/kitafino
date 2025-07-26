@@ -283,7 +283,8 @@ export function getOrderPlaced(orderStudent: OrderInterfaceStudentSave): OrderAn
     datePlaced: orderStudent.createdAt || dayjs.tz(dayjs(), 'Europe/Berlin').toDate(),
     nameStudent: '',
     typeOrder: '',
-    isCanceled: false
+    isCanceled: false,
+    isBut: orderStudent.isBut || false
   }
   if (orderStudent.isCanceled) {
     orderPlaced.isCanceled = true;

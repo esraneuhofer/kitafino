@@ -33,6 +33,7 @@ export interface OrderInterfaceStudent {
   groupIdCustomer: string;
   username?: string;
   isBut: boolean;
+  isNachbestellung?: boolean;
 
 }
 

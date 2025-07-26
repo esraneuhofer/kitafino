@@ -45,6 +45,7 @@ import { EinrichtungInterface } from "../../../classes/einrichtung.class";
 import { AssignedWeekplanInterface, WeekplanModelGroupsAllowedInterfaceDay } from '../../../classes/assignedWeekplan.class';
 import { isHoliday } from 'feiertagejs';
 import { isVacationSubgroup, isVacationStudent } from '../../../functions/date.functions';
+import { isTragerNachbestellung } from './extra-functions';
 
 function checkForDisplay(ordersDay: OrderSubDetailNew, setting: SettingInterfaceNew): boolean {
   let isDisplay = false
@@ -333,13 +334,13 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string, indexMenu: number, onConfirm: (result: {
+  private openDialogAndHandleResult(orderModel: OrderInterfaceStudent, type: string, indexMenu: number, isNachbestellung: boolean = false, onConfirm: (result: {
     sendCopyEmail: boolean
   }) => void): void {
     this.submittingRequest = true;
     const dialogRef = this.dialog.open(ConfirmOrderComponent, {
       width: '550px',
-      data: { orderStudent: orderModel, type: type, indexMenu: indexMenu, tenantStudent: this.tenantStudent },
+      data: { orderStudent: orderModel, type: type, indexMenu: indexMenu, tenantStudent: this.tenantStudent, isNachbestellung: isNachbestellung },
       panelClass: 'custom-dialog-container',
       position: { top: '100px' }
     });
@@ -351,6 +352,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         if (type === 'order') {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = false
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 0
+          this.orderDay.orderStudentModel.isNachbestellung = isNachbestellung;
         }
         if (type === 'cancel') {
           this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true
@@ -453,7 +455,7 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
 
 
   cancelOrder(orderModel: OrderInterfaceStudent, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, (result: { sendCopyEmail: boolean }) => {
+    this.openDialogAndHandleResult(orderModel, 'cancel', indexMenu, false, (result: { sendCopyEmail: boolean }) => {
       this.submittingOrder = true;
       this.orderService.cancelOrderStudent(orderModel).subscribe({
         next: (data) => {
@@ -677,9 +679,19 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
       clearInterval(this.timerInterval);
     }
   }
-
+  // 5a03657bf36d28193a5dc387
   placeOrder(orderModel: OrderInterfaceStudent, type: string, indexMenu: number) {
-    this.openDialogAndHandleResult(orderModel, type, indexMenu, (result: { sendCopyEmail: boolean }) => {
+    // Prüfe ob es sich um eine Träger-Nachbestellung handelt
+    let isNachbestellung = isTragerNachbestellung(
+      this.pastOrder,
+      this.pastZubestellung,
+      this.customer.generalSettings.hasAdditionDaily,
+      this.customer.generalSettings.hasAdditionWeekly,
+      this.contractStarted(),
+      this.customer.tenantId
+    );
+
+    this.openDialogAndHandleResult(orderModel, type, indexMenu, isNachbestellung, (result: { sendCopyEmail: boolean }) => {
       this.submittingOrder = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].menuSelected = true;
       this.orderDay.orderStudentModel.order.orderMenus[indexMenu].amountOrder = 1;
@@ -687,7 +699,9 @@ export class MealInputCardComponent implements OnInit, OnDestroy {
         orderModel.isBut = true;
       }
       let orderModifiedForSave = modifyOrderModelForSave(orderModel);
-
+      if (isNachbestellung) {
+        orderModifiedForSave.isNachbestellung = true
+      }
       this.saveOrder(orderModifiedForSave, type, result, indexMenu);
     });
   }

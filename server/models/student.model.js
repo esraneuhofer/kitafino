@@ -20,7 +20,8 @@ var studentSchema = new Schema({
   butTo: String,
   butDaysPerWeek: Number,
   isActive: { type: Boolean, default: true },
-  dateAccountDeactivated: Date
+  dateAccountDeactivated: Date,
+  isPaedagogisch: Boolean
 });
 
 // Define the middleware function before creating the model

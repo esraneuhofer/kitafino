@@ -1,29 +1,29 @@
 
-import {getInvoiceDateOne} from "../../functions/date.functions";
+import { getInvoiceDateOne } from "../../functions/date.functions";
 
 const footerCateringexpert: {
-    footerLeft: {footerText:string}[],
-    footerMiddle: {footerText:string}[],
-    footerRight: {footerText:string}[]
-  } = {
-    footerLeft: [
-      {footerText: 'Cateringexpert Software Solutions GmbH'},
-      {footerText: 'Adelheitstrasse 74'},
-      {footerText: '65185 Wiesbaden'},
-    ],
-    footerMiddle: [
-      {footerText: 'Deutsche Bank'},
-      {footerText: 'IBAN:DE30 5107 0021 0980 5797 01'},
-      {footerText: 'BIC:DEUTDEFF510'},
-      {footerText: 'USt-IdNr: DE366961599'},
-    ],
+  footerLeft: { footerText: string }[],
+  footerMiddle: { footerText: string }[],
+  footerRight: { footerText: string }[]
+} = {
+  footerLeft: [
+    { footerText: 'Cateringexpert Software Solutions GmbH' },
+    { footerText: 'Adelheitstrasse 74' },
+    { footerText: '65185 Wiesbaden' },
+  ],
+  footerMiddle: [
+    { footerText: 'Deutsche Bank' },
+    { footerText: 'IBAN:DE30 5107 0021 0980 5797 01' },
+    { footerText: 'BIC:DEUTDEFF510' },
+    { footerText: 'USt-IdNr: DE366961599' },
+  ],
 
-    footerRight: [
-      {footerText:'www.cateringexpert.de'},
-      {footerText: 'info@cateringexpert.de'},
-      {footerText: 'Tel: 0611 - 94910991'}]
+  footerRight: [
+    { footerText: 'www.cateringexpert.de' },
+    { footerText: 'info@cateringexpert.de' },
+    { footerText: 'Tel: 0611 - 94910991' }]
 
-  }
+}
 export function createPDF(
   nameStudent: string,
   nameParent: string,
@@ -35,12 +35,12 @@ export function createPDF(
   bic: string,
   accountHolder: string,
   logoPath: string,
-):any {
- return  {
+): any {
+  return {
     header: {
       columns: [
         { text: '' },
-        { image: logoPath, width: 90, alignment: 'right',margin: [0, 10, 10, 0] }
+        { image: logoPath, width: 90, alignment: 'right', margin: [0, 10, 10, 0] }
       ],
       margin: [0, 0, 0, 40] // Abstand zwischen Header und Inhalt
     },
@@ -70,17 +70,21 @@ export function createPDF(
       { text: `Bitte geben Sie im Verwendungszweck unbedingt den folgenden Benutzernamen an, damit die Zahlung korrekt zugeordnet werden kann`, style: 'content' },
       '\n',
       { text: `Der Benutzername für den Verpflegungsteilnehmers / der Verpflegungsteilnehmerin lautet:`, style: 'content' },
-      { text: `${username}`, style: 'content',bold: true },
+      { text: `${username}`, style: 'content', bold: true },
 
       '\n\n',
       { text: 'Die Zahlungen für die Essensverpflegung bitte auf das folgende Konto überweisen:', style: 'content' },
       '\n\n',
 
-      {text:[{ text: `Kontoinhaber:`, bold: true },{ text: ` ${accountHolder}`, style: 'content' }]},
-      {text:[  { text: `IBAN:`, bold: true },
-          { text: ` ${iban}`, style: 'content' },]},
-      {text:[ { text: `BIC:`, bold: true },
-          { text: ` ${bic}`, style: 'content' },]},
+      { text: [{ text: `Kontoinhaber:`, bold: true }, { text: ` ${accountHolder}`, style: 'content' }] },
+      {
+        text: [{ text: `IBAN:`, bold: true },
+        { text: ` ${iban}`, style: 'content' },]
+      },
+      {
+        text: [{ text: `BIC:`, bold: true },
+        { text: ` ${bic}`, style: 'content' },]
+      },
 
 
       '\n\n',
@@ -88,11 +92,11 @@ export function createPDF(
       '\n\n',
       { text: `Mit freundlichen Grüßen`, style: 'content' },
       '\n',
-      { text: `Esra Neuhofer\nGeschäftsführer`, style: 'content' },
+      { text: `Cateringexpert Software Solutions GmbH`, style: 'content' },
       // '\n',
       // { text: `Geschäftsführer`, style: 'content' },
     ],
-    footer: function (currentPage:any, pageCount:any) {
+    footer: function (currentPage: any, pageCount: any) {
       return getFooterColumns(currentPage, pageCount, footerCateringexpert);
     },
     styles: {
@@ -106,7 +110,7 @@ export function createPDF(
         fontSize: 10,
         margin: [25, -15, 5, 5],
         alignment: 'left'
-      },content: {
+      }, content: {
         fontSize: 11
       },
       documentFooterCenter: {
@@ -125,22 +129,22 @@ export function createPDF(
 
 }
 
-function getFooterColumns(currentPage:number, pageCount:number, footer:any) {
+function getFooterColumns(currentPage: number, pageCount: number, footer: any) {
   let arr = [];
-  arr.push({text: getTextFooter('footerLeft', currentPage, pageCount, footer), style: 'documentFooterLeft'});
-  arr.push({text: getTextFooter('footerMiddle', currentPage, pageCount, footer), style: 'documentFooterCenter'});
-  arr.push({text: getTextFooter('footerRight', currentPage, pageCount, footer), style: 'documentFooterRight'});
+  arr.push({ text: getTextFooter('footerLeft', currentPage, pageCount, footer), style: 'documentFooterLeft' });
+  arr.push({ text: getTextFooter('footerMiddle', currentPage, pageCount, footer), style: 'documentFooterCenter' });
+  arr.push({ text: getTextFooter('footerRight', currentPage, pageCount, footer), style: 'documentFooterRight' });
   return {
     columns: arr
   };
 }
 
-function getTextFooter(text:string, currentPage:number, pageCount:number, footer:any) {
-  let string:any = '';
+function getTextFooter(text: string, currentPage: number, pageCount: number, footer: any) {
+  let string: any = '';
   if (!footer || !footer[text]) {
     return '';
   }
-  footer[text].forEach((each:any) => {
+  footer[text].forEach((each: any) => {
     string += each.footerText + '\n';
   });
   if (text === 'footerMiddle') {
@@ -158,7 +162,7 @@ export function getBase64ImageFromUrl(url: string): Promise<string> {
       let canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
-      let ctx:any = canvas.getContext('2d');
+      let ctx: any = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
       let dataURL = canvas.toDataURL('image/png');
       resolve(dataURL);

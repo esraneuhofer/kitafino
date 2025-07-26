@@ -16,7 +16,7 @@ export interface CustomerInterface {
   generalSettings: GeneralSettingsInterface;
   customerId: string;
   _id?: string;
-  // tenantId: Schema.Types.ObjectId,
+  tenantId: string;
   // customerId: Schema.Types.ObjectId,
   active: boolean;
   order: CustomerOrderInterface

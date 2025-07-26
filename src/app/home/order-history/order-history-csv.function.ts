@@ -24,7 +24,10 @@ function filterAndSortOrderHistoryByDateRange(
     const isCancel = withdrawOrCancel && order.typeOrder === 'Stornierung';
     const isOrder = depositsOrOrder && order.typeOrder === 'Bestellung';
 
-    return isWithinDateRange && (isCancel || isOrder);
+    // Nur Bestellungen anzeigen, die nicht BUT sind (isBut = false)
+    const isNotBut = !order.isBut;
+
+    return isWithinDateRange && (isCancel || isOrder) && isNotBut;
   });
 
   return filteredOrders.sort((a, b) => new Date(a.dateOrder).getTime() - new Date(b.dateOrder).getTime());
@@ -251,7 +254,7 @@ export function createPdfBufferBuT(
             },
             '\n\n',
             {
-              text: 'Die Abwicklung der Zahlungen für das Mittagessen des Caterers erfolgt über unsere Plattform und wurde bereits beglichen.',
+              text: 'Die Abwicklung der Zahlungen für das Mittagessen des Caterers erfolgt über unsere Plattform und wurde bereits beglichen. Die unten aufgeführten Portionen sind nicht mehr stornierbar.',
               style: 'content'
             },
             '\n\n',
@@ -262,7 +265,7 @@ export function createPdfBufferBuT(
             '\n\n',
             { text: 'Mit freundlichen Grüßen', style: 'content' },
             '\n',
-            { text: 'Esra Neuhofer\nGeschäftsführer', style: 'content' }
+            { text: 'Cateringexpert Software Solutions GmbH', style: 'content' }
           ],
           footer: function (currentPage: any, pageCount: any) {
             return {

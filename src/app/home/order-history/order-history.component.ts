@@ -36,7 +36,7 @@ function getTypeOrder(isCanceled: boolean, translate: TranslateService): string 
   return translate.instant('ACCOUNTDETAILS.CANCELLATIONS')
 }
 
-export interface OrderAndCancelInterface { priceOrder: number, amountOrder: number, nameOrder: string, dateOrder: string, datePlaced: Date, nameStudent: string, typeOrder: string, isCanceled: boolean }
+export interface OrderAndCancelInterface { priceOrder: number, amountOrder: number, nameOrder: string, dateOrder: string, datePlaced: Date, nameStudent: string, typeOrder: string, isCanceled: boolean, isBut?: boolean }
 
 function setDisplayArrayAccountOrders(orderStudentAndCancel: OrderInterfaceStudentSave[], students: StudentInterface[], translate: TranslateService): OrderAndCancelInterface[] {
   let displayArrayAccountOrders: OrderAndCancelInterface[] = [];
@@ -100,7 +100,7 @@ export class OrderHistoryComponent implements OnInit {
     // Initialize available years (last year, current year, next year)
     const currentYear = new Date().getFullYear();
     this.availableYears = [currentYear - 1, currentYear, currentYear + 1];
-
+    console.log('Available years:', this.availableYears);
     forkJoin(
       this.studentService.getRegisteredStudentsUser(),
       this.orderService.getAllOrdersWithCancellations({ year: this.queryYear }),
